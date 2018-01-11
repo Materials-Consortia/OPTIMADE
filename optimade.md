@@ -856,7 +856,7 @@ This section defines standard entry types and their properties.
 * Requirements/Conventions: these MUST be prefixed by a database-specific prefix as defined in the [Appendix](#h.app).
 * Examples:
     * \_exmpl\_formula\_sum 
-    * \_exmpl\_band\_gap,
+    * \_exmpl\_band\_gap
     * \_exmpl\_supercell
     * \_exmpl\_trajectory
     * \_exmpl\_workflow\_id  
@@ -869,7 +869,7 @@ Multiple Entry Types", as well as the following properties:
 ### <a name="h.6.2.1">6.2.1. elements</a>
 
 * Description: names of elements found in the structure.
-* Requirements/Conventions:
+* Requirements/Conventions: chemical symbols of elements joined by commas.
 * Examples:
     * "Si"
     * "Si,Al,O"
