@@ -267,7 +267,7 @@ An example of a full response:
   "data": [...],
   "meta": {  
     "query": {
-      "represeation": "/structures?a=1&b=2"
+      "representation": "/structures?a=1&b=2"
     }
     "api_version": "v0.9",  
     "time_stamp": "2007-04-05T14:30Z",  
