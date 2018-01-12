@@ -346,7 +346,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
 * **response_format**: specifies which output format is requested. Specifically, the
-  format string 'json' specifies the standard output format documented
+  format string 'jsonapi' specifies the standard output format documented
   in this specification as the JSON API response format.  
   Example: http://example.com/optimade/v0.9/structures/?response_format=xml
 * **email_address**: specifies an email address of the user making the request. The
@@ -489,7 +489,7 @@ The following URL query parameters MUST be recognized and handled: **filter**, *
 above in [section '4.1.1. URL Query Parameters'](#h.4.1.1). Furthermore,
 custom OPTIONAL URL query parameters, also described above, are also allowed.
 
-Example: http://example.com/optimade/v0.9/all/?response\_fields=id,url&response\_format=json
+Example: http://example.com/optimade/v0.9/all/?response\_fields=id,url&response\_format=jsonapi
 
 ### <a name="h.4.3.2">4.3.2. Response schema</a>
 
