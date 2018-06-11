@@ -9,7 +9,8 @@ GRAMMAR_END_STRING   = \(\* END EBNF GRAMMAR
 
 GRAMMARS = $(shell awk '/^${GRAMMAR_START_STRING}/{print $$5}' ${MD_FILES})
 GRAMMAR_DIR   = generated
-GRAMMAR_FILES = ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
+EBNF_FILES    = ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
+GRAMMAR_FILES = ${EBNF_FILES:%.ebnf=%.g}
 
 GRAMMAR_DEPENDENCIES = .grammars.d
 
@@ -29,11 +30,17 @@ ${GRAMMAR_DEPENDENCIES}: ${MD_FILES}
 ${GRAMMAR_DIR}/%.ebnf:
 	awk '/^${GRAMMAR_START_STRING}/,/^${GRAMMAR_END_STRING}/' $< > $@
 
+.PHONY: tools
+
+${GRAMMAR_DIR}/%.g: ${GRAMMAR_DIR}/%.ebnf | tools
+	./tools/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
+
 #------------------------------------------------------------------------------
 
 .PHONY: grammar-clean grammar-distclean
 
 grammar-clean:
+	rm -f ${EBNF_FILES}
 	rm -f ${GRAMMAR_FILES}
 
 grammar-distclean: grammar-clean
