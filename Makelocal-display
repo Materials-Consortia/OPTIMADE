@@ -1,0 +1,8 @@
+#--*- Makefile -*--
+
+VARIABLE=PATH
+
+.PHONY: display
+
+display:
+	@echo ${VARIABLE}=${${VARIABLE}}
