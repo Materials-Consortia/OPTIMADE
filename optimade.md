@@ -939,6 +939,7 @@ prefixed with underscores will not be used for standardized names.
 
 ## Appendix 1. The Filter language EBNF grammar.
 ```
+(* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
 Filter = 
@@ -1026,4 +1027,5 @@ Digits =  Digit, { Digit } ;
 
 Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 
+(* END EBNF GRAMMAR Filter *)
 ```
