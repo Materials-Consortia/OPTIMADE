@@ -11,7 +11,7 @@ GRAMMARS = $(shell awk '/^${GRAMMAR_START_STRING}/{print $$5}' ${MD_FILES})
 GRAMMAR_DIR   = generated
 GRAMMAR_FILES = ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
 
-GRAMMAR_DEPENDENCIES = .grammar.d
+GRAMMAR_DEPENDENCIES = .grammars.d
 
 include ${GRAMMAR_DEPENDENCIES}
 
