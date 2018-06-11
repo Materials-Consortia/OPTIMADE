@@ -51,26 +51,6 @@ endif
 
 #------------------------------------------------------------------------------
 
-# The 'make run' target for quick testing of grammars:
-
-GEN_DIR = generated
-GRAM_DIR = grammars
-
-GRAMMAR ?= ${GRAM_DIR}/filters.ebnf
-GRAMMAT ?= ${GRAMMAR:${GRAM_DIR}/%.ebnf=${GEN_DIR}/%.g}
-TEXT_TO_PARSE ?= filter.txt
-
-.PHONY: run
-
-run: ${GRAMMAT}
-	awk '{print}' ${TEXT_TO_PARSE}
-	./tools/grammatiker/BNF/scripts/grammatica-tree $< ${TEXT_TO_PARSE}
-
-${GEN_DIR}/%.g: $(dir ${GRAMMAR})/%.ebnf
-	./tools/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
-
-#------------------------------------------------------------------------------
-
 .PHONY: clean distclean cleanAll
 
 clean:
