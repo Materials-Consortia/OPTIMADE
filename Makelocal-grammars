@@ -4,3 +4,45 @@
 
 MD_FILES = $(wildcard [a-z]*.md)
 
+GRAMMAR_START_STRING = \(\* BEGIN EBNF GRAMMAR
+GRAMMAR_END_STRING   = \(\* END EBNF GRAMMAR
+
+GRAMMARS = $(shell awk '/^${GRAMMAR_START_STRING}/{print $$5}' ${MD_FILES})
+GRAMMAR_DIR   = generated
+GRAMMAR_FILES = ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
+
+GRAMMAR_DEPENDENCIES = .grammar.d
+
+include ${GRAMMAR_DEPENDENCIES}
+
+.PHONY: grammars
+
+grammars: ${GRAMMAR_FILES}
+
+all: grammars
+
+#------------------------------------------------------------------------------
+
+${GRAMMAR_DEPENDENCIES}: ${MD_FILES}
+	awk '/^${GRAMMAR_START_STRING}/{print "${GRAMMAR_DIR}/"$$5".ebnf:", FILENAME}' $< > $@
+
+${GRAMMAR_DIR}/%.ebnf:
+	awk '/^${GRAMMAR_START_STRING}/,/^${GRAMMAR_END_STRING}/' $< > $@
+
+#------------------------------------------------------------------------------
+
+.PHONY: grammar-clean grammar-distclean
+
+grammar-clean:
+	rm -f ${GRAMMAR_FILES}
+
+grammar-distclean: grammar-clean
+	rm -f ${GRAMMAR_DEPENDENCIES}
+
+.PHONY: clean distclean cleanAll
+
+clean: grammar-clean
+
+distclean: grammar-distclean
+
+cleanAll: grammar-distclean
