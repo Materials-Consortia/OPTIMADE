@@ -22,6 +22,12 @@ grammars: ${GRAMMAR_FILES}
 
 all: grammars
 
+.PHONY: test tests
+
+${DIFF_FILES}: ${GRAMMAR_FILES}
+
+${OUTP_FILES}: ${GRAMMAR_FILES}
+
 #------------------------------------------------------------------------------
 
 ${GRAMMAR_DEPENDENCIES}: ${MD_FILES}
