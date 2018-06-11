@@ -1,0 +1,6 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Extract grammars from the *.md files and run tests agains them.
+
+MD_FILES = $(wildcard [a-z]*.md)
+
