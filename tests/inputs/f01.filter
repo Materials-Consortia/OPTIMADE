@@ -1,1 +1,1 @@
-filter='a > b AND (a > 0 OR b > 0)'
+filter=a > b AND (a > 0 OR b > 0)
