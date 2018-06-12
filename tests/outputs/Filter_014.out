@@ -1,0 +1,71 @@
+Parse tree from /dev/fd/63:
+Filter(2001)
+  Keyword(2002)
+    TOKEN_4(1005): "filter=", line: 1, col: 1
+  Expression(2009)
+    AndExpression(2010)
+      Term(2011)
+        TOKEN_12(1013): "(", line: 1, col: 8
+        Expression(2009)
+          AndExpression(2010)
+            Term(2011)
+              TOKEN_12(1013): "(", line: 1, col: 9
+              Expression(2009)
+                AndExpression(2010)
+                  Term(2011)
+                    NOT(2007)
+                      TOKEN_2(1003): "NOT", line: 1, col: 10
+                    Spaces(2005)
+                      Space(2004)
+                        TOKEN_5(1006): " ", line: 1, col: 13
+                    Term(2011)
+                      TOKEN_12(1013): "(", line: 1, col: 14
+                      Expression(2009)
+                        AndExpression(2010)
+                          Term(2011)
+                            Comparison(2013)
+                              Value(2003)
+                                Identifier(2014)
+                                  Letter(2015)
+                                    TOKEN_70(1071): "a", line: 1, col: 15
+                              Operator(2012)
+                                TOKEN_34(1035): ">", line: 1, col: 16
+                              Value(2003)
+                                Identifier(2014)
+                                  Letter(2015)
+                                    TOKEN_71(1072): "b", line: 1, col: 17
+                      TOKEN_13(1014): ")", line: 1, col: 18
+              TOKEN_13(1014): ")", line: 1, col: 19
+            Spaces(2005)
+              Space(2004)
+                TOKEN_5(1006): " ", line: 1, col: 20
+            AND(2006)
+              TOKEN_1(1002): "AND", line: 1, col: 21
+            Spaces(2005)
+              Space(2004)
+                TOKEN_5(1006): " ", line: 1, col: 24
+            AndExpression(2010)
+              Term(2011)
+                TOKEN_12(1013): "(", line: 1, col: 25
+                Expression(2009)
+                  AndExpression(2010)
+                    Term(2011)
+                      TOKEN_12(1013): "(", line: 1, col: 26
+                      Expression(2009)
+                        AndExpression(2010)
+                          Term(2011)
+                            Comparison(2013)
+                              Value(2003)
+                                Identifier(2014)
+                                  Letter(2015)
+                                    TOKEN_93(1094): "x", line: 1, col: 27
+                              Operator(2012)
+                                TOKEN_34(1035): ">", line: 1, col: 28
+                              Value(2003)
+                                Number(2021)
+                                  Digits(2024)
+                                    Digit(2025)
+                                      TOKEN_20(1021): "0", line: 1, col: 29
+                      TOKEN_13(1014): ")", line: 1, col: 30
+                TOKEN_13(1014): ")", line: 1, col: 31
+        TOKEN_13(1014): ")", line: 1, col: 32

@@ -1,0 +1,19 @@
+Parse tree from /dev/fd/63:
+Filter(2001)
+  Keyword(2002)
+    TOKEN_4(1005): "filter=", line: 1, col: 1
+  Expression(2009)
+    AndExpression(2010)
+      Term(2011)
+        Comparison(2013)
+          Value(2003)
+            Identifier(2014)
+              Letter(2015)
+                TOKEN_70(1071): "a", line: 1, col: 8
+          Operator(2012)
+            TOKEN_33(1034): "=", line: 1, col: 9
+          Value(2003)
+            Number(2021)
+              Digits(2024)
+                Digit(2025)
+                  TOKEN_21(1022): "1", line: 1, col: 10
