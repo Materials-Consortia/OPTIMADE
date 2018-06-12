@@ -2,7 +2,9 @@
 
 # Extract grammars from the *.md files and run tests agains them.
 
-MD_FILES = $(wildcard *.md)
+MD_FILE_DIR ?= .
+
+MD_FILES = $(wildcard ${MD_FILE_DIR}/*.md)
 
 GRAMMAR_START_STRING = \(\* BEGIN EBNF GRAMMAR
 GRAMMAR_END_STRING   = \(\* END EBNF GRAMMAR
