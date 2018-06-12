@@ -51,4 +51,4 @@ endif
 
 clean:
 
-distclean cleanAll: clean
+distclean cleanAll: clean ${DISTCLEAN_TARGETS}

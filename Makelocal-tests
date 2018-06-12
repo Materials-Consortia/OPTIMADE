@@ -141,7 +141,7 @@ listdiff: ## test
 test-clean:
 	rm -f ${DIFF_FILES}
 
-test-distclean test-cleanAll: test-clean ${DISTCLEAN_TARGETS}
+test-distclean test-cleanAll: test-clean
 
 clean: test-clean
 
