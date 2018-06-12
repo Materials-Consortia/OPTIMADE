@@ -54,6 +54,8 @@ GRAMMATIKER_DIR = tools/grammatiker
 
 grammatiker: ${GRAMMATIKER_LOG}
 
+GRAMMATIKER_DIR ?= make
+
 ${GRAMMATIKER_LOG}: ${GRAMMATICA_LOG}
 	svn co -r ${GRAMMATIKER_REV} ${GRAMMATIKER_URL} ${GRAMMATIKER_DIR} \
 	2>&1 | tee $@
@@ -61,7 +63,7 @@ ${GRAMMATIKER_LOG}: ${GRAMMATICA_LOG}
 	ln -s ${GRAMMATICA_DIR} ${GRAMMATIKER_DIR}/EBNF/lib
 	rm -rf ${GRAMMATIKER_DIR}/BNF/lib
 	ln -s ${GRAMMATICA_DIR} ${GRAMMATIKER_DIR}/BNF/lib
-	test -d ${GRAMMATIKER_DIR} && ${MAKE} -C ${GRAMMATIKER_DIR} all tests \
+	test -d ${GRAMMATIKER_DIR} && ${GRAMMATIKER_MAKE} -C ${GRAMMATIKER_DIR} all tests \
 	2>&1 | tee -a $@
 
 distclean-grammatiker:
