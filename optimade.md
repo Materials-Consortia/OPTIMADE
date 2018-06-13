@@ -578,7 +578,9 @@ MUST include the following information in the "data" field:
 
 * **description**: Description of the entry.
 * **properties**: A dictionary describing queryable properties for this entry
-  type, where each key is a property ID, each value is a description of the
+  type, where each key is a property ID.
+  Each value is a dictionary, with the required key 'description' and optional
+key 'unit'.
   property, along with the units. 
 * **formats**: Output formats available for this type of entry.
 * **output\_fields\_by\_format**: Available output fields for this entry type as
@@ -594,9 +596,9 @@ Example:
       "description": "a structure",
       "properties": {
         "nelements": {
-          "description": "number of elements"
+          "description": "number of elements",
+          "unit": "MPa"
         },
-        "unit": "MPa",
         ... <other property descriptions>
       },
       "formats": ["json", "xml"],
