@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.5
+# OPTIMADE API specification v0.9.6-develop
 
 [1. Introduction](#h.1) 
  
@@ -230,9 +230,9 @@ Every response MUST contain the following fields:
             },
             "api_version": "v0.9",
             "time_stamp": "2007-04-05T14:30Z",
-            "data_returned": "10",
-            "data_available": "10",
-            "more_data_available": "False"
+            "data_returned": 10,
+            "data_available": 10,
+            "more_data_available": false
           }
           ...
           <additional response items>
@@ -271,10 +271,10 @@ An example of a full response:
     }
     "api_version": "v0.9",  
     "time_stamp": "2007-04-05T14:30Z",  
-    "data_returned": "10",
-    "data_available": "10",
+    "data_returned": 10,
+    "data_available": 10,
     "last_id": "xy10",
-    "more_data_available": "False"
+    "more_data_available": false
   },
   "response_message": "OK",
   <OPTIONAL DB-specific meta_data, global to the query>
