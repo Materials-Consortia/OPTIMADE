@@ -402,7 +402,8 @@ needs the following fields
     * **last\_modified**: an [ISO 8601](https://www.iso.org/standard/40874.html)
       representing the entry's last modification time
     * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID
-  db specific properties need to be prefixed by the db specific prefix
+
+  Database-specific properties need to include the database-specific prefix.
 
 OPTIONALLY it can also contains the following fields:
 
