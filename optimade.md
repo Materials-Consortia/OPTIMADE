@@ -581,7 +581,6 @@ MUST include the following information in the "data" field:
   type, where each key is a property ID.
   Each value is a dictionary, with the required key 'description' and optional
 key 'unit'.
-  property, along with the units. 
 * **formats**: Output formats available for this type of entry.
 * **output\_fields\_by\_format**: Available output fields for this entry type as
   function of output format.
