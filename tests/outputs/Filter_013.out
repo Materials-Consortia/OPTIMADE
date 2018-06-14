@@ -1,7 +1,7 @@
 Parse tree from /dev/fd/63:
-Filter(2001)
-  Keyword(2002)
-    TOKEN_4(1005): "filter=", line: 1, col: 1
+Filter(9999)
+  Keyword(9999)
+    TOKEN_4(9999): "filter=", line: 1, col: 1
 Error: in /dev/fd/63: line 1:
     unexpected token "filter=", expected one of "A", "B", "C", "D",
     "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",

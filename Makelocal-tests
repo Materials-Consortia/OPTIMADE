@@ -53,6 +53,10 @@ out outputs: ${OUTP_FILES}
 
 #------------------------------------------------------------------------------
 
+define filter_output
+perl -pe 's/^(\s*\w+)\((\d+)\)/$$1(9999)/'
+endef
+
 # Rules to run script-specific tests:
 
 ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp ${TEST_DIR}/%.opt | ${EXTRA_TEST_DEPS}
@@ -61,6 +65,7 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp ${TEST_DIR}/%.opt | ${EXTRA_TEST_DEPS}
 	    $(shell grep -v '^#' ${word 2, $^}) \
 	    $< \
 	2>&1 \
+	| ${filter_output} \
 	| diff ${OUTP_DIR}/$*.out - > $@ ; \
 	if [ $$? = 0 ]; then echo "OK"; else echo "FAILED:"; cat $@; fi
 
@@ -69,6 +74,7 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.opt | ${EXTRA_TEST_DEPS}
 	${BIN_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') \
 	    $(shell grep -v '^#' ${word 1, $^}) \
 	2>&1 \
+	| ${filter_output} \
 	| diff ${OUTP_DIR}/$*.out - > $@ ; \
 	if [ $$? = 0 ]; then echo "OK"; else echo "FAILED:"; cat $@; fi
 
@@ -77,6 +83,7 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp | ${EXTRA_TEST_DEPS}
 	${BIN_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') \
 	    $< \
 	2>&1 \
+	| ${filter_output} \
 	| diff ${OUTP_DIR}/$*.out - > $@ ; \
 	if [ $$? = 0 ]; then echo "OK"; else echo "FAILED:"; cat $@; fi
 
@@ -85,6 +92,7 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp | ${EXTRA_TEST_DEPS}
 ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.sh | ${EXTRA_TEST_DEPS}
 	-@printf "%-30s " "$<:" ; \
 	$< 2>&1 \
+	| ${filter_output} \
 	| diff ${OUTP_DIR}/$*.out - > $@ ; \
 	if [ $$? = 0 ]; then echo "OK"; else echo "FAILED:"; cat $@; fi
 
@@ -97,6 +105,7 @@ ${OUTP_DIR}/%.out: ${TEST_DIR}/%.inp ${TEST_DIR}/%.opt | ${EXTRA_TEST_DEPS}
 	    $(shell grep -v '^#' ${word 2, $^}) \
 	    $< \
 	2>&1 \
+	| ${filter_output} \
 	| tee $@
 	-@touch $@
 
@@ -106,6 +115,7 @@ ${OUTP_DIR}/%.out: ${TEST_DIR}/%.opt | ${EXTRA_TEST_DEPS}
 	${BIN_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') \
 	    $(shell grep -v '^#' ${word 1, $^}) \
 	2>&1 \
+	| ${filter_output} \
 	| tee $@
 	-@touch $@
 
@@ -122,6 +132,7 @@ ${OUTP_DIR}/%.out: ${TEST_DIR}/%.sh | ${EXTRA_TEST_DEPS}
 	-@test -f $@ || echo "$@:"
 	-@test -f $@ || \
 	$< 2>&1 \
+	| ${filter_output} \
 	| tee $@
 	-@touch $@
 
