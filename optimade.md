@@ -10,7 +10,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[3.3. Responses](#h.3.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API response schema: common fields](#h.3.3.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)_
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.3)  
 
 [4. API endpoints](#h.4)  
@@ -302,15 +302,15 @@ An example of a full response:
 ### <a name="h.3.3.4">3.3.4. Unset optional properties</a>
 
 Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries,
-but are undefined for other entries, i.e. have the value "null" within a JSON file or SQL database.
+but are undefined for other entries, i.e. have the value 'null' within a JSON file or SQL database.
 
 Unset properties are not returned in the response unless explicitly requested in the search query.
 Any comparisons involving involving unset properties should return a value of false,
-i.e. by definition the value of "null" is outside of any defined search range.
+i.e. by definition the value of 'null' is outside of any defined search range.
 
 If a property is explicitly requested in a search query without value range filters,
 then all entries otherwise satisfying the query should be returned, including those with null values for this property.
-The value of these properties should be set to the JSON "null" value in the response.
+The value of these properties should be set to the JSON 'null' value in the response.
 
 Note that this only applies to attributes that are described by a single value,
 and not to properties with multiple attributes such as the structure.
@@ -318,10 +318,10 @@ In this case, attributes that have null value are simply omitted from the return
 
 Entries with unset property values can be filtered out of the response using:
 
-<property> IS KNOWN
+\<property\> IS KNOWN
 
-This requires that only entries with non-null values of <property> be returned;
-i.e. all entries with null values of <property> are filtered out of the response. 
+This requires that only entries with non-null values of '<property>' be returned;
+i.e. all entries with null values of '<property>' are filtered out of the response. 
 
 # <a name="h.4">4. API endpoints</a>
 
