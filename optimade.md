@@ -10,8 +10,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[3.3. Responses](#h.3.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API response schema: common fields](#h.3.3.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)_
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry listing endpoints](#h.4.1.)  
@@ -320,8 +320,8 @@ Entries with unset property values can be filtered out of the response using:
 
 \<property\> IS KNOWN
 
-This requires that only entries with non-null values of '<property>' be returned;
-i.e. all entries with null values of '<property>' are filtered out of the response. 
+This requires that only entries with non-null values of '\<property\>' be returned;
+i.e. all entries with null values of '\<property\>' are filtered out of the response. 
 
 # <a name="h.4">4. API endpoints</a>
 
