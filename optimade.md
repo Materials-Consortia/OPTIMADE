@@ -305,7 +305,7 @@ Unset optional properties in a database are properties that exist and have a spe
 but are undefined for other entries, i.e. have the value 'null' within a JSON file or SQL database.
 
 Unset properties are not returned in the response unless explicitly requested in the search query.
-Any comparisons involving involving unset properties should return a value of false,
+Any comparisons involving unset properties should return a value of false,
 i.e. by definition the value of 'null' is outside of any defined search range.
 
 If a property is explicitly requested in a search query without value range filters,
