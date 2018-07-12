@@ -312,7 +312,7 @@ If a property is explicitly requested in a search query without value range filt
 then all entries otherwise satisfying the query should be returned, including those with null values for this property.
 The value of these properties should be set to the JSON 'null' value in the response.
 
-Note that this only applies to attributes that are described by a single value,
+Note that this only applies to properties that are described by a single value,
 and not to properties with multiple attributes such as the structure.
 In this case, attributes that have null value are simply omitted from the returned structure.
 
