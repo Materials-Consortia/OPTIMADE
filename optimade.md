@@ -42,10 +42,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. dimension\_types](#h.6.2.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. lattice\_vectors](#h.6.2.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.7. cartesian\_site\_positions](#h.6.2.7)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. all\_coordinates\_known](#h.6.2.8)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species\_at\_sites](#h.6.2.9)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. species](#h.6.2.10)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. assemblies](#h.6.2.11)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. 'Calculation' entries](#h.6.3)  
 
@@ -959,20 +958,12 @@ Multiple Entry Types", as well as the following properties:
   * It must be a list of length N times 3, where
     N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position, which does *not* make the entry invalid (for a relevant use of this, see, e.g., the `assemblies` property).
-  * If a component of the position is unknown, the `null` value should be provided instead. Otherwise, it should be a float value, expressed in angstrom. (See also the property `all_coordinates_known`).
 * Examples:
   * `[[0,0,0], [0,0,2]]` indicates a structure with two sites,
     one sitting at the origin and one along the (positive) `z` axis, two angstrom away from the origin.
 
-### <a name="h.6.2.8">6.2.8. all\_coordinates\_known</a>
-* Description: A boolean indicating if all coordinates are known and specified in the `cartesian_site_positions` list.
-* Requirements: 
-  * This property is required.
-  * If at least one component of the `cartesian_site_positions` list of lists has
-  value `null`, then the `all_coordinates_known` property must be set to `false`, otherwise it must be set to `true`.
 
-
-### <a name="h.6.2.9">6.2.9. species\_at\_sites</a>
+### <a name="h.6.2.8">6.2.8. species\_at\_sites</a>
 
 * Description: Name of the species at each site (where values 
   for sites are specified with the same order of the 
@@ -995,7 +986,7 @@ Multiple Entry Types", as well as the following properties:
     hosting a species labeled `Ti` and the second
     a species labeled `O2`. 
 
-### <a name="h.6.2.10">6.2.10. species</a>
+### <a name="h.6.2.9">6.2.9. species</a>
 
 * Description: a dictionary describing the species
   of the sites of this structure. Species can be pure 
@@ -1037,7 +1028,7 @@ Multiple Entry Types", as well as the following properties:
   * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this species is occupied by a carbon isotope with mass 13.
 
 
-### <a name="h.6.2.11">6.2.11. assemblies</a>
+### <a name="h.6.2.10">6.2.10. assemblies</a>
 
 * Description: A description of groups of sites that are statistically correlated.
 * Requirements: 
