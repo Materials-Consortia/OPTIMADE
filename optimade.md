@@ -958,7 +958,7 @@ Multiple Entry Types", as well as the following properties:
   * This property is required.
   * It must be a list of length N times 3, where
     N is the number of sites in the structure.
-  * It is **not** an error to have multiple sites at the same Cartesian position (see for instance the `assemblies` property).
+  * An entry MAY have multiple sites at the same Cartesian position, which does *not* make the entry invalid (for a relevant use of this, see, e.g., the `assemblies` property).
   * If a component of the position is unknown, the `null` value should be provided instead. Otherwise, it should be a float value, expressed in angstrom. (See also the property `all_coordinates_known`).
 * Examples:
   * `[[0,0,0], [0,0,2]]` indicates a structure with two sites,
