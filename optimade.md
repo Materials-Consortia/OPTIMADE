@@ -917,11 +917,11 @@ Multiple Entry Types", as well as the following properties:
 ### <a name="h.6.2.5">6.2.5. dimension\_types</a>
 
 * Description: a list of three integers. For each of the three 
-  directions indicated by the three lattice vectors (see property `lattice_vectors`) this list indicates if that direction is periodic (value 1) or non-periodic (value 0).
+  directions indicated by the three lattice vectors (see property `lattice_vectors`) this list indicates if that direction is periodic (value 1) or non-periodic (value 0). Note: each periodicity direction is *not* one of the Cartesian x, y, z directions but the directions specified by the `lattice_vectors`.
 * Requirements: 
   * This property is required.
-  * it must be a list of length 3.
-  * each element must be an integer and can assume only the value 0 or 1.
+  * it MUST be a list of length 3.
+  * each element MUST be an integer and can assume only the value 0 or 1.
 * Examples:
   * For a molecule: `[0, 0, 0]`
   * For a wire along the direction specified by the third lattice vector: `[0, 0, 1]`
@@ -934,14 +934,12 @@ Multiple Entry Types", as well as the following properties:
 * Description: The three lattice vectors in Cartesian coordinates, in angstrom
 * Requirements/convention: 
   * This property is required, except when `dimension_types` is equal to `[0, 0, 0]` (in this case it is optional).
-  * It must be a list of three vectors *a*, *b* and *c*, where each of the vectors is defined by a list of vector's coordinates along x, y and z Cartesian coordinates.
-  * The first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.
-    the first index runs over the three lattice vectors.
+  * It MUST be a list of three vectors *a*, *b* and *c*, where each of the vectors is defined by a list of vector's coordinates along x, y and z Cartesian coordinates. (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.)
   * For databases that do not define an absolute Cartesian
     system (but e.g. define only the length and angles between
     vectors), by convention the first lattice vector should be
     set along `x` and the second on the `xy` plane.
-  * This property must always be a array of dimensions 3 times 3, even when not all `dimension\_types` components are equal to 1. Vectors for non-periodic directions can be ignored. It is a convention to choose, for these directions, non-zero vectors such that the determinant of the lattice\_vectors matrix is non-zero, and such that the vectors are long enough so as that the lattice\_vector "box" can entirely include the molecule/wire/slab (possibly after translation).
+  * This property MUST be an array of dimensions 3 times 3 regardless of the elements of `dimension\_types`. The vectors SHOULD by convention be chosen so the determinant of the `lattice\_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
 * Examples:
   * `[[4., 0., 0.], [0., 4., 0.], [0., 1., 4.]]` represents
     a cell where the first vector is `(4, 0, 0)`,
@@ -955,7 +953,7 @@ Multiple Entry Types", as well as the following properties:
   (e.g. in a virtual crystal approximation).
 * Requirements: 
   * This property is required.
-  * It must be a list of length N times 3, where
+  * It MUST be a list of length N times 3, where
     N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position, which does *not* make the entry invalid (for a relevant use of this, see, e.g., the `assemblies` property).
 * Examples:
@@ -971,9 +969,9 @@ Multiple Entry Types", as well as the following properties:
   the species are found in the `species` property. 
 * Requirements: 
   * This property is required.
-  * It must be a list of strings. It must have 
+  * It MUST be a list of strings. It MUST have 
     length equal to the number of sites in the structure (first dimension of the `cartesian_site_positions` list). 
-  * Each string must be a 
+  * Each string MUST be a 
     valid key of the dictionary specified by the `species` property.
 * Note: 
   - each site can only be associated to a single species.  
@@ -995,29 +993,29 @@ Multiple Entry Types", as well as the following properties:
   elements.
 * Requirements/conventions: 
   * This property is required.
-  * It must be a dictionary, where keys represent the species name, and values are themselves dictionaries with the following keys:
-    * `chemical_symbols`: required; must be a list of strings   
+  * It MUST be a dictionary, where keys represent the species name, and values are themselves dictionaries with the following keys:
+    * `chemical_symbols`: required; MUST be a list of strings   
       of all chemical elements composing this species. The 
       special value `X` can be used to represent a non-chemical 
       element. 
-    * `concentration`: required; must be a list of floats, with 
+    * `concentration`: required; MUST be a list of floats, with 
       same length as `chemical_symbols`. The numbers represent 
       the relative concentration of the corresponding chemical 
-      symbol in this species. The numbers must sum to a number 
+      symbol in this species. The numbers MUST sum to a number 
       between zero and 1 (zero excluded, 1 included). A sum 
       smaller than one represents a non-zero probability of 
       having a vacancy (see examples below).
       Note that concentrations are uncorrelated between different sites (even of the same species).
-    * `mass`: optional. If present must be a float expressed in 
+    * `mass`: optional. If present MUST be a float expressed in 
       a.m.u. 
   * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD by convention use the chemical
   symbol as species name (e.g. Ti for titanium, O for oxygen, ...).
-  However, it must be noted that this is **not** required, and
-  client implementations **must not** assume that the key
+  However, it MUST be noted that this is *not* required, and
+  client implementations MUST NOT assume that the key
   corresponds to a chemical symbol, nor assume that if the
   species name is a valid chemical symbol, that it represents a 
   species with that chemical symbol. This means that a species `"C": {"chemical_symbols": ["Ti"], "concentration": [1.0]}` 
-  is valid and represents a titanium species (and **not** a carbon species).
+  is valid and represents a titanium species (and *not* a carbon species).
   * A structure should not include species that do not have
     at least one corresponding site. This is however not enforced or required by the current specification.
 * Examples:
@@ -1033,11 +1031,11 @@ Multiple Entry Types", as well as the following properties:
 * Description: A description of groups of sites that are statistically correlated.
 * Requirements: 
   * This key is optional (it is absent if there are no partial occupancies).
-  * Client implementations **MUST** check its presence (as its presence changes the interpretation of the structure).
-  * If present, it must be a list of dictionaries, each of   
-    which represents an assembly and must have the following two keys:
+  * Client implementations MUST check its presence (as its presence changes the interpretation of the structure).
+  * If present, it MUST be a list of dictionaries, each of   
+    which represents an assembly and MUST have the following two keys:
     - `sites_in_groups`: index of the sites (0-based) that belong to each group for each assembly. Example: `[[1], [2]]`: two groups, one with the second site, one with the third. Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth. 
-    - `group_probabilities`:  statistical probability of each group. Must have the same length of `sites_in_groups`. Must sum to a value larger than zero and smaller or equal to one. A sum smaller than one represents a non-zero probability that the group is completely absent. 
+    - `group_probabilities`:  statistical probability of each group. It MUST have the same length of `sites_in_groups`. It MUST sum to a value larger than zero and smaller or equal to one. A sum smaller than one represents a non-zero probability that the group is completely absent. 
   * If a site is not present in any group, it means that is
     is present with 100% probability (as if no assembly was
     specified)
