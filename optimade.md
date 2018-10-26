@@ -935,7 +935,7 @@ Multiple Entry Types", as well as the following properties:
 * Description: The three lattice vectors in Cartesian coordinates, in angstrom
 * Requirements/convention: 
   * This property is required, except when `dimension_types` is equal to `[0, 0, 0]` (in this case it is optional).
-  * It must be a 3 times 3 list of lists, each element being a float.
+  * It must be a list of three vectors *a*, *b* and *c*, where each of the vectors is defined by a list of vector's coordinates along x, y and z Cartesian coordinates.
   * The first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.
     the first index runs over the three lattice vectors.
   * For databases that do not define an absolute Cartesian
