@@ -1019,7 +1019,7 @@ Multiple Entry Types", as well as the following properties:
       Note that concentrations are uncorrelated between different sites (even of the same species).
     * `mass`: optional. If present must be a float expressed in 
       a.m.u. 
-  * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, it is a convention to use the chemical
+  * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD by convention use the chemical
   symbol as species name (e.g. Ti for titanium, O for oxygen, ...).
   However, it must be noted that this is **not** required, and
   client implementations **must not** assume that the key
