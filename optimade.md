@@ -919,9 +919,9 @@ Multiple Entry Types", as well as the following properties:
 * Description: a list of three integers. For each of the three 
   directions indicated by the three lattice vectors (see property `lattice_vectors`) this list indicates if that direction is periodic (value 1) or non-periodic (value 0). Note: each periodicity direction is *not* one of the Cartesian x, y, z directions but the directions specified by the `lattice_vectors`.
 * Requirements: 
-  * This property is required.
+  * This property is REQUIRED.
   * it MUST be a list of length 3.
-  * each element MUST be an integer and can assume only the value 0 or 1.
+  * each element MUST be an integer and MUST assume only the value 0 or 1.
 * Examples:
   * For a molecule: `[0, 0, 0]`
   * For a wire along the direction specified by the third lattice vector: `[0, 0, 1]`
@@ -933,11 +933,11 @@ Multiple Entry Types", as well as the following properties:
 
 * Description: The three lattice vectors in Cartesian coordinates, in angstrom
 * Requirements/convention: 
-  * This property is required, except when `dimension_types` is equal to `[0, 0, 0]` (in this case it is optional).
-  * It MUST be a list of three vectors *a*, *b* and *c*, where each of the vectors is defined by a list of vector's coordinates along x, y and z Cartesian coordinates. (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.)
+  * This property is REQUIRED, except when `dimension_types` is equal to `[0, 0, 0]` (in this case it is OPTIONAL).
+  * It MUST be a list of three vectors *a*, *b* and *c*, where each of the vectors MUST BE a list of vector's coordinates along the x, y and z Cartesian coordinates. (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.)
   * For databases that do not define an absolute Cartesian
     system (but e.g. define only the length and angles between
-    vectors), by convention the first lattice vector should be
+    vectors), the first lattice vector SHOULD be
     set along `x` and the second on the `xy` plane.
   * This property MUST be an array of dimensions 3 times 3 regardless of the elements of `dimension\_types`. The vectors SHOULD by convention be chosen so the determinant of the `lattice\_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
 * Examples:
@@ -949,16 +949,19 @@ Multiple Entry Types", as well as the following properties:
 ### <a name="h.6.2.7">6.2.7. cartesian\_site\_positions</a>
 
 * Description: Cartesian positions of each site. A site is 
-  an atom, a site potentially occupied by an atom, or a placeholder for a virtual mixture of atoms
+  an atom, a site potentially occupied by an atom, or a placeholder 
+  for a virtual mixture of atoms
   (e.g. in a virtual crystal approximation).
 * Requirements: 
-  * This property is required.
+  * This property is REQUIRED.
   * It MUST be a list of length N times 3, where
     N is the number of sites in the structure.
-  * An entry MAY have multiple sites at the same Cartesian position, which does *not* make the entry invalid (for a relevant use of this, see, e.g., the `assemblies` property).
+  * An entry MAY have multiple sites at the same Cartesian position
+    (for a relevant use of this, see, e.g., the `assemblies` property).
 * Examples:
   * `[[0,0,0], [0,0,2]]` indicates a structure with two sites,
-    one sitting at the origin and one along the (positive) `z` axis, two angstrom away from the origin.
+    one sitting at the origin and one along the (positive) `z` axis, 
+    two angstrom away from the origin.
 
 
 ### <a name="h.6.2.8">6.2.8. species\_at\_sites</a>
@@ -968,15 +971,15 @@ Multiple Entry Types", as well as the following properties:
   `cartesian_site_positions` property). The properties of 
   the species are found in the `species` property. 
 * Requirements: 
-  * This property is required.
+  * This property is REQUIRED.
   * It MUST be a list of strings. It MUST have 
     length equal to the number of sites in the structure (first dimension of the `cartesian_site_positions` list). 
   * Each string MUST be a 
     valid key of the dictionary specified by the `species` property.
 * Note: 
-  - each site can only be associated to a single species.  
+  - each site MUST be associated only to a single species.  
     However, species can represent mixtures of atoms, and 
-    multiple species can be defined for the same chemical element. This latter case is useful when different atoms of 
+    multiple species MAY be defined for the same chemical element. This latter case is useful when different atoms of 
     the same type need to be grouped or distinguished, for instance in simulation codes to assign different initial 
     spin states).
 * Examples:
@@ -992,13 +995,13 @@ Multiple Entry Types", as well as the following properties:
   a statistical occupation of a given site by multiple chemical
   elements.
 * Requirements/conventions: 
-  * This property is required.
+  * This property is REQUIRED.
   * It MUST be a dictionary, where keys represent the species name, and values are themselves dictionaries with the following keys:
-    * `chemical_symbols`: required; MUST be a list of strings   
-      of all chemical elements composing this species. The 
-      special value `X` can be used to represent a non-chemical 
-      element. 
-    * `concentration`: required; MUST be a list of floats, with 
+    * `chemical_symbols`: REQUIRED; MUST be a list of strings   
+      of all chemical elements composing this species. It MUST be 
+      a valid chemical-element name, or the special value `X` 
+      to represent a non-chemical element. 
+    * `concentration`: REQUIRED; MUST be a list of floats, with 
       same length as `chemical_symbols`. The numbers represent 
       the relative concentration of the corresponding chemical 
       symbol in this species. The numbers MUST sum to a number 
@@ -1006,18 +1009,18 @@ Multiple Entry Types", as well as the following properties:
       smaller than one represents a non-zero probability of 
       having a vacancy (see examples below).
       Note that concentrations are uncorrelated between different sites (even of the same species).
-    * `mass`: optional. If present MUST be a float expressed in 
+    * `mass`: OPTIONAL. If present MUST be a float expressed in 
       a.m.u. 
-  * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD by convention use the chemical
+  * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical
   symbol as species name (e.g. Ti for titanium, O for oxygen, ...).
-  However, it MUST be noted that this is *not* required, and
+  However, note that this is OPTIONAL, and
   client implementations MUST NOT assume that the key
   corresponds to a chemical symbol, nor assume that if the
   species name is a valid chemical symbol, that it represents a 
   species with that chemical symbol. This means that a species `"C": {"chemical_symbols": ["Ti"], "concentration": [1.0]}` 
   is valid and represents a titanium species (and *not* a carbon species).
-  * A structure should not include species that do not have
-    at least one corresponding site. This is however not enforced or required by the current specification.
+  * It is NOT RECOMMENDED that a structure includes species that do not have
+    at least one corresponding site. 
 * Examples:
   * `"Ti": {"chemical_symbols": ["Ti"], "concentration": [1.0]}`: any site with this species is occupied by a Ti atom.
   * `"Ti": {"chemical_symbols": ["Ti"], "concentration": [0.9]}`: any site with this species is occupied by a Ti atom with 90% probability, and has a vacancy with 10% probability.
@@ -1030,7 +1033,7 @@ Multiple Entry Types", as well as the following properties:
 
 * Description: A description of groups of sites that are statistically correlated.
 * Requirements: 
-  * This key is optional (it is absent if there are no partial occupancies).
+  * This key is OPTIONAL (it is absent if there are no partial occupancies).
   * Client implementations MUST check its presence (as its presence changes the interpretation of the structure).
   * If present, it MUST be a list of dictionaries, each of   
     which represents an assembly and MUST have the following two keys:
@@ -1039,7 +1042,7 @@ Multiple Entry Types", as well as the following properties:
   * If a site is not present in any group, it means that is
     is present with 100% probability (as if no assembly was
     specified)
-  * a site **CANNOT** appear in more than one group
+  * a site MUST NOT appear in more than one group
 * Examples (for each entry of the assemblies list):
   * `{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.5]}`: the first site and the second site never occur at the same time in the unit cell. Statistically, 30% of the times the first site is present, 50% of the times the second site is present, and 20% of the times neither is present.
   * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.5]}`: The second and third site are either present together or not present; they form the first group of atoms for this assembly. The second group is formed by the fourth site. Sites of the first group (the second and the third) are never present at the same time of the fourth site. 30% of times sites 1 and 2 are present (and site 3 is absent); 50% of times site 3 is present (and site 1 and 2 are absent); the remaining 20% of times all three sites (1, 2, 3) are absent.
@@ -1055,7 +1058,7 @@ Multiple Entry Types", as well as the following properties:
     - `"cartesian_site_positions": [[0,0,0], [0,0,0]], "species_at_sites": ["Si", "Ge"], "species": {"Si": {"chemical_symbols": ["Si"], "concentration": [1.]}, "Ge": {"chemical_symbols": ["Ge"], "concentration": [1.]}}, assemblies: [{"sites_in_groups": [[0], [1]], "group_probabilities:: [0.3, 0.5]}]`
   * It is up to the API provider to decide which representation 
     to use, typically depending on the internal format in which 
-    the structure is stored. However, given a structure identified by a unique ID, the API **MUST** always provide the same representation for it.
+    the structure is stored. However, given a structure identified by a unique ID, the API MUST always provide the same representation for it.
   * The probabilities of occurrence of different assemblies are 
     uncorrelated. So, for instance in the following case with two assemblies:
     ` assemblies: [{"sites_in_groups": [[0], [1]], "group_probabilities: [0.2, 0.8]}, {"sites_in_groups": [[2], [3]], "group_probabilities: [0.3, 0.7]}]`
