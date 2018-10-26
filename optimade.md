@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.6-develop
+# OPTIMADE API specification v0.9.7-develop
 
 [1. Introduction](#h.1) 
  
