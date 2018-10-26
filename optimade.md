@@ -936,7 +936,7 @@ Multiple Entry Types", as well as the following properties:
 * Requirements/convention: 
   * This property is required, except when `dimension_types` is equal to `[0, 0, 0]` (in this case it is optional).
   * It must be a 3 times 3 list of lists, each element being a float.
-  * The fastest index runs over the x, y, z Cartesian coordinates, while
+  * The first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.
     the first index runs over the three lattice vectors.
   * For databases that do not define an absolute Cartesian
     system (but e.g. define only the length and angles between
