@@ -917,7 +917,7 @@ Multiple Entry Types", as well as the following properties:
 ### <a name="h.6.2.5">6.2.5. dimension\_types</a>
 
 * Description: a list of three integers. For each of the three 
-  directions indicated by the three lattice vectors (see property `lattice_vectors`) this list indicates if that direction is periodic (value 1) or non-periodic (value 0). Note: each periodicity direction is *not* one of the Cartesian x, y, z directions but the directions specified by the `lattice_vectors`.
+  directions indicated by the three lattice vectors (see property `lattice_vectors`) this list indicates if that direction is periodic (value 1) or non-periodic (value 0). Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors` and *not* the Cartesian x, y, z directions.
 * Requirements: 
   * This property is REQUIRED.
   * it MUST be a list of length 3.
