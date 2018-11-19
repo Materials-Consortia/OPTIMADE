@@ -2,7 +2,7 @@
 # Run tests in a test directory (tests/cases by default) and report if
 # all tests pass.
 
-BIN_DIR ?= ./
+BIN_DIR ?= ./scripts/
 
 TEST_DIR = tests/cases
 OUTP_DIR = tests/outputs
