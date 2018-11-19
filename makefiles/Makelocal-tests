@@ -55,6 +55,8 @@ check test tests: ${DIFF_FILES}
 
 out outputs: ${OUTP_FILES}
 
+EXTRA_TEST_DEPS = ${GRAMMATIKER_LOG}
+
 #------------------------------------------------------------------------------
 
 define filter_output
