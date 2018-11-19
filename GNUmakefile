@@ -8,6 +8,10 @@
 #     make tests
 #     make
 
+#     make run
+#     make run TEXT_TO_PARSE=filter.txt
+#     make run TEXT_TO_PARSE=filter.txt GRAMMAR=grammars/filters.ebnf
+
 #------------------------------------------------------------------------------
 
 # Include local configuration files from this directory:
