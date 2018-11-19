@@ -148,8 +148,7 @@ ${OUTP_DIR}/%.out: ${TEST_DIR}/%.sh | ${EXTRA_TEST_DEPS}
 
 listdiff: ## test
 	@- if [ -d ${OUTP_DIR} ]; then \
-	   find ${OUTP_DIR} -name '*.diff' -size +0 \
-		| xargs --no-run-if-empty ls -1; \
+	   find ${OUTP_DIR} -name '*.diff' -size +0 | sort -u; \
 	fi
 
 #------------------------------------------------------------------------------
