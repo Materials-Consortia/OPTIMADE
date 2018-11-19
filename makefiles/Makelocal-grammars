@@ -17,6 +17,9 @@ GRAMMAR_DIR   ?= generated
 EBNF_FILES    ?= ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
 GRAMMAR_FILES ?= ${EBNF_FILES:%.ebnf=%.g}
 
+REGEXPS = $(sort $(shell awk '/^${RE_START_STRING}/{print $$3}' ${MD_FILES} | tr -d "\r"))
+REGEXP_FILES = ${REGEXPS:%=${GRAMMAR_DIR}/%.ere} ${REGEXPS:%=${GRAMMAR_DIR}/%.pcre}
+
 GRAMMAR_DEPENDENCIES = .grammars.d
 
 include ${GRAMMAR_DEPENDENCIES}
@@ -65,6 +68,7 @@ ${GRAMMAR_DIR}/%.g: ${GRAMMAR_DIR}/%.ebnf | tools
 
 grammar-clean:
 	rm -f ${EBNF_FILES}
+	rm -f ${REGEXP_FILES}
 	rm -f ${GRAMMAR_FILES}
 
 grammar-distclean: grammar-clean
