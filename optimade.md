@@ -1013,6 +1013,7 @@ Punctuator =
 
 UnicodeHighChar = ? [^\p{ASCII}] ? ;
 
+(* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
 
 Number = [ Sign ] ,
@@ -1027,6 +1028,7 @@ Digits =  Digit, { Digit } ;
 
 Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 
+(* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
 ## Appendix 2. The regular expressions to check OPTiMaDe number syntax.
