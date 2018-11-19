@@ -11,7 +11,7 @@
 
 #GRAMMAR ?= ${GRAM_DIR}/filters.ebnf
 GRAMMAT ?= $(word 1,$(sort ${GRAMMAR_FILES}))
-TEXT_TO_PARSE ?= filter.txt
+TEXT_TO_PARSE ?= tests/inputs/filter.txt
 
 .PHONY: run
 
