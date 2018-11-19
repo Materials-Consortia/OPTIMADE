@@ -939,7 +939,7 @@ Multiple Entry Types", as well as the following properties:
     system (but e.g. define only the length and angles between
     vectors), the first lattice vector SHOULD be
     set along `x` and the second on the `xy` plane.
-  * This property MUST be an array of dimensions 3 times 3 regardless of the elements of `dimension\_types`. The vectors SHOULD by convention be chosen so the determinant of the `lattice\_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+  * This property MUST be an array of dimensions 3 times 3 regardless of the elements of `dimension_types`. The vectors SHOULD by convention be chosen so the determinant of the `lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
 * Examples:
   * `[[4., 0., 0.], [0., 4., 0.], [0., 1., 4.]]` represents
     a cell where the first vector is `(4, 0, 0)`,
@@ -999,15 +999,29 @@ Multiple Entry Types", as well as the following properties:
   * It MUST be a dictionary, where keys represent the species name, and values are themselves dictionaries with the following keys:
     * `chemical_symbols`: REQUIRED; MUST be a list of strings   
       of all chemical elements composing this species. It MUST be 
-      a valid chemical-element name, or the special value `X` 
-      to represent a non-chemical element. 
+      one of the following:
+      * a valid chemical-element name, or 
+      * the special value `X` to represent a non-chemical element, or
+      * the special value `vacancy` to represent that this site has
+        a non-zero probability of having a vacancy (the respective probability
+        is indicated in the `concentration` list, see below).
+
     * `concentration`: REQUIRED; MUST be a list of floats, with 
       same length as `chemical_symbols`. The numbers represent 
       the relative concentration of the corresponding chemical 
-      symbol in this species. The numbers MUST sum to a number 
-      between zero and 1 (zero excluded, 1 included). A sum 
-      smaller than one represents a non-zero probability of 
-      having a vacancy (see examples below).
+      symbol in this species. The numbers SHOULD sum to one. 
+      Cases in which the numbers do not sum to one typically fall only
+      in the following two categories:
+      - numerical errors when representing float numbers in fixed
+        precision. E.g., for two chemical symbols with concentration
+        `1/3` and `2/3`, the concentration might look something like
+        `[0.33333333333, 0.66666666666]`. If the client is aware that
+        the sum is not one because of numerical precision, it can 
+        renormalize the values so that the sum is exactly one.
+      - experimental errors in the data present in the database. In this
+        case, it is the responsibility of the client to decide how 
+        to process the data.
+
       Note that concentrations are uncorrelated between different sites (even of the same species).
     * `mass`: OPTIONAL. If present MUST be a float expressed in 
       a.m.u. 
@@ -1023,8 +1037,8 @@ Multiple Entry Types", as well as the following properties:
     at least one corresponding site. 
 * Examples:
   * `"Ti": {"chemical_symbols": ["Ti"], "concentration": [1.0]}`: any site with this species is occupied by a Ti atom.
-  * `"Ti": {"chemical_symbols": ["Ti"], "concentration": [0.9]}`: any site with this species is occupied by a Ti atom with 90% probability, and has a vacancy with 10% probability.
-  * `"BaCa": {"chemical_symbols": ["Ba", "Ca"], "concentration": [0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45% probability, a Ca atom with 50% probability, and by a vacancy with 5% probability. The mass of this site is (on average) 88.5 a.m.u.
+  * `"Ti": {"chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]}`: any site with this species is occupied by a Ti atom with 90% probability, and has a vacancy with 10% probability.
+  * `"BaCa": {"chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45% probability, a Ca atom with 50% probability, and by a vacancy with 5% probability. The mass of this site is (on average) 88.5 a.m.u.
   * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.}`: any site with this species is occupied by a carbon isotope with mass 12.
   * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this species is occupied by a carbon isotope with mass 13.
 
@@ -1038,27 +1052,62 @@ Multiple Entry Types", as well as the following properties:
   * If present, it MUST be a list of dictionaries, each of   
     which represents an assembly and MUST have the following two keys:
     - `sites_in_groups`: index of the sites (0-based) that belong to each group for each assembly. Example: `[[1], [2]]`: two groups, one with the second site, one with the third. Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth. 
-    - `group_probabilities`:  statistical probability of each group. It MUST have the same length of `sites_in_groups`. It MUST sum to a value larger than zero and smaller or equal to one. A sum smaller than one represents a non-zero probability that the group is completely absent. 
+    - `group_probabilities`:  statistical probability of each group. 
+    It MUST have the same length of `sites_in_groups`. It SHOULD sum to one. 
+    See below for examples of how to specify the probability of the 
+    occurrence of a vacancy. The possible reasons for the values not to sum to
+    one are the same already specified above for the `concentration` of each `species`.
   * If a site is not present in any group, it means that is
     is present with 100% probability (as if no assembly was
     specified)
   * a site MUST NOT appear in more than one group
 * Examples (for each entry of the assemblies list):
-  * `{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.5]}`: the first site and the second site never occur at the same time in the unit cell. Statistically, 30% of the times the first site is present, 50% of the times the second site is present, and 20% of the times neither is present.
-  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.5]}`: The second and third site are either present together or not present; they form the first group of atoms for this assembly. The second group is formed by the fourth site. Sites of the first group (the second and the third) are never present at the same time of the fourth site. 30% of times sites 1 and 2 are present (and site 3 is absent); 50% of times site 3 is present (and site 1 and 2 are absent); the remaining 20% of times all three sites (1, 2, 3) are absent.
+  * `{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell. Statistically, 30% of the times the first site is present, 70% of the times the second site is present.
+  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: The second and third site are either present together or not present; they form the first group of atoms for this assembly. The second group is formed by the fourth site. Sites of the first group (the second and the third) are never present at the same time of the fourth site. 30% of times sites 1 and 2 are present (and site 3 is absent); 70% of times site 3 is present (and site 1 and 2 are absent).
 * Notes:
   * Assemblies are essential to represent, for instance, the 
     situation where an atom can statistically occupy two 
     different positions (sites).
   * By defining groups, it is possible to represent for
-    instance the case where a functional molecule (and not just one atom) is either present or absent (or the case where it it is present in two conformations)
-  * These specifications allow two different, equivalent ways 
-    of specifying a virtual alloy. For instance, for a site at the origin with 30% probability of being occupied by Si, 50% probability of being occupied by Ge, and 20% of being a vacancy, the following two representations are possible 
-    - `"cartesian_site_positions": [[0,0,0]], "species_at_sites": ["SiGe-vac"], "species": {"SiGe-vac": {"chemical_symbols": ["Si", "Ge"], "concentration": [0.3, 0.5]}}`
-    - `"cartesian_site_positions": [[0,0,0], [0,0,0]], "species_at_sites": ["Si", "Ge"], "species": {"Si": {"chemical_symbols": ["Si"], "concentration": [1.]}, "Ge": {"chemical_symbols": ["Ge"], "concentration": [1.]}}, assemblies: [{"sites_in_groups": [[0], [1]], "group_probabilities:: [0.3, 0.5]}]`
+    instance the case where a functional molecule (and not just one atom) 
+    is either present or absent (or the case where it it is present in two conformations)
+  * Considerations on virtual alloys and on vacancies: 
+    in the special case of a virtual alloy, these specifications allow two 
+    different, equivalent ways of specifying them. For instance, for a site 
+    at the origin with 30% probability of being occupied by Si, 50% probability 
+    of being occupied by Ge, and 20% of being a vacancy, the following two 
+    representations are possible 
+    - using a single species:
+      ```
+      "cartesian_site_positions": [[0,0,0]], 
+      "species_at_sites": ["SiGe-vac"], 
+      "species": {
+        "SiGe-vac": {
+          "chemical_symbols": ["Si", "Ge", "vacancy"], 
+          "concentration": [0.3, 0.5, 0.2]
+        }
+      }
+      ```
+    - using multiple species and the assemblies:
+      ```
+      "cartesian_site_positions": [[0,0,0], [0,0,0]], 
+      "species_at_sites": ["Si", "Ge", "vac"], 
+      "species": {
+        "Si": {"chemical_symbols": ["Si"], "concentration": [1.]}, 
+        "Ge": {"chemical_symbols": ["Ge"], "concentration": [1.]}, 
+        "vac": {"chemical_symbols": ["vacancy"], "concentration": [1.]}
+      }, 
+      assemblies: [
+        {
+          "sites_in_groups": [[0], [1], [2]], 
+          "group_probabilities:: [0.3, 0.5, 0.2]
+        }
+      ]
+      ```
   * It is up to the API provider to decide which representation 
     to use, typically depending on the internal format in which 
-    the structure is stored. However, given a structure identified by a unique ID, the API MUST always provide the same representation for it.
+    the structure is stored. However, given a structure identified by a unique ID, 
+    the API MUST always provide the same representation for it.
   * The probabilities of occurrence of different assemblies are 
     uncorrelated. So, for instance in the following case with two assemblies:
     ` assemblies: [{"sites_in_groups": [[0], [1]], "group_probabilities: [0.2, 0.8]}, {"sites_in_groups": [[2], [3]], "group_probabilities: [0.3, 0.7]}]`
