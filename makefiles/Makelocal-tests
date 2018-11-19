@@ -42,6 +42,10 @@ ${TEST_DIR}/.%.d: ${TEST_DIR}/%.sh
 	mkcomdepend $< \
 	| sed 's,^tests/cases/,tests/outputs/,; s/^\(.*\)\.sh.log:/\1.diff:/' \
 	> $@
+	mkcomdepend $< \
+	| sed 's,^tests/cases/,tests/outputs/,; s/^\(.*\)\.sh.log:/\1.out:/' \
+	| grep '\.out: ' \
+	>> $@
 
 #------------------------------------------------------------------------------
 
