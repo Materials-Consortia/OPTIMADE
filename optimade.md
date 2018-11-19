@@ -976,6 +976,9 @@ Multiple Entry Types", as well as the following properties:
     length equal to the number of sites in the structure (first dimension of the `cartesian_site_positions` list). 
   * Each string MUST be a 
     valid key of the dictionary specified by the `species` property.
+    The requirements on this string are the same as for property names, 
+    i.e., it can be of any length, may use upper and lower case letters, 
+    the underscore, and the digits 0-9, but cannot begin with a digit.    
 * Note: 
   - each site MUST be associated only to a single species.  
     However, species can represent mixtures of atoms, and 
@@ -1025,6 +1028,13 @@ Multiple Entry Types", as well as the following properties:
       Note that concentrations are uncorrelated between different sites (even of the same species).
     * `mass`: OPTIONAL. If present MUST be a float expressed in 
       a.m.u. 
+    * `original_name`: OPTIONAL. Can be any valid unicode string, and SHOULD
+      contain (if specified) the name of the species that is used internally 
+      in the source database. 
+      Note: here with source database we refer to the immediate source 
+      being queried via the OPTIMADE API. The main use of this field is
+      for source databases that use species names containing characters
+      that are not allowed (see description of the the `species_at_site` list).
   * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical
   symbol as species name (e.g. Ti for titanium, O for oxygen, ...).
   However, note that this is OPTIONAL, and
@@ -1090,7 +1100,7 @@ Multiple Entry Types", as well as the following properties:
       ```
     - using multiple species and the assemblies:
       ```
-      "cartesian_site_positions": [[0,0,0], [0,0,0]], 
+      "cartesian_site_positions": [[0,0,0], [0,0,0], [0,0,0]], 
       "species_at_sites": ["Si", "Ge", "vac"], 
       "species": {
         "Si": {"chemical_symbols": ["Si"], "concentration": [1.]}, 
