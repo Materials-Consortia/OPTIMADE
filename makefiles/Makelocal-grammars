@@ -36,7 +36,7 @@ ${GRAMMAR_DEPENDENCIES}: ${MD_FILES}
 	awk '/^${GRAMMAR_START_STRING}/{print "${GRAMMAR_DIR}/"$$5".ebnf:", FILENAME}' $^ > $@
 
 ${GRAMMAR_DIR}/%.ebnf:
-	awk '/^${GRAMMAR_START_STRING}/,/^${GRAMMAR_END_STRING}/' $< > $@
+	awk '/^${GRAMMAR_START_STRING} $*/,/^${GRAMMAR_END_STRING} $*/' $< > $@
 
 .PHONY: tools
 
