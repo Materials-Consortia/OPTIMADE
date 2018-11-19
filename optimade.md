@@ -1029,3 +1029,16 @@ Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 
 (* END EBNF GRAMMAR Filter *)
 ```
+## Appendix 2. The regular expressions to check OPTiMaDe number syntax.
+```
+# The string below contains a Perl-Compatible Regular Expression to recognise
+# numbers as described in the Minimal API specification:
+
+[-+]?(?:\d+(\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?
+
+# The string below contains an Extended Regular Expression to recognise
+# numbers as described in the Minimal API specification:
+
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)?
+
+```
