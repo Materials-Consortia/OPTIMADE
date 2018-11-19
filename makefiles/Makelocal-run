@@ -6,10 +6,6 @@
 #     make run TEXT_TO_PARSE=filter.txt
 #     make run TEXT_TO_PARSE=filter.txt GRAMMAR=grammars/filters.ebnf
 
-#GEN_DIR  ?= generated
-#GRAM_DIR ?= grammars
-
-#GRAMMAR ?= ${GRAM_DIR}/filters.ebnf
 GRAMMAT ?= $(word 1,$(sort ${GRAMMAR_FILES}))
 TEXT_TO_PARSE ?= tests/inputs/filter.txt
 
