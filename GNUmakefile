@@ -16,10 +16,13 @@
 
 # Include local configuration files from this directory:
 
-MAKECONF_EXAMPLES = ${wildcard Makeconf*.example}
+MAKEFILE_DIR = makefiles
+
+MAKECONF_EXAMPLES = ${wildcard ${MAKEFILE_DIR}/Makeconf*.example}
 MAKECONF_FILES = \
 	$(sort \
-		${filter-out %.example,${filter-out %~, ${wildcard Makeconf*}}} \
+		${filter-out %.example, \
+		${filter-out %~, ${wildcard ${MAKEFILE_DIR}/Makeconf*}}} \
 		${MAKECONF_EXAMPLES:%.example=%} \
 	)
 
@@ -43,7 +46,7 @@ all:
 
 # Include Makefiles with additional rules for this directory:
 
-MAKELOCAL_FILES = ${filter-out %~, ${wildcard Makelocal*}}
+MAKELOCAL_FILES = ${filter-out %~, ${wildcard ${MAKEFILE_DIR}/Makelocal*}}
 
 ifneq ("${MAKELOCAL_FILES}","")
 include ${MAKELOCAL_FILES}
