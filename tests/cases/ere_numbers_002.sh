@@ -5,7 +5,7 @@
 
 #BEGIN DEPEND
 
-INPUT_GRAMMAR=generated/numbers.ere
+INPUT_GRAMMAR=tests/generated/numbers.ere
 
 #END DEPEND
 

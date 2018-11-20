@@ -3,6 +3,6 @@
 GRAMMAR=$1
 INPUT_FILE=$2
 
-./tools/grammatiker/BNF/scripts/grammatica-tree \
+./tests/tools/grammatiker/BNF/scripts/grammatica-tree \
     ${GRAMMAR} \
     <(tr -d "\n" < ${INPUT_FILE})

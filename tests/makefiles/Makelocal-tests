@@ -2,6 +2,8 @@
 # Run tests in a test directory (tests/cases by default) and report if
 # all tests pass.
 
+TOOL_DIR ?= tests/tools
+
 BIN_DIR ?= ./tests/scripts/
 
 TEST_DIR = tests/cases
@@ -30,7 +32,7 @@ all: tests
 
 # Automatic dependency generation:
 
-PATH := ${PATH}:tools/mkdepend
+PATH := ${PATH}:${TOOL_DIR}/mkdepend
 
 export PATH
 

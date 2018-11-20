@@ -4,6 +4,8 @@
 
 MD_FILE_DIR ?= .
 
+TOOL_DIR ?= tests/tools
+
 MD_FILES ?= $(wildcard ${MD_FILE_DIR}/*.md)
 
 GRAMMAR_START_STRING ?= \(\* BEGIN EBNF GRAMMAR
@@ -13,7 +15,7 @@ RE_START_STRING ?= \#BEGIN
 RE_END_STRING   ?= \#END
 
 GRAMMARS ?= $(shell awk '/^${GRAMMAR_START_STRING}/{print $$5}' ${MD_FILES})
-GRAMMAR_DIR   ?= generated
+GRAMMAR_DIR   ?= tests/generated
 EBNF_FILES    ?= ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
 GRAMMAR_FILES ?= ${EBNF_FILES:%.ebnf=%.g}
 
@@ -60,7 +62,7 @@ ${GRAMMAR_DIR}/%.pcre:
 .PHONY: tools
 
 ${GRAMMAR_DIR}/%.g: ${GRAMMAR_DIR}/%.ebnf | tools
-	./tools/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
+	${TOOL_DIR}/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
 
 #------------------------------------------------------------------------------
 

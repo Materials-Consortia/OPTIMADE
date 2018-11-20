@@ -5,10 +5,10 @@
 
 #BEGIN DEPEND
 
-INPUT_GRAMMAR=generated/Number.ebnf
+INPUT_GRAMMAR=tests/generated/Number.ebnf
 
 #END DEPEND
 
-./tools/grammatiker/BNF/scripts/grammatica-tree \
-    <(./tools/grammatiker/EBNF/scripts/ebnf2grammatica ${INPUT_GRAMMAR}) \
+tests/tools/grammatiker/BNF/scripts/grammatica-tree \
+    <(tests/tools/grammatiker/EBNF/scripts/ebnf2grammatica ${INPUT_GRAMMAR}) \
     <(echo -n +.1E-123)

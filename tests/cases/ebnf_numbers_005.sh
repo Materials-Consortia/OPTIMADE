@@ -7,7 +7,7 @@ BASENAME="$(basename $0)"
 
 #BEGIN DEPEND
 
-INPUT_GRAMMAR=generated/Number.ebnf
+INPUT_GRAMMAR=tests/generated/Number.ebnf
 
 #END DEPEND
 
@@ -23,12 +23,12 @@ trap "exit 1" HUP INT QUIT TERM
 
 TMP_GRAMMAR="${TMP_DIR}/numbers.g"
 
-./tools/grammatiker/EBNF/scripts/ebnf2grammatica ${INPUT_GRAMMAR} \
+tests/tools/grammatiker/EBNF/scripts/ebnf2grammatica ${INPUT_GRAMMAR} \
     > ${TMP_GRAMMAR}
 
 while read LINE
 do
-    ./tools/grammatiker/BNF/scripts/grammatica-tree \
+    tests/tools/grammatiker/BNF/scripts/grammatica-tree \
         ${TMP_GRAMMAR} \
         <(echo -n ${LINE})
 done < tests/inputs/reals.lst

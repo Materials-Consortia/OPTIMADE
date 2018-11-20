@@ -5,7 +5,7 @@
 
 #BEGIN DEPEND
 
-INPUT_GRAMMAR=generated/numbers.pcre
+INPUT_GRAMMAR=tests/generated/numbers.pcre
 
 #END DEPEND
 
