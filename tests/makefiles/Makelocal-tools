@@ -3,6 +3,8 @@
 # Download and build tools and external depedencies necessary for this
 # directory.
 
+TOOL_DIR = tests/tools
+
 .PHONY: tools
 
 tools: grammatica grammatiker
@@ -13,7 +15,7 @@ GRAMMATICA_VERSION ?= 1.6
 GRAMMATICA_SRV = https://github.com/cederberg/grammatica/releases
 GRAMMATICA_LOC = ${GRAMMATICA_SRV}/download/v${GRAMMATICA_VERSION}
 GRAMMATICA_URL = ${GRAMMATICA_LOC}/grammatica-${GRAMMATICA_VERSION}.zip
-GRAMMATICA_LOG = tools/grammatica-${GRAMMATICA_VERSION}.log
+GRAMMATICA_LOG = ${TOOL_DIR}/grammatica-${GRAMMATICA_VERSION}.log
 GRAMMATICA_TOP = $(shell cd $(dir ${GRAMMATICA_LOG}); pwd)
 GRAMMATICA_DIR = ${GRAMMATICA_TOP}/grammatica-${GRAMMATICA_VERSION}
 GRAMMATICA_ZIP = ${GRAMMATICA_TOP}/grammatica-${GRAMMATICA_VERSION}.zip
@@ -33,7 +35,7 @@ ${GRAMMATICA_LOG}:
 # distclean-grammatica', to prevent unnecessary downloads from the
 # ${GRAMMATICA_SRV} server. Remove it manually using
 #
-# 'rm tools/grammatica-1.6.zip'
+# 'rm ${TOOL_DIR}/grammatica-1.6.zip'
 #
 # or analogous command if you want to refetch the archive:
 
@@ -47,8 +49,8 @@ DISTCLEAN_TARGETS += distclean-grammatica
 
 GRAMMATIKER_REV ?= 129
 GRAMMATIKER_URL = svn://saulius-grazulis.lt/grammatiker/trunk
-GRAMMATIKER_LOG = tools/grammatiker-r${GRAMMATIKER_REV}.log
-GRAMMATIKER_DIR = tools/grammatiker
+GRAMMATIKER_LOG = ${TOOL_DIR}/grammatiker-r${GRAMMATIKER_REV}.log
+GRAMMATIKER_DIR = ${TOOL_DIR}/grammatiker
 
 .PHONY: grammatiker distclean-grammatiker
 

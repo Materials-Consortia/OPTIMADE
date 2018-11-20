@@ -16,7 +16,7 @@
 
 # Include local configuration files from this directory:
 
-MAKEFILE_DIR = makefiles
+MAKEFILE_DIR = tests/makefiles
 
 MAKECONF_EXAMPLES = ${wildcard ${MAKEFILE_DIR}/Makeconf*.example}
 MAKECONF_FILES = \
