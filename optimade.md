@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.5
+# OPTIMADE API specification v0.9.6-develop
 
 [1. Introduction](#h.1) 
  
@@ -230,9 +230,9 @@ Every response MUST contain the following fields:
             },
             "api_version": "v0.9",
             "time_stamp": "2007-04-05T14:30Z",
-            "data_returned": "10",
-            "data_available": "10",
-            "more_data_available": "False"
+            "data_returned": 10,
+            "data_available": 10,
+            "more_data_available": false
           }
           ...
           <additional response items>
@@ -271,10 +271,10 @@ An example of a full response:
     }
     "api_version": "v0.9",  
     "time_stamp": "2007-04-05T14:30Z",  
-    "data_returned": "10",
-    "data_available": "10",
+    "data_returned": 10,
+    "data_available": 10,
     "last_id": "xy10",
-    "more_data_available": "False"
+    "more_data_available": false
   },
   "response_message": "OK",
   <OPTIONAL DB-specific meta_data, global to the query>
@@ -402,7 +402,8 @@ needs the following fields
     * **last\_modified**: an [ISO 8601](https://www.iso.org/standard/40874.html)
       representing the entry's last modification time
     * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID
-  db specific properties need to be prefixed by the db specific prefix
+
+  Database-specific properties need to include the database-specific prefix.
 
 OPTIONALLY it can also contains the following fields:
 
@@ -578,8 +579,9 @@ MUST include the following information in the "data" field:
 
 * **description**: Description of the entry.
 * **properties**: A dictionary describing queryable properties for this entry
-  type, where each key is a property ID, each value is a description of the
-  property, along with the units. 
+  type, where each key is a property ID.
+  Each value is a dictionary, with the required key 'description' and optional
+key 'unit'.
 * **formats**: Output formats available for this type of entry.
 * **output\_fields\_by\_format**: Available output fields for this entry type as
   function of output format.
@@ -594,9 +596,9 @@ Example:
       "description": "a structure",
       "properties": {
         "nelements": {
-          "description": "number of elements"
+          "description": "number of elements",
+          "unit": "MPa"
         },
-        "unit": "MPa",
         ... <other property descriptions>
       },
       "formats": ["json", "xml"],
