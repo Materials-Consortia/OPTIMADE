@@ -3,7 +3,7 @@
 # Download and build tools and external depedencies necessary for this
 # directory.
 
-TOOL_DIR = tests/tools
+TOOL_DIR ?= tests/tools
 
 .PHONY: tools
 
