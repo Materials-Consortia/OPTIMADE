@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.6-develop
+# OPTIMADE API specification v0.9.7-develop
 
 [1. Introduction](#h.1) 
  
@@ -39,6 +39,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. chemical\_formula](#h.6.2.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.4. formula\_prototype](#h.6.2.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. dimension\_types](#h.6.2.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. lattice\_vectors](#h.6.2.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.7. cartesian\_site\_positions](#h.6.2.7)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. 'Calculation' entries](#h.6.3)  
 
@@ -907,6 +913,217 @@ Multiple Entry Types", as well as the following properties:
 * Description: The formula prototype obtained by sorting elements by the
   occurrence number in the **reduced** chemical formula and replace them with
   subsequent alphabet letters A, B, C and so on.
+
+### <a name="h.6.2.5">6.2.5. dimension\_types</a>
+
+* Description: a list of three integers. For each of the three 
+  directions indicated by the three lattice vectors (see property `lattice_vectors`) this list indicates if that direction is periodic (value 1) or non-periodic (value 0). Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors` and *not* the Cartesian x, y, z directions.
+* Requirements: 
+  * This property is REQUIRED.
+  * it MUST be a list of length 3.
+  * each element MUST be an integer and MUST assume only the value 0 or 1.
+* Examples:
+  * For a molecule: `[0, 0, 0]`
+  * For a wire along the direction specified by the third lattice vector: `[0, 0, 1]`
+  * For a 2D surface/slab, periodic on the plane defined by the first and third
+    lattice vector: `[1, 0, 1]`
+  * For a bulk 3D system: `[1, 1, 1]`
+
+### <a name="h.6.2.6">6.2.6. lattice\_vectors</a>
+
+* Description: The three lattice vectors in Cartesian coordinates, in angstrom
+* Requirements/convention: 
+  * This property is REQUIRED, except when `dimension_types` is equal to `[0, 0, 0]` (in this case it is OPTIONAL).
+  * It MUST be a list of three vectors *a*, *b* and *c*, where each of the vectors MUST BE a list of vector's coordinates along the x, y and z Cartesian coordinates. (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates.)
+  * For databases that do not define an absolute Cartesian
+    system (but e.g. define only the length and angles between
+    vectors), the first lattice vector SHOULD be
+    set along `x` and the second on the `xy` plane.
+  * This property MUST be an array of dimensions 3 times 3 regardless of the elements of `dimension_types`. The vectors SHOULD by convention be chosen so the determinant of the `lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+* Examples:
+  * `[[4., 0., 0.], [0., 4., 0.], [0., 1., 4.]]` represents
+    a cell where the first vector is `(4, 0, 0)`,
+    i.e. a vector aligned along the `x` axis of length 4 angstrom; the second
+    vector is `(0,4,0)` and the third vector `(0,1,4)`.
+
+### <a name="h.6.2.7">6.2.7. cartesian\_site\_positions</a>
+
+* Description: Cartesian positions of each site. A site is 
+  an atom, a site potentially occupied by an atom, or a placeholder 
+  for a virtual mixture of atoms
+  (e.g. in a virtual crystal approximation).
+* Requirements: 
+  * This property is REQUIRED.
+  * It MUST be a list of length N times 3, where
+    N is the number of sites in the structure.
+  * An entry MAY have multiple sites at the same Cartesian position
+    (for a relevant use of this, see, e.g., the `assemblies` property).
+* Examples:
+  * `[[0,0,0], [0,0,2]]` indicates a structure with two sites,
+    one sitting at the origin and one along the (positive) `z` axis, 
+    two angstrom away from the origin.
+
+
+### <a name="h.6.2.8">6.2.8. species\_at\_sites</a>
+
+* Description: Name of the species at each site (where values 
+  for sites are specified with the same order of the 
+  `cartesian_site_positions` property). The properties of 
+  the species are found in the `species` property. 
+* Requirements: 
+  * This property is REQUIRED.
+  * It MUST be a list of strings. It MUST have 
+    length equal to the number of sites in the structure (first dimension of the `cartesian_site_positions` list). 
+  * Each string MUST be a 
+    valid key of the dictionary specified by the `species` property.
+    The requirements on this string are the same as for property names, 
+    i.e., it can be of any length, may use upper and lower case letters, 
+    the underscore, and the digits 0-9, but cannot begin with a digit.    
+* Note: 
+  - each site MUST be associated only to a single species.  
+    However, species can represent mixtures of atoms, and 
+    multiple species MAY be defined for the same chemical element. This latter case is useful when different atoms of 
+    the same type need to be grouped or distinguished, for instance in simulation codes to assign different initial 
+    spin states).
+* Examples:
+  * `["Ti", "O2"]` indicates that the first site is 
+    hosting a species labeled `Ti` and the second
+    a species labeled `O2`. 
+
+### <a name="h.6.2.9">6.2.9. species</a>
+
+* Description: a dictionary describing the species
+  of the sites of this structure. Species can be pure 
+  chemical elements, or virtual-crystal atoms representing
+  a statistical occupation of a given site by multiple chemical
+  elements.
+* Requirements/conventions: 
+  * This property is REQUIRED.
+  * It MUST be a dictionary, where keys represent the species name, and values are themselves dictionaries with the following keys:
+    * `chemical_symbols`: REQUIRED; MUST be a list of strings   
+      of all chemical elements composing this species. It MUST be 
+      one of the following:
+      * a valid chemical-element name, or 
+      * the special value `X` to represent a non-chemical element, or
+      * the special value `vacancy` to represent that this site has
+        a non-zero probability of having a vacancy (the respective probability
+        is indicated in the `concentration` list, see below).
+
+    * `concentration`: REQUIRED; MUST be a list of floats, with 
+      same length as `chemical_symbols`. The numbers represent 
+      the relative concentration of the corresponding chemical 
+      symbol in this species. The numbers SHOULD sum to one. 
+      Cases in which the numbers do not sum to one typically fall only
+      in the following two categories:
+      - numerical errors when representing float numbers in fixed
+        precision. E.g., for two chemical symbols with concentration
+        `1/3` and `2/3`, the concentration might look something like
+        `[0.33333333333, 0.66666666666]`. If the client is aware that
+        the sum is not one because of numerical precision, it can 
+        renormalize the values so that the sum is exactly one.
+      - experimental errors in the data present in the database. In this
+        case, it is the responsibility of the client to decide how 
+        to process the data.
+
+      Note that concentrations are uncorrelated between different sites (even of the same species).
+    * `mass`: OPTIONAL. If present MUST be a float expressed in 
+      a.m.u. 
+    * `original_name`: OPTIONAL. Can be any valid unicode string, and SHOULD
+      contain (if specified) the name of the species that is used internally 
+      in the source database. 
+      Note: here with source database we refer to the immediate source 
+      being queried via the OPTIMADE API. The main use of this field is
+      for source databases that use species names containing characters
+      that are not allowed (see description of the the `species_at_site` list).
+  * For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical
+  symbol as species name (e.g. Ti for titanium, O for oxygen, ...).
+  However, note that this is OPTIONAL, and
+  client implementations MUST NOT assume that the key
+  corresponds to a chemical symbol, nor assume that if the
+  species name is a valid chemical symbol, that it represents a 
+  species with that chemical symbol. This means that a species `"C": {"chemical_symbols": ["Ti"], "concentration": [1.0]}` 
+  is valid and represents a titanium species (and *not* a carbon species).
+  * It is NOT RECOMMENDED that a structure includes species that do not have
+    at least one corresponding site. 
+* Examples:
+  * `"Ti": {"chemical_symbols": ["Ti"], "concentration": [1.0]}`: any site with this species is occupied by a Ti atom.
+  * `"Ti": {"chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]}`: any site with this species is occupied by a Ti atom with 90% probability, and has a vacancy with 10% probability.
+  * `"BaCa": {"chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45% probability, a Ca atom with 50% probability, and by a vacancy with 5% probability. The mass of this site is (on average) 88.5 a.m.u.
+  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.}`: any site with this species is occupied by a carbon isotope with mass 12.
+  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this species is occupied by a carbon isotope with mass 13.
+
+
+### <a name="h.6.2.10">6.2.10. assemblies</a>
+
+* Description: A description of groups of sites that are statistically correlated.
+* Requirements: 
+  * This key is OPTIONAL (it is absent if there are no partial occupancies).
+  * Client implementations MUST check its presence (as its presence changes the interpretation of the structure).
+  * If present, it MUST be a list of dictionaries, each of   
+    which represents an assembly and MUST have the following two keys:
+    - `sites_in_groups`: index of the sites (0-based) that belong to each group for each assembly. Example: `[[1], [2]]`: two groups, one with the second site, one with the third. Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth. 
+    - `group_probabilities`:  statistical probability of each group. 
+    It MUST have the same length of `sites_in_groups`. It SHOULD sum to one. 
+    See below for examples of how to specify the probability of the 
+    occurrence of a vacancy. The possible reasons for the values not to sum to
+    one are the same already specified above for the `concentration` of each `species`.
+  * If a site is not present in any group, it means that is
+    is present with 100% probability (as if no assembly was
+    specified)
+  * a site MUST NOT appear in more than one group
+* Examples (for each entry of the assemblies list):
+  * `{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell. Statistically, 30% of the times the first site is present, 70% of the times the second site is present.
+  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: The second and third site are either present together or not present; they form the first group of atoms for this assembly. The second group is formed by the fourth site. Sites of the first group (the second and the third) are never present at the same time of the fourth site. 30% of times sites 1 and 2 are present (and site 3 is absent); 70% of times site 3 is present (and site 1 and 2 are absent).
+* Notes:
+  * Assemblies are essential to represent, for instance, the 
+    situation where an atom can statistically occupy two 
+    different positions (sites).
+  * By defining groups, it is possible to represent for
+    instance the case where a functional molecule (and not just one atom) 
+    is either present or absent (or the case where it it is present in two conformations)
+  * Considerations on virtual alloys and on vacancies: 
+    in the special case of a virtual alloy, these specifications allow two 
+    different, equivalent ways of specifying them. For instance, for a site 
+    at the origin with 30% probability of being occupied by Si, 50% probability 
+    of being occupied by Ge, and 20% of being a vacancy, the following two 
+    representations are possible 
+    - using a single species:
+      ```
+      "cartesian_site_positions": [[0,0,0]], 
+      "species_at_sites": ["SiGe-vac"], 
+      "species": {
+        "SiGe-vac": {
+          "chemical_symbols": ["Si", "Ge", "vacancy"], 
+          "concentration": [0.3, 0.5, 0.2]
+        }
+      }
+      ```
+    - using multiple species and the assemblies:
+      ```
+      "cartesian_site_positions": [[0,0,0], [0,0,0], [0,0,0]], 
+      "species_at_sites": ["Si", "Ge", "vac"], 
+      "species": {
+        "Si": {"chemical_symbols": ["Si"], "concentration": [1.]}, 
+        "Ge": {"chemical_symbols": ["Ge"], "concentration": [1.]}, 
+        "vac": {"chemical_symbols": ["vacancy"], "concentration": [1.]}
+      }, 
+      assemblies: [
+        {
+          "sites_in_groups": [[0], [1], [2]], 
+          "group_probabilities:: [0.3, 0.5, 0.2]
+        }
+      ]
+      ```
+  * It is up to the API provider to decide which representation 
+    to use, typically depending on the internal format in which 
+    the structure is stored. However, given a structure identified by a unique ID, 
+    the API MUST always provide the same representation for it.
+  * The probabilities of occurrence of different assemblies are 
+    uncorrelated. So, for instance in the following case with two assemblies:
+    ` assemblies: [{"sites_in_groups": [[0], [1]], "group_probabilities: [0.2, 0.8]}, {"sites_in_groups": [[2], [3]], "group_probabilities: [0.3, 0.7]}]`
+    site 0 is present with probability 0.2 annd site 1 with probability 0.8 and these two sites are correlated (either site 0 or 1 is present). Similarly, site 2 is present with probability 0.3 and site 3 with probability 0.7 and these two sites are correlated (either site 2 or 3 is present).
+    However, the presence or absence of sites 0 and 1 is not
+    correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3=6% probability; the pair (0, 3) with 0.2\*0.7=14% probability; the pair (1,2) with 0.8\*0.3=24% probability; and the pair (1, 3) with 0.8\*0.7=56% probability).
 
 ## <a name="h.6.3">6.3. 'Calculation' entries</a>
 
