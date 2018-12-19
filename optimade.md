@@ -1155,3 +1155,116 @@ revision of this API specification.
 The initial underscore indicates an identifier that is under a separate
 namespace that is under the ownership of that organisation. Identifiers
 prefixed with underscores will not be used for standardized names.
+
+## Appendix 1. The Filter language EBNF grammar.
+```
+(* BEGIN EBNF GRAMMAR Filter *)
+(* The top-level 'filter' rule: *)
+
+Filter = 
+    Keyword, Expression;
+
+(* Keywords *)
+
+Keyword = "filter=" ;
+
+(* Values *)
+
+Value = Identifier | Number | String ;
+
+(* The white-space: *)
+
+Space = ' ' | '\t' ;
+
+Spaces = Space, { Space } ;
+
+(* Boolean relations: *)
+
+AND = "AND" ; (* a hort-hand for: AND = 'A', 'N', 'D' *)
+NOT = "NOT" ;
+OR = "OR" ;
+
+(* Expressions *)
+
+Expression = AndExpression, [Spaces], [ OR, [Spaces], Expression ] ;
+
+AndExpression = Term, [Spaces], [ AND, [Spaces], AndExpression ];
+
+Term = Comparison |
+       '(', [Spaces], Expression, [Spaces], ')'  |
+       NOT, [Spaces], Term
+       ;
+
+(* OperatorComparison operator tokens: *)
+
+Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
+
+Comparison = Value, [Spaces], Operator, [Spaces], Value;
+
+(* Identifier syntax *)
+
+Identifier = Letter, { Letter | Digit } ;
+
+Letter =
+    'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
+    'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
+    'Y' | 'Z' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' |
+    'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' |
+    'w' | 'x' | 'y' | 'z' | '_'
+;
+
+(* Strings: *)
+
+String = '"', { EscapedChar }, '"' ;
+
+EscapedChar = UnescapedChar | '\', '"' | '\', '\' ;
+
+UnescapedChar = Letter | Digit | Space | Punctuator | UnicodeHighChar ;
+
+Punctuator =
+    '!' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | 
+    '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' |
+    ']' | '^' | '`' | '{' | '|' | '}' | '~'
+;
+
+(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
+   the syntax used is the onw compatible with Grammatica: *)
+
+UnicodeHighChar = ? [^\p{ASCII}] ? ;
+
+(* BEGIN EBNF GRAMMAR Number *)
+(* Number token syntax: *)
+
+Number = [ Sign ] ,
+         ( Digits, [ '.', [ Digits ] ] | '.' , Digits ),
+         [ Exponent ] ;
+
+Exponent =  ( 'e' | 'E' ) , [ Sign ] , Digits ;
+
+Sign = '+' | '-' ;
+
+Digits =  Digit, { Digit } ;
+
+Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
+
+(* END EBNF GRAMMAR Number *)
+(* END EBNF GRAMMAR Filter *)
+```
+## Appendix 2. The regular expressions to check OPTiMaDe number syntax.
+```
+#BEGIN PCRE numbers
+# The string below contains a Perl-Compatible Regular Expression to recognise
+# numbers as described in the Minimal API specification:
+
+[-+]?(?:\d+(\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?
+
+#END PCRE numbers
+
+#BEGIN ERE numbers
+# The string below contains an Extended Regular Expression to recognise
+# numbers as described in the Minimal API specification:
+
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)?
+
+#END ERE numbers
+```

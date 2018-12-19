@@ -1,0 +1,7 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Configure where the testing tools reside. The ${TOOL_DIR} variable,
+# as of 2018-11-20, is used in Makelocal-grammars, Makelocal-run,
+# Makelocal-tests and Makelocal-tools makefiles:
+
+TOOL_DIR = tests/tools

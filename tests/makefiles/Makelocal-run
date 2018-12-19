@@ -1,0 +1,22 @@
+#--*- Makefile -*--
+
+# The 'make run' target for quick testing of grammars:
+
+#     make run
+#     make run TEXT_TO_PARSE=filter.txt
+#     make run TEXT_TO_PARSE=filter.txt GRAMMAR=grammars/filters.ebnf
+
+TOOL_DIR ?= tools/
+
+GRAMMAT ?= $(word 1,$(sort ${GRAMMAR_FILES}))
+TEXT_TO_PARSE ?= tests/inputs/filter.txt
+
+.PHONY: run
+
+run: ${GRAMMAT}
+	awk '{print}' ${TEXT_TO_PARSE}
+	${TOOL_DIR}/grammatiker/BNF/scripts/grammatica-tree $< ${TEXT_TO_PARSE}
+
+${GEN_DIR}/%.g: $(dir ${GRAMMAR})/%.ebnf
+	${TOOL_DIR}/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
+
