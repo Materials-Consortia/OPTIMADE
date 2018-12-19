@@ -30,6 +30,10 @@ ifneq ("${MAKECONF_FILES}","")
 include ${MAKECONF_FILES}
 endif
 
+TOOLS_PATH ?= tests/tools
+
+PATH := ${PATH}:${TOOLS_PATH}
+
 # Make local customisable Makeconfig files:
 
 Makecon%: Makecon%.example
