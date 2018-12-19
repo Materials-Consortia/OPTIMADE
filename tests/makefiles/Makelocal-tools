@@ -12,9 +12,12 @@ tools: grammatica grammatiker
 # Local installation of Grammatica:
 
 GRAMMATICA_VERSION ?= 1.6
-GRAMMATICA_SRV = https://github.com/cederberg/grammatica/releases
-GRAMMATICA_LOC = ${GRAMMATICA_SRV}/download/v${GRAMMATICA_VERSION}
-GRAMMATICA_URL = ${GRAMMATICA_LOC}/grammatica-${GRAMMATICA_VERSION}.zip
+GRAMMATICA_SRV = https://github.com/Materials-Consortia/grammatica/archive
+# The variable below is needed to download a relesed file from
+# https://github.com/cederberg/grammatica/releases/download/v.../v...:
+## GRAMMATICA_LOC = ${GRAMMATICA_SRV}/download/v${GRAMMATICA_VERSION}
+GRAMMATICA_LOC = ${GRAMMATICA_SRV}
+GRAMMATICA_URL = ${GRAMMATICA_LOC}/v${GRAMMATICA_VERSION}.zip
 GRAMMATICA_LOG = ${TOOL_DIR}/grammatica-${GRAMMATICA_VERSION}.log
 GRAMMATICA_TOP = $(shell cd $(dir ${GRAMMATICA_LOG}); pwd)
 GRAMMATICA_DIR = ${GRAMMATICA_TOP}/grammatica-${GRAMMATICA_VERSION}
