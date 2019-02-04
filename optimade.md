@@ -1,7 +1,7 @@
 # OPTIMADE API specification v0.9.7-develop
 
-[1. Introduction](#h.1) 
- 
+[1. Introduction](#h.1)
+
 [2. Term definition](#h.2)
 
 [3. General API requirements and conventions](#h.3)  
@@ -48,7 +48,9 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. 'Calculation' entries](#h.6.3)  
 
-[Appendix: Database-specific namespace prefixes](#h.app)  
+[Appendix 1: Database provider-specific namespace prefixes](#h.app1)  
+[Appendix 2: The Filter language EBNF grammar](#h.app2)  
+[Appendix 3: The regular expressions to check OPTiMaDe number syntax](#h.app3)
 
 # <a name="h.1">1. Introduction</a>
 
@@ -79,9 +81,9 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
-* Database provider: A service that provides a database of materials information.
-* Database-specific prefix: This specification defines a set of
-  database-specific prefixes in its [Appendix](#h.app).
+* Database provider: A service that provides one or more databases of materials information.
+* Database provider-specific prefix: This specification defines a set of
+  database provider-specific prefixes in [Appendix 1](#h.app1).
 * Entry: a type of resource over which a query can be formulated using the API
   (structure, calculations).
 * Property: anything that can be in the filtering of results.
@@ -170,8 +172,8 @@ declare these formats in their 'info' endpoints.
 
 An API implementation MAY return other formats than as specified here.
 These can be implemented and documented however the implementor chooses.
-However, they MUST be prefixed by a database-specific prefix as defined in the
-[Appendix](#h.app).
+However, they MUST be prefixed by a database provider-specific prefix as defined in
+[Appendix 1](#h.app1).
 
 Specifying a **response_format** URL query parameter that selects a
 response format different from JSON API allows the API specification
@@ -223,8 +225,7 @@ Every response MUST contain the following fields:
         * **last\_id**: a string containing the last ID returned.        
         * **response\_message**: OPTIONAL response string from the server.
         * Other OPTIONAL additional information _global to the query_ that is not specified
-          in this document, MUST start with a database-specific prefix as defined in
-          the [Appendix](#h.app).
+          in this document, MUST start with a database provider-specific prefix as defined in [Appendix 1](#h.app1).
     * Example:  
         For a request made to http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2
 
@@ -655,9 +656,9 @@ The following tokens are used in the filter query component:
     * 0\_kvak (starts with a number);
     * "foo bar" (contains space; contains quotes)
     
-    Identifiers that start with an underscore are specific to a database, and
-    MUST be on the format of a database specific prefix as defined in the
-    [Appendix](#h.app).
+    Identifiers that start with an underscore are specific to a database and its
+    provider, and MUST be on the format of a database provider-specific prefix as
+    defined in [Appendix 1](#h.app1).
 
     Examples:
 
@@ -859,9 +860,9 @@ This section defines standard entry types and their properties.
     * 2007-04-05T14:30Z
 * Querying: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
-### <a name="h.6.1.2">6.1.3. database-specific properties</a>
-* Description: Databases are allowed to insert database-specific entries in the output of both standard entry types, and database-specific entry types.
-* Requirements/Conventions: these MUST be prefixed by a database-specific prefix as defined in the [Appendix](#h.app).
+### <a name="h.6.1.3">6.1.3. database provider-specific properties</a>
+* Description: Database providers are allowed to insert database-specific entries in the output of both standard entry types, and database-specific entry types.
+* Requirements/Conventions: these MUST be prefixed by a database provider-specific prefix as defined in [Appendix 1](#h.app1).
 * Examples:
     * \_exmpl\_formula\_sum 
     * \_exmpl\_band\_gap
@@ -1127,26 +1128,61 @@ Multiple Entry Types", as well as the following properties:
 
 ## <a name="h.6.3">6.3. 'Calculation' entries</a>
 
-Calculation entries have the properties described above in "Properties Used by
-Multiple Entry Types".
+Calculation entries have the properties described above in [section '6.1: Properties Used by Multiple Entry Types'](#h.6.1).
 
-## <a name="h.app">Appendix: Database-specific namespace prefixes</a>
+## <a name="h.app1">Appendix 1: Database provider-specific namespace prefixes</a>
 
-This standard refers to database-specific prefixes. These are assigned and
+This standard refers to database provider-specific prefixes. These are assigned and
 included in this standard. The presently assigned prefixes are:
 
-* \_exmpl\_: used for examples, not to be assigned to a real database
-* \_aflow\_: aflow.org
-* \_cam\_: Cambridge databases
-* \_cod\_: crystallography open database
-* \_mcloud\_: materialscloud.org
-* \_mp\_: materialsproject.org
-* \_nmd\_: nomad laboratory
-* \_omdb\_: open materials database
-* \_oqmd\_: open quantum materials database
-* \_pcod\_: predicted crystallography open database
-* \_tcod\_: theoretical crystallography open database
+```YAML
+# BEGIN OPTIMADE PROVIDER LIST
+---
+exmpl:
+  - description: used for examples, not to be assigned to a real database
+  - url: null
+aflow:
+  - description: aflow.org
+  - url: null
+cam:
+  - description: Cambridge databases
+  - url: null
+cod:
+  - description: Crystallography open database
+  - url: http://crystallography.net/cod/optimade/
+mcloud:
+  - description: materialscloud.org
+  - url: null
+mp:
+  - description: materialsproject.org
+  - url: null
+nmd:
+  - description: nomad laboratory
+  - url: null
+omdb:
+  - description: open materials database
+  - url: null
+oqmd:
+  - description: open quantum materials database
+  - url: null
+pcod:
+  - description: predicted crystallography open database
+  - url: null
+tcod:
+  - description: theoretical crystallography open database
+  - url: http://crystallography.net/tcod/optimade/
+...
+# END OPTIMADE PROVIDER LIST
+```
 
+The key of the YAML mappings above represents reserved names for database providers.
+Each key MUST be used by the respective database provider when adding database specific
+entries to their databases.
+As an example, for the `exmpl` the custom string `_exmpl_` MUST be prefixed
+as discussed in [section '6.1.3: database provider-specific properties'](#h.6.1.3)
+
+The above YAML mapping serves as a machine-readable list of OPTiMaDe providers and their
+default database.
 
 API implementations SHOULD NOT make up and use new prefixes not included in
 this standard, but SHOULD rather work to get such prefixes included in a future
@@ -1156,7 +1192,8 @@ The initial underscore indicates an identifier that is under a separate
 namespace that is under the ownership of that organisation. Identifiers
 prefixed with underscores will not be used for standardized names.
 
-## Appendix 1. The Filter language EBNF grammar.
+## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
+
 ```
 (* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
@@ -1250,7 +1287,9 @@ Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
-## Appendix 2. The regular expressions to check OPTiMaDe number syntax.
+
+## <a name="h.app3">Appendix 3. The regular expressions to check OPTiMaDe number syntax.</a>
+
 ```
 #BEGIN PCRE numbers
 # The string below contains a Perl-Compatible Regular Expression to recognise
