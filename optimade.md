@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.7-develop
+# OPTIMADE API specification v0.9.8-develop
 
 [1. Introduction](#h.1)
 
@@ -11,6 +11,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API response schema: common fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.3. API Test databases](#h.3.4)  
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry listing endpoints](#h.4.1.)  
@@ -25,7 +26,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info endpoints](#h.4.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL info endpoint](#h.4.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry listing info endpoints](#h.4.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Custom extension endpoints](#h.4.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Provider-specific 'databases' endpoints](#h.4.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. URL Query Parameters](#h.4.5.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. Response schema](#h.4.5.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom extension endpoints](#h.4.6)  
 [5. API Filtering Format Specification](#h.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical tokens](#h.5.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.2. The filter language syntax](#h.5.2)  
@@ -305,6 +309,17 @@ An example of a full response:
 | 418  | Asked for a non-existent keyword                                      |
 | 422  | Database returned (200) but the translator failed                     |
 
+## <a name="h.3.4">3.4. API test database</a>
+
+The provider MUST supply one OPTiMaDe API test database. This database MAY be empty.
+
+This is a database at a separate OPTiMaDe base URL with example entries
+that reflects a specific OPTiMaDe implementation by the provider.
+
+Its purpose is for centralized testing of the provider's OPTiMaDe API implementation
+and for making sure the provider's OPTiMaDe databases are compliant with the declared
+version of the OPTiMaDe API.
+
 # <a name="h.4">4. API endpoints</a>
 
 The URL component that follows the base URL MUST represent one of the
@@ -314,7 +329,8 @@ following endpoints:
 * a 'single entry' endpoint
 * a general filtering 'all' endpoint that can search all entry types
 * an introspection 'info' endpoint
-* a custom 'extensions' endpoint prefix  
+* a 'databases' endpoint to discover all databases of the provider
+* a custom 'extensions' endpoint prefix
 
 These endpoints are documented below.
 
@@ -536,6 +552,8 @@ The response dictionary MUST include the following fields
 		adhere to the rules in [section '3.1. Base URL'](#h.3.1).
     * **formats**: a list of available output formats.
     * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
+    * **available\_endpoints**: a list of available endpoint names (i.e., the string to
+    be appended to the OPTiMaDe base URL).
 
 Example:
 
@@ -569,7 +587,8 @@ Example:
         "available_endpoints": [
           "entry",
           "all",
-          "info"
+          "info",
+          "databases"
         ]
       }
     }
@@ -618,7 +637,104 @@ Example:
 }
 ```
 
-## <a name="h.4.5">4.5. Custom extension endpoints</a>
+## <a name="h.4.5">4.5. Provider-specific 'databases' endpoint</a>
+
+The provider-specific databases endpoint is a common endpoint for all OPTiMaDe databases
+related to a single database provider.
+In short, the response MUST be identical across all OPTiMaDe APIs of one provider.
+
+It may be considered as an introspection endpoint, similar to the `info` endpoint,
+but at a provider level: that is, `info` endpoints provide information on the given 
+database, while the `databases` endpoint provides information on the database provider (in particular, the list of its OPTiMaDe databases).
+
+The endpoint MUST be provided at the path `<base_url>/databases`.
+
+### <a name="h.4.5.1">4.5.1. URL Query Parameters</a>
+
+Same as for [single entry endpoints](#h.4.2.1).
+
+### <a name="h.4.5.2">4.5.2. Response schema</a>
+
+The response dictionary MUST include the following fields
+
+* **type**: MUST be `databases`
+* **id**: `/`
+* **attributes**: a dictionary containing the following fields:
+  * **provider_name**: a short name for the database provider.
+  * **provider_description**: a longer description of the database provider.
+  * **provider_prefix**: database-provider-specific prefix as found in
+  [appendix 1: Database-provider-specific namespace prefixes](#h.app1).
+  * **provider_optimade_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
+    pointing to the `optimade_url` for the provider as specified in [appendix 1](#h.app1), either
+    directly as a string, or as a link object which can contain the following members:
+    * `href`: a string containing the `optimade_url` for the provider.
+    * `meta`: a meta object containing non-standard meta-information about this link.
+  * **databases**: a dictionary. MUST contain *at least* a single key-value pair, where the key is a
+  provider-chosen database name and the value is a dictionary containing:
+    * **database_id**: an OPTIONAL field containing the provider's local database ID.
+    * **base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
+      pointing to the OPTiMaDe base URL for this database, either directly as a string, or as a link
+      object which can contain the following members:
+      * `href`: a string containing the OPTiMaDe base URL.
+      * `meta`: a meta object containing non-standard meta-information about the database.
+  
+  * The `attributes` dictionary MAY also include these OPTIONAL items:
+  
+  * **provider_homepage**: a [JSON API Links object](http://jsonapi.org/format/#document-links),
+  pointing to the homepage of the provider,  either directly as a string, or as a link object which
+  can contain the following members:
+    * `href`: a string containing the homepage URL.
+    * `meta`: a meta object containing non-standard meta-information about the provider's homepage.
+  * **default_database**: a key in the *databases* dictionary that represents the
+    provider-chosen default database.
+
+Example:
+
+```json
+{
+  ... <other response items> ...
+  "data": [
+    {
+      "type": "databases",
+      "id": "/",
+      "attributes": {
+        "provider_name": "Example provider",
+        "provider_description": "Provider used for examples, not to be assigned to a real database",
+        "provider_prefix": "exmpl",
+        "provider_optimade_url": "http://example.com/testDB/optimade/",
+        "databases": {
+          "main": {
+            "database_id": "xuowd3883281",
+            "base_url": {
+              "href": "http://example.com/mainDB/optimade/v0.9/",
+              "meta": {
+                "_exmpl_db_version": "3.2.1",
+                "_exmpl_entries_count": "168532"
+              }
+            }
+          },
+          "test": {
+            "base_url": "http://example.com/testDB/optimade/"
+          },
+          "third": {
+            "database_id": "123eadf57",
+            "base_url": {
+              "href": "http://example.com/thirdDB/optimade/v1/",
+              "meta": {
+                "_exmpl_db_version": "1.2.3"
+              }
+            }
+          }
+        },
+        "provider_homepage": "http://example.com",
+        "default_database": "main",
+      }
+    }
+  ]
+}
+```
+
+## <a name="h.4.6">4.6. Custom extension endpoints</a>
 
 API implementors can provide custom endpoints, in this form
 "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
@@ -1146,7 +1262,7 @@ The presently assigned prefixes are:
 ---
 exmpl:
   description: used for examples, not to be assigned to a real database
-  optimade_url: null
+  optimade_url: http://example.com/testDB/optimade/databases/
 aflow:
   description: aflow.org
   optimade_url: null
@@ -1194,6 +1310,12 @@ revision of this API specification.
 The initial underscore indicates an identifier that is under a separate
 namespace that is under the ownership of that organisation. Identifiers
 prefixed with underscores will not be used for standardized names.
+
+The value for `description` is a short human-readable description of the database provider.
+
+The value for `optimade_url` MUST be the URI of the `databases` endpoint (see
+[section 3.4 API test database](#h.3.4)) of the provider's test database (see
+[section 4.5 Provider-specific 'databases' endpoint](#h.4.5)).
 
 ## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
 
