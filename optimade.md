@@ -303,7 +303,7 @@ An example of a full response:
 
 Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, i.e. have the value 'null' within a JSON file or SQL database.
 
-Unset properties MUST not be returned in the response unless explicitly requested in the search query.
+Unset properties MUST NOT be returned in the response unless explicitly requested in the search query.
 Any comparisons involving unset properties MUST be evaluated as false,
 i.e. by definition the value of 'null' is outside of any defined search range.
 
