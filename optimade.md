@@ -545,7 +545,12 @@ The response dictionary MUST include the following fields
 	        * **provider_name**: a short name for the database provider.
 	        * **provider_description**: a longer description of the database provider.
 	        * **provider_prefix**: an OPTIONAL field giving the database-provider-specific prefix as found in
-	            [appendix 1: Database-provider-specific namespace prefixes](#h.app1).
+	            [appendix 1: Database-provider-specific namespace prefixes](#h.app1)
+	        * **provider_homepage**: OPTIONAL, a [JSON API Links object](http://jsonapi.org/format/#document-links)
+	            pointing to the homepage of the provider,  either directly as a string, or as a link object which
+	            can contain the following members:
+	                * `href`: a string containing the homepage URL.
+	                * `meta`: a meta object containing non-standard meta-information about the provider's homepage.
 	        * **api_id**: an OPTIONAL field containing the provider's local ID.
     * **formats**: a list of available output formats.
     * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
