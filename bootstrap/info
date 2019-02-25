@@ -12,6 +12,9 @@
             "type": "api",
             "api_base_uri": "https://raw.githubusercontent.com/Materials-Consortia/OPTiMaDe/simple-discovery/bootstrap/",
             "api_description":["Top level entry point to find optimade compatible apis"]
+            "provider_name": "Optimade",
+            "provider_description": "Root optimade provider",
+            "api_id": "root_db"
           }
         ]
         "formats": [

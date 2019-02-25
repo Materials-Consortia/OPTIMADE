@@ -542,6 +542,11 @@ The response dictionary MUST include the following fields
 	        * **api\_base\_uri**: a string containing an url.
 	            The provided url MUST adhere to the rules of [section '3.1. Base URL'](#h.3.1).
 	        * **api\_description**: a list of strings providing a human readable description in markdown format of the content available through the API
+	        * **provider_name**: a short name for the database provider.
+	        * **provider_description**: a longer description of the database provider.
+	        * **provider_prefix**: an OPTIONAL field giving the database-provider-specific prefix as found in
+	            [appendix 1: Database-provider-specific namespace prefixes](#h.app1).
+	        * **api_id**: an OPTIONAL field containing the provider's local ID.
     * **formats**: a list of available output formats.
     * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
     * **info\_description**: a list of strings providing a human readable description in markdown format of the content available through this API.
