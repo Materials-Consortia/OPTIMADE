@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.7-develop
+# OPTIMADE API specification v0.9.8-develop
 
 [1. Introduction](#h.1)
 
@@ -534,8 +534,17 @@ The response dictionary MUST include the following fields
     * **available\_api\_versions**: a dictionary where values are the base URLs for the versions of the API that are supported, 
 	    and the keys are strings giving the full version number provided by that base URL. Provided base urls MUST
 		adhere to the rules in [section '3.1. Base URL'](#h.3.1).
+	* **acknowledged\_apis**: List of Optimade APIs that are aknowledged by the implementor of this API.
+	    These should not be just the known APIs, but somehow connected to the implementor of this API, for example managed by him.
+	    An entry describing the current API MIGHT be present.
+	    Each api is described by an oject with the following attributes:
+	        * **type**: optional, SHOULD be "api"
+	        * **api\_base\_uri**: a string containing an url.
+	            The provided url MUST adhere to the rules of [section '3.1. Base URL'](#h.3.1).
+	        * **api\_description**: a list of strings providing a human readable description in markdown format of the content available through the API
     * **formats**: a list of available output formats.
     * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
+    * **info\_description**: a list of strings providing a human readable description in markdown format of the content available through this API.
 
 Example:
 

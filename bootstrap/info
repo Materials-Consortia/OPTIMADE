@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "type": "info",
+      "id": "/",
+      "attributes": {
+        "api_version": "v0.9.8",
+        "available_api_versions": {
+        },
+        "acknowledged_apis":[
+          {
+            "type": "api",
+            "api_base_uri": "https://raw.githubusercontent.com/Materials-Consortia/OPTiMaDe/simple-discovery/bootstrap/",
+            "api_description":["Top level entry point to find optimade compatible apis"]
+          }
+        ]
+        "formats": [
+          "json"
+        ],
+        "entry_types_by_format": {
+          "json": []
+        },
+        "available_endpoints": [
+          "info"
+        ],
+        "info_description":[
+          "Top level entry point to find optimade compatible apis"
+        ]
+      }
+    }
+  ]
+}
