@@ -11,7 +11,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API response schema: common fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[3.3. API Test databases](#h.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index database](#h.3.4)  
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry listing endpoints](#h.4.1.)  
@@ -26,9 +26,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info endpoints](#h.4.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL info endpoint](#h.4.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry listing info endpoints](#h.4.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Provider-specific 'databases' endpoints](#h.4.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Databases endpoint](#h.4.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. URL Query Parameters](#h.4.5.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. Response schema](#h.4.5.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. Provider-specific 'databases/siblings' endpoint](#h.4.5.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3.1. URL Query Parameters](#h.4.5.3.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3.2. Response schema](#h.4.5.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom extension endpoints](#h.4.6)  
 [5. API Filtering Format Specification](#h.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical tokens](#h.5.1)  
@@ -88,6 +91,10 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * Database provider: A service that provides one or more databases of materials information.
 * Database-provider-specific prefix: This specification defines a set of
   database-provider-specific prefixes in [Appendix 1](#h.app1).
+* Database: a set of data provided by a database provider. Each database
+  will be accessible via a unique base URL, as described in [section '3.1. Base 
+  URL'](#h.3.1). 
+* Sibling databases: the set of databases offered by the same database provider.
 * Entry: a type of resource over which a query can be formulated using the API
   (structure, calculations).
 * Property: anything that can be in the filtering of results.
@@ -98,7 +105,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * Immutable ID: a unique identifier that specifies a specific resource in a
   database that MUST be immutable.
 * Reserved words: the list of reserved words in this standard is: info.
-* Property Types :
+* Property Types:
     * **string**, **integer**, **float**, **boolean**, **null value**: base data
       types as defined in more detail in [section '5.1. Lexical
       tokens'](#h.5.1).
@@ -111,8 +118,9 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
 ## <a name="h.3.1">3.1. Base URL</a>
 
-Each database provider will publish a base URL that serves the API. An
-example could be: http://example.com/optimade/. Every URL component
+Each database provider will publish a base URL that serves the API for
+each of its databases. An example could be: 
+http://example.com/optimade/database_name. Every URL component
 that follows the base URL MUST behave as standardized in this API
 specification.
 
@@ -309,16 +317,17 @@ An example of a full response:
 | 418  | Asked for a non-existent keyword                                      |
 | 422  | Database returned (200) but the translator failed                     |
 
-## <a name="h.3.4">3.4. API test database</a>
+## <a name="h.3.4">3.4. Index database</a>
 
-The provider MUST supply one OPTiMaDe API test database. This database MAY be empty.
+The provider MUST supply one OPTiMaDe API base URL for an "index" database. 
+This database MUST be empty.
 
-This is a database at a separate OPTiMaDe base URL with example entries
-that reflects a specific OPTiMaDe implementation by the provider.
-
-Its purpose is for centralized testing of the provider's OPTiMaDe API implementation
-and for making sure the provider's OPTiMaDe databases are compliant with the declared
-version of the OPTiMaDe API.
+It MUST provide at least the `info` and `databases` endpoints. These do not
+need to be querable, i.e., they MAY be provided as static JSON files. However,
+they MUST return the correct and updated information on all sibling databases
+for the current provided, as the main purpose of the "index" database API endpoint
+it to allow for automatic discoverability of all sibling databases of a given 
+provider, see [appendix 1](#h.app1).
 
 # <a name="h.4">4. API endpoints</a>
 
@@ -329,7 +338,8 @@ following endpoints:
 * a 'single entry' endpoint
 * a general filtering 'all' endpoint that can search all entry types
 * an introspection 'info' endpoint
-* a 'databases' endpoint to discover all databases of the provider
+* a 'databases' endpoint to discover related databases, including all 
+  sibling databases of the provider
 * a custom 'extensions' endpoint prefix
 
 These endpoints are documented below.
@@ -475,8 +485,10 @@ that ID.
 
 If using the JSON API format, the ID component MUST be the content of the id field.
 
-Note that entries cannot have an ID of 'info', as this would collide with the
-'Info' endpoint (described in [section '4.4. Info endpoints'](#h.4.4)) for a given entry type.
+Note that some IDs for entries are reserved, as they would collide with other
+endpoints defined by the specification: e.g. 'info', colliding with the endpoint 
+described in [section '4.4. Info endpoint'](#h.4.4), or 'databases', colliding 
+with the endpoint described in [section '4.5. Databases endpoint'](#h.4.5) .
 
 Examples:
 
@@ -554,10 +566,24 @@ The response dictionary MUST include the following fields
     * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
     * **available\_endpoints**: a list of available endpoint names (i.e., the string to
     be appended to the OPTiMaDe base URL).
+    * **provider_name**: a short name for the database provider.
+    * **provider_description**: a longer description of the database provider.
+    * **provider_prefix**: database-provider-specific prefix as found in
+    [appendix 1: Database-provider-specific namespace prefixes](#h.app1).
+    * **provider_index_base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
+      pointing to the `base_url` for the `index` databae of the provider as specified in [appendix 1](#h.app1), either
+      directly as a string, or as a link object which can contain the following members:
+      * `href`: a string containing the `index_base_url` for the provider.
+      * `meta`: a meta object containing non-standard meta-information about this link.
+    * **provider_homepage**: OPTIONAL, a [JSON API Links object](http://jsonapi.org/format/#document-links),
+    pointing to the homepage of the provider,  either directly as a string, or as a link object which
+    can contain the following members:
+      * `href`: a string containing the homepage URL.
+      * `meta`: a meta object containing non-standard meta-information about the provider's homepage.
 
 Example:
 
-```
+```json
 {
   ... <other response items> ...
   "data": [
@@ -589,7 +615,12 @@ Example:
           "all",
           "info",
           "databases"
-        ]
+        ],
+        "provider_name": "Example provider",
+        "provider_description": "Provider used for examples, not to be assigned to a real database",
+        "provider_prefix": "exmpl",
+        "provider_index_base_url": "http://example.com/optimade/index/",
+        "provider_homepage": "http://example.com"
       }
     }
   ]
@@ -637,15 +668,10 @@ Example:
 }
 ```
 
-## <a name="h.4.5">4.5. Provider-specific 'databases' endpoint</a>
+## <a name="h.4.5">4.5. Databases endpoint</a>
 
-The provider-specific databases endpoint is a common endpoint for all OPTiMaDe databases
-related to a single database provider.
-In short, the response MUST be identical across all OPTiMaDe APIs of one provider.
-
-It may be considered as an introspection endpoint, similar to the `info` endpoint,
-but at a provider level: that is, `info` endpoints provide information on the given 
-database, while the `databases` endpoint provides information on the database provider (in particular, the list of its OPTiMaDe databases).
+This endpoint collects sub-endpoints to get information on other databases
+known by the current one.
 
 The endpoint MUST be provided at the path `<base_url>/databases`.
 
@@ -660,33 +686,9 @@ The response dictionary MUST include the following fields
 * **type**: MUST be `databases`
 * **id**: `/`
 * **attributes**: a dictionary containing the following fields:
-  * **provider_name**: a short name for the database provider.
-  * **provider_description**: a longer description of the database provider.
-  * **provider_prefix**: database-provider-specific prefix as found in
-  [appendix 1: Database-provider-specific namespace prefixes](#h.app1).
-  * **provider_optimade_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
-    pointing to the `optimade_url` for the provider as specified in [appendix 1](#h.app1), either
-    directly as a string, or as a link object which can contain the following members:
-    * `href`: a string containing the `optimade_url` for the provider.
-    * `meta`: a meta object containing non-standard meta-information about this link.
-  * **databases**: a dictionary. MUST contain *at least* a single key-value pair, where the key is a
-  provider-chosen database name and the value is a dictionary containing:
-    * **database_id**: an OPTIONAL field containing the provider's local database ID.
-    * **base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
-      pointing to the OPTiMaDe base URL for this database, either directly as a string, or as a link
-      object which can contain the following members:
-      * `href`: a string containing the OPTiMaDe base URL.
-      * `meta`: a meta object containing non-standard meta-information about the database.
-  
-  * The `attributes` dictionary MAY also include these OPTIONAL items:
-  
-  * **provider_homepage**: a [JSON API Links object](http://jsonapi.org/format/#document-links),
-  pointing to the homepage of the provider,  either directly as a string, or as a link object which
-  can contain the following members:
-    * `href`: a string containing the homepage URL.
-    * `meta`: a meta object containing non-standard meta-information about the provider's homepage.
-  * **default_database**: a key in the *databases* dictionary that represents the
-    provider-chosen default database.
+  * **available\_endpoints**: a list of available endpoint names (i.e., the string to
+    be appended to the OPTiMaDe 'database' URL). Only `siblings` is allowed in
+    the current specification.
 
 Example:
 
@@ -698,35 +700,91 @@ Example:
       "type": "databases",
       "id": "/",
       "attributes": {
-        "provider_name": "Example provider",
-        "provider_description": "Provider used for examples, not to be assigned to a real database",
-        "provider_prefix": "exmpl",
-        "provider_optimade_url": "http://example.com/testDB/optimade/",
-        "databases": {
+        "available_endpoints": [
+          "siblings"
+        ]
+      }
+    }
+  ]
+}
+```
+
+### <a name="h.4.5.3">4.5.3. Provider-specific 'databases/siblings' endpoint</a>
+
+The provider-specific databases endpoint is a common endpoint for all OPTiMaDe databases
+related to a single database provider.
+In short, the response MUST be identical across all OPTiMaDe APIs of one provider.
+
+It may be considered as an introspection endpoint, similar to the `info` endpoint,
+but at a provider level: that is, `info` endpoints provide information on the given 
+database, while the `databases/siblings` endpoint provides information on the 
+database provider (in particular, the list of its OPTiMaDe databases).
+
+The endpoint MUST be provided at the path `<base_url>/databases/siblings`.
+
+#### <a name="h.4.5.3.1">4.5.3.1. URL Query Parameters</a>
+
+Same as for [single entry endpoints](#h.4.2.1).
+
+#### <a name="h.4.5.3.2">4.5.3.2. Response schema</a>
+
+The response dictionary MUST include the following fields
+
+* **type**: MUST be `databases`
+* **id**: `siblings/`
+* **attributes**: a dictionary containing the following fields:
+  * **siblings**: a dictionary of sibling databases for the current provider. MUST contain *at least* a single key-value pair, where the key is a
+  provider-chosen database name and the value is a dictionary containing:
+    * **database_id**: an OPTIONAL field containing the provider's local database ID.
+      Even in the case where the `base_url` for a database is changed by the 
+      provider, the corresponding `database_id` SHOULD NOT be changed, if specified.
+    * **base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
+      pointing to the OPTiMaDe base URL for this database, either directly as a string, or as a link
+      object which can contain the following members:
+      * `href`: a string containing the OPTiMaDe base URL.
+      * `meta`: a meta object containing non-standard meta-information about the database.
+  * **index_database**: a key in the *databases* dictionary that represents the
+    provider-chosen index database, as defined in [section 3.4 Index database](#h.3.4).
+
+  * The `attributes` dictionary MAY also include these OPTIONAL items:
+    * **default_database**: a key in the *databases* dictionary that represents the
+      provider-chosen default database, if any.
+
+Example:
+
+```json
+{
+  ... <other response items> ...
+  "data": [
+    {
+      "type": "databases",
+      "id": "siblings/",
+      "attributes": {
+        "siblings": {
           "main": {
             "database_id": "xuowd3883281",
             "base_url": {
-              "href": "http://example.com/mainDB/optimade/v0.9/",
+              "href": "http://example.com/optimade/mainDB/v0.9/",
               "meta": {
                 "_exmpl_db_version": "3.2.1",
                 "_exmpl_entries_count": "168532"
               }
             }
           },
-          "test": {
-            "base_url": "http://example.com/testDB/optimade/"
+          "index": {
+            "base_url": "http://example.com/optimade/index/"
           },
           "third": {
             "database_id": "123eadf57",
             "base_url": {
-              "href": "http://example.com/thirdDB/optimade/v1/",
+              "href": "http://example.com/optimade/thirdDB/v1/",
               "meta": {
                 "_exmpl_db_version": "1.2.3"
               }
             }
           }
         },
-        "provider_homepage": "http://example.com",
+        "index_database": "index",
         "default_database": "main",
       }
     }
@@ -1262,37 +1320,37 @@ The presently assigned prefixes are:
 ---
 exmpl:
   description: used for examples, not to be assigned to a real database
-  optimade_url: http://example.com/testDB/optimade/databases/
+  index_base_url: http://example.com/optimade/index/
 aflow:
   description: aflow.org
-  optimade_url: null
+  index_base_url: null
 cam:
   description: Cambridge databases
-  optimade_url: null
+  index_base_url: null
 cod:
   description: Crystallography open database
-  optimade_url: null
+  index_base_url: null
 mcloud:
   description: materialscloud.org
-  optimade_url: null
+  index_base_url: null
 mp:
   description: materialsproject.org
-  optimade_url: null
+  index_base_url: null
 nmd:
   description: nomad laboratory
-  optimade_url: null
+  index_base_url: null
 omdb:
   description: open materials database
-  optimade_url: null
+  index_base_url: null
 oqmd:
   description: open quantum materials database
-  optimade_url: null
+  index_base_url: null
 pcod:
   description: predicted crystallography open database
-  optimade_url: null
+  index_base_url: null
 tcod:
   description: theoretical crystallography open database
-  optimade_url: null
+  index_base_url: null
 ...
 # END OPTIMADE PROVIDER LIST
 ```
@@ -1313,9 +1371,10 @@ prefixed with underscores will not be used for standardized names.
 
 The value for `description` is a short human-readable description of the database provider.
 
-The value for `optimade_url` MUST be the URI of the `databases` endpoint (see
-[section 3.4 API test database](#h.3.4)) of the provider's test database (see
-[section 4.5 Provider-specific 'databases' endpoint](#h.4.5)).
+The value for `index_base_url` MUST be the base URL of the index database (see
+[section 3.4 Index database](#h.3.4)). This allows discovery of all sibling
+databases (for the given provider) by using the `databases/siblings` endpoint (see
+[section 4.5 Databases endpoint](#h.4.5)).
 
 ## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
 
