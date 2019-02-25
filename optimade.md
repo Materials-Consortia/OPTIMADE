@@ -1308,73 +1308,36 @@ Calculation entries have the properties described above in [section '6.1: Proper
 
 ## <a name="h.app1">Appendix 1: Database-provider-specific namespace prefixes</a>
 
-This standard refers to database-provider-specific prefixes. These are assigned and
-included in this standard.
+This standard refers to database-provider-specific prefixes. These are assigned and included in this standard.
 
-The database-provider-specific prefixes are listed below as a YAML mapping
-and serves as a machine-readable list of OPTiMaDe providers.
-The presently assigned prefixes are:
-
-```YAML
-# BEGIN OPTIMADE PROVIDER LIST
----
-exmpl:
-  description: used for examples, not to be assigned to a real database
-  index_base_url: http://example.com/optimade/index/
-aflow:
-  description: aflow.org
-  index_base_url: null
-cam:
-  description: Cambridge databases
-  index_base_url: null
-cod:
-  description: Crystallography open database
-  index_base_url: null
-mcloud:
-  description: materialscloud.org
-  index_base_url: null
-mp:
-  description: materialsproject.org
-  index_base_url: null
-nmd:
-  description: nomad laboratory
-  index_base_url: null
-omdb:
-  description: open materials database
-  index_base_url: null
-oqmd:
-  description: open quantum materials database
-  index_base_url: null
-pcod:
-  description: predicted crystallography open database
-  index_base_url: null
-tcod:
-  description: theoretical crystallography open database
-  index_base_url: null
-...
-# END OPTIMADE PROVIDER LIST
-```
-
-The key of the YAML mappings represents reserved names for database providers.
-Each key MUST be used by the respective database provider when adding database specific
-entries to their databases.
-As an example, for `exmpl` the custom string `_exmpl_` MUST be prefixed
-as discussed in [section '6.1.3: database-provider-specific properties'](#h.6.1.3)
-
-API implementations SHOULD NOT make up and use new prefixes not included in
-this standard, but SHOULD rather work to get such prefixes included in a future
-revision of this API specification.
+API implementations SHOULD NOT make up and use new prefixes not 
+included in this standard, but SHOULD rather work to get such 
+prefixes included in a future revision of this API specification.
 
 The initial underscore indicates an identifier that is under a separate
 namespace that is under the ownership of that organisation. Identifiers
 prefixed with underscores will not be used for standardized names.
 
-The value for `description` is a short human-readable description of the database provider.
+The database-provider-specific prefixes currently assigned are listed in the `providers.json` file provided in the same GitHub repository as the this specification. This file serves as a machine-readable list of OPTiMaDe providers.
 
-The value for `index_base_url` MUST be the base URL of the index database (see
-[section 3.4 Index database](#h.3.4)). This allows discovery of all sibling
-databases (for the given provider) by using the `databases/siblings` endpoint (see
-[section 4.5 Databases endpoint](#h.4.5)).
+The content of this `providers.json` file follows the same JSON-API
+specifications as the rest of the API, in particular the content is a dictionary that MUST include the following fields:
+
+* **type**: MUST be "providers"
+* **id**: "/"
+* **attributes**: a dictionary containing the following fields:
+    * **api\_version**: Presently used version of the API.
+    * **formats**: a list of available output formats.
+    * **providers**: a dictionary of registered providers. The keys 
+      represent reserved prefixes for database providers. Each key MUST be used by the respective database provider when adding database-specific entries to their databases. 
+      As an example, for `exmpl` the custom string `_exmpl_` MUST be prefixed as discussed in [section '6.1.3: database-provider-specific properties'](#h.6.1.3).
+      The value for each provider is a dictionary that MUST contain two fields:
+
+      * **description**: a short human-readable description of the database provider.
+      * **index_base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links) pointing to the base URL of the index database of the provider (see [section 3.4 Index database](#h.3.4)). This allows discovery of all sibling databases (for the given provider) by using the `databases/siblings` endpoint (see [section 4.5 Databases endpoint](#h.4.5)). If a provider has just registered its name but has not implemented an index API, then this field MUST have value `null`. This field can be specified
+      either directly as a string, or as a link object which can contain the following members:
+        * `href`: a string containing the base URL of the index database the provider.
+        * `meta`: a meta object containing non-standard meta-information about this link.
 
 ## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
 

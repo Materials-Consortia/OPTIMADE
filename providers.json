@@ -1,0 +1,60 @@
+{
+   "data" : [
+      {
+         "type" : "providers",
+         "id" : "/",
+         "attributes" : {
+            "api_version": "v0.9.8",
+            "formats" : [
+               "json"
+            ],
+            "providers" : {
+               "mp" : {
+                  "description" : "materialsproject.org",
+                  "index_base_url" : null
+               },
+               "cod" : {
+                  "description" : "Crystallography open database",
+                  "index_base_url" : null
+               },
+               "mcloud" : {
+                  "index_base_url" : null,
+                  "description" : "materialscloud.org"
+               },
+               "aflow" : {
+                  "description" : "aflow.org",
+                  "index_base_url" : null
+               },
+               "oqmd" : {
+                  "description" : "open quantum materials database",
+                  "index_base_url" : null
+               },
+               "exmpl" : {
+                  "description" : "used for examples, not to be assigned to a real database",
+                  "index_base_url" : "http://example.com/optimade/index/"
+               },
+               "nmd" : {
+                  "index_base_url" : null,
+                  "description" : "nomad laboratory"
+               },
+               "pcod" : {
+                  "description" : "predicted crystallography open database",
+                  "index_base_url" : null
+               },
+               "tcod" : {
+                  "description" : "theoretical crystallography open database",
+                  "index_base_url" : null
+               },
+               "omdb" : {
+                  "description" : "open materials database",
+                  "index_base_url" : null
+               },
+               "cam" : {
+                  "index_base_url" : null,
+                  "description" : "Cambridge databases"
+               }
+            }
+         }
+      }
+   ]
+}
