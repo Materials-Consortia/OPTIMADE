@@ -17,5 +17,6 @@ install: []
 script:
     - make --version
     - make tools
+    - make grammars
     - make tests
     - exit $(make listdiff | head | wc -l)
