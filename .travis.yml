@@ -1,0 +1,16 @@
+sudo: required
+
+dist: trusty
+language: perl
+
+addons:
+    apt:
+        packages:
+            - unzip
+            - default-jdk
+
+# Skip cpanm installation
+install: []
+
+script:
+    - make tests
