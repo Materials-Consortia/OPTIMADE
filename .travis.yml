@@ -19,4 +19,5 @@ script:
     - make tools
     - make grammars
     - make tests
+    - make listdiff
     - exit $(make listdiff | head | wc -l)
