@@ -4,8 +4,6 @@ Number(9999)
     TOKEN_1(9999): "-", line: 1, col: 1
   Digits(9999)
     Digit(9999)
-      TOKEN_3(9999): "0", line: 1, col: 2
-  TOKEN_2(9999): ".", line: 1, col: 3
   Digits(9999)
     Digit(9999)
       TOKEN_6(9999): "3", line: 1, col: 4
