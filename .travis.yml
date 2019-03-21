@@ -8,11 +8,14 @@ addons:
         packages:
             - unzip
             - default-jdk
+            - subversion
 
 # Skip cpanm installation
 install: []
 
 script:
     - make --version
+    - make -n
     - make -n tests
+    - make
     - make tests 2>&1 | tee make.log && if grep FAILED make.log; then exit 123; fi
