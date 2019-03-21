@@ -6,6 +6,7 @@ language: perl
 addons:
     apt:
         packages:
+            - ant
             - unzip
             - default-jdk
             - subversion
