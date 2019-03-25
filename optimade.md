@@ -28,8 +28,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry listing info endpoints](#h.4.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links endpoint](#h.4.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. Response schema](#h.4.5.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. 'parent' and 'child' objects](#h.4.5.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. Index links endpoint](#h.4.5.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. 'parent' and 'child' objects](#h.4.5.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. 'provider' objects](#h.4.5.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index links endpoint](#h.4.5.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom extension endpoints](#h.4.6)  
 
 [5. API Filtering Format Specification](#h.5)  
@@ -775,11 +776,11 @@ immediately related databases and implementations (in particular, an array of no
 For `links` endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY optionally handle the parameters specified in [single entry endpoints](#h.4.2.1).
 
-### <a name="h.4.5.1">4.5.1 Response schema</a>
+### <a name="h.4.5.1">4.5.1. Response schema</a>
 
 The response objects MUST include the following members:
 
-* **type**: MUST be either `"parent"` or `"child"`
+* **type**: MUST be either `"parent"`, `"child"`, or `"provider"`
 
   These objects are described in detail in section [4.5.2 'parent' and 'child' objects](#h.4.5.2).
 
@@ -787,6 +788,8 @@ The response objects MUST include the following members:
 * **attributes**: a dictionary field that MUST contain the following members:
   * **name**: A human-readable name for the OPTiMaDe API implementation a client may provide in a list
   to an end-user.
+  * **description**: A human-readable description for the OPTiMaDe API
+  implementation a client may provide in a list to an end-user.
   * **base\_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links),
   pointing to the OPTiMaDe base URL for this implementation,  either directly as a string,
   or as a link object which can contain the following members:
@@ -808,7 +811,8 @@ Example:
       "type": "parent",
       "id": "index",
       "attributes": {
-        "name": "Index for example's OPTiMaDe databases",
+        "name": "Index",
+        "description": "Index for example's OPTiMaDe databases",
         "base_url": "http://example.com/optimade/index"
       }
     },
@@ -817,6 +821,7 @@ Example:
       "id": "cat_zeo",
       "attributes": {
         "name": "Catalytic Zeolites",
+        "description": "Zeolites for deNOx catalysis",
         "base_url": {
           "href": "http://example.com/optimade/denox/zeolites",
           "meta": {
@@ -831,15 +836,26 @@ Example:
       "id": "frameworks",
       "attributes": {
         "name": "Zeolitic Frameworks",
+        "description": "",
         "base_url": "http://example.com/optimade/zeo_frameworks",
         "local_id": "zeo_frameworks"
       }
-    }
+    },
+    {
+      "type": "provider",
+      "id": "exmpl",
+      "attributes": {
+        "name": "Example provider",
+        "description": "Provider used for examples, not to be assigned to a real database",
+        "base_url": "http://example.com/optimade/index"
+      }
+    },
+    ... <other objects> ...
   ]
 }
 ```
 
-### <a name="h.4.5.2">4.5.2 'parent' and 'child' objects</a>
+### <a name="h.4.5.2">4.5.2. 'parent' and 'child' objects</a>
 
 JSON API Resource objects that MAY be present under the `links` endpoint.
 
@@ -856,7 +872,20 @@ current.
 > layer. The second layer contains *all other* OPTiMaDe implementations. These have no
 > 'child' objects in their `links` endpoint and exactly one `parent` object pointing to 'root'.
 
-### <a name="h.4.5.3">4.5.3 Index links endpoint</a>
+### <a name="h.4.5.3">4.5.3. 'provider' objects</a>
+
+JSON API Resource objects that MAY be present under the `links` endpoint.
+
+The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
+
+The objects MUST be equal to the objects found in the `"providers.json"` file in this repository.
+Either **all** of the objects from `"providers.json"` MUST be served or **none**.
+
+It is RECOMMENDED to serve these objects.
+
+> **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to this repository (make a PR).
+
+### <a name="h.4.5.4">4.5.4. Index links endpoint</a>
 
 If the provider implements an index meta-database (see section [3.4 Index](#h.3.4)),
 the index meta-database MUST be the 'root' OPTiMaDe implementation.
@@ -1395,73 +1424,14 @@ namespace that is under the ownership of that organisation. Identifiers
 prefixed with underscores will not be used for standardized names.
 
 The database-provider-specific prefixes currently assigned are listed in the
-`providers.json` file provided in the same GitHub repository as this specification.
+`providers.json` file provided in the main repository.
 This file serves as a machine-readable list of OPTiMaDe providers.
 
 The content of the `providers.json` file follows the same JSON API specifications as the
-rest of the API, in particular the resource objects under the `data` member are dictionaries
-that MUST include the following members:
+rest of the API, in particular the resource objects under the `data` member are defined to be valid resource objects for the `links` endpoint,
+see section [4.5.3 'provider' objects](#h.4.5.3).
 
-* **type**: MUST be `provider`
-* **id**: the reserved provider prefix. Each prefix MUST be used by the respective database provider
-when adding database- or provider-specific entries to their databases. As an example, for `exmpl` the
-custom string `_exmpl_` MUST be prefixed as discussed in
-[section '6.1.3: database-provider-specific properties'](#h.6.1.3).
-* **attributes**: a dictionary containing the following fields:
-  * **name**: a short human-readable name of the database provider.
-  A client MAY use this to name a provider to an end-user.
-  * **description**: a short human-readable description of the database provider.
-  A client MAY use this to describe a provider to an end-user.
-  * **index_base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links) pointing
-  to the base URL of the index meta-database of the provider (see section [3.4 Index](#h.3.4)).
-  This allows discovery of all current databases for the given provider by using the `links` endpoint
-  (see section [4.5.3 Index links endpoint](#h.4.5.3)).
-  If a provider has just registered their prefix, but has not yet implemented an index meta-database,
-  then this field MUST have value `null`. This field can be specified either directly as a string,
-  or as a link object which can contain the following members:
-    * `href`: a string containing the base URL of the index database the provider.
-    * `meta`: a meta object containing non-standard meta-information about this link.
-
-Exceptions to the standard OPTiMaDe API response:
-
-The following members in the top-level **meta** field are excluded as a response from `providers.json`:
-
-* **api_version**
-* **time_stamp**
-
-Example of a full response:
-
-```json
-{
-  "links": {
-    "next": null
-  },
-  "data": [
-    {
-      "type": "provider",
-      "id": "exmpl",
-      "attributes": {
-        "name": "Example provider",
-        "description": "Provider used for examples, not to be assigned to a real database",
-        "index_base_url": {
-          "href": "http://example.com/optimade/index",
-          "meta": {
-            "_exmpl_child_databases": 6
-          }
-        }
-      }
-    },
-    ... <additional providers> ...
-  ],
-  "meta": {
-    "query": {
-      "representation": "https://raw.githubusercontent.com/Materials-Consortia/OPTiMaDe/master/providers.json"
-    },
-    "data_returned": 11,
-    "more_data_available": false
-  }
-}
-```
+> **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to this repository (make a PR).
 
 ## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
 

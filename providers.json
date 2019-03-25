@@ -1,7 +1,4 @@
 {
-  "links": {
-    "next": null
-  },
   "data": [
     {
       "type": "provider",
@@ -9,7 +6,7 @@
       "attributes": {
         "name": "aflow.org",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -18,7 +15,7 @@
       "attributes": {
         "name": "Cambridge databases",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -27,7 +24,7 @@
       "attributes": {
         "name": "Crystallography open database",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -36,7 +33,7 @@
       "attributes": {
         "name": "Example provider",
         "description": "Provider used for examples, not to be assigned to a real database",
-        "index_base_url": "http://example.com/optimade/index"
+        "base_url": "http://example.com/optimade/index"
       }
     },
     {
@@ -45,7 +42,7 @@
       "attributes": {
         "name": "materialscloud.org",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -54,7 +51,7 @@
       "attributes": {
         "name": "materialsproject.org",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -63,7 +60,7 @@
       "attributes": {
         "name": "nomad laboratory",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -72,7 +69,7 @@
       "attributes": {
         "name": "open materials database",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -81,7 +78,7 @@
       "attributes": {
         "name": "open quantum materials database",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -90,7 +87,7 @@
       "attributes": {
         "name": "predicted crystallography open database",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     },
     {
@@ -99,15 +96,8 @@
       "attributes": {
         "name": "theoretical crystallography open database",
         "description": "",
-        "index_base_url": null
+        "base_url": null
       }
     }
-  ],
-  "meta": {
-    "query": {
-      "representation": "https://raw.githubusercontent.com/Materials-Consortia/OPTiMaDe/develop/providers.json"
-    },
-    "data_returned": 11,
-    "more_data_available": false
-  }
+  ]
 }
