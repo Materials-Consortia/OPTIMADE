@@ -355,6 +355,14 @@ An example of a full response:
 | 418  | Asked for a non-existent keyword                                      |
 | 422  | Database returned (200) but the translator failed                     |
 
+**Notes**:
+  If a client receives an unexpected 404 error, when making a query to a base URL
+  and is aware of the index meta-database that belongs to the database provider
+  (as described in [3.4 Index](#h.3.4)).
+  The next course of action SHOULD be to fetch the resources under the `links` endpoint
+  of the index meta-database and redirect the original query to the corresponding
+  database id as was originally queried, using the object's base URL value.
+
 ## <a name="h.3.4">3.4. Index</a>
 
 The main purpose of the "index" is to allow for automatic discoverability of all databases
@@ -627,8 +635,7 @@ MUST also include the member:
 
   * **default**: a reference to the `child` object under the `links` endpoint that the provider
   has chosen as their "default" OPTiMaDe API database. A client SHOULD present this database as the
-  first choice when an end-user chooses this provider. A client MAY choose to only serve the default
-  database from a provider to an end-user, however this is NOT RECOMMENDED.
+  first choice when an end-user chooses this provider.
   This MUST include the member:
     * **data**: a [JSON API resource linkage](http://jsonapi.org/format/#document-links).
     It MUST be either `null` or contain a single `child` identifier object with the members:
@@ -874,27 +881,21 @@ current.
 
 ### <a name="h.4.5.3">4.5.3. 'provider' objects</a>
 
-JSON API Resource objects that MAY be present under the `links` endpoint.
-
+`provider` objects are meant to indicate links to an index meta-database hosted by database providers.
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
-The objects MUST be equal to the objects found in the `"providers.json"` file in this repository.
-Either **all** of the objects from `"providers.json"` MUST be served or **none**.
-
-It is RECOMMENDED to serve these objects.
+A known list of providers can be found under [appendix 1](#h.app1).
 
 > **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to this repository (make a PR).
 
 ### <a name="h.4.5.4">4.5.4. Index links endpoint</a>
 
 If the provider implements an index meta-database (see section [3.4 Index](#h.3.4)),
-the index meta-database MUST be the 'root' OPTiMaDe implementation.
+it is RECOMMENDED to adopt a structure, where the index meta-database is the `parent`
+implementation of the provider's other OPTiMaDe databases.
 
-All other OPTiMaDe databases by the provider MUST be `child` objects under the `links` endpoint
-of the index meta-database.
-
-It is understood that the provider's OPTiMaDe databases MUST include the index meta-database as their
-single `parent` object under their respective `links` endpoints.
+This will make all OPTiMaDe databases and implementations by the provider discoverable
+as `child` objects under the `links` endpoint of the index meta-database.
 
 ## <a name="h.4.6">4.6. Custom extension endpoints</a>
 
