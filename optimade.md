@@ -1,4 +1,4 @@
-# OPTIMADE API specification v0.9.7-develop
+# OPTiMaDe API specification v0.9.8-develop
 
 [1. Introduction](#h.1)
 
@@ -11,6 +11,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API response schema: common fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index](#h.3.4)  
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry listing endpoints](#h.4.1.)  
@@ -25,7 +26,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info endpoints](#h.4.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL info endpoint](#h.4.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry listing info endpoints](#h.4.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Custom extension endpoints](#h.4.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links endpoint](#h.4.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. Response schema](#h.4.5.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. 'parent' and 'child' objects](#h.4.5.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. 'provider' objects](#h.4.5.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index links endpoint](#h.4.5.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom extension endpoints](#h.4.6)  
+
 [5. API Filtering Format Specification](#h.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical tokens](#h.5.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.2. The filter language syntax](#h.5.2)  
@@ -204,47 +211,83 @@ Every response MUST contain the following fields:
           "_example.com_db_version": "3.2.1"
         }, 
         ``` 
-* **meta**:
-    * **query**: information on the query that was requested.
-        * It MUST be a dictionary with these items:
-            * **representation**: a string with the part of the URL that follows the base
-            URL.
-    * **api\_version**: a string containing the version of the API .
-    * **time\_stamp**: a string containing the date and time at which the query
-      was executed, in [ISO 8601](https://www.iso.org/standard/40874.html)
-      format.  Times MUST be timezone-aware (i.e. MUST NOT be local times),
-      in one of the formats allowed by [ISO 8601](https://www.iso.org/standard/40874.html)
-      (i.e. either be in UTC, and then end with a Z, or indicate explicitly
-      the offset).
-    * **data\_returned**: an integer containing the number of data returned for the query.
-    * **more\_data\_available**: 'False' if all data for this query has been
-      returned, and 'True' if not.
-    * The dictionary MAY also include these OPTIONAL items:
-        * **data\_available**: an integer containing the total number of data
-          available in the database. 
-        * **last\_id**: a string containing the last ID returned.        
-        * **response\_message**: OPTIONAL response string from the server.
-        * Other OPTIONAL additional information _global to the query_ that is not specified
-          in this document, MUST start with a database-provider-specific prefix as defined in [Appendix 1](#h.app1).
-    * Example:  
-        For a request made to http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2
+* **meta**: a [JSON API meta object](https://jsonapi.org/format/#document-meta)
+  that contains non-standard meta-information.
+  
+  It MUST be a dictionary with these members:
 
-        ```
-        {
-          "meta": {
-            "query": {
-              "representation": "/structures/?filter=a=1 AND b=2",
-            },
-            "api_version": "v0.9",
-            "time_stamp": "2007-04-05T14:30Z",
-            "data_returned": 10,
-            "data_available": 10,
-            "more_data_available": false
+  * **query**: information on the query that was requested.
+
+    It MUST be a dictionary with these items:
+    * **representation**: a string with the part of the URL that follows the base URL.
+  * **api\_version**: a string containing the version of the API .
+  * **time\_stamp**: a string containing the date and time at which the query
+    was executed, in [ISO 8601](https://www.iso.org/standard/40874.html)
+    format.  Times MUST be timezone-aware (i.e. MUST NOT be local times),
+    in one of the formats allowed by [ISO 8601](https://www.iso.org/standard/40874.html)
+    (i.e. either be in UTC, and then end with a Z, or indicate explicitly
+    the offset).
+  * **data\_returned**: an integer containing the number of data returned for the query.
+  * **more\_data\_available**: 'false' if all data for this query has been
+    returned, and 'true' if not.
+  * **provider**: a dictionary describing the provider of this OPTiMaDe implementation.
+  It MUST contain the following members:
+    * **name**: a short name for the database provider.
+    * **description**: a longer description of the database provider.
+    * **prefix**: database-provider-specific prefix as found in
+    [appendix 1: Database-provider-specific namespace prefixes](#h.app1).
+
+    **provider** MAY also include these OPTIONAL members:
+
+    * **homepage**: a [JSON API Links object](http://jsonapi.org/format/#document-links),
+    pointing to the homepage of the provider,  either directly as a string, or as a link object which
+    can contain the following members:
+      * `href`: a string containing the homepage URL.
+      * `meta`: a meta object containing non-standard meta-information about the provider's homepage.
+    * **index_base_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links)
+    pointing to the `base_url` for the `index` databae of the provider as specified in [appendix 1](#h.app1), either
+    directly as a string, or as a link object which can contain the following members:
+      * `href`: a string containing the `index_base_url` for the provider.
+      * `meta`: a meta object containing non-standard meta-information about this link.
+
+    If the index meta-database (see section [3.4 Index](#h.3.4)) is implemented by the provider, the `index_base_url` member MUST be included.
+
+  **meta** MAY also include these OPTIONAL items:
+
+  * **data\_available**: an integer containing the total number of data
+    available in the database.
+  * **last\_id**: a string containing the last ID returned.
+  * **response\_message**: OPTIONAL response string from the server.
+  * Other OPTIONAL additional information _global to the query_ that is not specified
+  in this document, MUST start with a database-provider-specific prefix as defined in
+  [Appendix 1](#h.app1).
+
+  * Example:  
+      For a request made to http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2
+
+      ```json
+      {
+        "meta": {
+          "query": {
+            "representation": "/structures/?filter=a=1 AND b=2",
+          },
+          "api_version": "v0.9",
+          "time_stamp": "2007-04-05T14:30Z",
+          "data_returned": 10,
+          "data_available": 10,
+          "more_data_available": false,
+          "provider": {
+            "name": "Example provider",
+            "description": "Provider used for examples, not to be assigned to a real database",
+            "prefix": "exmpl",
+            "homepage": "http://example.com"
           }
-          ...
-          <additional response items>
         }
-        ```
+        ...
+        <additional response items>
+      }
+      ```
+
 * **data**: The schema of this value varies by endpoint, it can be either a [JSON API Resource Object](http://jsonapi.org/format/#document-resource-objects) or a list or JSON API Resource Objects.
   Every resource object need the `type` and `id` fields, and its attributes (described in [section '4. API endpoints'](#h.4) of this document) need to be in a dictionary corresponding to the **attributes** field.
 
@@ -258,7 +301,7 @@ If there were errors in producing the response all other fields can be skipped, 
 
 An example of a full response:
 
-```
+```json
 {
   "links": {
     "next": null,
@@ -275,13 +318,20 @@ An example of a full response:
   "meta": {  
     "query": {
       "representation": "/structures?a=1&b=2"
-    }
+    },
     "api_version": "v0.9",  
     "time_stamp": "2007-04-05T14:30Z",  
     "data_returned": 10,
     "data_available": 10,
     "last_id": "xy10",
-    "more_data_available": false
+    "more_data_available": false,
+    "provider": {
+      "name": "Example provider",
+      "description": "Provider used for examples, not to be assigned to a real database",
+      "prefix": "exmpl",
+      "homepage": "http://example.com",
+      "index_base_url": "http://example.com/optimade/index/"
+    }
   },
   "response_message": "OK",
   <OPTIONAL DB-specific meta_data, global to the query>
@@ -305,6 +355,36 @@ An example of a full response:
 | 418  | Asked for a non-existent keyword                                      |
 | 422  | Database returned (200) but the translator failed                     |
 
+**Notes**:
+  If a client receives an unexpected 404 error, when making a query to a base URL
+  and is aware of the index meta-database that belongs to the database provider
+  (as described in [3.4 Index](#h.3.4)).
+  The next course of action SHOULD be to fetch the resources under the `links` endpoint
+  of the index meta-database and redirect the original query to the corresponding
+  database id as was originally queried, using the object's base URL value.
+
+## <a name="h.3.4">3.4. Index</a>
+
+The main purpose of the "index" is to allow for automatic discoverability of all databases
+of a given provider, see [appendix 1](#h.app1).
+Thus, it acts as a meta-database for the provider's OPTiMaDe implementation(s).
+
+It is RECOMMENDED for a provider to implement the "index".
+
+The "index" meta-database MUST only provide the `info` and `links` endpoints,
+see sections [4.4 Info endpoints](#h.4.4) and [4.5 Links endpoint](#h.4.5).
+It MUST not expose any entry listing endpoints (e.g. `structures`).
+
+These endpoints do not need to be queryable, i.e. they MAY be provided as static JSON files.
+However, they MUST return the correct and updated information on all currently provided databases.
+
+The `index_base_url` member MUST be included in every response in the `provider` field under the
+top-level `meta` field (see section [3.3.2. JSON API response schema: common fields](#h.3.3.2)).
+
+The `is_index` member under `attributes`, as well as the `relationships` field, MUST be included in the
+`info` endpoint for the "index" meta-database (see section [4.4.1. Base URL info endpoint](#h.4.4.1)).
+Furthermore, the value for `is_index` MUST be `true`.
+
 # <a name="h.4">4. API endpoints</a>
 
 The URL component that follows the base URL MUST represent one of the
@@ -314,6 +394,7 @@ following endpoints:
 * a 'single entry' endpoint
 * a general filtering 'all' endpoint that can search all entry types
 * an introspection 'info' endpoint
+* a 'links' endpoint to discover related databases
 * a custom 'extensions' endpoint prefix  
 
 These endpoints are documented below.
@@ -421,7 +502,7 @@ OPTIONALLY it can also contains the following fields:
 
 Example:
 
-```
+```json
 {
   ... <other response items> ...
   "data": [
@@ -530,16 +611,43 @@ The response dictionary MUST include the following fields
 * **type**: MUST be "info"
 * **id**: "/"
 * **attributes**: a dictionary containing the following fields:
-    * **api\_version**: Presently used version of the API.
-    * **available\_api\_versions**: a dictionary where values are the base URLs for the versions of the API that are supported, 
-	    and the keys are strings giving the full version number provided by that base URL. Provided base urls MUST
-		adhere to the rules in [section '3.1. Base URL'](#h.3.1).
-    * **formats**: a list of available output formats.
-    * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
+  * **api\_version**: Presently used version of the API.
+  * **available\_api\_versions**: a dictionary where values are the base URLs for the versions of the
+  API that are supported, and the keys are strings giving the full version number provided by that
+  base URL. Provided base urls MUST adhere to the rules in [section '3.1. Base URL'](#h.3.1).
+  * **formats**: a list of available output formats.
+  * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
+  * **available\_endpoints**: a list of available endpoints (i.e. the string to
+  be appended to the OPTiMaDe base URL).
+
+  **attributes** MAY also include the following OPTIONAL members:
+
+  * **is_index**: if `true`, this is an index meta-database base URL (see [3.4. Index](#h.3.4)).
+
+    If this member is *not* provided, the client MUST assume this is **not** an index meta-database base
+    URL (i.e. default: `"is_index": false`).
+
+If this is an index meta-database base URL (see [3.4. Index](#h.3.4)), then the response dictionary
+MUST also include the member:
+
+* **relationships**: a dictionary that MAY contain a single
+[JSON API relationships object](https://jsonapi.org/format/#document-resource-object-relationships):
+
+  * **default**: a reference to the `child` object under the `links` endpoint that the provider
+  has chosen as their "default" OPTiMaDe API database. A client SHOULD present this database as the
+  first choice when an end-user chooses this provider.
+  This MUST include the member:
+    * **data**: a [JSON API resource linkage](http://jsonapi.org/format/#document-links).
+    It MUST be either `null` or contain a single `child` identifier object with the members:
+      * **type**: `child`
+      * **id**: the `id` of the provider's chosen default OPTiMaDe API database.
+      MUST be equal to a valid `child` object's `id` under the `links` endpoint.
+
+  > **Note**: At this point, `is_index` MUST also be included in `attributes` and be `true`.
 
 Example:
 
-```
+```json
 {
   ... <other response items> ...
   "data": [
@@ -559,18 +667,61 @@ Example:
         ],
         "entry_types_by_format": {
           "json": [
-            "structure",
-            "calculation"
+            "structures",
+            "calculations"
           ],
           "xml": [
-            "structure"
+            "structures"
           ]
         },
         "available_endpoints": [
-          "entry",
+          "structures",
+          "calculations",
           "all",
-          "info"
-        ]
+          "info",
+          "links"
+        ],
+        "is_index": false
+      }
+    }
+  ]
+}
+```
+
+Example for an index meta-database:
+
+```json
+{
+  ... <other response items> ...
+  "data": [
+    {
+      "type": "info",
+      "id": "/",
+      "attributes": {
+        "api_version": "v0.9.8",
+        "available_api_versions": {
+          "0.9.5": "http://example.com/optimade/v0.9/",
+          "0.9.2": "http://example.com/optimade/v0.9.2/",
+          "1.0.2": "http://example.com/optimade/v1.0/"
+        },
+        "formats": [
+          "json",
+          "xml"
+        ],
+        "entry_types_by_format": {
+          "json": [],
+          "xml": []
+        },
+        "available_endpoints": [
+          "info",
+          "links"
+        ],
+        "is_index": true
+      },
+      "relationships": {
+        "default": {
+          "data": { "type": "child", "id": "perovskites" }
+        }
       }
     }
   ]
@@ -618,7 +769,135 @@ Example:
 }
 ```
 
-## <a name="h.4.5">4.5. Custom extension endpoints</a>
+## <a name="h.4.5">4.5. Links endpoint</a>
+
+This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current
+database.
+The endpoint MUST be provided at the path `<base_url>/links`.
+
+It may be considered as an introspection endpoint, similar to the `info` endpoint,
+but at a higher level: that is, `info` endpoints provide information on the given
+database or implementation, while the `links` endpoint provides information on the links between
+immediately related databases and implementations (in particular, an array of no or one 'parent' object and none or more 'child' objects, see section [4.5.2 'parent' and 'child' objects](#h.4.5.2)).
+
+For `links` endpoints, the API implementation MAY ignore any provided query parameters.
+Alternatively, it MAY optionally handle the parameters specified in [single entry endpoints](#h.4.2.1).
+
+### <a name="h.4.5.1">4.5.1. Response schema</a>
+
+The response objects MUST include the following members:
+
+* **type**: MUST be either `"parent"`, `"child"`, or `"provider"`
+
+  These objects are described in detail in section [4.5.2 'parent' and 'child' objects](#h.4.5.2).
+
+* **id**: must be unique.
+* **attributes**: a dictionary field that MUST contain the following members:
+  * **name**: A human-readable name for the OPTiMaDe API implementation a client may provide in a list
+  to an end-user.
+  * **description**: A human-readable description for the OPTiMaDe API
+  implementation a client may provide in a list to an end-user.
+  * **base\_url**: a [JSON API Links object](http://jsonapi.org/format/#document-links),
+  pointing to the OPTiMaDe base URL for this implementation,  either directly as a string,
+  or as a link object which can contain the following members:
+    * `href`: a string containing the OPTiMaDe base URL.
+    * `meta`: a meta object containing non-standard meta-information about the implementation.
+
+  **attributes** MAY also contain the following OPTIONAL members:
+
+  * **local_id**: a string representing the provider's local id for the implementation.
+  This MAY be different from **id**.
+
+Example:
+
+```json
+{
+  ... <other response items> ...
+  "data": [
+    {
+      "type": "parent",
+      "id": "index",
+      "attributes": {
+        "name": "Index",
+        "description": "Index for example's OPTiMaDe databases",
+        "base_url": "http://example.com/optimade/index"
+      }
+    },
+    {
+      "type": "child",
+      "id": "cat_zeo",
+      "attributes": {
+        "name": "Catalytic Zeolites",
+        "description": "Zeolites for deNOx catalysis",
+        "base_url": {
+          "href": "http://example.com/optimade/denox/zeolites",
+          "meta": {
+            "_exmpl_catalyst_group": "denox"
+          }
+        },
+        "local_id": "catalytic_zeolites"
+      }
+    },
+    {
+      "type": "child",
+      "id": "frameworks",
+      "attributes": {
+        "name": "Zeolitic Frameworks",
+        "description": "",
+        "base_url": "http://example.com/optimade/zeo_frameworks",
+        "local_id": "zeo_frameworks"
+      }
+    },
+    {
+      "type": "provider",
+      "id": "exmpl",
+      "attributes": {
+        "name": "Example provider",
+        "description": "Provider used for examples, not to be assigned to a real database",
+        "base_url": "http://example.com/optimade/index"
+      }
+    },
+    ... <other objects> ...
+  ]
+}
+```
+
+### <a name="h.4.5.2">4.5.2. 'parent' and 'child' objects</a>
+
+JSON API Resource objects that MAY be present under the `links` endpoint.
+
+A maximum of *one* `parent` object (minimum zero) MUST be present as part of the `data` array.
+The `parent` object represents a 'link' to the OPTiMaDe implementation exactly one layer **above** the
+current.
+
+A minimum of zero 'child' objects (no maximum) MUST be present as part of the `data` array.
+A `child` object represents a 'link' to an OPTiMaDe implementation exactly one layer **below** the
+current.
+
+> **Note**: The RECOMMENDED number of layers is two: The top layer *only* contains the 'root' OPTiMaDe
+> implementation. This is considered the 'parent' of all implementations in the second
+> layer. The second layer contains *all other* OPTiMaDe implementations. These have no
+> 'child' objects in their `links` endpoint and exactly one `parent` object pointing to 'root'.
+
+### <a name="h.4.5.3">4.5.3. 'provider' objects</a>
+
+`provider` objects are meant to indicate links to an index meta-database hosted by database providers.
+The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
+
+A known list of providers can be found under [appendix 1](#h.app1).
+
+> **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to this repository (make a PR).
+
+### <a name="h.4.5.4">4.5.4. Index links endpoint</a>
+
+If the provider implements an index meta-database (see section [3.4 Index](#h.3.4)),
+it is RECOMMENDED to adopt a structure, where the index meta-database is the `parent`
+implementation of the provider's other OPTiMaDe databases.
+
+This will make all OPTiMaDe databases and implementations by the provider discoverable
+as `child` objects under the `links` endpoint of the index meta-database.
+
+## <a name="h.4.6">4.6. Custom extension endpoints</a>
 
 API implementors can provide custom endpoints, in this form
 "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
@@ -1134,58 +1413,8 @@ Calculation entries have the properties described above in [section '6.1: Proper
 
 ## <a name="h.app1">Appendix 1: Database-provider-specific namespace prefixes</a>
 
-This standard refers to database-provider-specific prefixes. These are assigned and
-included in this standard.
-
-The database-provider-specific prefixes are listed below as a YAML mapping
-and serves as a machine-readable list of OPTiMaDe providers.
-The presently assigned prefixes are:
-
-```YAML
-# BEGIN OPTIMADE PROVIDER LIST
----
-exmpl:
-  description: used for examples, not to be assigned to a real database
-  optimade_url: null
-aflow:
-  description: aflow.org
-  optimade_url: null
-cam:
-  description: Cambridge databases
-  optimade_url: null
-cod:
-  description: Crystallography open database
-  optimade_url: null
-mcloud:
-  description: materialscloud.org
-  optimade_url: null
-mp:
-  description: materialsproject.org
-  optimade_url: null
-nmd:
-  description: nomad laboratory
-  optimade_url: null
-omdb:
-  description: open materials database
-  optimade_url: null
-oqmd:
-  description: open quantum materials database
-  optimade_url: null
-pcod:
-  description: predicted crystallography open database
-  optimade_url: null
-tcod:
-  description: theoretical crystallography open database
-  optimade_url: null
-...
-# END OPTIMADE PROVIDER LIST
-```
-
-The key of the YAML mappings represents reserved names for database providers.
-Each key MUST be used by the respective database provider when adding database specific
-entries to their databases.
-As an example, for `exmpl` the custom string `_exmpl_` MUST be prefixed
-as discussed in [section '6.1.3: database-provider-specific properties'](#h.6.1.3)
+This standard refers to database-provider-specific prefixes.
+These are assigned and included in this standard.
 
 API implementations SHOULD NOT make up and use new prefixes not included in
 this standard, but SHOULD rather work to get such prefixes included in a future
@@ -1194,6 +1423,16 @@ revision of this API specification.
 The initial underscore indicates an identifier that is under a separate
 namespace that is under the ownership of that organisation. Identifiers
 prefixed with underscores will not be used for standardized names.
+
+The database-provider-specific prefixes currently assigned are listed in the
+`providers.json` file provided in the main repository.
+This file serves as a machine-readable list of OPTiMaDe providers.
+
+The content of the `providers.json` file follows the same JSON API specifications as the
+rest of the API, in particular the resource objects under the `data` member are defined to be valid resource objects for the `links` endpoint,
+see section [4.5.3 'provider' objects](#h.4.5.3).
+
+> **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to this repository (make a PR).
 
 ## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
 
