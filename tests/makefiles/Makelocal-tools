@@ -5,7 +5,9 @@
 
 TOOL_DIR ?= tests/tools
 
-.PHONY: tools
+.PHONY: all tools
+
+all: tools
 
 tools: grammatica grammatiker
 
