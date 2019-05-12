@@ -1122,16 +1122,19 @@ Thus, the expression 'NOT a > b OR c = 100 AND f = "C2 H6"' is interpreted as
 ### Unexpected types
 
 If a test is formulated for a property against a value of unexpected
-type, the implementation SHOULD attempt to convert the literal string
-value to the type of the search parameter (e.g., 'x > "0.0"' where x
-is a coordinate MUST treat this expression as numeric filter 'x > 0',
-and 's = 0' search against text parameter 's' MUST perform string
-comparison as in 's = "0"'). Strings are converted to numbers using
-the token syntax specified in [section '5.1. Lexical tokens'](#h.5.1),
-p. "Numeric values"; numbers SHOULD be converted to strings using the
-libc '%g' format. The application MUST supply a warning in the response
-when conversion was performed and specify the actual search values
-that were used.
+type, it is, if possible for the API implementation, recommended to
+handle this by converting the literal string value to the type of the
+search parameter (e.g., 'x > "0.0"' where x is a coordinate would be
+treated as numeric filter 'x > 0', and 's = 0' search against text
+parameter 's' would perform string comparison as in 's =
+"0"'). Strings are converted to numbers using the token syntax
+specified in [section '5.1. Lexical tokens'](#h.5.1), p. "Numeric
+values"; numbers SHOULD be converted to strings using the libc '%g'
+format. If a conversion is performed, the API implementation SHOULD
+supply a warning in the response and specify the actual search values
+that were used. It is, however, also permissible for the API
+implementation to return an error when encountering a filter
+comparison using unexpected types.
 
 ### Examples
 
