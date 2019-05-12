@@ -1011,22 +1011,106 @@ and
 
 ## <a name="h.5.2">5.2. The filter language syntax</a>
 
-Filtering expressions MUST follow the following [EBNF](http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip) grammar (fig 1.). Briefly,
-the filtering expression consists of the prefixing keyword 'filter=' that
-distinguishes it from other query string components that is followed by a
-Boolean expression on the search criteria. In the expression, desired
-properties are compared against search values; several such comparisons can be
-combined using AND, OR and NOT logical conjunctions with their usual
-semantics. Examples of the comparisons and logical expressions:
+An OPTIMaDe filter expression is passed via the URL query
+parameter `filter` (as specified by jsonapi). In the expression,
+desired properties are compared against search values; several such
+comparisons can be combined using AND, OR and NOT logical conjunctions
+with their usual semantics. 
 
-* spacegroup="P2"
-* \_exmpl\_cell\_volume<100.0
-* \_exmpl\_bandgap > 5.0 AND \_exmpl\_molecular\_weight < 350
+Similar to the other URL query parameters, the contents of the
+`filter` parameter is URL-encoded by the client in the HTTP GET
+request, and then URL-decoded by the API implementation before any further
+parsing takes place. In particular, this means the client MUST eascape
+special characters in string values as described above in the section
+"String values" before the URL encoding, and the API implementation
+MUST first URL-decode the `filter` parameter before reversing the escaping of
+string tokens.
+
+All filtering expressions MUST follow the
+[EBNF](http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip)
+grammar of [Appendix 2](#h.app2) of this specification. The appendix
+contains a complete machine readable EBNF, including the definition
+of the lexical tokens described above in [section '5.1. Lexical
+tokens'](#h.5.1). Note that all whitespace (space, tab, and newline) between tokens
+should be discarded. The EBNF is enclosed in special strings constructed
+as BEGIN and END followed by EBNF GRAMMAR Filter to enable automatic
+extraction. 
+
+### Numeric properties
+
+For numeric properties the filtering language allows the usual comparison operators:  '<', '>', '<=',
+'>=', '=', '!='. Allowed comparisons are always on the format:
+```
+identifier <operator> value
+```
+
+### String properties
+
+For string data, the allowed comparison operators '=', '!=' tests for
+string equality and inequality. Furthermore, matching of partial strings
+is supported by:
+
+* `identifier CONTAINS x`: Is true if the substring value x is found anywhere within the property.
+
+* `identifier STARTS x`: Is true if the property starts with the substring value x.
+
+* `identifier ENDS x`: Is true if the property ends with the substring value x.
+
+There is no support for less than and greater than comparisons for
+strings, since those operators could lead to overly expensive searches
+if the string properties defined by OPTIMaDe does not precisely match
+the underlying data format.
+
+### Comparisons of multi-valued propteties
+
+Multi-valued properties can be thought of as lists or sets of strings or numbers. 
+In the following, a set of `values` is one or more strings or numbers separated by a comma (',').
+
+The following constructs MUST be supported:
+
+* `identifier HAS values` or synonymous `identifier HAS ALL values`: matches when all the values given are present in the multi-valued property (i.e., set operator '>=').
+* `identifier HAS, EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator '=').
+* `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
+* `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the multi-valued property. 
+
+The following construct may OPTIONALLY be supported:
+* `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator '<=')
+
+This construct is optional as it may be difficult to realize in some
+underlying database implementations. However, if the desired search is
+over a property that can only take on a finite set of values (e.g.,
+chemical elements) a client can formulate an equivalent search by inverting
+the list of values into `inverse` and express the filter as `NOT identifier HAS
+inverse`.
+
+Furthermore, there is a set of OPTIONAL constructs that allows
+searches to be formulated over the values in correlated positions in
+multiple multi-valued properties. This type of filter may be useful if
+one, e.g., has one multi-valued property of elements and another of an
+element count.
+
+* `id1:id2:... HAS val1:val2:...` or synonymous `id1:id2:... HAS ALL val1:val2:...`: meaning 
+* `id1:id2:... HAS, EXACTLY val1:val2:...`
+* `id1:id2:... HAS ANY val1:val2:...`
+* `id1:id2:... HAS ONLY val1:val2:...`
+
+### Properties that can be unset
+
+The filter language can match properties that are not set. In the underlying data
+representation, this usually means data is missing or is set to a 'null' value.
+The format is as follows:
+```
+identifier IS KNOWN
+identifier IS UNKNOWN
+```
+Which matches when the property is set, and unset, respectively.
+
+### Precedence
 
 The precedence (priority) of the operators MUST be as indicated in the list
 below:
 
-1.  The comparison operators ('<', '<=', '=', etc.) -- highest priority;
+1.  Comparison and keyword operators ('<', '<=', '=', 'HAS', 'STARTS', etc.) -- highest priority;
 2.  NOT
 3.  AND
 4.  OR -- lowest priority.
@@ -1035,75 +1119,28 @@ Thus, the expression 'NOT a > b OR c = 100 AND f = "C2 H6"' is interpreted as
 
 '(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )' when fully braced.
 
-Fig. 1 The top-level rules of the Filter language grammar.
+### Unexpected types
 
-```
-(* The top-level 'filter' rule: *)
-Filter = Keyword, Expression;
-(* Keywords *)
-Keyword = "filter=" ;
-(* Values *)
-Value = Identifier | Number | String ;
-(* The white-space: *)
-Space = ' ' | '\t' ;
-Spaces = Space, { Space } ;
-(* Boolean relations: *)
-AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
-NOT = "NOT" ;
-OR = "OR" ;
-(* Expressions *)
-Expression = Term, [Spaces], [ OR, [Spaces], Expression ] ;
-Term = Atom, [Spaces], [ AND, [Spaces], Term ] ;
-Atom = [ NOT, [Spaces] ], ( Comparison |
-           '(', [Spaces], AndComparison,
-                [Spaces], { OR,
-                [Spaces], AndComparison, [Spaces] }, ')' );
-AndComparison = [ NOT, [Spaces] ], Comparison,
-                [Spaces], { AND,
-                [Spaces], [ NOT, [Spaces] ], Comparison, [Spaces] } ;
-(* Comparison operator tokens: *)
-Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
-Comparison = Value, [Spaces], Operator, [Spaces], Value ;
-```
+If a test is formulated for a property against a value of unexpected
+type, the implementation SHOULD attempt to convert the literal string
+value to the type of the search parameter (e.g., 'x > "0.0"' where x
+is a coordinate MUST treat this expression as numeric filter 'x > 0',
+and 's = 0' search against text parameter 's' MUST perform string
+comparison as in 's = "0"'). Strings are converted to numbers using
+the token syntax specified in [section '5.1. Lexical tokens'](#h.5.1),
+p. "Numeric values"; numbers SHOULD be converted to strings using the
+libc '%g' format. The application MUST supply a warning in the response
+when conversion was performed and specify the actual search values
+that were used.
 
-The structure of tokens 'Identifier', 'Number', 'String' and 'Operator' are
-described above in [section '5.1. Lexical tokens'](#h.5.1) and omitted here for brevity;
-a full length machine readable version of the grammar, including the definition
-of the lexical tokens, is available in the [Materials-Consortia API Git repository](https://github.com/Materials-Consortia/API)
-(file 
-[grammars/flat-filters.ebnf](https://github.com/Materials-Consortia/API/blob/master/grammars/flat-filters.ebnf)).
-
-Since the usual arithmetic expression syntax used for specifying filter
-expressions can contain characters that are not URL transparent, they MUST be
-URL-encoded before their use in a GET query. The specified order of escaping
-and encoding of the Filter language statements is the following:
-
-1. special characters in string values MUST be escaped first as described
-   above in the section "String values";
-2. the resulting expression MUST be URL-encoded.
-
-The extraction flow is obviously the opposite -- first the Filter string MUST
-be first URL-decoded, and after that string tokens MUST be unescaped to get
-values for comparisons.
-
-When comparisons are performed, comparison operators '<', '<=', '=', '!=' and
-so on are interpreted either as numeric value comparisons or as string
-comparisons, depending on the type of the search parameter. The literal string
-value MUST be converted to the type of the search parameter (e.g., 'x > "0.0"'
-where x is a coordinate MUST treat this expression as numeric filter 'x > 0',
-and 's = 0' search against text parameter 's' MUST perform string comparison as
-in 's = "0"'). Strings are converted to numbers using the token syntax specified
-in [section '5.1. Lexical tokens'](#h.5.1), p. "Numeric values"; numbers SHOULD be converted to strings using
-the libc '%g' format. In all cases the application MUST return a warning when
-conversion was performed and specify the actual search values that were used.
-
-For comparisons of two parameters (e.g. 'x > y') or two constants (1 = 1) both
-compared values MUST be of the same type (i.e. both MUST be either numeric or
-string values); implementation MUST return error code if this is not the case.
+### Examples
 
 Examples of syntactically correct filter strings:
 
-* filter=\_exmpl\_melting\_point<300 AND nelements=4 AND elements="Si,O2"
+* spacegroup="P2"
+* \_exmpl\_cell\_volume<100.0
+* \_exmpl\_bandgap > 5.0 AND \_exmpl\_molecular\_weight < 350
+* \_exmpl\_melting\_point<300 AND nelements=4 AND elements="Si,O2"
 
 Examples of syntactically correct query strings embedded in queries:
 
@@ -1158,23 +1195,23 @@ Multiple Entry Types", as well as the following properties:
 
 ### <a name="h.6.2.1">6.2.1. elements</a>
 
-* Description: names of elements found in the structure.
-* Requirements/Conventions: chemical symbols of elements joined by commas.
+* Description: names of elements found in the structure. 
+* Requirements/Conventions: chemical symbols of elements as strings as a multi-valued property.
 * Examples:
-    * "Si"
-    * "Si,Al,O"
-* Querying: the conjunction means "AND", i.e., all records pertaining to
-  materials containing Si, Al **and** O, and possibly other elements, MUST be
-  returned; use 'nelements=3' to specify **exactly** 3 elements; (element="Si,Al,O"
-  means you want structures with at least the 3 elements, and it MUST contain
-  Si, Al AND O).
+    * ["Si"]
+    * ["Si, "Al", "O"]
+* Querying: e.g., all records pertaining to
+  materials containing Si, Al **and** O, and possibly other elements can be
+  obtained using the filter "elements HAS Si, Al, O". To specify exactly
+  these three elements, use "elements HAS EXACTLY Si, Al, O" or alternatively
+  add "LENGTH elements = 3".
 
 ### <a name="h.6.2.2">6.2.2. nelements</a>
 
 * Description: The number of elements found in a structure.
 * Requirements/Conventions: an integer
 * Example: 1
-* Querying: Use numerical operators, as defined in the filtering section above.
+* Querying: queries on this property can equivalently be formulated using `LENGTH elements`.
     * Examples:
         * return only entities that have exactly 4 elements: " nelements=4"
         * query for structures that have between 2 and 7 elements:
@@ -1183,18 +1220,21 @@ Multiple Entry Types", as well as the following properties:
 ### <a name="h.6.2.3">6.2.3. chemical\_formula</a>
 
 * Description: The chemical formula for a structure.
-* Requirements/Conventions:
+* Requirements/Conventions: a string
     * The formula MUST be **reduced**.
     * Element names MUST be with proper capitalization (Si, not SI for "silicon").
-    * The order in which elements are specified SHOULD NOT be significant (e.g.,
-      "O2Si" is equivalent to "SiO2").
+    * Elements in this string are specified in alphabetical order, i.e., "O2Si" and not "SiO2".
     * No spaces or separators are allowed.
+* Querying: queries on this property uses normal string sematics.
 
 ### <a name="h.6.2.4">6.2.4. formula\_prototype</a>
 
-* Description: The formula prototype obtained by sorting elements by the
-  occurrence number in the **reduced** chemical formula and replace them with
-  subsequent alphabet letters A, B, C and so on.
+* Description: The formula prototype of a structure. 
+* Requirements/Conventions: a string
+    * Elements are sorted by occurrence number in the **reduced** chemical formula and then replaced
+      by subsequent alphabet letters A, B, C, ... Z, Aa, Ba, ..., Za, Ab, ..., and so on.
+    * No spaces or separators are allowed.
+* Querying: queries on this property uses normal string sematics.
 
 ### <a name="h.6.2.5">6.2.5. dimension\_types</a>
 
@@ -1440,45 +1480,82 @@ see section [4.5.3 'provider' objects](#h.4.5.3).
 (* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
-Filter = 
-    Keyword, Expression;
+Filter = Expression;
 
-(* Keywords *)
+(* Keywords: *)
 
-Keyword = "filter=" ;
-
-(* Values *)
-
-Value = Identifier | Number | String ;
-
-(* The white-space: *)
-
-Space = ' ' | '\t' ;
-
-Spaces = Space, { Space } ;
-
-(* Boolean relations: *)
-
-AND = "AND" ; (* a hort-hand for: AND = 'A', 'N', 'D' *)
+AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
 NOT = "NOT" ;
 OR = "OR" ;
+KNOWN = "KNOWN" ;
+UNKNOWN = "UNKNOWN" ;
+IS = "IS" ;
+CONTAINS = "CONTAINS" ;
+STARTS = "STARTS" ;
+ENDS = "ENDS" ;
+LENGTH = "LENGTH" ;
+HAS = "HAS" ;
+ALL = "ALL" ;
+ONLY = "ONLY" ;
+EXACTLY = "EXACTLY" ;
+ANY = "ANY" ;
 
 (* Expressions *)
 
-Expression = AndExpression, [Spaces], [ OR, [Spaces], Expression ] ;
+Expression = ExpressionClause, [ OR, Expression ] ;
 
-AndExpression = Term, [Spaces], [ AND, [Spaces], AndExpression ];
+ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-Term = Comparison |
-       '(', [Spaces], Expression, [Spaces], ')'  |
-       NOT, [Spaces], Term
-       ;
+ExpressionPhrase = [ NOT ], Comparison | [ NOT ], '(', Expression, ')';
 
-(* OperatorComparison operator tokens: *)
+(* Comparison operator tokens: *)
 
-Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
+NumberOperator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
-Comparison = Value, [Spaces], Operator, [Spaces], Value;
+StringOperator = '=' | '!', '=' ;
+
+Comparison = StringComparison |          (* mandatory *)
+             NumberComparison |          (* mandatory *) 	    
+             KnownComparison |           (* mandatory *) 
+	     FuzzyStringComparison |     (* mandatory *) 
+	     SetComparison |             (* partly mandatory *) 
+	     SetZipComparison |          (* optional *) 
+	     LengthComparison ;          (* mandatory *) 
+
+StringComparison = Identifier, NumberOperator, String ;
+
+NumberComparison = Identifier, StringOperator, Number ;
+
+KnownComparison = Identifier, IS, KNOWN |
+                  Identifier, IS, UNKNOWN ; 
+
+FuzzyStringComparison = Identifier, CONTAINS, String |
+	     Identifier, STARTS, String |
+	     Identifier, ENDS, String ;
+
+SetComparison = Identifier, HAS, ValueList |         (* mandatory *) 
+	      Identifier, HAS, ALL, ValueList |      (* mandatory *) 
+	      Identifier, HAS, EXACTLY, ValueList |  (* mandatory *) 
+	      Identifier, HAS, ANY, ValueList |      (* mandatory *) 
+	      Identifier, HAS, ONLY, ValueList ;     (* optional *) 
+
+ValueList = Value, [',', ValueList] ;
+
+SetZipComparison = IdentifierZipList, HAS, ValueZipList |
+              IdentifierZipList, HAS, ONLY, ValueZipList |
+	      IdentifierZipList, HAS, ALL, ValueZipList |
+	      IdentifierZipList, HAS, EXACTLY, ValueZipList |
+	      IdentifierZipList, HAS, ANY, ValueZipList ;
+
+ValueZipList = Value, ':', Value, {':', Value}, [',', ValueZipList] ;
+
+IdentifierZipList = Identifier, ':', Identifier, {':', Identifier}, [',', IdentifierZipList] ;
+
+LengthComparison = LENGTH, Identifier, NumberOperator, Number ;
+
+(* Values *)
+
+Value = Number | String ;
 
 (* Identifier syntax *)
 
@@ -1509,7 +1586,7 @@ Punctuator =
 (* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
    the syntax used is the onw compatible with Grammatica: *)
 
-UnicodeHighChar = ? [^\p{ASCII}] ? ;
+UnicodeHighChar = ? [^\x00-\xFF] ? ;
 
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
@@ -1529,23 +1606,40 @@ Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
+Note: in the parsing of filters according to this grammar, all whitespace (space, tabs, newlines) should be
+discarded between tokens.
 
-## <a name="h.app3">Appendix 3. The regular expressions to check OPTiMaDe number syntax.</a>
+## <a name="h.app3">Appendix 3. Regular expressions for OPTiMaDe Filter tokens.</a>
+
+The strings below contain Perl-Compatible Regular Expressions to recognize identifiers, number, and string values
+as specified in this specification.
 
 ```
+#BEGIN PCRE identifiers
+[a-zA-Z_][a-zA-Z_0-9]*
+#END PCRE identifiers
+
 #BEGIN PCRE numbers
-# The string below contains a Perl-Compatible Regular Expression to recognise
-# numbers as described in the Minimal API specification:
-
 [-+]?(?:\d+(\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?
-
 #END PCRE numbers
 
+#BEGIN PCRE strings
+"([^\\"]|\\.)*"
+#END PCRE strings
+```
+
+The strings below contain Extended Regular Expressions (EREs) to recognize identifiers, number, and string values
+as specified in this specification.
+
+#BEGIN ERE identifiers
+[a-zA-Z_][a-zA-Z_0-9]*
+#END ERE identifiers
+
 #BEGIN ERE numbers
-# The string below contains an Extended Regular Expression to recognise
-# numbers as described in the Minimal API specification:
-
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)?
-
 #END ERE numbers
+
+#BEGIN ERE strings
+"([^\"]|\\.)*"
+#END ERE strings
 ```
