@@ -1517,13 +1517,15 @@ NumberOperator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
 StringOperator = '=' | '!', '=' ;
 
-Comparison = StringComparison |          (* mandatory *)
-             NumberComparison |          (* mandatory *) 	    
-             KnownComparison |           (* mandatory *) 
-	     FuzzyStringComparison |     (* mandatory *) 
-	     SetComparison |             (* partly mandatory *) 
-	     SetZipComparison |          (* optional *) 
-	     LengthComparison ;          (* mandatory *) 
+Comparison = StringComparison |
+             NumberComparison |
+             KnownComparison |
+	     FuzzyStringComparison |
+	     SetComparison |
+	     SetZipComparison |
+	     LengthComparison ;
+
+(* Note: SetZipComparison is OPTIONAL *)
 
 StringComparison = Identifier, NumberOperator, String ;
 
@@ -1536,11 +1538,13 @@ FuzzyStringComparison = Identifier, CONTAINS, String |
 	     Identifier, STARTS, String |
 	     Identifier, ENDS, String ;
 
-SetComparison = Identifier, HAS, ValueList |         (* mandatory *) 
-	      Identifier, HAS, ALL, ValueList |      (* mandatory *) 
-	      Identifier, HAS, EXACTLY, ValueList |  (* mandatory *) 
-	      Identifier, HAS, ANY, ValueList |      (* mandatory *) 
-	      Identifier, HAS, ONLY, ValueList ;     (* optional *) 
+SetComparison = Identifier, HAS, ValueList |
+	      Identifier, HAS, ALL, ValueList |
+	      Identifier, HAS, EXACTLY, ValueList |
+	      Identifier, HAS, ANY, ValueList |
+	      Identifier, HAS, ONLY, ValueList ;
+
+(* Note: HAS ONLY is OPTIONAL *)
 
 ValueList = Value, [',', ValueList] ;
 
