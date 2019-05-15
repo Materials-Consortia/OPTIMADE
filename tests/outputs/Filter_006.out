@@ -1,119 +1,43 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
 Parse tree from /dev/fd/63:
 Filter(9999)
-  Keyword(9999)
-    TOKEN_4(9999): "filter=", line: 1, col: 1
   Expression(9999)
-    AndExpression(9999)
-      Term(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
         Comparison(9999)
-          Value(9999)
-            Identifier(9999)
-              Letter(9999)
-                TOKEN_71(9999): "b", line: 1, col: 8
-          Operator(9999)
-            TOKEN_33(9999): "=", line: 1, col: 9
-          Value(9999)
-            String(9999)
-              TOKEN_7(9999): """, line: 1, col: 10
-              EscapedChar(9999)
-                UnescapedChar(9999)
-                  Letter(9999)
-                    TOKEN_80(9999): "k", line: 1, col: 11
-              EscapedChar(9999)
-                UnescapedChar(9999)
-                  Letter(9999)
-                    TOKEN_91(9999): "v", line: 1, col: 12
-              EscapedChar(9999)
-                UnescapedChar(9999)
-                  Letter(9999)
-                    TOKEN_70(9999): "a", line: 1, col: 13
-              TOKEN_7(9999): """, line: 1, col: 14
-      Spaces(9999)
-        Space(9999)
-          TOKEN_5(9999): " ", line: 1, col: 15
+          Identifier(9999)
+            Letter(9999)
+              TOKEN_82(9999): "b", line: 1, col: 1
+          ValueOpRhs(9999)
+            Operator(9999)
+              TOKEN_44(9999): "=", line: 1, col: 2
+            Value(9999)
+              String(9999)
+                TOKEN_18(9999): """, line: 1, col: 3
+                EscapedChar(9999)
+                  UnescapedChar(9999)
+                    Letter(9999)
+                      TOKEN_91(9999): "k", line: 1, col: 4
+                EscapedChar(9999)
+                  UnescapedChar(9999)
+                    Letter(9999)
+                      TOKEN_102(9999): "v", line: 1, col: 5
+                EscapedChar(9999)
+                  UnescapedChar(9999)
+                    Letter(9999)
+                      TOKEN_81(9999): "a", line: 1, col: 6
+                TOKEN_18(9999): """, line: 1, col: 7
       AND(9999)
-        TOKEN_1(9999): "AND", line: 1, col: 16
-      Spaces(9999)
-        Space(9999)
-          TOKEN_5(9999): " ", line: 1, col: 19
-      AndExpression(9999)
-        Term(9999)
-          TOKEN_12(9999): "(", line: 1, col: 20
-          Expression(9999)
-            AndExpression(9999)
-              Term(9999)
-                Comparison(9999)
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_21(9999): "1", line: 1, col: 21
-                  Operator(9999)
-                    TOKEN_32(9999): "<", line: 1, col: 22
-                  Value(9999)
-                    Identifier(9999)
-                      Letter(9999)
-                        TOKEN_88(9999): "s", line: 1, col: 23
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_5(9999): " ", line: 1, col: 24
-            OR(9999)
-              TOKEN_3(9999): "OR", line: 1, col: 25
-            Spaces(9999)
-              Space(9999)
-                TOKEN_5(9999): " ", line: 1, col: 27
-            Expression(9999)
-              AndExpression(9999)
-                Term(9999)
-                  NOT(9999)
-                    TOKEN_2(9999): "NOT", line: 1, col: 28
-                  Term(9999)
-                    TOKEN_12(9999): "(", line: 1, col: 31
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_5(9999): " ", line: 1, col: 32
-                    Expression(9999)
-                      AndExpression(9999)
-                        Term(9999)
-                          Comparison(9999)
-                            Value(9999)
-                              Identifier(9999)
-                                Letter(9999)
-                                  TOKEN_93(9999): "x", line: 1, col: 33
-                            Operator(9999)
-                              TOKEN_6(9999): "!", line: 1, col: 34
-                              TOKEN_33(9999): "=", line: 1, col: 35
-                            Value(9999)
-                              Identifier(9999)
-                                Letter(9999)
-                                  TOKEN_94(9999): "y", line: 1, col: 36
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_5(9999): " ", line: 1, col: 37
-                        AND(9999)
-                          TOKEN_1(9999): "AND", line: 1, col: 38
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_5(9999): " ", line: 1, col: 41
-                        AndExpression(9999)
-                          Term(9999)
-                            Comparison(9999)
-                              Value(9999)
-                                Identifier(9999)
-                                  Letter(9999)
-                                    TOKEN_95(9999): "z", line: 1, col: 42
-                              Operator(9999)
-                                TOKEN_34(9999): ">", line: 1, col: 43
-                              Value(9999)
-                                Number(9999)
-                                  Digits(9999)
-                                    Digit(9999)
-                                      TOKEN_20(9999): "0", line: 1, col: 44
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_5(9999): " ", line: 1, col: 45
-                    TOKEN_13(9999): ")", line: 1, col: 46
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_5(9999): " ", line: 1, col: 47
-          TOKEN_13(9999): ")", line: 1, col: 48
+        TOKEN_2(9999): "AND", line: 1, col: 9
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          TOKEN_23(9999): "(", line: 1, col: 13
+Error: in /dev/fd/63: line 1:
+    unexpected token "1", expected one of "NOT", "A", "B", "C", "D",
+    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+    "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
+    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+    "r", "s", "t", "u", "v", "w", "x", "y", "z", "_", "LENGTH", or "("
+Error: in /dev/fd/63: line 1:
+    unexpected token ")", expected <EOF>

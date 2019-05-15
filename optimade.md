@@ -904,14 +904,20 @@ API implementors can provide custom endpoints, in this form
 
 # <a name="h.5">5. API Filtering Format Specification</a>
 
-A filter language will be used in the 'filter=' component of the query string.
-The 'filter=' component can be used to select a subset of records to
-be returned for a specific query. The value of the 'filter=' component MUST
-follow the filter language syntax described below.
+An OPTIMaDe filter expression is passed via the URL query
+parameter `filter` (as specified by jsonapi). In the expression,
+desired properties are compared against search values; several such
+comparisons can be combined using AND, OR and NOT logical conjunctions
+with their usual semantics. 
 
-The filter language MUST support at least the following features:
-
-* flat filters with one level of "AND" and "OR" conjunctions.
+Similar to the other URL query parameters, the contents of the
+`filter` parameter is URL-encoded by the client in the HTTP GET
+request, and then URL-decoded by the API implementation before any further
+parsing takes place. In particular, this means the client MUST eascape
+special characters in string values as described above in the section
+"String values" before the URL encoding, and the API implementation
+MUST first URL-decode the `filter` parameter before reversing the escaping of
+string tokens.
 
 ## <a name="h.5.1">5.1. Lexical tokens</a>
 
@@ -1011,21 +1017,6 @@ and
 
 ## <a name="h.5.2">5.2. The filter language syntax</a>
 
-An OPTIMaDe filter expression is passed via the URL query
-parameter `filter` (as specified by jsonapi). In the expression,
-desired properties are compared against search values; several such
-comparisons can be combined using AND, OR and NOT logical conjunctions
-with their usual semantics. 
-
-Similar to the other URL query parameters, the contents of the
-`filter` parameter is URL-encoded by the client in the HTTP GET
-request, and then URL-decoded by the API implementation before any further
-parsing takes place. In particular, this means the client MUST eascape
-special characters in string values as described above in the section
-"String values" before the URL encoding, and the API implementation
-MUST first URL-decode the `filter` parameter before reversing the escaping of
-string tokens.
-
 All filtering expressions MUST follow the
 [EBNF](http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip)
 grammar of [Appendix 2](#h.app2) of this specification. The appendix
@@ -1036,17 +1027,38 @@ should be discarded. The EBNF is enclosed in special strings constructed
 as BEGIN and END followed by EBNF GRAMMAR Filter to enable automatic
 extraction. 
 
-### Numeric properties
+### Comparisons
 
-For numeric properties the filtering language allows the usual comparison operators:  '<', '>', '<=',
-'>=', '=', '!='. Allowed comparisons are always on the format:
+The basic units of the filtering language are comparisons of properties 
+for matching specific entries, described in more detail below. 
+Implementations MUST support comparisons on the form:
 ```
 identifier <operator> value
 ```
+Where 'identifier' is a property name. However, implementations MAY OPTIONALLY support comparisons with identifiers 
+also on the right hand side, i.e., on form
+```
+identifier <operator> identifier
+```
+
+### Basic boolean operations
+
+The filter language supports conjunctions of comparisons using the
+boolean algebra operators "AND", "OR", and "NOT" and parentheses to
+group conjunctions. A comparison clause prefixed by NOT matches
+entries for which the comparison is false.
+
+The filter language MUST support at least one level of "AND" and "OR"
+conjunctions. Support for further levels is OPTIONAL. 
+
+### Numeric properties
+
+For comparisons of numeric properties the filtering language allows the usual comparison operators:  '<', '>', '<=',
+'>=', '=', '!='. 
 
 ### String properties
 
-For string data, the allowed comparison operators '=', '!=' tests for
+For comparisons of string data, the operators '=', '!=' test for
 string equality and inequality. Furthermore, matching of partial strings
 is supported by:
 
@@ -1056,15 +1068,20 @@ is supported by:
 
 * `identifier ENDS x`: Is true if the property ends with the substring value x.
 
-There is no support for less than and greater than comparisons for
-strings, since those operators could lead to overly expensive searches
-if the string properties defined by OPTIMaDe does not precisely match
-the underlying data format.
+OPTIONAL features: 
 
-### Comparisons of multi-valued propteties
+* Support for x to be an identifier, rather than a string is OPTIONAL.
+
+* Support for other comparison operators for strings, i.e., '<', '<=', '>', '>=' is
+  OPTIONAL since those operators may lead to overly expensive searches
+  if the string properties defined by OPTIMaDe does not precisely match
+  the underlying data format.
+
+### Comparisons of multi-valued properties
 
 Multi-valued properties can be thought of as lists or sets of strings or numbers. 
 In the following, a set of `values` is one or more strings or numbers separated by a comma (',').
+An implementation MAY OPTIONALLY also support identifiers in the value set.
 
 The following constructs MUST be supported:
 
@@ -1483,9 +1500,18 @@ see section [4.5.3 'provider' objects](#h.4.5.3).
 (* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
-Filter = Expression;
+Filter = Expression ;
 
-(* Keywords: *)
+(* Values *)
+
+Value = String | Number | Identifier ;
+(* Note: support for Identifier in Value is OPTIONAL *)
+
+(* White-space: *)
+
+Space = ' ' | '\t' ;
+
+(* Boolean relations: *)
 
 AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
 NOT = "NOT" ;
@@ -1509,66 +1535,44 @@ Expression = ExpressionClause, [ OR, Expression ] ;
 
 ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-ExpressionPhrase = [ NOT ], Comparison | [ NOT ], '(', Expression, ')';
+ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', Expression, ')' );
 
-(* Comparison operator tokens: *)
+(* OperatorComparison operator tokens: *)
 
-NumberOperator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
+Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
-StringOperator = '=' | '!', '=' ;
+Comparison = Identifier, ( 
+                ValueOpRhs |
+                KnownOpRhs |
+                FuzzyStringOpRhs |
+                SetOpRhs | 
+                SetZipOpRhs );
+(* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-Comparison = StringComparison |
-             NumberComparison |
-             KnownComparison |
-	     FuzzyStringComparison |
-	     SetComparison |
-	     SetZipComparison |
-	     LengthComparison ;
+PredicateComparison = LengthComparison ;
 
-(* Note: SetZipComparison is OPTIONAL *)
+ValueOpRhs = Operator, Value ;
 
-StringComparison = Identifier, NumberOperator, String ;
+KnownOpRhs = IS, KNOWN | IS, UNKNOWN ;  
 
-NumberComparison = Identifier, StringOperator, Number ;
+FuzzyStringOpRhs = CONTAINS, String | STARTS, String | ENDS, String ;
 
-KnownComparison = Identifier, IS, KNOWN |
-                  Identifier, IS, UNKNOWN ; 
+SetOpRhs = HAS, ( ValueList | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList );
+(* Note: support for ONLY in SetOpRhs is OPTIONAL *)
 
-FuzzyStringComparison = Identifier, CONTAINS, String |
-	     Identifier, STARTS, String |
-	     Identifier, ENDS, String ;
+SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZipList | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
 
-SetComparison = Identifier, HAS, ValueList |
-	      Identifier, HAS, ALL, ValueList |
-	      Identifier, HAS, EXACTLY, ValueList |
-	      Identifier, HAS, ANY, ValueList |
-	      Identifier, HAS, ONLY, ValueList ;
-
-(* Note: HAS ONLY is OPTIONAL *)
+LengthComparison = LENGTH, Identifier, Operator, Value ;
 
 ValueList = Value, [',', ValueList] ;
 
-SetZipComparison = IdentifierZipList, HAS, ValueZipList |
-              IdentifierZipList, HAS, ONLY, ValueZipList |
-	      IdentifierZipList, HAS, ALL, ValueZipList |
-	      IdentifierZipList, HAS, EXACTLY, ValueZipList |
-	      IdentifierZipList, HAS, ANY, ValueZipList ;
-
 ValueZipList = Value, ':', Value, {':', Value}, [',', ValueZipList] ;
 
-IdentifierZipList = Identifier, ':', Identifier, {':', Identifier}, [',', IdentifierZipList] ;
-
-LengthComparison = LENGTH, Identifier, NumberOperator, Number ;
-
-(* Values *)
-
-Value = Number | String ;
+IdentifierZipAddon = ':', Identifier, {':', Identifier}, [',', Identifier, IdentifierZipAddon] ;
 
 (* Identifier syntax *)
 
 Identifier = Letter, { Letter | Digit } ;
-
-Space = ' ' | '\t' ;
 
 Letter =
     'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
@@ -1596,7 +1600,7 @@ Punctuator =
    the syntax used is the onw compatible with Grammatica: *)
 
 UnicodeHighChar = ? [^\x00-\xFF] ? ;
-
+ 
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
 

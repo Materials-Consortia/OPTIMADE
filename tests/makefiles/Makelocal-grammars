@@ -63,6 +63,10 @@ ${GRAMMAR_DIR}/%.pcre:
 
 ${GRAMMAR_DIR}/%.g: ${GRAMMAR_DIR}/%.ebnf | tools
 	${TOOL_DIR}/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
+	awk '/%tokens%/{print;print "WHITESPACE = <<[ \\t\\n\\r]+>> %ignore%";next}1' $@ > $@.new
+	mv $@.new $@
+
+
 
 #------------------------------------------------------------------------------
 

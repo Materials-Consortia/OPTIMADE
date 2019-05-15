@@ -1,12 +1,36 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
 Parse tree from /dev/fd/63:
 Filter(9999)
-  Keyword(9999)
-    TOKEN_4(9999): "filter=", line: 1, col: 1
-Error: in /dev/fd/63: line 1:
-    unexpected token "filter=", expected one of "A", "B", "C", "D",
-    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
-    "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
-    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
-    "r", "s", "t", "u", "v", "w", "x", "y", "z", "_", "+", "-", "0",
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", """, "(", or
-    "NOT"
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        NOT(9999)
+          TOKEN_11(9999): "NOT", line: 1, col: 1
+        Comparison(9999)
+          Identifier(9999)
+            Letter(9999)
+              TOKEN_81(9999): "a", line: 1, col: 5
+          ValueOpRhs(9999)
+            Operator(9999)
+              TOKEN_45(9999): ">", line: 1, col: 6
+            Value(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_82(9999): "b", line: 1, col: 7
+      AND(9999)
+        TOKEN_2(9999): "AND", line: 1, col: 9
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          Comparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_104(9999): "x", line: 1, col: 13
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_45(9999): ">", line: 1, col: 14
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_31(9999): "0", line: 1, col: 15

@@ -1,194 +1,137 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
 Parse tree from /dev/fd/63:
 Filter(9999)
-  Keyword(9999)
-    TOKEN_4(9999): "filter=", line: 1, col: 1
   Expression(9999)
-    AndExpression(9999)
-      Term(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
         Comparison(9999)
-          Value(9999)
-            Identifier(9999)
-              Letter(9999)
-                TOKEN_70(9999): "a", line: 1, col: 8
-              Letter(9999)
-                TOKEN_70(9999): "a", line: 1, col: 9
-              Letter(9999)
-                TOKEN_93(9999): "x", line: 1, col: 10
-          Spaces(9999)
-            Space(9999)
-              TOKEN_5(9999): " ", line: 1, col: 11
-          Operator(9999)
-            TOKEN_32(9999): "<", line: 1, col: 12
-            TOKEN_33(9999): "=", line: 1, col: 13
-          Spaces(9999)
-            Space(9999)
-              TOKEN_5(9999): " ", line: 1, col: 14
-          Value(9999)
-            Number(9999)
-              Sign(9999)
-                TOKEN_15(9999): "+", line: 1, col: 15
-              TOKEN_18(9999): ".", line: 1, col: 16
-              Digits(9999)
-                Digit(9999)
-                  TOKEN_21(9999): "1", line: 1, col: 17
-              Exponent(9999)
-                TOKEN_74(9999): "e", line: 1, col: 18
-                Digits(9999)
-                  Digit(9999)
-                    TOKEN_28(9999): "8", line: 1, col: 19
-      Spaces(9999)
-        Space(9999)
-          TOKEN_5(9999): " ", line: 1, col: 20
-    OR(9999)
-      TOKEN_3(9999): "OR", line: 1, col: 21
-    Spaces(9999)
-      Space(9999)
-        TOKEN_5(9999): " ", line: 1, col: 23
-    Expression(9999)
-      AndExpression(9999)
-        Term(9999)
-          Comparison(9999)
-            Value(9999)
-              Identifier(9999)
-                Letter(9999)
-                  TOKEN_72(9999): "c", line: 1, col: 24
-                Digit(9999)
-                  TOKEN_22(9999): "2", line: 1, col: 25
-                Digit(9999)
-                  TOKEN_21(9999): "1", line: 1, col: 26
-            Spaces(9999)
-              Space(9999)
-                TOKEN_5(9999): " ", line: 1, col: 27
+          Identifier(9999)
+            Letter(9999)
+              TOKEN_81(9999): "a", line: 1, col: 1
+            Letter(9999)
+              TOKEN_81(9999): "a", line: 1, col: 2
+            Letter(9999)
+              TOKEN_104(9999): "x", line: 1, col: 3
+          ValueOpRhs(9999)
             Operator(9999)
-              TOKEN_34(9999): ">", line: 1, col: 28
-              TOKEN_33(9999): "=", line: 1, col: 29
-            Spaces(9999)
-              Space(9999)
-                TOKEN_5(9999): " ", line: 1, col: 30
+              TOKEN_43(9999): "<", line: 1, col: 5
+              TOKEN_44(9999): "=", line: 1, col: 6
             Value(9999)
               Number(9999)
+                Sign(9999)
+                  TOKEN_26(9999): "+", line: 1, col: 8
+                TOKEN_29(9999): ".", line: 1, col: 9
                 Digits(9999)
                   Digit(9999)
-                    TOKEN_21(9999): "1", line: 1, col: 31
-                  Digit(9999)
-                    TOKEN_20(9999): "0", line: 1, col: 32
-        Spaces(9999)
-          Space(9999)
-            TOKEN_5(9999): " ", line: 1, col: 33
+                    TOKEN_32(9999): "1", line: 1, col: 10
+                Exponent(9999)
+                  TOKEN_85(9999): "e", line: 1, col: 11
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_39(9999): "8", line: 1, col: 12
+    OR(9999)
+      TOKEN_13(9999): "OR", line: 1, col: 14
+    Expression(9999)
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          Comparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_83(9999): "c", line: 1, col: 17
+              Digit(9999)
+                TOKEN_33(9999): "2", line: 1, col: 18
+              Digit(9999)
+                TOKEN_32(9999): "1", line: 1, col: 19
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_45(9999): ">", line: 1, col: 21
+                TOKEN_44(9999): "=", line: 1, col: 22
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_32(9999): "1", line: 1, col: 24
+                    Digit(9999)
+                      TOKEN_31(9999): "0", line: 1, col: 25
         AND(9999)
-          TOKEN_1(9999): "AND", line: 1, col: 34
-        Spaces(9999)
-          Space(9999)
-            TOKEN_5(9999): " ", line: 1, col: 37
-        AndExpression(9999)
-          Term(9999)
+          TOKEN_2(9999): "AND", line: 1, col: 27
+        ExpressionClause(9999)
+          ExpressionPhrase(9999)
             NOT(9999)
-              TOKEN_2(9999): "NOT", line: 1, col: 38
-            Spaces(9999)
-              Space(9999)
-                TOKEN_5(9999): " ", line: 1, col: 41
-            Term(9999)
-              TOKEN_12(9999): "(", line: 1, col: 42
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_5(9999): " ", line: 1, col: 43
-              Expression(9999)
-                AndExpression(9999)
-                  Term(9999)
-                    Comparison(9999)
-                      Value(9999)
-                        Identifier(9999)
-                          Letter(9999)
-                            TOKEN_93(9999): "x", line: 1, col: 44
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_5(9999): " ", line: 1, col: 45
+              TOKEN_11(9999): "NOT", line: 1, col: 31
+            TOKEN_23(9999): "(", line: 1, col: 35
+            Expression(9999)
+              ExpressionClause(9999)
+                ExpressionPhrase(9999)
+                  Comparison(9999)
+                    Identifier(9999)
+                      Letter(9999)
+                        TOKEN_104(9999): "x", line: 1, col: 37
+                    ValueOpRhs(9999)
                       Operator(9999)
-                        TOKEN_6(9999): "!", line: 1, col: 46
-                        TOKEN_33(9999): "=", line: 1, col: 47
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_5(9999): " ", line: 1, col: 48
+                        TOKEN_17(9999): "!", line: 1, col: 39
+                        TOKEN_44(9999): "=", line: 1, col: 40
                       Value(9999)
                         String(9999)
-                          TOKEN_7(9999): """, line: 1, col: 49
+                          TOKEN_18(9999): """, line: 1, col: 42
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_55(9999): "S", line: 1, col: 50
+                                TOKEN_66(9999): "S", line: 1, col: 43
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_84(9999): "o", line: 1, col: 51
+                                TOKEN_95(9999): "o", line: 1, col: 44
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_82(9999): "m", line: 1, col: 52
+                                TOKEN_93(9999): "m", line: 1, col: 45
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_74(9999): "e", line: 1, col: 53
-                          EscapedChar(9999)
-                            UnescapedChar(9999)
-                              Space(9999)
-                                TOKEN_5(9999): " ", line: 1, col: 54
+                                TOKEN_85(9999): "e", line: 1, col: 46
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_88(9999): "s", line: 1, col: 55
+                                TOKEN_99(9999): "s", line: 1, col: 48
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_89(9999): "t", line: 1, col: 56
+                                TOKEN_100(9999): "t", line: 1, col: 49
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_87(9999): "r", line: 1, col: 57
+                                TOKEN_98(9999): "r", line: 1, col: 50
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_78(9999): "i", line: 1, col: 58
+                                TOKEN_89(9999): "i", line: 1, col: 51
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_83(9999): "n", line: 1, col: 59
+                                TOKEN_94(9999): "n", line: 1, col: 52
                           EscapedChar(9999)
                             UnescapedChar(9999)
                               Letter(9999)
-                                TOKEN_76(9999): "g", line: 1, col: 60
-                          TOKEN_7(9999): """, line: 1, col: 61
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_5(9999): " ", line: 1, col: 62
-                OR(9999)
-                  TOKEN_3(9999): "OR", line: 1, col: 63
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_5(9999): " ", line: 1, col: 65
-                Expression(9999)
-                  AndExpression(9999)
-                    Term(9999)
-                      NOT(9999)
-                        TOKEN_2(9999): "NOT", line: 1, col: 66
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_5(9999): " ", line: 1, col: 69
-                      Term(9999)
-                        Comparison(9999)
-                          Value(9999)
-                            Identifier(9999)
-                              Letter(9999)
-                                TOKEN_70(9999): "a", line: 1, col: 70
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_5(9999): " ", line: 1, col: 71
-                          Operator(9999)
-                            TOKEN_33(9999): "=", line: 1, col: 72
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_5(9999): " ", line: 1, col: 73
-                          Value(9999)
-                            Identifier(9999)
-                              Letter(9999)
-                                TOKEN_71(9999): "b", line: 1, col: 74
-              TOKEN_13(9999): ")", line: 1, col: 75
+                                TOKEN_87(9999): "g", line: 1, col: 53
+                          TOKEN_18(9999): """, line: 1, col: 54
+              OR(9999)
+                TOKEN_13(9999): "OR", line: 1, col: 56
+              Expression(9999)
+                ExpressionClause(9999)
+                  ExpressionPhrase(9999)
+                    NOT(9999)
+                      TOKEN_11(9999): "NOT", line: 1, col: 59
+                    Comparison(9999)
+                      Identifier(9999)
+                        Letter(9999)
+                          TOKEN_81(9999): "a", line: 1, col: 63
+                      ValueOpRhs(9999)
+                        Operator(9999)
+                          TOKEN_44(9999): "=", line: 1, col: 65
+                        Value(9999)
+                          Identifier(9999)
+                            Letter(9999)
+                              TOKEN_82(9999): "b", line: 1, col: 67
+            TOKEN_24(9999): ")", line: 1, col: 68

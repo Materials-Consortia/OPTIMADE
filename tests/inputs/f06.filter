@@ -1,1 +1,1 @@
-filter=b="kva" AND (1<s OR NOT( x!=y AND z>0 ) )
+b="kva" AND (1<s OR NOT( x!=y AND z>0 ) )
