@@ -1,0 +1,38 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
+Parse tree from /dev/fd/63:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          Identifier(9999)
+            Letter(9999)
+              TOKEN_85(9999): "e", line: 1, col: 1
+            Letter(9999)
+              TOKEN_92(9999): "l", line: 1, col: 2
+            Letter(9999)
+              TOKEN_85(9999): "e", line: 1, col: 3
+            Letter(9999)
+              TOKEN_93(9999): "m", line: 1, col: 4
+            Letter(9999)
+              TOKEN_85(9999): "e", line: 1, col: 5
+            Letter(9999)
+              TOKEN_94(9999): "n", line: 1, col: 6
+            Letter(9999)
+              TOKEN_100(9999): "t", line: 1, col: 7
+            Letter(9999)
+              TOKEN_99(9999): "s", line: 1, col: 8
+          SetOpRhs(9999)
+            HAS(9999)
+              TOKEN_7(9999): "HAS", line: 1, col: 10
+            Value(9999)
+              String(9999)
+                TOKEN_18(9999): """, line: 1, col: 14
+                EscapedChar(9999)
+                  UnescapedChar(9999)
+                    Letter(9999)
+                      TOKEN_55(9999): "H", line: 1, col: 15
+                TOKEN_18(9999): """, line: 1, col: 16
+Error: in /dev/fd/63: line 1:
+    unexpected token ",", expected <EOF>
