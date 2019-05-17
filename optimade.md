@@ -1507,6 +1507,12 @@ Filter = Expression ;
 Value = String | Number | Identifier ;
 (* Note: support for Identifier in Value is OPTIONAL *)
 
+ValueList = Value, {',', Value } ;
+
+ValueZip = Value, ':', Value, {':', Value} ;
+
+ValueZipList = ValueZip, { ',', ValueZip } ;
+
 (* White-space: *)
 
 Space = ' ' | '\t' ;
@@ -1553,22 +1559,18 @@ PredicateComparison = LengthComparison ;
 
 ValueOpRhs = Operator, Value ;
 
-KnownOpRhs = IS, KNOWN | IS, UNKNOWN ;  
+KnownOpRhs = IS, ( KNOWN | UNKNOWN );  
 
 FuzzyStringOpRhs = CONTAINS, String | STARTS, String | ENDS, String ;
 
-SetOpRhs = HAS, ( ValueList | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList );
+SetOpRhs = HAS, ( Value | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList );
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
 
-SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZipList | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
+SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
 
 LengthComparison = LENGTH, Identifier, Operator, Value ;
 
-ValueList = Value, [',', ValueList] ;
-
-ValueZipList = Value, ':', Value, {':', Value}, [',', ValueZipList] ;
-
-IdentifierZipAddon = ':', Identifier, {':', Identifier}, [',', Identifier, IdentifierZipAddon] ;
+IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
 
 (* Identifier syntax *)
 
