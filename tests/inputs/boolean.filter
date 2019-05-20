@@ -1,0 +1,1 @@
+NOT ( chemical_formula = "Al" AND prototype_formula = "A" OR prototype_formula = "H2O" AND NOT chemical_formula = "Ti" )

@@ -1,0 +1,115 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
+Parse tree from /dev/fd/63:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_80(9999): "_", line: 1, col: 1
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 2
+              Letter(9999)
+                TOKEN_105(9999): "x", line: 1, col: 3
+              Letter(9999)
+                TOKEN_94(9999): "m", line: 1, col: 4
+              Letter(9999)
+                TOKEN_97(9999): "p", line: 1, col: 5
+              Letter(9999)
+                TOKEN_93(9999): "l", line: 1, col: 6
+              Letter(9999)
+                TOKEN_80(9999): "_", line: 1, col: 7
+              Letter(9999)
+                TOKEN_83(9999): "b", line: 1, col: 8
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 9
+              Letter(9999)
+                TOKEN_95(9999): "n", line: 1, col: 10
+              Letter(9999)
+                TOKEN_85(9999): "d", line: 1, col: 11
+              Letter(9999)
+                TOKEN_88(9999): "g", line: 1, col: 12
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 13
+              Letter(9999)
+                TOKEN_97(9999): "p", line: 1, col: 14
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_46(9999): ">", line: 1, col: 16
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_37(9999): "5", line: 1, col: 18
+                  TOKEN_30(9999): ".", line: 1, col: 19
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_32(9999): "0", line: 1, col: 20
+      AND(9999)
+        TOKEN_2(9999): "AND", line: 1, col: 22
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          Comparison(9999)
+            IdentifierFirstComparison(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_80(9999): "_", line: 1, col: 26
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 27
+                Letter(9999)
+                  TOKEN_105(9999): "x", line: 1, col: 28
+                Letter(9999)
+                  TOKEN_94(9999): "m", line: 1, col: 29
+                Letter(9999)
+                  TOKEN_97(9999): "p", line: 1, col: 30
+                Letter(9999)
+                  TOKEN_93(9999): "l", line: 1, col: 31
+                Letter(9999)
+                  TOKEN_80(9999): "_", line: 1, col: 32
+                Letter(9999)
+                  TOKEN_94(9999): "m", line: 1, col: 33
+                Letter(9999)
+                  TOKEN_96(9999): "o", line: 1, col: 34
+                Letter(9999)
+                  TOKEN_93(9999): "l", line: 1, col: 35
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 36
+                Letter(9999)
+                  TOKEN_84(9999): "c", line: 1, col: 37
+                Letter(9999)
+                  TOKEN_102(9999): "u", line: 1, col: 38
+                Letter(9999)
+                  TOKEN_93(9999): "l", line: 1, col: 39
+                Letter(9999)
+                  TOKEN_82(9999): "a", line: 1, col: 40
+                Letter(9999)
+                  TOKEN_99(9999): "r", line: 1, col: 41
+                Letter(9999)
+                  TOKEN_80(9999): "_", line: 1, col: 42
+                Letter(9999)
+                  TOKEN_104(9999): "w", line: 1, col: 43
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 44
+                Letter(9999)
+                  TOKEN_90(9999): "i", line: 1, col: 45
+                Letter(9999)
+                  TOKEN_88(9999): "g", line: 1, col: 46
+                Letter(9999)
+                  TOKEN_89(9999): "h", line: 1, col: 47
+                Letter(9999)
+                  TOKEN_101(9999): "t", line: 1, col: 48
+              ValueOpRhs(9999)
+                Operator(9999)
+                  TOKEN_44(9999): "<", line: 1, col: 50
+                Value(9999)
+                  Number(9999)
+                    Digits(9999)
+                      Digit(9999)
+                        TOKEN_35(9999): "3", line: 1, col: 52
+                      Digit(9999)
+                        TOKEN_37(9999): "5", line: 1, col: 53
+                      Digit(9999)
+                        TOKEN_32(9999): "0", line: 1, col: 54

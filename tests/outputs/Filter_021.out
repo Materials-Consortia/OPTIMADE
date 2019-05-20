@@ -6,154 +6,157 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          Identifier(9999)
-            Letter(9999)
-              TOKEN_83(9999): "c", line: 1, col: 1
-            Letter(9999)
-              TOKEN_88(9999): "h", line: 1, col: 2
-            Letter(9999)
-              TOKEN_85(9999): "e", line: 1, col: 3
-            Letter(9999)
-              TOKEN_93(9999): "m", line: 1, col: 4
-            Letter(9999)
-              TOKEN_89(9999): "i", line: 1, col: 5
-            Letter(9999)
-              TOKEN_83(9999): "c", line: 1, col: 6
-            Letter(9999)
-              TOKEN_81(9999): "a", line: 1, col: 7
-            Letter(9999)
-              TOKEN_92(9999): "l", line: 1, col: 8
-            Letter(9999)
-              TOKEN_79(9999): "_", line: 1, col: 9
-            Letter(9999)
-              TOKEN_86(9999): "f", line: 1, col: 10
-            Letter(9999)
-              TOKEN_95(9999): "o", line: 1, col: 11
-            Letter(9999)
-              TOKEN_98(9999): "r", line: 1, col: 12
-            Letter(9999)
-              TOKEN_93(9999): "m", line: 1, col: 13
-            Letter(9999)
-              TOKEN_101(9999): "u", line: 1, col: 14
-            Letter(9999)
-              TOKEN_92(9999): "l", line: 1, col: 15
-            Letter(9999)
-              TOKEN_81(9999): "a", line: 1, col: 16
-          FuzzyStringOpRhs(9999)
-            CONTAINS(9999)
-              TOKEN_4(9999): "CONTAINS", line: 1, col: 18
-            String(9999)
-              TOKEN_18(9999): """, line: 1, col: 27
-              EscapedChar(9999)
-                UnescapedChar(9999)
-                  Letter(9999)
-                    TOKEN_48(9999): "A", line: 1, col: 28
-              EscapedChar(9999)
-                UnescapedChar(9999)
-                  Letter(9999)
-                    TOKEN_92(9999): "l", line: 1, col: 29
-              TOKEN_18(9999): """, line: 1, col: 30
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_84(9999): "c", line: 1, col: 1
+              Letter(9999)
+                TOKEN_89(9999): "h", line: 1, col: 2
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 3
+              Letter(9999)
+                TOKEN_94(9999): "m", line: 1, col: 4
+              Letter(9999)
+                TOKEN_90(9999): "i", line: 1, col: 5
+              Letter(9999)
+                TOKEN_84(9999): "c", line: 1, col: 6
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 7
+              Letter(9999)
+                TOKEN_93(9999): "l", line: 1, col: 8
+              Letter(9999)
+                TOKEN_80(9999): "_", line: 1, col: 9
+              Letter(9999)
+                TOKEN_87(9999): "f", line: 1, col: 10
+              Letter(9999)
+                TOKEN_96(9999): "o", line: 1, col: 11
+              Letter(9999)
+                TOKEN_99(9999): "r", line: 1, col: 12
+              Letter(9999)
+                TOKEN_94(9999): "m", line: 1, col: 13
+              Letter(9999)
+                TOKEN_102(9999): "u", line: 1, col: 14
+              Letter(9999)
+                TOKEN_93(9999): "l", line: 1, col: 15
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 16
+            FuzzyStringOpRhs(9999)
+              CONTAINS(9999)
+                TOKEN_4(9999): "CONTAINS", line: 1, col: 18
+              String(9999)
+                TOKEN_19(9999): """, line: 1, col: 27
+                EscapedChar(9999)
+                  UnescapedChar(9999)
+                    Letter(9999)
+                      TOKEN_49(9999): "A", line: 1, col: 28
+                EscapedChar(9999)
+                  UnescapedChar(9999)
+                    Letter(9999)
+                      TOKEN_93(9999): "l", line: 1, col: 29
+                TOKEN_19(9999): """, line: 1, col: 30
       AND(9999)
         TOKEN_2(9999): "AND", line: 1, col: 32
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
-            Identifier(9999)
-              Letter(9999)
-                TOKEN_83(9999): "c", line: 1, col: 36
-              Letter(9999)
-                TOKEN_88(9999): "h", line: 1, col: 37
-              Letter(9999)
-                TOKEN_85(9999): "e", line: 1, col: 38
-              Letter(9999)
-                TOKEN_93(9999): "m", line: 1, col: 39
-              Letter(9999)
-                TOKEN_89(9999): "i", line: 1, col: 40
-              Letter(9999)
-                TOKEN_83(9999): "c", line: 1, col: 41
-              Letter(9999)
-                TOKEN_81(9999): "a", line: 1, col: 42
-              Letter(9999)
-                TOKEN_92(9999): "l", line: 1, col: 43
-              Letter(9999)
-                TOKEN_79(9999): "_", line: 1, col: 44
-              Letter(9999)
-                TOKEN_86(9999): "f", line: 1, col: 45
-              Letter(9999)
-                TOKEN_95(9999): "o", line: 1, col: 46
-              Letter(9999)
-                TOKEN_98(9999): "r", line: 1, col: 47
-              Letter(9999)
-                TOKEN_93(9999): "m", line: 1, col: 48
-              Letter(9999)
-                TOKEN_101(9999): "u", line: 1, col: 49
-              Letter(9999)
-                TOKEN_92(9999): "l", line: 1, col: 50
-              Letter(9999)
-                TOKEN_81(9999): "a", line: 1, col: 51
-            FuzzyStringOpRhs(9999)
-              STARTS(9999)
-                TOKEN_14(9999): "STARTS", line: 1, col: 53
-              String(9999)
-                TOKEN_18(9999): """, line: 1, col: 60
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      TOKEN_48(9999): "A", line: 1, col: 61
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      TOKEN_92(9999): "l", line: 1, col: 62
-                TOKEN_18(9999): """, line: 1, col: 63
+            IdentifierFirstComparison(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_84(9999): "c", line: 1, col: 36
+                Letter(9999)
+                  TOKEN_89(9999): "h", line: 1, col: 37
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 38
+                Letter(9999)
+                  TOKEN_94(9999): "m", line: 1, col: 39
+                Letter(9999)
+                  TOKEN_90(9999): "i", line: 1, col: 40
+                Letter(9999)
+                  TOKEN_84(9999): "c", line: 1, col: 41
+                Letter(9999)
+                  TOKEN_82(9999): "a", line: 1, col: 42
+                Letter(9999)
+                  TOKEN_93(9999): "l", line: 1, col: 43
+                Letter(9999)
+                  TOKEN_80(9999): "_", line: 1, col: 44
+                Letter(9999)
+                  TOKEN_87(9999): "f", line: 1, col: 45
+                Letter(9999)
+                  TOKEN_96(9999): "o", line: 1, col: 46
+                Letter(9999)
+                  TOKEN_99(9999): "r", line: 1, col: 47
+                Letter(9999)
+                  TOKEN_94(9999): "m", line: 1, col: 48
+                Letter(9999)
+                  TOKEN_102(9999): "u", line: 1, col: 49
+                Letter(9999)
+                  TOKEN_93(9999): "l", line: 1, col: 50
+                Letter(9999)
+                  TOKEN_82(9999): "a", line: 1, col: 51
+              FuzzyStringOpRhs(9999)
+                STARTS(9999)
+                  TOKEN_14(9999): "STARTS", line: 1, col: 53
+                String(9999)
+                  TOKEN_19(9999): """, line: 1, col: 60
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        TOKEN_49(9999): "A", line: 1, col: 61
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        TOKEN_93(9999): "l", line: 1, col: 62
+                  TOKEN_19(9999): """, line: 1, col: 63
         AND(9999)
           TOKEN_2(9999): "AND", line: 1, col: 65
         ExpressionClause(9999)
           ExpressionPhrase(9999)
             Comparison(9999)
-              Identifier(9999)
-                Letter(9999)
-                  TOKEN_83(9999): "c", line: 1, col: 69
-                Letter(9999)
-                  TOKEN_88(9999): "h", line: 1, col: 70
-                Letter(9999)
-                  TOKEN_85(9999): "e", line: 1, col: 71
-                Letter(9999)
-                  TOKEN_93(9999): "m", line: 1, col: 72
-                Letter(9999)
-                  TOKEN_89(9999): "i", line: 1, col: 73
-                Letter(9999)
-                  TOKEN_83(9999): "c", line: 1, col: 74
-                Letter(9999)
-                  TOKEN_81(9999): "a", line: 1, col: 75
-                Letter(9999)
-                  TOKEN_92(9999): "l", line: 1, col: 76
-                Letter(9999)
-                  TOKEN_79(9999): "_", line: 1, col: 77
-                Letter(9999)
-                  TOKEN_86(9999): "f", line: 1, col: 78
-                Letter(9999)
-                  TOKEN_95(9999): "o", line: 1, col: 79
-                Letter(9999)
-                  TOKEN_98(9999): "r", line: 1, col: 80
-                Letter(9999)
-                  TOKEN_93(9999): "m", line: 1, col: 81
-                Letter(9999)
-                  TOKEN_101(9999): "u", line: 1, col: 82
-                Letter(9999)
-                  TOKEN_92(9999): "l", line: 1, col: 83
-                Letter(9999)
-                  TOKEN_81(9999): "a", line: 1, col: 84
-              FuzzyStringOpRhs(9999)
-                ENDS(9999)
-                  TOKEN_5(9999): "ENDS", line: 1, col: 86
-                String(9999)
-                  TOKEN_18(9999): """, line: 1, col: 91
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        TOKEN_48(9999): "A", line: 1, col: 92
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        TOKEN_92(9999): "l", line: 1, col: 93
-                  TOKEN_18(9999): """, line: 1, col: 94
+              IdentifierFirstComparison(9999)
+                Identifier(9999)
+                  Letter(9999)
+                    TOKEN_84(9999): "c", line: 1, col: 69
+                  Letter(9999)
+                    TOKEN_89(9999): "h", line: 1, col: 70
+                  Letter(9999)
+                    TOKEN_86(9999): "e", line: 1, col: 71
+                  Letter(9999)
+                    TOKEN_94(9999): "m", line: 1, col: 72
+                  Letter(9999)
+                    TOKEN_90(9999): "i", line: 1, col: 73
+                  Letter(9999)
+                    TOKEN_84(9999): "c", line: 1, col: 74
+                  Letter(9999)
+                    TOKEN_82(9999): "a", line: 1, col: 75
+                  Letter(9999)
+                    TOKEN_93(9999): "l", line: 1, col: 76
+                  Letter(9999)
+                    TOKEN_80(9999): "_", line: 1, col: 77
+                  Letter(9999)
+                    TOKEN_87(9999): "f", line: 1, col: 78
+                  Letter(9999)
+                    TOKEN_96(9999): "o", line: 1, col: 79
+                  Letter(9999)
+                    TOKEN_99(9999): "r", line: 1, col: 80
+                  Letter(9999)
+                    TOKEN_94(9999): "m", line: 1, col: 81
+                  Letter(9999)
+                    TOKEN_102(9999): "u", line: 1, col: 82
+                  Letter(9999)
+                    TOKEN_93(9999): "l", line: 1, col: 83
+                  Letter(9999)
+                    TOKEN_82(9999): "a", line: 1, col: 84
+                FuzzyStringOpRhs(9999)
+                  ENDS(9999)
+                    TOKEN_5(9999): "ENDS", line: 1, col: 86
+                  String(9999)
+                    TOKEN_19(9999): """, line: 1, col: 91
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
+                        Letter(9999)
+                          TOKEN_49(9999): "A", line: 1, col: 92
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
+                        Letter(9999)
+                          TOKEN_93(9999): "l", line: 1, col: 93
+                    TOKEN_19(9999): """, line: 1, col: 94

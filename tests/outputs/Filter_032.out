@@ -6,31 +6,32 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          Identifier(9999)
-            Letter(9999)
-              TOKEN_85(9999): "e", line: 1, col: 1
-            Letter(9999)
-              TOKEN_92(9999): "l", line: 1, col: 2
-            Letter(9999)
-              TOKEN_85(9999): "e", line: 1, col: 3
-            Letter(9999)
-              TOKEN_93(9999): "m", line: 1, col: 4
-            Letter(9999)
-              TOKEN_85(9999): "e", line: 1, col: 5
-            Letter(9999)
-              TOKEN_94(9999): "n", line: 1, col: 6
-            Letter(9999)
-              TOKEN_100(9999): "t", line: 1, col: 7
-            Letter(9999)
-              TOKEN_99(9999): "s", line: 1, col: 8
-          SetOpRhs(9999)
-            HAS(9999)
-              TOKEN_7(9999): "HAS", line: 1, col: 10
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 1
+              Letter(9999)
+                TOKEN_93(9999): "l", line: 1, col: 2
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 3
+              Letter(9999)
+                TOKEN_94(9999): "m", line: 1, col: 4
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 5
+              Letter(9999)
+                TOKEN_95(9999): "n", line: 1, col: 6
+              Letter(9999)
+                TOKEN_101(9999): "t", line: 1, col: 7
+              Letter(9999)
+                TOKEN_100(9999): "s", line: 1, col: 8
+            SetOpRhs(9999)
+              HAS(9999)
+                TOKEN_7(9999): "HAS", line: 1, col: 10
 Error: in /dev/fd/63: line 1:
-    unexpected token "IS", expected one of """, "+", "-", "0", "1",
-    "2", "3", "4", "5", "6", "7", "8", "9", ".", "A", "B", "C", "D",
-    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
-    "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
-    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
-    "r", "s", "t", "u", "v", "w", "x", "y", "z", "_", "ALL",
-    "EXACTLY", "ANY", or "ONLY"
+    unexpected token "IS", expected one of "<", ">", "=", "!", """,
+    "+", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".",
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+    "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "_", "ALL", "EXACTLY", "ANY", or "ONLY"

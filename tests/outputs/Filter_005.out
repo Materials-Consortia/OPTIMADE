@@ -6,14 +6,15 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          Identifier(9999)
-            Letter(9999)
-              TOKEN_81(9999): "a", line: 1, col: 1
-          ValueOpRhs(9999)
-            Operator(9999)
-              TOKEN_44(9999): "=", line: 1, col: 2
-            Value(9999)
-              Number(9999)
-                Digits(9999)
-                  Digit(9999)
-                    TOKEN_32(9999): "1", line: 1, col: 3
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 1
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_45(9999): "=", line: 1, col: 2
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_33(9999): "1", line: 1, col: 3

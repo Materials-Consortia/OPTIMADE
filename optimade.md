@@ -904,20 +904,30 @@ API implementors can provide custom endpoints, in this form
 
 # <a name="h.5">5. API Filtering Format Specification</a>
 
-An OPTIMaDe filter expression is passed via the URL query
-parameter `filter` (as specified by jsonapi). In the expression,
-desired properties are compared against search values; several such
-comparisons can be combined using AND, OR and NOT logical conjunctions
-with their usual semantics. 
+An OPTIMaDe filter expression is passed in the parameter `filter`
+either as an URL query parameter as specified by jsonapi, or as part
+of a POST request as described in [4.3. General entry listing 'All' endpoint](#h.4.3).
+The filter expression allows desired properties to be compared against search
+values; several such comparisons can be combined using the logical
+conjunctions AND, OR, NOT, and parentheses, with their usual
+semantics.
 
-Similar to the other URL query parameters, the contents of the
+When provided as an URL query parameter, the contents of the
 `filter` parameter is URL-encoded by the client in the HTTP GET
-request, and then URL-decoded by the API implementation before any further
-parsing takes place. In particular, this means the client MUST eascape
-special characters in string values as described above in the section
-"String values" before the URL encoding, and the API implementation
-MUST first URL-decode the `filter` parameter before reversing the escaping of
-string tokens.
+request, and then URL-decoded by the API implementation before any
+further parsing takes place. In particular, this means the client MUST
+escape special characters in string values as described below in the
+section "String values" before the URL encoding, and the API
+implementation MUST first URL-decode the `filter` parameter before
+reversing the escaping of string tokens.
+
+Examples of syntactically correct query strings embedded in queries:
+
+* `http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
+
+Or, fully URL encoded :
+
+* `http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml`
 
 ## <a name="h.5.1">5.1. Lexical tokens</a>
 
@@ -927,19 +937,20 @@ The following tokens are used in the filter query component:
   syntax of programming languages -- the first character MUST be a letter, the
   subsequent symbols MUST be alphanumeric; the underscore ("\_", ASCII 95 dec
   (0x5F)) is considered to be a letter. Identifiers are case-sensitive. The
-  length of the identifiers is not limited, except that the whole query SHOULD
-  NOT be longer than the limits imposed by the URI specification.
+  length of the identifiers is not limited, except that when passed as a
+  URL query parameter the whole query SHOULD NOT be longer than the limits
+  imposed by the URI specification.
 
     Examples of valid property names:
 
-    * band\_gap
-    * cell\_length\_a
-    * cell\_volume
+    * `band_gap`
+    * `cell_length_a`
+    * `cell_volume`
 
     Examples of incorrect property names:
 
-    * 0\_kvak (starts with a number);
-    * "foo bar" (contains space; contains quotes)
+    * `0_kvak` (starts with a number);
+    * `"foo bar"` (contains space; contains quotes)
     
     Identifiers that start with an underscore are specific to a database provider,
     and MUST be on the format of a database-provider-specific prefix as
@@ -947,99 +958,90 @@ The following tokens are used in the filter query component:
 
     Examples:
 
-    * \_exmpl\_formula\_sum (a property specific to that database)
-    * \_exmpl\_band\_gap
-    * \_exmpl\_supercell
-    * \_exmpl\_trajectory
-    * \_exmpl\_workflow\_id  
-    &nbsp;
+    * `_exmpl_formula_sum` (a property specific to that database)
+    * `_exmpl_band_gap`
+    * `_exmpl_supercell`
+    * `_exmpl_trajectory`
+    * `_exmpl_workflow_id`  
 
 * **String values** MUST be enclosed in double quotes ("", ASCII symbol 92
-  dec, 0x5C hex). The quote and other special characters within the double
-  quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote
-  which is a part of the value, not a delimiter, MUST be prepended with a
-  backslash character ("\\", ASCII symbol), and the backslash character
-  itself, when taken literally, MUST be preceded by another
-  backslash. An example of the escaped string value is given below:
-    * "A double quote character (""", ASCII symbol 92 dec) MUST be prepended by
-      a backslash ("\\", ASCII symbol 92 dec) when it is a part of the value and
-      not a delimiter; the backslash character "\\" itself MUST be preceded by
-      another backslash, forming a double backslash: \\\\"
+    dec, 0x5C hex). The quote and other special characters within the double
+    quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote
+    which is a part of the value, not a delimiter, MUST be prepended with a
+    backslash character ("\\", ASCII symbol), and the backslash character
+    itself, when taken literally, MUST be preceded by another
+    backslash. An example of the escaped string value is given below:
+  
+      * "A double quote character (""", ASCII symbol 92 dec) MUST be prepended by
+        a backslash ("\\", ASCII symbol 92 dec) when it is a part of the value and
+        not a delimiter; the backslash character "\\" itself MUST be preceded by
+        another backslash, forming a double backslash: \\\\"
 
-
-  (Note that at the end of the string value above the four final backslashes
-  represent the two terminal backslashes in the value, and the final double
-  quote is a terminator, it is not escaped).
+    (Note that at the end of the string value above the four final backslashes
+    represent the two terminal backslashes in the value, and the final double
+    quote is a terminator, it is not escaped).
 
 * **Numeric values** are represented as decimal integers or in scientific
-  notation, using the usual programming language conventions. A regular
-  expression giving the number syntax is given below as a [POSIX Extended
+  notation, using the usual programming language conventions. 
+    A regular expression giving the number syntax is given below as a [POSIX Extended
   Regular Expression (ERE)](https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards)
   or as a [Perl-Compatible Regular Expression (PCRE)](http://www.pcre.org):
-    * ERE: [-+]?([0-9]+(\\.[0-9]\*)?|\\.[0-9]+)([eE][-+]?[0-9]+)?
-    * PCRE: [-+]?(?:\\d+(\\.\\d*)?|\\.\\d+)(?:[eE][-+]?\\d+)?
-* An implementation of the search filter MAY reject numbers that are outside
-  the machine representation of the underlying hardware; in such case it MUST
-  return an appropriate error message, indicating the cause of the error and an
-  acceptable number range.
-* Examples of valid numbers:
-    * 12345, +12, -34, 1.2, .2E7, -.2E+7, +10.01E-10, 6.03e23, .1E1, -.1e1,
-      1.e-12, -.1e-12, 1000000000.E1000000000
-* **A comma-separated list of** _incorrect_ number examples (although they MAY
-  contain correct numbers as substrings):
-    * 1.234D12, .e1 , -.E1 , +.E2, 1.23E+++, +-123
 
+      * ERE: `[-+]?([0-9]+(\.[0-9]\*)?|\.[0-9]+)([eE][-+]?[0-9]+)?`
+      * PCRE: `[-+]?(?:\d+(\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?`
 
-More examples of the number tokens and machine-readable definitions and tests
-can be found in the [Materials-Consortia API Git repository](https://github.com/Materials-Consortia/API/)
-(files
-[integers.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst),
-[not-numbers.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst),
-[numbers.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst),
-and
-[reals.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst)).
+    An implementation of the search filter MAY reject numbers that are outside
+    the machine representation of the underlying hardware; in such case it MUST
+    return the error `501 Not Implemented` with an appropriate error message
+    that indicates the cause of the error and an acceptable number range.
+
+    Examples of valid numbers:
+
+      * `12345, +12, -34, 1.2, .2E7, -.2E+7, +10.01E-10, 6.03e23, .1E1, -.1e1,
+        1.e-12, -.1e-12, 1000000000.E1000000000`
+
+    A comma-separated list of _incorrect_ number examples (although they MAY
+    contain correct numbers as substrings):
+
+      * `1.234D12, .e1 , -.E1 , +.E2, 1.23E+++, +-123`
+
+    While the filtering language supports tests for equality between
+    properties of floating point type and decimal numbers given in the
+    filter string, such comparisons come with the usual caveats for
+    testing for equality of floating point numbers. Normally, a client
+    cannot rely on that a floating point number stored in a database
+    takes on a representation that exactly matches the one obtained
+    for a number given in the filtering string as a decimal number or
+    as an integer. However, testing for equality to zero MUST be supported.
+
+    More examples of the number tokens and machine-readable definitions and tests
+    can be found in the [Materials-Consortia API Git repository](https://github.com/Materials-Consortia/API/)
+    (files
+    [integers.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst),
+    [not-numbers.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst),
+    [numbers.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst),
+    and
+    [reals.lst](https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst)).
 
 
 * **Operator tokens** are represented by usual mathematical relation symbols or by
-  case-sensitive keywords. Currently the following operators are supported: =,
-  !=, <=, >=, <, > for tests of number or string (lexicographical) equality,
-  inequality, less-than, more-than, less, and more relations; AND, OR, NOT for
-  logical conjunctions. The mathematical relations have higher priority than
-  logical relations; relation NOT has higher priority than AND; relation AND has
-  higher priority than OR. Thus, the expression 'a >= 0 AND NOT b < c OR c = 0'
-  is interpreted as '((a >= 0) AND (NOT (b &lt; c))) OR (c = 0)' if the
-  expression was fully braced.
-
-
-* The current API supports only one level of braces (no nested braces) : the
-  expression 'a > b AND (a > 0 OR b > 0)' MUST be supported to allow changing
-  of the priority of the logical operations.
+  case-sensitive keywords. Currently the following operators are supported: `=`,
+  `!=`, `<=`, `>=`, `<`, `>` for tests of number or string (lexicographical) equality,
+  inequality, less-than, more-than, less, and more relations; `AND`, `OR`, `NOT` for
+  logical conjunctions, and a number of keyword operators discussed in the next
+  section.
 
 ## <a name="h.5.2">5.2. The filter language syntax</a>
 
 All filtering expressions MUST follow the
 [EBNF](http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip)
 grammar of [Appendix 2](#h.app2) of this specification. The appendix
-contains a complete machine readable EBNF, including the definition
+contains a complete machine-readable EBNF, including the definition
 of the lexical tokens described above in [section '5.1. Lexical
 tokens'](#h.5.1). Note that all whitespace (space, tab, and newline) between tokens
 should be discarded. The EBNF is enclosed in special strings constructed
-as BEGIN and END followed by EBNF GRAMMAR Filter to enable automatic
-extraction. 
-
-### Comparisons
-
-The basic units of the filtering language are comparisons of properties 
-for matching specific entries, described in more detail below. 
-Implementations MUST support comparisons on the form:
-```
-identifier <operator> value
-```
-Where 'identifier' is a property name. However, implementations MAY OPTIONALLY support comparisons with identifiers 
-also on the right hand side, i.e., on form
-```
-identifier <operator> identifier
-```
+as `BEGIN` and `END`, both followed by `EBNF GRAMMAR Filter`, to enable automatic
+extraction.
 
 ### Basic boolean operations
 
@@ -1048,50 +1050,78 @@ boolean algebra operators "AND", "OR", and "NOT" and parentheses to
 group conjunctions. A comparison clause prefixed by NOT matches
 entries for which the comparison is false.
 
-The filter language MUST support at least one level of "AND" and "OR"
-conjunctions. Support for further levels is OPTIONAL. 
+Examples:
 
-### Numeric properties
+* `NOT ( chemical_formula = "Al" AND prototype_formula = "A" OR prototype_formula = "H2O" AND NOT chemical_formula = "Ti" )`
 
-For comparisons of numeric properties the filtering language allows the usual comparison operators:  '<', '>', '<=',
-'>=', '=', '!='. 
+### Numeric and String comparisons
 
-### String properties
+Comparisons involving Numeric and String properties can be expressed
+using the usual comparison operators: '<', '>', '<=', '>=', '=', '!='.
+Implementations MUST support comparisons on the form:
+```
+identifier <operator> constant
+constant <operator> identifier
+```
+Where 'identifier' is a property name and 'constant' is either a
+numerical or string type constant. However, implementations MAY
+OPTIONALLY support comparisons with identifiers also on both sides,
+and comparisons with values on both sides, i.e., on the forms:
+```
+identifier <operator> identifier
+constant <operator> constant
+```
 
-For comparisons of string data, the operators '=', '!=' test for
-string equality and inequality. Furthermore, matching of partial strings
-is supported by:
+Examples:
+
+* `nelements > 3`
+* `chemical_formula = "H2O" AND prototype_formula != "AB"`
+* `_exmpl_aax <= +.1e8 OR nelements >= 10 AND NOT ( _exmpl_x != "Some string" OR NOT _exmpl_a = 7)`
+* `_exmpl_spacegroup="P2"`
+* `_exmpl_cell_volume<100.0`
+* `_exmpl_bandgap > 5.0 AND _exmpl_molecular_weight < 350`
+* `_exmpl_melting_point<300 AND nelements=4 AND elements="Si,O2"`
+* `_exmpl_some_string_property = 42` (This is syntactically allowed without putting 42 in quotation marks, see the notes about comparisons of values of different types below.)
+* `5 < _exmpl_a`
+* OPTIONAL: `((NOT (_exmpl_a>_exmpl_b)) AND _exmpl_x>0)`
+* OPTIONAL: `5 < 7`
+
+### Substring comparisons
+
+In addition to the standard equality and inequality operators, matching of partial strings is provided by keyword operators:
 
 * `identifier CONTAINS x`: Is true if the substring value x is found anywhere within the property.
 
-* `identifier STARTS x`: Is true if the property starts with the substring value x.
+* `identifier STARTS WITH x`: Is true if the property starts with the substring value x. The `WITH` keyword may be omitted.
 
-* `identifier ENDS x`: Is true if the property ends with the substring value x.
+* `identifier ENDS WITH x`: Is true if the property ends with the substring value x. The `WITH` keyword may be omitted.
 
 OPTIONAL features: 
 
 * Support for x to be an identifier, rather than a string is OPTIONAL.
 
-* Support for other comparison operators for strings, i.e., '<', '<=', '>', '>=' is
-  OPTIONAL since those operators may lead to overly expensive searches
-  if the string properties defined by OPTIMaDe does not precisely match
-  the underlying data format.
+Examples:
+
+* `prototype_formula CONTAINS "C2" AND prototype_formula STARTS WITH "A2"` 
+* `prototype_formula STARTS "B2" AND prototype_formula ENDS WITH "D2"`
 
 ### Comparisons of multi-valued properties
 
 Multi-valued properties can be thought of as lists or sets of strings or numbers. 
-In the following, a set of `values` is one or more strings or numbers separated by a comma (',').
+In the following, a set of `values` is one or more strings or numbers separated by a comma (",").
 An implementation MAY OPTIONALLY also support identifiers in the value set.
 
 The following constructs MUST be supported:
 
-* `identifier HAS values` or synonymous `identifier HAS ALL values`: matches when all the values given are present in the multi-valued property (i.e., set operator '>=').
-* `identifier HAS, EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator '=').
+* `identifier HAS value`: matches if the given value is present in the multi-valued property (i.e., set operator IN).
+* `identifier HAS ALL values`: matches when all the values given are present in the multi-valued property (i.e., set operator >=).
+* `identifier HAS, EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator =).
 * `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
 * `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the multi-valued property. 
 
 The following construct may OPTIONALLY be supported:
-* `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator '<=')
+
+* `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator <=)
 
 This construct is optional as it may be difficult to realize in some
 underlying database implementations. However, if the desired search is
@@ -1106,10 +1136,28 @@ multiple multi-valued properties. This type of filter may be useful if
 one, e.g., has one multi-valued property of elements and another of an
 element count.
 
-* `id1:id2:... HAS val1:val2:...` or synonymous `id1:id2:... HAS ALL val1:val2:...`: meaning 
+* `id1:id2:... HAS val1:val2:...`
+* `id1:id2:... HAS ALL val1:val2:...`
 * `id1:id2:... HAS, EXACTLY val1:val2:...`
 * `id1:id2:... HAS ANY val1:val2:...`
 * `id1:id2:... HAS ONLY val1:val2:...`
+
+Finally, all the above constructs that allow a value or lists of
+values on the right-hand side may OPTIONALLY allow `<operator> value`
+in each place a value can appear. In that case, a match requires that
+the equality or inequality is fulfilled. For example:
+
+* `identifier HAS < 3`: matches all entries for which "identifier" contains at least one element that is less than three.
+* `identifier HAS ALL < 3, > 3`: matches only those entries for which "identifier" simultaneously 
+   contains at least one element less than three and one element greater than three.
+
+Examples:
+
+* `elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS EXACTLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
+* OPTIONAL: `elements HAS ONLY "H","He","Ga","Ta"`
+* OPTIONAL: `elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS EXACTLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
+* OPTIONAL: `_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8` (note: specifying the = operator after HAS ANY is redundant here, if no operator is given, the test is for equality.)
+* OPTIONAL: `elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0`
 
 ### Properties that can be unset
 
@@ -1122,53 +1170,62 @@ identifier IS UNKNOWN
 ```
 Which matches when the property is set, and unset, respectively.
 
+Examples:
+
+* `chemical_formula IS KNOWN AND NOT prototype_formula IS UNKNOWN`
+
 ### Precedence
 
 The precedence (priority) of the operators MUST be as indicated in the list
 below:
 
-1.  Comparison and keyword operators ('<', '<=', '=', 'HAS', 'STARTS', etc.) -- highest priority;
-2.  NOT
-3.  AND
-4.  OR -- lowest priority.
+1.  Comparison and keyword operators (`<`, `<=`, `=`, `HAS`, `STARTS`, etc.) -- highest priority;
+2.  `NOT`
+3.  `AND`
+4.  `OR` -- lowest priority.
 
-Thus, the expression 'NOT a > b OR c = 100 AND f = "C2 H6"' is interpreted as
+Examples:
 
-'(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )' when fully braced.
+* `NOT a > b OR c = 100 AND f = "C2 H6"`: this is interpreted as `(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )` when fully braced.
+* `a >= 0 AND NOT b < c OR c = 0`: this is interpreted as `((a >= 0) AND (NOT (b < c))) OR (c = 0)` when fully braced.
 
-### Unexpected types
+### Type handling and conversions in comparisons
 
-If a test is formulated for a property against a value of unexpected
-type, it is, if possible for the API implementation, recommended to
-handle this by converting the literal string value to the type of the
-search parameter (e.g., 'x > "0.0"' where x is a coordinate would be
-treated as numeric filter 'x > 0', and 's = 0' search against text
-parameter 's' would perform string comparison as in 's =
-"0"'). Strings are converted to numbers using the token syntax
-specified in [section '5.1. Lexical tokens'](#h.5.1), p. "Numeric
-values"; numbers SHOULD be converted to strings using the libc '%g'
-format. If a conversion is performed, the API implementation SHOULD
-supply a warning in the response and specify the actual search values
-that were used. It is, however, also permissible for the API
-implementation to return an error when encountering a filter
-comparison using unexpected types.
+The definitions of specific properties in this standard define
+their types. Similarly, for database-provider-specific properties,
+the database provider decides their types. In the syntactic
+constructs that can accommodate values of more than one type, 
+the semantics of the comparisons are controlled by the
+types of the participating properties. Specifically:
 
-### Examples
+* In a comparison of a property with a constant of a type that does
+not match the type of the property, it is RECOMMENDED that the
+implementation makes a best-effort to convert the constant to match
+the property type. For example, `x > "0.0"` where x is a coordinate
+would be treated as numeric filter `x > 0`, and `s = 0` for a String
+parameter "s" would perform string comparison as in `s = "0"`.
+Strings are converted to numbers using the token syntax specified in
+[section '5.1. Lexical tokens'](#h.5.1), p. "Numeric values"; numbers
+SHOULD be converted to strings using the libc "%g" format. If a
+conversion is performed, the API implementation SHOULD supply a
+warning in the response and specify the actual search values that were
+used. Alternatively, the implementation MAY instead respond with error
+`501 Not Implemented` with an explanation that specifies which
+comparison generated the type mismatch. The implementation MUST either
+make a conversion or respond with an error. It may not, e.g., silently
+treat such comparisons as always non-matching.
 
-Examples of syntactically correct filter strings:
+* If a comparison is provided between only numerical constants of
+incompatible types, e.g., `5 < "13"`, the implementation MUST respond
+with an error. The same applies for comparisons of two properties, e.g.
+`nelements > chemical_formula`.
 
-* spacegroup="P2"
-* \_exmpl\_cell\_volume<100.0
-* \_exmpl\_bandgap > 5.0 AND \_exmpl\_molecular\_weight < 350
-* \_exmpl\_melting\_point<300 AND nelements=4 AND elements="Si,O2"
+### Optional filter features
 
-Examples of syntactically correct query strings embedded in queries:
-
-* http://example.org/optimade/v0.9/structures?filter=\_exmpl\_melting\_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml
-
-Or, fully URL encoded :
-
-* http://example.org/optimade/v0.9/structures?filter=\_exmpl\_melting\_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml
+Some features of the filtering language are marked OPTIONAL. An
+implementation that encounters an optional feature that it does not
+support MUST respond with error `501 Not Implemented` with an
+explanation of which optional construct the error refers to.
 
 # <a name="h.6">6. Entry list</a>
 
@@ -1504,12 +1561,16 @@ Filter = Expression ;
 
 (* Values *)
 
+Constant = String | Number ;
+
 Value = String | Number | Identifier ;
 (* Note: support for Identifier in Value is OPTIONAL *)
 
-ValueList = Value, {',', Value } ;
+ValueList = [ Operator ], Value, {',', [ Operator ], Value } ;
+(* Support for Operator in ValueList is OPTIONAL *)
 
-ValueZip = Value, ':', Value, {':', Value} ;
+ValueZip = [ Operator ], Value, ':', [ Operator ], Value, {':', [ Operator ], Value} ;
+(* Support for the optional Operator in ValueZip is OPTIONAL *)
 
 ValueZipList = ValueZip, { ',', ValueZip } ;
 
@@ -1522,12 +1583,16 @@ Space = ' ' | '\t' ;
 AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
 NOT = "NOT" ;
 OR = "OR" ;
+
+IS = "IS" ;
 KNOWN = "KNOWN" ;
 UNKNOWN = "UNKNOWN" ;
-IS = "IS" ;
+
 CONTAINS = "CONTAINS" ;
 STARTS = "STARTS" ;
 ENDS = "ENDS" ;
+WITH = "WITH" ;
+
 LENGTH = "LENGTH" ;
 HAS = "HAS" ;
 ALL = "ALL" ;
@@ -1547,7 +1612,11 @@ ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', Expression
 
 Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
-Comparison = Identifier, ( 
+Comparison = ConstantFirstComparison |
+             IdentifierFirstComparison ;
+(* Note: support for ConstantFirstComparison is OPTIONAL *)
+
+IdentifierFirstComparison = Identifier, ( 
                 ValueOpRhs |
                 KnownOpRhs |
                 FuzzyStringOpRhs |
@@ -1555,16 +1624,19 @@ Comparison = Identifier, (
                 SetZipOpRhs );
 (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
+ConstantFirstComparison = Constant, ValueOpRhs ;
+				
 PredicateComparison = LengthComparison ;
 
 ValueOpRhs = Operator, Value ;
 
-KnownOpRhs = IS, ( KNOWN | UNKNOWN );  
+KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
 
-FuzzyStringOpRhs = CONTAINS, String | STARTS, String | ENDS, String ;
+FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String ;
 
-SetOpRhs = HAS, ( Value | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList );
+SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList ) ;
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
+(* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
 
 SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
 

@@ -1,0 +1,57 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
+Parse tree from /dev/fd/63:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 1
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_46(9999): ">", line: 1, col: 3
+                TOKEN_45(9999): "=", line: 1, col: 4
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_32(9999): "0", line: 1, col: 6
+      AND(9999)
+        TOKEN_2(9999): "AND", line: 1, col: 8
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          NOT(9999)
+            TOKEN_11(9999): "NOT", line: 1, col: 12
+          Comparison(9999)
+            IdentifierFirstComparison(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_83(9999): "b", line: 1, col: 16
+              ValueOpRhs(9999)
+                Operator(9999)
+                  TOKEN_44(9999): "<", line: 1, col: 18
+                Value(9999)
+                  Identifier(9999)
+                    Letter(9999)
+                      TOKEN_84(9999): "c", line: 1, col: 20
+    OR(9999)
+      TOKEN_13(9999): "OR", line: 1, col: 22
+    Expression(9999)
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          Comparison(9999)
+            IdentifierFirstComparison(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_84(9999): "c", line: 1, col: 25
+              ValueOpRhs(9999)
+                Operator(9999)
+                  TOKEN_45(9999): "=", line: 1, col: 27
+                Value(9999)
+                  Number(9999)
+                    Digits(9999)
+                      Digit(9999)
+                        TOKEN_32(9999): "0", line: 1, col: 29
