@@ -2,46 +2,46 @@
 
 [1. Introduction](#h.1)
 
-[2. Term definition](#h.2)
+[2. Term Definition](#h.2)
 
-[3. General API requirements and conventions](#h.3)  
+[3. General API Requirements and Conventions](#h.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.1. Base URL](#h.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;[3.2. URL encoding](#h.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2. URL Encoding](#h.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.3. Responses](#h.3.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response format](#h.3.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API response schema: common fields](#h.3.3.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP response status codes](#h.3.3.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index](#h.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 
 [4. API endpoints](#h.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry listing endpoints](#h.4.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.1. URL query parameters](#h.4.1.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.2. Response schema](#h.4.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.2. Single entry endpoints](#h.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.1. URL query parameters](#h.4.2.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API response schema](#h.4.2.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.3. General entry listing 'All' endpoint](#h.4.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. URL query parameters](#h.4.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. Response schema](#h.4.3.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info endpoints](#h.4.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL info endpoint](#h.4.4.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry listing info endpoints](#h.4.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links endpoint](#h.4.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. Response schema](#h.4.5.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. "parent" and "child" objects](#h.4.5.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. "provider" objects](#h.4.5.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index links endpoint](#h.4.5.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom extension endpoints](#h.4.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry Listing Endpoints](#h.4.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.1. URL Query Parameters](#h.4.1.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.2. Response Schema](#h.4.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.2. Single Entry Endpoints](#h.4.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.1. URL Query Parameters](#h.4.2.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API Response Schema](#h.4.2.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.3. General Entry Listing All Endpoint](#h.4.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. URL Query Parameters](#h.4.3.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. Response Schema](#h.4.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info Endpoints](#h.4.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL Info Endpoint](#h.4.4.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry Listing Info Endpoints](#h.4.4.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links Endpoint](#h.4.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. Response Schema](#h.4.5.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. Parent and Child Objects](#h.4.5.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. Provider Objects](#h.4.5.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index Meta-Database Links Endpoint](#h.4.5.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom Extension Endpoints](#h.4.6)  
 
-[5. API filtering format specification](#h.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical tokens](#h.5.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;[5.2. The filter language syntax](#h.5.2)  
+[5. API Filtering Format Specification](#h.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical Tokens](#h.5.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;[5.2. The Filter Language Syntax](#h.5.2)  
 
-[6. Entry list](#h.6)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties used by multiple entry types](#h.6.1)  
+[6. Entry List](#h.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. modification\_date](#h.6.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.2. "structure" entries](#h.6.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. chemical\_formula](#h.6.2.3)  
@@ -52,11 +52,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.3. "calculation" entries](#h.6.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
 
-[Appendix 1: Database-provider-specific namespace prefixes](#h.app1)  
-[Appendix 2: The Filter language EBNF grammar](#h.app2)  
-[Appendix 3: The regular expressions to check OPTiMaDe number syntax](#h.app3)
+[Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
+[Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
+[Appendix 3: The Regular Expressions to Check OPTiMaDe Number Syntax](#h.app3)
 
 # <a name="h.1">1. Introduction</a>
 
@@ -76,12 +76,12 @@ requests a non-standard response format). In cases where specific
 restrictions are given in the JSON API specification that are stricter than what is
 formulated in this document, they are expected to be upheld by API
 implementations unless otherwise noted in this document.
-(This may be the format of Member Names or return codes).
+(This may apply to, e.g., the format of Member Names and/or return codes.)
 
 The full present version number of the specification is shown as part of the
 top headline of this document.
 
-# <a name="h.2">2. Term definition</a>
+# <a name="h.2">2. Term Definition</a>
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -93,26 +93,27 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Implementation**: An instance serving the OPTiMaDe API.
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
-  (structure, calculation).
+  (e.g., structure or calculation).
 * **Property**: Anything that can be in the filtering of results.
-* **Field**: An entity that can be requested as partial output from the API.
+* **Field**: A property that can be requested as partial output from the API.
+* **Resource object**: Represent resources. MUST contain at least the following top-level fields:
+  `id`, `type`.
 * **ID**: A unique identifier that specifies a specific resource in a database,
   which does not need to be immutable. It MUST NOT be a reserved
   word.
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
 * **Reserved words**: The list of reserved words in this standard is:
-  `info`, `links`, `all`.
+  `info`.
 * **Property Types**:
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
-    types as defined in more detail in section [5.1. Lexical
-    tokens](#h.5.1).
+    types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
   * **list**, **dictionary**: Collection of base types with the meaning they have in the JSON
-    data-interchange format, i.e. an ordered list of elements
+    data-interchange format, i.e., an ordered list of elements
     (where each element can have a different type) or a hash table
     (with the limitation that the hash key MUST be a string), respectively.
 
-# <a name="h.3">3. General API requirements and conventions</a>
+# <a name="h.3">3. General API Requirements and Conventions</a>
 
 ## <a name="h.3.1">3.1. Base URL</a>
 
@@ -128,7 +129,7 @@ vMAJOR or vMAJOR.MINOR where MAJOR is the major version number, and
 MINOR is the minor version number of the standard being referenced. If
 the major version is 0, the minor version MUST also be included. The
 database provider MAY support further levels of versioning separated
-from the major and minor version by a decimal point, e.g. patch
+from the major and minor version by a decimal point, e.g., patch
 version on the format vMAJOR.MINOR.PATCH. However, the client MUST NOT
 assume levels beyond the minor version are supported.
 
@@ -142,7 +143,7 @@ A database provider MAY choose to only support a subset of possible
 versions. The client can find out which versions are supported using
 the `available_api_versions` field of the `attributes` field from a
 query to the base URL `info` endpoint (see section
-[4.4.1. Base URL info endpoint](#h.4.4.1)). The database
+[4.4.1. Base URL Info Endpoint](#h.4.4.1)). The database
 provider SHOULD strive to implement the latest subversion of any major
 and minor version supported. Specifically, the latest version of this
 standard SHOULD be supported.
@@ -159,14 +160,14 @@ Examples of invalid base URLs:
 * <http://example.com/optimade/v0/>
 * <http://example.com/optimade/0.9/>
 
-## <a name="h.3.2">3.2. URL encoding</a>
+## <a name="h.3.2">3.2. URL Encoding</a>
 
 Clients SHOULD encode URLs according to [RFC 3986](http://tools.ietf.org/html/rfc3986).
 API implementations MUST decode URLs according to [RFC 3986](http://tools.ietf.org/html/rfc3986).
 
 ## <a name="h.3.3">3.3. Responses</a>
 
-### <a name="h.3.3.1">3.3.1. Response format</a>
+### <a name="h.3.3.1">3.3.1. Response Format</a>
 
 API responses MUST be returned in the format specified in the
 request. If no specific response format is specified in the request by
@@ -175,7 +176,7 @@ response format is [JSON API](http://jsonapi.org) specification.
 All endpoints MUST support at least the JSON API format.
 Each endpoint MAY OPTIONALLY support multiple formats,
 and declare these formats in their `info` endpoints
-(see section [4.4.2. Entry listing info endpoints](#h.4.4.2)).
+(see section [4.4.2. Entry Listing Info Endpoints](#h.4.4.2)).
 
 An API implementation MAY return other formats than specified here.
 These can be implemented and documented according to the database provider.
@@ -184,40 +185,11 @@ However, they MUST be prefixed by a database-provider-specific prefix as defined
 
 Specifying a `response_format` URL query parameter different from JSON API,
 allows the implementation to break conformance with the JSON API specification.
-Not only in response format, but also in, e.g. how content negotiation is implemented.
+Not only in response format, but also in, e.g., how content negotiation is implemented.
 
-### <a name="h.3.3.2">3.3.2. JSON API response schema: common fields</a>
+### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
 
 Every response MUST contain the following fields:
-
-* **links**: a [JSON API links member](http://jsonapi.org/format/#document-links)
-  containing JSON API links objects:
-  * **next**: is an URI that represents a suggested way to fetch the
-    next set of results if not all were returned, either directly as a string,
-    or as a link object, which can contain the following members:
-    * **href**: a string containing the link’s URL.
-    * **meta**: a meta object containing non-standard meta-information about the link.
-
-      The `next` field MUST be null or omitted if there is no additional data, or if there is no way to fetch additional data.
-
-  The links object can OPTIONALLY contain the field
-
-  * **base\_url**: a links object representing the base URL of the implementation. Example:
-
-    ```json
-    {
-      "links": {
-        "base_url": {
-          "href": "http://example.com/optimade/v0.9/",
-          "meta": {
-            "_exmpl_db_version": "3.2.1"
-          }
-        }
-        // ...
-      }
-      // ...
-    }
-    ```
 
 * **meta**: a [JSON API meta member](https://jsonapi.org/format/#document-meta)
   that contains JSON API meta objects of non-standard meta-information.  
@@ -230,13 +202,13 @@ Every response MUST contain the following fields:
   * **api\_version**: a string containing the version of the API implementation.
   * **time\_stamp**: a string containing the date and time at which the query
     was executed, in [ISO 8601](https://www.iso.org/standard/40874.html)
-    format.  Times MUST be timezone-aware (i.e. MUST NOT be local times),
+    format.  Times MUST be timezone-aware (i.e., MUST NOT be local times),
     in one of the formats allowed by [ISO 8601](https://www.iso.org/standard/40874.html)
-    (i.e. either be in UTC, and then end with a Z, or indicate explicitly
+    (i.e., either be in UTC, and then end with a Z, or indicate explicitly
     the offset).
   * **data\_returned**: an integer containing the number of data objects returned for the query.
-  * **more\_data\_available**: `"false"` if all data for this query has been
-    returned, and `"true"` if not.
+  * **more\_data\_available**: `false` if all data for this query has been
+    returned, and `true` if not.
   * **provider**: information on the database provider of the implementation.  
   It MUST be a dictionary with these fields:
     * **name**: a short name for the database provider.
@@ -259,7 +231,7 @@ Every response MUST contain the following fields:
       `index` meta-database.
       * **meta**: a meta object containing non-standard meta-information about this link.
 
-      If the `index` meta-database (see section [3.4. Index](#h.3.4)) is implemented by the provider,
+      If the `index` meta-database (see section [3.4. Index Meta-Database](#h.3.4)) is implemented by the provider,
       the `index_base_url` field MUST be included.
 
   `meta` MAY OPTIONALLY also include these fields:
@@ -300,10 +272,37 @@ Every response MUST contain the following fields:
 * **data**: The schema of this value varies by endpoint, it can be either a _single_
 [JSON API resource object](http://jsonapi.org/format/#document-resource-objects)
 or a _list_ of JSON API resource objects. Every resource object needs the `type` and `id` fields,
-and its attributes (described in section [4. API endpoints](#h.4))
+and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
 The response MAY OPTIONALLY also return resources related to the primary data in the field:
+
+* **links**: a [JSON API links member](http://jsonapi.org/format/#document-links)
+  containing the JSON API links objects:
+  * **next**: is an URI that represents a suggested way to fetch the
+    next set of results if not all were returned, either directly as a string,
+    or as a link object. The field MUST be null or omitted if there is no additional
+    data, or if there is no way to fetch additional data. The link object can contain
+    the following members:
+    * **href**: a string containing the link’s URL.
+    * **meta**: a meta object containing non-standard meta-information about the link.
+
+  * **base\_url**: a links object representing the base URL of the implementation. Example:
+
+    ```json
+    {
+      "links": {
+        "base_url": {
+          "href": "http://example.com/optimade/v0.9/",
+          "meta": {
+            "_exmpl_db_version": "3.2.1"
+          }
+        }
+        // ...
+      }
+      // ...
+    }
+    ```
 
 * **included**: a list of
 [JSON API resource objects](http://jsonapi.org/format/#document-resource-objects)
@@ -362,15 +361,15 @@ An example of a full response:
 }
 ```
 
-### 3.3.4. HTTP response status codes
+### 3.3.4. HTTP Response Status Codes
 
 | Code | Message                                                               |
 |:----:|:--------------------------------------------------------------------- |
 | 200  | OK (Successful operation)                                             |
-| 400  | Bad request (e.g. mistyped URL)                                       |
+| 400  | Bad request (e.g., mistyped URL)                                       |
 | 401  | User does not have permission                                         |
 | 403  | Forbidden (the request was understood but not authorized)             |
-| 404  | Not found (e.g. database not found)                                   |
+| 404  | Not found (e.g., database not found)                                   |
 | 408  | Request timeout because it is taking too long to process the query    |
 | 410  | The database has been moved                                           |
 | 413  | The response is too large                                             |
@@ -381,38 +380,37 @@ An example of a full response:
 **Notes**:
 If a client receives an unexpected 404 error when making a query to a base URL,
 and is aware of the index meta-database that belongs to the database provider
-(as described in [3.4. Index](#h.3.4)),
+(as described in [3.4. Index Meta-Database](#h.3.4)),
 the next course of action SHOULD be to fetch the resource objects under the
 `links` endpoint of the index meta-database and redirect the original query
 to the corresponding database ID that was originally queried, using the object's
 `base_url` value.
 
-## <a name="h.3.4">3.4. Index meta-database</a>
+## <a name="h.3.4">3.4. Index Meta-Database</a>
 
 The main purpose of this "index" is to allow for automatic discoverability
 of all databases of a given provider.
-Thus, it acts as a meta-database for the database provider's OPTiMaDe implementation(s).
+Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the `info` and `links` endpoints,
-see sections [4.4. Info endpoints](#h.4.4) and [4.5. Links endpoint](#h.4.5).
-It MUST not expose any entry listing endpoints (e.g. `structures`).
+see sections [4.4. Info Endpoints](#h.4.4) and [4.5. Links Endpoint](#h.4.5).
+It MUST not expose any entry listing endpoints (e.g., `structures`).
 
-These endpoints do not need to be queryable, i.e. they MAY be provided as static JSON files.
-However, they MUST return the correct and updated information on all currently provided
-implementations.
+These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
+However, they MUST return the correct and updated information on all currently provided implementations.
 
 The `index_base_url` field MUST be included in every response in the `provider` field under the
-top-level `meta` field (see section [3.3.2. JSON API response schema: common fields](#h.3.3.2)).
+top-level `meta` field (see section [3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)).
 
 The `is_index` field under `attributes`, as well as the `relationships` field, MUST be included in the
-`info` endpoint for the index meta-database (see section [4.4.1. Base URL info endpoint](#h.4.4.1)).
+`info` endpoint for the index meta-database (see section [4.4.1. Base URL Info Endpoint](#h.4.4.1)).
 The value for `is_index` MUST be `true`.
 
 > **Note**: A list of database providers acknowledged by the
 > **Open Databases Integration for Materials Design** consortium can be found in [Appendix 1](#h.app1).
 > This list is also machine-readable, optimizing the automatic discoverability.
 
-# <a name="h.4">4. API endpoints</a>
+# <a name="h.4">4. API Endpoints</a>
 
 The URL component that follows the base URL MUST represent one of the
 following endpoints:
@@ -426,7 +424,7 @@ following endpoints:
 
 These endpoints are documented below.
 
-## <a name="h.4.1">4.1. Entry listing endpoints</a>
+## <a name="h.4.1">4.1. Entry Listing Endpoints</a>
 
 Entry listing endpoints return a list of resource objects representing entries of a
 specific type. For example, a list of structures, or a list of calculations.
@@ -442,7 +440,7 @@ section [6. Entry list](#h.6). The API implementation MAY provide other
 entry types than the ones standardized in this specification, but such entry
 types MUST be prefixed by a database-provider-specific prefix.
 
-### <a name="h.4.1.1">4.1.1. URL query parameters</a>
+### <a name="h.4.1.1">4.1.1. URL Query Parameters</a>
 
 The client MAY provide a set of URL query parameters in order to alter
 the response and provide usage information. While these URL query
@@ -456,7 +454,7 @@ underscore (a LOW LINE character '\_').
 Standard OPTIONAL URL query parameters standardized by the JSON API specification:
 
 * **filter**: a filter string, in the format described below in section
-  [5. API filtering format specification](#h.5).
+  [5. API Filtering Format Specification](#h.5).
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
@@ -501,7 +499,7 @@ Examples:
 > URL tokens, and the above example is not to be taken as a recommendation for
 > such a mechanism.
 
-### <a name="h.4.1.2">4.1.2 JSON API response schema</a>
+### <a name="h.4.1.2">4.1.2 JSON API Response Schema</a>
 
 "Entry listing" endpoint response dictionaries MUST have a `data`
 key. The value of this key MUST be a list containing dictionaries that
@@ -517,7 +515,7 @@ this can be the local database ID
   * **local\_id**: the entry's local database ID
   * **last\_modified**: an [ISO 8601](https://www.iso.org/standard/40874.html)
     representing the entry's last modification time
-  * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID (e.g. an UUID)
+  * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID (e.g., an UUID)
 
   Database-provider-specific properties need to include the database-provider-specific prefix
   (see [Appendix 1](#h.app1)).
@@ -565,7 +563,7 @@ Example:
 }
 ```
 
-## <a name="h.4.2">4.2. Single entry endpoints</a>
+## <a name="h.4.2">4.2. Single Entry Endpoints</a>
 
 A client can request a specific entry by appending an ID component to the URL of an entry listing
 endpoint. This will return properties for the entry with that ID.
@@ -573,21 +571,21 @@ endpoint. This will return properties for the entry with that ID.
 If using the JSON API format, the ID component MUST be the content of the `id` field.
 
 Note that entries cannot have an ID of `'info'`, as this would collide with the 'Info' endpoint
-(described in section [4.4. Info endpoints](#h.4.4)) for a given entry type.
+(described in section [4.4. Info Endpoints](#h.4.4)) for a given entry type.
 
 Examples:
 
 * <http://example.com/optimade/v0.9/structures/exmpl:struct_3232823>
 * <http://example.com/optimade/v0.9/calculations/232132>
 
-### <a name="h.4.2.1">4.2.1. URL query parameters</a>
+### <a name="h.4.2.1">4.2.1. URL Query Parameters</a>
 
 The client MAY provide a set of additional URL query parameters for this endpoint type.
 URL query parameters not recognized MUST be ignored. While the following URL query parameters
 are OPTIONAL for clients, API implementations MUST accept and handle them:
-**response\_format**, **email\_address**, **response\_fields**. The meaning of these URL query parameters are as defined above in section [4.1.1. URL query parameters](#h.4.1.1).
+**response\_format**, **email\_address**, **response\_fields**. The meaning of these URL query parameters are as defined above in section [4.1.1. URL Query Parameters](#h.4.1.1).
 
-### <a name="h.4.2.2">4.2.2. Response schema</a>
+### <a name="h.4.2.2">4.2.2. Response Schema</a>
 
 The response for a 'single entry' endpoint is the same as for 'entry listing'
 endpoint responses, except that the value of the `data` field MUST have only one or zero entries.
@@ -619,7 +617,7 @@ Example:
 }
 ```
 
-## <a name="h.4.3">4.3. General entry listing 'All' endpoint</a>
+## <a name="h.4.3">4.3. General Entry Listing All Endpoint</a>
 
 The 'general entry listing endpoint' returns a list of entries representing all
 entries a database provides, regardless of type. This endpoint MUST be provided
@@ -628,36 +626,36 @@ general searches across entry types. The general entry listing endpoint MUST
 accept both GET and a POST-type requests, with provided POST-type URL query parameters
 overriding duplicate URL query parameters provided as GET URL query parameters.
 
-### <a name="h.4.3.1">4.3.1. URL query parameters</a>
+### <a name="h.4.3.1">4.3.1. URL Query Parameters</a>
 
 The following URL query parameters MUST be recognized and handled: **filter**, **response\_fields**,
 **response\_format**, **response\_limit**, **email\_address**. The meaning of these URL query
-parameters are as defined above in section [4.1.1. URL query parameters](#h.4.1.1). Furthermore,
+parameters are as defined above in section [4.1.1. URL Query Parameters](#h.4.1.1). Furthermore,
 custom OPTIONAL URL query parameters, also described above, are also allowed.
 
 Example: <http://example.com/optimade/v0.9/all?response_fields=id,url&response_format=jsonapi>
 
-### <a name="h.4.3.2">4.3.2. Response schema</a>
+### <a name="h.4.3.2">4.3.2. Response Schema</a>
 
-The response for a general entry 'all' endpoint is the same as for 'entry listing' endpoint responses,
-see section [4.1.2 JSON API response schema](#h.4.1.2).
+The response for a general entry `all` endpoint is the same as for "entry listing" endpoint responses,
+see section [4.1.2 JSON API Response Schema](#h.4.1.2).
 
-## <a name="h.4.4">4.4. Info endpoints</a>
+## <a name="h.4.4">4.4. Info Endpoints</a>
 
 Info endpoints provide introspective information, either about the API implementation itself,
 or about specific entry types.
 
 Info endpoints are constructed by appending "**info**" to any of:
 
-1. the base URL (e.g. <http://example.com/optimade/v0.9/info/>)
-2. type-specific entry listing endpoints (e.g. <http://example.com/optimade/v0.9/structures/info/>)
-3. the general entry listing endpoint (e.g. <http://example.com/optimade/v0.9/all/info/>)
+1. the base URL (e.g., <http://example.com/optimade/v0.9/info/>)
+2. type-specific entry listing endpoints (e.g., <http://example.com/optimade/v0.9/structures/info/>)
+3. the general entry listing endpoint (e.g., <http://example.com/optimade/v0.9/all/info/>)
 
 The types and output content of these info endpoints are described in more detail in the subsections
 below. Common for them all are that the `data` field SHOULD return only a single resource object.
 If no resource object is provided, the value of the `data` field MUST be `null`.
 
-### <a name="h.4.4.1">4.4.1. Base URL info endpoint</a>
+### <a name="h.4.4.1">4.4.1. Base URL Info Endpoint</a>
 
 The Info endpoint on the base URL or directly after the version number (e.g.
 <http://example.com/optimade/v0.9/info>) returns information relating to the API
@@ -674,18 +672,18 @@ The single resource object's response dictionary MUST include the following fiel
   base URL. Provided base URLs MUST adhere to the rules in section [3.1. Base URL](#h.3.1).
   * **formats**: List of available output formats.
   * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
-  * **available\_endpoints**: List of available endpoints (i.e. the string to be appended to the
+  * **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the
   base URL).
 
   `attributes` MAY also include the following OPTIONAL fields:
 
   * **is\_index**: if `true`, this is an index meta-database base URL (see section
-  [3.4. Index meta-database](#h.3.4)).
+  [3.4. Index Meta-Database](#h.3.4)).
 
     If this member is *not* provided, the client MUST assume this is **not** an index meta-database
-    base URL (i.e. default: `"is_index": false`).
+    base URL (i.e., default: `"is_index": false`).
 
-If this is an index meta-database base URL (see section [3.4. Index meta-database](#h.3.4)), then the
+If this is an index meta-database base URL (see section [3.4. Index Meta-Database](#h.3.4)), then the
 response dictionary MUST also include the field:
 
 * **relationships**: Dictionary that MAY contain a single
@@ -781,10 +779,10 @@ Example for an index meta-database:
 }
 ```
 
-### <a name="h.4.4.2">4.4.2. Entry listing info endpoints</a>
+### <a name="h.4.4.2">4.4.2. Entry Listing Info Endpoints</a>
 
 Entry listing info endpoints are of the form "&lt;base\_url&gt;/&lt;entry\_type&gt;/info/"
-(e.g. <http://example.com/optimade/v0.9/structures/info/>).  
+(e.g., <http://example.com/optimade/v0.9/structures/info/>).  
 The response for these endpoints MUST include the following information in the `data` field:
 
 * **description**: Description of the entry.
@@ -826,7 +824,7 @@ Example:
 }
 ```
 
-## <a name="h.4.5">4.5. Links endpoint</a>
+## <a name="h.4.5">4.5. Links Endpoint</a>
 
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current
 implementation. The endpoint MUST be provided at the path "&lt;base_url&gt;/links".
@@ -834,19 +832,19 @@ implementation. The endpoint MUST be provided at the path "&lt;base_url&gt;/link
 It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level:
 that is, Info endpoints provide information on the given implementation, while the Links endpoint
 provides information on the links between immediately related implementations (in particular, an array
-of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 "parent" and "child" objects](#h.4.5.2)).
+of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 Parent and Child Objects](#h.4.5.2)).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY optionally handle the parameters specified in section
-[4.2.1. URL query parameters](#h.4.2.1) for single entry endpoints.
+[4.2.1. URL Query Parameters](#h.4.2.1) for single entry endpoints.
 
-### <a name="h.4.5.1">4.5.1. Response schema</a>
+### <a name="h.4.5.1">4.5.1. Response Schema</a>
 
 The resource objects' response dictionaries MUST include the following fields:
 
 * **type**: MUST be either `"parent"`, `"child"`, or `"provider"`.  
-  These objects are described in detail in sections [4.5.2. "parent" and "child" objects](#h.4.5.2)
-  and [4.5.3. "provider" objects](#h.4.5.3).
+  These objects are described in detail in sections [4.5.2. Parent and Child Objects](#h.4.5.2)
+  and [4.5.3. Provider Objects](#h.4.5.3).
 * **id**: MUST be unique.
 * **attributes**: Dictionary that MUST contain the following fields:
   * **name**: Human-readable name for the OPTiMaDe API implementation a client may provide in a list
@@ -918,9 +916,9 @@ Example:
 }
 ```
 
-### <a name="h.4.5.2">4.5.2. "parent" and "child" objects</a>
+### <a name="h.4.5.2">4.5.2. Parent and Child Objects</a>
 
-Resource objects that MAY be present under the "Links" endpoint.
+Resource objects that MAY be present under the Links endpoint.
 
 Either none or a single `"parent"` object MAY be present as part of the `data` array.
 The `"parent"` object represents a "link" to the OPTiMaDe implementation exactly one layer **above**
@@ -932,27 +930,28 @@ implementation's layer.
 
 > **Note**: The RECOMMENDED number of layers is two.
 
-### <a name="h.4.5.3">4.5.3. "provider" objects</a>
+### <a name="h.4.5.3">4.5.3. Provider Objects</a>
 
 `"provider"` objects are meant to indicate links to an "Index meta-database" hosted by database
 providers. The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
 A known list of providers can be found in [Appendix 1](#h.app1).
 
-> **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to this repository (make a PR).
+> **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to the OPTiMaDe main repository (make a pull request).
+A link to the main repository may be found at the [OPTiMaDe homepage](http://www.optimade.org).
 
-### <a name="h.4.5.4">4.5.4. Index meta-database links endpoint</a>
+### <a name="h.4.5.4">4.5.4. Index Meta-Database Links Endpoint</a>
 
-If the provider implements an "Index meta-database" (see section [3.4 Index meta-database](#h.3.4)),
+If the provider implements an "Index meta-database" (see section [3.4 Index Meta-Database](#h.3.4)),
 it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation
 of the provider's other OPTiMaDe databases.
 
 This will make all OPTiMaDe databases and implementations by the provider discoverable as `"child"`
 objects under the Links endpoint of the "Index meta-database".
 
-## <a name="h.4.6">4.6. Custom extension endpoints</a>
+## <a name="h.4.6">4.6. Custom Extension Endpoints</a>
 
-API implementors can provide custom endpoints under the OPTiMaDe 'extensions' endpoint.
+API implementors can provide custom endpoints under the Extensions endpoint.
 They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
 
 # <a name="h.5">5. API Filtering Format Specification</a>
@@ -965,11 +964,11 @@ The filter language MUST support at least the following features:
 
 * flat filters with one level of "AND" and "OR" conjunctions.
 
-## <a name="h.5.1">5.1. Lexical tokens</a>
+## <a name="h.5.1">5.1. Lexical Tokens</a>
 
 The following tokens are used in the filter query component:
 
-* **Property names** (see section [6. Entry list](#h.6)): Are to follow the identifier
+* **Property names** (see section [6. Entry List](#h.6)): Are to follow the identifier
   syntax of programming languages -- the first character MUST be a letter, the subsequent symbols
   MUST be alphanumeric; the underscore ("\_", ASCII 95 dec (0x5F)) is considered to be a letter.
   Identifiers are case-sensitive. The length of the identifiers is not limited, except the whole
@@ -1046,7 +1045,7 @@ The following tokens are used in the filter query component:
   `"a > b AND (a > 0 OR b > 0)"` MUST be supported to allow the change of the priority of the logical
   operations.
 
-## <a name="h.5.2">5.2. The filter language syntax</a>
+## <a name="h.5.2">5.2. The Filter Language Syntax</a>
 
 Filtering expressions MUST follow the following
 [EBNF](http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip)
@@ -1102,7 +1101,7 @@ Comparison = Value, [Spaces], Operator, [Spaces], Value ;
 ```
 
 The structure of tokens 'Identifier', 'Number', 'String', and 'Operator' are described above in
-section [5.1. Lexical tokens](#h.5.1) and omitted here for brevity; a full length machine readable
+section [5.1. Lexical Tokens](#h.5.1) and omitted here for brevity; a full length machine readable
 version of the grammar, including the definition  of the lexical tokens, is available in the
 [Materials-Consortia API Git repository](https://github.com/Materials-Consortia/API) (file
 [grammars/flat-filters.ebnf](https://github.com/Materials-Consortia/API/blob/master/grammars/flat-filters.ebnf)).
@@ -1112,7 +1111,7 @@ characters that are not URL transparent, they MUST be URL-encoded before their u
 The specified order of the escaping and encoding of the Filter language statements is the following:
 
 1. special characters in string values MUST be escaped first as described above in section
-  [5.1. Lexical tokens](#h.5.1) under "String values".
+  [5.1. Lexical Tokens](#h.5.1) under "String values".
 2. the resulting expression MUST be URL-encoded.
 
 The extraction flow is the opposite -- first the Filter string MUST be first URL-decoded,
@@ -1121,15 +1120,15 @@ and after that, string tokens MUST be unescaped to get values for comparisons.
 When comparisons are performed, comparison operators '&lt;', '&lt;=', '=', '!=', and so on are
 interpreted either as numeric value comparisons or as string comparisons, depending on the type
 of the search parameter. The literal string value MUST be converted to the type of the search
-parameter (e.g. `x > "0.0"`, where `x` is a coordinate, MUST treat this expression as numeric filter
+parameter (e.g., `x > "0.0"`, where `x` is a coordinate, MUST treat this expression as numeric filter
 `x > 0`, and `s = 0` search against text parameter `s` MUST perform string comparison as in
 `s = "0"`). Strings are converted to numbers using the token syntax specified in section
-[5.1. Lexical tokens](#h.5.1). "Numeric values"; numbers SHOULD be converted to strings using the libc
+[5.1. Lexical Tokens](#h.5.1). "Numeric values"; numbers SHOULD be converted to strings using the libc
 '%g' format. In all cases the application MUST return a warning, when conversion was performed, and
 specify the actual search values that were used.
 
-For comparisons of two parameters (e.g. `x > y`) or two constants (e.g. `1 = 1`) both compared values
-MUST be of the same type (i.e. both MUST be either numeric or string values); implementation MUST
+For comparisons of two parameters (e.g., `x > y`) or two constants (e.g., `1 = 1`) both compared values
+MUST be of the same type (i.e., both MUST be either numeric or string values); implementation MUST
 return an error if this is not the case.
 
 Examples of syntactically correct filter strings:
@@ -1144,11 +1143,11 @@ Or, fully URL encoded :
 
 * <http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml>
 
-# <a name="h.6">6. Entry list</a>
+# <a name="h.6">6. Entry List</a>
 
 This section defines standard entry types and their properties.
 
-## <a name="h.6.1">6.1. Properties used by multiple entry types</a>
+## <a name="h.6.1">6.1. Properties Used by Multiple Entry Types</a>
 
 ### <a name="h.6.1.1">6.1.1. id</a>
 
@@ -1183,10 +1182,10 @@ This section defines standard entry types and their properties.
   * \_exmpl\_trajectory
   * \_exmpl\_workflow\_id
 
-## <a name="h.6.2">6.2. "structure" entries</a>
+## <a name="h.6.2">6.2. Structure Entries</a>
 
 `"structure"` entries (or objects) have the properties described above in section
-[6.1. Properties used by multiple entry types](#h.6.1), as well as the following properties:
+[6.1. Properties Used by Multiple Entry Types](#h.6.1), as well as the following properties:
 
 ### <a name="h.6.2.1">6.2.1. elements</a>
 
@@ -1195,7 +1194,7 @@ This section defines standard entry types and their properties.
 * **Examples**:
   * `"Si"`
   * `"Si,Al,O"`
-* **Querying**: The conjunction means "AND", e.g. for `element="Si,Al,O"` all records pertaining to
+* **Querying**: The conjunction means "AND", e.g., for `element="Si,Al,O"` all records pertaining to
   structures containing Si **and** Al **and** O, and possibly other elements, MUST be returned;
   use `nelements=3` to specify **exactly** 3 elements; (`element="Si,Al,O"` means you want structures
   with at *least* the 3 elements, and it MUST contain Si AND Al AND O).
@@ -1216,8 +1215,8 @@ This section defines standard entry types and their properties.
 * **Description**: The chemical formula for a structure.
 * **Requirements/Conventions**:
   * The formula MUST be **reduced**.
-  * Element names MUST be with proper capitalization (e.g. `"Si"`, not `"SI"` for "silicon").
-  * The order in which elements are specified SHOULD NOT be significant (e.g. "O2Si" is equivalent
+  * Element names MUST be with proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
+  * The order in which elements are specified SHOULD NOT be significant (e.g., "O2Si" is equivalent
     to "SiO2").
   * No spaces or separators are allowed.
 
@@ -1254,7 +1253,7 @@ the Cartesian x, y, z directions.
   the vector's coordinates along the x, y, and z Cartesian coordinates. (Therefore, the first index
   runs over the three lattice vectors and the second index runs over the x, y, z Cartesian
   coordinates).
-  * For databases that do not define an absolute Cartesian system (e.g. only defining the length and
+  * For databases that do not define an absolute Cartesian system (e.g., only defining the length and
   angles between vectors), the first lattice vector SHOULD be set along `x` and the second on the `xy`
   plane.
   * This property MUST be an array of dimensions 3 times 3 regardless of the elements of
@@ -1263,18 +1262,18 @@ the Cartesian x, y, z directions.
   have no significance beyond fulfilling these requirements.
 * **Examples**:
   * `[[4.,0.,0.],[0.,4.,0.],[0.,1.,4.]]` represents a cell, where the first vector is
-  `(4, 0, 0)`, i.e. a vector aligned along the `x` axis of length 4 Å; the second vector is
+  `(4, 0, 0)`, i.e., a vector aligned along the `x` axis of length 4 Å; the second vector is
   `(0, 4, 0)`; and the third vector is `(0, 1, 4)`.
 
 ### <a name="h.6.2.7">6.2.7. cartesian\_site\_positions</a>
 
 * **Description**: Cartesian positions of each site. A site is an atom, a site potentially occupied by
-an atom, or a placeholder for a virtual mixture of atoms (e.g. in a virtual crystal approximation).
+an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
 * **Requirements/Conventions**:
   * This property is REQUIRED.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g. the [6.2.10.`assemblies`](#h.6.2.10) property).
+  e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
 * **Examples**:
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
   the (positive) `z` axis, 2 Å away from the origin.
@@ -1289,7 +1288,7 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
   * It MUST be a list of strings, which MUST have length equal to the number of sites in the structure
     (first dimension of the [6.2.7. `cartesian_site_positions`](#h.6.2.7) list).
   * Each string MUST be a valid key of the dictionary specified by the [6.2.9. `species`](#h.6.2.9)
-    property. The requirements on this string are the same as for property names, i.e. it can be of any
+    property. The requirements on this string are the same as for property names, i.e., it can be of any
     length, may use upper and lower case letters, underscore, and digits 0-9, but MUST NOT begin with a
     digit.
   * Each site MUST be associated only to a single species.  
@@ -1339,7 +1338,7 @@ by multiple chemical elements.
     [6.2.8. `species_at_sites`](#h.6.2.8) list).
 
   * For systems that have only species formed by a single chemical symbol, and that have at most one
-  species per chemical symbol, SHOULD use the chemical symbol as species name (e.g. `"Ti"` for
+  species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., `"Ti"` for
   titanium, `"O"` for oxygen, etc.) However, note that this is OPTIONAL, and client implementations
   MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name
   is a valid chemical symbol, that it represents a species with that chemical symbol. This means that
@@ -1392,7 +1391,7 @@ by multiple chemical elements.
 * **Notes**:
   * Assemblies are essential to represent, for instance, the situation where an atom can statistically
   occupy two different positions (sites).
-  * By defining groups, it is possible to represent, e.g. the case where a functional molecule (and
+  * By defining groups, it is possible to represent, e.g., the case where a functional molecule (and
   not just one atom) is either present or absent (or the case where it it is present in two
   conformations)
   * Considerations on virtual alloys and on vacancies:  
@@ -1466,12 +1465,12 @@ by multiple chemical elements.
     probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with
     0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
-## <a name="h.6.3">6.3. "calculation" entries</a>
+## <a name="h.6.3">6.3. Calculation Entries</a>
 
 `"calculation"` entries have the properties described above in section
-[6.1. Properties used by multiple entry types](#h.6.1).
+[6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
-## <a name="h.app1">Appendix 1: Database-provider-specific prefixes</a>
+## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
 
 This standard refers to database-provider-specific prefixes.
 These are assigned and included in this standard in the file `providers.json`.
@@ -1491,12 +1490,12 @@ provided in the main repository. This file serves as a machine-readable list of 
 
 The content of the `providers.json` file follows the same JSON API specifications as the rest of the
 API, in particular the resource objects under the top-level `data` field are defined to be valid
-resource objects for the Links endpoint, see section [4.5.3. "provider" objects](#h.4.5.3).
+resource objects for the Links endpoint, see section [4.5.3. Provider Objects](#h.4.5.3).
 
 > **Note**: If a provider wishes to be added to `providers.json`, please suggest a change to this
 repository (make a PR).
 
-## <a name="h.app2">Appendix 2. The Filter language EBNF grammar.</a>
+## <a name="h.app2">Appendix 2. The Filter Language EBNF Grammar.</a>
 
 ```EBNF
 (* BEGIN EBNF GRAMMAR Filter *)
@@ -1591,7 +1590,7 @@ Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 (* END EBNF GRAMMAR Filter *)
 ```
 
-## <a name="h.app3">Appendix 3. The regular expressions to check OPTiMaDe number syntax.</a>
+## <a name="h.app3">Appendix 3. The Regular Expressions to Check OPTiMaDe Number Syntax.</a>
 
 ```perl
 #BEGIN PCRE numbers
