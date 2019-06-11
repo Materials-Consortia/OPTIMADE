@@ -16,18 +16,18 @@
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry Listing Endpoints](#h.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.1. URL Query Parameters](#h.4.1.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.2. Response Schema](#h.4.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.2. JSON API Response Schema](#h.4.1.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2. Single Entry Endpoints](#h.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.1. URL Query Parameters](#h.4.2.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API Response Schema](#h.4.2.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API Response Schema](#h.4.2.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.3. General Entry Listing All Endpoint](#h.4.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. URL Query Parameters](#h.4.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. Response Schema](#h.4.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. JSON API Response Schema](#h.4.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info Endpoints](#h.4.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL Info Endpoint](#h.4.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry Listing Info Endpoints](#h.4.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links Endpoint](#h.4.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. Response Schema](#h.4.5.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. JSON API Response Schema](#h.4.5.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. Parent and Child Objects](#h.4.5.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. Provider Objects](#h.4.5.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index Meta-Database Links Endpoint](#h.4.5.4)  
@@ -499,7 +499,7 @@ Examples:
 > URL tokens, and the above example is not to be taken as a recommendation for
 > such a mechanism.
 
-### <a name="h.4.1.2">4.1.2 JSON API Response Schema</a>
+### <a name="h.4.1.2">4.1.2. JSON API Response Schema</a>
 
 "Entry listing" endpoint response dictionaries MUST have a `data`
 key. The value of this key MUST be a list containing dictionaries that
@@ -585,7 +585,7 @@ URL query parameters not recognized MUST be ignored. While the following URL que
 are OPTIONAL for clients, API implementations MUST accept and handle them:
 **response\_format**, **email\_address**, **response\_fields**. The meaning of these URL query parameters are as defined above in section [4.1.1. URL Query Parameters](#h.4.1.1).
 
-### <a name="h.4.2.2">4.2.2. Response Schema</a>
+### <a name="h.4.2.2">4.2.2. JSON API Response Schema</a>
 
 The response for a 'single entry' endpoint is the same as for 'entry listing'
 endpoint responses, except that the value of the `data` field MUST have only one or zero entries.
@@ -606,7 +606,7 @@ Example:
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
     },
-  },
+  },
   "meta": {
     "query": {
       "representation": "/structures/example.db:structs:1234?"
@@ -635,7 +635,7 @@ custom OPTIONAL URL query parameters, also described above, are also allowed.
 
 Example: <http://example.com/optimade/v0.9/all?response_fields=id,url&response_format=jsonapi>
 
-### <a name="h.4.3.2">4.3.2. Response Schema</a>
+### <a name="h.4.3.2">4.3.2. JSON API Response Schema</a>
 
 The response for a general entry `all` endpoint is the same as for "entry listing" endpoint responses,
 see section [4.1.2 JSON API Response Schema](#h.4.1.2).
@@ -838,7 +838,7 @@ For Links endpoints, the API implementation MAY ignore any provided query parame
 Alternatively, it MAY optionally handle the parameters specified in section
 [4.2.1. URL Query Parameters](#h.4.2.1) for single entry endpoints.
 
-### <a name="h.4.5.1">4.5.1. Response Schema</a>
+### <a name="h.4.5.1">4.5.1. JSON API Response Schema</a>
 
 The resource objects' response dictionaries MUST include the following fields:
 
@@ -1495,7 +1495,7 @@ resource objects for the Links endpoint, see section [4.5.3. Provider Objects](#
 > **Note**: If a provider wishes to be added to `providers.json`, please suggest a change to this
 repository (make a PR).
 
-## <a name="h.app2">Appendix 2. The Filter Language EBNF Grammar.</a>
+## <a name="h.app2">Appendix 2: The Filter Language EBNF Grammar.</a>
 
 ```EBNF
 (* BEGIN EBNF GRAMMAR Filter *)
@@ -1590,7 +1590,7 @@ Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 (* END EBNF GRAMMAR Filter *)
 ```
 
-## <a name="h.app3">Appendix 3. The Regular Expressions to Check OPTiMaDe Number Syntax.</a>
+## <a name="h.app3">Appendix 3: The Regular Expressions to Check OPTiMaDe Number Syntax.</a>
 
 ```perl
 #BEGIN PCRE numbers
