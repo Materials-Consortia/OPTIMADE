@@ -1,0 +1,75 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
+Parse tree from /dev/fd/63:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        NOT(9999)
+          TOKEN_11(9999): "NOT", line: 1, col: 1
+        Comparison(9999)
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_82(9999): "a", line: 1, col: 5
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_46(9999): ">", line: 1, col: 7
+              Value(9999)
+                Identifier(9999)
+                  Letter(9999)
+                    TOKEN_83(9999): "b", line: 1, col: 9
+    OR(9999)
+      TOKEN_13(9999): "OR", line: 1, col: 11
+    Expression(9999)
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          Comparison(9999)
+            IdentifierFirstComparison(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_84(9999): "c", line: 1, col: 14
+              ValueOpRhs(9999)
+                Operator(9999)
+                  TOKEN_45(9999): "=", line: 1, col: 16
+                Value(9999)
+                  Number(9999)
+                    Digits(9999)
+                      Digit(9999)
+                        TOKEN_33(9999): "1", line: 1, col: 18
+                      Digit(9999)
+                        TOKEN_32(9999): "0", line: 1, col: 19
+                      Digit(9999)
+                        TOKEN_32(9999): "0", line: 1, col: 20
+        AND(9999)
+          TOKEN_2(9999): "AND", line: 1, col: 22
+        ExpressionClause(9999)
+          ExpressionPhrase(9999)
+            Comparison(9999)
+              IdentifierFirstComparison(9999)
+                Identifier(9999)
+                  Letter(9999)
+                    TOKEN_87(9999): "f", line: 1, col: 26
+                ValueOpRhs(9999)
+                  Operator(9999)
+                    TOKEN_45(9999): "=", line: 1, col: 28
+                  Value(9999)
+                    String(9999)
+                      TOKEN_19(9999): """, line: 1, col: 30
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            TOKEN_51(9999): "C", line: 1, col: 31
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Digit(9999)
+                            TOKEN_34(9999): "2", line: 1, col: 32
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            TOKEN_56(9999): "H", line: 1, col: 34
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Digit(9999)
+                            TOKEN_38(9999): "6", line: 1, col: 35
+                      TOKEN_19(9999): """, line: 1, col: 36

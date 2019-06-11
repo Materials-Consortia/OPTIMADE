@@ -1,0 +1,2 @@
+nelements = 42 AND nelements > 42 AND nelements < 42 AND nelements != 42 AND nelements >= 42 AND nelements <= 42 AND nelements <> 42
+
