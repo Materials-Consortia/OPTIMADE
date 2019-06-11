@@ -543,7 +543,7 @@ Example:
         "local_id": "example.db:structs:0001",
         "url": "http://example.db/structs/0001",
         "immutable_id": "http://example.db/structs/0001@123",
-        "last_modified": "2007-04-05T14:30Z"
+        "modification_date": "2007-04-05T14:30Z"
       }
     },
     {
@@ -554,7 +554,7 @@ Example:
         "local_id": "example.db:structs:1234",
         "url": "http://example.db/structs/1234",
         "immutable_id": "http://example.db/structs/1234@123",
-        "last_modified": "2007-04-07T12:02Z"
+        "modification_date": "2007-04-07T12:02Z"
       },
     },
     // ...
@@ -604,7 +604,7 @@ Example:
       "local_id": "example.db:structs:1234",
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
-      "last_modified": "2007-04-07T12:02Z"
+      "modification_date": "2007-04-07T12:02Z"
     },
   },
   "meta": {
