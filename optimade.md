@@ -289,6 +289,8 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * **last**: the last page of data.
   * **first**: the first  page of data.
 
+    Indented.
+
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
     ```json
