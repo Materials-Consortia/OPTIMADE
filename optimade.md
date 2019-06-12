@@ -1617,6 +1617,9 @@ by multiple chemical elements.
 
 ## <a name="h.6.4">6.4. Reference Entries</a>
 
+`"reference"` entries describe bibliographic references. To do so, they MUST
+use properties defined by [BibJSON specification](http://okfnlabs.org/bibjson/).
+
 ## <a name="h.6.5">6.5. Relationships Used by Multiple Entry Types</a>
 
 [JSON API Relationships](https://jsonapi.org/format/#document-resource-object-relationships)
