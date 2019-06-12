@@ -1642,7 +1642,7 @@ repository (make a PR).
 (* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
-Filter = Expression ;
+Filter = [Spaces], Expression ;
 
 (* Values *)
 
