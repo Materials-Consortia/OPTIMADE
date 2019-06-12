@@ -1305,7 +1305,7 @@ This section defines standard entry types and their properties.
 
 * **Description**: the type of an entry.
 * **Requirements/Conventions**: MUST be an existing entry type.
-* **Example**: `structure`
+* **Example**: `"structure"`
 
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
