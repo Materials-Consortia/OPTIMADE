@@ -14,6 +14,9 @@ Filter(9999)
               TOKEN_39(9999): "G", line: 1, col: 4
               TOKEN_52(9999): "T", line: 1, col: 5
               TOKEN_40(9999): "H", line: 1, col: 6
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 7
             Identifier(9999)
               LowercaseLetter(9999)
                 TOKEN_70(9999): "e", line: 1, col: 8

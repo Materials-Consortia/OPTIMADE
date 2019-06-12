@@ -26,9 +26,15 @@ Filter(9999)
                 TOKEN_85(9999): "t", line: 1, col: 8
               LowercaseLetter(9999)
                 TOKEN_84(9999): "s", line: 1, col: 9
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 10
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_30(9999): ">", line: 1, col: 11
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 12
               Value(9999)
                 Number(9999)
                   Digits(9999)

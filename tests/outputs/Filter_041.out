@@ -40,9 +40,15 @@ Filter(9999)
                 TOKEN_77(9999): "l", line: 1, col: 15
               LowercaseLetter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 16
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 17
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 18
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 19
 Error: in /dev/fd/63: line 1:
     unexpected token "'", expected one of """, "+", "-", "0", "1",
     "2", "3", "4", "5", "6", "7", "8", "9", ".", "a", "b", "c", "d",

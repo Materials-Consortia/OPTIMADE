@@ -40,9 +40,15 @@ Filter(9999)
                 TOKEN_77(9999): "l", line: 1, col: 15
               LowercaseLetter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 16
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 17
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 18
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 19
               Value(9999)
                 Number(9999)
                   Digits(9999)

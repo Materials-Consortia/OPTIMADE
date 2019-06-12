@@ -1,19 +1,19 @@
 Parse tree from /dev/fd/63:
 Number(9999)
   Sign(9999)
-    TOKEN_0(9999): "+", line: 1, col: 1
-  TOKEN_2(9999): ".", line: 1, col: 2
+    TOKEN_1(9999): "+", line: 1, col: 1
+  TOKEN_3(9999): ".", line: 1, col: 2
   Digits(9999)
     Digit(9999)
-      TOKEN_4(9999): "1", line: 1, col: 3
+      TOKEN_5(9999): "1", line: 1, col: 3
   Exponent(9999)
-    TOKEN_13(9999): "E", line: 1, col: 4
+    TOKEN_14(9999): "E", line: 1, col: 4
     Sign(9999)
-      TOKEN_1(9999): "-", line: 1, col: 5
+      TOKEN_2(9999): "-", line: 1, col: 5
     Digits(9999)
       Digit(9999)
-        TOKEN_4(9999): "1", line: 1, col: 6
+        TOKEN_5(9999): "1", line: 1, col: 6
       Digit(9999)
-        TOKEN_5(9999): "2", line: 1, col: 7
+        TOKEN_6(9999): "2", line: 1, col: 7
       Digit(9999)
-        TOKEN_6(9999): "3", line: 1, col: 8
+        TOKEN_7(9999): "3", line: 1, col: 8

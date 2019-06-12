@@ -62,9 +62,15 @@ Filter(9999)
                 TOKEN_85(9999): "t", line: 1, col: 26
               LowercaseLetter(9999)
                 TOKEN_90(9999): "y", line: 1, col: 27
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 28
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 29
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 30
               Value(9999)
                 Number(9999)
                   Digits(9999)

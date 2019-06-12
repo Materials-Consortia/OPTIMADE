@@ -70,10 +70,16 @@ Filter(9999)
                     TOKEN_85(9999): "t", line: 1, col: 29
                   LowercaseLetter(9999)
                     TOKEN_84(9999): "s", line: 1, col: 30
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 31
               HAS(9999)
                 TOKEN_40(9999): "H", line: 1, col: 32
                 TOKEN_33(9999): "A", line: 1, col: 33
                 TOKEN_51(9999): "S", line: 1, col: 34
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 35
               ValueZip(9999)
                 Value(9999)
                   String(9999)
@@ -90,10 +96,16 @@ Filter(9999)
                     Digits(9999)
                       Digit(9999)
                         TOKEN_22(9999): "6", line: 1, col: 40
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 41
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 42
         TOKEN_46(9999): "N", line: 1, col: 43
         TOKEN_36(9999): "D", line: 1, col: 44
+        Spaces(9999)
+          Space(9999)
+            TOKEN_1(9999): " ", line: 1, col: 45
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
@@ -161,14 +173,23 @@ Filter(9999)
                       TOKEN_85(9999): "t", line: 1, col: 74
                     LowercaseLetter(9999)
                       TOKEN_84(9999): "s", line: 1, col: 75
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 76
                 HAS(9999)
                   TOKEN_40(9999): "H", line: 1, col: 77
                   TOKEN_33(9999): "A", line: 1, col: 78
                   TOKEN_51(9999): "S", line: 1, col: 79
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 80
                 ALL(9999)
                   TOKEN_33(9999): "A", line: 1, col: 81
                   TOKEN_44(9999): "L", line: 1, col: 82
                   TOKEN_44(9999): "L", line: 1, col: 83
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 84
                 ValueZipList(9999)
                   ValueZip(9999)
                     Value(9999)
@@ -208,10 +229,16 @@ Filter(9999)
                         Digits(9999)
                           Digit(9999)
                             TOKEN_23(9999): "7", line: 1, col: 96
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 97
         AND(9999)
           TOKEN_33(9999): "A", line: 1, col: 98
           TOKEN_46(9999): "N", line: 1, col: 99
           TOKEN_36(9999): "D", line: 1, col: 100
+          Spaces(9999)
+            Space(9999)
+              TOKEN_1(9999): " ", line: 1, col: 101
         ExpressionClause(9999)
           ExpressionPhrase(9999)
             Comparison(9999)
@@ -279,10 +306,16 @@ Filter(9999)
                         TOKEN_85(9999): "t", line: 1, col: 130
                       LowercaseLetter(9999)
                         TOKEN_84(9999): "s", line: 1, col: 131
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 132
                   HAS(9999)
                     TOKEN_40(9999): "H", line: 1, col: 133
                     TOKEN_33(9999): "A", line: 1, col: 134
                     TOKEN_51(9999): "S", line: 1, col: 135
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 136
                   EXACTLY(9999)
                     TOKEN_37(9999): "E", line: 1, col: 137
                     TOKEN_56(9999): "X", line: 1, col: 138
@@ -291,6 +324,9 @@ Filter(9999)
                     TOKEN_52(9999): "T", line: 1, col: 141
                     TOKEN_44(9999): "L", line: 1, col: 142
                     TOKEN_57(9999): "Y", line: 1, col: 143
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 144
                   ValueZipList(9999)
                     ValueZip(9999)
                       Value(9999)
@@ -308,10 +344,16 @@ Filter(9999)
                           Digits(9999)
                             Digit(9999)
                               TOKEN_22(9999): "6", line: 1, col: 149
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 150
           AND(9999)
             TOKEN_33(9999): "A", line: 1, col: 151
             TOKEN_46(9999): "N", line: 1, col: 152
             TOKEN_36(9999): "D", line: 1, col: 153
+            Spaces(9999)
+              Space(9999)
+                TOKEN_1(9999): " ", line: 1, col: 154
           ExpressionClause(9999)
             ExpressionPhrase(9999)
               Comparison(9999)
@@ -379,14 +421,23 @@ Filter(9999)
                           TOKEN_85(9999): "t", line: 1, col: 183
                         LowercaseLetter(9999)
                           TOKEN_84(9999): "s", line: 1, col: 184
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 185
                     HAS(9999)
                       TOKEN_40(9999): "H", line: 1, col: 186
                       TOKEN_33(9999): "A", line: 1, col: 187
                       TOKEN_51(9999): "S", line: 1, col: 188
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 189
                     ANY(9999)
                       TOKEN_33(9999): "A", line: 1, col: 190
                       TOKEN_46(9999): "N", line: 1, col: 191
                       TOKEN_57(9999): "Y", line: 1, col: 192
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 193
                     ValueZipList(9999)
                       ValueZip(9999)
                         Value(9999)
@@ -426,10 +477,16 @@ Filter(9999)
                             Digits(9999)
                               Digit(9999)
                                 TOKEN_23(9999): "7", line: 1, col: 205
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 206
             AND(9999)
               TOKEN_33(9999): "A", line: 1, col: 207
               TOKEN_46(9999): "N", line: 1, col: 208
               TOKEN_36(9999): "D", line: 1, col: 209
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 210
             ExpressionClause(9999)
               ExpressionPhrase(9999)
                 Comparison(9999)
@@ -497,15 +554,24 @@ Filter(9999)
                             TOKEN_85(9999): "t", line: 1, col: 239
                           LowercaseLetter(9999)
                             TOKEN_84(9999): "s", line: 1, col: 240
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 241
                       HAS(9999)
                         TOKEN_40(9999): "H", line: 1, col: 242
                         TOKEN_33(9999): "A", line: 1, col: 243
                         TOKEN_51(9999): "S", line: 1, col: 244
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 245
                       ONLY(9999)
                         TOKEN_47(9999): "O", line: 1, col: 246
                         TOKEN_46(9999): "N", line: 1, col: 247
                         TOKEN_44(9999): "L", line: 1, col: 248
                         TOKEN_57(9999): "Y", line: 1, col: 249
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 250
                       ValueZipList(9999)
                         ValueZip(9999)
                           Value(9999)

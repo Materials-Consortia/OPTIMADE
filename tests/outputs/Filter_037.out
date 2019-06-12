@@ -56,10 +56,16 @@ Filter(9999)
                     TOKEN_85(9999): "t", line: 1, col: 22
                   LowercaseLetter(9999)
                     TOKEN_84(9999): "s", line: 1, col: 23
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 24
               HAS(9999)
                 TOKEN_40(9999): "H", line: 1, col: 25
                 TOKEN_33(9999): "A", line: 1, col: 26
                 TOKEN_51(9999): "S", line: 1, col: 27
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 28
 Error: in /dev/fd/63: line 1:
     unexpected token "I", expected one of "<", ">", "=", "!", """,
     "+", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".",

@@ -60,10 +60,16 @@ Filter(9999)
                       TOKEN_16(9999): "0", line: 1, col: 23
                     Digit(9999)
                       TOKEN_16(9999): "0", line: 1, col: 24
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 25
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 26
         TOKEN_46(9999): "N", line: 1, col: 27
         TOKEN_36(9999): "D", line: 1, col: 28
+        Spaces(9999)
+          Space(9999)
+            TOKEN_1(9999): " ", line: 1, col: 29
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
@@ -95,10 +101,16 @@ Filter(9999)
                     Digits(9999)
                       Digit(9999)
                         TOKEN_20(9999): "4", line: 1, col: 40
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 41
         AND(9999)
           TOKEN_33(9999): "A", line: 1, col: 42
           TOKEN_46(9999): "N", line: 1, col: 43
           TOKEN_36(9999): "D", line: 1, col: 44
+          Spaces(9999)
+            Space(9999)
+              TOKEN_1(9999): " ", line: 1, col: 45
         ExpressionClause(9999)
           ExpressionPhrase(9999)
             Comparison(9999)

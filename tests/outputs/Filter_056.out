@@ -50,22 +50,37 @@ Filter(9999)
                 TOKEN_85(9999): "t", line: 1, col: 20
               LowercaseLetter(9999)
                 TOKEN_84(9999): "s", line: 1, col: 21
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 22
             SetOpRhs(9999)
               HAS(9999)
                 TOKEN_40(9999): "H", line: 1, col: 23
                 TOKEN_33(9999): "A", line: 1, col: 24
                 TOKEN_51(9999): "S", line: 1, col: 25
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 26
               Operator(9999)
                 TOKEN_28(9999): "<", line: 1, col: 27
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 28
               Value(9999)
                 Number(9999)
                   Digits(9999)
                     Digit(9999)
                       TOKEN_19(9999): "3", line: 1, col: 29
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 30
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 31
         TOKEN_46(9999): "N", line: 1, col: 32
         TOKEN_36(9999): "D", line: 1, col: 33
+        Spaces(9999)
+          Space(9999)
+            TOKEN_1(9999): " ", line: 1, col: 34
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
@@ -113,41 +128,68 @@ Filter(9999)
                   TOKEN_85(9999): "t", line: 1, col: 54
                 LowercaseLetter(9999)
                   TOKEN_84(9999): "s", line: 1, col: 55
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 56
               SetOpRhs(9999)
                 HAS(9999)
                   TOKEN_40(9999): "H", line: 1, col: 57
                   TOKEN_33(9999): "A", line: 1, col: 58
                   TOKEN_51(9999): "S", line: 1, col: 59
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 60
                 ANY(9999)
                   TOKEN_33(9999): "A", line: 1, col: 61
                   TOKEN_46(9999): "N", line: 1, col: 62
                   TOKEN_57(9999): "Y", line: 1, col: 63
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 64
                 ValueList(9999)
                   Operator(9999)
                     TOKEN_30(9999): ">", line: 1, col: 65
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 66
                   Value(9999)
                     Number(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_19(9999): "3", line: 1, col: 67
                   TOKEN_12(9999): ",", line: 1, col: 68
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 69
                   Operator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 70
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 71
                   Value(9999)
                     Number(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_22(9999): "6", line: 1, col: 72
                   TOKEN_12(9999): ",", line: 1, col: 73
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 74
                   Value(9999)
                     Number(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_20(9999): "4", line: 1, col: 75
                   TOKEN_12(9999): ",", line: 1, col: 76
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 77
                   Operator(9999)
                     TOKEN_2(9999): "!", line: 1, col: 78
                     TOKEN_29(9999): "=", line: 1, col: 79
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 80
                   Value(9999)
                     Number(9999)
                       Digits(9999)

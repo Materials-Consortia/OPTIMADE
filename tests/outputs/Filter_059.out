@@ -42,6 +42,9 @@ Filter(9999)
                 TOKEN_77(9999): "l", line: 1, col: 16
               LowercaseLetter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 17
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 18
             FuzzyStringOpRhs(9999)
               CONTAINS(9999)
                 TOKEN_35(9999): "C", line: 1, col: 19
@@ -52,6 +55,9 @@ Filter(9999)
                 TOKEN_41(9999): "I", line: 1, col: 24
                 TOKEN_46(9999): "N", line: 1, col: 25
                 TOKEN_51(9999): "S", line: 1, col: 26
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 27
               String(9999)
                 TOKEN_3(9999): """, line: 1, col: 28
                 EscapedChar(9999)
@@ -64,10 +70,16 @@ Filter(9999)
                     Digit(9999)
                       TOKEN_18(9999): "2", line: 1, col: 30
                 TOKEN_3(9999): """, line: 1, col: 31
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 32
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 33
         TOKEN_46(9999): "N", line: 1, col: 34
         TOKEN_36(9999): "D", line: 1, col: 35
+        Spaces(9999)
+          Space(9999)
+            TOKEN_1(9999): " ", line: 1, col: 36
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
@@ -107,6 +119,9 @@ Filter(9999)
                   TOKEN_77(9999): "l", line: 1, col: 52
                 LowercaseLetter(9999)
                   TOKEN_66(9999): "a", line: 1, col: 53
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 54
               FuzzyStringOpRhs(9999)
                 STARTS(9999)
                   TOKEN_51(9999): "S", line: 1, col: 55
@@ -115,11 +130,17 @@ Filter(9999)
                   TOKEN_50(9999): "R", line: 1, col: 58
                   TOKEN_52(9999): "T", line: 1, col: 59
                   TOKEN_51(9999): "S", line: 1, col: 60
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 61
                 WITH(9999)
                   TOKEN_55(9999): "W", line: 1, col: 62
                   TOKEN_41(9999): "I", line: 1, col: 63
                   TOKEN_52(9999): "T", line: 1, col: 64
                   TOKEN_40(9999): "H", line: 1, col: 65
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 66
                 String(9999)
                   TOKEN_3(9999): """, line: 1, col: 67
                   EscapedChar(9999)

@@ -42,6 +42,9 @@ Filter(9999)
                 TOKEN_77(9999): "l", line: 1, col: 16
               LowercaseLetter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 17
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 18
 Error: in /dev/fd/63: line 1:
     unexpected token "U", expected one of "<", ">", "=", "!", "I",
     "C", "S", "E", "H", or ":"

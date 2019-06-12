@@ -24,29 +24,11 @@ Filter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 7
               LowercaseLetter(9999)
                 TOKEN_77(9999): "l", line: 1, col: 8
-              LowercaseLetter(9999)
-                TOKEN_71(9999): "f", line: 1, col: 10
-              LowercaseLetter(9999)
-                TOKEN_80(9999): "o", line: 1, col: 11
-              LowercaseLetter(9999)
-                TOKEN_83(9999): "r", line: 1, col: 12
-              LowercaseLetter(9999)
-                TOKEN_78(9999): "m", line: 1, col: 13
-              LowercaseLetter(9999)
-                TOKEN_86(9999): "u", line: 1, col: 14
-              LowercaseLetter(9999)
-                TOKEN_77(9999): "l", line: 1, col: 15
-              LowercaseLetter(9999)
-                TOKEN_66(9999): "a", line: 1, col: 16
-            KnownOpRhs(9999)
-              IS(9999)
-                TOKEN_41(9999): "I", line: 1, col: 18
-                TOKEN_51(9999): "S", line: 1, col: 19
-              KNOWN(9999)
-                TOKEN_43(9999): "K", line: 1, col: 21
-                TOKEN_46(9999): "N", line: 1, col: 22
-                TOKEN_47(9999): "O", line: 1, col: 23
-                TOKEN_55(9999): "W", line: 1, col: 24
-                TOKEN_46(9999): "N", line: 1, col: 25
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 9
+Error: in /dev/fd/63: line 1:
+    unexpected token "f", expected one of "<", ">", "=", "!", "I",
+    "C", "S", "E", "H", or ":"
 Error: in /dev/fd/63: line 1:
     unexpected token "4", expected <EOF>

@@ -116,18 +116,30 @@ Filter(9999)
                     TOKEN_85(9999): "t", line: 1, col: 52
                   LowercaseLetter(9999)
                     TOKEN_84(9999): "s", line: 1, col: 53
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 54
               HAS(9999)
                 TOKEN_40(9999): "H", line: 1, col: 55
                 TOKEN_33(9999): "A", line: 1, col: 56
                 TOKEN_51(9999): "S", line: 1, col: 57
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 58
               ANY(9999)
                 TOKEN_33(9999): "A", line: 1, col: 59
                 TOKEN_46(9999): "N", line: 1, col: 60
                 TOKEN_57(9999): "Y", line: 1, col: 61
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 62
               ValueZipList(9999)
                 ValueZip(9999)
                   Operator(9999)
                     TOKEN_30(9999): ">", line: 1, col: 63
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 64
                   Value(9999)
                     Number(9999)
                       Digits(9999)
@@ -162,10 +174,19 @@ Filter(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_19(9999): "3", line: 1, col: 76
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 77
                 TOKEN_12(9999): ",", line: 1, col: 78
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 79
                 ValueZip(9999)
                   Operator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 80
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 81
                   Value(9999)
                     Number(9999)
                       Digits(9999)
@@ -202,7 +223,13 @@ Filter(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_22(9999): "6", line: 1, col: 94
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 95
                 TOKEN_12(9999): ",", line: 1, col: 96
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 97
                 ValueZip(9999)
                   Value(9999)
                     Number(9999)

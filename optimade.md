@@ -1651,13 +1651,13 @@ Constant = String | Number ;
 Value = String | Number | Identifier ;
 (* Note: support for Identifier in Value is OPTIONAL *)
 
-ValueList = [ Operator ], Value, {',', [ Operator ], Value } ;
+ValueList = [ Operator ], Value, {',', [Spaces], [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
 
 ValueZip = [ Operator ], Value, ':', [ Operator ], Value, {':', [ Operator ], Value} ;
 (* Support for the optional Operator in ValueZip is OPTIONAL *)
 
-ValueZipList = ValueZip, { ',', ValueZip } ;
+ValueZipList = ValueZip, { ',', [Spaces], ValueZip } ;
 
 (* Expressions *)
 
@@ -1665,7 +1665,7 @@ Expression = ExpressionClause, [ OR, Expression ] ;
 
 ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', Expression, ')' );
+ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', [Spaces], Expression, ')', [Spaces] );
 
 Comparison = ConstantFirstComparison |
              IdentifierFirstComparison ;
@@ -1701,39 +1701,35 @@ IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
 
 (* TOKENS *)
 
-(* White-space: *)
-
-Space = ' ' | '\t' ;
-
 (* Boolean relations: *)
 
-AND = 'A', 'N', 'D' ;
-NOT = 'N', 'O', 'T' ;
-OR = 'O', 'R' ;
+AND = 'A', 'N', 'D', [Spaces] ;
+NOT = 'N', 'O', 'T', [Spaces] ;
+OR = 'O', 'R', [Spaces] ;
 
-IS = 'I', 'S' ;
-KNOWN = 'K', 'N', 'O', 'W', 'N' ;
-UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N' ;
+IS = 'I', 'S', [Spaces] ;
+KNOWN = 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N', [Spaces] ;
 
-CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S' ;
-STARTS = 'S', 'T', 'A', 'R', 'T', 'S' ;
-ENDS = 'E', 'N', 'D', 'S' ;
-WITH = 'W', 'I', 'T', 'H' ;
+CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S', [Spaces] ;
+STARTS = 'S', 'T', 'A', 'R', 'T', 'S', [Spaces] ;
+ENDS = 'E', 'N', 'D', 'S', [Spaces] ;
+WITH = 'W', 'I', 'T', 'H', [Spaces] ;
 
-LENGTH = 'L', 'E', 'N', 'G', 'T', 'H' ;
-HAS = 'H', 'A', 'S' ;
-ALL = 'A', 'L', 'L' ;
-ONLY = 'O', 'N', 'L', 'Y' ;
-EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y' ;
-ANY = 'A', 'N', 'Y' ;
+LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
+HAS = 'H', 'A', 'S', [Spaces] ;
+ALL = 'A', 'L', 'L', [Spaces] ;
+ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
+EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y', [Spaces] ;
+ANY = 'A', 'N', 'Y', [Spaces] ;
 
 (* OperatorComparison operator tokens: *)
 
-Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
+Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
 (* Identifier syntax *)
 
-Identifier = LowercaseLetter, { LowercaseLetter | Digit } ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
 
 Letter = UppercaseLetter | LowercaseLetter ;
 
@@ -1751,7 +1747,7 @@ LowercaseLetter =
 
 (* Strings: *)
 
-String = '"', { EscapedChar }, '"' ;
+String = '"', { EscapedChar }, '"', [Spaces] ;
 
 EscapedChar = UnescapedChar | '\', '"' | '\', '\' ;
 
@@ -1773,7 +1769,7 @@ UnicodeHighChar = ? [^\x00-\xFF] ? ;
 
 Number = [ Sign ] ,
          ( Digits, [ '.', [ Digits ] ] | '.' , Digits ),
-         [ Exponent ] ;
+         [ Exponent ], [Spaces] ;
 
 Exponent =  ( 'e' | 'E' ) , [ Sign ] , Digits ;
 
@@ -1782,6 +1778,12 @@ Sign = '+' | '-' ;
 Digits =  Digit, { Digit } ;
 
 Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
+
+(* White-space: *)
+
+Space = ' ' | '\t' ;
+
+Spaces = Space, { Space } ;
 
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)

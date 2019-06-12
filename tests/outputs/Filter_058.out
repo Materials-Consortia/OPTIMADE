@@ -40,9 +40,15 @@ Filter(9999)
                 TOKEN_77(9999): "l", line: 1, col: 15
               LowercaseLetter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 16
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 17
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 18
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 19
               Value(9999)
                 String(9999)
                   TOKEN_3(9999): """, line: 1, col: 20
@@ -61,10 +67,16 @@ Filter(9999)
                         UppercaseLetter(9999)
                           TOKEN_47(9999): "O", line: 1, col: 23
                   TOKEN_3(9999): """, line: 1, col: 24
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 25
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 26
         TOKEN_46(9999): "N", line: 1, col: 27
         TOKEN_36(9999): "D", line: 1, col: 28
+        Spaces(9999)
+          Space(9999)
+            TOKEN_1(9999): " ", line: 1, col: 29
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
@@ -104,10 +116,16 @@ Filter(9999)
                   TOKEN_77(9999): "l", line: 1, col: 45
                 LowercaseLetter(9999)
                   TOKEN_66(9999): "a", line: 1, col: 46
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 47
               ValueOpRhs(9999)
                 Operator(9999)
                   TOKEN_2(9999): "!", line: 1, col: 48
                   TOKEN_29(9999): "=", line: 1, col: 49
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 50
                 Value(9999)
                   String(9999)
                     TOKEN_3(9999): """, line: 1, col: 51

@@ -14,6 +14,9 @@ Filter(9999)
               TOKEN_39(9999): "G", line: 1, col: 4
               TOKEN_52(9999): "T", line: 1, col: 5
               TOKEN_40(9999): "H", line: 1, col: 6
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 7
             Identifier(9999)
               LowercaseLetter(9999)
                 TOKEN_70(9999): "e", line: 1, col: 8
@@ -31,9 +34,8 @@ Filter(9999)
                 TOKEN_85(9999): "t", line: 1, col: 14
               LowercaseLetter(9999)
                 TOKEN_84(9999): "s", line: 1, col: 15
-              Digit(9999)
-                TOKEN_20(9999): "4", line: 1, col: 17
-              Digit(9999)
-                TOKEN_18(9999): "2", line: 1, col: 18
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 16
 Error: in /dev/fd/63: line 1:
-    unexpected end of file
+    unexpected token "4", expected one of "<", ">", "=", or "!"

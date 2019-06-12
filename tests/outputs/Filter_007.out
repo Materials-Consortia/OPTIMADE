@@ -14,10 +14,16 @@ Filter(9999)
                 TOKEN_66(9999): "a", line: 1, col: 2
               LowercaseLetter(9999)
                 TOKEN_89(9999): "x", line: 1, col: 3
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 4
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_28(9999): "<", line: 1, col: 5
                 TOKEN_29(9999): "=", line: 1, col: 6
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 7
               Value(9999)
                 Number(9999)
                   Sign(9999)
@@ -31,9 +37,15 @@ Filter(9999)
                     Digits(9999)
                       Digit(9999)
                         TOKEN_24(9999): "8", line: 1, col: 12
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 13
     OR(9999)
       TOKEN_47(9999): "O", line: 1, col: 14
       TOKEN_50(9999): "R", line: 1, col: 15
+      Spaces(9999)
+        Space(9999)
+          TOKEN_1(9999): " ", line: 1, col: 16
     Expression(9999)
       ExpressionClause(9999)
         ExpressionPhrase(9999)
@@ -46,10 +58,16 @@ Filter(9999)
                   TOKEN_18(9999): "2", line: 1, col: 18
                 Digit(9999)
                   TOKEN_17(9999): "1", line: 1, col: 19
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 20
               ValueOpRhs(9999)
                 Operator(9999)
                   TOKEN_30(9999): ">", line: 1, col: 21
                   TOKEN_29(9999): "=", line: 1, col: 22
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 23
                 Value(9999)
                   String(9999)
                     TOKEN_3(9999): """, line: 1, col: 24
@@ -98,6 +116,10 @@ Filter(9999)
                             TOKEN_66(9999): "a", line: 1, col: 33
                     EscapedChar(9999)
                       UnescapedChar(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 34
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
                         UnicodeHighChar(9999)
                           SPECIAL_0(9999): "ž", line: 1, col: 35
                     EscapedChar(9999)
@@ -120,17 +142,29 @@ Filter(9999)
                           LowercaseLetter(9999)
                             TOKEN_84(9999): "s", line: 1, col: 39
                     TOKEN_3(9999): """, line: 1, col: 40
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 41
         AND(9999)
           TOKEN_33(9999): "A", line: 1, col: 42
           TOKEN_46(9999): "N", line: 1, col: 43
           TOKEN_36(9999): "D", line: 1, col: 44
+          Spaces(9999)
+            Space(9999)
+              TOKEN_1(9999): " ", line: 1, col: 45
         ExpressionClause(9999)
           ExpressionPhrase(9999)
             NOT(9999)
               TOKEN_46(9999): "N", line: 1, col: 46
               TOKEN_47(9999): "O", line: 1, col: 47
               TOKEN_52(9999): "T", line: 1, col: 48
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 49
             TOKEN_8(9999): "(", line: 1, col: 50
+            Spaces(9999)
+              Space(9999)
+                TOKEN_1(9999): " ", line: 1, col: 51
             Expression(9999)
               ExpressionClause(9999)
                 ExpressionPhrase(9999)
@@ -139,10 +173,16 @@ Filter(9999)
                       Identifier(9999)
                         LowercaseLetter(9999)
                           TOKEN_89(9999): "x", line: 1, col: 52
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 53
                       ValueOpRhs(9999)
                         Operator(9999)
                           TOKEN_2(9999): "!", line: 1, col: 54
                           TOKEN_29(9999): "=", line: 1, col: 55
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 56
                         Value(9999)
                           String(9999)
                             TOKEN_3(9999): """, line: 1, col: 57
@@ -167,8 +207,16 @@ Filter(9999)
                                   LowercaseLetter(9999)
                                     TOKEN_70(9999): "e", line: 1, col: 61
                             EscapedChar(9999)
+                              UnescapedChar(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 62
+                            EscapedChar(9999)
                               TOKEN_60(9999): "\", line: 1, col: 63
                               TOKEN_60(9999): "\", line: 1, col: 64
+                            EscapedChar(9999)
+                              UnescapedChar(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 65
                             EscapedChar(9999)
                               TOKEN_60(9999): "\", line: 1, col: 66
                               TOKEN_3(9999): """, line: 1, col: 67
@@ -206,4 +254,7 @@ Filter(9999)
                               TOKEN_60(9999): "\", line: 1, col: 74
                               TOKEN_3(9999): """, line: 1, col: 75
                             TOKEN_3(9999): """, line: 1, col: 76
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 77
             TOKEN_9(9999): ")", line: 1, col: 78
