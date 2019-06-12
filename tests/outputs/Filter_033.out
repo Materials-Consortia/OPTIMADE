@@ -1,0 +1,185 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
+Parse tree from /dev/fd/63:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          IdentifierFirstComparison(9999)
+            Identifier(9999)
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 1
+              Letter(9999)
+                TOKEN_93(9999): "l", line: 1, col: 2
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 3
+              Letter(9999)
+                TOKEN_94(9999): "m", line: 1, col: 4
+              Letter(9999)
+                TOKEN_86(9999): "e", line: 1, col: 5
+              Letter(9999)
+                TOKEN_95(9999): "n", line: 1, col: 6
+              Letter(9999)
+                TOKEN_101(9999): "t", line: 1, col: 7
+              Letter(9999)
+                TOKEN_100(9999): "s", line: 1, col: 8
+            SetOpRhs(9999)
+              HAS(9999)
+                TOKEN_7(9999): "HAS", line: 1, col: 10
+              Value(9999)
+                String(9999)
+                  TOKEN_19(9999): """, line: 1, col: 14
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        TOKEN_56(9999): "H", line: 1, col: 15
+                  TOKEN_19(9999): """, line: 1, col: 16
+      AND(9999)
+        TOKEN_2(9999): "AND", line: 1, col: 18
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          Comparison(9999)
+            IdentifierFirstComparison(9999)
+              Identifier(9999)
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 22
+                Letter(9999)
+                  TOKEN_93(9999): "l", line: 1, col: 23
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 24
+                Letter(9999)
+                  TOKEN_94(9999): "m", line: 1, col: 25
+                Letter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 26
+                Letter(9999)
+                  TOKEN_95(9999): "n", line: 1, col: 27
+                Letter(9999)
+                  TOKEN_101(9999): "t", line: 1, col: 28
+                Letter(9999)
+                  TOKEN_100(9999): "s", line: 1, col: 29
+              SetOpRhs(9999)
+                HAS(9999)
+                  TOKEN_7(9999): "HAS", line: 1, col: 31
+                ALL(9999)
+                  TOKEN_1(9999): "ALL", line: 1, col: 35
+                ValueList(9999)
+                  Value(9999)
+                    String(9999)
+                      TOKEN_19(9999): """, line: 1, col: 39
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            TOKEN_56(9999): "H", line: 1, col: 40
+                      TOKEN_19(9999): """, line: 1, col: 41
+        AND(9999)
+          TOKEN_2(9999): "AND", line: 1, col: 43
+        ExpressionClause(9999)
+          ExpressionPhrase(9999)
+            Comparison(9999)
+              IdentifierFirstComparison(9999)
+                Identifier(9999)
+                  Letter(9999)
+                    TOKEN_86(9999): "e", line: 1, col: 47
+                  Letter(9999)
+                    TOKEN_93(9999): "l", line: 1, col: 48
+                  Letter(9999)
+                    TOKEN_86(9999): "e", line: 1, col: 49
+                  Letter(9999)
+                    TOKEN_94(9999): "m", line: 1, col: 50
+                  Letter(9999)
+                    TOKEN_86(9999): "e", line: 1, col: 51
+                  Letter(9999)
+                    TOKEN_95(9999): "n", line: 1, col: 52
+                  Letter(9999)
+                    TOKEN_101(9999): "t", line: 1, col: 53
+                  Letter(9999)
+                    TOKEN_100(9999): "s", line: 1, col: 54
+                SetOpRhs(9999)
+                  HAS(9999)
+                    TOKEN_7(9999): "HAS", line: 1, col: 56
+                  EXACTLY(9999)
+                    TOKEN_6(9999): "EXACTLY", line: 1, col: 60
+                  ValueList(9999)
+                    Value(9999)
+                      String(9999)
+                        TOKEN_19(9999): """, line: 1, col: 68
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Letter(9999)
+                              TOKEN_56(9999): "H", line: 1, col: 69
+                        TOKEN_19(9999): """, line: 1, col: 70
+          AND(9999)
+            TOKEN_2(9999): "AND", line: 1, col: 72
+          ExpressionClause(9999)
+            ExpressionPhrase(9999)
+              Comparison(9999)
+                IdentifierFirstComparison(9999)
+                  Identifier(9999)
+                    Letter(9999)
+                      TOKEN_86(9999): "e", line: 1, col: 76
+                    Letter(9999)
+                      TOKEN_93(9999): "l", line: 1, col: 77
+                    Letter(9999)
+                      TOKEN_86(9999): "e", line: 1, col: 78
+                    Letter(9999)
+                      TOKEN_94(9999): "m", line: 1, col: 79
+                    Letter(9999)
+                      TOKEN_86(9999): "e", line: 1, col: 80
+                    Letter(9999)
+                      TOKEN_95(9999): "n", line: 1, col: 81
+                    Letter(9999)
+                      TOKEN_101(9999): "t", line: 1, col: 82
+                    Letter(9999)
+                      TOKEN_100(9999): "s", line: 1, col: 83
+                  SetOpRhs(9999)
+                    HAS(9999)
+                      TOKEN_7(9999): "HAS", line: 1, col: 85
+                    ANY(9999)
+                      TOKEN_3(9999): "ANY", line: 1, col: 89
+                    ValueList(9999)
+                      Value(9999)
+                        String(9999)
+                          TOKEN_19(9999): """, line: 1, col: 93
+                          EscapedChar(9999)
+                            UnescapedChar(9999)
+                              Letter(9999)
+                                TOKEN_56(9999): "H", line: 1, col: 94
+                          TOKEN_19(9999): """, line: 1, col: 95
+            AND(9999)
+              TOKEN_2(9999): "AND", line: 1, col: 97
+            ExpressionClause(9999)
+              ExpressionPhrase(9999)
+                Comparison(9999)
+                  IdentifierFirstComparison(9999)
+                    Identifier(9999)
+                      Letter(9999)
+                        TOKEN_86(9999): "e", line: 1, col: 101
+                      Letter(9999)
+                        TOKEN_93(9999): "l", line: 1, col: 102
+                      Letter(9999)
+                        TOKEN_86(9999): "e", line: 1, col: 103
+                      Letter(9999)
+                        TOKEN_94(9999): "m", line: 1, col: 104
+                      Letter(9999)
+                        TOKEN_86(9999): "e", line: 1, col: 105
+                      Letter(9999)
+                        TOKEN_95(9999): "n", line: 1, col: 106
+                      Letter(9999)
+                        TOKEN_101(9999): "t", line: 1, col: 107
+                      Letter(9999)
+                        TOKEN_100(9999): "s", line: 1, col: 108
+                    SetOpRhs(9999)
+                      HAS(9999)
+                        TOKEN_7(9999): "HAS", line: 1, col: 110
+                      ONLY(9999)
+                        TOKEN_12(9999): "ONLY", line: 1, col: 114
+                      ValueList(9999)
+                        Value(9999)
+                          String(9999)
+                            TOKEN_19(9999): """, line: 1, col: 119
+                            EscapedChar(9999)
+                              UnescapedChar(9999)
+                                Letter(9999)
+                                  TOKEN_56(9999): "H", line: 1, col: 120
+                            TOKEN_19(9999): """, line: 1, col: 121

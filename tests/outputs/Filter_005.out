@@ -1,19 +1,20 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
 Parse tree from /dev/fd/63:
 Filter(9999)
-  Keyword(9999)
-    TOKEN_4(9999): "filter=", line: 1, col: 1
   Expression(9999)
-    AndExpression(9999)
-      Term(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
         Comparison(9999)
-          Value(9999)
+          IdentifierFirstComparison(9999)
             Identifier(9999)
               Letter(9999)
-                TOKEN_70(9999): "a", line: 1, col: 8
-          Operator(9999)
-            TOKEN_33(9999): "=", line: 1, col: 9
-          Value(9999)
-            Number(9999)
-              Digits(9999)
-                Digit(9999)
-                  TOKEN_21(9999): "1", line: 1, col: 10
+                TOKEN_82(9999): "a", line: 1, col: 1
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_45(9999): "=", line: 1, col: 2
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_33(9999): "1", line: 1, col: 3
