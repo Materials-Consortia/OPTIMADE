@@ -247,8 +247,8 @@ Every response MUST contain the following fields:
     * **source_url**: URL of the implementation source, either downloadable archive
       or version control system.
     * **maintainer**: a dictionary providing details about the maintainer of the
-      implementation, MUST contain a single field **email** with maintainer's email
-      address.
+      implementation, MUST contain the single field **email** with the maintainer's
+      email address.
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
