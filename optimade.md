@@ -366,24 +366,9 @@ An example of a full response:
 All HTTP response status codes MUST conform to [RFC 7231: HTTP Semantics](http://tools.ietf.org/html/rfc7231).
 The code registry is maintained by IANA and can be found [here](http://www.iana.org/assignments/http-status-codes).
 
-A non-exhaustive table of codes (taken from IANA) for the most common HTTP response codes may be found here:
-
-| Code | Description           |
-|:----:|:--------------------- |
-| 200  | OK                    |
-| 400  | Bad Request           |
-| 401  | Unauthorized          |
-| 403  | Forbidden             |
-| 404  | Not Found             |
-| 408  | Request Timeout       |
-| 410  | Gone                  |
-| 413  | Payload Too Large     |
-| 414  | URI Too Long          |
-| 422  | Unprocessable Entity  |
-
 See also the JSON API definitions of responses when [fetching](https://jsonapi.org/format/#fetching) data, i.e., sending a `GET` request.
 
-**Notes**:
+**Important**:
 If a client receives an unexpected 404 error when making a query to a base URL,
 and is aware of the index meta-database that belongs to the database provider
 (as described in [3.4. Index Meta-Database](#h.3.4)),
