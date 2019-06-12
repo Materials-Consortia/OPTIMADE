@@ -1322,7 +1322,7 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.2.1">6.2.1. elements</a>
 
 * **Description**: Names of elements found in the structure. 
-* **Requirements/Conventions**: String of chemical symbols of elements as strings as a multi-valued property.
+* **Requirements/Conventions**: Chemical symbols of elements as strings as a multi-valued property.
 * **Examples**:
   * `["Si"]`
   * `["Si","Al","O"]`
