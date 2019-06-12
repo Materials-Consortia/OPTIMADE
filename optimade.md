@@ -275,17 +275,19 @@ or a _list_ of JSON API resource objects. Every resource object needs the `type`
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
-The response MAY OPTIONALLY also return resources related to the primary data in the field:
+The response MAY OPTIONALLY also return resources related to the primary data in the field. However, if
+`more_data_available` is `true`, then **links** below is MANDATORY for pagination.
 
-* **links**: a [JSON API links member](http://jsonapi.org/format/#document-links)
-  containing the JSON API links objects:
-  * **next**: is an URI that represents a suggested way to fetch the
-    next set of results if not all were returned, either directly as a string,
-    or as a link object. The field MUST be null or omitted if there is no additional
-    data, or if there is no way to fetch additional data. The link object can contain
-    the following members:
-    * **href**: a string containing the link’s URL.
+* **links**: [JSON API links](http://jsonapi.org/format/#document-links). Each of the below fields
+  is either `null`, a URI string, or an object with **href** and **meta** fields (where **href** is `null` or a URI string).
+  * **next**: is `null` only when the current response is the last page of data. Otherwise, it's URI
+    fetches the next set of results, The value of **next** may be the URI as a string, or the value may be an object
+    with these fields:
+    * **href**: the URI as a string.
     * **meta**: a meta object containing non-standard meta-information about the link.
+  * **prev**: is `null` only when the current response is the first page of data.
+  * **last**: the last page of data.
+  * **first**: the first  page of data.
 
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
