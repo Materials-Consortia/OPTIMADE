@@ -245,7 +245,7 @@ Every response MUST contain the following fields:
     * **name**: name of the implementation.
     * **version**: version string of the current implementation.
     * **source_url**: URL of the implementation source, either downloadable archive
-      or version contol system.
+      or version control system.
     * **maintainer**: a dictionary providing details about the maintainer of the
       implementation, MUST contain a single field **email** with maintainer's email
       address.
