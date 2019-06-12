@@ -251,8 +251,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       implementation, MUST contain the single field **email** with the maintainer's
       email address.
   * **warnings**: a list of warning resource objects representing non-critical errors or warnings.  
-    A warning resource object is defined similarly to a [JSON API error object](http://jsonapi.org/format/#error-objects), but MUST instead be of `type` `"warning"`.
-    The field `detail` SHOULD contain a non-critical message, e.g., reporting unrecognised search attributes or deprecated features.
+    A warning resource object is defined similarly to a [JSON API error object](http://jsonapi.org/format/#error-objects), but MUST also include the field `type`, which MUST have the value `"warning"`.
+    The field `detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognised search attributes or deprecated features.
 
     Example:  
     For a deprecation warning
@@ -350,7 +350,9 @@ A response with related resources under `included` are in the JSON API known as
 
 If there were errors in producing the response all other fields MAY be present, but the top-level `data` field MUST be skipped, and the following field MUST be present:
 
-* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects).
+* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects).  
+An additional field `type` MUST be present (along with `id` and `detail`).
+The value of `type` MUST be `"error"`.
 
 An example of a full response:
 
