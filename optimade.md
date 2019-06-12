@@ -459,6 +459,15 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 * **filter**: a filter string, in the format described below in section
   [5. API Filtering Format Specification](#h.5).
+* **page[limit]**: sets a numerical limit on the number of entries returned. See [https://jsonapi.org/format/1.0/#fetching-pagination])https://jsonapi.org/format/1.0/#fetching-pagination). The API
+  implementation MUST return no more than the number specified. It MAY return
+  less. The database MAY have a maximum limit and not accept larger numbers (in
+  which case an error code MUST be returned). The default limit value is up
+  to the API implementation to decide.  
+  Example: <http://example.com/optimade/v0.9/structures?page[limit]=100>
+* **page[offset]**: Implements, along with **page[limit]**, an offset-based strategy for
+  pagination. See [https://jsonapi.org/format/1.0/#fetching-pagination])https://jsonapi.org/format/1.0/#fetching-pagination).
+  Example (equivalent to second "page" of 100 entries): <http://example.com/optimade/v0.9/structures?page[offset]=100&page[limit]=100>   
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
@@ -469,12 +478,6 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 * **email\_address**: specifies an email address of the user making the request. The
   email SHOULD be that of a person and not an automatic system.  
   Example: <http://example.com/optimade/v0.9/structures?email_address=user@example.com>
-* **response\_limit**: sets a numerical limit on the number of entries returned. The API
-  implementation MUST return no more than the number specified. It MAY return
-  less. The database MAY have a maximum limit and not accept larger numbers (in
-  which case an error code MUST be returned). The default limit value is up
-  to the API implementation to decide.  
-  Example: <http://example.com/optimade/v0.9/structures?response_limit=100>
 * **response\_fields**: specify a comma-delimited set of fields to be provided in the
   output. If provided, only these fields MUST be returned and no others.  
   Example: <http://example.com/optimade/v0.9/structures?response_fields=id,url>
