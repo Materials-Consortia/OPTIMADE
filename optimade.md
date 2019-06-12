@@ -1633,7 +1633,7 @@ At least one property is REQUIRED.
 
 ## <a name="h.6.5">6.5. Relationships Used by Multiple Entry Types</a>
 
-[JSON API Relationships](https://jsonapi.org/format/#document-resource-object-relationships)
+[JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
 MAY be used to describe the relations between entries. Human-readable description
 of a relationship MAY be provided using `"description"` field inside `"meta"`
 dictionary of a relationship.
