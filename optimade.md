@@ -508,7 +508,7 @@ represent individual entries. In the JSON API format every dictionary
 needs the following fields:
 
 * **type**: field containing the type of the entry
-* **id**: a string that, together with the type, uniquely identifies the object and
+* **id**: a string which together with the type uniquely identifies the object and
 strictly follows the requirements/conventions as specified by [id](#h.6.1.1).
 This can be the local database ID.
 * **attributes**: a dictionary, containing key-value pairs representing the
