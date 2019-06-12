@@ -385,11 +385,11 @@ Unset optional properties in a database are properties that exist and have a spe
 Unset properties MUST NOT be returned in the response, unless explicitly requested in the search query. 
 
 Any comparisons involving unset properties MUST be evaluated as false,
-i.e. by definition the value of 'null' is outside of any defined search range.
+i.e. by definition the value of null is outside of any defined search range.
 
 If a property is explicitly requested in a search query without value range filters,
 then all entries otherwise satisfying the query SHOULD be returned, including those with null values for this property.
-These properties MUST be set to the JSON 'null' value in the response.
+These properties MUST be set to null in the response.
 
 Entries with unset or set property values can be filtered out of the response using:
 ```
