@@ -44,14 +44,18 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. chemical\_formula](#h.6.2.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.4. formula\_prototype](#h.6.2.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. dimension\_types](#h.6.2.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. lattice\_vectors](#h.6.2.6)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.7. cartesian\_site\_positions](#h.6.2.7)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. elements\_ratios](#h.6.2.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.4. chemical\_formula\_descriptive](#h.6.2.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. chemical\_formula\_reduced](#h.6.2.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. chemical\_formula\_hill](#h.6.2.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.7. chemical\_formula\_prototype](#h.6.2.7)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. dimension\_types](#h.6.2.8)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. lattice\_vectors](#h.6.2.9)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. cartesian\_site\_positions](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. nsites](#h.6.2.11)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.12. species\_at\_sites](#h.6.2.12)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.13. species](#h.6.2.13)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.14. assemblies](#h.6.2.14)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
@@ -1286,7 +1290,7 @@ explanation of which optional construct the error refers to.
 
 # <a name="h.6">6. Entry List</a>
 
-This section defines standard entry types and their properties.
+This section defines standard entry types and their properties. 
 
 ## <a name="h.6.1">6.1. Properties Used by Multiple Entry Types</a>
 
@@ -1330,43 +1334,135 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.2.1">6.2.1. elements</a>
 
-* **Description**: Names of elements found in the structure. 
-* **Requirements/Conventions**: String of chemical symbols of elements as strings as a multi-valued property.
+* **Description**: Names of the different elements present in the structure. 
+* **Requirements/Conventions**: 
+    * The chemical symbols of elements as a multi-valued property consisting of strings.
+    * The order MUST be alphabetical.
+    * This property is REQUIRED
 * **Examples**:
-  * `["Si"]`
-  * `["Si","Al","O"]`
-* **Querying**: e.g., all records pertaining to
-  materials containing Si, Al **and** O, and possibly other elements can be
-	obtained using the filter `elements HAS Si, Al, O`. To specify exactly
-	these three elements, use `elements HAS EXACTLY Si, Al, O` or alternatively
-	add `LENGTH elements = 3`.
+    * `["Si"]`
+    * `["Al","O","Si"]`
+* **Querying**: 
+    * A filter that matches all records of structures that contain Si, Al **and** O, 
+      and possibly other elements: `elements HAS Si, Al, O`. 
+    * To match exactly these three elements, use `elements HAS EXACTLY Si, Al, O` or alternatively
+      add `AND LENGTH elements = 3`.
 
 ### <a name="h.6.2.2">6.2.2. nelements</a>
 
-* **Description**: Number of elements found in a structure.
-* **Requirements/Conventions**: Integer value.
+* **Description**: Number of different elements in the structure as an integer.
+* **Requirements/Conventions**: 
+    * This property is REQUIRED
 * **Example**: `3`
 * **Querying**: queries on this property can equivalently be formulated using `LENGTH elements`.
   Examples:
-  * return only entities that have exactly 4 elements: `"nelements=4"`
-  * query for structures that have between 2 and 7 elements: `"nelements>=2+AND+nelements<=7"`
+    * A filter that match structures that have exactly 4 elements: `nelements=4`.
+    * A filter that match structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.
 
-### <a name="h.6.2.3">6.2.3. chemical\_formula</a>
+### <a name="h.6.2.3">6.2.3. elements_ratios</a>
 
-* **Description**: The chemical formula for a structure.
+* **Description**: Relative proportions of different elements in the structure. 
+* **Requirements/Conventions**: 
+    * The proportions of elements in the structure as a multi-valued property consisting of floating point numbers.
+    * The sum of the numbers must be 1.0 (within floating point accuracy) 
+    * This property is REQUIRED
+* **Examples**:
+    * `[1.0]`
+    * `[0.5,0.3333333333333333,0.6666666666666666]`
+* **Querying**: 
+    * Useful filters can be formulated using the set operator syntax for correlated values. However, since the values 
+      are floating point values, the use of equality comparisons is generally not recommended. 
+    * A filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: 
+      `elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
+
+### <a name="h.6.2.4">6.2.4. chemical\_formula\_descriptive</a>
+
+* **Description**: The chemical formula for a structure as a string on a form chosen by the API implementation.
+* **Requirements/Conventions**: 
+    * The chemical formula is given as a string consisting of 
+      properly capitalized element symbols followed by integers or decimal numbers, 
+      balanced parenthesis, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, 
+      the `+`, `-`, `:` and `=` symbols. The parentheses are allowed to be followed by a number. 
+      Spaces are allowed anywhere except within chemical symbols. 
+      The order of elements and any groupings indicated by parentheses or brackets are chosen 
+      freely by the API implementation. 
+    * The string SHOULD be arithmetically consistent with the 
+      element ratios in the chemical\_formula\_reduced property.
+    * It is RECOMMENDED, but not required, that symbols, parentheses and brackets, if used, 
+      are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html)
+    * This property is REQUIRED
+* **Examples**:
+    * `"(H2O)2 Na"`
+    * `"NaCl"`
+    * `"CaCO3"`
+    * `"CCaO3"`
+    * `"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
+* **Querying**:
+    * The free-form nature of this property is likely to make queries on it across different databases inconsistent.
+    * A filter that match an exactly given formula : `chemical_formula_descriptive="(H2O)2 Na"`.
+    * A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
+
+### <a name="h.6.2.5">6.2.5. chemical\_formula\_reduced</a>
+
+* **Description**: The reduced chemical formula for a structure as a string with element symbols and 
+    integer chemical proportion numbers.
 * **Requirements/Conventions**:
-  * The formula MUST be **reduced**.
-  * Element names MUST be with proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
-  * The order in which elements are specified SHOULD NOT be significant (e.g., "O2Si" is equivalent
-    to "SiO2").
-  * No spaces or separators are allowed.
+    * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
+    * Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
+    * For structures with no partial occupation, the chemical proportion numbers are the smallest integers 
+      for which the chemical proportion is exactly correct.
+    * For structures with partial occupation, the chemical proportion numbers are integers 
+      that within reasonable approximation indicate the correct chemical proportions. The
+      precise details of how to perform the rounding is chosen by the API implementation.
+    * No spaces or separators are allowed.
+    * Support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+      Intricate querying on formula components are instead recommended to be formulated using set-type filter operators 
+      on the multi valued elements and elements\_proportions properties. 
+    * This property is REQUIRED
+* **Examples**:
+    * `"H2NaO"`
+    * `"ClNa"`
+    * `"CCaO3"`
+* **Querying**: 
+    * A filter that match an exactly given formula is `chemical_formula_reduced="H2NaO"`.
+   
+### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-### <a name="h.6.2.4">6.2.4. formula\_prototype</a>
+* **Description**: The chemical formula for a structure as a string on (Hill form)[https://dx.doi.org/10.1021/ja02046a005] with element symbols
+    followed by integer chemical proportion numbers, .
+* **Requirements/Conventions**: 
+    * The overall scale factor of the chemical proportions are chosen such that the resulting values
+      are integers that indicate the most chemically relevant unit of which the system is composed. For example, if the structure is a 
+      repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, 
+      chemical\_formula\_hill is `H2O2` (i.e., not `HO`, nor `H4O4`).
+    * If the chemical insight needed to ascribe a Hill formula to the system is not present, the
+      property MUST be handled as unset.
+    * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
+    * Elements MUST be placed in [Hill order](https://dx.doi.org/10.1021/ja02046a005), followed by their integer chemical proportion number.
+      Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second. After
+      that, all other elements are ordered alphabetically. If carbon is not present, all elements are ordered alphabetically. 
+    * If the system has sites with partial occupation and the total occupation of each element do not all sum up to integers, then the 
+      Hill formula SHOULD be handled as unset.
+    * No spaces or separators are allowed.
+    * This property is OPTIONAL, and if set, support for partial string matching 
+      with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS) .
+* **Examples**:
+    * `"H2O2"`
+* **Querying**: 
+    * A filter that match an exactly given formula is `chemical_formula_hill="H2O2"`.
 
-* **Description**: The formula prototype obtained by sorting elements by the occurrence number in the
-  **reduced** chemical formula and replace them with subsequent alphabet letters A, B, C, and so on.
+### <a name="h.6.2.7">6.2.7. chemical\_formula\_prototype</a>
 
-### <a name="h.6.2.5">6.2.5. dimension\_types</a>
+* **Description**: The formula prototype is the chemical\_formula\_reduced, but where the elements are
+    instead first ordered by their chemical proportion number, and then, in order left to right, replaced
+    by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+* **Examples**:
+    * 'A2B'
+    * 'A42B42C16D12E10F9G5'
+* **Requirements/Conventions**: 
+    * This property is REQUIRED.
+
+### <a name="h.6.2.8">6.2.8. dimension\_types</a>
 
 * **Description**: List of three integers. For each of the three directions indicated by the three
 lattice vectors (see property [6.2.6. `lattice_vectors`](#h.6.2.6)). This list indicates if the
@@ -1384,7 +1480,7 @@ the Cartesian x, y, z directions.
     lattice vectors: `[1, 0, 1]`
   * For a bulk 3D system: `[1, 1, 1]`
 
-### <a name="h.6.2.6">6.2.6. lattice\_vectors</a>
+### <a name="h.6.2.9">6.2.9. lattice\_vectors</a>
 
 * **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
 * **Requirements/Conventions**:
@@ -1406,7 +1502,7 @@ the Cartesian x, y, z directions.
   `(4, 0, 0)`, i.e., a vector aligned along the `x` axis of length 4 Å; the second vector is
   `(0, 4, 0)`; and the third vector is `(0, 1, 4)`.
 
-### <a name="h.6.2.7">6.2.7. cartesian\_site\_positions</a>
+### <a name="h.6.2.10">6.2.10. cartesian\_site\_positions</a>
 
 * **Description**: Cartesian positions of each site. A site is an atom, a site potentially occupied by
 an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
@@ -1419,7 +1515,19 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
   the (positive) `z` axis, 2 Å away from the origin.
 
-### <a name="h.6.2.8">6.2.8. species\_at\_sites</a>
+### <a name="h.6.2.11">6.2.11. nsites</a>
+
+* **Description**: The number of sites
+* **Requirements/Conventions**: An integer specifying the length of the cartesian\_site\_positions property.
+  * This property is REQUIRED.
+  * Queries on this property can equivalently be formulated using `LENGTH cartesian_site_positions`.
+* **Querying**: 
+  Examples:
+  * match only structures with exactly 4 sites: `"nsites=4"`
+  * match structures that have between 2 and 7 sites: `"nsites>=2 AND nsites<=7"`
+
+
+### <a name="h.6.2.12">6.2.12. species\_at\_sites</a>
 
 * **Description**: Name of the species at each site (where values for sites are specified with the
 same order of the [6.2.7. `cartesian_site_positions`](#h.6.2.7) property). The properties of the
@@ -1441,7 +1549,7 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
   * `["Ti","O2"]` indicates that the first site is hosting a species labeled `"Ti"` and the second a
   species labeled `"O2"`.
 
-### <a name="h.6.2.9">6.2.9. species</a>
+### <a name="h.6.2.13">6.2.13. species</a>
 
 * **Description**: Dictionary describing the species of the sites of this structure. Species can be
 pure chemical elements, or virtual-crystal atoms representing a statistical occupation of a given site
@@ -1500,7 +1608,7 @@ by multiple chemical elements.
   * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this
   species is occupied by a carbon isotope with mass 13.
 
-### <a name="h.6.2.10">6.2.10. assemblies</a>
+### <a name="h.6.2.14">6.2.14. assemblies</a>
 
 * **Description**: A description of groups of sites that are statistically correlated.
 * **Requirements/Conventions**:
