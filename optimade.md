@@ -1638,7 +1638,7 @@ MAY be used to describe the relations between entries. Human-readable descriptio
 of a relationship MAY be provided using `"description"` field inside `"meta"`
 dictionary of a relationship.
 
-### <a name="h.6.5.1">6.5.1. references</a>
+### <a name="h.6.5.1">6.5.1. References</a>
 
 `"references"` relationship is used to provide bibliographic references for any
 of the entry types. It relates an entry with any number of `"reference"` entries.
@@ -1676,7 +1676,7 @@ Example:
 }
 ```
 
-### <a name="h.6.5.2">6.5.2. calculations</a>
+### <a name="h.6.5.2">6.5.2. Calculations</a>
 
 Relationships with calculations MAY be used to indicate provenance where a structure
 is either an input to or an output of a calculations.  In future versions of this API
