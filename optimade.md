@@ -70,7 +70,7 @@ the Lorentz Center in Leiden, Netherlands from 2016-10-24 to
 2016-10-28.
 
 It is the intent that the API in the present document adheres to the
-[JSON API](http://jsonapi.org) v1.0 specification (with the exception that
+[JSON API](http://jsonapi.org/format/1.0) v1.0 specification (with the exception that
 non-conformant responses can be generated if an API user specifically
 requests a non-standard response format). In cases where specific
 restrictions are given in the JSON API specification that are stricter than what is
@@ -172,7 +172,7 @@ API implementations MUST decode URLs according to [RFC 3986](http://tools.ietf.o
 API responses MUST be returned in the format specified in the
 request. If no specific response format is specified in the request by
 use of the `response_format` URL query parameter (see below), the default
-response format is [JSON API](http://jsonapi.org) specification.
+response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints MUST support at least the JSON API format.
 Each endpoint MAY OPTIONALLY support multiple formats,
 and declare these formats in their `info` endpoints
@@ -437,7 +437,7 @@ The client MAY provide a set of URL query parameters in order to alter
 the response and provide usage information. While these URL query
 parameters are OPTIONAL for clients, API implementations MUST accept and
 handle them. To adhere to the requirement on implementation-specific
-URL query parameters of [JSON API](http://jsonapi.org), query
+URL query parameters of [JSON API v1.0](http://jsonapi.org/format/1.0), query
 parameters that are not standardized by that specification have been
 given names that consist of at least two words separated by an
 underscore (a LOW LINE character '\_').
@@ -472,7 +472,7 @@ be "custom URL query parameters". These custom URL query parameters
 MUST be of the format "&lt;database-provider-specific
 prefix&gt;&lt;url\_query\_parameter\_name&gt;".  These names adhere to
 the requirements on implementation-specific query parameters of
-[JSON API](http://jsonapi.org) since the database-provider-specific prefixes
+[JSON API v1.0](http://jsonapi.org/format/1.0) since the database-provider-specific prefixes
 contain at least two underscores (a LOW LINE character '\_').
 
 Example uses of custom URL query parameters include providing an access token for the
