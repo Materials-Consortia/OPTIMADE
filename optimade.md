@@ -405,7 +405,7 @@ Entries with unset or set property values can be filtered out of the response us
 identifier IS KNOWN
 identifier IS UNKNOWN
 ```
-respectively, as described in [5.2. The Filter Language Syntax](#h.5.2). 
+respectively, as specificied in section [5.2. The Filter Language Syntax](#h.5.2). 
 
 The text in this section describes how the API handles properties that are null. 
 It does not regulate the handling of values inside property data structures that can be null. 
