@@ -1,0 +1,11 @@
+Parse tree from /dev/fd/62:
+Number(9999)
+  Digits(9999)
+    Digit(9999)
+      TOKEN_4(9999): "1", line: 1, col: 1
+    Digit(9999)
+      TOKEN_5(9999): "2", line: 1, col: 2
+    Digit(9999)
+      TOKEN_6(9999): "3", line: 1, col: 3
+    Digit(9999)
+      TOKEN_7(9999): "4", line: 1, col: 4

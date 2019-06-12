@@ -1,1 +1,4 @@
 *~
+.*.d
+.svn
+Makeconf*

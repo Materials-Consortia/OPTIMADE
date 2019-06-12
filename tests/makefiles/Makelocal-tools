@@ -1,0 +1,82 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Download and build tools and external depedencies necessary for this
+# directory.
+
+TOOL_DIR ?= tests/tools
+
+.PHONY: all tools
+
+all: tools
+
+tools: grammatica grammatiker
+
+# Local installation of Grammatica:
+
+GRAMMATICA_VERSION ?= 1.6
+GRAMMATICA_SRV = https://github.com/Materials-Consortia/grammatica/archive
+# The variable below is needed to download a relesed file from
+# https://github.com/cederberg/grammatica/releases/download/v.../v...:
+## GRAMMATICA_LOC = ${GRAMMATICA_SRV}/download/v${GRAMMATICA_VERSION}
+GRAMMATICA_LOC = ${GRAMMATICA_SRV}
+GRAMMATICA_URL = ${GRAMMATICA_LOC}/v${GRAMMATICA_VERSION}.zip
+GRAMMATICA_LOG = ${TOOL_DIR}/grammatica-${GRAMMATICA_VERSION}.log
+GRAMMATICA_TOP = $(shell cd $(dir ${GRAMMATICA_LOG}); pwd)
+GRAMMATICA_DIR = ${GRAMMATICA_TOP}/grammatica-${GRAMMATICA_VERSION}
+GRAMMATICA_ZIP = ${GRAMMATICA_TOP}/grammatica-${GRAMMATICA_VERSION}.zip
+
+.PHONY: grammatica distclean-grammatica
+
+grammatica: ${GRAMMATICA_LOG}
+
+${GRAMMATICA_LOG}:
+	test ! -f ${GRAMMATICA_ZIP} \
+		&& wget -O ${GRAMMATICA_ZIP} ${GRAMMATICA_URL} \
+		|| ( rm -vf ${GRAMMATICA_ZIP}; exit 12 )
+	cd $(dir $@) && rm -rf $(notdir $(basename $@))
+	cd $(dir $@) && unzip ${GRAMMATICA_ZIP}
+	cd $(dir $@); ( set -uex; cd $(notdir $(basename $@)); ant -k ) 2>&1 \
+		| tee $(notdir $@)
+
+# The ${GRAMMATICA_ZIP} file will *not* be deleted by 'make
+# distclean-grammatica', to prevent unnecessary downloads from the
+# ${GRAMMATICA_SRV} server. Remove it manually using
+#
+# 'rm ${TOOL_DIR}/grammatica-1.6.zip'
+#
+# or analogous command if you want to refetch the archive:
+
+distclean-grammatica:
+	rm -rf ${GRAMMATICA_DIR}
+	rm -f ${GRAMMATICA_LOG}
+
+DISTCLEAN_TARGETS += distclean-grammatica
+
+# Local installation of 'grammatiker':
+
+GRAMMATIKER_REV ?= 129
+GRAMMATIKER_URL = svn://saulius-grazulis.lt/grammatiker/trunk
+GRAMMATIKER_LOG = ${TOOL_DIR}/grammatiker-r${GRAMMATIKER_REV}.log
+GRAMMATIKER_DIR = ${TOOL_DIR}/grammatiker
+
+.PHONY: grammatiker distclean-grammatiker
+
+grammatiker: ${GRAMMATIKER_LOG}
+
+GRAMMATIKER_MAKE ?= make
+
+${GRAMMATIKER_LOG}: ${GRAMMATICA_LOG}
+	svn co -r ${GRAMMATIKER_REV} ${GRAMMATIKER_URL} ${GRAMMATIKER_DIR} \
+	2>&1 | tee $@
+	rm -rf ${GRAMMATIKER_DIR}/EBNF/lib
+	ln -s ${GRAMMATICA_DIR} ${GRAMMATIKER_DIR}/EBNF/lib
+	rm -rf ${GRAMMATIKER_DIR}/BNF/lib
+	ln -s ${GRAMMATICA_DIR} ${GRAMMATIKER_DIR}/BNF/lib
+	test -d ${GRAMMATIKER_DIR} && ${GRAMMATIKER_MAKE} -C ${GRAMMATIKER_DIR} all tests \
+	2>&1 | tee -a $@
+
+distclean-grammatiker:
+	rm -rf ${GRAMMATIKER_DIR}
+	rm -f ${GRAMMATIKER_LOG}
+
+DISTCLEAN_TARGETS += distclean-grammatiker

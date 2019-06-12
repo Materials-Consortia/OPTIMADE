@@ -1,0 +1,43 @@
+RUN /dev/fd/63
+java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
+Parse tree from /dev/fd/63:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        TOKEN_24(9999): "(", line: 1, col: 1
+        Expression(9999)
+          ExpressionClause(9999)
+            ExpressionPhrase(9999)
+              NOT(9999)
+                TOKEN_11(9999): "NOT", line: 1, col: 2
+              Comparison(9999)
+                IdentifierFirstComparison(9999)
+                  Identifier(9999)
+                    Letter(9999)
+                      TOKEN_82(9999): "a", line: 1, col: 6
+                  ValueOpRhs(9999)
+                    Operator(9999)
+                      TOKEN_46(9999): ">", line: 1, col: 7
+                    Value(9999)
+                      Identifier(9999)
+                        Letter(9999)
+                          TOKEN_83(9999): "b", line: 1, col: 8
+            AND(9999)
+              TOKEN_2(9999): "AND", line: 1, col: 10
+            ExpressionClause(9999)
+              ExpressionPhrase(9999)
+                Comparison(9999)
+                  IdentifierFirstComparison(9999)
+                    Identifier(9999)
+                      Letter(9999)
+                        TOKEN_105(9999): "x", line: 1, col: 14
+                    ValueOpRhs(9999)
+                      Operator(9999)
+                        TOKEN_46(9999): ">", line: 1, col: 15
+                      Value(9999)
+                        Number(9999)
+                          Digits(9999)
+                            Digit(9999)
+                              TOKEN_32(9999): "0", line: 1, col: 16
+        TOKEN_25(9999): ")", line: 1, col: 17
