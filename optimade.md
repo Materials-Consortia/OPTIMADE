@@ -1665,17 +1665,32 @@ Example:
     "references": {
       "data": [
         { "type": "reference", "id": "1234" },
-        { "type": "reference", "id": "5678" },
         {
           "type": "reference",
-          "id": "90",
+          "id": "5678",
           "meta": {
             "description": "This article has been retracted"
           }
         }
       ]
     }
-  }
+  },
+  "included": [
+    {
+      "type": "reference",
+      "id": "1234",
+      "attributes": {
+        "identifier": [{"type": "doi","id": "10.1234/1234"}]
+      }
+    },
+    {
+      "type": "reference",
+      "id": "5678",
+      "attributes": {
+        "identifier": [{"type": "doi","id": "10.5678/5678"}]
+      }
+    }
+  ]
 }
 ```
 
