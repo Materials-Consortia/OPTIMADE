@@ -1659,32 +1659,6 @@ ValueZip = [ Operator ], Value, ':', [ Operator ], Value, {':', [ Operator ], Va
 
 ValueZipList = ValueZip, { ',', ValueZip } ;
 
-(* White-space: *)
-
-Space = ' ' | '\t' ;
-
-(* Boolean relations: *)
-
-AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
-NOT = "NOT" ;
-OR = "OR" ;
-
-IS = "IS" ;
-KNOWN = "KNOWN" ;
-UNKNOWN = "UNKNOWN" ;
-
-CONTAINS = "CONTAINS" ;
-STARTS = "STARTS" ;
-ENDS = "ENDS" ;
-WITH = "WITH" ;
-
-LENGTH = "LENGTH" ;
-HAS = "HAS" ;
-ALL = "ALL" ;
-ONLY = "ONLY" ;
-EXACTLY = "EXACTLY" ;
-ANY = "ANY" ;
-
 (* Expressions *)
 
 Expression = ExpressionClause, [ OR, Expression ] ;
@@ -1692,10 +1666,6 @@ Expression = ExpressionClause, [ OR, Expression ] ;
 ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
 ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', Expression, ')' );
-
-(* OperatorComparison operator tokens: *)
-
-Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
 Comparison = ConstantFirstComparison |
              IdentifierFirstComparison ;
@@ -1728,6 +1698,38 @@ SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, Va
 LengthComparison = LENGTH, Identifier, Operator, Value ;
 
 IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
+
+(* TOKENS *)
+
+(* White-space: *)
+
+Space = ' ' | '\t' ;
+
+(* Boolean relations: *)
+
+AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
+NOT = "NOT" ;
+OR = "OR" ;
+
+IS = "IS" ;
+KNOWN = "KNOWN" ;
+UNKNOWN = "UNKNOWN" ;
+
+CONTAINS = "CONTAINS" ;
+STARTS = "STARTS" ;
+ENDS = "ENDS" ;
+WITH = "WITH" ;
+
+LENGTH = "LENGTH" ;
+HAS = "HAS" ;
+ALL = "ALL" ;
+ONLY = "ONLY" ;
+EXACTLY = "EXACTLY" ;
+ANY = "ANY" ;
+
+(* OperatorComparison operator tokens: *)
+
+Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
 (* Identifier syntax *)
 
