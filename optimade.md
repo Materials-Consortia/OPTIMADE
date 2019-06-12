@@ -250,6 +250,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **maintainer**: a dictionary providing details about the maintainer of the
       implementation, MUST contain the single field **email** with the maintainer's
       email address.
+  * **warnings**: a list of strings with non-critical messages, for example,
+    reporting unrecognised search attributes or deprecated features.
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
