@@ -241,7 +241,7 @@ Every response MUST contain the following fields:
   * **last\_id**: a string containing the last ID returned.
   * **response\_message**: response string from the server.
   * **implementation**: a dictionary describing the server implementation, containing
-    OPTIONAL fields:
+    the OPTIONAL fields:
     * **name**: name of the implementation.
     * **version**: version string of the current implementation.
     * **source_url**: URL of the implementation source, either downloadable archive
