@@ -505,7 +505,7 @@ Examples:
 key. The value of this key MUST be a list containing dictionaries that
 represent individual entries. In the JSON API format every dictionary
 ([resource object](http://jsonapi.org/format/#document-resource-objects))
-needs the following fields:
+MUST have the following fields:
 
 * **type**: field containing the type of the entry
 * **id**: a string which together with the type uniquely identifies the object,
