@@ -401,11 +401,10 @@ then all entries otherwise satisfying the query SHOULD be returned, including th
 These properties MUST be set to the JSON 'null' value in the response.
 
 Entries with unset or set property values can be filtered out of the response using:
-
+```
 identifier IS KNOWN
-
 identifier IS UNKNOWN
-
+```
 respectively, as described in [5.2. The Filter Language Syntax](#h.5.2). 
 
 The text in this section describes how the API handles properties that are null. 
