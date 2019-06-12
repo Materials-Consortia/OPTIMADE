@@ -1651,13 +1651,13 @@ Constant = String | Number ;
 Value = String | Number | Identifier ;
 (* Note: support for Identifier in Value is OPTIONAL *)
 
-ValueList = [ Operator ], Value, {',', [Spaces], [ Operator ], Value } ;
+ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
 
-ValueZip = [ Operator ], Value, ':', [ Operator ], Value, {':', [ Operator ], Value} ;
+ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value} ;
 (* Support for the optional Operator in ValueZip is OPTIONAL *)
 
-ValueZipList = ValueZip, { ',', [Spaces], ValueZip } ;
+ValueZipList = ValueZip, { Comma, ValueZip } ;
 
 (* Expressions *)
 
@@ -1665,7 +1665,7 @@ Expression = ExpressionClause, [ OR, Expression ] ;
 
 ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', [Spaces], Expression, ')', [Spaces] );
+ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
 
 Comparison = ConstantFirstComparison |
              IdentifierFirstComparison ;
@@ -1700,6 +1700,14 @@ LengthComparison = LENGTH, Identifier, Operator, Value ;
 IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
 
 (* TOKENS *)
+
+(* Separators: *)
+
+OpeningBrace = '(', [Spaces] ;
+ClosingBrace = ')', [Spaces] ;
+
+Comma = ',', [Spaces] ;
+Colon = ':', [Spaces] ;
 
 (* Boolean relations: *)
 

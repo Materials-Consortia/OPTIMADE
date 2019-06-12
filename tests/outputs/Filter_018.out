@@ -12,10 +12,11 @@ Filter(9999)
           Spaces(9999)
             Space(9999)
               TOKEN_1(9999): " ", line: 1, col: 4
-        TOKEN_8(9999): "(", line: 1, col: 5
-        Spaces(9999)
-          Space(9999)
-            TOKEN_1(9999): " ", line: 1, col: 6
+        OpeningBrace(9999)
+          TOKEN_8(9999): "(", line: 1, col: 5
+          Spaces(9999)
+            Space(9999)
+              TOKEN_1(9999): " ", line: 1, col: 6
         Expression(9999)
           ExpressionClause(9999)
             ExpressionPhrase(9999)
@@ -296,10 +297,11 @@ Filter(9999)
                             Spaces(9999)
                               Space(9999)
                                 TOKEN_1(9999): " ", line: 1, col: 118
-        TOKEN_9(9999): ")", line: 1, col: 119
-        Spaces(9999)
-          Space(9999)
-            TOKEN_1(9999): " ", line: 1, col: 120
+        ClosingBrace(9999)
+          TOKEN_9(9999): ")", line: 1, col: 119
+          Spaces(9999)
+            Space(9999)
+              TOKEN_1(9999): " ", line: 1, col: 120
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 121
         TOKEN_46(9999): "N", line: 1, col: 122
@@ -309,10 +311,11 @@ Filter(9999)
             TOKEN_1(9999): " ", line: 1, col: 124
       ExpressionClause(9999)
         ExpressionPhrase(9999)
-          TOKEN_8(9999): "(", line: 1, col: 125
-          Spaces(9999)
-            Space(9999)
-              TOKEN_1(9999): " ", line: 1, col: 126
+          OpeningBrace(9999)
+            TOKEN_8(9999): "(", line: 1, col: 125
+            Spaces(9999)
+              Space(9999)
+                TOKEN_1(9999): " ", line: 1, col: 126
           Expression(9999)
             ExpressionClause(9999)
               ExpressionPhrase(9999)
@@ -458,10 +461,11 @@ Filter(9999)
             Expression(9999)
               ExpressionClause(9999)
                 ExpressionPhrase(9999)
-                  TOKEN_8(9999): "(", line: 1, col: 183
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 184
+                  OpeningBrace(9999)
+                    TOKEN_8(9999): "(", line: 1, col: 183
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 184
                   Expression(9999)
                     ExpressionClause(9999)
                       ExpressionPhrase(9999)
@@ -593,8 +597,10 @@ Filter(9999)
                                           LowercaseLetter(9999)
                                             TOKEN_74(9999): "i", line: 1, col: 234
                                     TOKEN_3(9999): """, line: 1, col: 235
-                  TOKEN_9(9999): ")", line: 1, col: 236
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 237
-          TOKEN_9(9999): ")", line: 1, col: 238
+                  ClosingBrace(9999)
+                    TOKEN_9(9999): ")", line: 1, col: 236
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 237
+          ClosingBrace(9999)
+            TOKEN_9(9999): ")", line: 1, col: 238

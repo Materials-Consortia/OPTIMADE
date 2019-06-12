@@ -35,7 +35,8 @@ Filter(9999)
             TOKEN_1(9999): " ", line: 1, col: 10
       ExpressionClause(9999)
         ExpressionPhrase(9999)
-          TOKEN_8(9999): "(", line: 1, col: 11
+          OpeningBrace(9999)
+            TOKEN_8(9999): "(", line: 1, col: 11
           Expression(9999)
             ExpressionClause(9999)
               ExpressionPhrase(9999)
@@ -89,4 +90,5 @@ Filter(9999)
                             Digits(9999)
                               Digit(9999)
                                 TOKEN_16(9999): "0", line: 1, col: 25
-          TOKEN_9(9999): ")", line: 1, col: 26
+          ClosingBrace(9999)
+            TOKEN_9(9999): ")", line: 1, col: 26

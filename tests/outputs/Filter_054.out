@@ -103,7 +103,8 @@ Filter(9999)
                             UppercaseLetter(9999)
                               TOKEN_40(9999): "H", line: 1, col: 40
                       TOKEN_3(9999): """, line: 1, col: 41
-                  TOKEN_12(9999): ",", line: 1, col: 42
+                  Comma(9999)
+                    TOKEN_12(9999): ",", line: 1, col: 42
                   Value(9999)
                     String(9999)
                       TOKEN_3(9999): """, line: 1, col: 43
@@ -118,7 +119,8 @@ Filter(9999)
                             LowercaseLetter(9999)
                               TOKEN_70(9999): "e", line: 1, col: 45
                       TOKEN_3(9999): """, line: 1, col: 46
-                  TOKEN_12(9999): ",", line: 1, col: 47
+                  Comma(9999)
+                    TOKEN_12(9999): ",", line: 1, col: 47
                   Value(9999)
                     String(9999)
                       TOKEN_3(9999): """, line: 1, col: 48
@@ -133,7 +135,8 @@ Filter(9999)
                             LowercaseLetter(9999)
                               TOKEN_66(9999): "a", line: 1, col: 50
                       TOKEN_3(9999): """, line: 1, col: 51
-                  TOKEN_12(9999): ",", line: 1, col: 52
+                  Comma(9999)
+                    TOKEN_12(9999): ",", line: 1, col: 52
                   Value(9999)
                     String(9999)
                       TOKEN_3(9999): """, line: 1, col: 53
@@ -211,7 +214,8 @@ Filter(9999)
                               UppercaseLetter(9999)
                                 TOKEN_40(9999): "H", line: 1, col: 84
                         TOKEN_3(9999): """, line: 1, col: 85
-                    TOKEN_12(9999): ",", line: 1, col: 86
+                    Comma(9999)
+                      TOKEN_12(9999): ",", line: 1, col: 86
                     Value(9999)
                       String(9999)
                         TOKEN_3(9999): """, line: 1, col: 87
@@ -226,7 +230,8 @@ Filter(9999)
                               LowercaseLetter(9999)
                                 TOKEN_70(9999): "e", line: 1, col: 89
                         TOKEN_3(9999): """, line: 1, col: 90
-                    TOKEN_12(9999): ",", line: 1, col: 91
+                    Comma(9999)
+                      TOKEN_12(9999): ",", line: 1, col: 91
                     Value(9999)
                       String(9999)
                         TOKEN_3(9999): """, line: 1, col: 92
@@ -241,7 +246,8 @@ Filter(9999)
                               LowercaseLetter(9999)
                                 TOKEN_66(9999): "a", line: 1, col: 94
                         TOKEN_3(9999): """, line: 1, col: 95
-                    TOKEN_12(9999): ",", line: 1, col: 96
+                    Comma(9999)
+                      TOKEN_12(9999): ",", line: 1, col: 96
                     Value(9999)
                       String(9999)
                         TOKEN_3(9999): """, line: 1, col: 97
@@ -315,10 +321,11 @@ Filter(9999)
                                 UppercaseLetter(9999)
                                   TOKEN_40(9999): "H", line: 1, col: 124
                           TOKEN_3(9999): """, line: 1, col: 125
-                      TOKEN_12(9999): ",", line: 1, col: 126
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 127
+                      Comma(9999)
+                        TOKEN_12(9999): ",", line: 1, col: 126
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 127
                       Value(9999)
                         String(9999)
                           TOKEN_3(9999): """, line: 1, col: 128
@@ -333,10 +340,11 @@ Filter(9999)
                                 LowercaseLetter(9999)
                                   TOKEN_70(9999): "e", line: 1, col: 130
                           TOKEN_3(9999): """, line: 1, col: 131
-                      TOKEN_12(9999): ",", line: 1, col: 132
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 133
+                      Comma(9999)
+                        TOKEN_12(9999): ",", line: 1, col: 132
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 133
                       Value(9999)
                         String(9999)
                           TOKEN_3(9999): """, line: 1, col: 134
@@ -351,10 +359,11 @@ Filter(9999)
                                 LowercaseLetter(9999)
                                   TOKEN_66(9999): "a", line: 1, col: 136
                           TOKEN_3(9999): """, line: 1, col: 137
-                      TOKEN_12(9999): ",", line: 1, col: 138
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 139
+                      Comma(9999)
+                        TOKEN_12(9999): ",", line: 1, col: 138
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 139
                       Value(9999)
                         String(9999)
                           TOKEN_3(9999): """, line: 1, col: 140

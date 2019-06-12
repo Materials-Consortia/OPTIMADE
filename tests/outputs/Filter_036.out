@@ -94,7 +94,8 @@ Filter(9999)
                           UppercaseLetter(9999)
                             TOKEN_40(9999): "H", line: 1, col: 39
                     TOKEN_3(9999): """, line: 1, col: 40
-                TOKEN_26(9999): ":", line: 1, col: 41
+                Colon(9999)
+                  TOKEN_26(9999): ":", line: 1, col: 41
                 Value(9999)
                   Number(9999)
                     Digits(9999)

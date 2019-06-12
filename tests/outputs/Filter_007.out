@@ -161,10 +161,11 @@ Filter(9999)
               Spaces(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 49
-            TOKEN_8(9999): "(", line: 1, col: 50
-            Spaces(9999)
-              Space(9999)
-                TOKEN_1(9999): " ", line: 1, col: 51
+            OpeningBrace(9999)
+              TOKEN_8(9999): "(", line: 1, col: 50
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 51
             Expression(9999)
               ExpressionClause(9999)
                 ExpressionPhrase(9999)
@@ -257,4 +258,5 @@ Filter(9999)
                             Spaces(9999)
                               Space(9999)
                                 TOKEN_1(9999): " ", line: 1, col: 77
-            TOKEN_9(9999): ")", line: 1, col: 78
+            ClosingBrace(9999)
+              TOKEN_9(9999): ")", line: 1, col: 78

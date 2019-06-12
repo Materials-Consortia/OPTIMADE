@@ -145,7 +145,8 @@ Filter(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_19(9999): "3", line: 1, col: 65
-                  TOKEN_26(9999): ":", line: 1, col: 66
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 66
                   Value(9999)
                     String(9999)
                       TOKEN_3(9999): """, line: 1, col: 67
@@ -160,7 +161,8 @@ Filter(9999)
                             LowercaseLetter(9999)
                               TOKEN_70(9999): "e", line: 1, col: 69
                       TOKEN_3(9999): """, line: 1, col: 70
-                  TOKEN_26(9999): ":", line: 1, col: 71
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 71
                   Operator(9999)
                     TOKEN_30(9999): ">", line: 1, col: 72
                   Value(9999)
@@ -177,10 +179,11 @@ Filter(9999)
                       Spaces(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 77
-                TOKEN_12(9999): ",", line: 1, col: 78
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 79
+                Comma(9999)
+                  TOKEN_12(9999): ",", line: 1, col: 78
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 79
                 ValueZip(9999)
                   Operator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 80
@@ -192,7 +195,8 @@ Filter(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_22(9999): "6", line: 1, col: 82
-                  TOKEN_26(9999): ":", line: 1, col: 83
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 83
                   Operator(9999)
                     TOKEN_30(9999): ">", line: 1, col: 84
                   Value(9999)
@@ -209,7 +213,8 @@ Filter(9999)
                             LowercaseLetter(9999)
                               TOKEN_74(9999): "i", line: 1, col: 87
                       TOKEN_3(9999): """, line: 1, col: 88
-                  TOKEN_26(9999): ":", line: 1, col: 89
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 89
                   Operator(9999)
                     TOKEN_28(9999): "<", line: 1, col: 90
                   Value(9999)
@@ -226,17 +231,19 @@ Filter(9999)
                       Spaces(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 95
-                TOKEN_12(9999): ",", line: 1, col: 96
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 97
+                Comma(9999)
+                  TOKEN_12(9999): ",", line: 1, col: 96
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 97
                 ValueZip(9999)
                   Value(9999)
                     Number(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_24(9999): "8", line: 1, col: 98
-                  TOKEN_26(9999): ":", line: 1, col: 99
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 99
                   Operator(9999)
                     TOKEN_28(9999): "<", line: 1, col: 100
                   Value(9999)
@@ -253,7 +260,8 @@ Filter(9999)
                             LowercaseLetter(9999)
                               TOKEN_66(9999): "a", line: 1, col: 103
                       TOKEN_3(9999): """, line: 1, col: 104
-                  TOKEN_26(9999): ":", line: 1, col: 105
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 105
                   Value(9999)
                     Number(9999)
                       Digits(9999)

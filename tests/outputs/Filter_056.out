@@ -157,10 +157,11 @@ Filter(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_19(9999): "3", line: 1, col: 67
-                  TOKEN_12(9999): ",", line: 1, col: 68
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 69
+                  Comma(9999)
+                    TOKEN_12(9999): ",", line: 1, col: 68
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 69
                   Operator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 70
                     Spaces(9999)
@@ -171,19 +172,21 @@ Filter(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_22(9999): "6", line: 1, col: 72
-                  TOKEN_12(9999): ",", line: 1, col: 73
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 74
+                  Comma(9999)
+                    TOKEN_12(9999): ",", line: 1, col: 73
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 74
                   Value(9999)
                     Number(9999)
                       Digits(9999)
                         Digit(9999)
                           TOKEN_20(9999): "4", line: 1, col: 75
-                  TOKEN_12(9999): ",", line: 1, col: 76
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 77
+                  Comma(9999)
+                    TOKEN_12(9999): ",", line: 1, col: 76
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 77
                   Operator(9999)
                     TOKEN_2(9999): "!", line: 1, col: 78
                     TOKEN_29(9999): "=", line: 1, col: 79

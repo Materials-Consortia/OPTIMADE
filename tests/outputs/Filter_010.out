@@ -192,10 +192,11 @@ Filter(9999)
           Expression(9999)
             ExpressionClause(9999)
               ExpressionPhrase(9999)
-                TOKEN_8(9999): "(", line: 1, col: 67
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 68
+                OpeningBrace(9999)
+                  TOKEN_8(9999): "(", line: 1, col: 67
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 68
                 Expression(9999)
                   ExpressionClause(9999)
                     ExpressionPhrase(9999)
@@ -376,4 +377,5 @@ Filter(9999)
                                     Identifier(9999)
                                       LowercaseLetter(9999)
                                         TOKEN_88(9999): "w", line: 1, col: 123
-                TOKEN_9(9999): ")", line: 1, col: 124
+                ClosingBrace(9999)
+                  TOKEN_9(9999): ")", line: 1, col: 124
