@@ -240,6 +240,15 @@ Every response MUST contain the following fields:
     available in the database.
   * **last\_id**: a string containing the last ID returned.
   * **response\_message**: response string from the server.
+  * **implementation**: a dictionary describing the server implementation, containing
+    the OPTIONAL fields:
+    * **name**: name of the implementation.
+    * **version**: version string of the current implementation.
+    * **source_url**: URL of the implementation source, either downloadable archive
+      or version control system.
+    * **maintainer**: a dictionary providing details about the maintainer of the
+      implementation, MUST contain the single field **email** with the maintainer's
+      email address.
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
@@ -263,6 +272,14 @@ Every response MUST contain the following fields:
           "description": "Provider used for examples, not to be assigned to a real database",
           "prefix": "exmpl",
           "homepage": "http://example.com"
+        },
+        "implementation": {
+          "name": "exmpl-optimade",
+          "version": "0.1.0",
+          "source_url": "http://git.example.com/exmpl-optimade",
+          "maintainer": {
+            "email": "admin@example.com"
+          }
         }
       }
       // ...
