@@ -537,7 +537,7 @@ contain the field
 * **meta**: a [JSON API meta object](https://jsonapi.org/format/#document-meta) that contains
 non-standard meta-information about the object
 * **relationships**: a dictionary containing references to other resource objects as defined in
-[JSON API relationships object](http://jsonapi.org/format/#document-resource-object-relationships)
+[6.5. Relationships Used by Multiple Entry Types](#.6.5)
 
 Example:
 
