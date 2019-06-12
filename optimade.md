@@ -1662,7 +1662,14 @@ Example:
     "references": {
       "data": [
         { "type": "reference", "id": "1234" },
-        { "type": "reference", "id", "5678" }
+        { "type": "reference", "id": "5678" },
+        {
+          "type": "reference",
+          "id": "90",
+          "meta": {
+            "description": "This article has been retracted"
+          }
+        }
       ]
     }
   }
