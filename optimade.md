@@ -464,9 +464,11 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   less. The database MAY have a maximum limit and not accept larger numbers (in
   which case an error code MUST be returned). The default limit value is up
   to the API implementation to decide.  
+  
   Example: <http://example.com/optimade/v0.9/structures?page[limit]=100>
 * **page[offset]**: Implements, along with **page[limit]**, an offset-based strategy for
   pagination. See [https://jsonapi.org/format/1.0/#fetching-pagination](https://jsonapi.org/format/1.0/#fetching-pagination).
+  
   Example (equivalent to second "page" of 100 entries): <http://example.com/optimade/v0.9/structures?page[offset]=100&page[limit]=100>
 * **sort**: If supporting sortable queries, an implementation MUST use the **sort** query parameter with format as specified by [https://jsonapi.org/format/1.0/#fetching-sorting](https://jsonapi.org/format/1.0/#fetching-sorting). It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value, the key "sortable" with value true. This is in addition to each property description (and optional unit).
 
