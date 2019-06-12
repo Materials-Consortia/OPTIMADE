@@ -1617,7 +1617,7 @@ by multiple chemical elements.
 ## <a name="h.6.4">6.4. Relationships Used by Multiple Entry Types</a>
 
 [JSON API Relationships](https://jsonapi.org/format/#document-resource-object-relationships)
-MAY be used to define the relations between entries.
+MAY be used to describe the relations between entries.
 
 ### <a name="h.6.4.1">6.4.1. references</a>
 
