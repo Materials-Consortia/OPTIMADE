@@ -250,8 +250,22 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **maintainer**: a dictionary providing details about the maintainer of the
       implementation, MUST contain the single field **email** with the maintainer's
       email address.
-  * **warnings**: a list of strings with non-critical messages, for example,
-    reporting unrecognised search attributes or deprecated features.
+  * **warnings**: a list of warning resource objects representing non-critical errors or warnings.  
+    A warning resource object is defined similarly to a [JSON API error object](http://jsonapi.org/format/#error-objects), but MUST instead be of `type` `"warning"`.
+    The field `detail` SHOULD contain a non-critical message, e.g., reporting unrecognised search attributes or deprecated features.
+
+    Example:  
+    For a deprecation warning
+
+    ```json
+    {
+      "id": "dep_chemical_formula",
+      "type": "warning",
+      "title": "Deprecation Warning",
+      "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
+    }
+    ```
+
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
