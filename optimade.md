@@ -1621,6 +1621,9 @@ MAY be used to describe the relations between entries.
 
 ### <a name="h.6.4.1">6.4.1. references</a>
 
+`"references"` relationship is used to provide bibliographic references for any
+of the entry types.
+
 ### <a name="h.6.4.2">6.4.2. calculations</a>
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
