@@ -468,7 +468,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 * **page[offset]**: Implements, along with **page[limit]**, an offset-based strategy for
   pagination. See [https://jsonapi.org/format/1.0/#fetching-pagination](https://jsonapi.org/format/1.0/#fetching-pagination).
   Example (equivalent to second "page" of 100 entries): <http://example.com/optimade/v0.9/structures?page[offset]=100&page[limit]=100>
-* **sort**: If supporting sortable queries, an implementation MUST use the **sort** query parameter with format as specified by [https://jsonapi.org/format/1.0/#fetching-sorting](https://jsonapi.org/format/1.0/#fetching-sorting). It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an entry listing endpoint, then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value, the key "sortable" with value true. This is in addition to each property description (and optional unit).
+* **sort**: If supporting sortable queries, an implementation MUST use the **sort** query parameter with format as specified by [https://jsonapi.org/format/1.0/#fetching-sorting](https://jsonapi.org/format/1.0/#fetching-sorting). It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value, the key "sortable" with value true. This is in addition to each property description (and optional unit).
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
@@ -796,7 +796,7 @@ The response for these endpoints MUST include the following information in the `
 * **description**: Description of the entry.
 * **properties**: A dictionary describing queryable properties for this entry type,
 where each key is a property ID. Each value is a dictionary, with the *required* key `description`
-and *optional* key `unit`.
+and *optional* keys `unit` and `sortable`.
 * **formats**: List of output formats available for this type of entry.
 * **output\_fields\_by\_format**: Dictionary of available output fields for this entry type,
 where the keys are the values of the `formats` list and the values are the keys of the `properties`
@@ -810,7 +810,8 @@ Example:
     "description": "a structure",
     "properties": {
       "nelements": {
-        "description": "Number of elements"
+        "description": "Number of elements",
+        "sortable": true
       },
       "lattice_vectors": {
         "description": "Unit cell lattice vectors",
