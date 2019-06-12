@@ -1306,7 +1306,12 @@ This section defines standard entry types and their properties.
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
-### <a name="h.6.1.3">6.1.3. database-provider-specific properties</a>
+### <a name="h.6.1.3">6.1.3. type</a>
+
+* **Description**: the type of an entry.
+* **Example**: `structure`
+
+### <a name="h.6.1.4">6.1.4. database-provider-specific properties</a>
 
 * **Description**: Database providers are allowed to insert database-provider-specific entries
   in the output of both standard entry types and database-provider-specific entry types.
