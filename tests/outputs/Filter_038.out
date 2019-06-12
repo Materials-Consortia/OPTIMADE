@@ -8,32 +8,35 @@ Filter(9999)
         Comparison(9999)
           IdentifierFirstComparison(9999)
             Identifier(9999)
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 1
-              Letter(9999)
-                TOKEN_93(9999): "l", line: 1, col: 2
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 3
-              Letter(9999)
-                TOKEN_94(9999): "m", line: 1, col: 4
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 5
-              Letter(9999)
-                TOKEN_95(9999): "n", line: 1, col: 6
-              Letter(9999)
-                TOKEN_101(9999): "t", line: 1, col: 7
-              Letter(9999)
-                TOKEN_100(9999): "s", line: 1, col: 8
+              LowercaseLetter(9999)
+                TOKEN_70(9999): "e", line: 1, col: 1
+              LowercaseLetter(9999)
+                TOKEN_77(9999): "l", line: 1, col: 2
+              LowercaseLetter(9999)
+                TOKEN_70(9999): "e", line: 1, col: 3
+              LowercaseLetter(9999)
+                TOKEN_78(9999): "m", line: 1, col: 4
+              LowercaseLetter(9999)
+                TOKEN_70(9999): "e", line: 1, col: 5
+              LowercaseLetter(9999)
+                TOKEN_79(9999): "n", line: 1, col: 6
+              LowercaseLetter(9999)
+                TOKEN_85(9999): "t", line: 1, col: 7
+              LowercaseLetter(9999)
+                TOKEN_84(9999): "s", line: 1, col: 8
             SetOpRhs(9999)
               HAS(9999)
-                TOKEN_7(9999): "HAS", line: 1, col: 10
+                TOKEN_40(9999): "H", line: 1, col: 10
+                TOKEN_33(9999): "A", line: 1, col: 11
+                TOKEN_51(9999): "S", line: 1, col: 12
               Value(9999)
                 String(9999)
-                  TOKEN_19(9999): """, line: 1, col: 14
+                  TOKEN_3(9999): """, line: 1, col: 14
                   EscapedChar(9999)
                     UnescapedChar(9999)
                       Letter(9999)
-                        TOKEN_56(9999): "H", line: 1, col: 15
-                  TOKEN_19(9999): """, line: 1, col: 16
+                        UppercaseLetter(9999)
+                          TOKEN_40(9999): "H", line: 1, col: 15
+                  TOKEN_3(9999): """, line: 1, col: 16
 Error: in /dev/fd/63: line 1:
     unexpected token ":", expected <EOF>

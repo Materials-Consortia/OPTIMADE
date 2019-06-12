@@ -1707,25 +1707,25 @@ Space = ' ' | '\t' ;
 
 (* Boolean relations: *)
 
-AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
-NOT = "NOT" ;
-OR = "OR" ;
+AND = 'A', 'N', 'D' ;
+NOT = 'N', 'O', 'T' ;
+OR = 'O', 'R' ;
 
-IS = "IS" ;
-KNOWN = "KNOWN" ;
-UNKNOWN = "UNKNOWN" ;
+IS = 'I', 'S' ;
+KNOWN = 'K', 'N', 'O', 'W', 'N' ;
+UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N' ;
 
-CONTAINS = "CONTAINS" ;
-STARTS = "STARTS" ;
-ENDS = "ENDS" ;
-WITH = "WITH" ;
+CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S' ;
+STARTS = 'S', 'T', 'A', 'R', 'T', 'S' ;
+ENDS = 'E', 'N', 'D', 'S' ;
+WITH = 'W', 'I', 'T', 'H' ;
 
-LENGTH = "LENGTH" ;
-HAS = "HAS" ;
-ALL = "ALL" ;
-ONLY = "ONLY" ;
-EXACTLY = "EXACTLY" ;
-ANY = "ANY" ;
+LENGTH = 'L', 'E', 'N', 'G', 'T', 'H' ;
+HAS = 'H', 'A', 'S' ;
+ALL = 'A', 'L', 'L' ;
+ONLY = 'O', 'N', 'L', 'Y' ;
+EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y' ;
+ANY = 'A', 'N', 'Y' ;
 
 (* OperatorComparison operator tokens: *)
 
@@ -1733,14 +1733,20 @@ Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
 
 (* Identifier syntax *)
 
-Identifier = Letter, { Letter | Digit } ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit } ;
 
-Letter =
+Letter = UppercaseLetter | LowercaseLetter ;
+
+UppercaseLetter =
     'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
     'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
-    'Y' | 'Z' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' |
-    'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' |
-    'w' | 'x' | 'y' | 'z' | '_'
+    'Y' | 'Z'
+;
+
+LowercaseLetter =
+    'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 
+    'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+    'y' | 'z' | '_'
 ;
 
 (* Strings: *)

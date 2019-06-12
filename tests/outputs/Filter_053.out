@@ -8,50 +8,55 @@ Filter(9999)
         Comparison(9999)
           IdentifierFirstComparison(9999)
             Identifier(9999)
-              Letter(9999)
-                TOKEN_82(9999): "a", line: 1, col: 1
+              LowercaseLetter(9999)
+                TOKEN_66(9999): "a", line: 1, col: 1
             ValueOpRhs(9999)
               Operator(9999)
-                TOKEN_46(9999): ">", line: 1, col: 3
-                TOKEN_45(9999): "=", line: 1, col: 4
+                TOKEN_30(9999): ">", line: 1, col: 3
+                TOKEN_29(9999): "=", line: 1, col: 4
               Value(9999)
                 Number(9999)
                   Digits(9999)
                     Digit(9999)
-                      TOKEN_32(9999): "0", line: 1, col: 6
+                      TOKEN_16(9999): "0", line: 1, col: 6
       AND(9999)
-        TOKEN_2(9999): "AND", line: 1, col: 8
+        TOKEN_33(9999): "A", line: 1, col: 8
+        TOKEN_46(9999): "N", line: 1, col: 9
+        TOKEN_36(9999): "D", line: 1, col: 10
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           NOT(9999)
-            TOKEN_11(9999): "NOT", line: 1, col: 12
+            TOKEN_46(9999): "N", line: 1, col: 12
+            TOKEN_47(9999): "O", line: 1, col: 13
+            TOKEN_52(9999): "T", line: 1, col: 14
           Comparison(9999)
             IdentifierFirstComparison(9999)
               Identifier(9999)
-                Letter(9999)
-                  TOKEN_83(9999): "b", line: 1, col: 16
+                LowercaseLetter(9999)
+                  TOKEN_67(9999): "b", line: 1, col: 16
               ValueOpRhs(9999)
                 Operator(9999)
-                  TOKEN_44(9999): "<", line: 1, col: 18
+                  TOKEN_28(9999): "<", line: 1, col: 18
                 Value(9999)
                   Identifier(9999)
-                    Letter(9999)
-                      TOKEN_84(9999): "c", line: 1, col: 20
+                    LowercaseLetter(9999)
+                      TOKEN_68(9999): "c", line: 1, col: 20
     OR(9999)
-      TOKEN_13(9999): "OR", line: 1, col: 22
+      TOKEN_47(9999): "O", line: 1, col: 22
+      TOKEN_50(9999): "R", line: 1, col: 23
     Expression(9999)
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
             IdentifierFirstComparison(9999)
               Identifier(9999)
-                Letter(9999)
-                  TOKEN_84(9999): "c", line: 1, col: 25
+                LowercaseLetter(9999)
+                  TOKEN_68(9999): "c", line: 1, col: 25
               ValueOpRhs(9999)
                 Operator(9999)
-                  TOKEN_45(9999): "=", line: 1, col: 27
+                  TOKEN_29(9999): "=", line: 1, col: 27
                 Value(9999)
                   Number(9999)
                     Digits(9999)
                       Digit(9999)
-                        TOKEN_32(9999): "0", line: 1, col: 29
+                        TOKEN_16(9999): "0", line: 1, col: 29

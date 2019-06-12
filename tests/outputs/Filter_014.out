@@ -5,59 +5,63 @@ Filter(9999)
   Expression(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
-        TOKEN_24(9999): "(", line: 1, col: 1
+        TOKEN_8(9999): "(", line: 1, col: 1
         Expression(9999)
           ExpressionClause(9999)
             ExpressionPhrase(9999)
-              TOKEN_24(9999): "(", line: 1, col: 2
+              TOKEN_8(9999): "(", line: 1, col: 2
               Expression(9999)
                 ExpressionClause(9999)
                   ExpressionPhrase(9999)
                     NOT(9999)
-                      TOKEN_11(9999): "NOT", line: 1, col: 3
-                    TOKEN_24(9999): "(", line: 1, col: 7
+                      TOKEN_46(9999): "N", line: 1, col: 3
+                      TOKEN_47(9999): "O", line: 1, col: 4
+                      TOKEN_52(9999): "T", line: 1, col: 5
+                    TOKEN_8(9999): "(", line: 1, col: 7
                     Expression(9999)
                       ExpressionClause(9999)
                         ExpressionPhrase(9999)
                           Comparison(9999)
                             IdentifierFirstComparison(9999)
                               Identifier(9999)
-                                Letter(9999)
-                                  TOKEN_82(9999): "a", line: 1, col: 8
+                                LowercaseLetter(9999)
+                                  TOKEN_66(9999): "a", line: 1, col: 8
                               ValueOpRhs(9999)
                                 Operator(9999)
-                                  TOKEN_46(9999): ">", line: 1, col: 9
+                                  TOKEN_30(9999): ">", line: 1, col: 9
                                 Value(9999)
                                   Identifier(9999)
-                                    Letter(9999)
-                                      TOKEN_83(9999): "b", line: 1, col: 10
-                    TOKEN_25(9999): ")", line: 1, col: 11
-              TOKEN_25(9999): ")", line: 1, col: 12
+                                    LowercaseLetter(9999)
+                                      TOKEN_67(9999): "b", line: 1, col: 10
+                    TOKEN_9(9999): ")", line: 1, col: 11
+              TOKEN_9(9999): ")", line: 1, col: 12
             AND(9999)
-              TOKEN_2(9999): "AND", line: 1, col: 14
+              TOKEN_33(9999): "A", line: 1, col: 14
+              TOKEN_46(9999): "N", line: 1, col: 15
+              TOKEN_36(9999): "D", line: 1, col: 16
             ExpressionClause(9999)
               ExpressionPhrase(9999)
-                TOKEN_24(9999): "(", line: 1, col: 18
+                TOKEN_8(9999): "(", line: 1, col: 18
                 Expression(9999)
                   ExpressionClause(9999)
                     ExpressionPhrase(9999)
-                      TOKEN_24(9999): "(", line: 1, col: 19
+                      TOKEN_8(9999): "(", line: 1, col: 19
                       Expression(9999)
                         ExpressionClause(9999)
                           ExpressionPhrase(9999)
                             Comparison(9999)
                               IdentifierFirstComparison(9999)
                                 Identifier(9999)
-                                  Letter(9999)
-                                    TOKEN_105(9999): "x", line: 1, col: 20
+                                  LowercaseLetter(9999)
+                                    TOKEN_89(9999): "x", line: 1, col: 20
                                 ValueOpRhs(9999)
                                   Operator(9999)
-                                    TOKEN_46(9999): ">", line: 1, col: 21
+                                    TOKEN_30(9999): ">", line: 1, col: 21
                                   Value(9999)
                                     Number(9999)
                                       Digits(9999)
                                         Digit(9999)
-                                          TOKEN_32(9999): "0", line: 1, col: 22
-                      TOKEN_25(9999): ")", line: 1, col: 23
-                TOKEN_25(9999): ")", line: 1, col: 24
-        TOKEN_25(9999): ")", line: 1, col: 25
+                                          TOKEN_16(9999): "0", line: 1, col: 22
+                      TOKEN_9(9999): ")", line: 1, col: 23
+                TOKEN_9(9999): ")", line: 1, col: 24
+        TOKEN_9(9999): ")", line: 1, col: 25
