@@ -53,6 +53,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Relationships Used by Multiple Entry Types](#.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.4.1. references](#h.6.4.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.4.2. calculations](#h.6.4.2)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
 [Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
@@ -1610,6 +1613,12 @@ by multiple chemical elements.
 
 `"calculation"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
+
+## <a name="h.6.4">6.4. Relationships Used by Multiple Entry Types</a>
+
+### <a name="h.6.4.1">6.4.1. references</a>
+
+### <a name="h.6.4.2">6.4.2. calculations</a>
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
 
