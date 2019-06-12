@@ -275,8 +275,7 @@ or a _list_ of JSON API resource objects. Every resource object needs the `type`
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
-The response MAY OPTIONALLY also return resources related to the primary data in the field. However, if
-`more_data_available` is `true`, then **links** below is MANDATORY for pagination.
+The response MAY OPTIONALLY also return resources related to the primary data in the field.
 
 * **links**: [JSON API links](http://jsonapi.org/format/#document-links). Each of the below fields
   is either `null`, a URI string, or an object with **href** and **meta** fields (where **href** is `null` or a URI string).
@@ -288,8 +287,9 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * **prev**: is `null` only when the current response is the first page of data.
   * **last**: the last page of data.
   * **first**: the first  page of data.
-
-    Indented.
+  
+    NOTE: The links `next`, `prev`, `last`, and `first` are MANDATORY when **more_data_available** is `true`, that is, for
+    pagination.
 
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
