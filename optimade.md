@@ -261,6 +261,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     {
       "id": "dep_chemical_formula_01",
       "type": "warning",
+      "code": "dep_chemical_formula",
       "title": "Deprecation Warning",
       "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
     }
