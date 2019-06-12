@@ -1630,6 +1630,32 @@ MAY be used to describe the relations between entries.
 `"references"` relationship is used to provide bibliographic references for any
 of the entry types.
 
+Example:
+
+```json
+{
+  "data": {
+    "type": "structure",
+    "id": "example.db:structs:1234",
+    "attributes": {
+      "formula": "Es2",
+      "local_id": "example.db:structs:1234",
+      "url": "http://example.db/structs/1234",
+      "immutable_id": "http://example.db/structs/1234@123",
+      "last_modified": "2007-04-07T12:02Z"
+    },
+  },
+  "relationships": {
+    "references": {
+      "data": [
+        { "type": "reference", "id": "1234" },
+        { "type": "reference", "id", "5678" }
+      ]
+    }
+  }
+}
+```
+
 ### <a name="h.6.5.2">6.5.2. calculations</a>
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
