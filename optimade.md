@@ -259,12 +259,15 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
     ```json
     {
-      "id": "dep_chemical_formula",
+      "id": "dep_chemical_formula_01",
       "type": "warning",
       "title": "Deprecation Warning",
       "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
     }
     ```
+
+    Note: `id`s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field `code` for this).
+    `id`s can _only_ be trusted to be unique in the list of warning resource objects, i.e., together with the `type`.
 
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
