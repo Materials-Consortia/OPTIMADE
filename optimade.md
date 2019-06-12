@@ -40,8 +40,8 @@
 [6. Entry List](#h.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. last\_modified](#h.6.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. type](#h.6.1.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. last\_modified](#h.6.1.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. database-provider-specific properties](#h.6.1.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
@@ -1301,17 +1301,17 @@ This section defines standard entry types and their properties.
   * `"nomad/L1234567890"`
   * `"42"`
 
-### <a name="h.6.1.2">6.1.2. last\_modified</a>
+### <a name="h.6.1.2">6.1.2. type</a>
+
+* **Description**: the type of an entry.
+* **Example**: `structure`
+
+### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
 * **Description**: Date representing when the entry was last modified.
 * **Requirements/Conventions**: String with [ISO 8601](https://www.iso.org/standard/40874.html) format.
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
-
-### <a name="h.6.1.3">6.1.3. type</a>
-
-* **Description**: the type of an entry.
-* **Example**: `structure`
 
 ### <a name="h.6.1.4">6.1.4. database-provider-specific properties</a>
 
