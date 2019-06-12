@@ -49,9 +49,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. dimension\_types](#h.6.2.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. lattice\_vectors](#h.6.2.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.7. cartesian\_site\_positions](#h.6.2.7)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. all\_coordinates\_known](#h.6.2.8)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species\_at\_sites](#h.6.2.9)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. species](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. assemblies](#h.6.2.11)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
@@ -1414,21 +1415,35 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
   * This property is REQUIRED.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+    e.g., the [6.2.11.`assemblies`](#h.6.2.11) property).
+  * If a component of the position is unknown, the `null` value should be provided instead. 
+    Otherwise, it should be a float value, expressed in angstrom. (See also the property `all_coordinates_known`.)
+* **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
+  if you decide to store internally the `cartesian_site_positions` as a float array,
+  you might want to replace `null` values with `NaN` values, the latter being valid float numbers
+  in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated
+  version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
 * **Examples**:
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
   the (positive) `z` axis, 2 Å away from the origin.
 
-### <a name="h.6.2.8">6.2.8. species\_at\_sites</a>
+### <a name="h.6.2.8">6.2.8. all\_coordinates\_known</a>
+* **Description**: A boolean indicating if all coordinates are known and specified in the `cartesian_site_positions` list.
+* **Requirements/Conventions**: 
+  * This property is REQUIRED.
+  * If at least one component of the `cartesian_site_positions` list of lists has value `null`, 
+    then the `all_coordinates_known` property MUST be set to `false`, otherwise it MUST be set to `true`.
+
+### <a name="h.6.2.9">6.2.9. species\_at\_sites</a>
 
 * **Description**: Name of the species at each site (where values for sites are specified with the
 same order of the [6.2.7. `cartesian_site_positions`](#h.6.2.7) property). The properties of the
-species are found in the [6.2.9. `species`](#h.6.2.9) property.
+species are found in the [6.2.10. `species`](#h.6.2.10) property.
 * **Requirements/Conventions**:
   * This property is REQUIRED.
   * It MUST be a list of strings, which MUST have length equal to the number of sites in the structure
     (first dimension of the [6.2.7. `cartesian_site_positions`](#h.6.2.7) list).
-  * Each string MUST be a valid key of the dictionary specified by the [6.2.9. `species`](#h.6.2.9)
+  * Each string MUST be a valid key of the dictionary specified by the [6.2.10. `species`](#h.6.2.10)
     property. The requirements on this string are the same as for property names, i.e., it can be of any
     length, may use upper and lower case letters, underscore, and digits 0-9, but MUST NOT begin with a
     digit.
@@ -1441,7 +1456,7 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
   * `["Ti","O2"]` indicates that the first site is hosting a species labeled `"Ti"` and the second a
   species labeled `"O2"`.
 
-### <a name="h.6.2.9">6.2.9. species</a>
+### <a name="h.6.2.10">6.2.10. species</a>
 
 * **Description**: Dictionary describing the species of the sites of this structure. Species can be
 pure chemical elements, or virtual-crystal atoms representing a statistical occupation of a given site
@@ -1476,7 +1491,7 @@ by multiple chemical elements.
     Note: With regards to "source database", we refer to the immediate source being queried via the
     OPTiMaDe API implemention. The main use of this field is for source databases that use species
     names, containing characters that are not allowed (see description of the
-    [6.2.8. `species_at_sites`](#h.6.2.8) list).
+    [6.2.9. `species_at_sites`](#h.6.2.9) list).
 
   * For systems that have only species formed by a single chemical symbol, and that have at most one
   species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., `"Ti"` for
@@ -1500,7 +1515,7 @@ by multiple chemical elements.
   * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this
   species is occupied by a carbon isotope with mass 13.
 
-### <a name="h.6.2.10">6.2.10. assemblies</a>
+### <a name="h.6.2.11">6.2.11. assemblies</a>
 
 * **Description**: A description of groups of sites that are statistically correlated.
 * **Requirements/Conventions**:
@@ -1516,7 +1531,7 @@ by multiple chemical elements.
     `sites_in_groups`. It SHOULD sum to one. See below for examples of how to specify the probability
     of the occurrence of a vacancy. The possible reasons for the values not to sum to one are the same
     as already specified above for the `concentration` of each `species`, see section
-    [6.2.9. `species`](#h.6.2.9).
+    [6.2.10. `species`](#h.6.2.10).
   * If a site is not present in any group, it means that is is present with 100 % probability (as if
   no assembly was specified).
   * A site MUST NOT appear in more than one group.
