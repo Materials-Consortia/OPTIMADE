@@ -53,6 +53,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Database-Provider-Specific Entry Types](#h.6.4)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
 [Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
@@ -1618,6 +1619,13 @@ by multiple chemical elements.
 
 `"calculation"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
+
+## <a name="h.6.4">6.4. Database-Provider-Specific Entry Types</a>
+
+Names of database-provider-specific entry types MUST start with
+database-provider-specific namespace prefix as given in [Appendix 1](#h.app1).
+Database-provider-specific entry types MUST have all properties described above
+in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
 
