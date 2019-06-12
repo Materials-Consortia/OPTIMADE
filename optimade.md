@@ -1629,6 +1629,7 @@ by multiple chemical elements.
 
 `"reference"` entries describe bibliographic references. To do so, they MUST
 use properties defined by [BibJSON specification](http://okfnlabs.org/bibjson/).
+At least one property is REQUIRED.
 
 ## <a name="h.6.5">6.5. Relationships Used by Multiple Entry Types</a>
 
@@ -1638,7 +1639,7 @@ MAY be used to describe the relations between entries.
 ### <a name="h.6.5.1">6.5.1. references</a>
 
 `"references"` relationship is used to provide bibliographic references for any
-of the entry types.
+of the entry types. It relates an entry with any number of `"reference"` entries.
 
 Example:
 
