@@ -518,8 +518,8 @@ represent individual entries. In the JSON API format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
 needs the following fields:
 
-* **type**: field containing the **Entry** type as defined in Section [2. Term Definition](#h.2)
-* **id**: field containing the **ID** of entry as defined in Section [2. Term Definition](#h.2).
+* **type**: field containing the Entry type as defined in section [2. Term Definition](#h.2)
+* **id**: field containing the ID of entry as defined in section [2. Term Definition](#h.2).
   This can be the local database ID.
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
@@ -1302,9 +1302,9 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.1">6.1.1. id</a>
 
-* **Description**: An entry's ID as defined in Section [2. Term Definition](#h.2).
+* **Description**: An entry's ID as defined in section [2. Term Definition](#h.2).
 * **Requirements/Conventions**:
-  * See Section [2. Term Definition](#h.2).
+  * See section [2. Term Definition](#h.2).
 * **Examples**:
   * `"db/1234567"`
   * `"cod/2000000"`
