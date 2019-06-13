@@ -1671,10 +1671,10 @@ Example:
     "relationships": {
       "references": {
         "data": [
-          { "type": "reference", "id": "1234" },
+          { "type": "reference", "id": "Dijkstra1968" },
           {
             "type": "reference",
-            "id": "5678",
+            "id": "1234",
             "meta": {
               "description": "This article has been retracted"
             }
@@ -1686,16 +1686,20 @@ Example:
   "included": [
     {
       "type": "reference",
-      "id": "1234",
+      "id": "Dijkstra1968",
       "attributes": {
-        "identifier": [{"type": "doi","id": "10.1234/1234"}]
+        "author": { "name": "Edsger Dijkstra" },
+        "year": "1968",
+        "title": "Go To Statement Considered Harmful",
+        "journal": { "name": "Communications of the ACM" },
+        "identifier": { "type": "doi", "id": "10.1145/362929.362947" }
       }
     },
     {
       "type": "reference",
-      "id": "5678",
+      "id": "1234",
       "attributes": {
-        "identifier": [{"type": "doi","id": "10.5678/5678"}]
+        "identifier": [{"type": "doi","id": "10.1234/1234"}]
       }
     }
   ]
