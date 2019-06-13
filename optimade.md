@@ -1029,6 +1029,15 @@ The following tokens are used in the filter query component:
     * `_exmpl_trajectory`
     * `_exmpl_workflow_id`  
 
+* **Nested property names** MUST contain at least two property names joined by
+    periods (`.`). When query is performed on relationships, the entrypoint
+    name of the relationship is used as the first property name.
+
+    Examples:
+
+    * `authors.name`
+    * `references.authors.name` (`references` is an entrypoint name`)
+
 * **String values** MUST be enclosed in double quotes ("", ASCII symbol 92
     dec, 0x5C hex). The quote and other special characters within the double
     quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote
