@@ -1767,11 +1767,6 @@ Punctuator =
     ']' | '^' | '`' | '{' | '|' | '}' | '~'
 ;
 
-(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
-   the syntax used is the onw compatible with Grammatica: *)
-
-UnicodeHighChar = ? [^\x00-\x7F] ? ;
- 
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
 
@@ -1789,10 +1784,23 @@ Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 
 (* White-space: *)
 
-Space = ' ' | '\t' | '\n' | '\r' | '\v' | '\f' ;
+(* Special character tokens: *)
+
+tab = ? \t ?;
+nl  = ? \n ?;
+cr  = ? \r ?;
+vt  = ? \v ?;
+ff  = ? \f ?;
+
+Space = ' ' | tab | nl | cr | vt | ff ;
 
 Spaces = Space, { Space } ;
 
+(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
+   the syntax used is the onw compatible with Grammatica: *)
+
+UnicodeHighChar = ? [^\x00-\x7F] ? ;
+ 
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
