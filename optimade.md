@@ -1007,6 +1007,7 @@ The following tokens are used in the filter query component:
 
   * `0_kvak` (starts with a number);
   * `"foo bar"` (contains space; contains quotes)
+  * `"BadLuck"` (contains upper-case letters)
 
   Identifiers that start with an underscore are specific to a database provider,
   and MUST be on the format of a database-provider-specific prefix as defined in [Appendix 1](#h.app1).
@@ -1085,6 +1086,9 @@ The following tokens are used in the filter query component:
   logical conjunctions, and a number of keyword operators discussed in the next
   section.
 
+  In future extensions, operator tokens that are words MUST contain
+  only upper-case letters. This requirement guarantees that no
+  operator token will ever clash with a property name.
 
 ## <a name="h.5.2">5.2. The Filter Language Syntax</a>
 
