@@ -41,7 +41,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. last\_modified](#h.6.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. references](#h.6.1.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -1327,15 +1326,6 @@ This section defines standard entry types and their properties.
   * \_exmpl\_supercell
   * \_exmpl\_trajectory
   * \_exmpl\_workflow\_id
-
-### <a name="h.6.1.4">6.1.4. references</a>
-
-* **Description**: to simplify querying entries by their references, IDs of references,
-  if provided as JSON API relationships as described in [6.5.1. references](#h.6.5.1),
-  MUST be also provided as a list of IDs.
-* **Requirements/Conventions**: MUST be a list of strings enumerating references
-  existing in the database.
-* **Example**: `[ "Dijkstra1968", "Babbage1864" ]`
 
 ## <a name="h.6.2">6.2. Structure Entries</a>
 
