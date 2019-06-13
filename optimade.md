@@ -1813,7 +1813,7 @@ identifiers, number, and string values as specified in this specification.
 
 ```
 #BEGIN PCRE identifiers
-[a-zA-Z_][a-zA-Z_0-9]*
+[a-z_][a-z_0-9]*
 #END PCRE identifiers
 
 #BEGIN PCRE numbers
@@ -1830,7 +1830,7 @@ as specified in this specification.
 
 ```
 #BEGIN ERE identifiers
-[a-zA-Z_][a-zA-Z_0-9]*
+[a-z_][a-z_0-9]*
 #END ERE identifiers
 
 #BEGIN ERE numbers
