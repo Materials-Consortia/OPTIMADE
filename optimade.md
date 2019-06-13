@@ -1678,20 +1678,20 @@ Example:
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
     },
-  },
-  "relationships": {
-    "references": {
-      "data": [
-        { "type": "reference", "id": "1234" },
-        {
-          "type": "reference",
-          "id": "5678",
-          "meta": {
-            "description": "This article has been retracted"
+    "relationships": {
+      "references": {
+        "data": [
+          { "type": "reference", "id": "1234" },
+          {
+            "type": "reference",
+            "id": "5678",
+            "meta": {
+              "description": "This article has been retracted"
+            }
           }
-        }
-      ]
-    }
+        ]
+      }
+    },
   },
   "included": [
     {
