@@ -6,7 +6,7 @@ Error: in /dev/fd/63: line 1:
     unexpected token "+", expected one of "0", "1", "2", "3", "4",
     "5", "6", "7", "8", "9", or "."
 Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "(" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Sign(9999)
@@ -26,14 +26,14 @@ Number(9999)
     Digit(9999)
       TOKEN_5(9999): "1", line: 1, col: 4
 Error: in /dev/fd/63: line 1:
-    unexpected character 'A'
+    unexpected token "A" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Digits(9999)
     Digit(9999)
       TOKEN_5(9999): "1", line: 1, col: 1
 Error: in /dev/fd/63: line 1:
-    unexpected character 'A'
+    unexpected token "A" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Digits(9999)
@@ -58,9 +58,7 @@ Number(9999)
     Digit(9999)
       TOKEN_5(9999): "1", line: 1, col: 1
 Error: in /dev/fd/63: line 1:
-    unexpected character ','
-Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "," <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Digits(9999)
@@ -102,7 +100,7 @@ Number(9999)
       Digit(9999)
         TOKEN_6(9999): "2", line: 1, col: 8
 Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "(" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Digits(9999)
@@ -117,7 +115,7 @@ Number(9999)
     Digit(9999)
       TOKEN_8(9999): "4", line: 1, col: 5
 Error: in /dev/fd/63: line 1:
-    unexpected character 'D'
+    unexpected token "D" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Digits(9999)
@@ -132,7 +130,7 @@ Number(9999)
     Digit(9999)
       TOKEN_8(9999): "4", line: 1, col: 5
 Error: in /dev/fd/63: line 1:
-    unexpected character 'D'
+    unexpected token "D" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Digits(9999)
@@ -147,7 +145,7 @@ Number(9999)
     Digit(9999)
       TOKEN_8(9999): "4", line: 1, col: 5
 Error: in /dev/fd/63: line 1:
-    unexpected character 'D'
+    unexpected token "D" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Number(9999)
   Sign(9999)
@@ -235,16 +233,19 @@ Number(9999)
       Digit(9999)
         TOKEN_6(9999): "2", line: 1, col: 6
 Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "(" <SPECIAL_5>, expected <EOF>
 Parse tree from /dev/fd/63:
 Error: in /dev/fd/63: line 1:
-    unexpected character '?'
+    unexpected token "?" <SPECIAL_5>, expected one of "+", "-", "0",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", or "."
 Parse tree from /dev/fd/63:
 Error: in /dev/fd/63: line 1:
-    unexpected character 'A'
+    unexpected token "A" <SPECIAL_5>, expected one of "+", "-", "0",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", or "."
 Parse tree from /dev/fd/63:
 Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "(" <SPECIAL_5>, expected one of "+", "-", "0",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", or "."
 Parse tree from /dev/fd/63:
 Number(9999)
   Sign(9999)
@@ -292,7 +293,8 @@ Number(9999)
   Exponent(9999)
     TOKEN_14(9999): "E", line: 1, col: 4
 Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "(" <SPECIAL_5>, expected one of "0", "1", "2",
+    "3", "4", "5", "6", "7", "8", or "9"
 Parse tree from /dev/fd/63:
 Number(9999)
   Sign(9999)
@@ -307,14 +309,13 @@ Number(9999)
   Exponent(9999)
     TOKEN_14(9999): "E", line: 1, col: 5
 Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token "(" <SPECIAL_5>, expected one of "0", "1", "2",
+    "3", "4", "5", "6", "7", "8", or "9"
 Parse tree from /dev/fd/63:
 Error: in /dev/fd/63: line 1:
-    unexpected character '''
-Error: in /dev/fd/63: line 1:
-    unexpected character '''
+    unexpected token "'" <SPECIAL_5>, expected one of "+", "-", "0",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", or "."
 Parse tree from /dev/fd/63:
 Error: in /dev/fd/63: line 1:
-    unexpected character '"'
-Error: in /dev/fd/63: line 1:
-    unexpected character '('
+    unexpected token """ <SPECIAL_5>, expected one of "+", "-", "0",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", or "."

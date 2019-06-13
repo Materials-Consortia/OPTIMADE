@@ -1,4 +1,4 @@
-Parse tree from /dev/fd/63:
+Parse tree from tests/cases/Number_002.inp:
 Number(9999)
   Sign(9999)
     TOKEN_1(9999): "+", line: 1, col: 1

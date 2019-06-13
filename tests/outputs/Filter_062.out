@@ -1,6 +1,4 @@
-RUN /dev/fd/63
-java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
-Parse tree from /dev/fd/63:
+Parse tree from tests/cases/Filter_062.inp:
 Filter(9999)
   Expression(9999)
     ExpressionClause(9999)
@@ -24,18 +22,18 @@ Filter(9999)
               Value(9999)
                 Identifier(9999)
                   LowercaseLetter(9999)
-                    TOKEN_68(9999): "_", line: 1, col: 5
+                    TOKEN_63(9999): "_", line: 1, col: 5
                   LowercaseLetter(9999)
-                    TOKEN_74(9999): "e", line: 1, col: 6
+                    TOKEN_69(9999): "e", line: 1, col: 6
                   LowercaseLetter(9999)
-                    TOKEN_93(9999): "x", line: 1, col: 7
+                    TOKEN_88(9999): "x", line: 1, col: 7
                   LowercaseLetter(9999)
-                    TOKEN_82(9999): "m", line: 1, col: 8
+                    TOKEN_77(9999): "m", line: 1, col: 8
                   LowercaseLetter(9999)
-                    TOKEN_85(9999): "p", line: 1, col: 9
+                    TOKEN_80(9999): "p", line: 1, col: 9
                   LowercaseLetter(9999)
-                    TOKEN_81(9999): "l", line: 1, col: 10
+                    TOKEN_76(9999): "l", line: 1, col: 10
                   LowercaseLetter(9999)
-                    TOKEN_68(9999): "_", line: 1, col: 11
+                    TOKEN_63(9999): "_", line: 1, col: 11
                   LowercaseLetter(9999)
-                    TOKEN_70(9999): "a", line: 1, col: 12
+                    TOKEN_65(9999): "a", line: 1, col: 12

@@ -1,6 +1,4 @@
-RUN /dev/fd/63
-java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
-Parse tree from /dev/fd/63:
+Parse tree from tests/cases/Filter_001.inp:
 Filter(9999)
   Expression(9999)
     ExpressionClause(9999)
@@ -9,7 +7,7 @@ Filter(9999)
           IdentifierFirstComparison(9999)
             Identifier(9999)
               LowercaseLetter(9999)
-                TOKEN_70(9999): "a", line: 1, col: 1
+                TOKEN_65(9999): "a", line: 1, col: 1
               Spaces(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 2
@@ -22,7 +20,7 @@ Filter(9999)
               Value(9999)
                 Identifier(9999)
                   LowercaseLetter(9999)
-                    TOKEN_71(9999): "b", line: 1, col: 5
+                    TOKEN_66(9999): "b", line: 1, col: 5
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 6
@@ -44,7 +42,7 @@ Filter(9999)
                   IdentifierFirstComparison(9999)
                     Identifier(9999)
                       LowercaseLetter(9999)
-                        TOKEN_70(9999): "a", line: 1, col: 12
+                        TOKEN_65(9999): "a", line: 1, col: 12
                       Spaces(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 13
@@ -75,7 +73,7 @@ Filter(9999)
                     IdentifierFirstComparison(9999)
                       Identifier(9999)
                         LowercaseLetter(9999)
-                          TOKEN_71(9999): "b", line: 1, col: 21
+                          TOKEN_66(9999): "b", line: 1, col: 21
                         Spaces(9999)
                           Space(9999)
                             TOKEN_1(9999): " ", line: 1, col: 22
@@ -92,3 +90,7 @@ Filter(9999)
                                 TOKEN_16(9999): "0", line: 1, col: 25
           ClosingBrace(9999)
             TOKEN_9(9999): ")", line: 1, col: 26
+            Spaces(9999)
+              Space(9999)
+                nl(9999)
+                  SPECIAL_1(9999): "(...)", line: 1, col: 27
