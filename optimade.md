@@ -95,7 +95,8 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
   (e.g., structure or calculation).
-* **Property**: Anything that can be in the filtering of results.
+* **Property**: Anything that can be in the filtering of results. MUST NOT
+  match any of the entry names.
 * **Field**: A property that can be requested as partial output from the API.
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
