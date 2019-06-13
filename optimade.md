@@ -40,7 +40,9 @@
 [6. Entry List](#h.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. last\_modified](#h.6.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. last\_modified](#h.6.1.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. database-provider-specific properties](#h.6.1.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -99,9 +101,11 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Field**: A property that can be requested as partial output from the API.
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
-* **ID**: A unique identifier that specifies a specific resource in a database,
-  which does not need to be immutable. It MUST NOT be a reserved
-  word.
+* **ID**: A unique identifier referencing a specific resource in the database.
+  Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
+  IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
+  Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  It does not need to be immutable, and MUST NOT be a reserved word.
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
 * **Reserved words**: The list of reserved words in this standard is:
@@ -538,12 +542,11 @@ Examples:
 key. The value of this key MUST be a list containing dictionaries that
 represent individual entries. In the JSON API format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
-needs the following fields:
+MUST have the following fields:
 
-* **type**: field containing the type of the entry
-* **id**: a string which together with the type uniquely identifies the object and
-strictly follows the requirements/conventions as specified by [id](#h.6.1.1).
-This can be the local database ID.
+* **type**: field containing the Entry type as defined in section [2. Term Definition](#h.2)
+* **id**: field containing the ID of entry as defined in section [2. Term Definition](#h.2).
+  This can be the local database ID.
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
   * **local\_id**: the entry's local database ID (having no OPTiMaDe requirements/conventions)
@@ -1325,10 +1328,9 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.1">6.1.1. id</a>
 
-* **Description**: An entry's ID.
+* **Description**: An entry's ID as defined in section [2. Term Definition](#h.2).
 * **Requirements/Conventions**:
-  * IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
-  * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  * See section [2. Term Definition](#h.2).
 * **Examples**:
   * `"db/1234567"`
   * `"cod/2000000"`
@@ -1336,14 +1338,20 @@ This section defines standard entry types and their properties.
   * `"nomad/L1234567890"`
   * `"42"`
 
-### <a name="h.6.1.2">6.1.2. last\_modified</a>
+### <a name="h.6.1.2">6.1.2. type</a>
+
+* **Description**: the type of an entry.
+* **Requirements/Conventions**: MUST be an existing entry type.
+* **Example**: `"structure"`
+
+### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
 * **Description**: Date representing when the entry was last modified.
 * **Requirements/Conventions**: String with [ISO 8601](https://www.iso.org/standard/40874.html) format.
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
-### <a name="h.6.1.3">6.1.3. database-provider-specific properties</a>
+### <a name="h.6.1.4">6.1.4. database-provider-specific properties</a>
 
 * **Description**: Database providers are allowed to insert database-provider-specific entries
   in the output of both standard entry types and database-provider-specific entry types.
