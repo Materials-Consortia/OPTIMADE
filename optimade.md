@@ -190,7 +190,7 @@ Not only in response format, but also in, e.g., how content negotiation is imple
 
 ### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
 
-Every response MUST contain the following fields:
+Every response SHOULD contain the following fields, and MUST contain at least one:
 
 * **meta**: a [JSON API meta member](https://jsonapi.org/format/1.0/#document-meta)
   that contains JSON API meta objects of non-standard meta-information.  
@@ -328,7 +328,7 @@ related to the primary data contained in `data`.
 A response with related resources under `included` are in the JSON API known as
 [compound documents](https://jsonapi.org/format/1.0/#document-compound-documents).
 
-If there were errors in producing the response all other fields MAY be skipped, and the following field MUST be present
+If there were errors in producing the response all other fields MAY be present, but the top-level `data` field MUST be skipped, and the following field MUST be present:
 
 * **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects).
 
