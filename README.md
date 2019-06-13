@@ -7,5 +7,5 @@ This repository contains the specification of the OPTiMaDe API.
 
 * [optimade.md](optimade.md): The API specification.
 * [AUTHORS](AUTHORS): List of contributors.
-* [optimade.org](optimade.org): public OPTiMaDe web site
-* [optimade wiki](https://github.com/Materials-Consortia/OPTiMaDe/wiki): information for developers
+* [optimade.org](optimade.org): Public OPTiMaDe web site
+* [OPTiMaDe wiki](https://github.com/Materials-Consortia/OPTiMaDe/wiki): information for developers
