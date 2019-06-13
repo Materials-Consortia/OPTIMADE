@@ -1770,7 +1770,7 @@ Punctuator =
 (* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
    the syntax used is the onw compatible with Grammatica: *)
 
-UnicodeHighChar = ? [^\x00-\xFF] ? ;
+UnicodeHighChar = ? [^\x00-\x7F] ? ;
  
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
