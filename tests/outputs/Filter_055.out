@@ -26,7 +26,8 @@ Filter(9999)
                 TOKEN_84(9999): "s", line: 1, col: 8
             SetZipOpRhs(9999)
               IdentifierZipAddon(9999)
-                TOKEN_26(9999): ":", line: 1, col: 9
+                Colon(9999)
+                  TOKEN_26(9999): ":", line: 1, col: 9
                 Identifier(9999)
                   LowercaseLetter(9999)
                     TOKEN_64(9999): "_", line: 1, col: 10
@@ -130,7 +131,8 @@ Filter(9999)
                   TOKEN_84(9999): "s", line: 1, col: 53
               SetZipOpRhs(9999)
                 IdentifierZipAddon(9999)
-                  TOKEN_26(9999): ":", line: 1, col: 54
+                  Colon(9999)
+                    TOKEN_26(9999): ":", line: 1, col: 54
                   Identifier(9999)
                     LowercaseLetter(9999)
                       TOKEN_64(9999): "_", line: 1, col: 55
@@ -266,7 +268,8 @@ Filter(9999)
                     TOKEN_84(9999): "s", line: 1, col: 109
                 SetZipOpRhs(9999)
                   IdentifierZipAddon(9999)
-                    TOKEN_26(9999): ":", line: 1, col: 110
+                    Colon(9999)
+                      TOKEN_26(9999): ":", line: 1, col: 110
                     Identifier(9999)
                       LowercaseLetter(9999)
                         TOKEN_64(9999): "_", line: 1, col: 111
@@ -382,7 +385,8 @@ Filter(9999)
                       TOKEN_84(9999): "s", line: 1, col: 162
                   SetZipOpRhs(9999)
                     IdentifierZipAddon(9999)
-                      TOKEN_26(9999): ":", line: 1, col: 163
+                      Colon(9999)
+                        TOKEN_26(9999): ":", line: 1, col: 163
                       Identifier(9999)
                         LowercaseLetter(9999)
                           TOKEN_64(9999): "_", line: 1, col: 164
@@ -518,7 +522,8 @@ Filter(9999)
                         TOKEN_84(9999): "s", line: 1, col: 218
                     SetZipOpRhs(9999)
                       IdentifierZipAddon(9999)
-                        TOKEN_26(9999): ":", line: 1, col: 219
+                        Colon(9999)
+                          TOKEN_26(9999): ":", line: 1, col: 219
                         Identifier(9999)
                           LowercaseLetter(9999)
                             TOKEN_64(9999): "_", line: 1, col: 220

@@ -1,4 +1,4 @@
-# OPTiMaDe API specification v0.9.8-develop
+ OPTiMaDe API specification v0.9.8-develop
 
 [1. Introduction](#h.1)
 
@@ -1697,7 +1697,7 @@ SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, Va
 
 LengthComparison = LENGTH, Identifier, Operator, Value ;
 
-IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
+IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
 
 (* TOKENS *)
 

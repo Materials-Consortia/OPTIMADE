@@ -26,7 +26,8 @@ Filter(9999)
                 TOKEN_84(9999): "s", line: 1, col: 8
             SetZipOpRhs(9999)
               IdentifierZipAddon(9999)
-                TOKEN_26(9999): ":", line: 1, col: 9
+                Colon(9999)
+                  TOKEN_26(9999): ":", line: 1, col: 9
                 Identifier(9999)
                   LowercaseLetter(9999)
                     TOKEN_70(9999): "e", line: 1, col: 10
@@ -44,7 +45,8 @@ Filter(9999)
                     TOKEN_85(9999): "t", line: 1, col: 16
                   LowercaseLetter(9999)
                     TOKEN_84(9999): "s", line: 1, col: 17
-                TOKEN_26(9999): ":", line: 1, col: 18
+                Colon(9999)
+                  TOKEN_26(9999): ":", line: 1, col: 18
                 Identifier(9999)
                   LowercaseLetter(9999)
                     TOKEN_70(9999): "e", line: 1, col: 19
