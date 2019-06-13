@@ -100,8 +100,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
 * **ID**: A unique identifier referencing a specific resource in the database.
-  Together with **Entry**, the ID MUST uniquely identify the **Resource object** (following the
-  [JSON API resource object](http://jsonapi.org/format/1.0/#document-resource-objects)).
+  Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
   IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
   Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
   It does not need to be immutable, and MUST NOT be a reserved word.
