@@ -1643,7 +1643,7 @@ Example:
 
 [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
 MAY be used to describe the relations between entries. Human-readable description
-of a relationship MAY be provided using `"description"` field inside `"meta"`
+of a relationship MAY be provided using `"description"` field inside the `"meta"`
 dictionary of a relationship.
 
 ### <a name="h.6.5.1">6.5.1. References</a>
