@@ -275,7 +275,6 @@ or a _list_ of JSON API resource objects. Every resource object needs the `type`
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
-<<<<<<< HEAD
 The response MAY OPTIONALLY also return resources related to the primary data in the field.
 
 * **links**: [JSON API links](http://jsonapi.org/format/#document-links). Each of the below fields
@@ -284,18 +283,6 @@ The response MAY OPTIONALLY also return resources related to the primary data in
     fetches the next set of results, The value of **next** may be the URI as a string, or the value may be an object
     with these fields:
     * **href**: the URI as a string.
-=======
-The response MAY OPTIONALLY also return resources related to the primary data in the field:
-
-* **links**: a [JSON API links member](http://jsonapi.org/format/1.0/#document-links)
-  containing the JSON API links objects:
-  * **next**: is an URI that represents a suggested way to fetch the
-    next set of results if not all were returned, either directly as a string,
-    or as a link object. The field MUST be null or omitted if there is no additional
-    data, or if there is no way to fetch additional data. The link object can contain
-    the following members:
-    * **href**: a string containing the link’s URL.
->>>>>>> upstream/develop
     * **meta**: a meta object containing non-standard meta-information about the link.
   * **prev**: is `null` only when the current response is the first page of data.
   * **last**: the last page of data.
