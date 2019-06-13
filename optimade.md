@@ -990,9 +990,10 @@ Or, fully URL encoded :
 The following tokens are used in the filter query component:
 
 * **Property names** (see section [6. Entry List](#h.6)): Are to follow the identifier
-  syntax of programming languages -- the first character MUST be a letter, the subsequent symbols
-  MUST be alphanumeric; the underscore ("\_", ASCII 95 dec (0x5F)) is considered to be a letter.
-  Identifiers are case-sensitive. The length of the identifiers is not limited, except that when passed as a
+  syntax of programming languages -- the first character MUST be a lowercase letter, the subsequent symbols
+  MUST be composed of lowercase letters or digits; the underscore ("\_", ASCII 95 dec (0x5F))
+  is considered to be a lower-case letter when defining identifiers.
+  The length of the identifiers is not limited, except that when passed as a
   URL query parameter the whole
   query SHOULD NOT be longer than the limits imposed by the URI specification.
 
