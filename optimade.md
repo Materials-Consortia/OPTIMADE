@@ -1725,7 +1725,7 @@ Example:
 ### <a name="h.6.6.2">6.6.2. Calculations</a>
 
 Relationships with calculations MAY be used to indicate provenance where a structure
-is either an input to or an output of a calculations. We intend to implement in a
+is either an input to or an output of calculations. We intend to implement in a
 future version of this API a standardized mechanism to differentiate these two cases,
 thus allowing databases a common way of exposing the full provenance tree with inputs
 and outputs between structures and calculations.
