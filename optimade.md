@@ -41,6 +41,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. last\_modified](#h.6.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. license](#h.6.1.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -1331,6 +1332,25 @@ This section defines standard entry types and their properties.
   * \_exmpl\_supercell
   * \_exmpl\_trajectory
   * \_exmpl\_workflow\_id
+
+### <a name="h.6.1.4">6.1.4. license</a>
+
+* **Description**: Dictionary describing the license of the entry.
+* **Requirements/Conventions**: MUST contain one or both of the following fields:
+  * **type**: A short string identifying the license. For free/open licenses the
+    abbreviations defined in [SPDX list of commonly used licenses](https://spdx.org/licenses/)
+    are RECOMMENDED.
+  * **url**: A link to full-text content of the license.
+* **Example**:
+
+```json
+{
+  "license": {
+    "type": "GPL-3.0+",
+    "url": "https://www.gnu.org/licenses/gpl-3.0.txt"
+  }
+}
+```
 
 ## <a name="h.6.2">6.2. Structure Entries</a>
 
