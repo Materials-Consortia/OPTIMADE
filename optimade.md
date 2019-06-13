@@ -274,8 +274,11 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     }
     ```
 
-    Note: `id`s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field `code` for this).
-    `id`s can _only_ be trusted to be unique in the list of warning resource objects, i.e., together with the `type`.
+    Note: `id`s MUST NOT be trusted to identify the exceptional situations
+    (i.e., they are not error codes, use instead the field `code` for this; for
+    the allowed values of `code` are specified in [3.3.4. Warnings](#h.3.3.4)).
+    `id`s can _only_ be trusted to be unique in the list of warning resource
+    objects, i.e., together with the `type`.
 
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
