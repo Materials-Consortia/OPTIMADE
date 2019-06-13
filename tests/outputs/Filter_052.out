@@ -16,7 +16,7 @@ Filter(9999)
           IdentifierFirstComparison(9999)
             Identifier(9999)
               LowercaseLetter(9999)
-                TOKEN_66(9999): "a", line: 1, col: 5
+                TOKEN_70(9999): "a", line: 1, col: 5
               Spaces(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 6
@@ -29,7 +29,7 @@ Filter(9999)
               Value(9999)
                 Identifier(9999)
                   LowercaseLetter(9999)
-                    TOKEN_67(9999): "b", line: 1, col: 9
+                    TOKEN_71(9999): "b", line: 1, col: 9
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 10
@@ -46,7 +46,7 @@ Filter(9999)
             IdentifierFirstComparison(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_68(9999): "c", line: 1, col: 14
+                  TOKEN_72(9999): "c", line: 1, col: 14
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 15
@@ -81,7 +81,7 @@ Filter(9999)
               IdentifierFirstComparison(9999)
                 Identifier(9999)
                   LowercaseLetter(9999)
-                    TOKEN_71(9999): "f", line: 1, col: 26
+                    TOKEN_75(9999): "f", line: 1, col: 26
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 27
