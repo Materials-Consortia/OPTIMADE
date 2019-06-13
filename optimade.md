@@ -1659,8 +1659,8 @@ in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
 [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
 MAY be used to describe the relations between entries. Human-readable description
-of a relationship MAY be provided using `"description"` field inside the `"meta"`
-dictionary of a relationship.
+of a relationship MAY be provided using the `"description"` field inside the
+`"meta"` dictionary of a relationship.
 
 ### <a name="h.6.6.1">6.6.1. References</a>
 
