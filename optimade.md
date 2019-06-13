@@ -274,11 +274,11 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     }
     ```
 
-    Note: `id`s MUST NOT be trusted to identify the exceptional situations
-    (i.e., they are not error codes, use instead the field `code` for this; for
-    the allowed values of `code` are specified in [3.3.4. Warnings](#h.3.3.4)).
+    **Note**: `id`s MUST NOT be trusted to identify the exceptional situations
+    (i.e., they are not error codes, use instead the field `code` for this.
     `id`s can _only_ be trusted to be unique in the list of warning resource
-    objects, i.e., together with the `type`.
+    objects, i.e., together with the `type`.  
+    General OPTiMaDe warning codes are specified in [3.3.4. Warnings](#h.3.3.4).  
 
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
@@ -429,14 +429,11 @@ to the corresponding database ID that was originally queried, using the object's
 
 ### <a name="h.3.3.4">3.3.4. Warnings</a>
 
-Non-critical exceptional situations occurring in the implementation SHOULD be
-reported to the referrer as warnings. Warning MUST be expressed as a
-human-readable message, OPTIONALLY coupled with an error code.
+Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
+Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
-Error codes starting with an alphanumeric character are reserved for
-OPTiMaDe-defined error codes (currently none). Implementations MUST use error
-codes starting with `_` and database-specific prefixes as defined in
-[Appendix 1](#h.app1).
+Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
+For implementation-specific warnings, they MUST be start with `_` and the database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
 ## <a name="h.3.4">3.4. Index Meta-Database</a>
 
