@@ -1631,6 +1631,24 @@ by multiple chemical elements.
 use properties defined by [BibJSON specification](http://okfnlabs.org/bibjson/).
 At least one property is REQUIRED.
 
+Example:
+
+```json
+{
+  "data": {
+    "type": "reference",
+    "id": "Dijkstra1968",
+    "attributes": {
+      "author": { "name": "Edsger Dijkstra" },
+      "year": "1968",
+      "title": "Go To Statement Considered Harmful",
+      "journal": { "name": "Communications of the ACM" },
+      "identifier": { "type": "doi", "id": "10.1145/362929.362947" }
+    }
+  }
+}
+```
+
 ## <a name="h.6.5">6.5. Relationships Used by Multiple Entry Types</a>
 
 [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
