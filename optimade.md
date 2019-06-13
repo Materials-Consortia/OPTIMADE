@@ -1097,11 +1097,7 @@ All filtering expressions MUST follow the
 grammar of [Appendix 2](#h.app2) of this specification. The appendix
 contains a complete machine-readable EBNF, including the definition
 of the lexical tokens described above in [section '5.1. Lexical
-tokens'](#h.5.1). Note that tokens should be matched using the longest match
-convention and all whitespace (i.e., space and characters that are
-represented by the C escape sequences `\t\n\r\f\v` which constitute the
-[:space: character class of POSIX EREs](https://en.wikipedia.org/wiki/Escape_sequences_in_C)) 
-between tokens should then be discarded. The EBNF is enclosed in special strings constructed
+tokens'](#h.5.1). The EBNF is enclosed in special strings constructed
 as `BEGIN` and `END`, both followed by `EBNF GRAMMAR Filter`, to enable automatic
 extraction.
 
