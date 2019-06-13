@@ -62,7 +62,9 @@ ${GRAMMAR_DIR}/%.pcre:
 .PHONY: tools
 
 ${GRAMMAR_DIR}/%.g: ${GRAMMAR_DIR}/%.ebnf | tools
-	${TOOL_DIR}/grammatiker/EBNF/scripts/ebnf2grammatica $< > $@
+	${TOOL_DIR}/grammatiker/EBNF/scripts/ebnf2grammatica $< \
+	| perl -pe 's/\[\^\\x00-\\x7F\]/\[\\P\{ASCII\}\]/' \
+	> $@
 
 #------------------------------------------------------------------------------
 
