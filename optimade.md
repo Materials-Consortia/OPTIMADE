@@ -54,9 +54,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.4. Reference Entries](#h.6.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.5. Relationships Used by Multiple Entry Types](#.6.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.5.1. references](#h.6.5.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.5.2. calculations](#h.6.5.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.5. Database-Provider-Specific Entry Types](#h.6.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.6. Relationships Used by Multiple Entry Types](#.6.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.1. references](#h.6.6.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.2. calculations](#h.6.6.2)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
 [Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
@@ -74,7 +75,7 @@ the Lorentz Center in Leiden, Netherlands from 2016-10-24 to
 2016-10-28.
 
 It is the intent that the API in the present document adheres to the
-[JSON API](http://jsonapi.org) v1.0 specification (with the exception that
+[JSON API](http://jsonapi.org/format/1.0) v1.0 specification (with the exception that
 non-conformant responses can be generated if an API user specifically
 requests a non-standard response format). In cases where specific
 restrictions are given in the JSON API specification that are stricter than what is
@@ -176,7 +177,7 @@ API implementations MUST decode URLs according to [RFC 3986](http://tools.ietf.o
 API responses MUST be returned in the format specified in the
 request. If no specific response format is specified in the request by
 use of the `response_format` URL query parameter (see below), the default
-response format is [JSON API](http://jsonapi.org) specification.
+response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints MUST support at least the JSON API format.
 Each endpoint MAY OPTIONALLY support multiple formats,
 and declare these formats in their `info` endpoints
@@ -193,9 +194,9 @@ Not only in response format, but also in, e.g., how content negotiation is imple
 
 ### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
 
-Every response MUST contain the following fields:
+Every response SHOULD contain the following fields, and MUST contain at least one:
 
-* **meta**: a [JSON API meta member](https://jsonapi.org/format/#document-meta)
+* **meta**: a [JSON API meta member](https://jsonapi.org/format/1.0/#document-meta)
   that contains JSON API meta objects of non-standard meta-information.  
   It MUST be a dictionary with these fields:
 
@@ -221,13 +222,13 @@ Every response MUST contain the following fields:
 
     `provider` MAY OPTIONALLY include these fields:
 
-    * **homepage**: a [JSON API links object](http://jsonapi.org/format/#document-links),
+    * **homepage**: a [JSON API links object](http://jsonapi.org/format/1.0/#document-links),
     pointing to the homepage of the database provider, either directly as a string,
     or as a link object which can contain the following fields:
       * **href**: a string containing the homepage URL.
       * **meta**: a meta object containing non-standard meta-information about the
       database provider's homepage.
-    * **index\_base\_url**: a [JSON API links object](http://jsonapi.org/format/#document-links)
+    * **index\_base\_url**: a [JSON API links object](http://jsonapi.org/format/1.0/#document-links)
     pointing to the base URL for the `index` meta-database of the provider as specified in
     [Appendix 1](#h.app1), either directly as a string, or as a link object
     which can contain the following fields:
@@ -244,6 +245,15 @@ Every response MUST contain the following fields:
     available in the database.
   * **last\_id**: a string containing the last ID returned.
   * **response\_message**: response string from the server.
+  * **implementation**: a dictionary describing the server implementation, containing
+    the OPTIONAL fields:
+    * **name**: name of the implementation.
+    * **version**: version string of the current implementation.
+    * **source_url**: URL of the implementation source, either downloadable archive
+      or version control system.
+    * **maintainer**: a dictionary providing details about the maintainer of the
+      implementation, MUST contain the single field **email** with the maintainer's
+      email address.
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
@@ -267,6 +277,14 @@ Every response MUST contain the following fields:
           "description": "Provider used for examples, not to be assigned to a real database",
           "prefix": "exmpl",
           "homepage": "http://example.com"
+        },
+        "implementation": {
+          "name": "exmpl-optimade",
+          "version": "0.1.0",
+          "source_url": "http://git.example.com/exmpl-optimade",
+          "maintainer": {
+            "email": "admin@example.com"
+          }
         }
       }
       // ...
@@ -274,14 +292,14 @@ Every response MUST contain the following fields:
     ```
 
 * **data**: The schema of this value varies by endpoint, it can be either a _single_
-[JSON API resource object](http://jsonapi.org/format/#document-resource-objects)
+[JSON API resource object](http://jsonapi.org/format/1.0/#document-resource-objects)
 or a _list_ of JSON API resource objects. Every resource object needs the `type` and `id` fields,
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
 The response MAY OPTIONALLY also return resources related to the primary data in the field:
 
-* **links**: a [JSON API links member](http://jsonapi.org/format/#document-links)
+* **links**: a [JSON API links member](http://jsonapi.org/format/1.0/#document-links)
   containing the JSON API links objects:
   * **next**: is an URI that represents a suggested way to fetch the
     next set of results if not all were returned, either directly as a string,
@@ -309,14 +327,14 @@ The response MAY OPTIONALLY also return resources related to the primary data in
     ```
 
 * **included**: a list of
-[JSON API resource objects](http://jsonapi.org/format/#document-resource-objects)
+[JSON API resource objects](http://jsonapi.org/format/1.0/#document-resource-objects)
 related to the primary data contained in `data`.  
 A response with related resources under `included` are in the JSON API known as
-[compound documents](https://jsonapi.org/format/#document-compound-documents).
+[compound documents](https://jsonapi.org/format/1.0/#document-compound-documents).
 
-If there were errors in producing the response all other fields MAY be skipped, and the following field MUST be present
+If there were errors in producing the response all other fields MAY be present, but the top-level `data` field MUST be skipped, and the following field MUST be present:
 
-* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/#error-objects).
+* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects).
 
 An example of a full response:
 
@@ -365,23 +383,14 @@ An example of a full response:
 }
 ```
 
-### 3.3.4. HTTP Response Status Codes
+### <a name="h.3.3.3">3.3.3. HTTP Response Status Codes</a>
 
-| Code | Message                                                               |
-|:----:|:--------------------------------------------------------------------- |
-| 200  | OK (Successful operation)                                             |
-| 400  | Bad request (e.g., mistyped URL)                                       |
-| 401  | User does not have permission                                         |
-| 403  | Forbidden (the request was understood but not authorized)             |
-| 404  | Not found (e.g., database not found)                                   |
-| 408  | Request timeout because it is taking too long to process the query    |
-| 410  | The database has been moved                                           |
-| 413  | The response is too large                                             |
-| 414  | The requested URI contains more than 2048 characters                  |
-| 418  | Asked for a non-existent keyword                                      |
-| 422  | Database returned (200) but the translator failed                     |
+All HTTP response status codes MUST conform to [RFC 7231: HTTP Semantics](http://tools.ietf.org/html/rfc7231).
+The code registry is maintained by IANA and can be found [here](http://www.iana.org/assignments/http-status-codes).
 
-**Notes**:
+See also the JSON API definitions of responses when [fetching](https://jsonapi.org/format/1.0/#fetching) data, i.e., sending a `GET` request.
+
+**Important**:
 If a client receives an unexpected 404 error when making a query to a base URL,
 and is aware of the index meta-database that belongs to the database provider
 (as described in [3.4. Index Meta-Database](#h.3.4)),
@@ -450,7 +459,7 @@ The client MAY provide a set of URL query parameters in order to alter
 the response and provide usage information. While these URL query
 parameters are OPTIONAL for clients, API implementations MUST accept and
 handle them. To adhere to the requirement on implementation-specific
-URL query parameters of [JSON API](http://jsonapi.org), query
+URL query parameters of [JSON API v1.0](http://jsonapi.org/format/1.0), query
 parameters that are not standardized by that specification have been
 given names that consist of at least two words separated by an
 underscore (a LOW LINE character '\_').
@@ -485,7 +494,7 @@ be "custom URL query parameters". These custom URL query parameters
 MUST be of the format "&lt;database-provider-specific
 prefix&gt;&lt;url\_query\_parameter\_name&gt;".  These names adhere to
 the requirements on implementation-specific query parameters of
-[JSON API](http://jsonapi.org) since the database-provider-specific prefixes
+[JSON API v1.0](http://jsonapi.org/format/1.0) since the database-provider-specific prefixes
 contain at least two underscores (a LOW LINE character '\_').
 
 Example uses of custom URL query parameters include providing an access token for the
@@ -508,7 +517,7 @@ Examples:
 "Entry listing" endpoint response dictionaries MUST have a `data`
 key. The value of this key MUST be a list containing dictionaries that
 represent individual entries. In the JSON API format every dictionary
-([resource object](http://jsonapi.org/format/#document-resource-objects))
+([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
 needs the following fields:
 
 * **type**: field containing the type of the entry
@@ -530,13 +539,13 @@ This can be the local database ID.
 
 OPTIONALLY it can also contains the following fields:
 
-* **links**: a [JSON API links object](http://jsonapi.org/format/#document-links) can OPTIONALLY
+* **links**: a [JSON API links object](http://jsonapi.org/format/1.0/#document-links) can OPTIONALLY
 contain the field
   * **self**: the entry's URL
-* **meta**: a [JSON API meta object](https://jsonapi.org/format/#document-meta) that contains
+* **meta**: a [JSON API meta object](https://jsonapi.org/format/1.0/#document-meta) that contains
 non-standard meta-information about the object
 * **relationships**: a dictionary containing references to other resource objects as defined in
-[6.5. Relationships Used by Multiple Entry Types](#h.6.5)
+[6.6. Relationships Used by Multiple Entry Types](#h.6.6)
 
 Example:
 
@@ -695,12 +704,12 @@ If this is an index meta-database base URL (see section [3.4. Index Meta-Databas
 response dictionary MUST also include the field:
 
 * **relationships**: Dictionary that MAY contain a single
-[JSON API relationships object](https://jsonapi.org/format/#document-resource-object-relationships):
+[JSON API relationships object](https://jsonapi.org/format/1.0/#document-resource-object-relationships):
   * **default**: Reference to the `child` object under the `links` endpoint that the provider
   has chosen as their "default" OPTiMaDe API database. A client SHOULD present this database as the
   first choice when an end-user chooses this provider.
   This MUST include the field:
-    * **data**: [JSON API resource linkage](http://jsonapi.org/format/#document-links).
+    * **data**: [JSON API resource linkage](http://jsonapi.org/format/1.0/#document-links).
     It MUST be either `null` or contain a single `child` identifier object with the fields:
       * **type**: `child`
       * **id**: ID of the provider's chosen default OPTiMaDe API database. MUST be equal to a valid
@@ -859,7 +868,7 @@ The resource objects' response dictionaries MUST include the following fields:
   to an end-user.
   * **description**: Human-readable description for the OPTiMaDe API implementation a client may
   provide in a list to an end-user.
-  * **base\_url**: [JSON API links object](http://jsonapi.org/format/#document-links),
+  * **base\_url**: [JSON API links object](http://jsonapi.org/format/1.0/#document-links),
   pointing to the base URL for this implementation, either directly as a string, or as a links object,
   which can contain the following fields:
     * **href**: a string containing the OPTiMaDe base URL.
@@ -1639,14 +1648,21 @@ Example:
 }
 ```
 
-## <a name="h.6.5">6.5. Relationships Used by Multiple Entry Types</a>
+## <a name="h.6.5">6.5. Database-Provider-Specific Entry Types</a>
+
+Names of database-provider-specific entry types MUST start with
+database-provider-specific namespace prefix as given in [Appendix 1](#h.app1).
+Database-provider-specific entry types MUST have all properties described above
+in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
+
+## <a name="h.6.6">6.6. Relationships Used by Multiple Entry Types</a>
 
 [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
 MAY be used to describe the relations between entries. Human-readable description
 of a relationship MAY be provided using `"description"` field inside the `"meta"`
 dictionary of a relationship.
 
-### <a name="h.6.5.1">6.5.1. References</a>
+### <a name="h.6.6.1">6.6.1. References</a>
 
 The `"references"` relationship is used to provide bibliographic references for any
 of the entry types. It relates an entry with any number of `"reference"` entries.
@@ -1706,7 +1722,7 @@ Example:
 }
 ```
 
-### <a name="h.6.5.2">6.5.2. Calculations</a>
+### <a name="h.6.6.2">6.6.2. Calculations</a>
 
 Relationships with calculations MAY be used to indicate provenance where a structure
 is either an input to or an output of a calculations. We intend to implement in the
