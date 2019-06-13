@@ -2,3 +2,4 @@
 .*.d
 .svn
 Makeconf*
+.idea/

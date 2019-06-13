@@ -276,20 +276,27 @@ and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
 The response MAY OPTIONALLY also return resources related to the primary data in the field.
+NOTE: **links** is MANDATORY for implementing pagination.
 
-* **links**: [JSON API links](http://jsonapi.org/format/#document-links). Each of the below fields
-  is either `null`, a URI string, or an object with **href** and **meta** fields (where **href** is `null` or a URI string).
-  * **next**: is `null` only when the current response is the last page of data. Otherwise, it's URI
-    fetches the next set of results, The value of **next** may be the URI as a string, or the value may be an object
-    with these fields:
-    * **href**: the URI as a string.
-    * **meta**: a meta object containing non-standard meta-information about the link.
-  * **prev**: is `null` only when the current response is the first page of data.
-  * **last**: the last page of data.
-  * **first**: the first  page of data.
+* **links**: [JSON API links](http://jsonapi.org/format/#document-links). Each field of a links object, i.e. a "link",
+  must be either
   
-    NOTE: The links `next`, `prev`, `last`, and `first` are MANDATORY when **more_data_available** is `true`, that is, for
-    pagination.
+  * `null`
+  * a string representing a URI, or
+  * an object ("link object") with fields
+    * **href**: a string representing a URI
+    * **meta**: (OPTIONAL) a meta object containing non-standard meta-information about the link
+
+  The following fields are REQUIRED for implementing pagination:
+  
+  * **next**: represents a link to fetch the next set of results. When the current response is the last page of data,
+    this field MUST be either omitted or `null`-valued.
+   
+  The following fields are reserved for pagination. An implementation MAY offer these links:
+  
+  * **prev**: the previous page of data. `null` or omitted when the current response is the first page of data.
+  * **last**: the last page of data.
+  * **first**: the first page of data.
 
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
@@ -450,18 +457,34 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 * **filter**: a filter string, in the format described below in section
   [5. API Filtering Format Specification](#h.5).
-* **page[limit]**: sets a numerical limit on the number of entries returned. See [https://jsonapi.org/format/1.0/#fetching-pagination](https://jsonapi.org/format/1.0/#fetching-pagination). The API
-  implementation MUST return no more than the number specified. It MAY return
-  less. The database MAY have a maximum limit and not accept larger numbers (in
-  which case an error code MUST be returned). The default limit value is up
-  to the API implementation to decide.  
   
-  Example: <http://example.com/optimade/v0.9/structures?page[limit]=100>
-* **page[offset]**: Implements, along with **page[limit]**, an offset-based strategy for
-  pagination. See [https://jsonapi.org/format/1.0/#fetching-pagination](https://jsonapi.org/format/1.0/#fetching-pagination).
+* **page_limit: sets a numerical limit on the number of entries returned. See
+  [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-pagination). The API
+  implementation MUST return no more than the number specified. It MAY return fewer. The database MAY have a maximum
+  limit and not accept larger numbers (in which case an error code MUST be returned). The default limit value is up to
+  the API implementation to decide.
   
-  Example (equivalent to second "page" of 100 entries): <http://example.com/optimade/v0.9/structures?page[offset]=100&page[limit]=100>
-* **sort**: If supporting sortable queries, an implementation MUST use the **sort** query parameter with format as specified by [https://jsonapi.org/format/1.0/#fetching-sorting](https://jsonapi.org/format/1.0/#fetching-sorting). It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value, the key "sortable" with value true. This is in addition to each property description (and optional unit).
+  Example: <http://example.com/optimade/v0.9/structures?page_limit=100>
+  
+* **page_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no
+  user-specified **sort** parameter (via the ["links" response field](#h.3.3.2)). A server MAY implement pagination in
+  concert with **sort**. The following parameters, all prefixed by "page_", are RECOMMENDED for use with pagination.
+  If an implementation chooses
+  
+  * _offset-based pagination_: using `page_offset` and `page_limit` is RECOMMENDED.
+  * _cursor-based pagination_: using `page_cursor` and `page_limit` is RECOMMENDED.
+  * _page-based pagination_: using `page_number` and `page_limit` is RECOMMENDED (`page_limit` is equivalent to page "size").
+  * _value-based pagination_: using `page_above`/`page_below` and `page_limit` is RECOMMENDED.
+  
+Example (skip 50 structures and fetch up to 100): <http://example.com/optimade/v0.9/structures?page_offset=50&page_limit=100>
+
+* **sort**: If supporting sortable queries, an implementation MUST use the **sort** query parameter with format as
+  specified by [https://jsonapi.org/format/1.0/#fetching-sorting](https://jsonapi.org/format/1.0/#fetching-sorting). It
+  is not required that an implementation supports multiple sort fields for a single query. However, if it does, it
+  again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2),
+  then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its
+  "data.properties.`<fieldname>`" response value, the key "sortable" with value true. This is in addition to each
+  property description (and optional unit).
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
