@@ -1805,8 +1805,16 @@ UnicodeHighChar = ? [^\x00-\x7F] ? ;
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
-Note: in the parsing of filters according to this grammar, all whitespace (space, tabs, newlines) should be
-discarded between tokens.
+
+Note: whe implementing a parser according this grammar, the
+implementers MAY choose to construct a lexer that ignores all
+whitespace (space, tabs, newlines, vertical tabulation an format feed
+characters, as described in the grammar 'Space' definition), and use
+such lexer to recognise language elements that are described in the
+`(* TOKENS *)` section of the grammar. In that case, the '[Spaces]'
+element should probably be removed from the `Filter = [Spaces],
+Expression` definition as well, and the remaining grammar rules could
+then be used as a parser generator (like yacc, bison, antlr) input.
 
 ## <a name="h.app3">Appendix 3. Regular Expressions for OPTiMaDe Filter Tokens.</a>
 The string below contains Perl-Compatible Regular Expressions to recognise
