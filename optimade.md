@@ -101,9 +101,11 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Field**: A property that can be requested as partial output from the API.
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
-* **ID**: A unique identifier that specifies a specific resource in a database,
-  which does not need to be immutable. It MUST NOT be a reserved
-  word.
+* **ID**: A unique identifier referencing a specific resource in the database.
+  Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
+  IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
+  Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  It does not need to be immutable, and MUST NOT be a reserved word.
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
 * **Reserved words**: The list of reserved words in this standard is:
@@ -518,10 +520,9 @@ represent individual entries. In the JSON API format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
 MUST have the following fields:
 
-* **type**: field containing the type of the entry
-* **id**: a string which together with the type uniquely identifies the object and
-strictly follows the requirements/conventions as specified by [id](#h.6.1.1).
-This can be the local database ID.
+* **type**: field containing the Entry type as defined in section [2. Term Definition](#h.2)
+* **id**: field containing the ID of entry as defined in section [2. Term Definition](#h.2).
+  This can be the local database ID.
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
   * **local\_id**: the entry's local database ID (having no OPTiMaDe requirements/conventions)
@@ -1303,10 +1304,9 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.1">6.1.1. id</a>
 
-* **Description**: An entry's ID.
+* **Description**: An entry's ID as defined in section [2. Term Definition](#h.2).
 * **Requirements/Conventions**:
-  * IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
-  * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  * See section [2. Term Definition](#h.2).
 * **Examples**:
   * `"db/1234567"`
   * `"cod/2000000"`
