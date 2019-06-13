@@ -1628,7 +1628,7 @@ by multiple chemical elements.
 
 `"reference"` entries describe bibliographic references. To do so, they MUST
 use properties defined by [BibJSON specification](http://okfnlabs.org/bibjson/).
-At least one property is REQUIRED.
+At least one field from the BibJSON specification MUST be present.
 
 Example:
 
