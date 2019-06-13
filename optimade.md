@@ -1666,8 +1666,8 @@ of a relationship MAY be provided using the `"description"` field inside the
 
 The `"references"` relationship is used to provide bibliographic references for any
 of the entry types. It relates an entry with any number of `"reference"` entries.
-`"reference"` entries, mentioned in the returned JSON document, SHOULD be included
-in the top-level `"included"` field as per the
+Entries of type `"reference"`, if mentioned in the returned JSON document,
+SHOULD be included in the top-level `"included"` field as per the
 [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
 
 Example:
