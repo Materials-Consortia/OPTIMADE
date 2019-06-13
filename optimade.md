@@ -1651,7 +1651,7 @@ dictionary of a relationship.
 The `"references"` relationship is used to provide bibliographic references for any
 of the entry types. It relates an entry with any number of `"reference"` entries.
 `"reference"` entries, mentioned in the returned JSON document, SHOULD be included
-in the `"included"` field as per
+in the top-level `"included"` field as per the
 [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
 
 Example:
