@@ -479,12 +479,14 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 Example (skip 50 structures and fetch up to 100): <http://example.com/optimade/v0.9/structures?page_offset=50&page_limit=100>
 
 * **sort**: If supporting sortable queries, an implementation MUST use the `sort` query parameter with format as
-  specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting). It
-  is not required that an implementation supports multiple sort fields for a single query. However, if it does, it
-  again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2),
-  then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its
-  "data.properties.`<fieldname>`" response value, the key "sortable" with value true. This is in addition to each
-  property description (and optional unit).
+  specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting).
+  
+  It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it
+  again must conform to the JSON API 1.0 spec.
+  
+  If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint
+  MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value,
+  the key "sortable" with value `true`. This is in addition to each property description (and optional unit).
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
