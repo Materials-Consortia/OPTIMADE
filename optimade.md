@@ -1332,7 +1332,8 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.1.4">6.1.4. license</a>
 
 * **Description**: Dictionary describing the license of the entry.
-* **Requirements/Conventions**: MUST contain one or both of the following fields:
+* **Requirements/Conventions**: MUST be a dictionary containing one or both of
+  the following fields:
   * **type**: A short string identifying the license. For free/open licenses the
     abbreviations defined in [SPDX list of commonly used licenses](https://spdx.org/licenses/)
     are RECOMMENDED.
