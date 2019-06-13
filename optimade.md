@@ -380,16 +380,16 @@ to the corresponding database ID that was originally queried, using the object's
 
 ### <a name="h.3.3.4">3.3.4. Unset optional properties</a>
 
-Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, i.e. have the value 'null' within a JSON file or SQL database.
+Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, e.g. have the value `null` within a JSON file.
 
 Unset properties MUST NOT be returned in the response, unless explicitly requested in the search query. 
 
-Any comparisons involving unset properties MUST be evaluated as false,
-i.e. by definition the value of null is outside of any defined search range.
+Any comparisons involving unset properties MUST be evaluated as `false`,
+i.e. by definition the value of `null` is outside of any defined search range.
 
 If a property is explicitly requested in a search query without value range filters,
-then all entries otherwise satisfying the query SHOULD be returned, including those with null values for this property.
-These properties MUST be set to null in the response.
+then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property.
+These properties MUST be set to `null` in the response.
 
 Entries with unset or set property values can be filtered out of the response using:
 ```
@@ -398,9 +398,9 @@ identifier IS UNKNOWN
 ```
 respectively, as specified in section [5.2. The Filter Language Syntax](#h.5.2). 
 
-The text in this section describes how the API handles properties that are null. 
-It does not regulate the handling of values inside property data structures that can be null. 
-The use of null values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+The text in this section describes how the API handles properties that are `null`. 
+It does not regulate the handling of values inside property data structures that can be `null`. 
+The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
 
 ## <a name="h.3.4">3.4. Index Meta-Database</a>
 
