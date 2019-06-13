@@ -11,6 +11,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. HTTP Response Headers](#h.3.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 
 [4. API endpoints](#h.4)  
@@ -394,6 +395,10 @@ the next course of action SHOULD be to fetch the resource objects under the
 `links` endpoint of the index meta-database and redirect the original query
 to the corresponding database ID that was originally queried, using the object's
 `base_url` value.
+
+### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
+
+The server's response SHOULD include the cross-origin resource sharing header `Access-Control-Allow-Origin: *`. This allows browser-based JavaScript applications (running at the different domains) to access the responses.
 
 ## <a name="h.3.4">3.4. Index Meta-Database</a>
 
