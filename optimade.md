@@ -458,7 +458,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 * **filter**: a filter string, in the format described below in section
   [5. API Filtering Format Specification](#h.5).
   
-* **page_limit: sets a numerical limit on the number of entries returned. See
+* **page_limit**: sets a numerical limit on the number of entries returned. See
   [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-pagination). The API
   implementation MUST return no more than the number specified. It MAY return fewer. The database MAY have a maximum
   limit and not accept larger numbers (in which case an error code MUST be returned). The default limit value is up to
@@ -467,8 +467,8 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   Example: <http://example.com/optimade/v0.9/structures?page_limit=100>
   
 * **page_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no
-  user-specified **sort** parameter (via the ["links" response field](#h.3.3.2)). A server MAY implement pagination in
-  concert with **sort**. The following parameters, all prefixed by "page_", are RECOMMENDED for use with pagination.
+  user-specified `sort` parameter (via the ["links" response field](#h.3.3.2)). A server MAY implement pagination in
+  concert with `sort`. The following parameters, all prefixed by "page_", are RECOMMENDED for use with pagination.
   If an implementation chooses
   
   * _offset-based pagination_: using `page_offset` and `page_limit` is RECOMMENDED.
@@ -478,8 +478,8 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   
 Example (skip 50 structures and fetch up to 100): <http://example.com/optimade/v0.9/structures?page_offset=50&page_limit=100>
 
-* **sort**: If supporting sortable queries, an implementation MUST use the **sort** query parameter with format as
-  specified by [https://jsonapi.org/format/1.0/#fetching-sorting](https://jsonapi.org/format/1.0/#fetching-sorting). It
+* **sort**: If supporting sortable queries, an implementation MUST use the `sort` query parameter with format as
+  specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting). It
   is not required that an implementation supports multiple sort fields for a single query. However, if it does, it
   again must conform to the JSON API 1.0 spec. If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2),
   then the `/<entries>/info` endpoint MUST include, for each field name `<fieldname>` in its
