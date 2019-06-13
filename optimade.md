@@ -398,7 +398,7 @@ to the corresponding database ID that was originally queried, using the object's
 
 ### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
 
-The server's response SHOULD include the cross-origin resource sharing header `Access-Control-Allow-Origin: *`. This allows browser-based JavaScript applications (running at the different domains) to access the responses.
+The server's response SHOULD include the cross-origin resource sharing header `Access-Control-Allow-Origin: *`. This allows browser-based JavaScript applications (running at a different domain) to access the responses.
 
 ## <a name="h.3.4">3.4. Index Meta-Database</a>
 
