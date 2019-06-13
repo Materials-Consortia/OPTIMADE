@@ -1648,7 +1648,7 @@ dictionary of a relationship.
 
 ### <a name="h.6.5.1">6.5.1. References</a>
 
-`"references"` relationship is used to provide bibliographic references for any
+The `"references"` relationship is used to provide bibliographic references for any
 of the entry types. It relates an entry with any number of `"reference"` entries.
 `"reference"` entries, mentioned in the returned JSON document, SHOULD be included
 in the `"included"` field as per
