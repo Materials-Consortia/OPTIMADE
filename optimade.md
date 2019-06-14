@@ -1502,10 +1502,7 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
   * This property is REQUIRED.
   * It MUST be a list of strings, which MUST have length equal to the number of sites in the structure
     (first dimension of the [6.2.7. `cartesian_site_positions`](#h.6.2.7) list).
-  * Each string MUST be a valid key of the dictionary specified by the [6.2.9. `species`](#h.6.2.9)
-    property. The requirements on this string are the same as for property names, i.e., it can be of any
-    length, may use upper and lower case letters, underscore, and digits 0-9, but MUST NOT begin with a
-    digit.
+  * Each species MUST have a unique name.
   * Each site MUST be associated only to a single species.  
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined
     for the same chemical element. This latter case is useful when different atoms of the same type
