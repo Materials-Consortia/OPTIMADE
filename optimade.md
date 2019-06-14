@@ -1514,7 +1514,7 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
 
 ### <a name="h.6.2.9">6.2.9. species</a>
 
-* **Description**: Dictionary describing the species of the sites of this structure. Species can be
+* **Description**: A list describing the species of the sites of this structure. Species can be
 pure chemical elements, or virtual-crystal atoms representing a statistical occupation of a given site
 by multiple chemical elements.
 * **Requirements/Conventions**:
