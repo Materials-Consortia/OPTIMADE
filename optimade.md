@@ -45,7 +45,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. elements_ratios](#h.6.2.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. elements\_ratios](#h.6.2.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.4. chemical\_formula\_descriptive](#h.6.2.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. chemical\_formula\_reduced](#h.6.2.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. chemical\_formula\_hill](#h.6.2.6)  
@@ -1416,7 +1416,7 @@ This section defines standard entry types and their properties.
     * A filter that matches structures that have exactly 4 elements: `nelements=4`.
     * A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.
 
-### <a name="h.6.2.3">6.2.3. elements_ratios</a>
+### <a name="h.6.2.3">6.2.3. elements\_ratios</a>
 
 * **Description**: Relative proportions of different elements in the structure. 
 * **Requirements/Conventions**: 
