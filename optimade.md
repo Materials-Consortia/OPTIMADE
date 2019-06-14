@@ -1393,7 +1393,7 @@ This section defines standard entry types and their properties.
 
 * **Description**: Names of the different elements present in the structure. 
 * **Requirements/Conventions**: 
-    * The chemical symbols of elements as a list property consisting of strings.
+    * The chemical symbols of elements as a list of strings.
     * The order MUST be alphabetical.
     * This property is REQUIRED
 * **Examples**:
@@ -1420,7 +1420,7 @@ This section defines standard entry types and their properties.
 
 * **Description**: Relative proportions of different elements in the structure. 
 * **Requirements/Conventions**: 
-    * The proportions of elements in the structure as a list property consisting of floating point numbers.
+    * The proportions of elements in the structure as a list of floating point numbers.
     * The sum of the numbers must be 1.0 (within floating point accuracy) 
     * This property is REQUIRED
 * **Examples**:
@@ -1462,7 +1462,7 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.2.5">6.2.5. chemical\_formula\_reduced</a>
 
 * **Description**: The reduced chemical formula for a structure as a string with element symbols and 
-    integer chemical proportion numbers. The proportion number is omitted if it is 1.
+    integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
 * **Requirements/Conventions**:
     * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
     * Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
@@ -1485,9 +1485,9 @@ This section defines standard entry types and their properties.
    
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string on [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number is omitted if it is 1.
+* **Description**: The chemical formula for a structure as a string on [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
 * **Requirements/Conventions**: 
-    * The overall scale factor of the chemical proportions are chosen such that the resulting values
+    * The overall scale factor of the chemical proportions is chosen such that the resulting values
       are integers that indicate the most chemically relevant unit of which the system is composed. 
       For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that 
       represents two hydroperoxide molecules, 
