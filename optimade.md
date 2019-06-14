@@ -485,7 +485,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 * **sort**: If supporting sortable queries, an implementation MUST use the `sort` query parameter with format as
   specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting).
   
-  It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it
+  An implementation MAY support multiple sort fields for a single query. If it does, it
   again MUST conform to the JSON API 1.0 spec.
   
   If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint
