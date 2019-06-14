@@ -1995,7 +1995,9 @@ Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
 (* Identifier syntax *)
 
-Identifier = LowercaseLetter, { LowercaseLetter | Digit }, { '.', LowercaseLetter, { LowercaseLetter | Digit } }, [Spaces] ;
+IdentifierComponent = LowercaseLetter, { LowercaseLetter | Digit } ;
+
+Identifier = IdentifierComponent, { '.', IdentifierComponent }, [Spaces] ;
 
 Letter = UppercaseLetter | LowercaseLetter ;
 
