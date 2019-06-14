@@ -11,6 +11,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 
 [4. API endpoints](#h.4)  
@@ -40,7 +42,9 @@
 [6. Entry List](#h.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. last\_modified](#h.6.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. last\_modified](#h.6.1.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. database-provider-specific properties](#h.6.1.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -53,6 +57,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Database-Provider-Specific Entry Types](#h.6.4)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
 [Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
@@ -98,9 +103,11 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Field**: A property that can be requested as partial output from the API.
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
-* **ID**: A unique identifier that specifies a specific resource in a database,
-  which does not need to be immutable. It MUST NOT be a reserved
-  word.
+* **ID**: A unique identifier referencing a specific resource in the database.
+  Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
+  IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
+  Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  It does not need to be immutable, and MUST NOT be a reserved word.
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
 * **Reserved words**: The list of reserved words in this standard is:
@@ -189,7 +196,7 @@ Not only in response format, but also in, e.g., how content negotiation is imple
 
 ### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
 
-Every response MUST contain the following fields:
+Every response SHOULD contain the following fields, and MUST contain at least one:
 
 * **meta**: a [JSON API meta member](https://jsonapi.org/format/1.0/#document-meta)
   that contains JSON API meta objects of non-standard meta-information.  
@@ -240,6 +247,40 @@ Every response MUST contain the following fields:
     available in the database.
   * **last\_id**: a string containing the last ID returned.
   * **response\_message**: response string from the server.
+  * **implementation**: a dictionary describing the server implementation, containing
+    the OPTIONAL fields:
+    * **name**: name of the implementation.
+    * **version**: version string of the current implementation.
+    * **source_url**: URL of the implementation source, either downloadable archive
+      or version control system.
+    * **maintainer**: a dictionary providing details about the maintainer of the
+      implementation, MUST contain the single field **email** with the maintainer's
+      email address.
+  * **warnings**: a list of warning resource objects representing non-critical errors or warnings.  
+    A warning resource object is defined similarly to a [JSON API error object](http://jsonapi.org/format/1.0/#error-objects), but MUST also include the field `type`, which MUST have the value `"warning"`.
+    The field `detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognised search attributes or deprecated features.  
+    The field `status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    This is an exclusive field for error resource objects.
+
+    Example:  
+    For a deprecation warning
+
+    ```json
+    {
+      "id": "dep_chemical_formula_01",
+      "type": "warning",
+      "code": "_exmpl_dep_chemical_formula",
+      "title": "Deprecation Warning",
+      "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
+    }
+    ```
+
+    **Note**: `id`s MUST NOT be trusted to identify the exceptional situations
+    (i.e., they are not error codes, use instead the field `code` for this.
+    `id`s can _only_ be trusted to be unique in the list of warning resource
+    objects, i.e., together with the `type`.  
+    General OPTiMaDe warning codes are specified in [3.3.5. Warnings](#h.3.3.5).  
+
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
@@ -263,6 +304,14 @@ Every response MUST contain the following fields:
           "description": "Provider used for examples, not to be assigned to a real database",
           "prefix": "exmpl",
           "homepage": "http://example.com"
+        },
+        "implementation": {
+          "name": "exmpl-optimade",
+          "version": "0.1.0",
+          "source_url": "http://git.example.com/exmpl-optimade",
+          "maintainer": {
+            "email": "admin@example.com"
+          }
         }
       }
       // ...
@@ -323,9 +372,11 @@ related to the primary data contained in `data`.
 A response with related resources under `included` are in the JSON API known as
 [compound documents](https://jsonapi.org/format/1.0/#document-compound-documents).
 
-If there were errors in producing the response all other fields MAY be skipped, and the following field MUST be present
+If there were errors in producing the response all other fields MAY be present, but the top-level `data` field MUST be skipped, and the following field MUST be present:
 
-* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects).
+* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects), where the field `detail` MUST be present.
+All other fields are OPTIONAL.
+
 
 An example of a full response:
 
@@ -389,6 +440,38 @@ the next course of action SHOULD be to fetch the resource objects under the
 `links` endpoint of the index meta-database and redirect the original query
 to the corresponding database ID that was originally queried, using the object's
 `base_url` value.
+
+### <a name="h.3.3.4">3.3.4. Unset optional properties</a>
+
+Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, e.g. have the value `null` within a JSON file.
+
+Unset properties MUST NOT be returned in the response, unless explicitly requested in the search query. 
+
+Any comparisons involving unset properties MUST be evaluated as `false`,
+i.e. by definition the value of `null` is outside of any defined search range.
+
+If a property is explicitly requested in a search query without value range filters,
+then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property.
+These properties MUST be set to `null` in the response.
+
+Entries with unset or set property values can be filtered out of the response using:
+```
+identifier IS KNOWN
+identifier IS UNKNOWN
+```
+respectively, as specified in section [5.2. The Filter Language Syntax](#h.5.2). 
+
+The text in this section describes how the API handles properties that are `null`. 
+It does not regulate the handling of values inside property data structures that can be `null`. 
+The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+
+### <a name="h.3.3.5">3.3.5. Warnings</a>
+
+Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
+Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
+
+Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
+For implementation-specific warnings, they MUST be start with `_` and the database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
 ## <a name="h.3.4">3.4. Index Meta-Database</a>
 
@@ -538,12 +621,11 @@ Examples:
 key. The value of this key MUST be a list containing dictionaries that
 represent individual entries. In the JSON API format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
-needs the following fields:
+MUST have the following fields:
 
-* **type**: field containing the type of the entry
-* **id**: a string which together with the type uniquely identifies the object and
-strictly follows the requirements/conventions as specified by [id](#h.6.1.1).
-This can be the local database ID.
+* **type**: field containing the Entry type as defined in section [2. Term Definition](#h.2)
+* **id**: field containing the ID of entry as defined in section [2. Term Definition](#h.2).
+  This can be the local database ID.
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
   * **local\_id**: the entry's local database ID (having no OPTiMaDe requirements/conventions)
@@ -1326,10 +1408,9 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.1">6.1.1. id</a>
 
-* **Description**: An entry's ID.
+* **Description**: An entry's ID as defined in section [2. Term Definition](#h.2).
 * **Requirements/Conventions**:
-  * IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
-  * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  * See section [2. Term Definition](#h.2).
 * **Examples**:
   * `"db/1234567"`
   * `"cod/2000000"`
@@ -1337,14 +1418,20 @@ This section defines standard entry types and their properties.
   * `"nomad/L1234567890"`
   * `"42"`
 
-### <a name="h.6.1.2">6.1.2. last\_modified</a>
+### <a name="h.6.1.2">6.1.2. type</a>
+
+* **Description**: the type of an entry.
+* **Requirements/Conventions**: MUST be an existing entry type.
+* **Example**: `"structure"`
+
+### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
 * **Description**: Date representing when the entry was last modified.
 * **Requirements/Conventions**: String with [ISO 8601](https://www.iso.org/standard/40874.html) format.
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
-### <a name="h.6.1.3">6.1.3. database-provider-specific properties</a>
+### <a name="h.6.1.4">6.1.4. database-provider-specific properties</a>
 
 * **Description**: Database providers are allowed to insert database-provider-specific entries
   in the output of both standard entry types and database-provider-specific entry types.
@@ -1644,6 +1731,13 @@ by multiple chemical elements.
 
 `"calculation"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
+
+## <a name="h.6.4">6.4. Database-Provider-Specific Entry Types</a>
+
+Names of database-provider-specific entry types MUST start with
+database-provider-specific namespace prefix as given in [Appendix 1](#h.app1).
+Database-provider-specific entry types MUST have all properties described above
+in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
 
