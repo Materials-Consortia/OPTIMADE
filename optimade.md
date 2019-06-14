@@ -11,7 +11,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Warnings](#h.3.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 
 [4. API endpoints](#h.4)  
@@ -278,7 +279,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     (i.e., they are not error codes, use instead the field `code` for this.
     `id`s can _only_ be trusted to be unique in the list of warning resource
     objects, i.e., together with the `type`.  
-    General OPTiMaDe warning codes are specified in [3.3.4. Warnings](#h.3.3.4).  
+    General OPTiMaDe warning codes are specified in [3.3.5. Warnings](#h.3.3.5).  
 
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
@@ -427,7 +428,31 @@ the next course of action SHOULD be to fetch the resource objects under the
 to the corresponding database ID that was originally queried, using the object's
 `base_url` value.
 
-### <a name="h.3.3.4">3.3.4. Warnings</a>
+### <a name="h.3.3.4">3.3.4. Unset optional properties</a>
+
+Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, e.g. have the value `null` within a JSON file.
+
+Unset properties MUST NOT be returned in the response, unless explicitly requested in the search query. 
+
+Any comparisons involving unset properties MUST be evaluated as `false`,
+i.e. by definition the value of `null` is outside of any defined search range.
+
+If a property is explicitly requested in a search query without value range filters,
+then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property.
+These properties MUST be set to `null` in the response.
+
+Entries with unset or set property values can be filtered out of the response using:
+```
+identifier IS KNOWN
+identifier IS UNKNOWN
+```
+respectively, as specified in section [5.2. The Filter Language Syntax](#h.5.2). 
+
+The text in this section describes how the API handles properties that are `null`. 
+It does not regulate the handling of values inside property data structures that can be `null`. 
+The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+
+### <a name="h.3.3.5">3.3.5. Warnings</a>
 
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
