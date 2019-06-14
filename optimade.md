@@ -1723,7 +1723,7 @@ are used to provide the bibliographic details:
   are strings;
 * **authors** and **editors**: lists of *person objects* which are dictionaries
   with the following fields:
-  * **name**: name of the person, REQUIRED.
+  * **name**: full name of the person, REQUIRED.
   * **firstname**, **lastname**: parts of the person's name, OPTIONAL.
 * **doi** and **url**, strings.
 
@@ -1763,7 +1763,7 @@ in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 ## <a name="h.6.6">6.6. Relationships Used by Multiple Entry Types</a>
 
 [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
-MAY be used to describe the relations between entries. Human-readable description
+MAY be used to describe the relations between entries. A human-readable description
 of a relationship MAY be provided using the `"description"` field inside the
 `"meta"` dictionary of a relationship.
 
