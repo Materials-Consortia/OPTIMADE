@@ -1553,11 +1553,10 @@ by multiple chemical elements.
     names, containing characters that are not allowed (see description of the
     [6.2.8. `species_at_sites`](#h.6.2.8) list).
 
-  * Each species represented in the `species_at_sites` list MUST have
-    a dictionary describing these species (i.e. for each value in the
-    `species_at_sites` list there MUST exist a dictionary in the
-    `species` list the `name` attribute equal to the corresponging
-    `species_at_sites` value);
+  * Each species mentioned in the `species_at_sites` list MUST be
+    described (i.e. for each value in the `species_at_sites` list
+    there MUST exist a dictionary in the `species` list the `name`
+    attribute equal to the corresponging `species_at_sites` value);
 
   * For systems that have only species formed by a single chemical symbol, and that have at most one
   species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., `"Ti"` for
