@@ -968,8 +968,9 @@ They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
 
 # <a name="h.5">5. API Filtering Format Specification</a>
 
-An OPTIMaDe filter expression is passed in the parameter `filter`
-either as an URL query parameter as specified by JSON API.
+An OPTiMaDe filter expression is passed in the parameter `filter`
+as an URL query parameter as 
+[specified by JSON API](https://jsonapi.org/format/1.0/#fetching-filtering).
 The filter expression allows desired properties to be compared against search
 values; several such comparisons can be combined using the logical
 conjunctions AND, OR, NOT, and parentheses, with their usual
