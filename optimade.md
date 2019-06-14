@@ -334,6 +334,25 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * a dictionary ("link object") with fields
     * **href**: a string representing a URI
     * **meta**: (OPTIONAL) a meta object containing non-standard meta-information about the link
+    
+  Example links objects:
+    
+  * **base\_url**: a links object representing the base URL of the implementation. Example:
+	
+	```json
+	{
+	  "links": {
+		"base_url": {
+		  "href": "http://example.com/optimade/v0.9/",
+		  "meta": {
+			"_exmpl_db_version": "3.2.1"
+		  }
+		}
+		// ...
+	  }
+	  // ...
+	}
+	```
 
   The following fields are REQUIRED for implementing pagination:
   
@@ -346,25 +365,7 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * **prev**: the previous page of data. `null` or omitted when the current response is the first page of data.
   * **last**: the last page of data.
   * **first**: the first page of data.
-  
-  The following fields unrelated to pagination:
 
-  * **base\_url**: a links object representing the base URL of the implementation. Example:
-
-    ```json
-    {
-      "links": {
-        "base_url": {
-          "href": "http://example.com/optimade/v0.9/",
-          "meta": {
-            "_exmpl_db_version": "3.2.1"
-          }
-        }
-        // ...
-      }
-      // ...
-    }
-    ```
 
 * **included**: a list of
 [JSON API resource objects](http://jsonapi.org/format/1.0/#document-resource-objects)
