@@ -1467,8 +1467,8 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
     e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
   * If a component of the position is unknown, the `null` value should be provided instead. 
     Otherwise, it should be a float value, expressed in angstrom. Note that if at least one
-    of the coordinates is unknown, the correct flag in the 
-    [`structure_features`](#h.6.2.11) list MUST be set.
+    of the coordinates is unknown, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
 * **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
   if you decide to store internally the `cartesian_site_positions` as a float array,
   you might want to replace `null` values with `NaN` values, the latter being valid float numbers
@@ -1509,14 +1509,15 @@ by multiple chemical elements.
   * This property is REQUIRED.
   * It MUST be a dictionary, where keys represent the species' name, and values are themselves
   dictionaries with the following keys:
-    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species. 
-      *  It MUST be one of the following:
+    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
+      * It MUST be one of the following:
         * a valid chemical-element name, or
         * the special value `"X"` to represent a non-chemical element, or
         * the special value `"vacancy"` to represent that this site has a non-zero probability of having
         a vacancy (the respective probability is indicated in the `concentration` list, see below).
       * If any one entry in the `species` list has a `chemical_symbols` list that 
-        is longer than 1 element, the correct flag in the [`structure_features`](#h.6.2.11) list MUST be set.
+        is longer than 1 element, the correct flag MUST be set
+        in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
   
 
     * **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`.
@@ -1567,8 +1568,8 @@ by multiple chemical elements.
 * **Description**: A description of groups of sites that are statistically correlated.
 * **Requirements/Conventions**:
   * This key is OPTIONAL (it is absent if there are no partial occupancies).
-  * If present, the correct flag in the 
-    [`structure_features`](#h.6.2.11) list MUST be set.
+  * If present, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
   * Client implementations MUST check its presence (as its presence changes the
     interpretation of the structure).
   * If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have
@@ -1676,7 +1677,7 @@ by multiple chemical elements.
 * **Requirements/Conventions**: 
   * This property is REQUIRED.
   * This property MUST be returned as an empty list if no special features are used.
-  * This list MUST be sorted.  
+  * This list MUST be sorted alphabetically.  
   * If a special feature listed below is used, the corresponding string MUST be set.
   * If a special feature listed below is not used, the corresponding string MUST NOT be set. 
 * **List of special structure features**:
