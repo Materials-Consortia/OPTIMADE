@@ -324,7 +324,7 @@ or a _list_ of JSON API resource objects. Every resource object needs the `type`
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
-The response MAY OPTIONALLY also return resources related to the primary data in the field.
+The response MAY OPTIONALLY also return resources related to the primary data in the field:
 
 * **links**: [JSON API links](http://jsonapi.org/format/#document-links) is MANDATORY for implementing pagination.
 (see section [URL Query Parameters `page_*`](#h.4.1.1)) Each field of a links object, i.e. a "link", must be either
@@ -332,7 +332,7 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * `null`
   * a string representing a URI, or
   * a dictionary ("link object") with fields
-      * **href**: a string representing a URI
+    * **href**: a string representing a URI
     * **meta**: (OPTIONAL) a meta object containing non-standard meta-information about the link
 
   The following fields are REQUIRED for implementing pagination:
