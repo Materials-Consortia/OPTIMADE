@@ -282,8 +282,8 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   
   * `null`
   * a string representing a URI, or
-  * an object ("link object") with fields
-    * **href**: a string representing a URI
+  * a dictionary ("link object") with fields
+      * **href**: a string representing a URI
     * **meta**: (OPTIONAL) a meta object containing non-standard meta-information about the link
 
   The following fields are REQUIRED for implementing pagination:
