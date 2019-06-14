@@ -1962,7 +1962,7 @@ as specified in this specification.
 
 ```
 #BEGIN ERE identifiers
-[a-z_][a-z_0-9]*
+[a-z_][a-z_0-9]*(\.[a-z_][a-z_0-9]*)*
 #END ERE identifiers
 
 #BEGIN ERE numbers
