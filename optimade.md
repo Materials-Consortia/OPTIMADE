@@ -1674,18 +1674,21 @@ by multiple chemical elements.
 ## <a name="h.6.4">6.4. Reference Entries</a>
 
 `"reference"` entries describe bibliographic references. The following properties
-matching the [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf)
-are used with string values unless defined otherwise:
-* `address`, `annote`, `author` (string or a list of strings), `booktitle`,
-  `chapter`, `crossref`, `edition`, `editor` (string or a list of strings), 
-  `howpublished`, `institution`, `journal`, `key`, `month`, `note`, `number`,
-  `organization`, `pages`, `publisher`, `school`, `series`, `title`, `type`,
-  `volume`, `year`.
+are used to provide the bibliographic details:
+* **address**, **annote**, **booktitle**, **chapter**, **crossref**,
+  **edition**, **editor**, **howpublished**, **institution**, **journal**,
+  **key**, **month**, **note**, **number**, **organization**, **pages**,
+  **publisher**, **school**, **series**, **title**, **type**, **volume**,
+  **year**: meanings of these properties match the
+  [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf), values
+  are strings;
+* **authors** and **editors**: lists of *person objects* which are dictionaries
+  with the following fields:
+  * **name**: name of the person, REQUIRED.
+  * **firstname**, **lastname**: parts of the person's name, OPTIONAL.
+* **doi** and **url**, strings.
 
-In addition the following properties are also supported to compensate the lack
-of them in the BibTeX:
-* `doi`,
-* `url`.
+At least one of the aforementioned properties is REQUIRED.
 
 Example:
 
@@ -1695,7 +1698,13 @@ Example:
     "type": "reference",
     "id": "Dijkstra1968",
     "attributes": {
-      "author": "Edsger Dijkstra",
+      "authors": [
+        {
+          "name": "Edsger Dijkstra",
+          "firstname": "Edsger",
+          "lastname": "Dijkstra"
+        }
+      ],
       "year": "1968",
       "title": "Go To Statement Considered Harmful",
       "journal": "Communications of the ACM",
@@ -1761,7 +1770,9 @@ Example:
       "type": "reference",
       "id": "Dijkstra1968",
       "attributes": {
-        "author": [ "Edsger Dijkstra" ],
+        "author": [
+            { "name": "Edsger Dijkstra" }
+        ],
         "year": "1968",
         "title": "Go To Statement Considered Harmful",
         "journal": "Communications of the ACM",
