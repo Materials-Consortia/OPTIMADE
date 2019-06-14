@@ -264,7 +264,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     Example:  
     For a deprecation warning
 
-    ```json
+    ```jsonc
     {
       "id": "dep_chemical_formula_01",
       "type": "warning",
@@ -287,7 +287,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   * Example:  
     For a request made to <http://example.com/optimade/v0.9/structures/?filter=a=1> AND b=2
 
-    ```json
+    ```jsonc
     {
       "meta": {
         "query": {
@@ -337,7 +337,7 @@ The response MAY OPTIONALLY also return resources related to the primary data in
 
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
-    ```json
+    ```jsonc
     {
       "links": {
         "base_url": {
@@ -366,7 +366,7 @@ All other fields are OPTIONAL.
 
 An example of a full response:
 
-```json
+```jsonc
 {
   "links": {
     "next": null,
@@ -607,7 +607,7 @@ non-standard meta-information about the object
 
 Example:
 
-```json
+```jsonc
 {
   "data": [
     {
@@ -669,7 +669,7 @@ a single response object or `null` if there is no response object to return.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "structure",
@@ -753,7 +753,7 @@ response dictionary MUST also include the field:
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "info",
@@ -793,7 +793,7 @@ Example:
 
 Example for an index meta-database:
 
-```json
+```jsonc
 {
   "data": {
     "type": "info",
@@ -846,7 +846,7 @@ dictionary.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "description": "a structure",
@@ -914,7 +914,7 @@ The resource objects' response dictionaries MUST include the following fields:
 
 Example:
 
-```json
+```jsonc
 {
   "data": [
     {
@@ -1121,6 +1121,10 @@ The following tokens are used in the filter query component:
   * Examples of _invalid_ numbers (although they MAY contain correct numbers as substrings):
 
     * 1.234D12, .e1, -.E1, +.E2, 1.23E+++, +-123
+
+  * **Note**: this number representation is more general than the number representation
+    in JSON (for instance, `1.` is a valid numeric value for the filtering language
+    specified here, but is not a valid float number in JSON, where one must write `1.0` instead).
 
   While the filtering language supports tests for equality between
   properties of floating point type and decimal numbers given in the
@@ -1469,7 +1473,7 @@ the Cartesian x, y, z directions.
   of the `lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions
   have no significance beyond fulfilling these requirements.
 * **Examples**:
-  * `[[4.,0.,0.],[0.,4.,0.],[0.,1.,4.]]` represents a cell, where the first vector is
+  * `[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is
   `(4, 0, 0)`, i.e., a vector aligned along the `x` axis of length 4 Å; the second vector is
   `(0, 4, 0)`; and the third vector is `(0, 1, 4)`.
 
@@ -1575,9 +1579,9 @@ by multiple chemical elements.
   * `"BaCa": {"chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with
   50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5
   a.m.u.
-  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.}`: any site with this
+  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0}`: any site with this
   species is occupied by a carbon isotope with mass 12.
-  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this
+  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0}`: any site with this
   species is occupied by a carbon isotope with mass 13.
 
 ### <a name="h.6.2.10">6.2.10. assemblies</a>
@@ -1624,7 +1628,7 @@ by multiple chemical elements.
   representations are possible:
     * Using a single species:
 
-      ```json
+      ```jsonc
       {
         "cartesian_site_positions": [[0,0,0]],
         "species_at_sites": ["SiGe-vac"],
@@ -1640,14 +1644,14 @@ by multiple chemical elements.
 
     * Using multiple species and the assemblies:
 
-      ```json
+      ```jsonc
       {
         "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
         "species_at_sites": ["Si", "Ge", "vac"],
         "species": {
-          "Si": { "chemical_symbols": ["Si"], "concentration": [1.] },
-          "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.] },
-          "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.] }
+          "Si": { "chemical_symbols": ["Si"], "concentration": [1.0] },
+          "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.0] },
+          "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.0] }
         },
         "assemblies": [
           {
@@ -1664,7 +1668,7 @@ by multiple chemical elements.
   unique ID, the API implementation MUST always provide the same representation for it.
   * The probabilities of occurrence of different assemblies are uncorrelated. So, for instance in the following case with two assemblies:
 
-    ```json
+    ```jsonc
     {
       "assemblies": [
         {
@@ -1707,7 +1711,7 @@ by multiple chemical elements.
 * **Querying**: This property MUST be queryable.
 * **Examples**: A structure having unknown positions and using assemblies:
 
-  ```json
+  ```jsonc
   ["assemblies", "unknown_positions"]
   ```
 
