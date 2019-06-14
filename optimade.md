@@ -476,7 +476,11 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   * _page-based pagination_: using `page_number` and `page_limit` is RECOMMENDED (`page_limit` is equivalent to page "size").
   * _value-based pagination_: using `page_above`/`page_below` and `page_limit` is RECOMMENDED.
   
-Example (skip 50 structures and fetch up to 100): <http://example.com/optimade/v0.9/structures?page_offset=50&page_limit=100>
+  Examples (all OPTIONAL behavior a server MAY implement):
+  * skip 50 structures and fetch up to 100: `/structures?page_offset=50&page_limit=100`
+  * fetch page 2 of up to 50 structures per page: `/structures?page_number=2&page_limit=50`
+  * fetch up to 100 structures above sort-field value `4000` (in this example, server chooses to fetch results sorted
+    by increasing `id`, so `page_above` value refers to an `id` value): `/structures?page_above=4000&page_limit=100`
 
 * **sort**: If supporting sortable queries, an implementation MUST use the `sort` query parameter with format as
   specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting).
