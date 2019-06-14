@@ -1,4 +1,5 @@
 *~
 .*.d
 .svn
+.DS_Store
 Makeconf*
