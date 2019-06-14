@@ -12,6 +12,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 
 [4. API endpoints](#h.4)  
@@ -255,6 +256,31 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **maintainer**: a dictionary providing details about the maintainer of the
       implementation, MUST contain the single field **email** with the maintainer's
       email address.
+  * **warnings**: a list of warning resource objects representing non-critical errors or warnings.  
+    A warning resource object is defined similarly to a [JSON API error object](http://jsonapi.org/format/1.0/#error-objects), but MUST also include the field `type`, which MUST have the value `"warning"`.
+    The field `detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognised search attributes or deprecated features.  
+    The field `status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    This is an exclusive field for error resource objects.
+
+    Example:  
+    For a deprecation warning
+
+    ```json
+    {
+      "id": "dep_chemical_formula_01",
+      "type": "warning",
+      "code": "_exmpl_dep_chemical_formula",
+      "title": "Deprecation Warning",
+      "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
+    }
+    ```
+
+    **Note**: `id`s MUST NOT be trusted to identify the exceptional situations
+    (i.e., they are not error codes, use instead the field `code` for this.
+    `id`s can _only_ be trusted to be unique in the list of warning resource
+    objects, i.e., together with the `type`.  
+    General OPTiMaDe warning codes are specified in [3.3.5. Warnings](#h.3.3.5).  
+
   * Other OPTIONAL additional information _global to the query_ that is not specified
   in this document, MUST start with a database-provider-specific prefix as defined in
   [Appendix 1](#h.app1).
@@ -335,7 +361,9 @@ A response with related resources under `included` are in the JSON API known as
 
 If there were errors in producing the response all other fields MAY be present, but the top-level `data` field MUST be skipped, and the following field MUST be present:
 
-* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects).
+* **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects), where the field `detail` MUST be present.
+All other fields are OPTIONAL.
+
 
 An example of a full response:
 
@@ -423,6 +451,14 @@ respectively, as specified in section [5.2. The Filter Language Syntax](#h.5.2).
 The text in this section describes how the API handles properties that are `null`. 
 It does not regulate the handling of values inside property data structures that can be `null`. 
 The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+
+### <a name="h.3.3.5">3.3.5. Warnings</a>
+
+Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
+Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
+
+Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
+For implementation-specific warnings, they MUST be start with `_` and the database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
 ## <a name="h.3.4">3.4. Index Meta-Database</a>
 
