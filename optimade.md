@@ -491,6 +491,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint
   MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value,
   the key "sortable" with value `true`. This is in addition to each property description (and optional unit).
+  An example is shown in section [4.4.2 Entry Listing Info Endpoints](#h.4.4.2).
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
