@@ -1814,7 +1814,7 @@ UnicodeHighChar = ? [^\x00-\x7F] ? ;
 
 Note: when implementing a parser according this grammar, the
 implementers MAY choose to construct a lexer that ignores all
-whitespace (space, tabs, newlines, vertical tabulation an format feed
+whitespace (spaces, tabs, newlines, vertical tabulation an format feed
 characters, as described in the grammar 'Space' definition), and use
 such lexer to recognize language elements that are described in the
 `(* TOKENS *)` section of the grammar. In that case, the '[Spaces]'
