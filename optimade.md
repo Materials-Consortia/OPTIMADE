@@ -1814,7 +1814,11 @@ Example:
       "id": "Dijkstra1968",
       "attributes": {
         "authors": [
-            { "name": "Edsger Dijkstra" }
+          {
+            "name": "Edsger Dijkstra",
+            "firstname": "Edsger",
+            "lastname": "Dijkstra"
+          }
         ],
         "year": "1968",
         "title": "Go To Statement Considered Harmful",
