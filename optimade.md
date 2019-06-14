@@ -53,6 +53,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. structure\_features](#h.6.2.11)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.4. Database-Provider-Specific Entry Types](#h.6.4)  
 
@@ -262,7 +263,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     Example:  
     For a deprecation warning
 
-    ```json
+    ```jsonc
     {
       "id": "dep_chemical_formula_01",
       "type": "warning",
@@ -285,7 +286,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   * Example:  
     For a request made to <http://example.com/optimade/v0.9/structures/?filter=a=1> AND b=2
 
-    ```json
+    ```jsonc
     {
       "meta": {
         "query": {
@@ -335,7 +336,7 @@ The response MAY OPTIONALLY also return resources related to the primary data in
 
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
-    ```json
+    ```jsonc
     {
       "links": {
         "base_url": {
@@ -364,7 +365,7 @@ All other fields are OPTIONAL.
 
 An example of a full response:
 
-```json
+```jsonc
 {
   "links": {
     "next": null,
@@ -605,7 +606,7 @@ non-standard meta-information about the object
 
 Example:
 
-```json
+```jsonc
 {
   "data": [
     {
@@ -667,7 +668,7 @@ a single response object or `null` if there is no response object to return.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "structure",
@@ -751,7 +752,7 @@ response dictionary MUST also include the field:
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "info",
@@ -791,7 +792,7 @@ Example:
 
 Example for an index meta-database:
 
-```json
+```jsonc
 {
   "data": {
     "type": "info",
@@ -844,7 +845,7 @@ dictionary.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "description": "a structure",
@@ -912,7 +913,7 @@ The resource objects' response dictionaries MUST include the following fields:
 
 Example:
 
-```json
+```jsonc
 {
   "data": [
     {
@@ -1110,6 +1111,10 @@ The following tokens are used in the filter query component:
   * Examples of _invalid_ numbers (although they MAY contain correct numbers as substrings):
 
     * 1.234D12, .e1, -.E1, +.E2, 1.23E+++, +-123
+
+  * **Note**: this number representation is more general than the number representation
+    in JSON (for instance, `1.` is a valid numeric value for the filtering language
+    specified here, but is not a valid float number in JSON, where one must write `1.0` instead).
 
   While the filtering language supports tests for equality between
   properties of floating point type and decimal numbers given in the
@@ -1458,7 +1463,7 @@ the Cartesian x, y, z directions.
   of the `lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions
   have no significance beyond fulfilling these requirements.
 * **Examples**:
-  * `[[4.,0.,0.],[0.,4.,0.],[0.,1.,4.]]` represents a cell, where the first vector is
+  * `[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is
   `(4, 0, 0)`, i.e., a vector aligned along the `x` axis of length 4 Å; the second vector is
   `(0, 4, 0)`; and the third vector is `(0, 1, 4)`.
 
@@ -1470,7 +1475,16 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
   * This property is REQUIRED.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+    e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+  * If a component of the position is unknown, the `null` value should be provided instead. 
+    Otherwise, it should be a float value, expressed in angstrom. Note that if at least one
+    of the coordinates is unknown, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+* **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
+  if you decide to store internally the `cartesian_site_positions` as a float array,
+  you might want to replace `null` values with `NaN` values, the latter being valid float numbers
+  in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated
+  version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
 * **Examples**:
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
   the (positive) `z` axis, 2 Å away from the origin.
@@ -1506,12 +1520,16 @@ by multiple chemical elements.
   * This property is REQUIRED.
   * It MUST be a dictionary, where keys represent the species' name, and values are themselves
   dictionaries with the following keys:
-    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing
-    this species. It MUST be one of the following:
-      * a valid chemical-element name, or
-      * the special value `"X"` to represent a non-chemical element, or
-      * the special value `"vacancy"` to represent that this site has a non-zero probability of having
-      a vacancy (the respective probability is indicated in the `concentration` list, see below).
+    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
+      * It MUST be one of the following:
+        * a valid chemical-element name, or
+        * the special value `"X"` to represent a non-chemical element, or
+        * the special value `"vacancy"` to represent that this site has a non-zero probability of having
+        a vacancy (the respective probability is indicated in the `concentration` list, see below).
+      * If any one entry in the `species` list has a `chemical_symbols` list that 
+        is longer than 1 element, the correct flag MUST be set
+        in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+  
 
     * **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
@@ -1551,9 +1569,9 @@ by multiple chemical elements.
   * `"BaCa": {"chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with
   50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5
   a.m.u.
-  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.}`: any site with this
+  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0}`: any site with this
   species is occupied by a carbon isotope with mass 12.
-  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this
+  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0}`: any site with this
   species is occupied by a carbon isotope with mass 13.
 
 ### <a name="h.6.2.10">6.2.10. assemblies</a>
@@ -1561,8 +1579,10 @@ by multiple chemical elements.
 * **Description**: A description of groups of sites that are statistically correlated.
 * **Requirements/Conventions**:
   * This key is OPTIONAL (it is absent if there are no partial occupancies).
-  * Client implementations MUST check its presence (as its presence changes the interpretation of the
-  structure).
+  * If present, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+  * Client implementations MUST check its presence (as its presence changes the
+    interpretation of the structure).
   * If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have
   the following two keys:
     * **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.  
@@ -1598,7 +1618,7 @@ by multiple chemical elements.
   representations are possible:
     * Using a single species:
 
-      ```json
+      ```jsonc
       {
         "cartesian_site_positions": [[0,0,0]],
         "species_at_sites": ["SiGe-vac"],
@@ -1614,14 +1634,14 @@ by multiple chemical elements.
 
     * Using multiple species and the assemblies:
 
-      ```json
+      ```jsonc
       {
         "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
         "species_at_sites": ["Si", "Ge", "vac"],
         "species": {
-          "Si": { "chemical_symbols": ["Si"], "concentration": [1.] },
-          "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.] },
-          "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.] }
+          "Si": { "chemical_symbols": ["Si"], "concentration": [1.0] },
+          "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.0] },
+          "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.0] }
         },
         "assemblies": [
           {
@@ -1638,7 +1658,7 @@ by multiple chemical elements.
   unique ID, the API implementation MUST always provide the same representation for it.
   * The probabilities of occurrence of different assemblies are uncorrelated. So, for instance in the following case with two assemblies:
 
-    ```json
+    ```jsonc
     {
       "assemblies": [
         {
@@ -1661,6 +1681,29 @@ by multiple chemical elements.
     of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 %
     probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with
     0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
+
+### <a name="h.6.2.11">6.2.11. structure\_features</a>
+* **Description**: A list of strings, flagging which special features are used by
+  the structure.
+* **Requirements/Conventions**: 
+  * This property is REQUIRED.
+  * This property MUST be returned as an empty list if no special features are used.
+  * This list MUST be sorted alphabetically.  
+  * If a special feature listed below is used, the corresponding string MUST be set.
+  * If a special feature listed below is not used, the corresponding string MUST NOT be set. 
+* **List of special structure features**:
+  * `disorder`: This flag MUST be present if any one entry in the `species` list has a 
+    `chemical_symbols` list that is longer than 1 element.
+  * `unknown_positions`: This flag MUST be present if at least one component of the
+    `cartesian_site_positions` list of lists has value `null`.
+  * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.10)
+    list is present.  
+* **Querying**: This property MUST be queryable.
+* **Examples**: A structure having unknown positions and using assemblies:
+
+  ```jsonc
+  ["assemblies", "unknown_positions"]
+  ```
 
 ## <a name="h.6.3">6.3. Calculation Entries</a>
 
