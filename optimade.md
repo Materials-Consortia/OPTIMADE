@@ -111,7 +111,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
     data-interchange format, i.e., an ordered list of elements
     (where each element can have a different type) or a hash table
     (with the limitation that the hash key MUST be a string), respectively.
-* **Resource object**: Represent resources. MUST contain at least the following top-level fields:
+* **Resource object**: Represents resources. MUST contain at least the following top-level fields:
   `id`, `type`.
 * **ID**: A unique identifier referencing a specific resource in the database.
   Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
