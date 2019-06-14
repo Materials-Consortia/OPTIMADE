@@ -1861,7 +1861,7 @@ Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
 (* Identifier syntax *)
 
-Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit }, { '.', LowercaseLetter, { LowercaseLetter | Digit } }, [Spaces] ;
 
 Letter = UppercaseLetter | LowercaseLetter ;
 
@@ -1945,7 +1945,7 @@ identifiers, number, and string values as specified in this specification.
 
 ```
 #BEGIN PCRE identifiers
-[a-z_][a-z_0-9]*
+[a-z_][a-z_0-9]*(\.[a-z_][a-z_0-9]*)*
 #END PCRE identifiers
 
 #BEGIN PCRE numbers
