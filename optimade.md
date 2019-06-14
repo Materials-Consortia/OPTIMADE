@@ -486,7 +486,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting).
   
   It is not required that an implementation supports multiple sort fields for a single query. However, if it does, it
-  again must conform to the JSON API 1.0 spec.
+  again MUST conform to the JSON API 1.0 spec.
   
   If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint
   MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value,
