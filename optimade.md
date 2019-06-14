@@ -183,7 +183,7 @@ request. If no specific response format is specified in the request by
 use of the `response_format` URL query parameter (see below), the default
 response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints MUST support at least the JSON API format.
-Each endpoint MAY OPTIONALLY support multiple formats,
+Each endpoint MAY support multiple formats,
 and declare these formats in their `info` endpoints
 (see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
 
@@ -224,7 +224,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **description**: a longer description of the database provider.
     * **prefix**: database-provider-specific prefix as found in [Appendix 1](#h.app1).
 
-    `provider` MAY OPTIONALLY include these fields:
+    `provider` MAY include these fields:
 
     * **homepage**: a [JSON API links object](http://jsonapi.org/format/1.0/#document-links),
     pointing to the homepage of the database provider, either directly as a string,
@@ -243,7 +243,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       If the `index` meta-database (see section [3.4. Index Meta-Database](#h.3.4)) is implemented by the provider,
       the `index_base_url` field MUST be included.
 
-  `meta` MAY OPTIONALLY also include these fields:
+  `meta` MAY also include these fields:
 
   * **data\_available**: an integer containing the total number of data objects
     available in the database.
@@ -326,7 +326,7 @@ or a _list_ of JSON API resource objects. Every resource object needs the `type`
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
-The response MAY OPTIONALLY also return resources related to the primary data in the field:
+The response MAY also return resources related to the primary data in the field:
 
 * **links**: a [JSON API links member](http://jsonapi.org/format/1.0/#document-links)
   containing the JSON API links objects:
@@ -888,7 +888,7 @@ provides information on the links between immediately related implementations (i
 of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 Parent and Child Objects](#h.4.4.2)).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
-Alternatively, it MAY optionally handle the parameters specified in section
+Alternatively, it MAY handle the parameters specified in section
 [4.2.1. URL Query Parameters](#h.4.2.1) for single entry endpoints.
 
 ### <a name="h.4.4.1">4.4.1. JSON API Response Schema</a>
@@ -1226,7 +1226,7 @@ Examples:
 
 Multi-valued properties can be thought of as lists or sets of strings or numbers. 
 In the following, a set of `values` is one or more strings or numbers separated by a comma (",").
-An implementation MAY OPTIONALLY also support identifiers in the value set.
+An implementation MAY also support identifiers in the value set.
 
 The following constructs MUST be supported:
 
@@ -1236,7 +1236,7 @@ The following constructs MUST be supported:
 * `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
 * `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the multi-valued property. 
 
-The following construct may OPTIONALLY be supported:
+The following construct MAY be supported:
 
 * `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator <=)
 
@@ -1260,7 +1260,7 @@ element count.
 * `id1:id2:... HAS ONLY val1:val2:...`
 
 Finally, all the above constructs that allow a value or lists of
-values on the right-hand side may OPTIONALLY allow `<operator> value`
+values on the right-hand side MAY allow `<operator> value`
 in each place a value can appear. In that case, a match requires that
 the equality or inequality is fulfilled. For example:
 
