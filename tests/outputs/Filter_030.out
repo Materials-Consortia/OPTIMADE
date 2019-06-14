@@ -1,6 +1,4 @@
-RUN /dev/fd/63
-java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
-Parse tree from /dev/fd/63:
+Parse tree from tests/cases/Filter_030.inp:
 Filter(9999)
   Expression(9999)
     ExpressionClause(9999)
@@ -8,27 +6,37 @@ Filter(9999)
         PredicateComparison(9999)
           LengthComparison(9999)
             LENGTH(9999)
-              TOKEN_10(9999): "LENGTH", line: 1, col: 1
+              TOKEN_44(9999): "L", line: 1, col: 1
+              TOKEN_37(9999): "E", line: 1, col: 2
+              TOKEN_46(9999): "N", line: 1, col: 3
+              TOKEN_39(9999): "G", line: 1, col: 4
+              TOKEN_52(9999): "T", line: 1, col: 5
+              TOKEN_40(9999): "H", line: 1, col: 6
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 7
             Identifier(9999)
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 8
-              Letter(9999)
-                TOKEN_93(9999): "l", line: 1, col: 9
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 10
-              Letter(9999)
-                TOKEN_94(9999): "m", line: 1, col: 11
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 12
-              Letter(9999)
-                TOKEN_95(9999): "n", line: 1, col: 13
-              Letter(9999)
-                TOKEN_101(9999): "t", line: 1, col: 14
-              Letter(9999)
-                TOKEN_100(9999): "s", line: 1, col: 15
-              Digit(9999)
-                TOKEN_36(9999): "4", line: 1, col: 17
-              Digit(9999)
-                TOKEN_34(9999): "2", line: 1, col: 18
-Error: in /dev/fd/63: line 1:
-    unexpected end of file
+              LowercaseLetter(9999)
+                TOKEN_69(9999): "e", line: 1, col: 8
+              LowercaseLetter(9999)
+                TOKEN_76(9999): "l", line: 1, col: 9
+              LowercaseLetter(9999)
+                TOKEN_69(9999): "e", line: 1, col: 10
+              LowercaseLetter(9999)
+                TOKEN_77(9999): "m", line: 1, col: 11
+              LowercaseLetter(9999)
+                TOKEN_69(9999): "e", line: 1, col: 12
+              LowercaseLetter(9999)
+                TOKEN_78(9999): "n", line: 1, col: 13
+              LowercaseLetter(9999)
+                TOKEN_84(9999): "t", line: 1, col: 14
+              LowercaseLetter(9999)
+                TOKEN_83(9999): "s", line: 1, col: 15
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 16
+Error: in tests/cases/Filter_030.inp: line 1:
+    unexpected token "4", expected one of "<", ">", "=", or "!"
+
+LENGTH elements 42
+                ^
