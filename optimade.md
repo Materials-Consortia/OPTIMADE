@@ -1725,7 +1725,7 @@ are used to provide the bibliographic details:
   with the following fields:
   * **name**: full name of the person, REQUIRED.
   * **firstname**, **lastname**: parts of the person's name, OPTIONAL.
-* **doi** and **url**, strings.
+* **doi** and **url**: values are strings.
 
 At least one of the aforementioned properties is REQUIRED.
 
