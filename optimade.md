@@ -1236,7 +1236,7 @@ The following construct may OPTIONALLY be supported:
 
 * `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator <=)
 
-This construct is optional as it may be difficult to realize in some
+This construct is OPTIONAL as it may be difficult to realize in some
 underlying database implementations. However, if the desired search is
 over a property that can only take on a finite set of values (e.g.,
 chemical elements) a client can formulate an equivalent search by inverting
@@ -1336,9 +1336,9 @@ with an error. The same applies for comparisons of two properties, e.g.
 ### Optional filter features
 
 Some features of the filtering language are marked OPTIONAL. An
-implementation that encounters an optional feature that it does not
+implementation that encounters an OPTIONAL feature that it does not
 support MUST respond with error `501 Not Implemented` with an
-explanation of which optional construct the error refers to.
+explanation of which OPTIONAL construct the error refers to.
 
 # <a name="h.6">6. Entry List</a>
 
@@ -1761,7 +1761,7 @@ ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
 
 ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value} ;
-(* Support for the optional Operator in ValueZip is OPTIONAL *)
+(* Support for Operator in ValueZip is OPTIONAL *)
 
 ValueZipList = ValueZip, { Comma, ValueZip } ;
 
