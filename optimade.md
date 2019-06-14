@@ -101,10 +101,19 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
   (e.g., structure or calculation).
-* **Property**: Anything that can be in the filtering of results.
-* **Field**: A property that can be requested as partial output from the API.
+* **Field**: A key in a JSON object.
+* **Property**: A field and the field's value collectively in a JSON object.
+* **Property Value Types**:
+  * **string**, **integer**, **float**, **boolean**, **null value**: Base data
+    types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
+  * **list**, **dictionary**: Collection of base types with the meaning they have in the JSON
+    data-interchange format, i.e., an ordered list of elements
+    (where each element can have a different type) or a hash table
+    (with the limitation that the hash key MUST be a string), respectively.
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
+* **Resource property**: Special property for resource objects.
+  The only kind of property, whose field can be queried (using `filter`, see section [5. API Filtering Format Specification](#h.5)).
 * **ID**: A unique identifier referencing a specific resource in the database.
   Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
   IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
@@ -114,13 +123,6 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   database that MUST be immutable.
 * **Reserved words**: The list of reserved words in this standard is:
   `info`.
-* **Property Types**:
-  * **string**, **integer**, **float**, **boolean**, **null value**: Base data
-    types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
-  * **list**, **dictionary**: Collection of base types with the meaning they have in the JSON
-    data-interchange format, i.e., an ordered list of elements
-    (where each element can have a different type) or a hash table
-    (with the limitation that the hash key MUST be a string), respectively.
 
 # <a name="h.3">3. General API Requirements and Conventions</a>
 
