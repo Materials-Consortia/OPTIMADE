@@ -22,18 +22,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2. Single Entry Endpoints](#h.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.1. URL Query Parameters](#h.4.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API Response Schema](#h.4.2.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.3. General Entry Listing All Endpoint](#h.4.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. URL Query Parameters](#h.4.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. JSON API Response Schema](#h.4.3.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info Endpoints](#h.4.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL Info Endpoint](#h.4.4.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry Listing Info Endpoints](#h.4.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links Endpoint](#h.4.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. JSON API Response Schema](#h.4.5.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. Parent and Child Objects](#h.4.5.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. Provider Objects](#h.4.5.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index Meta-Database Links Endpoint](#h.4.5.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom Extension Endpoints](#h.4.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.3. Info Endpoints](#h.4.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. Base URL Info Endpoint](#h.4.3.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. Entry Listing Info Endpoints](#h.4.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.4. Links Endpoint](#h.4.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. JSON API Response Schema](#h.4.4.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Parent and Child Objects](#h.4.4.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.3. Provider Objects](#h.4.4.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.4. Index Meta-Database Links Endpoint](#h.4.4.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Custom Extension Endpoints](#h.4.5)  
 
 [5. API Filtering Format Specification](#h.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical Tokens](#h.5.1)  
@@ -56,8 +53,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. structure\_features](#h.6.2.11)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Database-Provider-Specific Entry Types](#h.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Reference Entries](#h.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.5. Database-Provider-Specific Entry Types](#h.6.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.6. Relationships Used by Multiple Entry Types](#h.6.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.1. references](#h.6.6.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.2. calculations](#h.6.6.2)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
 [Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
@@ -150,7 +152,7 @@ A database provider MAY choose to only support a subset of possible
 versions. The client can find out which versions are supported using
 the `available_api_versions` field of the `attributes` field from a
 query to the base URL `info` endpoint (see section
-[4.4.1. Base URL Info Endpoint](#h.4.4.1)). The database
+[4.3.1. Base URL Info Endpoint](#h.4.3.1)). The database
 provider SHOULD strive to implement the latest subversion of any major
 and minor version supported. Specifically, the latest version of this
 standard SHOULD be supported.
@@ -181,9 +183,9 @@ request. If no specific response format is specified in the request by
 use of the `response_format` URL query parameter (see below), the default
 response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints MUST support at least the JSON API format.
-Each endpoint MAY OPTIONALLY support multiple formats,
+Each endpoint MAY support multiple formats,
 and declare these formats in their `info` endpoints
-(see section [4.4.2. Entry Listing Info Endpoints](#h.4.4.2)).
+(see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
 
 An API implementation MAY return other formats than specified here.
 These can be implemented and documented according to the database provider.
@@ -222,7 +224,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **description**: a longer description of the database provider.
     * **prefix**: database-provider-specific prefix as found in [Appendix 1](#h.app1).
 
-    `provider` MAY OPTIONALLY include these fields:
+    `provider` MAY include these fields:
 
     * **homepage**: a [JSON API links object](http://jsonapi.org/format/1.0/#document-links),
     pointing to the homepage of the database provider, either directly as a string,
@@ -241,7 +243,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       If the `index` meta-database (see section [3.4. Index Meta-Database](#h.3.4)) is implemented by the provider,
       the `index_base_url` field MUST be included.
 
-  `meta` MAY OPTIONALLY also include these fields:
+  `meta` MAY also include these fields:
 
   * **data\_available**: an integer containing the total number of data objects
     available in the database.
@@ -265,7 +267,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     Example:  
     For a deprecation warning
 
-    ```json
+    ```jsonc
     {
       "id": "dep_chemical_formula_01",
       "type": "warning",
@@ -288,7 +290,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   * Example:  
     For a request made to <http://example.com/optimade/v0.9/structures/?filter=a=1> AND b=2
 
-    ```json
+    ```jsonc
     {
       "meta": {
         "query": {
@@ -324,7 +326,7 @@ or a _list_ of JSON API resource objects. Every resource object needs the `type`
 and its attributes (described in section [4. API Endpoints](#h.4))
 need to be in a dictionary corresponding to the `attributes` field.
 
-The response MAY OPTIONALLY also return resources related to the primary data in the field:
+The response MAY also return resources related to the primary data in the field:
 
 * **links**: [JSON API links](http://jsonapi.org/format/1.0/#document-links) is MANDATORY for implementing pagination.
 (see section [4.1.1 URL Query Parameters `page_*`](#h.4.1.1)) Each field of a links object, i.e. a "link", must be either
@@ -366,7 +368,6 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * **last**: the last page of data.
   * **first**: the first page of data.
 
-
 * **included**: a list of
 [JSON API resource objects](http://jsonapi.org/format/1.0/#document-resource-objects)
 related to the primary data contained in `data`.  
@@ -381,7 +382,7 @@ All other fields are OPTIONAL.
 
 An example of a full response:
 
-```json
+```jsonc
 {
   "links": {
     "next": null,
@@ -481,7 +482,7 @@ of all databases of a given provider.
 Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the `info` and `links` endpoints,
-see sections [4.4. Info Endpoints](#h.4.4) and [4.5. Links Endpoint](#h.4.5).
+see sections [4.3. Info Endpoints](#h.4.3) and [4.4. Links Endpoint](#h.4.4).
 It MUST not expose any entry listing endpoints (e.g., `structures`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
@@ -491,7 +492,7 @@ The `index_base_url` field MUST be included in every response in the `provider` 
 top-level `meta` field (see section [3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)).
 
 The `is_index` field under `attributes`, as well as the `relationships` field, MUST be included in the
-`info` endpoint for the index meta-database (see section [4.4.1. Base URL Info Endpoint](#h.4.4.1)).
+`info` endpoint for the index meta-database (see section [4.3.1. Base URL Info Endpoint](#h.4.3.1)).
 The value for `is_index` MUST be `true`.
 
 > **Note**: A list of database providers acknowledged by the
@@ -505,7 +506,6 @@ following endpoints:
 
 * an "entry listing" endpoint
 * a "single entry" endpoint
-* a general filtering `all` endpoint that can search all entry types
 * an introspection `info` endpoint
 * a `links` endpoint to discover related implementations
 * a custom `extensions` endpoint prefix  
@@ -648,11 +648,11 @@ contain the field
 * **meta**: a [JSON API meta object](https://jsonapi.org/format/1.0/#document-meta) that contains
 non-standard meta-information about the object
 * **relationships**: a dictionary containing references to other resource objects as defined in
-[JSON API relationships object](http://jsonapi.org/format/1.0/#document-resource-object-relationships)
+[6.6. Relationships Used by Multiple Entry Types](#h.6.6)
 
 Example:
 
-```json
+```jsonc
 {
   "data": [
     {
@@ -714,7 +714,7 @@ a single response object or `null` if there is no response object to return.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "structure",
@@ -737,30 +737,7 @@ Example:
 }
 ```
 
-## <a name="h.4.3">4.3. General Entry Listing All Endpoint</a>
-
-The 'general entry listing endpoint' returns a list of entries representing all
-entries a database provides, regardless of type. This endpoint MUST be provided
-at the path "&lt;base\_url&gt;/all". The purpose of this endpoint is to allow more
-general searches across entry types. The general entry listing endpoint MUST
-accept both GET and a POST-type requests, with provided POST-type URL query parameters
-overriding duplicate URL query parameters provided as GET URL query parameters.
-
-### <a name="h.4.3.1">4.3.1. URL Query Parameters</a>
-
-The following URL query parameters MUST be recognized and handled: **filter**, **response\_fields**,
-**response\_format**, **response\_limit**, **email\_address**. The meaning of these URL query
-parameters are as defined above in section [4.1.1. URL Query Parameters](#h.4.1.1). Furthermore,
-custom OPTIONAL URL query parameters, also described above, are also allowed.
-
-Example: <http://example.com/optimade/v0.9/all?response_fields=id,url&response_format=jsonapi>
-
-### <a name="h.4.3.2">4.3.2. JSON API Response Schema</a>
-
-The response for a general entry `all` endpoint is the same as for "entry listing" endpoint responses,
-see section [4.1.2 JSON API Response Schema](#h.4.1.2).
-
-## <a name="h.4.4">4.4. Info Endpoints</a>
+## <a name="h.4.3">4.3. Info Endpoints</a>
 
 Info endpoints provide introspective information, either about the API implementation itself,
 or about specific entry types.
@@ -769,13 +746,12 @@ Info endpoints are constructed by appending "**info**" to any of:
 
 1. the base URL (e.g., <http://example.com/optimade/v0.9/info/>)
 2. type-specific entry listing endpoints (e.g., <http://example.com/optimade/v0.9/structures/info/>)
-3. the general entry listing endpoint (e.g., <http://example.com/optimade/v0.9/all/info/>)
 
 The types and output content of these info endpoints are described in more detail in the subsections
 below. Common for them all are that the `data` field SHOULD return only a single resource object.
 If no resource object is provided, the value of the `data` field MUST be `null`.
 
-### <a name="h.4.4.1">4.4.1. Base URL Info Endpoint</a>
+### <a name="h.4.3.1">4.3.1. Base URL Info Endpoint</a>
 
 The Info endpoint on the base URL or directly after the version number (e.g.
 <http://example.com/optimade/v0.9/info>) returns information relating to the API
@@ -822,7 +798,7 @@ response dictionary MUST also include the field:
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "info",
@@ -850,7 +826,6 @@ Example:
       "available_endpoints": [
         "structures",
         "calculations",
-        "all",
         "info",
         "links"
       ],
@@ -863,7 +838,7 @@ Example:
 
 Example for an index meta-database:
 
-```json
+```jsonc
 {
   "data": {
     "type": "info",
@@ -899,7 +874,7 @@ Example for an index meta-database:
 }
 ```
 
-### <a name="h.4.4.2">4.4.2. Entry Listing Info Endpoints</a>
+### <a name="h.4.3.2">4.3.2. Entry Listing Info Endpoints</a>
 
 Entry listing info endpoints are of the form "&lt;base\_url&gt;/&lt;entry\_type&gt;/info/"
 (e.g., <http://example.com/optimade/v0.9/structures/info/>).  
@@ -907,8 +882,8 @@ The response for these endpoints MUST include the following information in the `
 
 * **description**: Description of the entry.
 * **properties**: A dictionary describing queryable properties for this entry type,
-where each key is a property ID. Each value is a dictionary, with the *required* key `description`
-and *optional* keys `unit` and `sortable`.
+where each key is a property ID. Each value is a dictionary, with the REQUIRED key `description`
+and OPTIONAL key `unit`.
 * **formats**: List of output formats available for this type of entry.
 * **output\_fields\_by\_format**: Dictionary of available output fields for this entry type,
 where the keys are the values of the `formats` list and the values are the keys of the `properties`
@@ -916,7 +891,7 @@ dictionary.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "description": "a structure",
@@ -945,7 +920,7 @@ Example:
 }
 ```
 
-## <a name="h.4.5">4.5. Links Endpoint</a>
+## <a name="h.4.4">4.4. Links Endpoint</a>
 
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current
 implementation. The endpoint MUST be provided at the path "&lt;base_url&gt;/links".
@@ -953,19 +928,19 @@ implementation. The endpoint MUST be provided at the path "&lt;base_url&gt;/link
 It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level:
 that is, Info endpoints provide information on the given implementation, while the Links endpoint
 provides information on the links between immediately related implementations (in particular, an array
-of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 Parent and Child Objects](#h.4.5.2)).
+of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 Parent and Child Objects](#h.4.4.2)).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
-Alternatively, it MAY optionally handle the parameters specified in section
+Alternatively, it MAY handle the parameters specified in section
 [4.2.1. URL Query Parameters](#h.4.2.1) for single entry endpoints.
 
-### <a name="h.4.5.1">4.5.1. JSON API Response Schema</a>
+### <a name="h.4.4.1">4.4.1. JSON API Response Schema</a>
 
 The resource objects' response dictionaries MUST include the following fields:
 
 * **type**: MUST be either `"parent"`, `"child"`, or `"provider"`.  
-  These objects are described in detail in sections [4.5.2. Parent and Child Objects](#h.4.5.2)
-  and [4.5.3. Provider Objects](#h.4.5.3).
+  These objects are described in detail in sections [4.4.2. Parent and Child Objects](#h.4.4.2)
+  and [4.4.3. Provider Objects](#h.4.4.3).
 * **id**: MUST be unique.
 * **attributes**: Dictionary that MUST contain the following fields:
   * **name**: Human-readable name for the OPTiMaDe API implementation a client may provide in a list
@@ -985,7 +960,7 @@ The resource objects' response dictionaries MUST include the following fields:
 
 Example:
 
-```json
+```jsonc
 {
   "data": [
     {
@@ -1037,7 +1012,7 @@ Example:
 }
 ```
 
-### <a name="h.4.5.2">4.5.2. Parent and Child Objects</a>
+### <a name="h.4.4.2">4.4.2. Parent and Child Objects</a>
 
 Resource objects that MAY be present under the Links endpoint.
 
@@ -1051,7 +1026,7 @@ implementation's layer.
 
 > **Note**: The RECOMMENDED number of layers is two.
 
-### <a name="h.4.5.3">4.5.3. Provider Objects</a>
+### <a name="h.4.4.3">4.4.3. Provider Objects</a>
 
 `"provider"` objects are meant to indicate links to an "Index meta-database" hosted by database
 providers. The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
@@ -1061,7 +1036,7 @@ A known list of providers can be found in [Appendix 1](#h.app1).
 > **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to the OPTiMaDe main repository (make a pull request).
 A link to the main repository may be found at the [OPTiMaDe homepage](http://www.optimade.org).
 
-### <a name="h.4.5.4">4.5.4. Index Meta-Database Links Endpoint</a>
+### <a name="h.4.4.4">4.4.4. Index Meta-Database Links Endpoint</a>
 
 If the provider implements an "Index meta-database" (see section [3.4 Index Meta-Database](#h.3.4)),
 it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation
@@ -1070,16 +1045,16 @@ of the provider's other OPTiMaDe databases.
 This will make all OPTiMaDe databases and implementations by the provider discoverable as `"child"`
 objects under the Links endpoint of the "Index meta-database".
 
-## <a name="h.4.6">4.6. Custom Extension Endpoints</a>
+## <a name="h.4.5">4.5. Custom Extension Endpoints</a>
 
 API implementors can provide custom endpoints under the Extensions endpoint.
 They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
 
 # <a name="h.5">5. API Filtering Format Specification</a>
 
-An OPTIMaDe filter expression is passed in the parameter `filter`
-either as an URL query parameter as specified by jsonapi, or as part
-of a POST request as described in [4.3. General entry listing 'All' endpoint](#h.4.3).
+An OPTiMaDe filter expression is passed in the parameter `filter`
+as an URL query parameter as 
+[specified by JSON API](https://jsonapi.org/format/1.0/#fetching-filtering).
 The filter expression allows desired properties to be compared against search
 values; several such comparisons can be combined using the logical
 conjunctions AND, OR, NOT, and parentheses, with their usual
@@ -1106,12 +1081,19 @@ Or, fully URL encoded :
 
 The following tokens are used in the filter query component:
 
-* **Property names** (see section [6. Entry List](#h.6)): Are to follow the identifier
-  syntax of programming languages -- the first character MUST be a letter, the subsequent symbols
-  MUST be alphanumeric; the underscore ("\_", ASCII 95 dec (0x5F)) is considered to be a letter.
-  Identifiers are case-sensitive. The length of the identifiers is not limited, except that when passed as a
-  URL query parameter the whole
-  query SHOULD NOT be longer than the limits imposed by the URI specification.
+* **Property names** (see section [6. Entry List](#h.6)): the first
+  character MUST be a lowercase letter, the subsequent symbols MUST be
+  composed of lowercase letters or digits; the underscore ("\_", ASCII
+  95 dec (0x5F)) is considered to be a lower-case letter when defining
+  identifiers.  The length of the identifiers is not limited, except
+  that when passed as a URL query parameter the whole query SHOULD NOT
+  be longer than the limits imposed by the URI specification. This
+  definition is similar to one used in most widespread programming
+  languages, execpt that OPTiMaDe limits allowed letter set to
+  lowercase letters only. This allows to tell OPTiMaDe identifiers and
+  operator keywords apart unambiguously without consulting and
+  reserved word tables and to encode this disinction consicely in the
+  EBNF Filter Language grammar.
 
   Examples of valid property names:
 
@@ -1123,6 +1105,7 @@ The following tokens are used in the filter query component:
 
   * `0_kvak` (starts with a number);
   * `"foo bar"` (contains space; contains quotes)
+  * `"BadLuck"` (contains upper-case letters)
 
   Identifiers that start with an underscore are specific to a database provider,
   and MUST be on the format of a database-provider-specific prefix as defined in [Appendix 1](#h.app1).
@@ -1176,6 +1159,10 @@ The following tokens are used in the filter query component:
 
     * 1.234D12, .e1, -.E1, +.E2, 1.23E+++, +-123
 
+  * **Note**: this number representation is more general than the number representation
+    in JSON (for instance, `1.` is a valid numeric value for the filtering language
+    specified here, but is not a valid float number in JSON, where one must write `1.0` instead).
+
   While the filtering language supports tests for equality between
   properties of floating point type and decimal numbers given in the
   filter string, such comparisons come with the usual caveats for
@@ -1201,6 +1188,9 @@ The following tokens are used in the filter query component:
   logical conjunctions, and a number of keyword operators discussed in the next
   section.
 
+  In future extensions, operator tokens that are words MUST contain
+  only upper-case letters. This requirement guarantees that no
+  operator token will ever clash with a property name.
 
 ## <a name="h.5.2">5.2. The Filter Language Syntax</a>
 
@@ -1209,11 +1199,7 @@ All filtering expressions MUST follow the
 grammar of [Appendix 2](#h.app2) of this specification. The appendix
 contains a complete machine-readable EBNF, including the definition
 of the lexical tokens described above in [section '5.1. Lexical
-tokens'](#h.5.1). Note that tokens should be matched using the longest match
-convention and all whitespace (i.e., space and characters that are
-represented by the C escape sequences `\t\n\r\f\v` which constitute the
-[:space: character class of POSIX EREs](https://en.wikipedia.org/wiki/Escape_sequences_in_C)) 
-between tokens should then be discarded. The EBNF is enclosed in special strings constructed
+tokens'](#h.5.1). The EBNF is enclosed in special strings constructed
 as `BEGIN` and `END`, both followed by `EBNF GRAMMAR Filter`, to enable automatic
 extraction.
 
@@ -1283,7 +1269,7 @@ Examples:
 
 Multi-valued properties can be thought of as lists or sets of strings or numbers. 
 In the following, a set of `values` is one or more strings or numbers separated by a comma (",").
-An implementation MAY OPTIONALLY also support identifiers in the value set.
+An implementation MAY also support identifiers in the value set.
 
 The following constructs MUST be supported:
 
@@ -1293,11 +1279,11 @@ The following constructs MUST be supported:
 * `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
 * `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the multi-valued property. 
 
-The following construct may OPTIONALLY be supported:
+The following construct MAY be supported:
 
 * `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator <=)
 
-This construct is optional as it may be difficult to realize in some
+This construct is OPTIONAL as it may be difficult to realize in some
 underlying database implementations. However, if the desired search is
 over a property that can only take on a finite set of values (e.g.,
 chemical elements) a client can formulate an equivalent search by inverting
@@ -1317,7 +1303,7 @@ element count.
 * `id1:id2:... HAS ONLY val1:val2:...`
 
 Finally, all the above constructs that allow a value or lists of
-values on the right-hand side may OPTIONALLY allow `<operator> value`
+values on the right-hand side MAY allow `<operator> value`
 in each place a value can appear. In that case, a match requires that
 the equality or inequality is fulfilled. For example:
 
@@ -1397,9 +1383,9 @@ with an error. The same applies for comparisons of two properties, e.g.
 ### Optional filter features
 
 Some features of the filtering language are marked OPTIONAL. An
-implementation that encounters an optional feature that it does not
+implementation that encounters an OPTIONAL feature that it does not
 support MUST respond with error `501 Not Implemented` with an
-explanation of which optional construct the error refers to.
+explanation of which OPTIONAL construct the error refers to.
 
 # <a name="h.6">6. Entry List</a>
 
@@ -1524,7 +1510,7 @@ the Cartesian x, y, z directions.
   of the `lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions
   have no significance beyond fulfilling these requirements.
 * **Examples**:
-  * `[[4.,0.,0.],[0.,4.,0.],[0.,1.,4.]]` represents a cell, where the first vector is
+  * `[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is
   `(4, 0, 0)`, i.e., a vector aligned along the `x` axis of length 4 Å; the second vector is
   `(0, 4, 0)`; and the third vector is `(0, 1, 4)`.
 
@@ -1536,7 +1522,16 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
   * This property is REQUIRED.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+    e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+  * If a component of the position is unknown, the `null` value should be provided instead. 
+    Otherwise, it should be a float value, expressed in angstrom. Note that if at least one
+    of the coordinates is unknown, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+* **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
+  if you decide to store internally the `cartesian_site_positions` as a float array,
+  you might want to replace `null` values with `NaN` values, the latter being valid float numbers
+  in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated
+  version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
 * **Examples**:
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
   the (positive) `z` axis, 2 Å away from the origin.
@@ -1572,12 +1567,16 @@ by multiple chemical elements.
   * This property is REQUIRED.
   * It MUST be a dictionary, where keys represent the species' name, and values are themselves
   dictionaries with the following keys:
-    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing
-    this species. It MUST be one of the following:
-      * a valid chemical-element name, or
-      * the special value `"X"` to represent a non-chemical element, or
-      * the special value `"vacancy"` to represent that this site has a non-zero probability of having
-      a vacancy (the respective probability is indicated in the `concentration` list, see below).
+    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
+      * It MUST be one of the following:
+        * a valid chemical-element name, or
+        * the special value `"X"` to represent a non-chemical element, or
+        * the special value `"vacancy"` to represent that this site has a non-zero probability of having
+        a vacancy (the respective probability is indicated in the `concentration` list, see below).
+      * If any one entry in the `species` list has a `chemical_symbols` list that 
+        is longer than 1 element, the correct flag MUST be set
+        in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+  
 
     * **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
@@ -1617,9 +1616,9 @@ by multiple chemical elements.
   * `"BaCa": {"chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with
   50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5
   a.m.u.
-  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.}`: any site with this
+  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0}`: any site with this
   species is occupied by a carbon isotope with mass 12.
-  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.}`: any site with this
+  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0}`: any site with this
   species is occupied by a carbon isotope with mass 13.
 
 ### <a name="h.6.2.10">6.2.10. assemblies</a>
@@ -1627,8 +1626,10 @@ by multiple chemical elements.
 * **Description**: A description of groups of sites that are statistically correlated.
 * **Requirements/Conventions**:
   * This key is OPTIONAL (it is absent if there are no partial occupancies).
-  * Client implementations MUST check its presence (as its presence changes the interpretation of the
-  structure).
+  * If present, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+  * Client implementations MUST check its presence (as its presence changes the
+    interpretation of the structure).
   * If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have
   the following two keys:
     * **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.  
@@ -1664,7 +1665,7 @@ by multiple chemical elements.
   representations are possible:
     * Using a single species:
 
-      ```json
+      ```jsonc
       {
         "cartesian_site_positions": [[0,0,0]],
         "species_at_sites": ["SiGe-vac"],
@@ -1680,14 +1681,14 @@ by multiple chemical elements.
 
     * Using multiple species and the assemblies:
 
-      ```json
+      ```jsonc
       {
         "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
         "species_at_sites": ["Si", "Ge", "vac"],
         "species": {
-          "Si": { "chemical_symbols": ["Si"], "concentration": [1.] },
-          "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.] },
-          "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.] }
+          "Si": { "chemical_symbols": ["Si"], "concentration": [1.0] },
+          "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.0] },
+          "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.0] }
         },
         "assemblies": [
           {
@@ -1704,7 +1705,7 @@ by multiple chemical elements.
   unique ID, the API implementation MUST always provide the same representation for it.
   * The probabilities of occurrence of different assemblies are uncorrelated. So, for instance in the following case with two assemblies:
 
-    ```json
+    ```jsonc
     {
       "assemblies": [
         {
@@ -1728,17 +1729,170 @@ by multiple chemical elements.
     probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with
     0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
+### <a name="h.6.2.11">6.2.11. structure\_features</a>
+* **Description**: A list of strings, flagging which special features are used by
+  the structure.
+* **Requirements/Conventions**: 
+  * This property is REQUIRED.
+  * This property MUST be returned as an empty list if no special features are used.
+  * This list MUST be sorted alphabetically.  
+  * If a special feature listed below is used, the corresponding string MUST be set.
+  * If a special feature listed below is not used, the corresponding string MUST NOT be set. 
+* **List of special structure features**:
+  * `disorder`: This flag MUST be present if any one entry in the `species` list has a 
+    `chemical_symbols` list that is longer than 1 element.
+  * `unknown_positions`: This flag MUST be present if at least one component of the
+    `cartesian_site_positions` list of lists has value `null`.
+  * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.10)
+    list is present.  
+* **Querying**: This property MUST be queryable.
+* **Examples**: A structure having unknown positions and using assemblies:
+
+  ```jsonc
+  ["assemblies", "unknown_positions"]
+  ```
+
 ## <a name="h.6.3">6.3. Calculation Entries</a>
 
 `"calculation"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
-## <a name="h.6.4">6.4. Database-Provider-Specific Entry Types</a>
+## <a name="h.6.4">6.4. Reference Entries</a>
+
+`"reference"` entries describe bibliographic references. The following properties
+are used to provide the bibliographic details:
+* **address**, **annote**, **booktitle**, **chapter**, **crossref**,
+  **edition**, **howpublished**, **institution**, **journal**, **key**,
+  **month**, **note**, **number**, **organization**, **pages**, **publisher**,
+  **school**, **series**, **title**, **type**, **volume**, **year**: meanings
+  of these properties match the
+  [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf), values
+  are strings;
+* **authors** and **editors**: lists of *person objects* which are dictionaries
+  with the following fields:
+  * **name**: full name of the person, REQUIRED.
+  * **firstname**, **lastname**: parts of the person's name, OPTIONAL.
+* **doi** and **url**: values are strings.
+
+At least one of the aforementioned properties is REQUIRED.
+
+Example:
+
+```jsonc
+{
+  "data": {
+    "type": "reference",
+    "id": "Dijkstra1968",
+    "attributes": {
+      "authors": [
+        {
+          "name": "Edsger Dijkstra",
+          "firstname": "Edsger",
+          "lastname": "Dijkstra"
+        }
+      ],
+      "year": "1968",
+      "title": "Go To Statement Considered Harmful",
+      "journal": "Communications of the ACM",
+      "doi": "10.1145/362929.362947"
+    }
+  }
+}
+```
+
+## <a name="h.6.5">6.5. Database-Provider-Specific Entry Types</a>
 
 Names of database-provider-specific entry types MUST start with
 database-provider-specific namespace prefix as given in [Appendix 1](#h.app1).
 Database-provider-specific entry types MUST have all properties described above
 in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
+
+## <a name="h.6.6">6.6. Relationships Used by Multiple Entry Types</a>
+
+[JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
+MAY be used to describe the relations between entries. A human-readable description
+of a relationship MAY be provided using the `"description"` field inside the
+`"meta"` dictionary of a relationship.
+
+### <a name="h.6.6.1">6.6.1. References</a>
+
+The `"references"` relationship is used to provide bibliographic references for any
+of the entry types. It relates an entry with any number of `"reference"` entries.
+Entries of type `"reference"`, if mentioned in the returned JSON document,
+SHOULD be included in the top-level `"included"` field as per the
+[JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
+
+Example:
+
+```jsonc
+{
+  "data": {
+    "type": "structure",
+    "id": "example.db:structs:1234",
+    "attributes": {
+      "formula": "Es2",
+      "local_id": "example.db:structs:1234",
+      "url": "http://example.db/structs/1234",
+      "immutable_id": "http://example.db/structs/1234@123",
+      "last_modified": "2007-04-07T12:02Z"
+    },
+    "relationships": {
+      "references": {
+        "data": [
+          { "type": "reference", "id": "Dijkstra1968" },
+          {
+            "type": "reference",
+            "id": "1234",
+            "meta": {
+              "description": "This article has been retracted"
+            }
+          }
+        ]
+      }
+    },
+  },
+  "included": [
+    {
+      "type": "reference",
+      "id": "Dijkstra1968",
+      "attributes": {
+        "authors": [
+          {
+            "name": "Edsger Dijkstra",
+            "firstname": "Edsger",
+            "lastname": "Dijkstra"
+          }
+        ],
+        "year": "1968",
+        "title": "Go To Statement Considered Harmful",
+        "journal": "Communications of the ACM",
+        "doi": "10.1145/362929.362947"
+      }
+    },
+    {
+      "type": "reference",
+      "id": "1234",
+      "attributes": {
+        "doi": "10.1234/1234"
+      }
+    }
+  ]
+}
+```
+
+### <a name="h.6.6.2">6.6.2. Calculations</a>
+
+Relationships with calculations MAY be used to indicate provenance where a structure
+is either an input to or an output of calculations.
+
+> **Note**: We intend to implement in a future version of this API a
+> standardized mechanism to differentiate these two cases, thus allowing
+> databases a common way of exposing the full provenance tree with inputs
+> and outputs between structures and calculations.
+> 
+> At the moment the database providers are suggested to extend their API the
+> way they choose, always using their database-provider-specific prefix in
+> non-standardized fields.
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
 
@@ -1760,7 +1914,7 @@ provided in the main repository. This file serves as a machine-readable list of 
 
 The content of the `providers.json` file follows the same JSON API specifications as the rest of the
 API, in particular the resource objects under the top-level `data` field are defined to be valid
-resource objects for the Links endpoint, see section [4.5.3. Provider Objects](#h.4.5.3).
+resource objects for the Links endpoint, see section [4.4.3. Provider Objects](#h.4.4.3).
 
 > **Note**: If a provider wishes to be added to `providers.json`, please suggest a change to this
 repository (make a PR).
@@ -1771,7 +1925,7 @@ repository (make a PR).
 (* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
-Filter = Expression ;
+Filter = [Spaces], Expression ;
 
 (* Values *)
 
@@ -1780,39 +1934,13 @@ Constant = String | Number ;
 Value = String | Number | Identifier ;
 (* Note: support for Identifier in Value is OPTIONAL *)
 
-ValueList = [ Operator ], Value, {',', [ Operator ], Value } ;
+ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
 
-ValueZip = [ Operator ], Value, ':', [ Operator ], Value, {':', [ Operator ], Value} ;
-(* Support for the optional Operator in ValueZip is OPTIONAL *)
+ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value} ;
+(* Support for Operator in ValueZip is OPTIONAL *)
 
-ValueZipList = ValueZip, { ',', ValueZip } ;
-
-(* White-space: *)
-
-Space = ' ' | '\t' ;
-
-(* Boolean relations: *)
-
-AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
-NOT = "NOT" ;
-OR = "OR" ;
-
-IS = "IS" ;
-KNOWN = "KNOWN" ;
-UNKNOWN = "UNKNOWN" ;
-
-CONTAINS = "CONTAINS" ;
-STARTS = "STARTS" ;
-ENDS = "ENDS" ;
-WITH = "WITH" ;
-
-LENGTH = "LENGTH" ;
-HAS = "HAS" ;
-ALL = "ALL" ;
-ONLY = "ONLY" ;
-EXACTLY = "EXACTLY" ;
-ANY = "ANY" ;
+ValueZipList = ValueZip, { Comma, ValueZip } ;
 
 (* Expressions *)
 
@@ -1820,11 +1948,7 @@ Expression = ExpressionClause, [ OR, Expression ] ;
 
 ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', Expression, ')' );
-
-(* OperatorComparison operator tokens: *)
-
-Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
+ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
 
 Comparison = ConstantFirstComparison |
              IdentifierFirstComparison ;
@@ -1856,23 +1980,65 @@ SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, Va
 
 LengthComparison = LENGTH, Identifier, Operator, Value ;
 
-IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
+IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
+
+(* TOKENS *)
+
+(* Separators: *)
+
+OpeningBrace = '(', [Spaces] ;
+ClosingBrace = ')', [Spaces] ;
+
+Comma = ',', [Spaces] ;
+Colon = ':', [Spaces] ;
+
+(* Boolean relations: *)
+
+AND = 'A', 'N', 'D', [Spaces] ;
+NOT = 'N', 'O', 'T', [Spaces] ;
+OR = 'O', 'R', [Spaces] ;
+
+IS = 'I', 'S', [Spaces] ;
+KNOWN = 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+
+CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S', [Spaces] ;
+STARTS = 'S', 'T', 'A', 'R', 'T', 'S', [Spaces] ;
+ENDS = 'E', 'N', 'D', 'S', [Spaces] ;
+WITH = 'W', 'I', 'T', 'H', [Spaces] ;
+
+LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
+HAS = 'H', 'A', 'S', [Spaces] ;
+ALL = 'A', 'L', 'L', [Spaces] ;
+ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
+EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y', [Spaces] ;
+ANY = 'A', 'N', 'Y', [Spaces] ;
+
+(* OperatorComparison operator tokens: *)
+
+Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
 (* Identifier syntax *)
 
-Identifier = Letter, { Letter | Digit } ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
 
-Letter =
+Letter = UppercaseLetter | LowercaseLetter ;
+
+UppercaseLetter =
     'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
     'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
-    'Y' | 'Z' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' |
-    'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' |
-    'w' | 'x' | 'y' | 'z' | '_'
+    'Y' | 'Z'
+;
+
+LowercaseLetter =
+    'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 
+    'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+    'y' | 'z' | '_'
 ;
 
 (* Strings: *)
 
-String = '"', { EscapedChar }, '"' ;
+String = '"', { EscapedChar }, '"', [Spaces] ;
 
 EscapedChar = UnescapedChar | '\', '"' | '\', '\' ;
 
@@ -1884,17 +2050,12 @@ Punctuator =
     ']' | '^' | '`' | '{' | '|' | '}' | '~'
 ;
 
-(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
-   the syntax used is the onw compatible with Grammatica: *)
-
-UnicodeHighChar = ? [^\x00-\xFF] ? ;
- 
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
 
 Number = [ Sign ] ,
          ( Digits, [ '.', [ Digits ] ] | '.' , Digits ),
-         [ Exponent ] ;
+         [ Exponent ], [Spaces] ;
 
 Exponent =  ( 'e' | 'E' ) , [ Sign ] , Digits ;
 
@@ -1904,11 +2065,38 @@ Digits =  Digit, { Digit } ;
 
 Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 
+(* White-space: *)
+
+(* Special character tokens: *)
+
+tab = ? \t ?;
+nl  = ? \n ?;
+cr  = ? \r ?;
+vt  = ? \v ?;
+ff  = ? \f ?;
+
+Space = ' ' | tab | nl | cr | vt | ff ;
+
+Spaces = Space, { Space } ;
+
+(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
+   the syntax used is the onw compatible with Grammatica: *)
+
+UnicodeHighChar = ? [^\x00-\x7F] ? ;
+ 
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
-Note: in the parsing of filters according to this grammar, all whitespace (space, tabs, newlines) should be
-discarded between tokens.
+
+Note: when implementing a parser according this grammar, the
+implementers MAY choose to construct a lexer that ignores all
+whitespace (space, tabs, newlines, vertical tabulation and form feed
+characters, as described in the grammar 'Space' definition), and use
+such a lexer to recognize language elements that are described in the
+`(* TOKENS *)` section of the grammar. In that case, the '[Spaces]'
+element should probably be removed from the `Filter = [Spaces],
+Expression` definition as well, and the remaining grammar rules could
+then be used as a parser generator (like yacc, bison, antlr) input.
 
 ## <a name="h.app3">Appendix 3. Regular Expressions for OPTiMaDe Filter Tokens.</a>
 The string below contains Perl-Compatible Regular Expressions to recognise
@@ -1916,7 +2104,7 @@ identifiers, number, and string values as specified in this specification.
 
 ```
 #BEGIN PCRE identifiers
-[a-zA-Z_][a-zA-Z_0-9]*
+[a-z_][a-z_0-9]*
 #END PCRE identifiers
 
 #BEGIN PCRE numbers
@@ -1933,7 +2121,7 @@ as specified in this specification.
 
 ```
 #BEGIN ERE identifiers
-[a-zA-Z_][a-zA-Z_0-9]*
+[a-z_][a-z_0-9]*
 #END ERE identifiers
 
 #BEGIN ERE numbers

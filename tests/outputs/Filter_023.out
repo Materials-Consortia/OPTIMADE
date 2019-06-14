@@ -1,6 +1,4 @@
-RUN /dev/fd/63
-java -jar ./tests/tools/grammatiker/BNF/lib/lib/grammatica-20190513.jar tests/generated/Filter.g --parse /dev/fd/63
-Parse tree from /dev/fd/63:
+Parse tree from tests/cases/Filter_023.inp:
 Filter(9999)
   Expression(9999)
     ExpressionClause(9999)
@@ -8,40 +6,33 @@ Filter(9999)
         Comparison(9999)
           IdentifierFirstComparison(9999)
             Identifier(9999)
-              Letter(9999)
-                TOKEN_84(9999): "c", line: 1, col: 1
-              Letter(9999)
-                TOKEN_89(9999): "h", line: 1, col: 2
-              Letter(9999)
-                TOKEN_86(9999): "e", line: 1, col: 3
-              Letter(9999)
-                TOKEN_94(9999): "m", line: 1, col: 4
-              Letter(9999)
-                TOKEN_90(9999): "i", line: 1, col: 5
-              Letter(9999)
-                TOKEN_84(9999): "c", line: 1, col: 6
-              Letter(9999)
-                TOKEN_82(9999): "a", line: 1, col: 7
-              Letter(9999)
-                TOKEN_93(9999): "l", line: 1, col: 8
-              Letter(9999)
-                TOKEN_87(9999): "f", line: 1, col: 10
-              Letter(9999)
-                TOKEN_96(9999): "o", line: 1, col: 11
-              Letter(9999)
-                TOKEN_99(9999): "r", line: 1, col: 12
-              Letter(9999)
-                TOKEN_94(9999): "m", line: 1, col: 13
-              Letter(9999)
-                TOKEN_102(9999): "u", line: 1, col: 14
-              Letter(9999)
-                TOKEN_93(9999): "l", line: 1, col: 15
-              Letter(9999)
-                TOKEN_82(9999): "a", line: 1, col: 16
-            KnownOpRhs(9999)
-              IS(9999)
-                TOKEN_8(9999): "IS", line: 1, col: 18
-              KNOWN(9999)
-                TOKEN_9(9999): "KNOWN", line: 1, col: 21
-Error: in /dev/fd/63: line 1:
+              LowercaseLetter(9999)
+                TOKEN_67(9999): "c", line: 1, col: 1
+              LowercaseLetter(9999)
+                TOKEN_72(9999): "h", line: 1, col: 2
+              LowercaseLetter(9999)
+                TOKEN_69(9999): "e", line: 1, col: 3
+              LowercaseLetter(9999)
+                TOKEN_77(9999): "m", line: 1, col: 4
+              LowercaseLetter(9999)
+                TOKEN_73(9999): "i", line: 1, col: 5
+              LowercaseLetter(9999)
+                TOKEN_67(9999): "c", line: 1, col: 6
+              LowercaseLetter(9999)
+                TOKEN_65(9999): "a", line: 1, col: 7
+              LowercaseLetter(9999)
+                TOKEN_76(9999): "l", line: 1, col: 8
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 9
+Error: in tests/cases/Filter_023.inp: line 1:
+    unexpected token "f", expected one of "<", ">", "=", "!", "I",
+    "C", "S", "E", "H", or ":"
+
+chemical formula IS KNOWN 42
+         ^
+Error: in tests/cases/Filter_023.inp: line 1:
     unexpected token "4", expected <EOF>
+
+chemical formula IS KNOWN 42
+                          ^
