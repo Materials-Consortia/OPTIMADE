@@ -960,7 +960,7 @@ They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
 
 # <a name="h.5">5. API Filtering Format Specification</a>
 
-An OPTIMaDe filter expression is passed in the parameter `filter`
+An OPTiMaDe filter expression is passed in the parameter `filter`
 either as an URL query parameter as specified by jsonapi, or as part
 of a POST request as described in [4.3. General entry listing 'All' endpoint](#h.4.3).
 The filter expression allows desired properties to be compared against search
@@ -997,10 +997,10 @@ The following tokens are used in the filter query component:
   that when passed as a URL query parameter the whole query SHOULD NOT
   be longer than the limits imposed by the URI specification. This
   definition is similar to one used in most widespread programming
-  languages, execpt that OPTiMaDe limits allowed letter set to
+  languages, except that OPTiMaDe limits allowed letter set to
   lowercase letters only. This allows to tell OPTiMaDe identifiers and
   operator keywords apart unambiguously without consulting and
-  reserved word tables and to encode this disinction consicely in the
+  reserved word tables and to encode this distinction concisely in the
   EBNF Filter Language grammar.
 
   Examples of valid property names:
@@ -1478,10 +1478,10 @@ by multiple chemical elements.
       Note that concentrations are uncorrelated between different sites (even of the same species).
 
     * **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
-    * **original_name**: OPTIONAL. Can be any valid unicode string, and SHOULD contain (if specified)
+    * **original_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified)
     the name of the species that is used internally in the source database.  
     Note: With regards to "source database", we refer to the immediate source being queried via the
-    OPTiMaDe API implemention. The main use of this field is for source databases that use species
+    OPTiMaDe API implementation. The main use of this field is for source databases that use species
     names, containing characters that are not allowed (see description of the
     [6.2.8. `species_at_sites`](#h.6.2.8) list).
 
@@ -1627,11 +1627,11 @@ API implementations SHOULD NOT make up and use new prefixes not included in this
 but SHOULD rather work to get such prefixes included in a future revision of this API specification.
 
 **Example**:  
-Database-provder-specific prefix: `"exmpl"`  
+Database-provider-specific prefix: `"exmpl"`  
 Use as a field name in a response: `_exmpl_custom_field`
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership
-of that organisation. Identifiers prefixed with underscores will not be used for standardized names.
+of that organization. Identifiers prefixed with underscores will not be used for standardized names.
 
 The database-provider-specific prefixes currently assigned are listed in the `providers.json` file
 provided in the main repository. This file serves as a machine-readable list of OPTiMaDe providers.
@@ -1804,7 +1804,7 @@ Space = ' ' | tab | nl | cr | vt | ff ;
 Spaces = Space, { Space } ;
 
 (* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
-   the syntax used is the onw compatible with Grammatica: *)
+   the syntax used is the one compatible with Grammatica: *)
 
 UnicodeHighChar = ? [^\x00-\x7F] ? ;
  
@@ -1812,18 +1812,18 @@ UnicodeHighChar = ? [^\x00-\x7F] ? ;
 (* END EBNF GRAMMAR Filter *)
 ```
 
-Note: whe implementing a parser according this grammar, the
+Note: when implementing a parser according this grammar, the
 implementers MAY choose to construct a lexer that ignores all
 whitespace (space, tabs, newlines, vertical tabulation an format feed
 characters, as described in the grammar 'Space' definition), and use
-such lexer to recognise language elements that are described in the
+such lexer to recognize language elements that are described in the
 `(* TOKENS *)` section of the grammar. In that case, the '[Spaces]'
 element should probably be removed from the `Filter = [Spaces],
 Expression` definition as well, and the remaining grammar rules could
 then be used as a parser generator (like yacc, bison, antlr) input.
 
 ## <a name="h.app3">Appendix 3. Regular Expressions for OPTiMaDe Filter Tokens.</a>
-The string below contains Perl-Compatible Regular Expressions to recognise
+The string below contains Perl-Compatible Regular Expressions to recognize
 identifiers, number, and string values as specified in this specification.
 
 ```
