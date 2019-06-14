@@ -53,6 +53,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.8. species\_at\_sites](#h.6.2.8)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.9. species](#h.6.2.9)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. structure\_features](#h.6.2.11)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.4. Database-Provider-Specific Entry Types](#h.6.4)  
 
@@ -1470,7 +1471,16 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
   * This property is REQUIRED.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
   * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+    e.g., the [6.2.10.`assemblies`](#h.6.2.10) property).
+  * If a component of the position is unknown, the `null` value should be provided instead. 
+    Otherwise, it should be a float value, expressed in angstrom. Note that if at least one
+    of the coordinates is unknown, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+* **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
+  if you decide to store internally the `cartesian_site_positions` as a float array,
+  you might want to replace `null` values with `NaN` values, the latter being valid float numbers
+  in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated
+  version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
 * **Examples**:
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
   the (positive) `z` axis, 2 Å away from the origin.
@@ -1506,12 +1516,16 @@ by multiple chemical elements.
   * This property is REQUIRED.
   * It MUST be a dictionary, where keys represent the species' name, and values are themselves
   dictionaries with the following keys:
-    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing
-    this species. It MUST be one of the following:
-      * a valid chemical-element name, or
-      * the special value `"X"` to represent a non-chemical element, or
-      * the special value `"vacancy"` to represent that this site has a non-zero probability of having
-      a vacancy (the respective probability is indicated in the `concentration` list, see below).
+    * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
+      * It MUST be one of the following:
+        * a valid chemical-element name, or
+        * the special value `"X"` to represent a non-chemical element, or
+        * the special value `"vacancy"` to represent that this site has a non-zero probability of having
+        a vacancy (the respective probability is indicated in the `concentration` list, see below).
+      * If any one entry in the `species` list has a `chemical_symbols` list that 
+        is longer than 1 element, the correct flag MUST be set
+        in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+  
 
     * **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
@@ -1561,8 +1575,10 @@ by multiple chemical elements.
 * **Description**: A description of groups of sites that are statistically correlated.
 * **Requirements/Conventions**:
   * This key is OPTIONAL (it is absent if there are no partial occupancies).
-  * Client implementations MUST check its presence (as its presence changes the interpretation of the
-  structure).
+  * If present, the correct flag MUST be set
+    in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
+  * Client implementations MUST check its presence (as its presence changes the
+    interpretation of the structure).
   * If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have
   the following two keys:
     * **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.  
@@ -1661,6 +1677,29 @@ by multiple chemical elements.
     of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 %
     probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with
     0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
+
+### <a name="h.6.2.11">6.2.11. structure\_features</a>
+* **Description**: A list of strings, flagging which special features are used by
+  the structure.
+* **Requirements/Conventions**: 
+  * This property is REQUIRED.
+  * This property MUST be returned as an empty list if no special features are used.
+  * This list MUST be sorted alphabetically.  
+  * If a special feature listed below is used, the corresponding string MUST be set.
+  * If a special feature listed below is not used, the corresponding string MUST NOT be set. 
+* **List of special structure features**:
+  * `disorder`: This flag MUST be present if any one entry in the `species` list has a 
+    `chemical_symbols` list that is longer than 1 element.
+  * `unknown_positions`: This flag MUST be present if at least one component of the
+    `cartesian_site_positions` list of lists has value `null`.
+  * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.10)
+    list is present.  
+* **Querying**: This property MUST be queryable.
+* **Examples**: A structure having unknown positions and using assemblies:
+
+  ```json
+  ["assemblies", "unknown_positions"]
+  ```
 
 ## <a name="h.6.3">6.3. Calculation Entries</a>
 
