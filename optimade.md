@@ -102,8 +102,8 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
   (e.g., structure or calculation).
-* **Field**: A key in a JSON object.
-* **Property**: A field and the field's value collectively in a JSON object.
+* **Field**: A string key (similar to a key in a hash table, with the limitation that it MUST be a string).
+* **Property**: A field-value pair.
 * **Property Value Types**:
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
     types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
