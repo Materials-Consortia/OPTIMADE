@@ -326,7 +326,7 @@ need to be in a dictionary corresponding to the `attributes` field.
 
 The response MAY OPTIONALLY also return resources related to the primary data in the field:
 
-* **links**: [JSON API links](http://jsonapi.org/format/#document-links) is MANDATORY for implementing pagination.
+* **links**: [JSON API links](http://jsonapi.org/format/1.0/#document-links) is MANDATORY for implementing pagination.
 (see section [URL Query Parameters `page_*`](#h.4.1.1)) Each field of a links object, i.e. a "link", must be either
   
   * `null`
