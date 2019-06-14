@@ -1666,9 +1666,19 @@ by multiple chemical elements.
 
 ## <a name="h.6.4">6.4. Reference Entries</a>
 
-`"reference"` entries describe bibliographic references. To do so, they MUST
-use properties defined by [BibJSON specification](http://okfnlabs.org/bibjson/).
-At least one field from the BibJSON specification MUST be present.
+`"reference"` entries describe bibliographic references. The following properties
+matching the [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf)
+are used with string values unless defined otherwise:
+* `address`, `annote`, `author` (string or a list of strings), `booktitle`,
+  `chapter`, `crossref`, `edition`, `editor` (string or a list of strings), 
+  `howpublished`, `institution`, `journal`, `key`, `month`, `note`, `number`,
+  `organization`, `pages`, `publisher`, `school`, `series`, `title`, `type`,
+  `volume`, `year`.
+
+In addition the following properties are also supported to compensate the lack
+of them in the BibTeX:
+* `doi`,
+* `url`.
 
 Example:
 
@@ -1678,11 +1688,11 @@ Example:
     "type": "reference",
     "id": "Dijkstra1968",
     "attributes": {
-      "author": { "name": "Edsger Dijkstra" },
+      "author": "Edsger Dijkstra",
       "year": "1968",
       "title": "Go To Statement Considered Harmful",
-      "journal": { "name": "Communications of the ACM" },
-      "identifier": { "type": "doi", "id": "10.1145/362929.362947" }
+      "journal": "Communications of the ACM",
+      "doi": "10.1145/362929.362947"
     }
   }
 }
@@ -1744,18 +1754,18 @@ Example:
       "type": "reference",
       "id": "Dijkstra1968",
       "attributes": {
-        "author": { "name": "Edsger Dijkstra" },
+        "author": [ "Edsger Dijkstra" ],
         "year": "1968",
         "title": "Go To Statement Considered Harmful",
-        "journal": { "name": "Communications of the ACM" },
-        "identifier": { "type": "doi", "id": "10.1145/362929.362947" }
+        "journal": "Communications of the ACM",
+        "doi": "10.1145/362929.362947"
       }
     },
     {
       "type": "reference",
       "id": "1234",
       "attributes": {
-        "identifier": [{"type": "doi","id": "10.1234/1234"}]
+        "doi": "10.1234/1234"
       }
     }
   ]
