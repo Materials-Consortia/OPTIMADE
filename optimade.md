@@ -55,7 +55,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.10. assemblies](#h.6.2.10)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.11. structure\_features](#h.6.2.11)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Database-Provider-Specific Entry Types](#h.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Reference Entries](#h.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.5. Database-Provider-Specific Entry Types](#h.6.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.6. Relationships Used by Multiple Entry Types](#h.6.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.1. references](#h.6.6.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.2. calculations](#h.6.6.2)  
 
 [Appendix 1: Database-Provider-Specific Namespace Prefixes](#h.app1)  
 [Appendix 2: The Filter Language EBNF Grammar](#h.app2)  
@@ -603,7 +607,7 @@ contain the field
 * **meta**: a [JSON API meta object](https://jsonapi.org/format/1.0/#document-meta) that contains
 non-standard meta-information about the object
 * **relationships**: a dictionary containing references to other resource objects as defined in
-[JSON API relationships object](http://jsonapi.org/format/1.0/#document-resource-object-relationships)
+[6.6. Relationships Used by Multiple Entry Types](#h.6.6)
 
 Example:
 
@@ -1728,12 +1732,142 @@ by multiple chemical elements.
 `"calculation"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
-## <a name="h.6.4">6.4. Database-Provider-Specific Entry Types</a>
+## <a name="h.6.4">6.4. Reference Entries</a>
+
+`"reference"` entries describe bibliographic references. The following properties
+are used to provide the bibliographic details:
+* **address**, **annote**, **booktitle**, **chapter**, **crossref**,
+  **edition**, **howpublished**, **institution**, **journal**, **key**,
+  **month**, **note**, **number**, **organization**, **pages**, **publisher**,
+  **school**, **series**, **title**, **type**, **volume**, **year**: meanings
+  of these properties match the
+  [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf), values
+  are strings;
+* **authors** and **editors**: lists of *person objects* which are dictionaries
+  with the following fields:
+  * **name**: full name of the person, REQUIRED.
+  * **firstname**, **lastname**: parts of the person's name, OPTIONAL.
+* **doi** and **url**: values are strings.
+
+At least one of the aforementioned properties is REQUIRED.
+
+Example:
+
+```jsonc
+{
+  "data": {
+    "type": "reference",
+    "id": "Dijkstra1968",
+    "attributes": {
+      "authors": [
+        {
+          "name": "Edsger Dijkstra",
+          "firstname": "Edsger",
+          "lastname": "Dijkstra"
+        }
+      ],
+      "year": "1968",
+      "title": "Go To Statement Considered Harmful",
+      "journal": "Communications of the ACM",
+      "doi": "10.1145/362929.362947"
+    }
+  }
+}
+```
+
+## <a name="h.6.5">6.5. Database-Provider-Specific Entry Types</a>
 
 Names of database-provider-specific entry types MUST start with
 database-provider-specific namespace prefix as given in [Appendix 1](#h.app1).
 Database-provider-specific entry types MUST have all properties described above
 in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
+
+## <a name="h.6.6">6.6. Relationships Used by Multiple Entry Types</a>
+
+[JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
+MAY be used to describe the relations between entries. A human-readable description
+of a relationship MAY be provided using the `"description"` field inside the
+`"meta"` dictionary of a relationship.
+
+### <a name="h.6.6.1">6.6.1. References</a>
+
+The `"references"` relationship is used to provide bibliographic references for any
+of the entry types. It relates an entry with any number of `"reference"` entries.
+Entries of type `"reference"`, if mentioned in the returned JSON document,
+SHOULD be included in the top-level `"included"` field as per the
+[JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
+
+Example:
+
+```jsonc
+{
+  "data": {
+    "type": "structure",
+    "id": "example.db:structs:1234",
+    "attributes": {
+      "formula": "Es2",
+      "local_id": "example.db:structs:1234",
+      "url": "http://example.db/structs/1234",
+      "immutable_id": "http://example.db/structs/1234@123",
+      "last_modified": "2007-04-07T12:02Z"
+    },
+    "relationships": {
+      "references": {
+        "data": [
+          { "type": "reference", "id": "Dijkstra1968" },
+          {
+            "type": "reference",
+            "id": "1234",
+            "meta": {
+              "description": "This article has been retracted"
+            }
+          }
+        ]
+      }
+    },
+  },
+  "included": [
+    {
+      "type": "reference",
+      "id": "Dijkstra1968",
+      "attributes": {
+        "authors": [
+          {
+            "name": "Edsger Dijkstra",
+            "firstname": "Edsger",
+            "lastname": "Dijkstra"
+          }
+        ],
+        "year": "1968",
+        "title": "Go To Statement Considered Harmful",
+        "journal": "Communications of the ACM",
+        "doi": "10.1145/362929.362947"
+      }
+    },
+    {
+      "type": "reference",
+      "id": "1234",
+      "attributes": {
+        "doi": "10.1234/1234"
+      }
+    }
+  ]
+}
+```
+
+### <a name="h.6.6.2">6.6.2. Calculations</a>
+
+Relationships with calculations MAY be used to indicate provenance where a structure
+is either an input to or an output of calculations.
+
+> **Note**: We intend to implement in a future version of this API a
+> standardized mechanism to differentiate these two cases, thus allowing
+> databases a common way of exposing the full provenance tree with inputs
+> and outputs between structures and calculations.
+> 
+> At the moment the database providers are suggested to extend their API the
+> way they choose, always using their database-provider-specific prefix in
+> non-standardized fields.
 
 ## <a name="h.app1">Appendix 1: Database-Provider-Specific Namespace Prefixes</a>
 
