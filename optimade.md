@@ -1074,13 +1074,21 @@ The following tokens are used in the filter query component:
     * `_exmpl_workflow_id`  
 
 * **Nested property names** MUST contain at least two property names joined by
-    periods (`.`). When query is performed on relationships, the entrypoint
-    name of the relationship is used as the first property name.
+  periods (`.`). When query is performed on relationships, the entrypoint name
+  of the relationship is used as the name of the first property.
 
-    Examples:
+  Nested property names are similar to
+  [JSONPaths](https://goessner.net/articles/JsonPath/) in a sense that they are
+  used to access nested JSON data structures. A nested property name MUST be
+  resolved starting either from `attributes` dictionary of an entry or from
+  `relationships`, depending on where the first part of the path is found.
+  When reached, every list is flattened, and the resolution continues for every
+  list member.
+
+  Examples:
 
     * `authors.name`
-    * `references.authors.name` (`references` is an entrypoint name`)
+    * `references.authors.name` (`references` is an entrypoint name)
 
 * **String values** MUST be enclosed in double quotes ("", ASCII symbol 92
     dec, 0x5C hex). The quote and other special characters within the double
