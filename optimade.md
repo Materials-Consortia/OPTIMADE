@@ -1393,7 +1393,7 @@ the Cartesian x, y, z directions.
 
 ### <a name="h.6.2.6">6.2.6. lattice\_vectors</a>
 
-* **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
+* **Description**: The three lattice vectors in Cartesian coordinates, in Ångström (Å).
 * **Requirements/Conventions**:
   * This property is REQUIRED, except when [6.2.5. `dimension_types`](#h.6.2.5) is equal to
   `[0, 0, 0]` (in this case it is OPTIONAL).
