@@ -1033,12 +1033,19 @@ Or, fully URL encoded :
 
 The following tokens are used in the filter query component:
 
-* **Property names** (see section [6. Entry List](#h.6)): Are to follow the identifier
-  syntax of programming languages -- the first character MUST be a letter, the subsequent symbols
-  MUST be alphanumeric; the underscore ("\_", ASCII 95 dec (0x5F)) is considered to be a letter.
-  Identifiers are case-sensitive. The length of the identifiers is not limited, except that when passed as a
-  URL query parameter the whole
-  query SHOULD NOT be longer than the limits imposed by the URI specification.
+* **Property names** (see section [6. Entry List](#h.6)): the first
+  character MUST be a lowercase letter, the subsequent symbols MUST be
+  composed of lowercase letters or digits; the underscore ("\_", ASCII
+  95 dec (0x5F)) is considered to be a lower-case letter when defining
+  identifiers.  The length of the identifiers is not limited, except
+  that when passed as a URL query parameter the whole query SHOULD NOT
+  be longer than the limits imposed by the URI specification. This
+  definition is similar to one used in most widespread programming
+  languages, execpt that OPTiMaDe limits allowed letter set to
+  lowercase letters only. This allows to tell OPTiMaDe identifiers and
+  operator keywords apart unambiguously without consulting and
+  reserved word tables and to encode this disinction consicely in the
+  EBNF Filter Language grammar.
 
   Examples of valid property names:
 
@@ -1050,6 +1057,7 @@ The following tokens are used in the filter query component:
 
   * `0_kvak` (starts with a number);
   * `"foo bar"` (contains space; contains quotes)
+  * `"BadLuck"` (contains upper-case letters)
 
   Identifiers that start with an underscore are specific to a database provider,
   and MUST be on the format of a database-provider-specific prefix as defined in [Appendix 1](#h.app1).
@@ -1128,6 +1136,9 @@ The following tokens are used in the filter query component:
   logical conjunctions, and a number of keyword operators discussed in the next
   section.
 
+  In future extensions, operator tokens that are words MUST contain
+  only upper-case letters. This requirement guarantees that no
+  operator token will ever clash with a property name.
 
 ## <a name="h.5.2">5.2. The Filter Language Syntax</a>
 
@@ -1136,11 +1147,7 @@ All filtering expressions MUST follow the
 grammar of [Appendix 2](#h.app2) of this specification. The appendix
 contains a complete machine-readable EBNF, including the definition
 of the lexical tokens described above in [section '5.1. Lexical
-tokens'](#h.5.1). Note that tokens should be matched using the longest match
-convention and all whitespace (i.e., space and characters that are
-represented by the C escape sequences `\t\n\r\f\v` which constitute the
-[:space: character class of POSIX EREs](https://en.wikipedia.org/wiki/Escape_sequences_in_C)) 
-between tokens should then be discarded. The EBNF is enclosed in special strings constructed
+tokens'](#h.5.1). The EBNF is enclosed in special strings constructed
 as `BEGIN` and `END`, both followed by `EBNF GRAMMAR Filter`, to enable automatic
 extraction.
 
@@ -1698,7 +1705,7 @@ repository (make a PR).
 (* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
-Filter = Expression ;
+Filter = [Spaces], Expression ;
 
 (* Values *)
 
@@ -1707,39 +1714,13 @@ Constant = String | Number ;
 Value = String | Number | Identifier ;
 (* Note: support for Identifier in Value is OPTIONAL *)
 
-ValueList = [ Operator ], Value, {',', [ Operator ], Value } ;
+ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
 
-ValueZip = [ Operator ], Value, ':', [ Operator ], Value, {':', [ Operator ], Value} ;
+ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value} ;
 (* Support for the optional Operator in ValueZip is OPTIONAL *)
 
-ValueZipList = ValueZip, { ',', ValueZip } ;
-
-(* White-space: *)
-
-Space = ' ' | '\t' ;
-
-(* Boolean relations: *)
-
-AND = "AND" ; (* a short-hand for: AND = 'A', 'N', 'D' *)
-NOT = "NOT" ;
-OR = "OR" ;
-
-IS = "IS" ;
-KNOWN = "KNOWN" ;
-UNKNOWN = "UNKNOWN" ;
-
-CONTAINS = "CONTAINS" ;
-STARTS = "STARTS" ;
-ENDS = "ENDS" ;
-WITH = "WITH" ;
-
-LENGTH = "LENGTH" ;
-HAS = "HAS" ;
-ALL = "ALL" ;
-ONLY = "ONLY" ;
-EXACTLY = "EXACTLY" ;
-ANY = "ANY" ;
+ValueZipList = ValueZip, { Comma, ValueZip } ;
 
 (* Expressions *)
 
@@ -1747,11 +1728,7 @@ Expression = ExpressionClause, [ OR, Expression ] ;
 
 ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | '(', Expression, ')' );
-
-(* OperatorComparison operator tokens: *)
-
-Operator = '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ;
+ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
 
 Comparison = ConstantFirstComparison |
              IdentifierFirstComparison ;
@@ -1783,23 +1760,65 @@ SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, Va
 
 LengthComparison = LENGTH, Identifier, Operator, Value ;
 
-IdentifierZipAddon = ':', Identifier, {':', Identifier} ;
+IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
+
+(* TOKENS *)
+
+(* Separators: *)
+
+OpeningBrace = '(', [Spaces] ;
+ClosingBrace = ')', [Spaces] ;
+
+Comma = ',', [Spaces] ;
+Colon = ':', [Spaces] ;
+
+(* Boolean relations: *)
+
+AND = 'A', 'N', 'D', [Spaces] ;
+NOT = 'N', 'O', 'T', [Spaces] ;
+OR = 'O', 'R', [Spaces] ;
+
+IS = 'I', 'S', [Spaces] ;
+KNOWN = 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+
+CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S', [Spaces] ;
+STARTS = 'S', 'T', 'A', 'R', 'T', 'S', [Spaces] ;
+ENDS = 'E', 'N', 'D', 'S', [Spaces] ;
+WITH = 'W', 'I', 'T', 'H', [Spaces] ;
+
+LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
+HAS = 'H', 'A', 'S', [Spaces] ;
+ALL = 'A', 'L', 'L', [Spaces] ;
+ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
+EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y', [Spaces] ;
+ANY = 'A', 'N', 'Y', [Spaces] ;
+
+(* OperatorComparison operator tokens: *)
+
+Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
 (* Identifier syntax *)
 
-Identifier = Letter, { Letter | Digit } ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
 
-Letter =
+Letter = UppercaseLetter | LowercaseLetter ;
+
+UppercaseLetter =
     'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
     'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
-    'Y' | 'Z' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' |
-    'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' |
-    'w' | 'x' | 'y' | 'z' | '_'
+    'Y' | 'Z'
+;
+
+LowercaseLetter =
+    'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 
+    'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+    'y' | 'z' | '_'
 ;
 
 (* Strings: *)
 
-String = '"', { EscapedChar }, '"' ;
+String = '"', { EscapedChar }, '"', [Spaces] ;
 
 EscapedChar = UnescapedChar | '\', '"' | '\', '\' ;
 
@@ -1811,17 +1830,12 @@ Punctuator =
     ']' | '^' | '`' | '{' | '|' | '}' | '~'
 ;
 
-(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
-   the syntax used is the onw compatible with Grammatica: *)
-
-UnicodeHighChar = ? [^\x00-\xFF] ? ;
- 
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)
 
 Number = [ Sign ] ,
          ( Digits, [ '.', [ Digits ] ] | '.' , Digits ),
-         [ Exponent ] ;
+         [ Exponent ], [Spaces] ;
 
 Exponent =  ( 'e' | 'E' ) , [ Sign ] , Digits ;
 
@@ -1831,11 +1845,38 @@ Digits =  Digit, { Digit } ;
 
 Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
 
+(* White-space: *)
+
+(* Special character tokens: *)
+
+tab = ? \t ?;
+nl  = ? \n ?;
+cr  = ? \r ?;
+vt  = ? \v ?;
+ff  = ? \f ?;
+
+Space = ' ' | tab | nl | cr | vt | ff ;
+
+Spaces = Space, { Space } ;
+
+(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
+   the syntax used is the onw compatible with Grammatica: *)
+
+UnicodeHighChar = ? [^\x00-\x7F] ? ;
+ 
 (* END EBNF GRAMMAR Number *)
 (* END EBNF GRAMMAR Filter *)
 ```
-Note: in the parsing of filters according to this grammar, all whitespace (space, tabs, newlines) should be
-discarded between tokens.
+
+Note: when implementing a parser according this grammar, the
+implementers MAY choose to construct a lexer that ignores all
+whitespace (space, tabs, newlines, vertical tabulation and form feed
+characters, as described in the grammar 'Space' definition), and use
+such a lexer to recognize language elements that are described in the
+`(* TOKENS *)` section of the grammar. In that case, the '[Spaces]'
+element should probably be removed from the `Filter = [Spaces],
+Expression` definition as well, and the remaining grammar rules could
+then be used as a parser generator (like yacc, bison, antlr) input.
 
 ## <a name="h.app3">Appendix 3. Regular Expressions for OPTiMaDe Filter Tokens.</a>
 The string below contains Perl-Compatible Regular Expressions to recognise
@@ -1843,7 +1884,7 @@ identifiers, number, and string values as specified in this specification.
 
 ```
 #BEGIN PCRE identifiers
-[a-zA-Z_][a-zA-Z_0-9]*
+[a-z_][a-z_0-9]*
 #END PCRE identifiers
 
 #BEGIN PCRE numbers
@@ -1860,7 +1901,7 @@ as specified in this specification.
 
 ```
 #BEGIN ERE identifiers
-[a-zA-Z_][a-zA-Z_0-9]*
+[a-z_][a-z_0-9]*
 #END ERE identifiers
 
 #BEGIN ERE numbers
