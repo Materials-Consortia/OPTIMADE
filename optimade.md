@@ -297,6 +297,8 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * **prev**: the previous page of data. `null` or omitted when the current response is the first page of data.
   * **last**: the last page of data.
   * **first**: the first page of data.
+  
+  The following fields unrelated to pagination:
 
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 
