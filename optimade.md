@@ -461,7 +461,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 * **page_limit**: sets a numerical limit on the number of entries returned. See
   [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-pagination). The API
   implementation MUST return no more than the number specified. It MAY return fewer. The database MAY have a maximum
-  limit and not accept larger numbers (in which case an error code MUST be returned). The default limit value is up to
+  limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned). The default limit value is up to
   the API implementation to decide.
   
   Example: <http://example.com/optimade/v0.9/structures?page_limit=100>
