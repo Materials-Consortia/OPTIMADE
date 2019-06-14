@@ -1531,7 +1531,6 @@ by multiple chemical elements.
       * If any one entry in the `species` list has a `chemical_symbols` list that 
         is longer than 1 element, the correct flag MUST be set
         in the list `structure_features` (see section [6.2.11 `structure_features`](#h.6.2.11)).
-  
 
     * **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
