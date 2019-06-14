@@ -14,6 +14,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.5. Queryable Properties](#h.3.5)  
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry Listing Endpoints](#h.4.1)  
@@ -112,8 +113,6 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
     (with the limitation that the hash key MUST be a string), respectively.
 * **Resource object**: Represent resources. MUST contain at least the following top-level fields:
   `id`, `type`.
-* **Resource property**: Special property for resource objects.
-  The only kind of property, whose field can be queried (using `filter`, see section [5. API Filtering Format Specification](#h.5)).
 * **ID**: A unique identifier referencing a specific resource in the database.
   Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
   IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
@@ -487,6 +486,15 @@ The value for `is_index` MUST be `true`.
 > **Note**: A list of database providers acknowledged by the
 > **Open Databases Integration for Materials Design** consortium can be found in [Appendix 1](#h.app1).
 > This list is also machine-readable, optimizing the automatic discoverability.
+
+## <a name="h.3.5">3.5. Queryable Properties</a>
+
+Queryable properties are resource properties.
+It is understood that when one queries a property, one queries on the property's field.
+In other words, one can _only_ query on property fields from resource objects' properties.  
+A query is performed using `filter` see section [5. API Filtering Format Specification](#h.5)).
+
+> **For implementers**: To get an understanding of which properties MUST be queryable and which are RECOMMENDED, please see section [6. Entry List](#h.6).
 
 # <a name="h.4">4. API Endpoints</a>
 
