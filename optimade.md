@@ -256,7 +256,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       email address.
   * **warnings**: a list of warning resource objects representing non-critical errors or warnings.  
     A warning resource object is defined similarly to a [JSON API error object](http://jsonapi.org/format/1.0/#error-objects), but MUST also include the field `type`, which MUST have the value `"warning"`.
-    The field `detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognised search attributes or deprecated features.  
+    The field `detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.  
     The field `status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
     This is an exclusive field for error resource objects.
 
@@ -1443,7 +1443,7 @@ the Cartesian x, y, z directions.
 
 ### <a name="h.6.2.6">6.2.6. lattice\_vectors</a>
 
-* **Description**: The three lattice vectors in Cartesian coordinates, in Ångström (Å).
+* **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
 * **Requirements/Conventions**:
   * This property is REQUIRED, except when [6.2.5. `dimension_types`](#h.6.2.5) is equal to
   `[0, 0, 0]` (in this case it is OPTIONAL).
