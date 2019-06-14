@@ -955,8 +955,8 @@ objects under the Links endpoint of the "Index meta-database".
 
 ## <a name="h.4.6">4.6. Custom Extension Endpoints</a>
 
-API implementors can provide custom endpoints under the Extensions endpoint.
-They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
+API implementations can provide custom endpoints under the Extensions endpoint.
+These endpoints should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
 
 # <a name="h.5">5. API Filtering Format Specification</a>
 
