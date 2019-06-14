@@ -21,18 +21,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2. Single Entry Endpoints](#h.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.1. URL Query Parameters](#h.4.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API Response Schema](#h.4.2.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.3. General Entry Listing All Endpoint](#h.4.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. URL Query Parameters](#h.4.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. JSON API Response Schema](#h.4.3.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.4. Info Endpoints](#h.4.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. Base URL Info Endpoint](#h.4.4.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Entry Listing Info Endpoints](#h.4.4.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Links Endpoint](#h.4.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.1. JSON API Response Schema](#h.4.5.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.2. Parent and Child Objects](#h.4.5.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.3. Provider Objects](#h.4.5.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.5.4. Index Meta-Database Links Endpoint](#h.4.5.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[4.6. Custom Extension Endpoints](#h.4.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.3. Info Endpoints](#h.4.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. Base URL Info Endpoint](#h.4.3.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. Entry Listing Info Endpoints](#h.4.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.4. Links Endpoint](#h.4.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. JSON API Response Schema](#h.4.4.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Parent and Child Objects](#h.4.4.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.3. Provider Objects](#h.4.4.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.4. Index Meta-Database Links Endpoint](#h.4.4.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[4.5. Custom Extension Endpoints](#h.4.5)  
 
 [5. API Filtering Format Specification](#h.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1. Lexical Tokens](#h.5.1)  
@@ -149,7 +146,7 @@ A database provider MAY choose to only support a subset of possible
 versions. The client can find out which versions are supported using
 the `available_api_versions` field of the `attributes` field from a
 query to the base URL `info` endpoint (see section
-[4.4.1. Base URL Info Endpoint](#h.4.4.1)). The database
+[4.3.1. Base URL Info Endpoint](#h.4.3.1)). The database
 provider SHOULD strive to implement the latest subversion of any major
 and minor version supported. Specifically, the latest version of this
 standard SHOULD be supported.
@@ -182,7 +179,7 @@ response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints MUST support at least the JSON API format.
 Each endpoint MAY OPTIONALLY support multiple formats,
 and declare these formats in their `info` endpoints
-(see section [4.4.2. Entry Listing Info Endpoints](#h.4.4.2)).
+(see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
 
 An API implementation MAY return other formats than specified here.
 These can be implemented and documented according to the database provider.
@@ -431,7 +428,7 @@ of all databases of a given provider.
 Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the `info` and `links` endpoints,
-see sections [4.4. Info Endpoints](#h.4.4) and [4.5. Links Endpoint](#h.4.5).
+see sections [4.3. Info Endpoints](#h.4.3) and [4.4. Links Endpoint](#h.4.4).
 It MUST not expose any entry listing endpoints (e.g., `structures`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
@@ -441,7 +438,7 @@ The `index_base_url` field MUST be included in every response in the `provider` 
 top-level `meta` field (see section [3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)).
 
 The `is_index` field under `attributes`, as well as the `relationships` field, MUST be included in the
-`info` endpoint for the index meta-database (see section [4.4.1. Base URL Info Endpoint](#h.4.4.1)).
+`info` endpoint for the index meta-database (see section [4.3.1. Base URL Info Endpoint](#h.4.3.1)).
 The value for `is_index` MUST be `true`.
 
 > **Note**: A list of database providers acknowledged by the
@@ -455,7 +452,6 @@ following endpoints:
 
 * an "entry listing" endpoint
 * a "single entry" endpoint
-* a general filtering `all` endpoint that can search all entry types
 * an introspection `info` endpoint
 * a `links` endpoint to discover related implementations
 * a custom `extensions` endpoint prefix  
@@ -658,30 +654,7 @@ Example:
 }
 ```
 
-## <a name="h.4.3">4.3. General Entry Listing All Endpoint</a>
-
-The 'general entry listing endpoint' returns a list of entries representing all
-entries a database provides, regardless of type. This endpoint MUST be provided
-at the path "&lt;base\_url&gt;/all". The purpose of this endpoint is to allow more
-general searches across entry types. The general entry listing endpoint MUST
-accept both GET and a POST-type requests, with provided POST-type URL query parameters
-overriding duplicate URL query parameters provided as GET URL query parameters.
-
-### <a name="h.4.3.1">4.3.1. URL Query Parameters</a>
-
-The following URL query parameters MUST be recognized and handled: **filter**, **response\_fields**,
-**response\_format**, **response\_limit**, **email\_address**. The meaning of these URL query
-parameters are as defined above in section [4.1.1. URL Query Parameters](#h.4.1.1). Furthermore,
-custom OPTIONAL URL query parameters, also described above, are also allowed.
-
-Example: <http://example.com/optimade/v0.9/all?response_fields=id,url&response_format=jsonapi>
-
-### <a name="h.4.3.2">4.3.2. JSON API Response Schema</a>
-
-The response for a general entry `all` endpoint is the same as for "entry listing" endpoint responses,
-see section [4.1.2 JSON API Response Schema](#h.4.1.2).
-
-## <a name="h.4.4">4.4. Info Endpoints</a>
+## <a name="h.4.3">4.3. Info Endpoints</a>
 
 Info endpoints provide introspective information, either about the API implementation itself,
 or about specific entry types.
@@ -690,13 +663,12 @@ Info endpoints are constructed by appending "**info**" to any of:
 
 1. the base URL (e.g., <http://example.com/optimade/v0.9/info/>)
 2. type-specific entry listing endpoints (e.g., <http://example.com/optimade/v0.9/structures/info/>)
-3. the general entry listing endpoint (e.g., <http://example.com/optimade/v0.9/all/info/>)
 
 The types and output content of these info endpoints are described in more detail in the subsections
 below. Common for them all are that the `data` field SHOULD return only a single resource object.
 If no resource object is provided, the value of the `data` field MUST be `null`.
 
-### <a name="h.4.4.1">4.4.1. Base URL Info Endpoint</a>
+### <a name="h.4.3.1">4.3.1. Base URL Info Endpoint</a>
 
 The Info endpoint on the base URL or directly after the version number (e.g.
 <http://example.com/optimade/v0.9/info>) returns information relating to the API
@@ -771,7 +743,6 @@ Example:
       "available_endpoints": [
         "structures",
         "calculations",
-        "all",
         "info",
         "links"
       ],
@@ -820,7 +791,7 @@ Example for an index meta-database:
 }
 ```
 
-### <a name="h.4.4.2">4.4.2. Entry Listing Info Endpoints</a>
+### <a name="h.4.3.2">4.3.2. Entry Listing Info Endpoints</a>
 
 Entry listing info endpoints are of the form "&lt;base\_url&gt;/&lt;entry\_type&gt;/info/"
 (e.g., <http://example.com/optimade/v0.9/structures/info/>).  
@@ -865,7 +836,7 @@ Example:
 }
 ```
 
-## <a name="h.4.5">4.5. Links Endpoint</a>
+## <a name="h.4.4">4.4. Links Endpoint</a>
 
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current
 implementation. The endpoint MUST be provided at the path "&lt;base_url&gt;/links".
@@ -873,19 +844,19 @@ implementation. The endpoint MUST be provided at the path "&lt;base_url&gt;/link
 It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level:
 that is, Info endpoints provide information on the given implementation, while the Links endpoint
 provides information on the links between immediately related implementations (in particular, an array
-of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 Parent and Child Objects](#h.4.5.2)).
+of none or a single `"parent"` object and none or more `"child"` objects, see section [4.5.2 Parent and Child Objects](#h.4.4.2)).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY optionally handle the parameters specified in section
 [4.2.1. URL Query Parameters](#h.4.2.1) for single entry endpoints.
 
-### <a name="h.4.5.1">4.5.1. JSON API Response Schema</a>
+### <a name="h.4.4.1">4.4.1. JSON API Response Schema</a>
 
 The resource objects' response dictionaries MUST include the following fields:
 
 * **type**: MUST be either `"parent"`, `"child"`, or `"provider"`.  
-  These objects are described in detail in sections [4.5.2. Parent and Child Objects](#h.4.5.2)
-  and [4.5.3. Provider Objects](#h.4.5.3).
+  These objects are described in detail in sections [4.4.2. Parent and Child Objects](#h.4.4.2)
+  and [4.4.3. Provider Objects](#h.4.4.3).
 * **id**: MUST be unique.
 * **attributes**: Dictionary that MUST contain the following fields:
   * **name**: Human-readable name for the OPTiMaDe API implementation a client may provide in a list
@@ -957,7 +928,7 @@ Example:
 }
 ```
 
-### <a name="h.4.5.2">4.5.2. Parent and Child Objects</a>
+### <a name="h.4.4.2">4.4.2. Parent and Child Objects</a>
 
 Resource objects that MAY be present under the Links endpoint.
 
@@ -971,7 +942,7 @@ implementation's layer.
 
 > **Note**: The RECOMMENDED number of layers is two.
 
-### <a name="h.4.5.3">4.5.3. Provider Objects</a>
+### <a name="h.4.4.3">4.4.3. Provider Objects</a>
 
 `"provider"` objects are meant to indicate links to an "Index meta-database" hosted by database
 providers. The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
@@ -981,7 +952,7 @@ A known list of providers can be found in [Appendix 1](#h.app1).
 > **Note**: If a provider wishes to be added to `"provider.json"`, please suggest a change to the OPTiMaDe main repository (make a pull request).
 A link to the main repository may be found at the [OPTiMaDe homepage](http://www.optimade.org).
 
-### <a name="h.4.5.4">4.5.4. Index Meta-Database Links Endpoint</a>
+### <a name="h.4.4.4">4.4.4. Index Meta-Database Links Endpoint</a>
 
 If the provider implements an "Index meta-database" (see section [3.4 Index Meta-Database](#h.3.4)),
 it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation
@@ -990,7 +961,7 @@ of the provider's other OPTiMaDe databases.
 This will make all OPTiMaDe databases and implementations by the provider discoverable as `"child"`
 objects under the Links endpoint of the "Index meta-database".
 
-## <a name="h.4.6">4.6. Custom Extension Endpoints</a>
+## <a name="h.4.5">4.5. Custom Extension Endpoints</a>
 
 API implementors can provide custom endpoints under the Extensions endpoint.
 They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
@@ -998,8 +969,7 @@ They should have the form "&lt;base\_url&gt;/extensions/&lt;custom paths&gt;".
 # <a name="h.5">5. API Filtering Format Specification</a>
 
 An OPTIMaDe filter expression is passed in the parameter `filter`
-either as an URL query parameter as specified by jsonapi, or as part
-of a POST request as described in [4.3. General entry listing 'All' endpoint](#h.4.3).
+either as an URL query parameter as specified by JSON API.
 The filter expression allows desired properties to be compared against search
 values; several such comparisons can be combined using the logical
 conjunctions AND, OR, NOT, and parentheses, with their usual
@@ -1680,7 +1650,7 @@ provided in the main repository. This file serves as a machine-readable list of 
 
 The content of the `providers.json` file follows the same JSON API specifications as the rest of the
 API, in particular the resource objects under the top-level `data` field are defined to be valid
-resource objects for the Links endpoint, see section [4.5.3. Provider Objects](#h.4.5.3).
+resource objects for the Links endpoint, see section [4.4.3. Provider Objects](#h.4.4.3).
 
 > **Note**: If a provider wishes to be added to `providers.json`, please suggest a change to this
 repository (make a PR).
