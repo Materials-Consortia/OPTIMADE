@@ -1770,7 +1770,7 @@ Example:
       "type": "reference",
       "id": "Dijkstra1968",
       "attributes": {
-        "author": [
+        "authors": [
             { "name": "Edsger Dijkstra" }
         ],
         "year": "1968",
