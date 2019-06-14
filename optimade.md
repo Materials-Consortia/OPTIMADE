@@ -291,7 +291,8 @@ The response MAY OPTIONALLY also return resources related to the primary data in
   * **next**: represents a link to fetch the next set of results. When the current response is the last page of data,
     this field MUST be either omitted or `null`-valued.
    
-  The following fields are reserved for pagination. An implementation MAY offer these links:
+  The following fields are reserved for pagination.  Their values are as with `next`, in the sense that they
+  should be a "link". An implementation MAY offer these links:
   
   * **prev**: the previous page of data. `null` or omitted when the current response is the first page of data.
   * **last**: the last page of data.
