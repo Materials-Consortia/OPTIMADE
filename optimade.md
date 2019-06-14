@@ -1731,7 +1731,7 @@ At least one of the aforementioned properties is REQUIRED.
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "reference",
@@ -1777,7 +1777,7 @@ SHOULD be included in the top-level `"included"` field as per the
 
 Example:
 
-```json
+```jsonc
 {
   "data": {
     "type": "structure",
