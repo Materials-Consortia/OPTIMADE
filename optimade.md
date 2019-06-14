@@ -45,7 +45,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. elements_ratios](#h.6.2.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. elements_ratios](#h.6.2.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.4. chemical\_formula\_descriptive](#h.6.2.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.5. chemical\_formula\_reduced](#h.6.2.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.6. chemical\_formula\_hill](#h.6.2.6)  
@@ -1218,19 +1218,19 @@ Examples:
 * `chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"` 
 * `chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
 
-### Comparisons of multi-valued properties
+### Comparisons of list properties
 
-Multi-valued properties can be thought of as lists or sets of strings or numbers. 
+List properties can be thought of as lists or sets of strings or numbers. 
 In the following, a set of `values` is one or more strings or numbers separated by a comma (",").
 An implementation MAY OPTIONALLY also support identifiers in the value set.
 
 The following constructs MUST be supported:
 
-* `identifier HAS value`: matches if the given value is present in the multi-valued property (i.e., set operator IN).
-* `identifier HAS ALL values`: matches when all the values given are present in the multi-valued property (i.e., set operator >=).
+* `identifier HAS value`: matches if the given value is present in the list property (i.e., set operator IN).
+* `identifier HAS ALL values`: matches when all the values given are present in the list property (i.e., set operator >=).
 * `identifier HAS, EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator =).
 * `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
-* `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the multi-valued property. 
+* `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the list property. 
 
 The following construct may OPTIONALLY be supported:
 
@@ -1245,8 +1245,8 @@ inverse`.
 
 Furthermore, there is a set of OPTIONAL constructs that allows
 searches to be formulated over the values in correlated positions in
-multiple multi-valued properties. This type of filter may be useful if
-one, e.g., has one multi-valued property of elements and another of an
+multiple list properties. This type of filter may be useful if
+one, e.g., has one list property of elements and another of an
 element count.
 
 * `id1:id2:... HAS val1:val2:...`
@@ -1393,7 +1393,7 @@ This section defines standard entry types and their properties.
 
 * **Description**: Names of the different elements present in the structure. 
 * **Requirements/Conventions**: 
-    * The chemical symbols of elements as a multi-valued property consisting of strings.
+    * The chemical symbols of elements as a list property consisting of strings.
     * The order MUST be alphabetical.
     * This property is REQUIRED
 * **Examples**:
@@ -1411,23 +1411,23 @@ This section defines standard entry types and their properties.
 * **Requirements/Conventions**: 
     * This property is REQUIRED
 * **Example**: `3`
-* **Querying**: queries on this property can equivalently be formulated using `LENGTH elements`.
-  Examples:
-    * A filter that match structures that have exactly 4 elements: `nelements=4`.
-    * A filter that match structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.
+* **Querying**: 
+    * Note: queries on this property can equivalently be formulated using `LENGTH elements`.
+    * A filter that matches structures that have exactly 4 elements: `nelements=4`.
+    * A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.
 
 ### <a name="h.6.2.3">6.2.3. elements_ratios</a>
 
 * **Description**: Relative proportions of different elements in the structure. 
 * **Requirements/Conventions**: 
-    * The proportions of elements in the structure as a multi-valued property consisting of floating point numbers.
+    * The proportions of elements in the structure as a list property consisting of floating point numbers.
     * The sum of the numbers must be 1.0 (within floating point accuracy) 
     * This property is REQUIRED
 * **Examples**:
     * `[1.0]`
     * `[0.3333333333333333, 0.2222222222222222, 0.4444444444444444]`
 * **Querying**: 
-    * Useful filters can be formulated using the set operator syntax for correlated values. However, since the values 
+    * Note: useful filters can be formulated using the set operator syntax for correlated values. However, since the values 
       are floating point values, the use of equality comparisons is generally not recommended. 
     * A filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: 
       `elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
@@ -1438,14 +1438,14 @@ This section defines standard entry types and their properties.
 * **Requirements/Conventions**: 
     * The chemical formula is given as a string consisting of 
       properly capitalized element symbols followed by integers or decimal numbers, 
-      balanced parenthesis, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, 
+      balanced parentheses, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, 
       the `+`, `-`, `:` and `=` symbols. The parentheses are allowed to be followed by a number. 
       Spaces are allowed anywhere except within chemical symbols. 
       The order of elements and any groupings indicated by parentheses or brackets are chosen 
       freely by the API implementation. 
     * The string SHOULD be arithmetically consistent with the 
       element ratios in the `chemical_formula_reduced` property.
-    * It is RECOMMENDED, but not required, that symbols, parentheses and brackets, if used, 
+    * It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, 
       are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html)
     * This property is REQUIRED
 * **Examples**:
@@ -1455,14 +1455,14 @@ This section defines standard entry types and their properties.
     * `"CCaO3"`
     * `"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
 * **Querying**:
-    * The free-form nature of this property is likely to make queries on it across different databases inconsistent.
-    * A filter that match an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
+    * Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
+    * A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
     * A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
 
 ### <a name="h.6.2.5">6.2.5. chemical\_formula\_reduced</a>
 
 * **Description**: The reduced chemical formula for a structure as a string with element symbols and 
-    integer chemical proportion numbers.
+    integer chemical proportion numbers. The proportion number is omitted if it is 1.
 * **Requirements/Conventions**:
     * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
     * Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
@@ -1481,16 +1481,16 @@ This section defines standard entry types and their properties.
     * `"ClNa"`
     * `"CCaO3"`
 * **Querying**: 
-    * A filter that match an exactly given formula is `chemical_formula_reduced="H2NaO"`.
+    * A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
    
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string on (Hill form)[https://dx.doi.org/10.1021/ja02046a005] with element symbols
-    followed by integer chemical proportion numbers.
+* **Description**: The chemical formula for a structure as a string on [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number is omitted if it is 1.
 * **Requirements/Conventions**: 
     * The overall scale factor of the chemical proportions are chosen such that the resulting values
-      are integers that indicate the most chemically relevant unit of which the system is composed. For example, if the structure is a 
-      repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, 
+      are integers that indicate the most chemically relevant unit of which the system is composed. 
+      For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that 
+      represents two hydroperoxide molecules, 
       `chemical_formula_hill` is `H2O2` (i.e., not `HO`, nor `H4O4`).
     * If the chemical insight needed to ascribe a Hill formula to the system is not present, the
       property MUST be handled as unset.
@@ -1506,7 +1506,7 @@ This section defines standard entry types and their properties.
 * **Examples**:
     * `"H2O2"`
 * **Querying**: 
-    * A filter that match an exactly given formula is `chemical_formula_hill="H2O2"`.
+    * A filter that matches an exactly given formula is `chemical_formula_hill="H2O2"`.
 
 ### <a name="h.6.2.7">6.2.7. chemical\_formula\_anonymous</a>
 
@@ -1519,6 +1519,8 @@ This section defines standard entry types and their properties.
 * **Requirements/Conventions**: 
     * This property is REQUIRED.
     * Support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+* **Querying**: 
+    * A filter that matches an exactly given formula is `chemical_formula_anonymous="A2B"`.
 
 ### <a name="h.6.2.8">6.2.8. dimension\_types</a>
 
@@ -1584,17 +1586,16 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
   * match only structures with exactly 4 sites: `nsites=4`
   * match structures that have between 2 and 7 sites: `nsites>=2 AND nsites<=7`
 
-
 ### <a name="h.6.2.12">6.2.12. species\_at\_sites</a>
 
 * **Description**: Name of the species at each site (where values for sites are specified with the
 same order of the [6.2.10. `cartesian_site_positions`](#h.6.2.10) property). The properties of the
-species are found in the [6.2.12. `species`](#h.6.2.12) property.
+species are found in the [6.2.13. `species`](#h.6.2.13) property.
 * **Requirements/Conventions**:
   * This property is REQUIRED.
   * It MUST be a list of strings, which MUST have length equal to the number of sites in the structure
     (first dimension of the [6.2.10. `cartesian_site_positions`](#h.6.2.10) list).
-  * Each string MUST be a valid key of the dictionary specified by the [6.2.12. `species`](#h.6.2.12)
+  * Each string MUST be a valid key of the dictionary specified by the [6.2.13. `species`](#h.6.2.13)
     property. The requirements on this string are the same as for property names, i.e., it can be of any
     length, may use upper and lower case letters, underscore, and digits 0-9, but MUST NOT begin with a
     digit.
