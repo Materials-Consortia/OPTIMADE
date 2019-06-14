@@ -989,13 +989,19 @@ Or, fully URL encoded :
 
 The following tokens are used in the filter query component:
 
-* **Property names** (see section [6. Entry List](#h.6)): Are to follow the identifier
-  syntax of programming languages -- the first character MUST be a lowercase letter, the subsequent symbols
-  MUST be composed of lowercase letters or digits; the underscore ("\_", ASCII 95 dec (0x5F))
-  is considered to be a lower-case letter when defining identifiers.
-  The length of the identifiers is not limited, except that when passed as a
-  URL query parameter the whole
-  query SHOULD NOT be longer than the limits imposed by the URI specification.
+* **Property names** (see section [6. Entry List](#h.6)): the first
+  character MUST be a lowercase letter, the subsequent symbols MUST be
+  composed of lowercase letters or digits; the underscore ("\_", ASCII
+  95 dec (0x5F)) is considered to be a lower-case letter when defining
+  identifiers.  The length of the identifiers is not limited, except
+  that when passed as a URL query parameter the whole query SHOULD NOT
+  be longer than the limits imposed by the URI specification. This
+  definition is similar to one used in most widespread programming
+  languages, execpt that OPTiMaDe limits allowed letter set to
+  lowercase letters only. This allows to tell OPTiMaDe identifiers and
+  operator keywords apart unambiguously without consulting and
+  reserved word tables and to encode this disinction consicely in the
+  EBNF Filter Language grammar.
 
   Examples of valid property names:
 
