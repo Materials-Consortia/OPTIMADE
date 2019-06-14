@@ -1806,7 +1806,7 @@ UnicodeHighChar = ? [^\x00-\x7F] ? ;
 (* END EBNF GRAMMAR Filter *)
 ```
 
-Note: whe implementing a parser according this grammar, the
+Note: when implementing a parser according this grammar, the
 implementers MAY choose to construct a lexer that ignores all
 whitespace (space, tabs, newlines, vertical tabulation an format feed
 characters, as described in the grammar 'Space' definition), and use
