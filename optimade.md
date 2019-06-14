@@ -1626,12 +1626,13 @@ by multiple chemical elements.
       {
         "cartesian_site_positions": [[0,0,0]],
         "species_at_sites": ["SiGe-vac"],
-        "species": {
-          "SiGe-vac": {
-            "chemical_symbols": ["Si", "Ge", "vacancy"],
-            "concentration": [0.3, 0.5, 0.2]
-          }
-        }
+        "species": [
+            {
+              "name": "SiGe-vac",
+              "chemical_symbols": ["Si", "Ge", "vacancy"],
+              "concentration": [0.3, 0.5, 0.2]
+            }
+        ]
         // ...
       }
       ```
