@@ -1519,8 +1519,9 @@ pure chemical elements, or virtual-crystal atoms representing a statistical occu
 by multiple chemical elements.
 * **Requirements/Conventions**:
   * This property is REQUIRED.
-  * It MUST be a dictionary, where keys represent the species' name, and values are themselves
+  * It MUST be a list of dictionaries, and the list member values are
   dictionaries with the following keys:
+    * **name*: REQUIRED; gives the name of the species;
     * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
       * It MUST be one of the following:
         * a valid chemical-element name, or
