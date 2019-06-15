@@ -1503,6 +1503,10 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
   * It MUST be a list of strings, which MUST have length equal to the number of sites in the structure
     (first dimension of the [6.2.7. `cartesian_site_positions`](#h.6.2.7) list).
   * Each species MUST have a unique name.
+  * Each species name mentioned in the `species_at_sites` list MUST be
+    described in the `species` list (i.e. for each value in the `species_at_sites` list
+    there MUST exist a dictionary in the `species` list with the `name`
+    attribute equal to the corresponging `species_at_sites` value);
   * Each site MUST be associated only to a single species.  
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined
     for the same chemical element. This latter case is useful when different atoms of the same type
@@ -1555,11 +1559,6 @@ by multiple chemical elements.
     OPTiMaDe API implemention. The main use of this field is for source databases that use species
     names, containing characters that are not allowed (see description of the
     [6.2.8. `species_at_sites`](#h.6.2.8) list).
-
-  * Each species mentioned in the `species_at_sites` list MUST be
-    described (i.e. for each value in the `species_at_sites` list
-    there MUST exist a dictionary in the `species` list the `name`
-    attribute equal to the corresponging `species_at_sites` value);
 
   * For systems that have only species formed by a single chemical symbol, and that have at most one
   species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., `"Ti"` for
