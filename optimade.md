@@ -1505,7 +1505,7 @@ species are found in the [6.2.9. `species`](#h.6.2.9) property.
   * Each species MUST have a unique name.
   * Each species name mentioned in the `species_at_sites` list MUST be
     described in the `species` list (i.e. for each value in the `species_at_sites` list
-    there MUST exist a dictionary in the `species` list with the `name`
+    there MUST exist exactly one dictionary in the `species` list with the `name`
     attribute equal to the corresponging `species_at_sites` value);
   * Each site MUST be associated only to a single species.  
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined
