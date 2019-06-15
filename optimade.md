@@ -1521,7 +1521,10 @@ by multiple chemical elements.
   * This property is REQUIRED.
   * It MUST be a list of dictionaries, and the each list member MUST be a
   dictionary with the following keys:
-    * **name**: REQUIRED; gives the name of the species;
+
+    * **name**: REQUIRED; gives the name of the species; the **name**
+        value MUST be unique in the `species` list;
+
     * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
       * It MUST be one of the following:
         * a valid chemical-element name, or
