@@ -56,6 +56,15 @@
     },
     {
       "type": "provider",
+      "id": "mpds",
+      "attributes": {
+        "name": "materials platform for data science",
+        "description": "",
+        "base_url": null
+      }
+    },
+    {
+      "type": "provider",
       "id": "nmd",
       "attributes": {
         "name": "nomad laboratory",
