@@ -341,7 +341,7 @@ The response MAY also return resources related to the primary data in the field:
     
   * **base\_url**: a links object representing the base URL of the implementation. Example:
 	
-	```json
+	```jsonc
 	{
 	  "links": {
 		"base_url": {
