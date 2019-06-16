@@ -1421,7 +1421,7 @@ This section defines standard entry types and their properties.
 * **Description**: Relative proportions of different elements in the structure. 
 * **Requirements/Conventions**: 
     * The proportions of elements in the structure as a list of floating point numbers.
-    * The sum of the numbers must be 1.0 (within floating point accuracy) 
+    * The sum of the numbers MUST be 1.0 (within floating point accuracy) 
     * This property is REQUIRED
 * **Examples**:
     * `[1.0]`
