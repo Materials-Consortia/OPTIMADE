@@ -328,32 +328,45 @@ need to be in a dictionary corresponding to the `attributes` field.
 
 The response MAY also return resources related to the primary data in the field:
 
-* **links**: a [JSON API links member](http://jsonapi.org/format/1.0/#document-links)
-  containing the JSON API links objects:
-  * **next**: is an URI that represents a suggested way to fetch the
-    next set of results if not all were returned, either directly as a string,
-    or as a link object. The field MUST be null or omitted if there is no additional
-    data, or if there is no way to fetch additional data. The link object can contain
-    the following members:
-    * **href**: a string containing the link’s URL.
-    * **meta**: a meta object containing non-standard meta-information about the link.
-
+* **links**: [JSON API links](http://jsonapi.org/format/1.0/#document-links) is MANDATORY for implementing pagination.
+(see section [4.1.1 URL Query Parameters `page_*`](#h.4.1.1)) Each field of a links object, i.e. a "link", must be either
+  
+  * `null`
+  * a string representing a URI, or
+  * a dictionary ("link object") with fields
+    * **href**: a string representing a URI
+    * **meta**: (OPTIONAL) a meta object containing non-standard meta-information about the link
+    
+  Example links objects:
+    
   * **base\_url**: a links object representing the base URL of the implementation. Example:
+	
+	```jsonc
+	{
+	  "links": {
+		"base_url": {
+		  "href": "http://example.com/optimade/v0.9/",
+		  "meta": {
+			"_exmpl_db_version": "3.2.1"
+		  }
+		}
+		// ...
+	  }
+	  // ...
+	}
+	```
 
-    ```jsonc
-    {
-      "links": {
-        "base_url": {
-          "href": "http://example.com/optimade/v0.9/",
-          "meta": {
-            "_exmpl_db_version": "3.2.1"
-          }
-        }
-        // ...
-      }
-      // ...
-    }
-    ```
+  The following fields are REQUIRED for implementing pagination:
+  
+  * **next**: represents a link to fetch the next set of results. When the current response is the last page of data,
+    this field MUST be either omitted or `null`-valued.
+   
+  The following fields are reserved for pagination.  Their values are as with `next`, in the sense that they
+  should be a "link". An implementation MAY offer these links:
+  
+  * **prev**: the previous page of data. `null` or omitted when the current response is the first page of data.
+  * **last**: the last page of data.
+  * **first**: the first page of data.
 
 * **included**: a list of
 [JSON API resource objects](http://jsonapi.org/format/1.0/#document-resource-objects)
@@ -530,6 +543,41 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 * **filter**: a filter string, in the format described below in section
   [5. API Filtering Format Specification](#h.5).
+  
+* **page_limit**: sets a numerical limit on the number of entries returned. See
+  [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-pagination). The API
+  implementation MUST return no more than the number specified. It MAY return fewer. The database MAY have a maximum
+  limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned). The default limit value is up to
+  the API implementation to decide.
+  
+  Example: <http://example.com/optimade/v0.9/structures?page_limit=100>
+  
+* **page_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no
+  user-specified `sort` parameter (via the ["links" response field](#h.3.3.2)). A server MAY implement pagination in
+  concert with `sort`. The following parameters, all prefixed by "page_", are RECOMMENDED for use with pagination.
+  If an implementation chooses
+  
+  * _offset-based pagination_: using `page_offset` and `page_limit` is RECOMMENDED.
+  * _cursor-based pagination_: using `page_cursor` and `page_limit` is RECOMMENDED.
+  * _page-based pagination_: using `page_number` and `page_limit` is RECOMMENDED (`page_limit` is equivalent to page "size").
+  * _value-based pagination_: using `page_above`/`page_below` and `page_limit` is RECOMMENDED.
+  
+  Examples (all OPTIONAL behavior a server MAY implement):
+  * skip 50 structures and fetch up to 100: `/structures?page_offset=50&page_limit=100`
+  * fetch page 2 of up to 50 structures per page: `/structures?page_number=2&page_limit=50`
+  * fetch up to 100 structures above sort-field value `4000` (in this example, server chooses to fetch results sorted
+    by increasing `id`, so `page_above` value refers to an `id` value): `/structures?page_above=4000&page_limit=100`
+
+* **sort**: If supporting sortable queries, an implementation MUST use the `sort` query parameter with format as
+  specified by [JSON API 1.0](https://jsonapi.org/format/1.0/#fetching-sorting).
+  
+  An implementation MAY support multiple sort fields for a single query. If it does, it
+  again MUST conform to the JSON API 1.0 spec.
+  
+  If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint
+  MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value,
+  the key "sortable" with value `true`. This is in addition to each property description (and optional unit).
+  An example is shown in section [4.4.2 Entry Listing Info Endpoints](#h.4.4.2).
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
@@ -540,12 +588,6 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 * **email\_address**: specifies an email address of the user making the request. The
   email SHOULD be that of a person and not an automatic system.  
   Example: <http://example.com/optimade/v0.9/structures?email_address=user@example.com>
-* **response\_limit**: sets a numerical limit on the number of entries returned. The API
-  implementation MUST return no more than the number specified. It MAY return
-  less. The database MAY have a maximum limit and not accept larger numbers (in
-  which case an error code MUST be returned). The default limit value is up
-  to the API implementation to decide.  
-  Example: <http://example.com/optimade/v0.9/structures?response_limit=100>
 * **response\_fields**: specify a comma-delimited set of fields to be provided in the
   output. If provided, only these fields MUST be returned and no others.  
   Example: <http://example.com/optimade/v0.9/structures?response_fields=id,url>
@@ -855,7 +897,8 @@ Example:
     "description": "a structure",
     "properties": {
       "nelements": {
-        "description": "Number of elements"
+        "description": "Number of elements",
+        "sortable": true
       },
       "lattice_vectors": {
         "description": "Unit cell lattice vectors",
