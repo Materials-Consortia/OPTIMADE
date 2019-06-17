@@ -1893,9 +1893,9 @@ by multiple chemical elements.
 `"calculations"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
-## <a name="h.6.4">6.4. Reference Entries</a>
+## <a name="h.6.4">6.4. References Entries</a>
 
-`"reference"` entries describe bibliographic references. The following properties
+`"references"` entries describe bibliographic references. The following properties
 are used to provide the bibliographic details:
 * **address**, **annote**, **booktitle**, **chapter**, **crossref**,
   **edition**, **howpublished**, **institution**, **journal**, **key**,
@@ -1917,7 +1917,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "reference",
+    "type": "references",
     "id": "Dijkstra1968",
     "attributes": {
       "authors": [
@@ -1953,8 +1953,8 @@ of a relationship MAY be provided using the `"description"` field inside the
 ### <a name="h.6.6.1">6.6.1. References</a>
 
 The `"references"` relationship is used to provide bibliographic references for any
-of the entry types. It relates an entry with any number of `"reference"` entries.
-Entries of type `"reference"`, if mentioned in the returned JSON document,
+of the entry types. It relates an entry with any number of `"references"` entries.
+Entries of type `"references"`, if mentioned in the returned JSON document,
 SHOULD be included in the top-level `"included"` field as per the
 [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
 
@@ -1975,9 +1975,9 @@ Example:
     "relationships": {
       "references": {
         "data": [
-          { "type": "reference", "id": "Dijkstra1968" },
+          { "type": "references", "id": "Dijkstra1968" },
           {
-            "type": "reference",
+            "type": "references",
             "id": "1234",
             "meta": {
               "description": "This article has been retracted"
@@ -1989,7 +1989,7 @@ Example:
   },
   "included": [
     {
-      "type": "reference",
+      "type": "references",
       "id": "Dijkstra1968",
       "attributes": {
         "authors": [
@@ -2006,7 +2006,7 @@ Example:
       }
     },
     {
-      "type": "reference",
+      "type": "references",
       "id": "1234",
       "attributes": {
         "doi": "10.1234/1234"
