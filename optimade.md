@@ -103,12 +103,12 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Entry**: A type of resource, over which a query can be formulated using the API
   (e.g., structure or calculation).
 * **Field**: A key of an associative-array-type data structure.
-  A field MUST be a string, which MAY exclusively contain lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
+  A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
 * **Property**: A field-value pair.
 * **Property value types**:
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
     types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
-  * **list**, **dictionary**: Collections of base types, defined in the samme manner as a JSON [array](https://json-schema.org/understanding-json-schema/reference/array.html) and [object](https://json-schema.org/understanding-json-schema/reference/object.html), respectively.
+  * **list**, **dictionary**: Collections of base types, defined in the same manner as a JSON [array](https://json-schema.org/understanding-json-schema/reference/array.html) and [object](https://json-schema.org/understanding-json-schema/reference/object.html), respectively.
 * **Queryable property**: A property that can be in the filtering of results.
   For more information see section [3.5. Queryable Properties](#h.3.5).
 * **Resource object**: Represents resources. MUST contain at least the following top-level fields:
