@@ -14,6 +14,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.5. Queryable Properties](#h.3.5)  
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry Listing Endpoints](#h.4.1)  
@@ -101,9 +102,16 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
   (e.g., structure or calculation).
-* **Property**: Anything that can be in the filtering of results.
-* **Field**: A property that can be requested as partial output from the API.
-* **Resource object**: Represent resources. MUST contain at least the following top-level fields:
+* **Field**: A key of an associative-array-type data structure.
+  A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
+* **Property**: A field-value pair.
+* **Property value types**:
+  * **string**, **integer**, **float**, **boolean**, **null value**: Base data
+    types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
+  * **list**, **dictionary**: Collections of base types, defined in the same manner as a JSON [array](https://json-schema.org/understanding-json-schema/reference/array.html) and [object](https://json-schema.org/understanding-json-schema/reference/object.html), respectively.
+* **Queryable property**: A property that can be in the filtering of results.
+  For more information see section [3.5. Queryable Properties](#h.3.5).
+* **Resource object**: Represents resources. MUST contain at least the following top-level fields:
   `id`, `type`.
 * **ID**: A unique identifier referencing a specific resource in the database.
   Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
@@ -114,13 +122,6 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   database that MUST be immutable.
 * **Reserved words**: The list of reserved words in this standard is:
   `info`.
-* **Property Types**:
-  * **string**, **integer**, **float**, **boolean**, **null value**: Base data
-    types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
-  * **list**, **dictionary**: Collection of base types with the meaning they have in the JSON
-    data-interchange format, i.e., an ordered list of elements
-    (where each element can have a different type) or a hash table
-    (with the limitation that the hash key MUST be a string), respectively.
 
 # <a name="h.3">3. General API Requirements and Conventions</a>
 
@@ -498,6 +499,15 @@ The value for `is_index` MUST be `true`.
 > **Note**: A list of database providers acknowledged by the
 > **Open Databases Integration for Materials Design** consortium can be found in [Appendix 1](#h.app1).
 > This list is also machine-readable, optimizing the automatic discoverability.
+
+## <a name="h.3.5">3.5. Queryable Properties</a>
+
+_Only_ properties of resource objects can be queried.
+It is understood that when one queries a property, one queries on the property's field.
+In other words, one can _only_ query on property fields from resource objects' properties.  
+A query is performed using `filter` (see section [5. API Filtering Format Specification](#h.5)).
+
+> **For implementers**: To get an understanding of which properties MUST be queryable and which are RECOMMENDED, please see section [6. Entry List](#h.6).
 
 # <a name="h.4">4. API Endpoints</a>
 
