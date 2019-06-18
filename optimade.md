@@ -1289,7 +1289,7 @@ The following constructs MUST be supported:
 
 * `identifier HAS value`: matches if the given value is present in the list property (i.e., set operator IN).
 * `identifier HAS ALL values`: matches when all the values given are present in the list property (i.e., set operator >=).
-* `identifier HAS, EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator =).
+* `identifier HAS EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator =).
 * `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
 * `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the list property. 
 
@@ -1312,7 +1312,7 @@ element count.
 
 * `id1:id2:... HAS val1:val2:...`
 * `id1:id2:... HAS ALL val1:val2:...`
-* `id1:id2:... HAS, EXACTLY val1:val2:...`
+* `id1:id2:... HAS EXACTLY val1:val2:...`
 * `id1:id2:... HAS ANY val1:val2:...`
 * `id1:id2:... HAS ONLY val1:val2:...`
 
