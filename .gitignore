@@ -1,5 +1,7 @@
 *~
 .*.d
 .svn
-.DS_Store
 Makeconf*
+.idea/
+.vscode/
+.DS_Store
