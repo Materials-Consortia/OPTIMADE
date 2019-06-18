@@ -108,6 +108,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   (e.g., structure or calculation).
 * **Field**: A key of an associative-array-type data structure.
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
+  A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
 * **Property**: A field-value pair.
 * **Property value types**:
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
