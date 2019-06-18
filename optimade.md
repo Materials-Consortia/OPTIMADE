@@ -2118,7 +2118,7 @@ PropertyZipAddon = Colon, Property, {Colon, Property} ;
 OpeningBrace = '(', [Spaces] ;
 ClosingBrace = ')', [Spaces] ;
 
-Dot = '.' [Spaces] ;
+Dot = '.', [Spaces] ;
 Comma = ',', [Spaces] ;
 Colon = ':', [Spaces] ;
 
