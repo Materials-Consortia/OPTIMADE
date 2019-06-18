@@ -77,9 +77,9 @@ Filter(9999)
                             Identifier(9999)
                               LowercaseLetter(9999)
                                 TOKEN_66(9999): "b", line: 1, col: 21
-                            Spaces(9999)
-                              Space(9999)
-                                TOKEN_1(9999): " ", line: 1, col: 22
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 22
               OR(9999)
                 TOKEN_47(9999): "O", line: 1, col: 23
                 TOKEN_50(9999): "R", line: 1, col: 24

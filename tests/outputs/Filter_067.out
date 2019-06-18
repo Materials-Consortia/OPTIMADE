@@ -42,9 +42,9 @@ Filter(9999)
                                     TOKEN_63(9999): "_", line: 1, col: 13
                                   LowercaseLetter(9999)
                                     TOKEN_65(9999): "a", line: 1, col: 14
-                                Spaces(9999)
-                                  Space(9999)
-                                    TOKEN_1(9999): " ", line: 1, col: 15
+                                  Spaces(9999)
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 15
                               ValueOpRhs(9999)
                                 Operator(9999)
                                   TOKEN_30(9999): ">", line: 1, col: 16

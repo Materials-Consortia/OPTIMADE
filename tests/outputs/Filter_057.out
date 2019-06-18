@@ -119,9 +119,9 @@ Filter(9999)
                       TOKEN_84(9999): "t", line: 1, col: 52
                     LowercaseLetter(9999)
                       TOKEN_83(9999): "s", line: 1, col: 53
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 54
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 54
               HAS(9999)
                 TOKEN_40(9999): "H", line: 1, col: 55
                 TOKEN_33(9999): "A", line: 1, col: 56

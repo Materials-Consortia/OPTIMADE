@@ -63,9 +63,9 @@ Filter(9999)
                           Identifier(9999)
                             LowercaseLetter(9999)
                               TOKEN_83(9999): "s", line: 1, col: 16
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 17
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 17
             OR(9999)
               TOKEN_47(9999): "O", line: 1, col: 18
               TOKEN_50(9999): "R", line: 1, col: 19
@@ -102,9 +102,9 @@ Filter(9999)
                                   Identifier(9999)
                                     LowercaseLetter(9999)
                                       TOKEN_89(9999): "y", line: 1, col: 29
-                                  Spaces(9999)
-                                    Space(9999)
-                                      TOKEN_1(9999): " ", line: 1, col: 30
+                                    Spaces(9999)
+                                      Space(9999)
+                                        TOKEN_1(9999): " ", line: 1, col: 30
                       AND(9999)
                         TOKEN_33(9999): "A", line: 1, col: 31
                         TOKEN_46(9999): "N", line: 1, col: 32

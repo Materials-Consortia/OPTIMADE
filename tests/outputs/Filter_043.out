@@ -25,9 +25,9 @@ Filter(9999)
                   TOKEN_84(9999): "t", line: 1, col: 8
                 LowercaseLetter(9999)
                   TOKEN_83(9999): "s", line: 1, col: 9
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 10
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 10
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 11
@@ -75,9 +75,9 @@ Filter(9999)
                     TOKEN_84(9999): "t", line: 1, col: 27
                   LowercaseLetter(9999)
                     TOKEN_83(9999): "s", line: 1, col: 28
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 29
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 29
               ValueOpRhs(9999)
                 Operator(9999)
                   TOKEN_30(9999): ">", line: 1, col: 30
@@ -125,9 +125,9 @@ Filter(9999)
                       TOKEN_84(9999): "t", line: 1, col: 46
                     LowercaseLetter(9999)
                       TOKEN_83(9999): "s", line: 1, col: 47
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 48
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 48
                 ValueOpRhs(9999)
                   Operator(9999)
                     TOKEN_28(9999): "<", line: 1, col: 49
@@ -175,9 +175,9 @@ Filter(9999)
                         TOKEN_84(9999): "t", line: 1, col: 65
                       LowercaseLetter(9999)
                         TOKEN_83(9999): "s", line: 1, col: 66
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 67
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 67
                   ValueOpRhs(9999)
                     Operator(9999)
                       TOKEN_2(9999): "!", line: 1, col: 68
@@ -226,9 +226,9 @@ Filter(9999)
                           TOKEN_84(9999): "t", line: 1, col: 85
                         LowercaseLetter(9999)
                           TOKEN_83(9999): "s", line: 1, col: 86
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 87
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 87
                     ValueOpRhs(9999)
                       Operator(9999)
                         TOKEN_30(9999): ">", line: 1, col: 88
@@ -277,9 +277,9 @@ Filter(9999)
                             TOKEN_84(9999): "t", line: 1, col: 105
                           LowercaseLetter(9999)
                             TOKEN_83(9999): "s", line: 1, col: 106
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_1(9999): " ", line: 1, col: 107
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 107
                       ValueOpRhs(9999)
                         Operator(9999)
                           TOKEN_28(9999): "<", line: 1, col: 108
@@ -328,9 +328,9 @@ Filter(9999)
                               TOKEN_84(9999): "t", line: 1, col: 125
                             LowercaseLetter(9999)
                               TOKEN_83(9999): "s", line: 1, col: 126
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 127
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 127
                         ValueOpRhs(9999)
                           Operator(9999)
                             TOKEN_28(9999): "<", line: 1, col: 128

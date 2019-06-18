@@ -41,9 +41,9 @@ Filter(9999)
                   TOKEN_76(9999): "l", line: 1, col: 16
                 LowercaseLetter(9999)
                   TOKEN_65(9999): "a", line: 1, col: 17
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 18
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 18
             FuzzyStringOpRhs(9999)
               CONTAINS(9999)
                 TOKEN_35(9999): "C", line: 1, col: 19
@@ -119,9 +119,9 @@ Filter(9999)
                     TOKEN_76(9999): "l", line: 1, col: 52
                   LowercaseLetter(9999)
                     TOKEN_65(9999): "a", line: 1, col: 53
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 54
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 54
               FuzzyStringOpRhs(9999)
                 STARTS(9999)
                   TOKEN_51(9999): "S", line: 1, col: 55

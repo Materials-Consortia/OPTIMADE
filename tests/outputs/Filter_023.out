@@ -23,9 +23,9 @@ Filter(9999)
                   TOKEN_65(9999): "a", line: 1, col: 7
                 LowercaseLetter(9999)
                   TOKEN_76(9999): "l", line: 1, col: 8
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 9
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 9
 Error: in tests/cases/Filter_023.inp: line 1:
     unexpected token "f", expected one of "<", ">", "=", "!", "I",
     "C", "S", "E", "H", or ":"

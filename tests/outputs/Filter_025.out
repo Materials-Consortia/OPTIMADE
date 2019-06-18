@@ -39,9 +39,9 @@ Filter(9999)
                   TOKEN_76(9999): "l", line: 1, col: 15
                 LowercaseLetter(9999)
                   TOKEN_65(9999): "a", line: 1, col: 16
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 17
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 17
             KnownOpRhs(9999)
               IS(9999)
                 TOKEN_41(9999): "I", line: 1, col: 18
@@ -105,9 +105,9 @@ Filter(9999)
                     TOKEN_76(9999): "l", line: 1, col: 46
                   LowercaseLetter(9999)
                     TOKEN_65(9999): "a", line: 1, col: 47
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 48
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 48
               KnownOpRhs(9999)
                 IS(9999)
                   TOKEN_41(9999): "I", line: 1, col: 49

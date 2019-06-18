@@ -49,9 +49,9 @@ Filter(9999)
                   TOKEN_84(9999): "t", line: 1, col: 20
                 LowercaseLetter(9999)
                   TOKEN_83(9999): "s", line: 1, col: 21
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 22
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 22
             SetOpRhs(9999)
               HAS(9999)
                 TOKEN_40(9999): "H", line: 1, col: 23
@@ -128,9 +128,9 @@ Filter(9999)
                     TOKEN_84(9999): "t", line: 1, col: 54
                   LowercaseLetter(9999)
                     TOKEN_83(9999): "s", line: 1, col: 55
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 56
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 56
               SetOpRhs(9999)
                 HAS(9999)
                   TOKEN_40(9999): "H", line: 1, col: 57

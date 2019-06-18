@@ -84,9 +84,9 @@ Filter(9999)
                   TOKEN_77(9999): "m", line: 1, col: 36
                 LowercaseLetter(9999)
                   TOKEN_69(9999): "e", line: 1, col: 37
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 38
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 38
             FuzzyStringOpRhs(9999)
               CONTAINS(9999)
                 TOKEN_35(9999): "C", line: 1, col: 39
