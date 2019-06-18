@@ -2060,8 +2060,8 @@ Filter = [Spaces], Expression ;
 
 Constant = String | Number ;
 
-Value = String | Number | Identifier ;
-(* Note: support for Identifier in Value is OPTIONAL *)
+Value = String | Number | Property ;
+(* Note: support for Property in Value is OPTIONAL *)
 
 ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
@@ -2080,10 +2080,10 @@ ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
 
 Comparison = ConstantFirstComparison |
-             IdentifierFirstComparison ;
+             PropertyFirstComparison ;
 (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-IdentifierFirstComparison = Identifier, ( 
+PropertyFirstComparison = Property, ( 
                 ValueOpRhs |
                 KnownOpRhs |
                 FuzzyStringOpRhs |
@@ -2105,11 +2105,11 @@ SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | EXACTLY, ValueList | AN
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
 (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
 
-SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
+SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
 
-LengthComparison = LENGTH, Identifier, Operator, Value ;
+LengthComparison = LENGTH, Property, Operator, Value ;
 
-IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
+PropertyZipAddon = Colon, Property, {Colon, Property} ;
 
 (* TOKENS *)
 
@@ -2118,6 +2118,7 @@ IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
 OpeningBrace = '(', [Spaces] ;
 ClosingBrace = ')', [Spaces] ;
 
+Dot = '.' [Spaces] ;
 Comma = ',', [Spaces] ;
 Colon = ':', [Spaces] ;
 
@@ -2147,11 +2148,11 @@ ANY = 'A', 'N', 'Y', [Spaces] ;
 
 Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
-(* Identifier syntax *)
+(* Property syntax *)
 
-IdentifierComponent = LowercaseLetter, { LowercaseLetter | Digit } ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit } ;
 
-Identifier = IdentifierComponent, { '.', IdentifierComponent }, [Spaces] ;
+Property = Identifier, { Dot, Identifier }, [Spaces] ;
 
 Letter = UppercaseLetter | LowercaseLetter ;
 
