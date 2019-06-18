@@ -2111,6 +2111,10 @@ LengthComparison = LENGTH, Property, Operator, Value ;
 
 PropertyZipAddon = Colon, Property, {Colon, Property} ;
 
+(* Property *)
+
+Property = Identifier, { Dot, Identifier } ;
+
 (* TOKENS *)
 
 (* Separators: *)
@@ -2150,9 +2154,7 @@ Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
 (* Property syntax *)
 
-Identifier = LowercaseLetter, { LowercaseLetter | Digit } ;
-
-Property = Identifier, { Dot, Identifier }, [Spaces] ;
+Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
 
 Letter = UppercaseLetter | LowercaseLetter ;
 
