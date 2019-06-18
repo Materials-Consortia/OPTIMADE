@@ -15,8 +15,8 @@ Filter(9999)
               Spaces(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 7
-            Identifier(9999)
-              IdentifierComponent(9999)
+            Property(9999)
+              Identifier(9999)
                 LowercaseLetter(9999)
                   TOKEN_69(9999): "e", line: 1, col: 8
                 LowercaseLetter(9999)

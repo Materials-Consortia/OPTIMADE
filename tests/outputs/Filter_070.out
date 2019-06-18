@@ -4,9 +4,9 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          IdentifierFirstComparison(9999)
-            Identifier(9999)
-              IdentifierComponent(9999)
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
                 LowercaseLetter(9999)
                   TOKEN_82(9999): "r", line: 1, col: 1
                 LowercaseLetter(9999)
@@ -33,8 +33,9 @@ Filter(9999)
                   TOKEN_80(9999): "p", line: 1, col: 12
                 LowercaseLetter(9999)
                   TOKEN_83(9999): "s", line: 1, col: 13
-              TOKEN_14(9999): ".", line: 1, col: 14
-              IdentifierComponent(9999)
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 14
+              Identifier(9999)
                 LowercaseLetter(9999)
                   TOKEN_82(9999): "r", line: 1, col: 15
                 LowercaseLetter(9999)
@@ -55,8 +56,9 @@ Filter(9999)
                   TOKEN_69(9999): "e", line: 1, col: 23
                 LowercaseLetter(9999)
                   TOKEN_83(9999): "s", line: 1, col: 24
-              TOKEN_14(9999): ".", line: 1, col: 25
-              IdentifierComponent(9999)
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 25
+              Identifier(9999)
                 LowercaseLetter(9999)
                   TOKEN_65(9999): "a", line: 1, col: 26
                 LowercaseLetter(9999)
@@ -71,8 +73,9 @@ Filter(9999)
                   TOKEN_82(9999): "r", line: 1, col: 31
                 LowercaseLetter(9999)
                   TOKEN_83(9999): "s", line: 1, col: 32
-              TOKEN_14(9999): ".", line: 1, col: 33
-              IdentifierComponent(9999)
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 33
+              Identifier(9999)
                 LowercaseLetter(9999)
                   TOKEN_78(9999): "n", line: 1, col: 34
                 LowercaseLetter(9999)

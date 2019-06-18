@@ -20,8 +20,8 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 4
               Value(9999)
-                Identifier(9999)
-                  IdentifierComponent(9999)
+                Property(9999)
+                  Identifier(9999)
                     LowercaseLetter(9999)
                       TOKEN_63(9999): "_", line: 1, col: 5
                     LowercaseLetter(9999)
