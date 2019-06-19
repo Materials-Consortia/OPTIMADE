@@ -4,17 +4,18 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          IdentifierFirstComparison(9999)
-            Identifier(9999)
-              LowercaseLetter(9999)
-                TOKEN_65(9999): "a", line: 1, col: 1
-              LowercaseLetter(9999)
-                TOKEN_65(9999): "a", line: 1, col: 2
-              LowercaseLetter(9999)
-                TOKEN_88(9999): "x", line: 1, col: 3
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 4
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 1
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 2
+                LowercaseLetter(9999)
+                  TOKEN_88(9999): "x", line: 1, col: 3
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 4
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_28(9999): "<", line: 1, col: 5
@@ -48,17 +49,18 @@ Filter(9999)
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
-            IdentifierFirstComparison(9999)
-              Identifier(9999)
-                LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 17
-                Digit(9999)
-                  TOKEN_18(9999): "2", line: 1, col: 18
-                Digit(9999)
-                  TOKEN_17(9999): "1", line: 1, col: 19
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 20
+            PropertyFirstComparison(9999)
+              Property(9999)
+                Identifier(9999)
+                  LowercaseLetter(9999)
+                    TOKEN_67(9999): "c", line: 1, col: 17
+                  Digit(9999)
+                    TOKEN_18(9999): "2", line: 1, col: 18
+                  Digit(9999)
+                    TOKEN_17(9999): "1", line: 1, col: 19
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 20
               ValueOpRhs(9999)
                 Operator(9999)
                   TOKEN_30(9999): ">", line: 1, col: 21
@@ -93,13 +95,14 @@ Filter(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 34
             Comparison(9999)
-              IdentifierFirstComparison(9999)
-                Identifier(9999)
-                  LowercaseLetter(9999)
-                    TOKEN_70(9999): "f", line: 1, col: 35
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 36
+              PropertyFirstComparison(9999)
+                Property(9999)
+                  Identifier(9999)
+                    LowercaseLetter(9999)
+                      TOKEN_70(9999): "f", line: 1, col: 35
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 36
                 ValueOpRhs(9999)
                   Operator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 37
@@ -107,12 +110,13 @@ Filter(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 38
                   Value(9999)
-                    Identifier(9999)
-                      LowercaseLetter(9999)
-                        TOKEN_89(9999): "y", line: 1, col: 39
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 40
+                    Property(9999)
+                      Identifier(9999)
+                        LowercaseLetter(9999)
+                          TOKEN_89(9999): "y", line: 1, col: 39
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 40
       OR(9999)
         TOKEN_47(9999): "O", line: 1, col: 41
         TOKEN_50(9999): "R", line: 1, col: 42
@@ -130,13 +134,14 @@ Filter(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 47
             Comparison(9999)
-              IdentifierFirstComparison(9999)
-                Identifier(9999)
-                  LowercaseLetter(9999)
-                    TOKEN_65(9999): "a", line: 1, col: 48
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 49
+              PropertyFirstComparison(9999)
+                Property(9999)
+                  Identifier(9999)
+                    LowercaseLetter(9999)
+                      TOKEN_65(9999): "a", line: 1, col: 48
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 49
                 ValueOpRhs(9999)
                   Operator(9999)
                     TOKEN_30(9999): ">", line: 1, col: 50
@@ -145,12 +150,13 @@ Filter(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 52
                   Value(9999)
-                    Identifier(9999)
-                      LowercaseLetter(9999)
-                        TOKEN_66(9999): "b", line: 1, col: 53
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 54
+                    Property(9999)
+                      Identifier(9999)
+                        LowercaseLetter(9999)
+                          TOKEN_66(9999): "b", line: 1, col: 53
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 54
         OR(9999)
           TOKEN_47(9999): "O", line: 1, col: 55
           TOKEN_50(9999): "R", line: 1, col: 56
@@ -161,13 +167,14 @@ Filter(9999)
           ExpressionClause(9999)
             ExpressionPhrase(9999)
               Comparison(9999)
-                IdentifierFirstComparison(9999)
-                  Identifier(9999)
-                    LowercaseLetter(9999)
-                      TOKEN_88(9999): "x", line: 1, col: 58
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 59
+                PropertyFirstComparison(9999)
+                  Property(9999)
+                    Identifier(9999)
+                      LowercaseLetter(9999)
+                        TOKEN_88(9999): "x", line: 1, col: 58
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 59
                   ValueOpRhs(9999)
                     Operator(9999)
                       TOKEN_29(9999): "=", line: 1, col: 60
@@ -175,12 +182,13 @@ Filter(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 61
                     Value(9999)
-                      Identifier(9999)
-                        LowercaseLetter(9999)
-                          TOKEN_84(9999): "t", line: 1, col: 62
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_1(9999): " ", line: 1, col: 63
+                      Property(9999)
+                        Identifier(9999)
+                          LowercaseLetter(9999)
+                            TOKEN_84(9999): "t", line: 1, col: 62
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 63
           OR(9999)
             TOKEN_47(9999): "O", line: 1, col: 64
             TOKEN_50(9999): "R", line: 1, col: 65
@@ -206,13 +214,14 @@ Filter(9999)
                           Space(9999)
                             TOKEN_1(9999): " ", line: 1, col: 72
                       Comparison(9999)
-                        IdentifierFirstComparison(9999)
-                          Identifier(9999)
-                            LowercaseLetter(9999)
-                              TOKEN_88(9999): "x", line: 1, col: 73
-                            Spaces(9999)
-                              Space(9999)
-                                TOKEN_1(9999): " ", line: 1, col: 74
+                        PropertyFirstComparison(9999)
+                          Property(9999)
+                            Identifier(9999)
+                              LowercaseLetter(9999)
+                                TOKEN_88(9999): "x", line: 1, col: 73
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 74
                           ValueOpRhs(9999)
                             Operator(9999)
                               TOKEN_2(9999): "!", line: 1, col: 75
@@ -291,13 +300,14 @@ Filter(9999)
                     ExpressionClause(9999)
                       ExpressionPhrase(9999)
                         Comparison(9999)
-                          IdentifierFirstComparison(9999)
-                            Identifier(9999)
-                              LowercaseLetter(9999)
-                                TOKEN_65(9999): "a", line: 1, col: 95
-                              Spaces(9999)
-                                Space(9999)
-                                  TOKEN_1(9999): " ", line: 1, col: 96
+                          PropertyFirstComparison(9999)
+                            Property(9999)
+                              Identifier(9999)
+                                LowercaseLetter(9999)
+                                  TOKEN_65(9999): "a", line: 1, col: 95
+                                Spaces(9999)
+                                  Space(9999)
+                                    TOKEN_1(9999): " ", line: 1, col: 96
                             ValueOpRhs(9999)
                               Operator(9999)
                                 TOKEN_29(9999): "=", line: 1, col: 97
@@ -305,12 +315,13 @@ Filter(9999)
                                   Space(9999)
                                     TOKEN_1(9999): " ", line: 1, col: 98
                               Value(9999)
-                                Identifier(9999)
-                                  LowercaseLetter(9999)
-                                    TOKEN_66(9999): "b", line: 1, col: 99
-                                  Spaces(9999)
-                                    Space(9999)
-                                      TOKEN_1(9999): " ", line: 1, col: 100
+                                Property(9999)
+                                  Identifier(9999)
+                                    LowercaseLetter(9999)
+                                      TOKEN_66(9999): "b", line: 1, col: 99
+                                    Spaces(9999)
+                                      Space(9999)
+                                        TOKEN_1(9999): " ", line: 1, col: 100
                       AND(9999)
                         TOKEN_33(9999): "A", line: 1, col: 101
                         TOKEN_46(9999): "N", line: 1, col: 102
@@ -321,13 +332,14 @@ Filter(9999)
                       ExpressionClause(9999)
                         ExpressionPhrase(9999)
                           Comparison(9999)
-                            IdentifierFirstComparison(9999)
-                              Identifier(9999)
-                                LowercaseLetter(9999)
-                                  TOKEN_88(9999): "x", line: 1, col: 105
-                                Spaces(9999)
-                                  Space(9999)
-                                    TOKEN_1(9999): " ", line: 1, col: 106
+                            PropertyFirstComparison(9999)
+                              Property(9999)
+                                Identifier(9999)
+                                  LowercaseLetter(9999)
+                                    TOKEN_88(9999): "x", line: 1, col: 105
+                                  Spaces(9999)
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 106
                               ValueOpRhs(9999)
                                 Operator(9999)
                                   TOKEN_30(9999): ">", line: 1, col: 107
@@ -335,12 +347,13 @@ Filter(9999)
                                     Space(9999)
                                       TOKEN_1(9999): " ", line: 1, col: 108
                                 Value(9999)
-                                  Identifier(9999)
-                                    LowercaseLetter(9999)
-                                      TOKEN_86(9999): "v", line: 1, col: 109
-                                    Spaces(9999)
-                                      Space(9999)
-                                        TOKEN_1(9999): " ", line: 1, col: 110
+                                  Property(9999)
+                                    Identifier(9999)
+                                      LowercaseLetter(9999)
+                                        TOKEN_86(9999): "v", line: 1, col: 109
+                                      Spaces(9999)
+                                        Space(9999)
+                                          TOKEN_1(9999): " ", line: 1, col: 110
                         AND(9999)
                           TOKEN_33(9999): "A", line: 1, col: 111
                           TOKEN_46(9999): "N", line: 1, col: 112
@@ -358,13 +371,14 @@ Filter(9999)
                                 Space(9999)
                                   TOKEN_1(9999): " ", line: 1, col: 118
                             Comparison(9999)
-                              IdentifierFirstComparison(9999)
-                                Identifier(9999)
-                                  LowercaseLetter(9999)
-                                    TOKEN_86(9999): "v", line: 1, col: 119
-                                  Spaces(9999)
-                                    Space(9999)
-                                      TOKEN_1(9999): " ", line: 1, col: 120
+                              PropertyFirstComparison(9999)
+                                Property(9999)
+                                  Identifier(9999)
+                                    LowercaseLetter(9999)
+                                      TOKEN_86(9999): "v", line: 1, col: 119
+                                    Spaces(9999)
+                                      Space(9999)
+                                        TOKEN_1(9999): " ", line: 1, col: 120
                                 ValueOpRhs(9999)
                                   Operator(9999)
                                     TOKEN_28(9999): "<", line: 1, col: 121
@@ -372,9 +386,10 @@ Filter(9999)
                                       Space(9999)
                                         TOKEN_1(9999): " ", line: 1, col: 122
                                   Value(9999)
-                                    Identifier(9999)
-                                      LowercaseLetter(9999)
-                                        TOKEN_87(9999): "w", line: 1, col: 123
+                                    Property(9999)
+                                      Identifier(9999)
+                                        LowercaseLetter(9999)
+                                          TOKEN_87(9999): "w", line: 1, col: 123
                 ClosingBrace(9999)
                   TOKEN_9(9999): ")", line: 1, col: 124
                   Spaces(9999)

@@ -15,23 +15,24 @@ Filter(9999)
               Spaces(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 7
-            Identifier(9999)
-              LowercaseLetter(9999)
-                TOKEN_69(9999): "e", line: 1, col: 8
-              LowercaseLetter(9999)
-                TOKEN_76(9999): "l", line: 1, col: 9
-              LowercaseLetter(9999)
-                TOKEN_69(9999): "e", line: 1, col: 10
-              LowercaseLetter(9999)
-                TOKEN_77(9999): "m", line: 1, col: 11
-              LowercaseLetter(9999)
-                TOKEN_69(9999): "e", line: 1, col: 12
-              LowercaseLetter(9999)
-                TOKEN_78(9999): "n", line: 1, col: 13
-              LowercaseLetter(9999)
-                TOKEN_84(9999): "t", line: 1, col: 14
-              LowercaseLetter(9999)
-                TOKEN_83(9999): "s", line: 1, col: 15
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_69(9999): "e", line: 1, col: 8
+                LowercaseLetter(9999)
+                  TOKEN_76(9999): "l", line: 1, col: 9
+                LowercaseLetter(9999)
+                  TOKEN_69(9999): "e", line: 1, col: 10
+                LowercaseLetter(9999)
+                  TOKEN_77(9999): "m", line: 1, col: 11
+                LowercaseLetter(9999)
+                  TOKEN_69(9999): "e", line: 1, col: 12
+                LowercaseLetter(9999)
+                  TOKEN_78(9999): "n", line: 1, col: 13
+                LowercaseLetter(9999)
+                  TOKEN_84(9999): "t", line: 1, col: 14
+                LowercaseLetter(9999)
+                  TOKEN_83(9999): "s", line: 1, col: 15
 Error: in tests/cases/Filter_026.inp: line 1:
     unexpected end of file
 

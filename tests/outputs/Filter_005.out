@@ -4,10 +4,11 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          IdentifierFirstComparison(9999)
-            Identifier(9999)
-              LowercaseLetter(9999)
-                TOKEN_65(9999): "a", line: 1, col: 1
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 1
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 2

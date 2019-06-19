@@ -26,17 +26,19 @@ Filter(9999)
                       ExpressionClause(9999)
                         ExpressionPhrase(9999)
                           Comparison(9999)
-                            IdentifierFirstComparison(9999)
-                              Identifier(9999)
-                                LowercaseLetter(9999)
-                                  TOKEN_65(9999): "a", line: 1, col: 8
+                            PropertyFirstComparison(9999)
+                              Property(9999)
+                                Identifier(9999)
+                                  LowercaseLetter(9999)
+                                    TOKEN_65(9999): "a", line: 1, col: 8
                               ValueOpRhs(9999)
                                 Operator(9999)
                                   TOKEN_30(9999): ">", line: 1, col: 9
                                 Value(9999)
-                                  Identifier(9999)
-                                    LowercaseLetter(9999)
-                                      TOKEN_66(9999): "b", line: 1, col: 10
+                                  Property(9999)
+                                    Identifier(9999)
+                                      LowercaseLetter(9999)
+                                        TOKEN_66(9999): "b", line: 1, col: 10
                     ClosingBrace(9999)
                       TOKEN_9(9999): ")", line: 1, col: 11
               ClosingBrace(9999)
@@ -71,10 +73,11 @@ Filter(9999)
                         ExpressionClause(9999)
                           ExpressionPhrase(9999)
                             Comparison(9999)
-                              IdentifierFirstComparison(9999)
-                                Identifier(9999)
-                                  LowercaseLetter(9999)
-                                    TOKEN_88(9999): "x", line: 1, col: 24
+                              PropertyFirstComparison(9999)
+                                Property(9999)
+                                  Identifier(9999)
+                                    LowercaseLetter(9999)
+                                      TOKEN_88(9999): "x", line: 1, col: 24
                                 ValueOpRhs(9999)
                                   Operator(9999)
                                     TOKEN_30(9999): ">", line: 1, col: 25

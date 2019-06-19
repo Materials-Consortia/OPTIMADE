@@ -109,6 +109,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Field**: A key of an associative-array-type data structure.
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
   A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
+  MUST NOT match any of the entry names.
 * **Property**: A field-value pair.
 * **Property value types**:
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
@@ -1134,6 +1135,23 @@ The following tokens are used in the filter query component:
     * `_exmpl_trajectory`
     * `_exmpl_workflow_id`  
 
+* **Nested property names** MUST contain at least two property names joined by
+  periods (`.`). When query is performed on relationships, the entrypoint name
+  of the relationship is used as the name of the first property.
+
+  Nested property names are similar to
+  [JSONPaths](https://goessner.net/articles/JsonPath/) in a sense that they are
+  used to access nested JSON data structures. A nested property name MUST be
+  resolved starting either from `attributes` dictionary of an entry or from
+  `relationships`, depending on where the first part of the path is found.
+  When reached, every list is flattened, and the resolution continues for every
+  list member.
+
+  Examples:
+
+    * `authors.name`
+    * `references.authors.name` (`references` is an entrypoint name)
+
 * **String values** MUST be enclosed in double quotes ("", ASCII symbol 92
     dec, 0x5C hex). The quote and other special characters within the double
     quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote
@@ -2043,8 +2061,8 @@ Filter = [Spaces], Expression ;
 
 Constant = String | Number ;
 
-Value = String | Number | Identifier ;
-(* Note: support for Identifier in Value is OPTIONAL *)
+Value = String | Number | Property ;
+(* Note: support for Property in Value is OPTIONAL *)
 
 ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
 (* Support for Operator in ValueList is OPTIONAL *)
@@ -2063,10 +2081,10 @@ ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
 
 Comparison = ConstantFirstComparison |
-             IdentifierFirstComparison ;
+             PropertyFirstComparison ;
 (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-IdentifierFirstComparison = Identifier, ( 
+PropertyFirstComparison = Property, ( 
                 ValueOpRhs |
                 KnownOpRhs |
                 FuzzyStringOpRhs |
@@ -2088,11 +2106,15 @@ SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | EXACTLY, ValueList | AN
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
 (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
 
-SetZipOpRhs = IdentifierZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
+SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
 
-LengthComparison = LENGTH, Identifier, Operator, Value ;
+LengthComparison = LENGTH, Property, Operator, Value ;
 
-IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
+PropertyZipAddon = Colon, Property, {Colon, Property} ;
+
+(* Property *)
+
+Property = Identifier, { Dot, Identifier } ;
 
 (* TOKENS *)
 
@@ -2101,6 +2123,7 @@ IdentifierZipAddon = Colon, Identifier, {Colon, Identifier} ;
 OpeningBrace = '(', [Spaces] ;
 ClosingBrace = ')', [Spaces] ;
 
+Dot = '.', [Spaces] ;
 Comma = ',', [Spaces] ;
 Colon = ':', [Spaces] ;
 
@@ -2130,7 +2153,7 @@ ANY = 'A', 'N', 'Y', [Spaces] ;
 
 Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
 
-(* Identifier syntax *)
+(* Property syntax *)
 
 Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
 

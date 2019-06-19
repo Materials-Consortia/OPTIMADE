@@ -4,10 +4,11 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          IdentifierFirstComparison(9999)
-            Identifier(9999)
-              LowercaseLetter(9999)
-                TOKEN_66(9999): "b", line: 1, col: 1
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_66(9999): "b", line: 1, col: 1
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 2
@@ -58,12 +59,13 @@ Filter(9999)
                       Operator(9999)
                         TOKEN_28(9999): "<", line: 1, col: 15
                       Value(9999)
-                        Identifier(9999)
-                          LowercaseLetter(9999)
-                            TOKEN_83(9999): "s", line: 1, col: 16
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 17
+                        Property(9999)
+                          Identifier(9999)
+                            LowercaseLetter(9999)
+                              TOKEN_83(9999): "s", line: 1, col: 16
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 17
             OR(9999)
               TOKEN_47(9999): "O", line: 1, col: 18
               TOKEN_50(9999): "R", line: 1, col: 19
@@ -86,21 +88,23 @@ Filter(9999)
                     ExpressionClause(9999)
                       ExpressionPhrase(9999)
                         Comparison(9999)
-                          IdentifierFirstComparison(9999)
-                            Identifier(9999)
-                              LowercaseLetter(9999)
-                                TOKEN_88(9999): "x", line: 1, col: 26
+                          PropertyFirstComparison(9999)
+                            Property(9999)
+                              Identifier(9999)
+                                LowercaseLetter(9999)
+                                  TOKEN_88(9999): "x", line: 1, col: 26
                             ValueOpRhs(9999)
                               Operator(9999)
                                 TOKEN_2(9999): "!", line: 1, col: 27
                                 TOKEN_29(9999): "=", line: 1, col: 28
                               Value(9999)
-                                Identifier(9999)
-                                  LowercaseLetter(9999)
-                                    TOKEN_89(9999): "y", line: 1, col: 29
-                                  Spaces(9999)
-                                    Space(9999)
-                                      TOKEN_1(9999): " ", line: 1, col: 30
+                                Property(9999)
+                                  Identifier(9999)
+                                    LowercaseLetter(9999)
+                                      TOKEN_89(9999): "y", line: 1, col: 29
+                                    Spaces(9999)
+                                      Space(9999)
+                                        TOKEN_1(9999): " ", line: 1, col: 30
                       AND(9999)
                         TOKEN_33(9999): "A", line: 1, col: 31
                         TOKEN_46(9999): "N", line: 1, col: 32
@@ -111,10 +115,11 @@ Filter(9999)
                       ExpressionClause(9999)
                         ExpressionPhrase(9999)
                           Comparison(9999)
-                            IdentifierFirstComparison(9999)
-                              Identifier(9999)
-                                LowercaseLetter(9999)
-                                  TOKEN_90(9999): "z", line: 1, col: 35
+                            PropertyFirstComparison(9999)
+                              Property(9999)
+                                Identifier(9999)
+                                  LowercaseLetter(9999)
+                                    TOKEN_90(9999): "z", line: 1, col: 35
                               ValueOpRhs(9999)
                                 Operator(9999)
                                   TOKEN_30(9999): ">", line: 1, col: 36

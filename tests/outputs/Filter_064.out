@@ -23,43 +23,44 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         Comparison(9999)
-          IdentifierFirstComparison(9999)
-            Identifier(9999)
-              LowercaseLetter(9999)
-                TOKEN_67(9999): "c", line: 1, col: 10
-              LowercaseLetter(9999)
-                TOKEN_72(9999): "h", line: 1, col: 11
-              LowercaseLetter(9999)
-                TOKEN_69(9999): "e", line: 1, col: 12
-              LowercaseLetter(9999)
-                TOKEN_77(9999): "m", line: 1, col: 13
-              LowercaseLetter(9999)
-                TOKEN_73(9999): "i", line: 1, col: 14
-              LowercaseLetter(9999)
-                TOKEN_67(9999): "c", line: 1, col: 15
-              LowercaseLetter(9999)
-                TOKEN_65(9999): "a", line: 1, col: 16
-              LowercaseLetter(9999)
-                TOKEN_76(9999): "l", line: 1, col: 17
-              LowercaseLetter(9999)
-                TOKEN_63(9999): "_", line: 1, col: 18
-              LowercaseLetter(9999)
-                TOKEN_70(9999): "f", line: 1, col: 19
-              LowercaseLetter(9999)
-                TOKEN_79(9999): "o", line: 1, col: 20
-              LowercaseLetter(9999)
-                TOKEN_82(9999): "r", line: 1, col: 21
-              LowercaseLetter(9999)
-                TOKEN_77(9999): "m", line: 1, col: 22
-              LowercaseLetter(9999)
-                TOKEN_85(9999): "u", line: 1, col: 23
-              LowercaseLetter(9999)
-                TOKEN_76(9999): "l", line: 1, col: 24
-              LowercaseLetter(9999)
-                TOKEN_65(9999): "a", line: 1, col: 25
-              Spaces(9999)
-                Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 26
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_67(9999): "c", line: 1, col: 10
+                LowercaseLetter(9999)
+                  TOKEN_72(9999): "h", line: 1, col: 11
+                LowercaseLetter(9999)
+                  TOKEN_69(9999): "e", line: 1, col: 12
+                LowercaseLetter(9999)
+                  TOKEN_77(9999): "m", line: 1, col: 13
+                LowercaseLetter(9999)
+                  TOKEN_73(9999): "i", line: 1, col: 14
+                LowercaseLetter(9999)
+                  TOKEN_67(9999): "c", line: 1, col: 15
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 16
+                LowercaseLetter(9999)
+                  TOKEN_76(9999): "l", line: 1, col: 17
+                LowercaseLetter(9999)
+                  TOKEN_63(9999): "_", line: 1, col: 18
+                LowercaseLetter(9999)
+                  TOKEN_70(9999): "f", line: 1, col: 19
+                LowercaseLetter(9999)
+                  TOKEN_79(9999): "o", line: 1, col: 20
+                LowercaseLetter(9999)
+                  TOKEN_82(9999): "r", line: 1, col: 21
+                LowercaseLetter(9999)
+                  TOKEN_77(9999): "m", line: 1, col: 22
+                LowercaseLetter(9999)
+                  TOKEN_85(9999): "u", line: 1, col: 23
+                LowercaseLetter(9999)
+                  TOKEN_76(9999): "l", line: 1, col: 24
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 25
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 26
             FuzzyStringOpRhs(9999)
               CONTAINS(9999)
                 TOKEN_35(9999): "C", line: 1, col: 27
@@ -99,43 +100,44 @@ Filter(9999)
       ExpressionClause(9999)
         ExpressionPhrase(9999)
           Comparison(9999)
-            IdentifierFirstComparison(9999)
-              Identifier(9999)
-                LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 45
-                LowercaseLetter(9999)
-                  TOKEN_72(9999): "h", line: 1, col: 46
-                LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 47
-                LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 48
-                LowercaseLetter(9999)
-                  TOKEN_73(9999): "i", line: 1, col: 49
-                LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 50
-                LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 51
-                LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 52
-                LowercaseLetter(9999)
-                  TOKEN_63(9999): "_", line: 1, col: 53
-                LowercaseLetter(9999)
-                  TOKEN_70(9999): "f", line: 1, col: 54
-                LowercaseLetter(9999)
-                  TOKEN_79(9999): "o", line: 1, col: 55
-                LowercaseLetter(9999)
-                  TOKEN_82(9999): "r", line: 1, col: 56
-                LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 57
-                LowercaseLetter(9999)
-                  TOKEN_85(9999): "u", line: 1, col: 58
-                LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 59
-                LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 60
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 61
+            PropertyFirstComparison(9999)
+              Property(9999)
+                Identifier(9999)
+                  LowercaseLetter(9999)
+                    TOKEN_67(9999): "c", line: 1, col: 45
+                  LowercaseLetter(9999)
+                    TOKEN_72(9999): "h", line: 1, col: 46
+                  LowercaseLetter(9999)
+                    TOKEN_69(9999): "e", line: 1, col: 47
+                  LowercaseLetter(9999)
+                    TOKEN_77(9999): "m", line: 1, col: 48
+                  LowercaseLetter(9999)
+                    TOKEN_73(9999): "i", line: 1, col: 49
+                  LowercaseLetter(9999)
+                    TOKEN_67(9999): "c", line: 1, col: 50
+                  LowercaseLetter(9999)
+                    TOKEN_65(9999): "a", line: 1, col: 51
+                  LowercaseLetter(9999)
+                    TOKEN_76(9999): "l", line: 1, col: 52
+                  LowercaseLetter(9999)
+                    TOKEN_63(9999): "_", line: 1, col: 53
+                  LowercaseLetter(9999)
+                    TOKEN_70(9999): "f", line: 1, col: 54
+                  LowercaseLetter(9999)
+                    TOKEN_79(9999): "o", line: 1, col: 55
+                  LowercaseLetter(9999)
+                    TOKEN_82(9999): "r", line: 1, col: 56
+                  LowercaseLetter(9999)
+                    TOKEN_77(9999): "m", line: 1, col: 57
+                  LowercaseLetter(9999)
+                    TOKEN_85(9999): "u", line: 1, col: 58
+                  LowercaseLetter(9999)
+                    TOKEN_76(9999): "l", line: 1, col: 59
+                  LowercaseLetter(9999)
+                    TOKEN_65(9999): "a", line: 1, col: 60
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 61
               FuzzyStringOpRhs(9999)
                 STARTS(9999)
                   TOKEN_51(9999): "S", line: 1, col: 62
@@ -173,43 +175,44 @@ Filter(9999)
         ExpressionClause(9999)
           ExpressionPhrase(9999)
             Comparison(9999)
-              IdentifierFirstComparison(9999)
-                Identifier(9999)
-                  LowercaseLetter(9999)
-                    TOKEN_67(9999): "c", line: 1, col: 78
-                  LowercaseLetter(9999)
-                    TOKEN_72(9999): "h", line: 1, col: 79
-                  LowercaseLetter(9999)
-                    TOKEN_69(9999): "e", line: 1, col: 80
-                  LowercaseLetter(9999)
-                    TOKEN_77(9999): "m", line: 1, col: 81
-                  LowercaseLetter(9999)
-                    TOKEN_73(9999): "i", line: 1, col: 82
-                  LowercaseLetter(9999)
-                    TOKEN_67(9999): "c", line: 1, col: 83
-                  LowercaseLetter(9999)
-                    TOKEN_65(9999): "a", line: 1, col: 84
-                  LowercaseLetter(9999)
-                    TOKEN_76(9999): "l", line: 1, col: 85
-                  LowercaseLetter(9999)
-                    TOKEN_63(9999): "_", line: 1, col: 86
-                  LowercaseLetter(9999)
-                    TOKEN_70(9999): "f", line: 1, col: 87
-                  LowercaseLetter(9999)
-                    TOKEN_79(9999): "o", line: 1, col: 88
-                  LowercaseLetter(9999)
-                    TOKEN_82(9999): "r", line: 1, col: 89
-                  LowercaseLetter(9999)
-                    TOKEN_77(9999): "m", line: 1, col: 90
-                  LowercaseLetter(9999)
-                    TOKEN_85(9999): "u", line: 1, col: 91
-                  LowercaseLetter(9999)
-                    TOKEN_76(9999): "l", line: 1, col: 92
-                  LowercaseLetter(9999)
-                    TOKEN_65(9999): "a", line: 1, col: 93
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 94
+              PropertyFirstComparison(9999)
+                Property(9999)
+                  Identifier(9999)
+                    LowercaseLetter(9999)
+                      TOKEN_67(9999): "c", line: 1, col: 78
+                    LowercaseLetter(9999)
+                      TOKEN_72(9999): "h", line: 1, col: 79
+                    LowercaseLetter(9999)
+                      TOKEN_69(9999): "e", line: 1, col: 80
+                    LowercaseLetter(9999)
+                      TOKEN_77(9999): "m", line: 1, col: 81
+                    LowercaseLetter(9999)
+                      TOKEN_73(9999): "i", line: 1, col: 82
+                    LowercaseLetter(9999)
+                      TOKEN_67(9999): "c", line: 1, col: 83
+                    LowercaseLetter(9999)
+                      TOKEN_65(9999): "a", line: 1, col: 84
+                    LowercaseLetter(9999)
+                      TOKEN_76(9999): "l", line: 1, col: 85
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 1, col: 86
+                    LowercaseLetter(9999)
+                      TOKEN_70(9999): "f", line: 1, col: 87
+                    LowercaseLetter(9999)
+                      TOKEN_79(9999): "o", line: 1, col: 88
+                    LowercaseLetter(9999)
+                      TOKEN_82(9999): "r", line: 1, col: 89
+                    LowercaseLetter(9999)
+                      TOKEN_77(9999): "m", line: 1, col: 90
+                    LowercaseLetter(9999)
+                      TOKEN_85(9999): "u", line: 1, col: 91
+                    LowercaseLetter(9999)
+                      TOKEN_76(9999): "l", line: 1, col: 92
+                    LowercaseLetter(9999)
+                      TOKEN_65(9999): "a", line: 1, col: 93
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 94
                 FuzzyStringOpRhs(9999)
                   ENDS(9999)
                     TOKEN_37(9999): "E", line: 1, col: 95
