@@ -1675,10 +1675,11 @@ species are found in the [6.2.13. `species`](#h.6.2.13) property.
   * This property is REQUIRED.
   * It MUST be a list of strings, which MUST have length equal to the number of sites in the structure
     (first dimension of the [6.2.10. `cartesian_site_positions`](#h.6.2.10) list).
-  * Each string MUST be a valid key of the dictionary specified by the [6.2.13. `species`](#h.6.2.13)
-    property. The requirements on this string are the same as for property names, i.e., it can be of any
-    length, may use upper and lower case letters, underscore, and digits 0-9, but MUST NOT begin with a
-    digit.
+  * Each species MUST have a unique name.
+  * Each species name mentioned in the `species_at_sites` list MUST be
+    described in the [6.2.13. `species`](#h.6.2.13) list (i.e. for each value in the `species_at_sites` list
+    there MUST exist exactly one dictionary in the `species` list with the `name`
+    attribute equal to the corresponging `species_at_sites` value);
   * Each site MUST be associated only to a single species.  
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined
     for the same chemical element. This latter case is useful when different atoms of the same type
@@ -1690,13 +1691,17 @@ species are found in the [6.2.13. `species`](#h.6.2.13) property.
 
 ### <a name="h.6.2.13">6.2.13. species</a>
 
-* **Description**: Dictionary describing the species of the sites of this structure. Species can be
+* **Description**: A list describing the species of the sites of this structure. Species can be
 pure chemical elements, or virtual-crystal atoms representing a statistical occupation of a given site
 by multiple chemical elements.
 * **Requirements/Conventions**:
   * This property is REQUIRED.
-  * It MUST be a dictionary, where keys represent the species' name, and values are themselves
-  dictionaries with the following keys:
+  * It MUST be a list of dictionaries, and the each list member MUST be a
+  dictionary with the following keys:
+
+    * **name**: REQUIRED; gives the name of the species; the **name**
+        value MUST be unique in the `species` list;
+
     * **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
       * It MUST be one of the following:
         * a valid chemical-element name, or
@@ -1706,7 +1711,6 @@ by multiple chemical elements.
       * If any one entry in the `species` list has a `chemical_symbols` list that 
         is longer than 1 element, the correct flag MUST be set
         in the list `structure_features` (see section [6.2.15. `structure_features`](#h.6.2.15)).
-  
 
     * **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
@@ -1739,16 +1743,16 @@ by multiple chemical elements.
   * It is NOT RECOMMENDED that a structure includes species that do not have at least one
   corresponding site.
 * **Examples**:
-  * `"Ti": {"chemical_symbols": ["Ti"], "concentration": [1.0]}`: any site with this species is
+  * `"species": [ {"name": "Ti", "chemical_symbols": ["Ti"], "concentration": [1.0]} ]`: any site with this species is
   occupied by a Ti atom.
-  * `"Ti": {"chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]}`: any site with this
+  * `"species": [ {"name": "Ti", "chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]} ]`: any site with this
   species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.
-  * `"BaCa": {"chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5}`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with
+  * `"species": [ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with
   50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5
   a.m.u.
-  * `"C12": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0}`: any site with this
+  * `"species": [ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]`: any site with this
   species is occupied by a carbon isotope with mass 12.
-  * `"C13": {"chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0}`: any site with this
+  * `"species": [ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]`: any site with this
   species is occupied by a carbon isotope with mass 13.
 
 ### <a name="h.6.2.14">6.2.14. assemblies</a>
@@ -1799,12 +1803,13 @@ by multiple chemical elements.
       {
         "cartesian_site_positions": [[0,0,0]],
         "species_at_sites": ["SiGe-vac"],
-        "species": {
-          "SiGe-vac": {
-            "chemical_symbols": ["Si", "Ge", "vacancy"],
-            "concentration": [0.3, 0.5, 0.2]
-          }
-        }
+        "species": [
+            {
+              "name": "SiGe-vac",
+              "chemical_symbols": ["Si", "Ge", "vacancy"],
+              "concentration": [0.3, 0.5, 0.2]
+            }
+        ]
         // ...
       }
       ```
