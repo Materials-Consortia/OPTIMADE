@@ -1,0 +1,100 @@
+Parse tree from tests/cases/Filter_001.inp:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 1
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 2
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_30(9999): ">", line: 1, col: 3
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 4
+              Value(9999)
+                Property(9999)
+                  Identifier(9999)
+                    LowercaseLetter(9999)
+                      TOKEN_66(9999): "b", line: 1, col: 5
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 6
+      AND(9999)
+        TOKEN_33(9999): "A", line: 1, col: 7
+        TOKEN_46(9999): "N", line: 1, col: 8
+        TOKEN_36(9999): "D", line: 1, col: 9
+        Spaces(9999)
+          Space(9999)
+            TOKEN_1(9999): " ", line: 1, col: 10
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          OpeningBrace(9999)
+            TOKEN_8(9999): "(", line: 1, col: 11
+          Expression(9999)
+            ExpressionClause(9999)
+              ExpressionPhrase(9999)
+                Comparison(9999)
+                  PropertyFirstComparison(9999)
+                    Property(9999)
+                      Identifier(9999)
+                        LowercaseLetter(9999)
+                          TOKEN_65(9999): "a", line: 1, col: 12
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 13
+                    ValueOpRhs(9999)
+                      Operator(9999)
+                        TOKEN_30(9999): ">", line: 1, col: 14
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 15
+                      Value(9999)
+                        Number(9999)
+                          Digits(9999)
+                            Digit(9999)
+                              TOKEN_16(9999): "0", line: 1, col: 16
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 17
+            OR(9999)
+              TOKEN_47(9999): "O", line: 1, col: 18
+              TOKEN_50(9999): "R", line: 1, col: 19
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 20
+            Expression(9999)
+              ExpressionClause(9999)
+                ExpressionPhrase(9999)
+                  Comparison(9999)
+                    PropertyFirstComparison(9999)
+                      Property(9999)
+                        Identifier(9999)
+                          LowercaseLetter(9999)
+                            TOKEN_66(9999): "b", line: 1, col: 21
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 22
+                      ValueOpRhs(9999)
+                        Operator(9999)
+                          TOKEN_30(9999): ">", line: 1, col: 23
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 24
+                        Value(9999)
+                          Number(9999)
+                            Digits(9999)
+                              Digit(9999)
+                                TOKEN_16(9999): "0", line: 1, col: 25
+          ClosingBrace(9999)
+            TOKEN_9(9999): ")", line: 1, col: 26
+            Spaces(9999)
+              Space(9999)
+                nl(9999)
+                  SPECIAL_1(9999): "(...)", line: 1, col: 27

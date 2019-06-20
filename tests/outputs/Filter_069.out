@@ -1,0 +1,90 @@
+Parse tree from tests/cases/Filter_069.inp:
+Filter(9999)
+  Spaces(9999)
+    Space(9999)
+      vt(9999)
+        SPECIAL_3(9999): "(...)", line: 1, col: 1
+    Space(9999)
+      ff(9999)
+        SPECIAL_4(9999): "(...)", line: 1, col: 2
+    Space(9999)
+      tab(9999)
+        SPECIAL_0(9999): "(...)", line: 1, col: 3
+    Space(9999)
+      tab(9999)
+        SPECIAL_0(9999): "(...)", line: 1, col: 4
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        NOT(9999)
+          TOKEN_46(9999): "N", line: 1, col: 5
+          TOKEN_47(9999): "O", line: 1, col: 6
+          TOKEN_52(9999): "T", line: 1, col: 7
+        Comparison(9999)
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 8
+                Spaces(9999)
+                  Space(9999)
+                    nl(9999)
+                      SPECIAL_1(9999): "(...)", line: 1, col: 9
+                  Space(9999)
+                    nl(9999)
+                      SPECIAL_1(9999): "(...)", line: 2, col: 1
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 3, col: 1
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 3, col: 2
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 3, col: 3
+                  Space(9999)
+                    tab(9999)
+                      SPECIAL_0(9999): "(...)", line: 3, col: 4
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 3, col: 5
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_30(9999): ">", line: 3, col: 6
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 3, col: 7
+                  Space(9999)
+                    nl(9999)
+                      SPECIAL_1(9999): "(...)", line: 3, col: 8
+                  Space(9999)
+                    cr(9999)
+                      SPECIAL_2(9999): "(...)", line: 4, col: 1
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 4, col: 2
+              Value(9999)
+                Property(9999)
+                  Identifier(9999)
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 4, col: 3
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 4, col: 4
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 4, col: 5
+                    LowercaseLetter(9999)
+                      TOKEN_66(9999): "b", line: 4, col: 6
+                    LowercaseLetter(9999)
+                      TOKEN_69(9999): "e", line: 4, col: 7
+                    LowercaseLetter(9999)
+                      TOKEN_84(9999): "t", line: 4, col: 8
+                    LowercaseLetter(9999)
+                      TOKEN_65(9999): "a", line: 4, col: 9
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 4, col: 10
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 4, col: 11
+                    LowercaseLetter(9999)
+                      TOKEN_63(9999): "_", line: 4, col: 12
+                    Spaces(9999)
+                      Space(9999)
+                        nl(9999)
+                          SPECIAL_1(9999): "(...)", line: 4, col: 13
+                      Space(9999)
+                        nl(9999)
+                          SPECIAL_1(9999): "(...)", line: 5, col: 1

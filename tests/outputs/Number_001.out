@@ -1,0 +1,11 @@
+Parse tree from tests/cases/Number_001.inp:
+Number(9999)
+  Digits(9999)
+    Digit(9999)
+      TOKEN_7(9999): "3", line: 1, col: 1
+    Digit(9999)
+      TOKEN_8(9999): "4", line: 1, col: 2
+    Digit(9999)
+      TOKEN_9(9999): "5", line: 1, col: 3
+    Digit(9999)
+      TOKEN_10(9999): "6", line: 1, col: 4

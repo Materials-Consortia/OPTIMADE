@@ -1,0 +1,197 @@
+#!/bin/sh
+#!perl -w # --*- Perl -*--
+eval 'exec perl -x $0 ${1+"$@"}'
+    if 0;
+#------------------------------------------------------------------------
+#$Author: saulius $
+#$Date: 2016-11-05 11:08:04 +0200 (Sat, 05 Nov 2016) $
+#$Revision: 28 $
+#$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/mkdepend/mkcomdepend $
+#------------------------------------------------------------------------------
+#*
+# Create dependencies for .com files
+#**
+
+use strict;
+use warnings;
+
+use File::Basename;
+
+my @inputs  = ();
+my @outputs = ();
+my @outdirs = ();
+my %vars = %ENV;
+
+sub expand_vars
+{
+    my ( $line, $vars ) = @_;
+
+    chomp $line;
+    my ( $varname, $value ) = split( "=", $line, 2 );
+
+    $varname =~ s/^\s*set(var)?\s+//; # remove 'set ', if we are in csh
+    $varname =~ s/^\s+|\s+$//g;       # remove leading and trailing spaces from variable name
+
+    $value =~ s/^\s+|\s+$//g;       # remove leading and trailing spaces
+
+    if( $value !~ /\'.+\'/ || $value =~ /^".+"$/ ) {
+
+        $value =~ s/\$(\w+)/\$\{$1\}/g; # eclose var names in braces: $NAME -> ${NAME}
+
+        #
+        # expand simple variables: VAR=val; ${VAR} -> val
+        #
+        for my $oldvarname ( sort keys %{$vars} ) {
+            $value =~ s/\$\{$oldvarname\}/$vars->{$oldvarname}/g;
+            $value =~ s/\$$oldvarname/$vars->{$oldvarname}/g;
+        }
+
+        #
+        # expand command substitutions: $(basename xxx.com .com) -> xxx
+        #
+        if( $value =~ /\$\((.+)\)/ ) {
+            my $expansion = `$1`;
+            chomp $expansion;
+            $value =~ s/\$\(.+\)/$expansion/g;
+        }
+
+        #
+        # expand "backtick substitutions": `basename xxx.com .com` -> xxx
+        #
+        if( $value =~ /\`(.+)\`/ ) {
+            my $expansion = `$1`;
+            chomp $expansion;
+            $value =~ s/\`.+\`/$expansion/g;
+        }
+    }
+
+    if( $value =~ /^'.+'$/ ) {
+        $value =~ s/^\s*'|'\s*$//g; # remove single quotes at the end or at the beginning
+    } else {
+        $value =~ s/^\s*"|"\s*$//g; # remove double quotes at the end or at the beginning
+    }
+
+    $vars->{$varname} = $value;
+    return wantarray ? ( $varname, $value ) : $value;
+}
+
+my $line = "";
+
+my $basename;
+my $dirname;
+my $prefix;
+
+while( <> ) {
+
+    if( !defined $basename ) {
+        $basename = File::Basename::basename( $ARGV, ".com" );
+        $dirname = File::Basename::dirname( $ARGV );
+        $prefix = "${dirname}/${basename}";
+        $vars{"0"} = "$ARGV";
+    }
+
+    if( /\\$/ ) {
+        chomp;
+        local $/ = "\\";
+        chomp;
+        $line .= $_;
+        next unless eof;
+    }
+
+    if( $line ) {
+        $_ = $line . $_;
+        $line = "";
+    }
+
+    if( /^\s*((set|setvar)\s+)?INPUT[^=]*=(.+)$/ ) {
+        my $depend = expand_vars( $_, \%vars );
+        push( @inputs, $depend );
+        next;
+    }
+    if( /^\s*((set|setvar)\s+)?OUTPUT[^=]*=(.+)$/ ) {
+        my $depend = expand_vars( $_, \%vars );
+        push( @outputs, $depend );
+        next;
+    }
+    if( /^\s*((set|setvar)\s+)?OUTDIR[^=]*=(.+)$/ ) {
+        my $depend = expand_vars( $_, \%vars );
+        push( @outdirs, $depend );
+        next;
+    }
+    if( /^\s*((set|setvar)\s+)?([a-zA-Z0-9_]+)\s*=(.+)$/ ) {
+        expand_vars( $_, \%vars );
+        next;
+    }
+    if( /\s*#BEGIN\s+DEPEND/ ) {
+        @inputs = ();
+        @outputs = ();
+        next;
+    }
+    if( /\s*#END\s+DEPEND/ || eof ) {
+        if( !eof ) {
+            close( ARGV );
+        }
+        for( @inputs ) {
+            print "${prefix}.log: $_\n";
+        }
+        for( @outputs ) {
+            print "$_: ${prefix}.log\n";
+            print "\t\@cd ${dirname}; test -f $_ || ".
+              "sh -xc './${basename}.com > ${basename}.log 2>&1'\n";
+            print "\t\@cd ${dirname}; test -f $_ && touch $_\n";
+        }
+        for( @outdirs ) {
+            print "$_: ${prefix}.log\n";
+            print "\t\@cd ${dirname}; test -d $_ || ".
+              "sh -xc './${basename}.com > ${basename}.log 2>&1'\n";
+            print "\t\@cd ${dirname}; test -d $_ && touch $_\n";
+        }
+        if( @outputs || @outdirs ) {
+            my $clean_subtargets = "";
+            if( @outputs ) {
+                $clean_subtargets .= " cleanfile${basename}";
+                print "CLEAN_FILES += ";
+                my $space = "";
+                for( @outputs ) {
+                    print "${space}$_";
+                    $space = " ";
+                }
+                print "\n";
+                print "CLEAN_FILE_TARGETS += cleanfile${basename}\n";
+                print "cleanfile${basename}:\n";
+                for( @outputs ) {
+                    print "\trm -f $_\n";
+                }
+            }
+            if( @outdirs ) {
+                $clean_subtargets .= " cleandir${basename}";
+                print "CLEAN_DIRS += ";
+                my $space = "";
+                for( @outdirs ) {
+                    print "${space}$_";
+                    $space = " ";
+                }
+                print "\n";
+                print "CLEAN_DIR_TARGETS += cleandir${basename}\n";
+                print "cleandir${basename}:\n";
+                for( @outdirs ) {
+                    print "\t" . "find '$_' -name .svn -prune -o " .
+                                "-type f -print0 | xargs -0 rm -fv\n";
+                }
+            }
+            print "CLEAN_TARGETS +=clean${basename}\n";
+            print "clean${basename}:${clean_subtargets}\n";
+            print "\trm -f ${prefix}.log\n";
+        } else {
+            print "CLEAN_TARGETS +=clean${basename}\n";
+            print "clean${basename}:\n";
+            print "\trm -f ${prefix}.log\n";
+        }
+        %vars = %ENV;
+        @inputs = ();
+        @outputs = ();
+    }
+    if( eof ) {
+        $basename = $dirname = $prefix = undef;
+    }
+}
