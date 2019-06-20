@@ -1441,7 +1441,7 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.1.2">6.1.2. type</a>
 
 * **Description**: the type of an entry.
-  All entry MUST be able to be fetched using the [base URL](#h.3.1) type and ID at the url `<base URL>/<type>/<id>`.
+  Any entry MUST be able to be fetched using the [base URL](#h.3.1) type and ID at the url `<base URL>/<type>/<id>`.
 * **Requirements/Conventions**: MUST be an existing entry type.
 * **Example**: `"structures"`
 
