@@ -105,7 +105,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Implementation**: An instance serving the OPTiMaDe API.
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
-  (e.g., structure or calculation).
+  (e.g., structures, calculation, or references).
 * **Field**: A key of an associative-array-type data structure.
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
   A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
@@ -117,7 +117,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   * **list**, **dictionary**: Collections of base types, defined in the same manner as a JSON [array](https://json-schema.org/understanding-json-schema/reference/array.html) and [object](https://json-schema.org/understanding-json-schema/reference/object.html), respectively.
 * **Queryable property**: A property that can be in the filtering of results.
   For more information see section [3.5. Queryable Properties](#h.3.5).
-* **Resources object**: Represents resources. MUST contain at least the following top-level fields:
+* **Resource object**: Represents resources. MUST contain at least the following top-level fields:
   `id`, `type`.
 * **ID**: A unique identifier referencing a specific resource in the database.
   Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
