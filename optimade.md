@@ -1738,7 +1738,7 @@ by multiple chemical elements.
   titanium, `"O"` for oxygen, etc.) However, note that this is OPTIONAL, and client implementations
   MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name
   is a valid chemical symbol, that it represents a species with that chemical symbol. This means that
-  a species `"C": {"chemical_symbols": ["Ti"], "concentration": [1.0]}` is valid and represents a
+  a species `{"name": "C", "chemical_symbols": ["Ti"], "concentration": [1.0]}` is valid and represents a
   titanium species (and *not* a carbon species).
   * It is NOT RECOMMENDED that a structure includes species that do not have at least one
   corresponding site.
