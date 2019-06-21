@@ -2,3 +2,6 @@
 .*.d
 .svn
 Makeconf*
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,67 @@
+Parse tree from tests/cases/Filter_071.inp:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_65(9999): "a", line: 1, col: 1
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 2
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 3
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 4
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_66(9999): "b", line: 1, col: 5
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 6
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 7
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_67(9999): "c", line: 1, col: 8
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 9
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 10
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_68(9999): "d", line: 1, col: 11
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 12
+              Dot(9999)
+                TOKEN_14(9999): ".", line: 1, col: 13
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 14
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_63(9999): "_", line: 1, col: 15
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 16
+            ValueOpRhs(9999)
+              Operator(9999)
+                TOKEN_29(9999): "=", line: 1, col: 17
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 18
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_21(9999): "5", line: 1, col: 19
+                  Spaces(9999)
+                    Space(9999)
+                      nl(9999)
+                        SPECIAL_1(9999): "(...)", line: 1, col: 20
