@@ -1514,7 +1514,7 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.2.4">6.2.4. chemical\_formula\_descriptive</a>
 
-* **Description**: The chemical formula for a structure as a string on a form chosen by the API implementation.
+* **Description**: The chemical formula for a structure as a string in a form chosen by the API implementation.
 * **Requirements/Conventions**: 
     * The chemical formula is given as a string consisting of 
       properly capitalized element symbols followed by integers or decimal numbers, 
@@ -1565,7 +1565,7 @@ This section defines standard entry types and their properties.
    
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string on [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
+* **Description**: The chemical formula for a structure as a string in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
 * **Requirements/Conventions**: 
     * The overall scale factor of the chemical proportions is chosen such that the resulting values
       are integers that indicate the most chemically relevant unit of which the system is composed. 
@@ -1578,7 +1578,7 @@ This section defines standard entry types and their properties.
     * Elements MUST be placed in [Hill order](https://dx.doi.org/10.1021/ja02046a005), followed by their integer chemical proportion number.
       Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second. After
       that, all other elements are ordered alphabetically. If carbon is not present, all elements are ordered alphabetically. 
-    * If the system has sites with partial occupation and the total occupation of each element do not all sum up to integers, then the 
+    * If the system has sites with partial occupation and the total occupations of each element do not all sum up to integers, then the 
       Hill formula SHOULD be handled as unset.
     * No spaces or separators are allowed.
     * This property is OPTIONAL, and if set, support for partial string matching 
@@ -1679,12 +1679,12 @@ species are found in the [6.2.13. `species`](#h.6.2.13) property.
   * Each species name mentioned in the `species_at_sites` list MUST be
     described in the [6.2.13. `species`](#h.6.2.13) list (i.e. for each value in the `species_at_sites` list
     there MUST exist exactly one dictionary in the `species` list with the `name`
-    attribute equal to the corresponging `species_at_sites` value);
+    attribute equal to the corresponding `species_at_sites` value).
   * Each site MUST be associated only to a single species.  
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined
     for the same chemical element. This latter case is useful when different atoms of the same type
     need to be grouped or distinguished, for instance in simulation codes to assign different initial
-    spin states).
+    spin states.
 * **Examples**:
   * `["Ti","O2"]` indicates that the first site is hosting a species labeled `"Ti"` and the second a
   species labeled `"O2"`.
