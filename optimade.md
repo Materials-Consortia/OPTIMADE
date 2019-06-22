@@ -1657,12 +1657,11 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
 
 ### <a name="h.6.2.11">6.2.11. nsites</a>
 
-* **Description**: The number of sites
-* **Requirements/Conventions**: An integer specifying the length of the `cartesian_site_positions` property.
+* **Description**: An integer specifying the length of the `cartesian_site_positions` property.
+* **Requirements/Conventions**: 
   * This property is REQUIRED.
   * Queries on this property can equivalently be formulated using `LENGTH cartesian_site_positions`.
-* **Querying**: 
-  Examples:
+* **Querying**:
   * match only structures with exactly 4 sites: `nsites=4`
   * match structures that have between 2 and 7 sites: `nsites>=2 AND nsites<=7`
 
@@ -1716,8 +1715,8 @@ by multiple chemical elements.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
     species. The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically
     fall only in the following two categories:
-      * Numerical errors when representing float numbers in fixed precision. E.g. for two chemical
-      symbols with concentration `1/3` and `2/3`, the concentration might look something like
+      * Numerical errors when representing float numbers in fixed precision, e.g. for two chemical
+      symbols with concentrations `1/3` and `2/3`, the concentration might look something like
       `[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of
       numerical precision, it can renormalize the values so that the sum is exactly one.
       * Experimental errors in the data present in the database. In this case, it is the
@@ -1769,19 +1768,19 @@ by multiple chemical elements.
     * **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.  
     Example: `[[1], [2]]`: two groups, one with the second site, one with the third.  
     Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth.
-    * **group\_probabilities**: Statistical probability of each group. It MUST have the same length of
+    * **group\_probabilities**: Statistical probability of each group. It MUST have the same length as
     `sites_in_groups`. It SHOULD sum to one. See below for examples of how to specify the probability
     of the occurrence of a vacancy. The possible reasons for the values not to sum to one are the same
     as already specified above for the `concentration` of each `species`, see section
     [6.2.13. `species`](#h.6.2.13).
-  * If a site is not present in any group, it means that is is present with 100 % probability (as if
+  * If a site is not present in any group, it means that it is present with 100 % probability (as if
   no assembly was specified).
   * A site MUST NOT appear in more than one group.
 * **Examples** (for each entry of the assemblies list):
   * `{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second
   site never occur at the same time in the unit cell. Statistically, 30 % of the times the first site
   is present, while 70 % of the times the second site is present.
-  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: The second and third site
+  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: the second and third site
   are either present together or not present; they form the first group of atoms for this assembly.
   The second group is formed by the fourth site. Sites of the first group (the second and the third)
   are never present at the same time as the fourth site. 30 % of times sites 1 and 2 are present (and
