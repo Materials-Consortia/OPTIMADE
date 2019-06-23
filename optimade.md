@@ -1,5 +1,4 @@
 # OPTiMaDe API specification v0.9.8-develop
-
 [1. Introduction](#h.1)
 
 [2. Term Definition](#h.2)
@@ -73,27 +72,19 @@
 # <a name="h.1">1. Introduction</a>
 
 As researchers create independent materials databases, much can be
-gained from retrieving data from multiple databases. However, the
-retrieval process is difficult if each database has a different
-API. This document defines a standard API for retrieving data from
-materials databases. This API was developed by the participants of the
-workshop "Open Databases Integration for Materials Design", held at
-the Lorentz Center in Leiden, Netherlands from 2016-10-24 to
-2016-10-28.
+gained from retrieving data from multiple databases. However, automating
+the retrieval of data is difficult if each database has a different
+application programming interface (API). This document specifies a standard API
+for retrieving data from materials databases. 
+This API specification has been developed over a series of workshops entitled "Open Databases
+Integration for Materials Design", held at the Lorentz Center in Leiden,
+Netherlands and the CECAM headquarters in Lausanne, Switzerland.
 
-It is the intent that the API in the present document adheres to the
-[JSON API](http://jsonapi.org/format/1.0) v1.0 specification (with the exception that
-non-conformant responses can be generated if an API user specifically
-requests a non-standard response format). In cases where specific
-restrictions are given in the JSON API specification that are stricter than what is
-formulated in this document, they are expected to be upheld by API
-implementations unless otherwise noted in this document.
-(This may apply to, e.g., the format of Member Names and/or return codes.)
+The API specification described in this document builds on top of the [JSON API v1.0 specification](http://jsonapi.org/format/1.0).
+In particular, the JSON API specification is assumed to apply wherever it is stricter than what is formulated in this document.
+Exceptions to this rule are stated explicitly (e.g. non-compliant responses are tolerated if a non-standard response format is explicitly requested). 
 
-The full present version number of the specification is shown as part of the
-top headline of this document.
-
-# <a name="h.2">2. Term Definition</a>
+# <a name="h.2">2. Definition of Terms</a>
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -103,6 +94,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Database-provider-specific prefix**: This specification defines a set of
   database-provider-specific prefixes in [Appendix 1](#h.app1).
 * **Implementation**: An instance serving the OPTiMaDe API.
+* **JSON API response schema**: Schema for the default response format, which MUST be *compatible* with the [JSON API v1.0](http://jsonapi.org/format/1.0) (see also [3.3 Responses](#h.3.3)).
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
   (e.g., structure or calculation).
@@ -121,11 +113,11 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   `id`, `type`.
 * **ID**: A unique identifier referencing a specific resource in the database.
   Together with **Entry**, the ID MUST uniquely identify the **Resource object**.
-  IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
+  IDs MUST be URL-safe; in particular, they MUST NOT contain commas. IDs MUST NOT be a reserved word.
   Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
-  It does not need to be immutable, and MUST NOT be a reserved word.
-* **Immutable ID**: A unique identifier that specifies a specific resource in a
-  database that MUST be immutable.
+  IDs MAY change over time.
+* **Immutable ID**: A unique identifier referencing a specific resource in a
+  database. The identifier MUST NOT change over time.
 * **Reserved words**: The list of reserved words in this standard is:
   `info`.
 
@@ -185,27 +177,23 @@ API implementations MUST decode URLs according to [RFC 3986](http://tools.ietf.o
 
 ### <a name="h.3.3.1">3.3.1. Response Format</a>
 
-API responses MUST be returned in the format specified in the
-request. If no specific response format is specified in the request by
-use of the `response_format` URL query parameter (see below), the default
-response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
-All endpoints MUST support at least the JSON API format.
-Each endpoint MAY support multiple formats,
-and declare these formats in their `info` endpoints
+By default, all API responses MUST comply with the [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
+In particular, all endpoints MUST be able to respond in the JSON API format.
+
+Each endpoint MAY support additional formats, and declare these formats in its own `info` endpoint
 (see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
+Clients can request these formats using the `response_format` URL query parameter (see below).
+Specifying a `response_format` URL query parameter different from `json`
+allows the API to break conformance with the JSON API specification not only
+in response format but also, e.g., in terms of how content negotiation is implemented.
 
-An API implementation MAY return other formats than specified here.
-These can be implemented and documented according to the database provider.
-However, they MUST be prefixed by a database-provider-specific prefix as defined in
-[Appendix 1](#h.app1).
-
-Specifying a `response_format` URL query parameter different from JSON API,
-allows the implementation to break conformance with the JSON API specification.
-Not only in response format, but also in, e.g., how content negotiation is implemented.
+API implementations MAY support additional formats beyond the ones specified in this document.
+In this case, the corresponding `response_format` identifiers MUST be include a
+database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
 ### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
 
-Every response SHOULD contain the following fields, and MUST contain at least one:
+Every response SHOULD contain the following fields, and MUST contain at least one of:
 
 * **meta**: a [JSON API meta member](https://jsonapi.org/format/1.0/#document-meta)
   that contains JSON API meta objects of non-standard meta-information.  
@@ -220,7 +208,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     was executed, in [ISO 8601](https://www.iso.org/standard/40874.html)
     format.  Times MUST be timezone-aware (i.e., MUST NOT be local times),
     in one of the formats allowed by [ISO 8601](https://www.iso.org/standard/40874.html)
-    (i.e., either be in UTC, and then end with a Z, or indicate explicitly
+    (i.e., either be in UTC, and then end with 'Z', or indicate explicitly
     the offset).
   * **data\_returned**: an integer containing the number of data objects returned for the query.
   * **more\_data\_available**: `false` if all data for this query has been
