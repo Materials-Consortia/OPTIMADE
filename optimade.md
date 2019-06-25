@@ -453,7 +453,7 @@ to the corresponding database ID that was originally queried, using the object's
 
 ### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
 
-There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable the server-less data aggregations. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: <site-of-the-javascript-page>` or `Access-Control-Allow-Origin: *` (to allow any site) in its responses. 
+There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable the server-less data aggregations. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site. 
 
 ### <a name="h.3.3.5">3.3.5. Unset optional properties</a>
 
