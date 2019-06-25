@@ -517,7 +517,7 @@ A query is performed using `filter` (see section [5. API Filtering Format Specif
 
 ## <a name="h.3.6">3.6. Relationships</a>
 
-The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe the relationship. These relationships can be to the same, or to different, entry types.
+The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe each relationship. These relationships can be to the same, or to different, entry types.
 
 In responses that use the jsonapi format, such relationships MUST be communicated using the `"relationships"` field of the response encoded as jsonapi relationship objects in accordance with the [jsonapi specification](https://jsonapi.org/format/1.0/#document-resource-object-relationships). The OPTIONAL human-readable description is provided in the `"description"` field inside the `"meta"` dictionary of a relationship.
 
@@ -1348,13 +1348,14 @@ Examples:
 
 ### Nested property names
 
-Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in [section '5.1. Lexical tokens'](#h.5.1), consisting of fields separated by periods ('.'). A filter on a nested property name consisting of two fields `field1.field2` matches if:
-- `field1` references a dictionary-type property that contains as a field `field2` and the filter matches for the content of `field2`.  
-OR
+Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in [section '5.1. Lexical tokens'](#h.5.1), consisting of fields separated by periods ('.'). A filter on a nested property name consisting of two fields `field1.field2` matches if either one of these points are true:
+
+- `field1` references a dictionary-type property that contains as a field `field2` and the filter matches for the content of `field2`.
+
 - `field1` references a list of dictionaries that contain as a field `field2` and the filter matches for a flat list containing only the contents of `field2` for every dictionary in the list. E.g., if `field1` is the list `[{"field2":42, "field3":36}, {"field2":96, "field3":66}]`, then `field1.field2` is understood in the filter as the list `[42, 96]`.
 
 The API implementation MAY allow this notation to generalize to arbitary depth. 
-A nested property names that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
+A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
 
 ### Relationships
 
