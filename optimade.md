@@ -515,6 +515,14 @@ A query is performed using `filter` (see section [5. API Filtering Format Specif
 
 > **For implementers**: To get an understanding of which properties MUST be queryable and which are RECOMMENDED, please see section [6. Entry List](#h.6).
 
+## <a name="h.3.6">3.6. Relationships</a>
+
+The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe the relationship. These relationships can be to the same, or to different, entry types.
+
+In responses that use the jsonapi format, such relationships MUST be communicated using the `"relationships"` field of the response encoded as jsonapi relationship objects in accordance with the [jsonapi specification](https://jsonapi.org/format/1.0/#document-resource-object-relationships). The OPTIONAL human-readable description is provided in the `"description"` field inside the `"meta"` dictionary of a relationship.
+
+Other response formats (e.g., ones using database-specific prefixes) have to encode these relationships in ways appropriate for each format. If the format has no dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside other properties. For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the ids of the referenced entries alongside the respective human-readable description of the relationships. It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
+
 # <a name="h.4">4. API Endpoints</a>
 
 The URL component that follows the base URL MUST represent one of the
@@ -1135,23 +1143,9 @@ The following tokens are used in the filter query component:
     * `_exmpl_trajectory`
     * `_exmpl_workflow_id`  
 
-* **Nested property names** MUST contain at least two property names joined by
-  periods (`.`). When query is performed on relationships, the entrypoint name
-  of the relationship is used as the name of the first property.
-
-  Nested property names are similar to
-  [JSONPaths](https://goessner.net/articles/JsonPath/) in a sense that they are
-  used to access nested JSON data structures. A nested property name MUST be
-  resolved starting either from `attributes` dictionary of an entry or from
-  `relationships`, depending on where the first part of the path is found.
-  When reached, every list is flattened, and the resolution continues for every
-  list member.
-
-  Examples:
-
-    * `authors.name`
-    * `references.authors.name` (`references` is an entrypoint name)
-
+* **Nested property names** A nested property name is composed of at least two fields 
+  separated by periods (`.`). 
+  
 * **String values** MUST be enclosed in double quotes ("", ASCII symbol 92
     dec, 0x5C hex). The quote and other special characters within the double
     quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote
@@ -1351,6 +1345,34 @@ Examples:
 * OPTIONAL: `elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS EXACTLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
 * OPTIONAL: `_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8` (note: specifying the = operator after HAS ANY is redundant here, if no operator is given, the test is for equality.)
 * OPTIONAL: `elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0`
+
+### Nested property names
+
+Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in [section '5.1. Lexical tokens'](#h.5.1), consisting of fields separated by periods ('.'). A filter on a nested property name consisting of two fields `field1.field2` matches if:
+- `field1` references a dictionary-type property that contains as a field `field2` and the filter matches for the content of `field2`.  
+OR
+- `field1` references a list of dictionaries that contain as a field `field2` and the filter matches for a flat list containing only the contents of `field2` for every dictionary in the list. E.g., if `field1` is the list `[{"field2":42, "field3":36}, {"field2":96, "field3":66}]`, then `field1.field2` is understood in the filter as the list `[42, 96]`.
+
+The API implementation MAY allow this notation to generalize to arbitary depth. 
+A nested property names that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
+
+### Relationships
+
+As described in section [3.6. Relationships](#h.3.6), it is possible for the API implementation to describe relationships between entries of the same, or different, entry types. 
+The API implementation MAY support queries on relationships with an entry type `<entry type>` by using special nested property names:
+
+- `<entry type>.id` references a list of ids of relationships with entries of the type `<entry type>`.
+- `<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
+
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two fields, `id` and `description`.
+For example: a client queries the `structures` endpoint with a filter that references `calculations.id`. For a specific structures entry, the nested property may behave as the list `["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter `calculations.id HAS "calc-id-96"`. This means that the structures entry has a relationship with the calculations entry of that id.
+
+> **Note:** formulating queries on relationships with entries that have specific property values is a multi-step process. 
+> For example, to find all structures with bibliographic references where one of the authors have the last name "Schmit" is performed by the following two steps:
+>
+> - Query the `references` endpoint with a filter `authors.lastname HAS "Schmit"` and store the `id` values of the returned entries. 
+> - Query the `structures` endpoint with a filter `references.id HAS ANY <list-of-ids>`, where `<list-of-ids>` is the ids retrieved from the first query separated by commas. 
+
 
 ### Properties that can be unset
 
@@ -1943,10 +1965,8 @@ in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
 ## <a name="h.6.6">6.6. Relationships Used by Multiple Entry Types</a>
 
-[JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
-MAY be used to describe the relations between entries. A human-readable description
-of a relationship MAY be provided using the `"description"` field inside the
-`"meta"` dictionary of a relationship.
+In accordance with section [3.6. Relationships](#h.3.6), all entry types may use
+relationships to describe relations to other entries.
 
 ### <a name="h.6.6.1">6.6.1. References</a>
 
