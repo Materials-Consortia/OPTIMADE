@@ -11,8 +11,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. HTTP Response Headers](#h.3.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Unset optional properties](#h.3.3.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.6. Warnings](#h.3.3.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5. Queryable Properties](#h.3.5)  
 
@@ -450,7 +451,11 @@ the next course of action SHOULD be to fetch the resource objects under the
 to the corresponding database ID that was originally queried, using the object's
 `base_url` value.
 
-### <a name="h.3.3.4">3.3.4. Unset optional properties</a>
+### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
+
+There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable the server-less data aggregations. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: <site-of-the-javascript-page>` or `Access-Control-Allow-Origin: *` (to allow any site) in its responses. 
+
+### <a name="h.3.3.5">3.3.5. Unset optional properties</a>
 
 Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, e.g. have the value `null` within a JSON file.
 
@@ -474,7 +479,7 @@ The text in this section describes how the API handles properties that are `null
 It does not regulate the handling of values inside property data structures that can be `null`. 
 The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
 
-### <a name="h.3.3.5">3.3.5. Warnings</a>
+### <a name="h.3.3.6">3.3.6. Warnings</a>
 
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
