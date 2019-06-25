@@ -1300,7 +1300,7 @@ Examples:
 
 ### Comparisons of list properties
 
-In the following, `values` is one or more `value` separated by commas (","), i.e., strings or numbers. An implementation MAY also support property names and nested property names in `values`.
+In the following, `list` is a list-type property, and `values` is one or more `value` separated by commas (","), i.e., strings or numbers. An implementation MAY also support property names and nested property names in `values`.
 
 The following constructs MUST be supported:
 
@@ -1338,7 +1338,7 @@ values on the right-hand side MAY allow `<operator> value` in each
 place a value can appear. In that case, a match requires that the
 `<operator>` comparison is fulfilled instead of equality. Strictly,
 the definitions of the `HAS`, `HAS ALL`, `HAS ANY` and
-`HAS ONLY` operators as written above applies, but with the word
+`HAS ONLY` operators as written above apply, but with the word
 'equal' replaced with the `<operator>` comparison.
 
 For example:
