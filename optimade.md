@@ -1372,7 +1372,7 @@ For example: a client queries the `structures` endpoint with a filter that refer
 > For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
 >
 > - Query the `references` endpoint with a filter `authors.lastname HAS "Schmit"` and store the `id` values of the returned entries. 
-> - Query the `structures` endpoint with a filter `references.id HAS ANY <list-of-IDs>`, where `<list-of-IDs>` is the IDs retrieved from the first query separated by commas. 
+> - Query the `structures` endpoint with a filter `references.id HAS ANY <list-of-IDs>`, where `<list-of-IDs>` are the IDs retrieved from the first query separated by commas. 
 >
 > (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
 
