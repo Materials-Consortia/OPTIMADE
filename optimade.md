@@ -1395,7 +1395,7 @@ types of the participating properties. Specifically:
 not match the type of the property, it is RECOMMENDED that the
 implementation makes a best-effort to convert the constant to match
 the property type. For example, `x > "0.0"` where x is a coordinate
-would be treated as numeric filter `x > 0`, and `s = 0` for a String
+would be treated as numeric filter `x > 0`, and `s = 0` for a string
 parameter "s" would perform string comparison as in `s = "0"`.
 Strings are converted to numbers using the token syntax specified in
 [section '5.1. Lexical tokens'](#h.5.1), p. "Numeric values"; numbers
