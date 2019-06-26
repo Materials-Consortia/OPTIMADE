@@ -43,7 +43,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. last\_modified](#h.6.1.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. database-provider-specific properties](#h.6.1.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structures Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. elements\_ratios](#h.6.2.3)  
@@ -59,8 +59,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.13. species](#h.6.2.13)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.14. assemblies](#h.6.2.14)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.15. structure\_features](#h.6.2.15)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Reference Entries](#h.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculations Entries](#h.6.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. References Entries](#h.6.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.5. Database-Provider-Specific Entry Types](#h.6.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.6. Relationships Used by Multiple Entry Types](#h.6.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.1. references](#h.6.6.1)  
@@ -105,7 +105,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Implementation**: An instance serving the OPTiMaDe API.
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
-  (e.g., structure or calculation).
+  (e.g., structures, calculations, or references).
 * **Field**: A key of an associative-array-type data structure.
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
   A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
@@ -672,7 +672,7 @@ Example:
 {
   "data": [
     {
-      "type": "structure",
+      "type": "structures",
       "id": "example.db:structs:0001",
       "attributes": {
         "chemical_formula_descriptive": "Es2 O3",
@@ -683,7 +683,7 @@ Example:
       }
     },
     {
-      "type": "structure",
+      "type": "structures",
       "id": "example.db:structs:1234",
       "attributes": {
         "chemical_formula_descriptive": "Es2",
@@ -733,7 +733,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "structure",
+    "type": "structures",
     "id": "example.db:structs:1234",
     "attributes": {
       "chemical_formula_descriptive": "Es2",
@@ -910,7 +910,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "description": "a structure",
+    "description": "a structures",
     "properties": {
       "nelements": {
         "description": "Number of elements",
@@ -1441,8 +1441,9 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.1.2">6.1.2. type</a>
 
 * **Description**: the type of an entry.
+  Any entry MUST be able to be fetched using the [base URL](#h.3.1) type and ID at the url `<base URL>/<type>/<id>`.
 * **Requirements/Conventions**: MUST be an existing entry type.
-* **Example**: `"structure"`
+* **Example**: `"structures"`
 
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
@@ -1464,9 +1465,9 @@ This section defines standard entry types and their properties.
   * \_exmpl\_trajectory
   * \_exmpl\_workflow\_id
 
-## <a name="h.6.2">6.2. Structure Entries</a>
+## <a name="h.6.2">6.2. Structures Entries</a>
 
-`"structure"` entries (or objects) have the properties described above in section
+`"structures"` entries (or objects) have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1), as well as the following properties:
 
 ### <a name="h.6.2.1">6.2.1. elements</a>
@@ -1886,14 +1887,14 @@ by multiple chemical elements.
   ["assemblies", "unknown_positions"]
   ```
 
-## <a name="h.6.3">6.3. Calculation Entries</a>
+## <a name="h.6.3">6.3. Calculations Entries</a>
 
-`"calculation"` entries have the properties described above in section
+`"calculations"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
-## <a name="h.6.4">6.4. Reference Entries</a>
+## <a name="h.6.4">6.4. References Entries</a>
 
-`"reference"` entries describe bibliographic references. The following properties
+`"references"` entries describe bibliographic references. The following properties
 are used to provide the bibliographic details:
 * **address**, **annote**, **booktitle**, **chapter**, **crossref**,
   **edition**, **howpublished**, **institution**, **journal**, **key**,
@@ -1915,7 +1916,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "reference",
+    "type": "references",
     "id": "Dijkstra1968",
     "attributes": {
       "authors": [
@@ -1951,8 +1952,8 @@ of a relationship MAY be provided using the `"description"` field inside the
 ### <a name="h.6.6.1">6.6.1. References</a>
 
 The `"references"` relationship is used to provide bibliographic references for any
-of the entry types. It relates an entry with any number of `"reference"` entries.
-Entries of type `"reference"`, if mentioned in the returned JSON document,
+of the entry types. It relates an entry with any number of `"references"` entries.
+Entries of type `"references"`, if mentioned in the returned JSON document,
 SHOULD be included in the top-level `"included"` field as per the
 [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
 
@@ -1961,7 +1962,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "structure",
+    "type": "structures",
     "id": "example.db:structs:1234",
     "attributes": {
       "formula": "Es2",
@@ -1973,9 +1974,9 @@ Example:
     "relationships": {
       "references": {
         "data": [
-          { "type": "reference", "id": "Dijkstra1968" },
+          { "type": "references", "id": "Dijkstra1968" },
           {
-            "type": "reference",
+            "type": "references",
             "id": "1234",
             "meta": {
               "description": "This article has been retracted"
@@ -1987,7 +1988,7 @@ Example:
   },
   "included": [
     {
-      "type": "reference",
+      "type": "references",
       "id": "Dijkstra1968",
       "attributes": {
         "authors": [
@@ -2004,7 +2005,7 @@ Example:
       }
     },
     {
-      "type": "reference",
+      "type": "references",
       "id": "1234",
       "attributes": {
         "doi": "10.1234/1234"
