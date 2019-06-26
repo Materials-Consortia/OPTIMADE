@@ -1406,7 +1406,7 @@ warning in the response and specify the actual search values that were
 used. Alternatively, the implementation MAY instead respond with error
 `501 Not Implemented` with an explanation that specifies which
 comparison generated the type mismatch. The implementation MUST either
-make a conversion or respond with an error. It may not, e.g., silently
+make a conversion or respond with an error. It MUST NOT, e.g., silently
 treat such comparisons as always non-matching.
 
 * If a comparison is provided between only numerical constants of
