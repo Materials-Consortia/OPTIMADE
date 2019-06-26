@@ -1398,7 +1398,8 @@ the property type. For example, `x > "0.0"` where x is a coordinate
 would be treated as numeric filter `x > 0`, and `s = 0` for a string
 parameter "s" would perform string comparison as in `s = "0"`.
 Strings are converted to numbers using the token syntax specified in
-[section '5.1. Lexical tokens'](#h.5.1), p. "Numeric values"; numbers
+[section '5.1. Lexical tokens'](#h.5.1), p. "Numeric values"; integers
+SHOULD be converted to strings in decimal notation (libc "%d"), floats
 SHOULD be converted to strings using the libc "%g" format. If a
 conversion is performed, the API implementation SHOULD supply a
 warning in the response and specify the actual search values that were
