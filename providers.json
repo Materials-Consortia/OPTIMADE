@@ -20,6 +20,15 @@
     },
     {
       "type": "provider",
+      "id": "cif",
+      "attributes": {
+        "name": "Crystallographic Information File",
+        "description": "Prefix for use of cif dictionary names as OPTiMaDe property identifiers, standardized for the Crystallographic Information File (CIF) at https://www.iucr.org/resources/cif/dictionaries. CIF dictionary names are used without the initial underscore. Loop data is represented as OPTiMaDe correlated lists.",
+	"base_url": null
+      }
+    },
+    {
+      "type": "provider",
       "id": "cod",
       "attributes": {
         "name": "Crystallography open database",
@@ -34,6 +43,15 @@
         "name": "Example provider",
         "description": "Provider used for examples, not to be assigned to a real database",
         "base_url": "http://example.com/optimade/index"
+      }
+    },
+    {
+      "type": "provider",
+      "id": "httk",
+      "attributes": {
+        "name": "The High-Throughput Toolkit",
+        "description": "Prefix for implementation-specific identifiers used in the httk implementation at http://httk.org/",
+	"base_url": null
       }
     },
     {
@@ -79,6 +97,15 @@
         "name": "open materials database",
         "description": "",
         "base_url": null
+      }
+    },
+    {
+      "type": "provider",
+      "id": "optimade",
+      "attributes": {
+        "name": "OPTiMaDe implementations and libraries",
+        "description": "Prefix for implementation-specific identifiers used in API implementations and libraries provided at https://github.com/Materials-Consortia",
+	"base_url": null
       }
     },
     {
