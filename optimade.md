@@ -105,7 +105,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Implementation**: An instance serving the OPTiMaDe API.
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
-  (e.g., structures, calculation, or references).
+  (e.g., structures, calculations, or references).
 * **Field**: A key of an associative-array-type data structure.
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
   A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
