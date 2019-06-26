@@ -110,7 +110,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
   A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
   MUST NOT match any of the entry names.
-* **Property**: A field-value pair. 
+* **Property**: A field-value pair.
 * **Property value types**:
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
     types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
