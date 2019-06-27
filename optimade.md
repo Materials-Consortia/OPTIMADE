@@ -1366,7 +1366,7 @@ The API implementation MAY support queries on relationships with an entry type `
 - `<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
 
 Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two fields, `id` and `description`.
-For example: a client queries the `structures` endpoint with a filter that references `calculations.id`. For a specific structures entry, the nested property may behave as the list `["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter `calculations.id HAS "calc-id-96"`. This means that the structures entry has a relationship with the calculations entry of that id.
+For example: a client queries the `structures` endpoint with a filter that references `calculations.id`. For a specific structures entry, the nested property may behave as the list `["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter `calculations.id HAS "calc-id-96"`. This means that the structures entry has a relationship with the calculations entry of that ID.
 
 > **Note:** formulating queries on relationships with entries that have specific property values is a multi-step process. 
 > For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
