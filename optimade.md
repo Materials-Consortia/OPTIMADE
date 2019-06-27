@@ -1299,55 +1299,62 @@ Examples:
 
 ### Comparisons of list properties
 
-List properties can be thought of as lists or sets of strings or numbers. 
-In the following, a set of `values` is one or more strings or numbers separated by a comma (",").
-An implementation MAY also support identifiers in the value set.
+In the following, `list` is a list-type property, and `values` is one or more `value` separated by commas (","), i.e., strings or numbers. An implementation MAY also support property names and nested property names in `values`.
 
 The following constructs MUST be supported:
 
-* `identifier HAS value`: matches if the given value is present in the list property (i.e., set operator IN).
-* `identifier HAS ALL values`: matches when all the values given are present in the list property (i.e., set operator >=).
-* `identifier HAS EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator =).
-* `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
-* `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the list property. 
+* `list HAS value`: matches if at least one element in `list` is equal to `value`. (If `list` has no duplicate elements, this implements the set operator IN.)
+* `list HAS ALL values`: matches if, for each `value`, there is at least one element in `list` equal to that value. (If both `list` and `values` do not contain duplicate values, this implements the set operator >=.)
+* `list HAS ANY values`: matches if at least one element in `list` is equal to at least one `value`. (This is equivalent to a number of HAS statements separated by OR.)
+
+* `LENGTH list <operator> value`: applies the numeric comparison `<operator>` for the number of items in the list property. 
 
 The following construct MAY be supported:
 
-* `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator <=)
+* `list HAS ONLY values`: matches if all elements in `list` are equal to at least one `value`. (If both `list` and `values` do not contain duplicate values, this implements the <= set operator.)
 
 This construct is OPTIONAL as it may be difficult to realize in some
 underlying database implementations. However, if the desired search is
 over a property that can only take on a finite set of values (e.g.,
 chemical elements) a client can formulate an equivalent search by inverting
-the list of values into `inverse` and express the filter as `NOT identifier HAS
+the list of values into `inverse` and express the filter as `NOT list HAS
 inverse`.
 
 Furthermore, there is a set of OPTIONAL constructs that allows
-searches to be formulated over the values in correlated positions in
-multiple list properties. This type of filter may be useful if
-one, e.g., has one list property of elements and another of an
-element count.
+filters to be formulated over the values in *correlated positions* in
+multiple list properties. An implementation MAY support this syntax 
+selectively only for specific properties. This type of filter is useful 
+for, e.g., filtering on elements and correlated element counts available
+as two separate list properties.
 
-* `id1:id2:... HAS val1:val2:...`
-* `id1:id2:... HAS ALL val1:val2:...`
-* `id1:id2:... HAS EXACTLY val1:val2:...`
-* `id1:id2:... HAS ANY val1:val2:...`
-* `id1:id2:... HAS ONLY val1:val2:...`
+* `list1:list2:... HAS val1:val2:...`
+* `list1:list2:... HAS ALL val1:val2:...`
+* `list1:list2:... HAS ANY val1:val2:...`
+* `list1:list2:... HAS ONLY val1:val2:...`
 
 Finally, all the above constructs that allow a value or lists of
-values on the right-hand side MAY allow `<operator> value`
-in each place a value can appear. In that case, a match requires that
-the equality or inequality is fulfilled. For example:
+values on the right-hand side MAY allow `<operator> value` in each
+place a value can appear. In that case, a match requires that the
+`<operator>` comparison is fulfilled instead of equality. Strictly,
+the definitions of the `HAS`, `HAS ALL`, `HAS ANY` and
+`HAS ONLY` operators as written above apply, but with the word
+'equal' replaced with the `<operator>` comparison.
 
-* `identifier HAS < 3`: matches all entries for which "identifier" contains at least one element that is less than three.
-* `identifier HAS ALL < 3, > 3`: matches only those entries for which "identifier" simultaneously 
+For example:
+
+* `list HAS < 3`: matches all entries for which `list` contains at least one element that is less than three.
+* `list HAS ALL < 3, > 3`: matches only those entries for which `list` simultaneously 
    contains at least one element less than three and one element greater than three.
 
-Examples:
+An implementation MAY support combining the operator syntax with the syntax for correlated lists in particularly on a list correlated with itself. For example:
 
-* `elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS EXACTLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
+* `list:list HAS >=2:<=5`: matches all entries for which `list` contains at least one element that is between the values 2 and 5.
+
+Further examples of various comparisons of list properties:
+
+* `elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS ONLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
 * OPTIONAL: `elements HAS ONLY "H","He","Ga","Ta"`
-* OPTIONAL: `elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS EXACTLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
+* OPTIONAL: `elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
 * OPTIONAL: `_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8` (note: specifying the = operator after HAS ANY is redundant here, if no operator is given, the test is for equality.)
 * OPTIONAL: `elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0`
 
@@ -1512,8 +1519,8 @@ This section defines standard entry types and their properties.
 * **Querying**: 
     * A filter that matches all records of structures that contain Si, Al **and** O, 
       and possibly other elements: `elements HAS ALL "Si", "Al", "O"`. 
-    * To match exactly these three elements, use `elements HAS EXACTLY "Si", "Al", "O"` or alternatively
-      add `AND LENGTH elements = 3`.
+    * To match structures with exactly these three elements, 
+	  use `elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3`.
 
 ### <a name="h.6.2.2">6.2.2. nelements</a>
 
@@ -2134,11 +2141,11 @@ KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
 FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String ;
 
-SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
 (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
 
-SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
+SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
 LengthComparison = LENGTH, Property, Operator, Value ;
 
@@ -2178,7 +2185,6 @@ LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
 HAS = 'H', 'A', 'S', [Spaces] ;
 ALL = 'A', 'L', 'L', [Spaces] ;
 ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
-EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y', [Spaces] ;
 ANY = 'A', 'N', 'Y', [Spaces] ;
 
 (* OperatorComparison operator tokens: *)
