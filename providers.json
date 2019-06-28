@@ -20,15 +20,6 @@
     },
     {
       "type": "provider",
-      "id": "cif",
-      "attributes": {
-        "name": "Crystallographic Information File",
-        "description": "Prefix for use of cif dictionary names as OPTiMaDe property identifiers, standardized for the Crystallographic Information File (CIF) at https://www.iucr.org/resources/cif/dictionaries. CIF dictionary names are used without the initial underscore. Loop data is represented as OPTiMaDe correlated lists.",
-	"base_url": null
-      }
-    },
-    {
-      "type": "provider",
       "id": "cod",
       "attributes": {
         "name": "Crystallography open database",
