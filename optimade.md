@@ -342,31 +342,31 @@ The response MAY also return resources related to the primary data in the field:
   * a dictionary ("link object") with fields
     * **href**: a string representing a URI
     * **meta**: (OPTIONAL) a meta object containing non-standard meta-information about the link
-    
+
   Example links objects:
-    
+
   * **base\_url**: a links object representing the base URL of the implementation. Example:
-	
-	```jsonc
-	{
-	  "links": {
-		"base_url": {
-		  "href": "http://example.com/optimade/v0.9/",
-		  "meta": {
-			"_exmpl_db_version": "3.2.1"
-		  }
-		}
-		// ...
-	  }
-	  // ...
-	}
-	```
+
+  ```jsonc
+  {
+    "links": {
+      "base_url": {
+        "href": "http://example.com/optimade/v0.9/",
+        "meta": {
+          "_exmpl_db_version": "3.2.1"
+        }
+      }
+      // ...
+    }
+    // ...
+  }
+  ```
 
   The following fields are REQUIRED for implementing pagination:
   
   * **next**: represents a link to fetch the next set of results. When the current response is the last page of data,
     this field MUST be either omitted or `null`-valued.
-   
+
   The following fields are reserved for pagination.  Their values are as with `next`, in the sense that they
   should be a "link". An implementation MAY offer these links:
   
@@ -384,7 +384,6 @@ If there were errors in producing the response all other fields MAY be present, 
 
 * **errors**: a list of [JSON API error objects](http://jsonapi.org/format/1.0/#error-objects), where the field `detail` MUST be present.
 All other fields are OPTIONAL.
-
 
 An example of a full response:
 
@@ -701,8 +700,8 @@ Example:
         "url": "http://example.db/structs/1234",
         "immutable_id": "http://example.db/structs/1234@123",
         "last_modified": "2007-04-07T12:02Z"
-      },
-    },
+      }
+    }
     // ...
   ]
   // ...
@@ -751,12 +750,12 @@ Example:
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
-    },
+    }
   },
   "meta": {
     "query": {
       "representation": "/structures/example.db:structs:1234?"
-    },
+    }
     // ...
   }
   // ...
@@ -857,7 +856,7 @@ Example:
       ],
       "is_index": false
     }
-  },
+  }
   // ...
 }
 ```
@@ -895,7 +894,7 @@ Example for an index meta-database:
         "data": { "type": "child", "id": "perovskites" }
       }
     }
-  },
+  }
   // ...
 }
 ```
@@ -941,7 +940,7 @@ Example:
       ],
       "xml": ["nelements"]
     }
-  },
+  }
   // ...
 }
 ```
@@ -1031,9 +1030,9 @@ Example:
         "description": "Provider used for examples, not to be assigned to a real database",
         "base_url": "http://example.com/optimade/index"
       }
-    },
+    }
     // ... <other objects>
-  ],
+  ]
   // ...
 }
 ```
@@ -2016,7 +2015,7 @@ Example:
           }
         ]
       }
-    },
+    }
   },
   "included": [
     {
