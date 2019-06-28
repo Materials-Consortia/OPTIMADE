@@ -657,7 +657,7 @@ MUST have the following fields:
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
   * **local\_id**: the entry's local database ID (having no OPTiMaDe requirements/conventions)
-  * **last\_modified**: an timestamp representing the entry's last modification time
+  * **last\_modified**: an timestamp representing the entry's last modification date and time
   * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID (e.g., an UUID).
   This is important for databases having preferred IDs that point to "the latest version" of a
   record, but still offer access to older variants. This ID maps to the version-specific record,
@@ -1481,7 +1481,7 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
-* **Description**: Date representing when the entry was last modified.
+* **Description**: Date and time representing when the entry was last modified.
 * **Requirements/Conventions**: A timestamp as in [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
