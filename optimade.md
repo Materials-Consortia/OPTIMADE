@@ -837,11 +837,11 @@ Example:
         "1.0.2": "http://db.example.com/optimade/v1.0/"
       },
       "formats": [
-        "json",
+        "jsonapi",
         "xml"
       ],
       "entry_types_by_format": {
-        "json": [
+        "jsonapi": [
           "structures",
           "calculations"
         ],
@@ -877,11 +877,11 @@ Example for an index meta-database:
         "1.0.2": "http://example.com/optimade/v1.0/"
       },
       "formats": [
-        "json",
+        "jsonapi",
         "xml"
       ],
       "entry_types_by_format": {
-        "json": [],
+        "jsonapi": [],
         "xml": []
       },
       "available_endpoints": [
@@ -932,9 +932,9 @@ Example:
       }
       // ... <other property descriptions>
     },
-    "formats": ["json", "xml"],
+    "formats": ["jsonapi", "xml"],
     "output_fields_by_format": {
-      "json": [
+      "jsonapi": [
         "nelements",
         "lattice_vectors",
         // ...
