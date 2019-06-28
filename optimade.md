@@ -116,6 +116,8 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
     types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
   * **list**, **dictionary**: Collections of base types, defined in the same manner as a JSON [array](https://json-schema.org/understanding-json-schema/reference/array.html) and [object](https://json-schema.org/understanding-json-schema/reference/object.html), respectively.
+  * **timestamp**: string representation of date and time as defined in
+    [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 * **Queryable property**: A property that can be in the filtering of results.
   For more information see section [3.5. Queryable Properties](#h.3.5).
 * **Resource object**: Represents resources. MUST contain at least the following top-level fields:
@@ -217,12 +219,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **representation**: a string with the part of the URL following the base URL.
 
   * **api\_version**: a string containing the version of the API implementation.
-  * **time\_stamp**: a string containing the date and time at which the query
-    was executed, in [ISO 8601](https://www.iso.org/standard/40874.html)
-    format.  Times MUST be timezone-aware (i.e., MUST NOT be local times),
-    in one of the formats allowed by [ISO 8601](https://www.iso.org/standard/40874.html)
-    (i.e., either be in UTC, and then end with a Z, or indicate explicitly
-    the offset).
+  * **time\_stamp**: a timestamp containing the date and time at which the query
+    was executed.
   * **data\_returned**: an integer containing the number of data objects returned for the query.
   * **more\_data\_available**: `false` if all data for this query has been
     returned, and `true` if not.
@@ -1215,7 +1213,7 @@ The following tokens are used in the filter query component:
 
 * **Operator tokens** are represented by usual mathematical relation symbols or by
   case-sensitive keywords. Currently the following operators are supported: `=`,
-  `!=`, `<=`, `>=`, `<`, `>` for tests of number or string (lexicographical) equality,
+  `!=`, `<=`, `>=`, `<`, `>` for tests of number, string (lexicographical) or timestamp (temporal) equality,
   inequality, less-than, more-than, less, and more relations; `AND`, `OR`, `NOT` for
   logical conjunctions, and a number of keyword operators discussed in the next
   section.
@@ -1435,7 +1433,8 @@ would be treated as numeric filter `x > 0`, and `s = 0` for a String
 parameter "s" would perform string comparison as in `s = "0"`.
 Strings are converted to numbers using the token syntax specified in
 [5.1. Lexical tokens](#h.5.1), p. "Numeric values"; numbers
-SHOULD be converted to strings using the libc "%g" format. If a
+SHOULD be converted to strings using the libc "%g" format. Conversions
+of numeric values to timestamp strings MUST NOT be performed. If a
 conversion is performed, the API implementation SHOULD supply a
 warning in the response and specify the actual search values that were
 used. Alternatively, the implementation MAY instead respond with error
@@ -1483,8 +1482,8 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
-* **Description**: Date representing when the entry was last modified.
-* **Requirements/Conventions**: String with [ISO 8601](https://www.iso.org/standard/40874.html) format.
+* **Description**: date representing when the entry was last modified.
+* **Requirements/Conventions**: a timestamp.
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
