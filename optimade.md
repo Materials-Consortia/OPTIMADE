@@ -657,8 +657,7 @@ MUST have the following fields:
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
   * **local\_id**: the entry's local database ID (having no OPTiMaDe requirements/conventions)
-  * **last\_modified**: an [ISO 8601](https://www.iso.org/standard/40874.html)
-    representing the entry's last modification time
+  * **last\_modified**: an timestamp representing the entry's last modification time
   * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID (e.g., an UUID).
   This is important for databases having preferred IDs that point to "the latest version" of a
   record, but still offer access to older variants. This ID maps to the version-specific record,
