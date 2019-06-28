@@ -635,7 +635,7 @@ Examples:
 
 "Entry listing" endpoint response dictionaries MUST have a `data`
 key. The value of this key MUST be a list containing dictionaries that
-represent individual entries. In the defailt `json` response format every dictionary
+represent individual entries. In the default `json` response format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
 MUST have the following fields:
 
