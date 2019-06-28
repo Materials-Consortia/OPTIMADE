@@ -1482,8 +1482,8 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
-* **Description**: date representing when the entry was last modified.
-* **Requirements/Conventions**: a timestamp.
+* **Description**: Date representing when the entry was last modified.
+* **Requirements/Conventions**: A timestamp.
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
