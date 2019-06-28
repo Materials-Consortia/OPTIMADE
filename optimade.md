@@ -10,8 +10,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. Unset optional properties](#h.3.3.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Warnings](#h.3.3.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. HTTP Response Headers](#h.3.3.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Unset optional properties](#h.3.3.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.6. Warnings](#h.3.3.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5. Queryable Properties](#h.3.5)  
 
@@ -42,7 +43,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. last\_modified](#h.6.1.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. database-provider-specific properties](#h.6.1.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structure Entries](#h.6.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structures Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.3. elements\_ratios](#h.6.2.3)  
@@ -58,8 +59,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.13. species](#h.6.2.13)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.14. assemblies](#h.6.2.14)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.15. structure\_features](#h.6.2.15)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculation Entries](#h.6.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;[6.4. Reference Entries](#h.6.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.3. Calculations Entries](#h.6.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4. References Entries](#h.6.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.5. Database-Provider-Specific Entry Types](#h.6.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.6. Relationships Used by Multiple Entry Types](#h.6.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.6.1. references](#h.6.6.1)  
@@ -96,7 +97,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Implementation**: An instance serving the OPTiMaDe API.
 * **Database**: An implementation that serves materials information.
 * **Entry**: A type of resource, over which a query can be formulated using the API
-  (e.g., structure or calculation).
+  (e.g., structures, calculations, or references).
 * **Field**: A key of an associative-array-type data structure.
   A field MUST be a string, exclusively containing lowercase alphanumerics (`[a-z0-9]`) and underscores (`"_"`).
   A field MUST start with a lowercase letter (`[a-z]`) or an underscore (`"_"`).
@@ -106,6 +107,8 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   * **string**, **integer**, **float**, **boolean**, **null value**: Base data
     types as defined in more detail in section [5.1. Lexical Tokens](#h.5.1).
   * **list**, **dictionary**: Collections of base types, defined in the same manner as a JSON [array](https://json-schema.org/understanding-json-schema/reference/array.html) and [object](https://json-schema.org/understanding-json-schema/reference/object.html), respectively.
+  * **timestamp**: string representation of date and time as defined in
+    [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 * **Queryable property**: A property that can be in the filtering of results.
   For more information see section [3.5. Queryable Properties](#h.3.5).
 * **Resource object**: Represents resources. MUST contain at least the following top-level fields:
@@ -205,12 +208,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     * **representation**: a string with the part of the URL following the base URL.
 
   * **api\_version**: a string containing the version of the API implementation.
-  * **time\_stamp**: a string containing the date and time at which the query
-    was executed, in [ISO 8601](https://www.iso.org/standard/40874.html)
-    format.  Times MUST be timezone-aware (i.e., MUST NOT be local times),
-    in one of the formats allowed by [ISO 8601](https://www.iso.org/standard/40874.html)
-    (i.e., either be in UTC, and then end with 'Z', or indicate explicitly
-    the offset).
+  * **time\_stamp**: a timestamp containing the date and time at which the query
+    was executed.
   * **data\_returned**: an integer containing the number of data objects returned for the query.
   * **more\_data\_available**: `false` if all data for this query has been
     returned, and `true` if not.
@@ -439,7 +438,11 @@ the next course of action SHOULD be to fetch the resource objects under the
 to the corresponding database ID that was originally queried, using the object's
 `base_url` value.
 
-### <a name="h.3.3.4">3.3.4. Unset optional properties</a>
+### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
+
+There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site. 
+
+### <a name="h.3.3.5">3.3.5. Unset optional properties</a>
 
 Unset optional properties in a database are properties that exist and have a specific value within a database for some materials entries, but are undefined for other entries, e.g. have the value `null` within a JSON file.
 
@@ -463,7 +466,7 @@ The text in this section describes how the API handles properties that are `null
 It does not regulate the handling of values inside property data structures that can be `null`. 
 The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
 
-### <a name="h.3.3.5">3.3.5. Warnings</a>
+### <a name="h.3.3.6">3.3.6. Warnings</a>
 
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
@@ -503,6 +506,14 @@ In other words, one can _only_ query on property fields from resource objects' p
 A query is performed using `filter` (see section [5. API Filtering Format Specification](#h.5)).
 
 > **For implementers**: To get an understanding of which properties MUST be queryable and which are RECOMMENDED, please see section [6. Entry List](#h.6).
+
+## <a name="h.3.6">3.6. Relationships</a>
+
+The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe each relationship. These relationships can be to the same, or to different, entry types.
+
+In responses that use the JSON API response format, such relationships MUST be communicated using [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships) encoded in the `"relationships"` field of the response. The OPTIONAL human-readable description is provided in the `"description"` field inside the `"meta"` dictionary of a relationships object.
+
+Other response formats (e.g., ones using database-specific prefixes) have to encode these relationships in ways appropriate for each format. If the format has no dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside other properties. For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships. It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
 
 # <a name="h.4">4. API Endpoints</a>
 
@@ -634,8 +645,7 @@ MUST have the following fields:
 * **attributes**: a dictionary, containing key-value pairs representing the
   entry's properties and the following fields:
   * **local\_id**: the entry's local database ID (having no OPTiMaDe requirements/conventions)
-  * **last\_modified**: an [ISO 8601](https://www.iso.org/standard/40874.html)
-    representing the entry's last modification time
+  * **last\_modified**: an timestamp representing the entry's last modification date and time
   * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID (e.g., an UUID).
   This is important for databases having preferred IDs that point to "the latest version" of a
   record, but still offer access to older variants. This ID maps to the version-specific record,
@@ -660,7 +670,7 @@ Example:
 {
   "data": [
     {
-      "type": "structure",
+      "type": "structures",
       "id": "example.db:structs:0001",
       "attributes": {
         "chemical_formula_descriptive": "Es2 O3",
@@ -671,7 +681,7 @@ Example:
       }
     },
     {
-      "type": "structure",
+      "type": "structures",
       "id": "example.db:structs:1234",
       "attributes": {
         "chemical_formula_descriptive": "Es2",
@@ -721,7 +731,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "structure",
+    "type": "structures",
     "id": "example.db:structs:1234",
     "attributes": {
       "chemical_formula_descriptive": "Es2",
@@ -898,7 +908,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "description": "a structure",
+    "description": "a structures",
     "properties": {
       "nelements": {
         "description": "Number of elements",
@@ -1123,23 +1133,9 @@ The following tokens are used in the filter query component:
     * `_exmpl_trajectory`
     * `_exmpl_workflow_id`  
 
-* **Nested property names** MUST contain at least two property names joined by
-  periods (`.`). When query is performed on relationships, the entrypoint name
-  of the relationship is used as the name of the first property.
-
-  Nested property names are similar to
-  [JSONPaths](https://goessner.net/articles/JsonPath/) in a sense that they are
-  used to access nested JSON data structures. A nested property name MUST be
-  resolved starting either from `attributes` dictionary of an entry or from
-  `relationships`, depending on where the first part of the path is found.
-  When reached, every list is flattened, and the resolution continues for every
-  list member.
-
-  Examples:
-
-    * `authors.name`
-    * `references.authors.name` (`references` is an entrypoint name)
-
+* **Nested property names** A nested property name is composed of at least two fields 
+  separated by periods (`.`). 
+  
 * **String values** MUST be enclosed in double quotes ("", ASCII symbol 92
     dec, 0x5C hex). The quote and other special characters within the double
     quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote
@@ -1204,7 +1200,7 @@ The following tokens are used in the filter query component:
 
 * **Operator tokens** are represented by usual mathematical relation symbols or by
   case-sensitive keywords. Currently the following operators are supported: `=`,
-  `!=`, `<=`, `>=`, `<`, `>` for tests of number or string (lexicographical) equality,
+  `!=`, `<=`, `>=`, `<`, `>` for tests of number, string (lexicographical) or timestamp (temporal) equality,
   inequality, less-than, more-than, less, and more relations; `AND`, `OR`, `NOT` for
   logical conjunctions, and a number of keyword operators discussed in the next
   section.
@@ -1219,8 +1215,8 @@ All filtering expressions MUST follow the
 [EBNF](http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip)
 grammar of [Appendix 2](#h.app2) of this specification. The appendix
 contains a complete machine-readable EBNF, including the definition
-of the lexical tokens described above in [section '5.1. Lexical
-tokens'](#h.5.1). The EBNF is enclosed in special strings constructed
+of the lexical tokens described above in [5.1. Lexical
+tokens](#h.5.1). The EBNF is enclosed in special strings constructed
 as `BEGIN` and `END`, both followed by `EBNF GRAMMAR Filter`, to enable automatic
 extraction.
 
@@ -1288,57 +1284,94 @@ Examples:
 
 ### Comparisons of list properties
 
-List properties can be thought of as lists or sets of strings or numbers. 
-In the following, a set of `values` is one or more strings or numbers separated by a comma (",").
-An implementation MAY also support identifiers in the value set.
+In the following, `list` is a list-type property, and `values` is one or more `value` separated by commas (","), i.e., strings or numbers. An implementation MAY also support property names and nested property names in `values`.
 
 The following constructs MUST be supported:
 
-* `identifier HAS value`: matches if the given value is present in the list property (i.e., set operator IN).
-* `identifier HAS ALL values`: matches when all the values given are present in the list property (i.e., set operator >=).
-* `identifier HAS EXACTLY values`: matches when the property contains all the values given and none other (i.e., set operator =).
-* `identifier HAS ANY values`: matches when any one of the values given are present in the property (i.e., equivalent with a number of HAS separated by OR).
-* `LENGTH identifier <operator> value`: applies the numeric comparison operator for the number of items in the list property. 
+* `list HAS value`: matches if at least one element in `list` is equal to `value`. (If `list` has no duplicate elements, this implements the set operator IN.)
+* `list HAS ALL values`: matches if, for each `value`, there is at least one element in `list` equal to that value. (If both `list` and `values` do not contain duplicate values, this implements the set operator >=.)
+* `list HAS ANY values`: matches if at least one element in `list` is equal to at least one `value`. (This is equivalent to a number of HAS statements separated by OR.)
+
+* `LENGTH list <operator> value`: applies the numeric comparison `<operator>` for the number of items in the list property. 
 
 The following construct MAY be supported:
 
-* `identifier HAS ONLY values`: matches when the property only contains items from the given values (i.e., set operator <=)
+* `list HAS ONLY values`: matches if all elements in `list` are equal to at least one `value`. (If both `list` and `values` do not contain duplicate values, this implements the <= set operator.)
 
 This construct is OPTIONAL as it may be difficult to realize in some
 underlying database implementations. However, if the desired search is
 over a property that can only take on a finite set of values (e.g.,
 chemical elements) a client can formulate an equivalent search by inverting
-the list of values into `inverse` and express the filter as `NOT identifier HAS
+the list of values into `inverse` and express the filter as `NOT list HAS
 inverse`.
 
 Furthermore, there is a set of OPTIONAL constructs that allows
-searches to be formulated over the values in correlated positions in
-multiple list properties. This type of filter may be useful if
-one, e.g., has one list property of elements and another of an
-element count.
+filters to be formulated over the values in *correlated positions* in
+multiple list properties. An implementation MAY support this syntax 
+selectively only for specific properties. This type of filter is useful 
+for, e.g., filtering on elements and correlated element counts available
+as two separate list properties.
 
-* `id1:id2:... HAS val1:val2:...`
-* `id1:id2:... HAS ALL val1:val2:...`
-* `id1:id2:... HAS EXACTLY val1:val2:...`
-* `id1:id2:... HAS ANY val1:val2:...`
-* `id1:id2:... HAS ONLY val1:val2:...`
+* `list1:list2:... HAS val1:val2:...`
+* `list1:list2:... HAS ALL val1:val2:...`
+* `list1:list2:... HAS ANY val1:val2:...`
+* `list1:list2:... HAS ONLY val1:val2:...`
 
 Finally, all the above constructs that allow a value or lists of
-values on the right-hand side MAY allow `<operator> value`
-in each place a value can appear. In that case, a match requires that
-the equality or inequality is fulfilled. For example:
+values on the right-hand side MAY allow `<operator> value` in each
+place a value can appear. In that case, a match requires that the
+`<operator>` comparison is fulfilled instead of equality. Strictly,
+the definitions of the `HAS`, `HAS ALL`, `HAS ANY` and
+`HAS ONLY` operators as written above apply, but with the word
+'equal' replaced with the `<operator>` comparison.
 
-* `identifier HAS < 3`: matches all entries for which "identifier" contains at least one element that is less than three.
-* `identifier HAS ALL < 3, > 3`: matches only those entries for which "identifier" simultaneously 
+For example:
+
+* `list HAS < 3`: matches all entries for which `list` contains at least one element that is less than three.
+* `list HAS ALL < 3, > 3`: matches only those entries for which `list` simultaneously 
    contains at least one element less than three and one element greater than three.
 
-Examples:
+An implementation MAY support combining the operator syntax with the syntax for correlated lists in particularly on a list correlated with itself. For example:
 
-* `elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS EXACTLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
+* `list:list HAS >=2:<=5`: matches all entries for which `list` contains at least one element that is between the values 2 and 5.
+
+Further examples of various comparisons of list properties:
+
+* `elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS ONLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
 * OPTIONAL: `elements HAS ONLY "H","He","Ga","Ta"`
-* OPTIONAL: `elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS EXACTLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
+* OPTIONAL: `elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
 * OPTIONAL: `_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8` (note: specifying the = operator after HAS ANY is redundant here, if no operator is given, the test is for equality.)
 * OPTIONAL: `elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0`
+
+### Nested property names
+
+Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in [5.1. Lexical tokens](#h.5.1), consisting of fields separated by periods ('.'). A filter on a nested property name consisting of two fields `field1.field2` matches if either one of these points are true:
+
+- `field1` references a dictionary-type property that contains as a field `field2` and the filter matches for the content of `field2`.
+
+- `field1` references a list of dictionaries that contain as a field `field2` and the filter matches for a flat list containing only the contents of `field2` for every dictionary in the list. E.g., if `field1` is the list `[{"field2":42, "field3":36}, {"field2":96, "field3":66}]`, then `field1.field2` is understood in the filter as the list `[42, 96]`.
+
+The API implementation MAY allow this notation to generalize to arbitary depth. 
+A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
+
+### Relationships
+
+As described in section [3.6. Relationships](#h.3.6), it is possible for the API implementation to describe relationships between entries of the same, or different, entry types. 
+The API implementation MAY support queries on relationships with an entry type `<entry type>` by using special nested property names:
+
+- `<entry type>.id` references a list of IDs of relationships with entries of the type `<entry type>`.
+- `<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
+
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two fields, `id` and `description`.
+For example: a client queries the `structures` endpoint with a filter that references `calculations.id`. For a specific structures entry, the nested property may behave as the list `["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter `calculations.id HAS "calc-id-96"`. This means that the structures entry has a relationship with the calculations entry of that ID.
+
+> **Note:** formulating queries on relationships with entries that have specific property values is a multi-step process. 
+> For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
+>
+> - Query the `references` endpoint with a filter `authors.lastname HAS "Schmit"` and store the `id` values of the returned entries. 
+> - Query the `structures` endpoint with a filter `references.id HAS ANY <list-of-IDs>`, where `<list-of-IDs>` are the IDs retrieved from the first query separated by commas. 
+>
+> (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
 
 ### Properties that can be unset
 
@@ -1386,8 +1419,9 @@ the property type. For example, `x > "0.0"` where x is a coordinate
 would be treated as numeric filter `x > 0`, and `s = 0` for a String
 parameter "s" would perform string comparison as in `s = "0"`.
 Strings are converted to numbers using the token syntax specified in
-[section '5.1. Lexical tokens'](#h.5.1), p. "Numeric values"; numbers
-SHOULD be converted to strings using the libc "%g" format. If a
+[5.1. Lexical tokens](#h.5.1), p. "Numeric values"; numbers
+SHOULD be converted to strings using the libc "%g" format. Conversions
+of numeric values to timestamp strings MUST NOT be performed. If a
 conversion is performed, the API implementation SHOULD supply a
 warning in the response and specify the actual search values that were
 used. Alternatively, the implementation MAY instead respond with error
@@ -1429,13 +1463,14 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.1.2">6.1.2. type</a>
 
 * **Description**: the type of an entry.
+  Any entry MUST be able to be fetched using the [base URL](#h.3.1) type and ID at the url `<base URL>/<type>/<id>`.
 * **Requirements/Conventions**: MUST be an existing entry type.
-* **Example**: `"structure"`
+* **Example**: `"structures"`
 
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
-* **Description**: Date representing when the entry was last modified.
-* **Requirements/Conventions**: String with [ISO 8601](https://www.iso.org/standard/40874.html) format.
+* **Description**: Date and time representing when the entry was last modified.
+* **Requirements/Conventions**: A timestamp as in [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 * **Example**: `"2007-04-05T14:30Z"`
 * **Querying**: Date-time queries are permitted ([RFC 3339](http://tools.ietf.org/html/rfc3339)).
 
@@ -1452,9 +1487,9 @@ This section defines standard entry types and their properties.
   * \_exmpl\_trajectory
   * \_exmpl\_workflow\_id
 
-## <a name="h.6.2">6.2. Structure Entries</a>
+## <a name="h.6.2">6.2. Structures Entries</a>
 
-`"structure"` entries (or objects) have the properties described above in section
+`"structures"` entries (or objects) have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1), as well as the following properties:
 
 ### <a name="h.6.2.1">6.2.1. elements</a>
@@ -1470,8 +1505,8 @@ This section defines standard entry types and their properties.
 * **Querying**: 
     * A filter that matches all records of structures that contain Si, Al **and** O, 
       and possibly other elements: `elements HAS ALL "Si", "Al", "O"`. 
-    * To match exactly these three elements, use `elements HAS EXACTLY "Si", "Al", "O"` or alternatively
-      add `AND LENGTH elements = 3`.
+    * To match structures with exactly these three elements, 
+	  use `elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3`.
 
 ### <a name="h.6.2.2">6.2.2. nelements</a>
 
@@ -1502,7 +1537,7 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.2.4">6.2.4. chemical\_formula\_descriptive</a>
 
-* **Description**: The chemical formula for a structure as a string on a form chosen by the API implementation.
+* **Description**: The chemical formula for a structure as a string in a form chosen by the API implementation.
 * **Requirements/Conventions**: 
     * The chemical formula is given as a string consisting of 
       properly capitalized element symbols followed by integers or decimal numbers, 
@@ -1553,7 +1588,7 @@ This section defines standard entry types and their properties.
    
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string on [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
+* **Description**: The chemical formula for a structure as a string in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
 * **Requirements/Conventions**: 
     * The overall scale factor of the chemical proportions is chosen such that the resulting values
       are integers that indicate the most chemically relevant unit of which the system is composed. 
@@ -1566,7 +1601,7 @@ This section defines standard entry types and their properties.
     * Elements MUST be placed in [Hill order](https://dx.doi.org/10.1021/ja02046a005), followed by their integer chemical proportion number.
       Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second. After
       that, all other elements are ordered alphabetically. If carbon is not present, all elements are ordered alphabetically. 
-    * If the system has sites with partial occupation and the total occupation of each element do not all sum up to integers, then the 
+    * If the system has sites with partial occupation and the total occupations of each element do not all sum up to integers, then the 
       Hill formula SHOULD be handled as unset.
     * No spaces or separators are allowed.
     * This property is OPTIONAL, and if set, support for partial string matching 
@@ -1645,12 +1680,11 @@ an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual cry
 
 ### <a name="h.6.2.11">6.2.11. nsites</a>
 
-* **Description**: The number of sites
-* **Requirements/Conventions**: An integer specifying the length of the `cartesian_site_positions` property.
+* **Description**: An integer specifying the length of the `cartesian_site_positions` property.
+* **Requirements/Conventions**: 
   * This property is REQUIRED.
   * Queries on this property can equivalently be formulated using `LENGTH cartesian_site_positions`.
-* **Querying**: 
-  Examples:
+* **Querying**:
   * match only structures with exactly 4 sites: `nsites=4`
   * match structures that have between 2 and 7 sites: `nsites>=2 AND nsites<=7`
 
@@ -1667,12 +1701,12 @@ species are found in the [6.2.13. `species`](#h.6.2.13) property.
   * Each species name mentioned in the `species_at_sites` list MUST be
     described in the [6.2.13. `species`](#h.6.2.13) list (i.e. for each value in the `species_at_sites` list
     there MUST exist exactly one dictionary in the `species` list with the `name`
-    attribute equal to the corresponging `species_at_sites` value);
+    attribute equal to the corresponding `species_at_sites` value).
   * Each site MUST be associated only to a single species.  
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined
     for the same chemical element. This latter case is useful when different atoms of the same type
     need to be grouped or distinguished, for instance in simulation codes to assign different initial
-    spin states).
+    spin states.
 * **Examples**:
   * `["Ti","O2"]` indicates that the first site is hosting a species labeled `"Ti"` and the second a
   species labeled `"O2"`.
@@ -1704,8 +1738,8 @@ by multiple chemical elements.
     The numbers represent the relative concentration of the corresponding chemical symbol in this
     species. The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically
     fall only in the following two categories:
-      * Numerical errors when representing float numbers in fixed precision. E.g. for two chemical
-      symbols with concentration `1/3` and `2/3`, the concentration might look something like
+      * Numerical errors when representing float numbers in fixed precision, e.g. for two chemical
+      symbols with concentrations `1/3` and `2/3`, the concentration might look something like
       `[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of
       numerical precision, it can renormalize the values so that the sum is exactly one.
       * Experimental errors in the data present in the database. In this case, it is the
@@ -1757,19 +1791,19 @@ by multiple chemical elements.
     * **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.  
     Example: `[[1], [2]]`: two groups, one with the second site, one with the third.  
     Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth.
-    * **group\_probabilities**: Statistical probability of each group. It MUST have the same length of
+    * **group\_probabilities**: Statistical probability of each group. It MUST have the same length as
     `sites_in_groups`. It SHOULD sum to one. See below for examples of how to specify the probability
     of the occurrence of a vacancy. The possible reasons for the values not to sum to one are the same
     as already specified above for the `concentration` of each `species`, see section
     [6.2.13. `species`](#h.6.2.13).
-  * If a site is not present in any group, it means that is is present with 100 % probability (as if
+  * If a site is not present in any group, it means that it is present with 100 % probability (as if
   no assembly was specified).
   * A site MUST NOT appear in more than one group.
 * **Examples** (for each entry of the assemblies list):
   * `{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second
   site never occur at the same time in the unit cell. Statistically, 30 % of the times the first site
   is present, while 70 % of the times the second site is present.
-  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: The second and third site
+  * `{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: the second and third site
   are either present together or not present; they form the first group of atoms for this assembly.
   The second group is formed by the fourth site. Sites of the first group (the second and the third)
   are never present at the same time as the fourth site. 30 % of times sites 1 and 2 are present (and
@@ -1875,14 +1909,14 @@ by multiple chemical elements.
   ["assemblies", "unknown_positions"]
   ```
 
-## <a name="h.6.3">6.3. Calculation Entries</a>
+## <a name="h.6.3">6.3. Calculations Entries</a>
 
-`"calculation"` entries have the properties described above in section
+`"calculations"` entries have the properties described above in section
 [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
-## <a name="h.6.4">6.4. Reference Entries</a>
+## <a name="h.6.4">6.4. References Entries</a>
 
-`"reference"` entries describe bibliographic references. The following properties
+`"references"` entries describe bibliographic references. The following properties
 are used to provide the bibliographic details:
 * **address**, **annote**, **booktitle**, **chapter**, **crossref**,
   **edition**, **howpublished**, **institution**, **journal**, **key**,
@@ -1904,7 +1938,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "reference",
+    "type": "references",
     "id": "Dijkstra1968",
     "attributes": {
       "authors": [
@@ -1932,16 +1966,14 @@ in section [6.1. Properties Used by Multiple Entry Types](#h.6.1).
 
 ## <a name="h.6.6">6.6. Relationships Used by Multiple Entry Types</a>
 
-[JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships)
-MAY be used to describe the relations between entries. A human-readable description
-of a relationship MAY be provided using the `"description"` field inside the
-`"meta"` dictionary of a relationship.
+In accordance with section [3.6. Relationships](#h.3.6), all entry types MAY use
+relationships to describe relations to other entries.
 
 ### <a name="h.6.6.1">6.6.1. References</a>
 
 The `"references"` relationship is used to provide bibliographic references for any
-of the entry types. It relates an entry with any number of `"reference"` entries.
-Entries of type `"reference"`, if mentioned in the returned JSON document,
+of the entry types. It relates an entry with any number of `"references"` entries.
+Entries of type `"references"`, if mentioned in the returned JSON document,
 SHOULD be included in the top-level `"included"` field as per the
 [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#fetching-includes).
 
@@ -1950,7 +1982,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "type": "structure",
+    "type": "structures",
     "id": "example.db:structs:1234",
     "attributes": {
       "formula": "Es2",
@@ -1962,9 +1994,9 @@ Example:
     "relationships": {
       "references": {
         "data": [
-          { "type": "reference", "id": "Dijkstra1968" },
+          { "type": "references", "id": "Dijkstra1968" },
           {
-            "type": "reference",
+            "type": "references",
             "id": "1234",
             "meta": {
               "description": "This article has been retracted"
@@ -1976,7 +2008,7 @@ Example:
   },
   "included": [
     {
-      "type": "reference",
+      "type": "references",
       "id": "Dijkstra1968",
       "attributes": {
         "authors": [
@@ -1993,7 +2025,7 @@ Example:
       }
     },
     {
-      "type": "reference",
+      "type": "references",
       "id": "1234",
       "attributes": {
         "doi": "10.1234/1234"
@@ -2094,11 +2126,11 @@ KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
 FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String ;
 
-SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | EXACTLY, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
 (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
 
-SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | EXACTLY, ValueZipList | ANY, ValueZipList ) ;
+SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
 LengthComparison = LENGTH, Property, Operator, Value ;
 
@@ -2138,7 +2170,6 @@ LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
 HAS = 'H', 'A', 'S', [Spaces] ;
 ALL = 'A', 'L', 'L', [Spaces] ;
 ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
-EXACTLY = 'E', 'X', 'A', 'C', 'T', 'L', 'Y', [Spaces] ;
 ANY = 'A', 'N', 'Y', [Spaces] ;
 
 (* OperatorComparison operator tokens: *)
