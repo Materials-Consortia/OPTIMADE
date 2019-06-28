@@ -751,7 +751,7 @@ Example:
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
-    },
+    }
   },
   "meta": {
     "query": {
@@ -2016,7 +2016,7 @@ Example:
           }
         ]
       }
-    },
+    }
   },
   "included": [
     {
