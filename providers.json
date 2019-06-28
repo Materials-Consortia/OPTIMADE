@@ -38,6 +38,15 @@
     },
     {
       "type": "provider",
+      "id": "httk",
+      "attributes": {
+        "name": "The High-Throughput Toolkit",
+        "description": "Prefix for implementation-specific identifiers used in the httk implementation at http://httk.org/",
+	"base_url": null
+      }
+    },
+    {
+      "type": "provider",
       "id": "mcloud",
       "attributes": {
         "name": "materialscloud.org",
@@ -79,6 +88,15 @@
         "name": "open materials database",
         "description": "",
         "base_url": null
+      }
+    },
+    {
+      "type": "provider",
+      "id": "optimade",
+      "attributes": {
+        "name": "OPTiMaDe implementations and libraries",
+        "description": "Prefix for implementation-specific identifiers used in API implementations and libraries provided at https://github.com/Materials-Consortia",
+	"base_url": null
       }
     },
     {
