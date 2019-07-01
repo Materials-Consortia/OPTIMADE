@@ -1,4 +1,5 @@
 # OPTiMaDe API specification v0.9.8-develop
+
 [1. Introduction](#h.1)
 
 [2. Term Definition](#h.2)
