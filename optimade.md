@@ -109,12 +109,12 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
     For example, a structures entry is comprised by data that pertain to a single structure. 
 * **Entry type**: Entries are categorized into types, e.g., structures, calculations, references.
 * **Entry property**: A **name**-**value** pair that represents one data item which pertains to an entry, e.g., the chemical formula of a structure. 
-    The **name** MUST start with a lowercase letter ([a-z]) or an underscore ("_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("_"). 
-	Entry property names MUST NOT be the name of an Entry type.
+    The **name** MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_"). 
+	Entry property names MUST NOT be the name of any of the entry types.
 * **Entry property value types**:
   * Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
-  * **list**: an ordered collection of items, where all items are the same type, unless they are unknown. A list can be empty, i.e., contain no items.
-  * **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remains the same between different entries whereas the **values** change. The **values** may be any basic type, list, or dictionary, or unknown.
+  * **list**: an ordered collection of items, where all items are of the same type, unless they are unknown. A list can be empty, i.e., contain no items.
+  * **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change. The **values** may be any basic type, list, or dictionary, or unknown.
   * **unknown**: represents values that are not present in the database. The unknown value is `null`. For more information see [3.3.5. Properties with unknown value](#h.3.3.5)
 * **Relationship**: Any entry can have one or more relationships with other entries. These are described in [3.6. Relationships](#h.3.6).
 * **Queryable property**: An entry property that can be referred to in the filtering of results. 
@@ -1512,7 +1512,7 @@ This section defines standard entry types and their properties.
 ### <a name="h.6.1.3">6.1.3. last\_modified</a>
 
 * **Description**: Date and time representing when the entry was last modified.
-* **Type**: datetime.
+* **Type**: timestamp.
 * **Requirements/Conventions**:
   * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: MUST be a queryable property with support for all mandatory filter operators.
