@@ -179,20 +179,20 @@ API implementations MUST decode URLs according to [RFC 3986](http://tools.ietf.o
 
 ### <a name="h.3.3.1">3.3.1. Response Format</a>
 
-This document defines a `json` response format that complies with the [JSON
+This document defines a JSON response format that complies with the [JSON
 API v1.0](http://jsonapi.org/format/1.0) specification.
-All endpoints of an API implementation MUST be able to provide responses in the `json` format specified below
+All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below
 and MUST respond in this format by default.
 
-Each endpoint MAY support additional formats, and SHOULD declare these formats under `endpoint/info` 
+Each endpoint MAY support additional formats, and SHOULD declare these formats under `<endpoint>/info` 
 (see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
 Clients can request these formats using the `response_format` URL query parameter.
 Specifying a `response_format` different from `json` (e.g.
 `response_format=xml`) allows the API to break conformance not only with the
-`json` response format specification, but also, e.g., in terms of how content
+JSON response format specification, but also, e.g., in terms of how content
 negotiation is implemented.
 
-Database-provider-specific `response_format` identifiers MUST be include a
+Database-provider-specific `response_format` identifiers MUST include a
 database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
 ### <a name="h.3.3.2">3.3.2. JSON Response Schema: Common Fields</a>
@@ -511,7 +511,7 @@ A query is performed using `filter` (see section [5. API Filtering Format Specif
 
 The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe each relationship. These relationships can be to the same, or to different, entry types.
 
-In responses that use the `json` response format, such relationships MUST be communicated using [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships) encoded in the `"relationships"` field of the response. The OPTIONAL human-readable description is provided in the `"description"` field inside the `"meta"` dictionary of a relationships object.
+In responses that use the JSON response format, such relationships MUST be communicated using [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships) encoded in the `"relationships"` field of the response. The OPTIONAL human-readable description is provided in the `"description"` field inside the `"meta"` dictionary of a relationships object.
 
 Other response formats (e.g., ones using database-specific prefixes) have to encode these relationships in ways appropriate for each format. If the format has no dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside other properties. For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships. It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
 
@@ -635,7 +635,7 @@ Examples:
 
 "Entry listing" endpoint response dictionaries MUST have a `data`
 key. The value of this key MUST be a list containing dictionaries that
-represent individual entries. In the default `json` response format every dictionary
+represent individual entries. In the default JSON response format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
 MUST have the following fields:
 
@@ -702,7 +702,7 @@ Example:
 A client can request a specific entry by appending an ID component to the URL of an entry listing
 endpoint. This will return properties for the entry with that ID.
 
-In the default `json` response format, the ID component MUST be the content of the `id` field.
+In the default JSON response format, the ID component MUST be the content of the `id` field.
 
 Note that entries cannot have an ID of `'info'`, as this would collide with the 'Info' endpoint
 (described in section [4.4. Info Endpoints](#h.4.4)) for a given entry type.
@@ -723,7 +723,7 @@ are OPTIONAL for clients, API implementations MUST accept and handle them:
 
 The response for a 'single entry' endpoint is the same as for 'entry listing'
 endpoint responses, except that the value of the `data` field MUST have only one or zero entries.
-In the default `json` response format, this means the value of the `data` field MUST be
+In the default JSON response format, this means the value of the `data` field MUST be
 a single response object or `null` if there is no response object to return.
 
 Example:
@@ -2067,7 +2067,7 @@ of that organization. Identifiers prefixed with underscores will not be used for
 The database-provider-specific prefixes currently assigned are listed in the `providers.json` file
 provided in the main repository. This file serves as a machine-readable list of OPTiMaDe providers.
 
-The content of the `providers.json` file complies with the default `json` format specification for API responses.
+The content of the `providers.json` file complies with the default JSON format specification for API responses.
 In particular, the resource objects under the top-level `data` field are defined to be valid
 resource objects for the Links endpoint, see section [4.4.3. Provider Objects](#h.4.4.3).
 
