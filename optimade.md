@@ -116,7 +116,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Reserved words**: The only reserved word in this standard is: `info`.
 * **Response format**: The data format for the HTTP response, which can be selected using the `response_format` URL query parameter. For more info, see [3.3.1. Response Format](#h.3.3.1).
 * **Field**: The key used in response formats that return data in associative-array-type data structures.
-  This is particularly relevant for the default JSON API-based response format. In this case, **field** refers to
+  This is particularly relevant for the default JSON-based response format. In this case, **field** refers to
   the name part of the name-value pairs of JSON objects.
 
 ## Data types
@@ -216,9 +216,7 @@ database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
 ### <a name="h.3.3.2">3.3.2. JSON Response Schema: Common Fields</a>
 
-### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
-
-In the JSON API response format, property types translate as follows:
+In the JSON response format, property types translate as follows:
 
 * **string**, **boolean**, **list** are represented by their similarly named counterparts in JSON.
 * **integer**, **float** are represented as the JSON number type. 
@@ -226,7 +224,7 @@ In the JSON API response format, property types translate as follows:
 * **dictionary** is represented by the JSON object type. 
 * **unknown** properties are represented by either omitting the property or by a JSON `null` value. 
 
-In the JSON API response format, every response SHOULD contain the following fields, and MUST contain at least one:
+Every response SHOULD contain the following fields, and MUST contain at least one:
 
 * **meta**: a [JSON API meta member](https://jsonapi.org/format/1.0/#document-meta)
   that contains JSON API meta objects of non-standard meta-information.  
@@ -1521,7 +1519,7 @@ This section defines standard entry types and their properties.
   * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: MUST be a queryable property with support for all mandatory filter operators.
 * **Example**: 
-  * As part of JSON API response format: `"2007-04-05T14:30Z"` (i.e., encoded as an [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6) string.)
+  * As part of JSON response format: `"2007-04-05T14:30Z"` (i.e., encoded as an [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6) string.)
 
 ### <a name="h.6.1.6">6.1.6. database-provider-specific properties</a>
 
