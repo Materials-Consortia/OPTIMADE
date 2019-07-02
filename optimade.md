@@ -9,7 +9,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[3.2. URL Encoding](#h.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.3. Responses](#h.3.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.1. Response Format](#h.3.3.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.2. JSON Response Schema: Common Fields](#h.3.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.3. HTTP Response Status Codes](#h.3.3.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.4. HTTP Response Headers](#h.3.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.5. Properties with unknown value](#h.3.3.5)  
@@ -20,15 +20,15 @@
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry Listing Endpoints](#h.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.1. URL Query Parameters](#h.4.1.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.2. JSON API Response Schema](#h.4.1.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1.2. JSON Response Schema](#h.4.1.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2. Single Entry Endpoints](#h.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.1. URL Query Parameters](#h.4.2.1)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON API Response Schema](#h.4.2.2)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2.2. JSON Response Schema](#h.4.2.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.3. Info Endpoints](#h.4.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.1. Base URL Info Endpoint](#h.4.3.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3.2. Entry Listing Info Endpoints](#h.4.3.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.4. Links Endpoint](#h.4.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. JSON API Response Schema](#h.4.4.1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.1. JSON Response Schema](#h.4.4.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.2. Parent and Child Objects](#h.4.4.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.3. Provider Objects](#h.4.4.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.4.4. Index Meta-Database Links Endpoint](#h.4.4.4)  
@@ -76,27 +76,19 @@
 # <a name="h.1">1. Introduction</a>
 
 As researchers create independent materials databases, much can be
-gained from retrieving data from multiple databases. However, the
-retrieval process is difficult if each database has a different
-API. This document defines a standard API for retrieving data from
-materials databases. This API was developed by the participants of the
-workshop "Open Databases Integration for Materials Design", held at
-the Lorentz Center in Leiden, Netherlands from 2016-10-24 to
-2016-10-28.
+gained from retrieving data from multiple databases. However, automating
+the retrieval of data is difficult if each database has a different
+application programming interface (API). This document specifies a standard API
+for retrieving data from materials databases. 
+This API specification has been developed over a series of workshops entitled "Open Databases
+Integration for Materials Design", held at the Lorentz Center in Leiden,
+Netherlands and the CECAM headquarters in Lausanne, Switzerland.
 
-It is the intent that the API in the present document adheres to the
-[JSON API](http://jsonapi.org/format/1.0) v1.0 specification (with the exception that
-non-conformant responses can be generated if an API user specifically
-requests a non-standard response format). In cases where specific
-restrictions are given in the JSON API specification that are stricter than what is
-formulated in this document, they are expected to be upheld by API
-implementations unless otherwise noted in this document.
-(This may apply to, e.g., the format of Member Names and/or return codes.)
+The API specification described in this document builds on top of the [JSON API v1.0 specification](http://jsonapi.org/format/1.0).
+In particular, the JSON API specification is assumed to apply wherever it is stricter than what is formulated in this document.
+Exceptions to this rule are stated explicitly (e.g. non-compliant responses are tolerated if a non-standard response format is explicitly requested). 
 
-The full present version number of the specification is shown as part of the
-top headline of this document.
-
-# <a name="h.2">2. Term Definition</a>
+# <a name="h.2">2. Definition of Terms</a>
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -206,23 +198,23 @@ API implementations MUST decode URLs according to [RFC 3986](http://tools.ietf.o
 
 ### <a name="h.3.3.1">3.3.1. Response Format</a>
 
-API responses MUST be returned in the format specified in the
-request. If no specific response format is specified in the request by
-use of the `response_format` URL query parameter (see below), the default
-response format is [JSON API v1.0](http://jsonapi.org/format/1.0) specification.
-All endpoints MUST support at least the JSON API format.
-Each endpoint MAY support multiple formats,
-and declare these formats in their `info` endpoints
+This document defines a JSON response format that complies with the [JSON
+API v1.0](http://jsonapi.org/format/1.0) specification.
+All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below
+and MUST respond in this format by default.
+
+Each endpoint MAY support additional formats, and SHOULD declare these formats under `<endpoint>/info` 
 (see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
+Clients can request these formats using the `response_format` URL query parameter.
+Specifying a `response_format` different from `json` (e.g.
+`response_format=xml`) allows the API to break conformance not only with the
+JSON response format specification, but also, e.g., in terms of how content
+negotiation is implemented.
 
-An API implementation MAY return other formats than specified here.
-These can be implemented and documented according to the database provider.
-However, they MUST be prefixed by a database-provider-specific prefix as defined in
-[Appendix 1](#h.app1).
+Database-provider-specific `response_format` identifiers MUST include a
+database-provider-specific prefix as defined in [Appendix 1](#h.app1).
 
-Specifying a `response_format` URL query parameter different from JSON API,
-allows the implementation to break conformance with the JSON API specification.
-Not only in response format, but also in, e.g., how content negotiation is implemented.
+### <a name="h.3.3.2">3.3.2. JSON Response Schema: Common Fields</a>
 
 ### <a name="h.3.3.2">3.3.2. JSON API Response Schema: Common Fields</a>
 
@@ -403,8 +395,8 @@ The response MAY also return resources related to the primary data in the field:
 * **included**: a list of
 [JSON API resource objects](http://jsonapi.org/format/1.0/#document-resource-objects)
 related to the primary data contained in `data`.  
-A response with related resources under `included` are in the JSON API known as
-[compound documents](https://jsonapi.org/format/1.0/#document-compound-documents).
+Responses that contain related resources under `included` are known as
+[compound documents](https://jsonapi.org/format/1.0/#document-compound-documents) in the JSON API.
 
 If there were errors in producing the response all other fields MAY be present, but the top-level `data` field MUST be skipped, and the following field MUST be present:
 
@@ -518,7 +510,7 @@ These endpoints do not need to be queryable, i.e., they MAY be provided as stati
 However, they MUST return the correct and updated information on all currently provided implementations.
 
 The `index_base_url` field MUST be included in every response in the `provider` field under the
-top-level `meta` field (see section [3.3.2. JSON API Response Schema: Common Fields](#h.3.3.2)).
+top-level `meta` field (see section [3.3.2. JSON Response Schema: Common Fields](#h.3.3.2)).
 
 The `is_index` field under `attributes`, as well as the `relationships` field, MUST be included in the
 `info` endpoint for the index meta-database (see section [4.3.1. Base URL Info Endpoint](#h.4.3.1)).
@@ -622,14 +614,13 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
-* **response\_format**: specifies which output format is requested. Specifically, the
-  format string 'jsonapi' specifies the standard output format documented
-  in this specification as the JSON API response format.  
+* **response\_format**: the output format requested (see section [3.3.1 Response Format](#h3.3.1)). 
+  Defaults to the format string 'json', which specifies the standard output format described in this specification. 
   Example: <http://example.com/optimade/v0.9/structures?response_format=xml>
-* **email\_address**: specifies an email address of the user making the request. The
+* **email\_address**: an email address of the user making the request. The
   email SHOULD be that of a person and not an automatic system.  
   Example: <http://example.com/optimade/v0.9/structures?email_address=user@example.com>
-* **response\_fields**: specify a comma-delimited set of fields to be provided in the
+* **response\_fields**: a comma-delimited set of fields to be provided in the
   output. If provided, only these fields MUST be returned and no others.  
   Example: <http://example.com/optimade/v0.9/structures?response_fields=id,url>
 
@@ -657,11 +648,11 @@ Examples:
 > URL tokens, and the above example is not to be taken as a recommendation for
 > such a mechanism.
 
-### <a name="h.4.1.2">4.1.2. JSON API Response Schema</a>
+### <a name="h.4.1.2">4.1.2. JSON Response Schema</a>
 
 "Entry listing" endpoint response dictionaries MUST have a `data`
 key. The value of this key MUST be a list containing dictionaries that
-represent individual entries. In the JSON API format every dictionary
+represent individual entries. In the default JSON response format every dictionary
 ([resource object](http://jsonapi.org/format/1.0/#document-resource-objects))
 MUST have the following fields:
 
@@ -723,7 +714,7 @@ Example:
 A client can request a specific entry by appending an ID component to the URL of an entry listing
 endpoint. This will return properties for the entry with that ID.
 
-If using the JSON API format, the ID component MUST be the content of the `id` field.
+In the default JSON response format, the ID component MUST be the content of the `id` field.
 
 Note that entries cannot have an ID of `'info'`, as this would collide with the 'Info' endpoint
 (described in section [4.4. Info Endpoints](#h.4.4)) for a given entry type.
@@ -740,11 +731,11 @@ URL query parameters not recognized MUST be ignored. While the following URL que
 are OPTIONAL for clients, API implementations MUST accept and handle them:
 **response\_format**, **email\_address**, **response\_fields**. The meaning of these URL query parameters are as defined above in section [4.1.1. URL Query Parameters](#h.4.1.1).
 
-### <a name="h.4.2.2">4.2.2. JSON API Response Schema</a>
+### <a name="h.4.2.2">4.2.2. JSON Response Schema</a>
 
 The response for a 'single entry' endpoint is the same as for 'entry listing'
 endpoint responses, except that the value of the `data` field MUST have only one or zero entries.
-If using the JSON API format, this means that the response type of the `data` field MUST be
+In the default JSON response format, this means the value of the `data` field MUST be
 a single response object or `null` if there is no response object to return.
 
 Example:
@@ -969,7 +960,7 @@ For Links endpoints, the API implementation MAY ignore any provided query parame
 Alternatively, it MAY handle the parameters specified in section
 [4.2.1. URL Query Parameters](#h.4.2.1) for single entry endpoints.
 
-### <a name="h.4.4.1">4.4.1. JSON API Response Schema</a>
+### <a name="h.4.4.1">4.4.1. JSON Response Schema</a>
 
 The resource objects' response dictionaries MUST include the following fields:
 
@@ -2172,12 +2163,11 @@ of that organization. Identifiers prefixed with underscores will not be used for
 The database-provider-specific prefixes currently assigned are listed in the `providers.json` file
 provided in the main repository. This file serves as a machine-readable list of OPTiMaDe providers.
 
-The content of the `providers.json` file follows the same JSON API specifications as the rest of the
-API, in particular the resource objects under the top-level `data` field are defined to be valid
+The content of the `providers.json` file complies with the default JSON format specification for API responses.
+In particular, the resource objects under the top-level `data` field are defined to be valid
 resource objects for the Links endpoint, see section [4.4.3. Provider Objects](#h.4.4.3).
 
-> **Note**: If a provider wishes to be added to `providers.json`, please suggest a change to this
-repository (make a PR).
+> **Note**: Any provider wishing to be added to `providers.json` is kindly asked to suggest a change to this repository (using a pull request).
 
 ## <a name="h.app2">Appendix 2: The Filter Language EBNF Grammar.</a>
 
