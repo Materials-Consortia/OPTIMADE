@@ -123,7 +123,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
 An API implementation handles data types and their representations in three different contexts:
 
-* In the HTTP URL query filter, see [5. API Filtering Format Specification](h.5).
+* In the HTTP URL query filter, see [5. API Filtering Format Specification](#h.5).
 * In the HTTP response. The default response format is a JSON-based and thus uses JSON data types. 
   However, other response formats may use different data types. For more info, see [3.3. Responses](#h.3.3).
 * The underlying database backend(s) from which the implementation serves data has its own set of data types.
