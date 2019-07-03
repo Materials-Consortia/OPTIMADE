@@ -2,7 +2,7 @@
 
 [1. Introduction](#h.1)
 
-[2. Definition of Terms](#h.2)
+[2. Definition of Terms](#h.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;[2.1. Data types](#h.2.1)  
 
 [3. General API Requirements and Conventions](#h.3)  
@@ -1519,7 +1519,8 @@ This section defines standard entry types and their properties.
   * **Response**: OPTIONAL in the response. 
   * **Query**: If present, MUST be a queryable property with support for all mandatory filter operators.
 * **Examples**:
-  * `"fjeiwoj,54;@=%<>#32"`
+  * `"8bd3e750-b477-41a0-9b11-3a799f21b44f"`
+  * `"fjeiwoj,54;@=%<>#32"` (Strings that are not URL-safe are allowed.)
 
 ### <a name="h.6.1.5">6.1.5. last\_modified</a>
 
