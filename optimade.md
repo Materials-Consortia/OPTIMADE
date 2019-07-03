@@ -1398,14 +1398,14 @@ For example: a client queries the `structures` endpoint with a filter that refer
 
 Properties may have an unknown value, see [3.3.5. Properties with unknown value](#h.3.3.5).
 
-Filters that use comparisons that involve properties of unknown values MUST not match, i.e., by definition the value `null` never matches equality (`=`) or inequality (`<`, `<=`, `>`, `>=`, `!=`). 
-A filter that compares two properties that are both `null` for equality or inequality never matches.
-
 Filters that match when the property is known, or unknown, respectively can be constructed using the following syntax: 
 ```
 identifier IS KNOWN
 identifier IS UNKNOWN
 ```
+Except for `IS UNKNOWN`, filters that use any form of comparison that involve properties of unknown values MUST not match. 
+Hence, by definition, the value `null` never matches equality (`=`), inequality (`<`, `<=`, `>`, `>=`, `!=`) or other comparison operators besides `IS UNKNOWN`.
+In particular, a filter that compares two properties that are both `null` for equality or inequality does not match.
 
 Examples:
 
