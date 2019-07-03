@@ -777,11 +777,10 @@ The single resource object's response dictionary MUST include the following fiel
 * **id**: `"/"`
 * **attributes**: Dictionary containing the following fields:
   * **api\_version**: Presently used version of the OPTiMaDe API.
-  * **available\_api\_versions**: A list of URLs where the same data is served using different versions of this API.
-    It MUST be a list of dictionaries, each containing the fields:
+  * **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 	* **url**: a string specifying a base URL that MUST adhere to the rules in section [3.1. Base URL](#h.3.1)
 	* **version**: a string containing the full version number of the API served at that base URL. 
-	  The version number string SHOULD NOT be prefixed by, e.g., "v".
+	  The version number string MUST NOT be prefixed by, e.g., "v".
   * **formats**: List of available output formats.
   * **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
   * **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the
@@ -826,7 +825,7 @@ Example:
         {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.2"},
         {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
         {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"}
-      }},
+      ],
       "formats": [
         "json",
         "xml"
