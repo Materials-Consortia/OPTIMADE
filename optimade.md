@@ -3,6 +3,7 @@
 [1. Introduction](#h.1)
 
 [2. Term Definition](#h.2)
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1. Data types](#h.2.1)  
 
 [3. General API Requirements and Conventions](#h.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.1. Base URL](#h.3.1)  
@@ -44,8 +45,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. local\_id](#h.6.1.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. immutable\_id](#h.6.1.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. last\_modified](#h.6.1.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.6. database-provider-specific properties](#h.6.1.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. last\_modified](#h.6.1.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.6. database-provider-specific properties](#h.6.1.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structures Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -99,7 +100,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   The prefix is used to separate the namespaces used by provider-specific extensions.
   These are defined in [Appendix 1](#h.app1).
 * **API implementation**: A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
-* **Identifier**: names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_"). 
+* **Identifier**: Names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_"). 
 * **Entry**: A single instance of a specific type of resource served by the API implementation.
   For example, a `structures` entry is comprised by data that pertain to a single structure.
 * **Entry type**: Entries are categorized into types, e.g., `structures`, `calculations`, `references`. 
@@ -113,28 +114,29 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Queryable property**: An entry property that can be referred to in the filtering of results. 
   See section [5. API Filtering Format Specification](#h.5) for more information on formulating filters on properties. 
   The definitions of specific properties in [6. Entry List](#h.6) states which ones MUST be queryable and which are RECOMMENDED.
-* **ID**: The ID entry property is a unique identifier referencing a specific entry in the database.
-  Taken together, the ID and entry type MUST uniquely identify the entry.
-  IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
-  Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
-  IDs do not need to be immutable, and MUST NOT be a reserved word.
+* **ID**: The ID entry property is a unique identifier referencing a specific entry in the database. 
+  The following constraints and conventions apply to IDs:
+  * Taken together, the ID and entry type MUST uniquely identify the entry.
+  * IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
+  * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  * IDs do NOT need to be immutable. 
+  * IDs may not be the word `info`.
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
-* **Reserved words**: The only reserved word in this standard is: `info`.
 * **Response format**: The data format for the HTTP response, which can be selected using the `response_format` URL query parameter. 
   For more info, see [3.3.1. Response Format](#h.3.3.1).
 * **Field**: The key used in response formats that return data in associative-array-type data structures.
   This is particularly relevant for the default JSON-based response format. In this case, **field** refers to
   the name part of the name-value pairs of JSON objects.
 
-## Data types
+## <a name="h.2.1">2.1. Data types</a>
 
 An API implementation handles data types and their representations in three different contexts:
 
 * In the HTTP URL query filter, see [5. API Filtering Format Specification](#h.5).
-* In the HTTP response. The default response format is a JSON-based and thus uses JSON data types. 
+* In the HTTP response. The default response format is JSON-based and thus uses JSON data types. 
   However, other response formats may use different data types. For more info, see [3.3. Responses](#h.3.3).
-* The underlying database backend(s) from which the implementation serves data has its own set of data types.
+* The underlying database backend(s) from which the implementation serves data.
 
 Hence, entry properties are described in this proposal using context-independent types that are assumed to have some form of representation in all contexts.
 They are as follows:
@@ -142,7 +144,7 @@ They are as follows:
 * Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 * **list**: an ordered collection of items, where all items are of the same type, unless they are unknown. A list can be empty, i.e., contain no items.
 * **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
-  The **values** of a dictionary may be any basic type, list, or dictionary, or unknown.
+  The **values** of a dictionary may be any basic type, list, dictionary, or unknown.
 
 An entry property value that is not present in the database is **unknown**. 
 This is equivalently expressed by the statement that the value of that entry property is `null`. 
@@ -1122,8 +1124,8 @@ The following tokens are used in the filter query component:
   definition is similar to one used in most widespread programming
   languages, except that OPTiMaDe limits allowed letter set to
   lowercase letters only. This allows to tell OPTiMaDe identifiers and
-  operator keywords apart unambiguously without consulting and
-  reserved word tables and to encode this distinction concisely in the
+  operator keywords apart unambiguously without consulting a
+  reserved word table and to encode this distinction concisely in the
   EBNF Filter Language grammar.
 
   Examples of valid property names:
@@ -1171,7 +1173,6 @@ The following tokens are used in the filter query component:
 
     String value tokens are also used to represent **timestamps** in form of the
     [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
-	
 
 * **Numeric values** are represented as decimal integers or in scientific
   notation, using the usual programming language conventions. 
