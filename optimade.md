@@ -99,13 +99,20 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   The prefix is used to separate the namespaces used by provider-specific extensions.
   These are defined in [Appendix 1](#h.app1).
 * **API implementation**: A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
+* **Identifier**: names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_"). 
 * **Entry**: A single instance of a specific type of resource served by the API implementation.
   For example, a `structures` entry is comprised by data that pertain to a single structure.
-* **Entry type**: Entries are categorized into types, which are named, e.g., `structures`, `calculations`, `references`.
+* **Entry type**: Entries are categorized into types, e.g., `structures`, `calculations`, `references`. 
+  Entry types MUST be named according to the rules for identifiers.
 * **Entry property**: One data item which pertains to an entry, e.g., the chemical formula of a structure.
-* **Entry property name**: The name of an entry property MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_"). Entry properties MUST NOT have the same name as any of the entry types.
-* **Relationship**: Any entry can have one or more relationships with other entries. These are described in [3.5. Relationships](#h.3.5). Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
-* **Queryable property**: An entry property that can be referred to in the filtering of results. See section [5. API Filtering Format Specification](#h.5) for more information on formulating filters on properties. The definitions of specific properties in [6. Entry List](#h.6) states which ones MUST be queryable and which are RECOMMENDED.
+* **Entry property name**: The name of an entry property. 
+  Entry property names MUST follow the rules for identifiers and MUST NOT have the same name as any of the entry types.
+* **Relationship**: Any entry can have one or more relationships with other entries. 
+  These are described in [3.5. Relationships](#h.3.5). 
+  Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
+* **Queryable property**: An entry property that can be referred to in the filtering of results. 
+  See section [5. API Filtering Format Specification](#h.5) for more information on formulating filters on properties. 
+  The definitions of specific properties in [6. Entry List](#h.6) states which ones MUST be queryable and which are RECOMMENDED.
 * **ID**: The ID entry property is a unique identifier referencing a specific entry in the database.
   Taken together, the ID and entry type MUST uniquely identify the entry.
   IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
@@ -114,7 +121,8 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
 * **Reserved words**: The only reserved word in this standard is: `info`.
-* **Response format**: The data format for the HTTP response, which can be selected using the `response_format` URL query parameter. For more info, see [3.3.1. Response Format](#h.3.3.1).
+* **Response format**: The data format for the HTTP response, which can be selected using the `response_format` URL query parameter. 
+  For more info, see [3.3.1. Response Format](#h.3.3.1).
 * **Field**: The key used in response formats that return data in associative-array-type data structures.
   This is particularly relevant for the default JSON-based response format. In this case, **field** refers to
   the name part of the name-value pairs of JSON objects.
@@ -140,7 +148,8 @@ An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is `null`. 
 For more information see [3.3.5. Properties with unknown value](#h.3.3.5)
 
-All entry properties have a value of a fixed type, or are **unknown**. 
+The definition of a property of an entry type specifies a type.
+The value of that property MUST either have a value of that type, or be unknown.
 
 # <a name="h.3">3. General API Requirements and Conventions</a>
 
@@ -475,9 +484,7 @@ This is referred to as the property having an unknown value, or equivalently, th
 
 Properties with an unknown value MUST NOT be returned in the response, unless explicitly requested in the search query. 
 
-Filters that use comparisons that involve properties of unknown value MUST be evaluated as `false`, i.e., by definition the value `null` is outside of any defined search range.
-
-If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property. 
+If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property.
 These properties MUST be set to `null` in the response.
 
 Filters with `IS UNKNOWN` and `IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property. This is discussed in [5.2. The Filter Language Syntax](#h.5.2). 
@@ -1388,14 +1395,16 @@ For example: a client queries the `structures` endpoint with a filter that refer
 
 ### Properties with unknown value
 
-The filter language can match properties that have an unknown value. In the underlying data
-representation, this usually means data is missing or is set to a `null` value.
-The format is as follows:
+Properties may have an unknown value, see [3.3.5. Properties with unknown value](#h.3.3.5).
+
+Filters that use comparisons that involve properties of unknown values MUST not match, i.e., by definition the value `null` never matches equality (`=`) or inequality (`<`, `<=`, `>`, `>=`, `!=`). 
+A filter that compares two properties that are both `null` for equality or inequality never matches.
+
+Filters that match when the property is known, or unknown, respectively can be constructed using the following syntax: 
 ```
 identifier IS KNOWN
 identifier IS UNKNOWN
 ```
-Which matches when the property is set, and unset, respectively.
 
 Examples:
 
