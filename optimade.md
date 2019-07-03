@@ -2,7 +2,7 @@
 
 [1. Introduction](#h.1)
 
-[2. Term Definition](#h.2)
+[2. Definition of Terms](#h.2)
 &nbsp;&nbsp;&nbsp;&nbsp;[2.1. Data types](#h.2.1)  
 
 [3. General API Requirements and Conventions](#h.3)  
