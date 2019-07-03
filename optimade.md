@@ -114,15 +114,15 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **Queryable property**: An entry property that can be referred to in the filtering of results. 
   See section [5. API Filtering Format Specification](#h.5) for more information on formulating filters on properties. 
   The definitions of specific properties in [6. Entry List](#h.6) states which ones MUST be queryable and which are RECOMMENDED.
-* **ID**: The ID entry property is a unique identifier referencing a specific entry in the database. 
+* **ID**: The ID entry property is a unique string referencing a specific entry in the database. 
   The following constraints and conventions apply to IDs:
   * Taken together, the ID and entry type MUST uniquely identify the entry.
   * IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
-  * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
-  * IDs do not need to be immutable. 
   * IDs MUST NOT be the word `info`.
-* **Immutable ID**: A unique identifier that specifies a specific resource in a
-  database that MUST be immutable.
+  * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  * IDs MAY change over time.
+* **Immutable ID**: A unique string that specifies a specific resource in a 
+   database. The string MUST NOT change over time.
 * **Response format**: The data format for the HTTP response, which can be selected using the `response_format` URL query parameter. 
   For more info, see [3.3.1. Response Format](#h.3.3.1).
 * **Field**: The key used in response formats that return data in associative-array-type data structures.
