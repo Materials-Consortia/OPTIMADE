@@ -119,7 +119,7 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   * Taken together, the ID and entry type MUST uniquely identify the entry.
   * IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
   * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
-  * IDs do NOT need to be immutable. 
+  * IDs do not need to be immutable. 
   * IDs may not be the word `info`.
 * **Immutable ID**: A unique identifier that specifies a specific resource in a
   database that MUST be immutable.
