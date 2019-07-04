@@ -2,6 +2,15 @@
   "data": [
     {
       "type": "provider",
+      "id": "aiida",
+      "attributes": {
+        "name": "AiiDA",
+        "description": "AiiDA: Automated Interactive Infrastructure and Database for Computational Science (http://www.aiida.net)",
+        "base_url": null
+      }
+    },
+    {
+      "type": "provider",
       "id": "aflow",
       "attributes": {
         "name": "aflow.org",
@@ -38,10 +47,19 @@
     },
     {
       "type": "provider",
+      "id": "httk",
+      "attributes": {
+        "name": "The High-Throughput Toolkit",
+        "description": "Prefix for implementation-specific identifiers used in the httk implementation at http://httk.org/",
+	"base_url": null
+      }
+    },
+    {
+      "type": "provider",
       "id": "mcloud",
       "attributes": {
-        "name": "materialscloud.org",
-        "description": "",
+        "name": "Materials Cloud",
+        "description": "Materials Cloud: A platform for Open Science built for seamless sharing of resources in computational materials science (http://www.materialscloud.org)",
         "base_url": null
       }
     },
@@ -79,6 +97,15 @@
         "name": "open materials database",
         "description": "",
         "base_url": null
+      }
+    },
+    {
+      "type": "provider",
+      "id": "optimade",
+      "attributes": {
+        "name": "OPTiMaDe implementations and libraries",
+        "description": "Prefix for implementation-specific identifiers used in API implementations and libraries provided at https://github.com/Materials-Consortia",
+	"base_url": null
       }
     },
     {
