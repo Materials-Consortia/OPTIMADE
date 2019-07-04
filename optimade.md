@@ -1433,31 +1433,37 @@ their types. Similarly, for database-provider-specific properties,
 the database provider decides their types. In the syntactic
 constructs that can accommodate values of more than one type, 
 the semantics of the comparisons are controlled by the
-types of the participating properties. Specifically:
+types of the participating properties. The following conventions apply
+for comparisons of values of different types:
 
-* In a comparison of a property with a constant of a type that does
-not match the type of the property, it is RECOMMENDED that the
-implementation makes a best-effort to convert the constant to match
-the property type. For example, `x > "0.0"` where x is a coordinate
-would be treated as numeric filter `x > 0`, and `s = 0` for a string
-parameter "s" would perform string comparison as in `s = "0"`.
-Strings are converted to numbers using the token syntax specified in
-[5.1. Lexical tokens](#h.5.1), p. "Numeric values"; integers
-SHOULD be converted to strings in decimal notation (libc "%d"), floats
-SHOULD be converted to strings using the libc "%g" format. Conversions
-of numeric values to timestamps MUST NOT be performed. If a
-conversion is performed, the API implementation SHOULD supply a
+* Given an integer property and a numeric or string token, the value of
+the latter MUST be converted to an integer using conventions of stdlib's
+`atoi`.
+
+* Given a float property and a numeric or string token, the value of
+the latter MUST be converted to a float using conventions of stdlib's
+`atof`.
+
+* No conversion is needed for a string property and a numeric or string
+token.
+
+* If a comparison is provided between only constants of incompatible types,
+e.g., `5 < "13"`, the implementation MUST respond with an error. The same
+applies for comparisons of two properties, e.g. `nelements > chemical_formula_hill`.
+
+* Given a timestamp property and a string token, the value of the latter
+MUST be parsed according to [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+* Comparison of a timestamp property and a numeric token MUST be
+reported as an error.
+
+If a conversion is performed, the API implementation SHOULD supply a
 warning in the response and specify the actual search values that were
 used. Alternatively, the implementation MAY instead respond with error
 `501 Not Implemented` with an explanation that specifies which
 comparison generated the type mismatch. The implementation MUST either
 make a conversion or respond with an error. It MUST NOT, e.g., silently
 treat such comparisons as always non-matching.
-
-* If a comparison is provided between only numerical constants of
-incompatible types, e.g., `5 < "13"`, the implementation MUST respond
-with an error. The same applies for comparisons of two properties, e.g.
-`nelements > chemical_formula_hill`.
 
 ### Optional filter features
 
