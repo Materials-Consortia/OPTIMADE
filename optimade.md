@@ -1448,7 +1448,7 @@ the latter MUST be converted to a float using conventions of stdlib's
 sequence of characters) of the latter MUST be used.
 
 * If a comparison is provided between only constants of incompatible types,
-e.g., `5 < "13"`, the implementation MUST respond with an error. The same
+e.g., `5 < "13"`, the implementation MUST respond with error `501 Not Implemented`. The same
 applies for comparisons of two properties of different type, e.g. `nelements > chemical_formula_hill`.
 
 * Given a timestamp property and a string token, the value of the latter
