@@ -1436,23 +1436,24 @@ the semantics of the comparisons are controlled by the
 types of the participating properties. The following conventions apply
 for comparisons of values of different types:
 
-* Given an integer property and a numeric or string token, the value of
-the latter MUST be converted to an integer using conventions of stdlib's
-`atoi`.
+* In a comparison with an integer property, a numeric or string token
+represents the integer value that would result from a conversion using the
+conventions of stdlib's `atoi`.
 
-* Given a float property and a numeric or string token, the value of
-the latter MUST be converted to a float using conventions of stdlib's
-`atof`.
+* In a comparison with a float property, a numeric or string token represents
+the float value that would result from a conversion using the
+conventions of stdlib's `atof`.
 
-* Given a string property and a numeric token, the string value (verbatim
-sequence of characters) of the latter MUST be used.
+* In a comparison with a string property, a numeric token represents its
+string value (verbatim sequence of characters comprising its token).
 
 * If a comparison is provided between only constants of incompatible types,
 e.g., `5 < "13"`, the implementation MUST respond with error `501 Not Implemented`. The same
 applies for comparisons of two properties of different type, e.g. `nelements > chemical_formula_hill`.
 
-* Given a timestamp property and a string token, the value of the latter
-MUST be the timestamp that would result from parsing the string according to [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
+* In a comparison with a timestamp property, a string token represents a
+timestamp value that would result from parsing the string according to
+[RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 
 * Comparison of a timestamp property and a numeric token MUST be
 reported with error `501 Not implemented`.
