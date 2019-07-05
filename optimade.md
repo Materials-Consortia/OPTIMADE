@@ -1444,8 +1444,8 @@ the latter MUST be converted to an integer using conventions of stdlib's
 the latter MUST be converted to a float using conventions of stdlib's
 `atof`.
 
-* No conversion is needed for a string property and a numeric or string
-token.
+* Given a string property and a numeric token, the string value (verbatim
+sequence of characters) of the latter MUST be used.
 
 * If a comparison is provided between only constants of incompatible types,
 e.g., `5 < "13"`, the implementation MUST respond with an error. The same
