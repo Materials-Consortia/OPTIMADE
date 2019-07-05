@@ -1449,7 +1449,7 @@ token.
 
 * If a comparison is provided between only constants of incompatible types,
 e.g., `5 < "13"`, the implementation MUST respond with an error. The same
-applies for comparisons of two properties, e.g. `nelements > chemical_formula_hill`.
+applies for comparisons of two properties of different type, e.g. `nelements > chemical_formula_hill`.
 
 * Given a timestamp property and a string token, the value of the latter
 MUST be parsed according to [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
