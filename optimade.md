@@ -1452,7 +1452,7 @@ e.g., `5 < "13"`, the implementation MUST respond with error `501 Not Implemente
 applies for comparisons of two properties of different type, e.g. `nelements > chemical_formula_hill`.
 
 * Given a timestamp property and a string token, the value of the latter
-MUST be parsed according to [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
+MUST be the timestamp that would result from parsing the string according to [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 
 * Comparison of a timestamp property and a numeric token MUST be
 reported as an error.
