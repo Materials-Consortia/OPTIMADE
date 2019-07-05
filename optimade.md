@@ -1455,7 +1455,7 @@ applies for comparisons of two properties of different type, e.g. `nelements > c
 MUST be the timestamp that would result from parsing the string according to [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
 
 * Comparison of a timestamp property and a numeric token MUST be
-reported as an error.
+reported with error `501 Not implemented`.
 
 If a conversion is performed, the API implementation SHOULD supply a
 warning in the response and specify the actual search values that were
