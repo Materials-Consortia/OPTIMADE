@@ -2344,8 +2344,9 @@ Space = ' ' | tab | nl | cr | vt | ff ;
 
 Spaces = Space, { Space } ;
 
-(* The 'UnicodeHighChar' specifies all Unicode characters above 0x7F;
-   the syntax used is the one compatible with Grammatica: *)
+(* The 'UnicodeHighChar' specifies any Unicode character above 0x7F.
+   It is specified in this grammar by an extension to EBNF that allows a
+   regular expression to specify terminal symbol ranges. *)
 
 UnicodeHighChar = ? [^\x00-\x7F] ? ;
  
