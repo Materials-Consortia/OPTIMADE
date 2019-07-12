@@ -1431,40 +1431,19 @@ Examples:
 The definitions of specific properties in this standard define
 their types. Similarly, for database-provider-specific properties,
 the database provider decides their types. In the syntactic
-constructs that can accommodate values of more than one type, 
-the semantics of the comparisons are controlled by the
-types of the participating properties. The following conventions apply
-for comparisons of values of different types:
+constructs that can accommodate values of more than one type, types of
+all participating values are REQUIRED to match, with a single exception
+of timestamps (see below). Different types of values MUST be reported
+as `501 Not Implemented` errors, meaning that type conversion is not
+implemented in the specification.
 
-* In a comparison with an integer property, a numeric or string token
-represents the integer value that would result from a conversion using the
-conventions of stdlib's `atoi`.
-
-* In a comparison with a float property, a numeric or string token represents
-the float value that would result from a conversion using the
-conventions of stdlib's `atof`.
-
-* In a comparison with a string property, a numeric token represents its
-string value (verbatim sequence of characters comprising its token).
-
-* If a comparison is provided between only constants of incompatible types,
-e.g., `5 < "13"`, the implementation MUST respond with error `501 Not Implemented`. The same
-applies for comparisons of two properties of different type, e.g. `nelements > chemical_formula_hill`.
-
-* In a comparison with a timestamp property, a string token represents a
-timestamp value that would result from parsing the string according to
+As the filter language syntax does not define a lexical token for
+timestamps, values of this type are expressed using string tokens in
 [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
-
-* Comparison of a timestamp property and a numeric token MUST be
-reported with error `501 Not implemented`.
-
-If a conversion is performed, the API implementation SHOULD supply a
-warning in the response and specify the actual search values that were
-used. Alternatively, the implementation MAY instead respond with error
-`501 Not Implemented` with an explanation that specifies which
-comparison generated the type mismatch. The implementation MUST either
-make a conversion or respond with an error. It MUST NOT, e.g., silently
-treat such comparisons as always non-matching.
+In a comparison with a timestamp property, a string token represents a
+timestamp value that would result from parsing the string according to
+RFC 3339 Internet Date/Time Format. Interpretation failures MUST be
+reported with error `400 Bad Request`.
 
 ### Optional filter features
 
