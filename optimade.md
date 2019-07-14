@@ -1433,32 +1433,19 @@ Examples:
 The definitions of specific properties in this standard define
 their types. Similarly, for database-provider-specific properties,
 the database provider decides their types. In the syntactic
-constructs that can accommodate values of more than one type, 
-the semantics of the comparisons are controlled by the
-types of the participating properties. Specifically:
+constructs that can accommodate values of more than one type, types of
+all participating values are REQUIRED to match, with a single exception
+of timestamps (see below). Different types of values MUST be reported
+as `501 Not Implemented` errors, meaning that type conversion is not
+implemented in the specification.
 
-* In a comparison of a property with a constant of a type that does
-not match the type of the property, it is RECOMMENDED that the
-implementation makes a best-effort to convert the constant to match
-the property type. For example, `x > "0.0"` where x is a coordinate
-would be treated as numeric filter `x > 0`, and `s = 0` for a String
-parameter "s" would perform string comparison as in `s = "0"`.
-Strings are converted to numbers using the token syntax specified in
-[5.1. Lexical tokens](#h.5.1), p. "Numeric values"; numbers
-SHOULD be converted to strings using the libc "%g" format. Conversions
-of numeric values to timestamp strings MUST NOT be performed. If a
-conversion is performed, the API implementation SHOULD supply a
-warning in the response and specify the actual search values that were
-used. Alternatively, the implementation MAY instead respond with error
-`501 Not Implemented` with an explanation that specifies which
-comparison generated the type mismatch. The implementation MUST either
-make a conversion or respond with an error. It may not, e.g., silently
-treat such comparisons as always non-matching.
-
-* If a comparison is provided between only numerical constants of
-incompatible types, e.g., `5 < "13"`, the implementation MUST respond
-with an error. The same applies for comparisons of two properties, e.g.
-`nelements > chemical_formula_hill`.
+As the filter language syntax does not define a lexical token for
+timestamps, values of this type are expressed using string tokens in
+[RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6).
+In a comparison with a timestamp property, a string token represents a
+timestamp value that would result from parsing the string according to
+RFC 3339 Internet Date/Time Format. Interpretation failures MUST be
+reported with error `400 Bad Request`.
 
 ### Optional filter features
 
