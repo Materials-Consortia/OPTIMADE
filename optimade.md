@@ -118,7 +118,6 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
   The following constraints and conventions apply to IDs:
   * Taken together, the ID and entry type MUST uniquely identify the entry.
   * IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
-  * IDs MUST NOT be the word `info`.
   * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
   * IDs MAY change over time.
 * **Immutable ID**: A unique string that specifies a specific resource in a 
@@ -214,7 +213,7 @@ API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below
 and MUST respond in this format by default.
 
-Each endpoint MAY support additional formats, and SHOULD declare these formats under `<endpoint>/info` 
+Each endpoint MAY support additional formats, and SHOULD declare these formats under `info/<endpoint>` 
 (see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
 Clients can request these formats using the `response_format` URL query parameter.
 Specifying a `response_format` different from `json` (e.g.
@@ -547,6 +546,7 @@ following endpoints:
 * an "entry listing" endpoint
 * a "single entry" endpoint
 * an introspection `info` endpoint
+* an "entry listing" introspection `info` endpoint
 * a `links` endpoint to discover related implementations
 * a custom `extensions` endpoint prefix  
 
@@ -614,7 +614,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   An implementation MAY support multiple sort fields for a single query. If it does, it
   again MUST conform to the JSON API 1.0 spec.
   
-  If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/<entries>/info` endpoint
+  If an implementation supports sorting for an [entry listing endpoint](#h.4.4.2), then the `/info/<entries>` endpoint
   MUST include, for each field name `<fieldname>` in its "data.properties.`<fieldname>`" response value,
   the key "sortable" with value `true`. This is in addition to each property description (and optional unit).
   An example is shown in section [4.4.2 Entry Listing Info Endpoints](#h.4.4.2).
@@ -723,9 +723,6 @@ endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the `id` field.
 
-Note that entries cannot have an ID of `'info'`, as this would collide with the 'Info' endpoint
-(described in section [4.4. Info Endpoints](#h.4.4)) for a given entry type.
-
 Examples:
 
 * <http://example.com/optimade/v0.9/structures/exmpl:struct_3232823>
@@ -775,10 +772,10 @@ Example:
 Info endpoints provide introspective information, either about the API implementation itself,
 or about specific entry types.
 
-Info endpoints are constructed by appending "**info**" to any of:
+There are two types of info endpoints:
 
-1. the base URL (e.g., <http://example.com/optimade/v0.9/info/>)
-2. type-specific entry listing endpoints (e.g., <http://example.com/optimade/v0.9/structures/info/>)
+1. the base URL (e.g., <http://example.com/optimade/v0.9/info>)
+2. type-specific entry listing endpoints (e.g., <http://example.com/optimade/v0.9/info/structures>)
 
 The types and output content of these info endpoints are described in more detail in the subsections
 below. Common for them all are that the `data` field SHOULD return only a single resource object.
@@ -911,8 +908,8 @@ Example for an index meta-database:
 
 ### <a name="h.4.3.2">4.3.2. Entry Listing Info Endpoints</a>
 
-Entry listing info endpoints are of the form "&lt;base\_url&gt;/&lt;entry\_type&gt;/info/"
-(e.g., <http://example.com/optimade/v0.9/structures/info/>).  
+Entry listing info endpoints are of the form "&lt;base\_url&gt;/info/&lt;entry\_type&gt;"
+(e.g., <http://example.com/optimade/v0.9/info/structures>).  
 The response for these endpoints MUST include the following information in the `data` field:
 
 * **description**: Description of the entry.
