@@ -213,7 +213,7 @@ API v1.0](http://jsonapi.org/format/1.0) specification.
 All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below
 and MUST respond in this format by default.
 
-Each endpoint MAY support additional formats, and SHOULD declare these formats under `info/<endpoint>` 
+Each endpoint MAY support additional formats, and SHOULD declare these formats under `/info/<entry type>`
 (see section [4.3.2. Entry Listing Info Endpoints](#h.4.3.2)).
 Clients can request these formats using the `response_format` URL query parameter.
 Specifying a `response_format` different from `json` (e.g.
