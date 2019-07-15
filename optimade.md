@@ -17,6 +17,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3.6. Warnings](#h.3.3.6)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.4. Index Meta-Database](#h.3.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[3.5. Relationships](#h.3.5)  
+&nbsp;&nbsp;&nbsp;&nbsp;[3.6. Handling unknown propery names](#h.3.6)
 
 [4. API endpoints](#h.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;[4.1. Entry Listing Endpoints](#h.4.1)  
@@ -538,6 +539,34 @@ In the default response format, relationships are encoded as [JSON API Relations
 > **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties. 
   For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships. 
   It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
+
+## <a name="h.3.6">3.6. Handling unknown property names</a>
+
+If a property name is not recognised by the queried end-point, an
+error diagnosis would be appropriate. However, we also want to
+formulate a single query suitable for multiple databases, even when
+querying database-sepcific properties. For example, we would like to
+construct the following query:
+
+filter=_aida_bandgap<2.0 OR _mp_bandgap<2.5`
+
+and then send it query to AiiDA-backed and MP-backed OPTiMaDe
+endpoints.
+
+For these queries to succeed, the following behavior is suggested:
+
+* if a database receives a query filter with universal Optimade
+  properties (i.e. defined without a database prefix, and deemed
+  universal for all databases), or a property with the database's
+  private prefix (e.g. cod for the COD database), then the database
+  MUST check if the provided property names are known, and MUST return
+  an appropriate error code if they are not known the database.
+
+* if a database received a query filter with a property from an
+  unknown database, the end-point MUST behave as if that property is
+  unknown, i.e. is if it has the value null. If the database prefix of
+  the unknown property is similar to that of a known database, the
+  response MAY issue a corresponding warning.
 
 # <a name="h.4">4. API Endpoints</a>
 
