@@ -1298,7 +1298,21 @@ In addition to the standard equality and inequality operators, matching of parti
 
 OPTIONAL features: 
 
+The following comparison operators are OPTIONAL:
+
+* `identfier LIKE x`
+
+* `identfier UNLIKE x`
+
 * Support for x to be an identifier, rather than a string is OPTIONAL.
+
+If implemented, the "LIKE" operator MUST behave as the correspoding standard SQL operator. In particular,
+The `x` string MUST be interpreted as a pattern where an underscore character ('_', ASCII DEC 95, HEX 5F)
+matches any single character and a percent character ('%', ASCII DEC 37, HEX 25) matches an arbitrary
+sequence of characters (including zero characters).
+
+If operator "UNLIKE" is supported, the bahavior of this oprtator MUST be the negation of the "LIKE" operator; i.e.
+an expression `(property UNLIKE "value")" must behave exactly as `(NOT (property LIKE "value"))`.
 
 Examples:
 
@@ -2218,7 +2232,8 @@ ValueOpRhs = Operator, Value ;
 
 KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
 
-FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String ;
+FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String |
+                   LIKE, String | NOT, LIKE, String | UNLIKE, String ;
 
 SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
@@ -2265,6 +2280,9 @@ HAS = 'H', 'A', 'S', [Spaces] ;
 ALL = 'A', 'L', 'L', [Spaces] ;
 ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
 ANY = 'A', 'N', 'Y', [Spaces] ;
+
+LIKE = 'L', 'I', 'K', 'E', [Spaces];
+UNLIKE = 'U', 'N', 'L', 'I', 'K', 'E', [Spaces];
 
 (* OperatorComparison operator tokens: *)
 
