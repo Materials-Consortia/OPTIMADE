@@ -474,23 +474,27 @@ to the corresponding database ID that was originally queried, using the object's
 
 ### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
 
-There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site. 
+There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
 
 ### <a name="h.3.3.5">3.3.5. Properties with unknown value</a>
 
-Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present. 
-This is referred to as the property having an unknown value, or equivalently, that the property value is `null`.
+Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
+This is referred to as the property having an *unknown* value, or equivalently, that the property value is `null`.
 
-Properties with an unknown value MUST NOT be returned in the response, unless explicitly requested in the search query. 
+The text in this section describes how the API handles properties that are `null`.
+It does not regulate the handling of values inside property data structures that can be `null`.
+The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+
+REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using `response_fields`, see section [4.4.1. URL Query Parameters](#h.4.4.1)).
+
+OPTIONAL properties with an unknown value MAY be returned in the response.
+If an OPTIONAL property is _not_ returned in a _full_ response (i.e., not using `response_fields`), the client MUST assume the property has an unknown value, i.e., `null`.
 
 If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property.
 These properties MUST be set to `null` in the response.
 
-Filters with `IS UNKNOWN` and `IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property. This is discussed in [5.2. The Filter Language Syntax](#h.5.2). 
-
-The text in this section describes how the API handles properties that are `null`. 
-It does not regulate the handling of values inside property data structures that can be `null`. 
-The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+Filters with `IS UNKNOWN` and `IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
+This is discussed in section [5.2. The Filter Language Syntax](#h.5.2).
 
 ### <a name="h.3.3.6">3.3.6. Warnings</a>
 
