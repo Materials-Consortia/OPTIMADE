@@ -58,49 +58,50 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 26
-              String(9999)
-                TOKEN_3(9999): """, line: 1, col: 27
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_35(9999): "C", line: 1, col: 28
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_22(9999): "6", line: 1, col: 29
-                EscapedChar(9999)
-                  UnescapedChar(9999)
+              StringProperty(9999)
+                String(9999)
+                  TOKEN_3(9999): """, line: 1, col: 27
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        UppercaseLetter(9999)
+                          TOKEN_35(9999): "C", line: 1, col: 28
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Digit(9999)
+                        TOKEN_22(9999): "6", line: 1, col: 29
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 30
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        UppercaseLetter(9999)
+                          TOKEN_40(9999): "H", line: 1, col: 31
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Digit(9999)
+                        TOKEN_17(9999): "1", line: 1, col: 32
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Digit(9999)
+                        TOKEN_18(9999): "2", line: 1, col: 33
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 34
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        UppercaseLetter(9999)
+                          TOKEN_47(9999): "O", line: 1, col: 35
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Digit(9999)
+                        TOKEN_22(9999): "6", line: 1, col: 36
+                  TOKEN_3(9999): """, line: 1, col: 37
+                  Spaces(9999)
                     Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 30
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_40(9999): "H", line: 1, col: 31
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_17(9999): "1", line: 1, col: 32
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 33
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 34
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_47(9999): "O", line: 1, col: 35
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_22(9999): "6", line: 1, col: 36
-                TOKEN_3(9999): """, line: 1, col: 37
-                Spaces(9999)
-                  Space(9999)
-                    nl(9999)
-                      SPECIAL_1(9999): "(...)", line: 1, col: 38
+                      nl(9999)
+                        SPECIAL_1(9999): "(...)", line: 1, col: 38
