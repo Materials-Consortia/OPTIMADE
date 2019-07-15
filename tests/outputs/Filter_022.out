@@ -44,9 +44,12 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 18
+            FuzzyStringOpRhs(9999)
+              UNLIKE(9999)
+                TOKEN_53(9999): "U", line: 1, col: 19
+                TOKEN_46(9999): "N", line: 1, col: 20
 Error: in tests/cases/Filter_022.inp: line 1:
-    unexpected token "U", expected one of "<", ">", "=", "!", "I",
-    "C", "S", "E", "H", or ":"
+    unexpected token "K", expected "L"
 
 prototype_formula UNKNOWN
-                  ^
+                    ^

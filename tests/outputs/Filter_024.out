@@ -44,7 +44,7 @@ Filter(9999)
                     TOKEN_1(9999): " ", line: 1, col: 17
 Error: in tests/cases/Filter_024.inp: line 1:
     unexpected token "K", expected one of "<", ">", "=", "!", "I",
-    "C", "S", "E", "H", or ":"
+    "C", "S", "E", "L", "N", "U", "H", or ":"
 
 chemical_formula KNOWN
                  ^
