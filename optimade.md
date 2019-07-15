@@ -482,8 +482,7 @@ Many databases allow specific data values to exist for some of the entries, wher
 This is referred to as the property having an *unknown* value, or equivalently, that the property value is `null`.
 
 The text in this section describes how the API handles properties that are `null`.
-It does not regulate the handling of values inside property data structures that can be `null`.
-The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification, see section [6. Entry List](#h.6).
 
 REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using `response_fields`, see section [4.4.1. URL Query Parameters](#h.4.4.1)).
 
