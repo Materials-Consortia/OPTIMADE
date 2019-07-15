@@ -548,7 +548,7 @@ formulate a single query suitable for multiple databases, even when
 querying database-sepcific properties. For example, we would like to
 construct the following query:
 
-filter=_aida_bandgap<2.0 OR _mp_bandgap<2.5`
+`filter=_aida_bandgap<2.0 OR _mp_bandgap<2.5`
 
 and then send it query to AiiDA-backed and MP-backed OPTiMaDe
 endpoints.
