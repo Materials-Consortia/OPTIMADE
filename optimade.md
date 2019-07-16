@@ -481,8 +481,9 @@ There are relevant use-cases for allowing data served via OPTiMaDe to be accesse
 Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
 This is referred to as the property having an *unknown* value, or equivalently, that the property value is `null`.
 
-The text in this section describes how the API handles properties that are `null`.
-The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification, see section [6. Entry List](#h.6).
+The text in this section describes how the API handles properties with the value `null`.
+The use of `null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section [6. Entry List](#h.6).
+For these properties, `null` MAY carry a special meaning.
 
 REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using `response_fields`, see section [4.4.1. URL Query Parameters](#h.4.4.1)).
 
