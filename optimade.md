@@ -1572,94 +1572,84 @@ This section defines standard entry types and their properties.
 
 * **Description**: The chemical formula for a structure as a string in a form chosen by the API implementation.
 * **Type**: string
-* **Requirements/Conventions**: 
-  * **Response**: REQUIRED in the response unless explicitly excluded. 
+* **Requirements/Conventions**:
+  * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: MUST be a queryable property with support for all mandatory filter operators.
-  * The chemical formula is given as a string consisting of 
-    properly capitalized element symbols followed by integers or decimal numbers, 
-    balanced parentheses, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, 
-    the `+`, `-`, `:` and `=` symbols. The parentheses are allowed to be followed by a number. 
-    Spaces are allowed anywhere except within chemical symbols. 
-    The order of elements and any groupings indicated by parentheses or brackets are chosen 
-    freely by the API implementation. 
-  * The string SHOULD be arithmetically consistent with the 
-    element ratios in the `chemical_formula_reduced` property.
-  * It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, 
-    are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html)
+  * The chemical formula is given as a string consisting of properly capitalized element symbols followed by integers or decimal numbers, balanced parentheses, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, the `+`, `-`, `:` and `=` symbols.
+    The parentheses are allowed to be followed by a number.
+    Spaces are allowed anywhere except within chemical symbols.
+    The order of elements and any groupings indicated by parentheses or brackets are chosen freely by the API implementation.
+  * The string SHOULD be arithmetically consistent with the element ratios in the `chemical_formula_reduced` property.
+  * It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html).
 * **Examples**:
-    * `"(H2O)2 Na"`
-    * `"NaCl"`
-    * `"CaCO3"`
-    * `"CCaO3"`
-    * `"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
+  * `"(H2O)2 Na"`
+  * `"NaCl"`
+  * `"CaCO3"`
+  * `"CCaO3"`
+  * `"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
 * **Query examples**:
-    * Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
-    * A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
-    * A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
+  * Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
+  * A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
+  * A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
 
 ### <a name="h.6.2.5">6.2.5. chemical\_formula\_reduced</a>
 
-* **Description**: The reduced chemical formula for a structure as a string with element symbols and 
-    integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
+* **Description**: The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
+  The proportion number MUST be omitted if it is 1.
 * **Type**: string
 * **Requirements/Conventions**:
-  * **Response**: REQUIRED in the response unless explicitly excluded. 
-  * **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
-      Intricate querying on formula components are instead recommended to be formulated using set-type filter operators 
-      on the multi valued `elements` and `elements_proportions` properties. 
+  * **Response**: REQUIRED in the response unless explicitly excluded.
+  * **Query**: MUST be a queryable property.
+    However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued `elements` and `elements_proportions` properties.
   * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
   * Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
-  * For structures with no partial occupation, the chemical proportion numbers are the smallest integers 
-    for which the chemical proportion is exactly correct.
-  * For structures with partial occupation, the chemical proportion numbers are integers 
-    that within reasonable approximation indicate the correct chemical proportions. The
-    precise details of how to perform the rounding is chosen by the API implementation.
+  * For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
+  * For structures with partial occupation, the chemical proportion numbers are integers that within reasonable approximation indicate the correct chemical proportions.
+    The precise details of how to perform the rounding is chosen by the API implementation.
   * No spaces or separators are allowed.
 * **Examples**:
-    * `"H2NaO"`
-    * `"ClNa"`
-    * `"CCaO3"`
-* **Query examples**: 
-    * A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
-   
+  * `"H2NaO"`
+  * `"ClNa"`
+  * `"CCaO3"`
+* **Query examples**:
+  * A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
+
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
-* **Requirements/Conventions**: 
+* **Description**: The chemical formula for a structure as a string in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers.
+  The proportion number MUST be omitted if it is 1.
+* **Requirements/Conventions**:
   * **Response**: OPTIONAL in the response.
-  * **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
-  * The overall scale factor of the chemical proportions is chosen such that the resulting values
-    are integers that indicate the most chemically relevant unit of which the system is composed. 
-    For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that 
-    represents two hydroperoxide molecules, 
-    `chemical_formula_hill` is `H2O2` (i.e., not `HO`, nor `H4O4`).
-  * If the chemical insight needed to ascribe a Hill formula to the system is not present, the
-    property MUST be handled as unset.
+  * **Query**: Support for queries on these properties are OPTIONAL.
+    If supported, only a subset of filter operators MAY be supported.
+  * The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
+    For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, `chemical_formula_hill` is `H2O2` (i.e., not `HO`, nor `H4O4`).
+  * If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
   * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
   * Elements MUST be placed in [Hill order](https://dx.doi.org/10.1021/ja02046a005), followed by their integer chemical proportion number.
-    Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second. After
-    that, all other elements are ordered alphabetically. If carbon is not present, all elements are ordered alphabetically. 
-  * If the system has sites with partial occupation and the total occupations of each element do not all sum up to integers, then the 
-    Hill formula SHOULD be handled as unset.
+    Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
+    After that, all other elements are ordered alphabetically.
+    If carbon is not present, all elements are ordered alphabetically.
+  * If the system has sites with partial occupation and the total occupations of each element do not all sum up to integers, then the Hill formula SHOULD be handled as unset.
   * No spaces or separators are allowed.
 * **Examples**:
   * `"H2O2"`
-* **Query examples**: 
+* **Query examples**:
   * A filter that matches an exactly given formula is `chemical_formula_hill="H2O2"`.
 
 ### <a name="h.6.2.7">6.2.7. chemical\_formula\_anonymous</a>
 
-* **Description**: The anonymous formula is the `chemical_formula_reduced`, but where the elements are
-    instead first ordered by their chemical proportion number, and then, in order left to right, replaced
-    by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
-* **Type**: string.
-* **Requirements/Conventions**: 
-  * **Response**: REQUIRED in the response unless explicitly excluded. 
-  * **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+* **Description**: The anonymous formula is the `chemical_formula_reduced`, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+* **Type**: string
+* **Requirements/Conventions**:
+  * **Response**: REQUIRED in the response unless explicitly excluded.
+  * **Query**: MUST be a queryable property.
+    However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
 * **Examples**:
   * `"A2B"`
   * `"A42B42C16D12E10F9G5"`
-* **Querying**: 
+* **Querying**:
   * A filter that matches an exactly given formula is `chemical_formula_anonymous="A2B"`.
 
 ### <a name="h.6.2.8">6.2.8. dimension\_types</a>
@@ -1707,24 +1697,23 @@ the Cartesian x, y, z directions.
 
 ### <a name="h.6.2.10">6.2.10. cartesian\_site\_positions</a>
 
-* **Description**: Cartesian positions of each site. A site is an atom, a site potentially occupied by
-an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
-* **Type**: list of list of floats.
-* **Requirements/Conventions**: 
+* **Description**: Cartesian positions of each site.
+  A site is an atom, a site potentially occupied by an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
+* **Type**: list of list of floats
+* **Requirements/Conventions**:
   * **Response**: REQUIRED in the response unless explicitly excluded.
-  * **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+  * **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
-  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g., the [6.2.14. `assemblies`](#h.6.2.14) property).
+  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the [6.2.14. `assemblies`](#h.6.2.14) property).
 * **Examples**:
-  * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
-  the (positive) `z` axis, 2 Å away from the origin.
+  * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) `z` axis, 2 Å away from the origin.
 
 ### <a name="h.6.2.11">6.2.11. nsites</a>
 
 * **Description**: An integer specifying the length of the `cartesian_site_positions` property.
 * **Type**: integer
-* **Requirements/Conventions**: 
+* **Requirements/Conventions**:
   * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: MUST be a queryable property with support for all mandatory filter operators.
 * **Examples**:
