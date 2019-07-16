@@ -1617,8 +1617,9 @@ This section defines standard entry types and their properties.
 
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers.
+* **Description**: The chemical formula for a structure in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers.
   The proportion number MUST be omitted if it is 1.
+* **Type**: string
 * **Requirements/Conventions**:
   * **Response**: OPTIONAL in the response.
   * **Query**: Support for queries on these properties are OPTIONAL.
