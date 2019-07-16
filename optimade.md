@@ -43,7 +43,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. local\_id](#h.6.1.3)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. immutable\_id](#h.6.1.4)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. last\_modified](#h.6.1.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.6. database-provider-specific properties](#h.6.1.6)  
@@ -692,7 +691,6 @@ Example:
       "id": "example.db:structs:0001",
       "attributes": {
         "chemical_formula_descriptive": "Es2 O3",
-        "local_id": "example.db:structs:0001",
         "url": "http://example.db/structs/0001",
         "immutable_id": "http://example.db/structs/0001@123",
         "last_modified": "2007-04-05T14:30Z"
@@ -703,7 +701,6 @@ Example:
       "id": "example.db:structs:1234",
       "attributes": {
         "chemical_formula_descriptive": "Es2",
-        "local_id": "example.db:structs:1234",
         "url": "http://example.db/structs/1234",
         "immutable_id": "http://example.db/structs/1234@123",
         "last_modified": "2007-04-07T12:02Z"
@@ -750,7 +747,6 @@ Example:
     "id": "example.db:structs:1234",
     "attributes": {
       "chemical_formula_descriptive": "Es2",
-      "local_id": "example.db:structs:1234",
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
@@ -984,11 +980,6 @@ The resource objects' response dictionaries MUST include the following fields:
     * **href**: a string containing the OPTiMaDe base URL.
     * **meta**: a meta object containing non-standard meta-information about the implementation.
 
-  `attributes` MAY also contain the following OPTIONAL members:
-
-  * **local\_id**: String representing the provider's local ID for the implementation.
-  This MAY be different from the `id` field's value.
-
 Example:
 
 ```jsonc
@@ -1014,8 +1005,7 @@ Example:
           "meta": {
             "_exmpl_catalyst_group": "denox"
           }
-        },
-        "local_id": "catalytic_zeolites"
+        }
       }
     },
     {
@@ -1025,7 +1015,6 @@ Example:
         "name": "Zeolitic Frameworks",
         "description": "",
         "base_url": "http://example.com/optimade/zeo_frameworks",
-        "local_id": "zeo_frameworks"
       }
     },
     {
@@ -1481,17 +1470,6 @@ This section defines standard entry types and their properties.
   * **Query**: Support for queries on this property is OPTIONAL. If supported, only a subset of string comparison operators MAY be supported.
 * **Requirements/Conventions**: MUST be an existing entry type.
 * **Example**: `"structures"`
-
-### <a name="h.6.1.3">6.1.3. local\_id</a>
-
-* **Description**: The entry's local database ID.
-* **Type**: string.
-* **Requirements/Conventions**:
-  * **Response**: OPTIONAL in the response. 
-  * **Query**: If present, MUST be a queryable property with support for all mandatory filter operators.
-* **Examples**:
-  * `"8bd3e750-b477-41a0-9b11-3a799f21b44f"`
-  * `"fjeiwoj,54;@=%<>#32"` (Strings that are not URL-safe are allowed.)
 
 ### <a name="h.6.1.4">6.1.4. immutable\_id</a>
 
@@ -2071,7 +2049,6 @@ be used as per the [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#
     "id": "example.db:structs:1234",
     "attributes": {
       "formula": "Es2",
-      "local_id": "example.db:structs:1234",
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
