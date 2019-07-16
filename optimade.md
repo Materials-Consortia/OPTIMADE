@@ -43,9 +43,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. immutable\_id](#h.6.1.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. last\_modified](#h.6.1.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.6. database-provider-specific properties](#h.6.1.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. immutable\_id](#h.6.1.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. last\_modified](#h.6.1.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. database-provider-specific properties](#h.6.1.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structures Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -1471,7 +1471,7 @@ This section defines standard entry types and their properties.
 * **Requirements/Conventions**: MUST be an existing entry type.
 * **Example**: `"structures"`
 
-### <a name="h.6.1.4">6.1.4. immutable\_id</a>
+### <a name="h.6.1.3">6.1.3. immutable\_id</a>
 
 * **Description**: The entry's immutable ID (e.g., an UUID).
   This is important for databases having preferred IDs that point to "the latest version" of a
@@ -1485,7 +1485,7 @@ This section defines standard entry types and their properties.
   * `"8bd3e750-b477-41a0-9b11-3a799f21b44f"`
   * `"fjeiwoj,54;@=%<>#32"` (Strings that are not URL-safe are allowed.)
 
-### <a name="h.6.1.5">6.1.5. last\_modified</a>
+### <a name="h.6.1.4">6.1.4. last\_modified</a>
 
 * **Description**: Date and time representing when the entry was last modified.
 * **Type**: timestamp.
@@ -1495,7 +1495,7 @@ This section defines standard entry types and their properties.
 * **Example**: 
   * As part of JSON response format: `"2007-04-05T14:30Z"` (i.e., encoded as an [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6) string.)
 
-### <a name="h.6.1.6">6.1.6. database-provider-specific properties</a>
+### <a name="h.6.1.5">6.1.5. database-provider-specific properties</a>
 
 * **Description**: Database providers are allowed to insert database-provider-specific entries
   in the output of both standard entry types and database-provider-specific entry types.
