@@ -43,10 +43,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[6.1. Properties Used by Multiple Entry Types](#h.6.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.1. id](#h.6.1.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.2. type](#h.6.1.2)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. local\_id](#h.6.1.3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. immutable\_id](#h.6.1.4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. last\_modified](#h.6.1.5)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.6. database-provider-specific properties](#h.6.1.6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.3. immutable\_id](#h.6.1.3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.4. last\_modified](#h.6.1.4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1.5. database-provider-specific properties](#h.6.1.5)  
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2. Structures Entries](#h.6.2)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.1. elements](#h.6.2.1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2.2. nelements](#h.6.2.2)  
@@ -117,7 +116,6 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **ID**: The ID entry property is a unique string referencing a specific entry in the database. 
   The following constraints and conventions apply to IDs:
   * Taken together, the ID and entry type MUST uniquely identify the entry.
-  * IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
   * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
   * IDs MAY change over time.
 * **Immutable ID**: A unique string that specifies a specific resource in a 
@@ -693,7 +691,6 @@ Example:
       "id": "example.db:structs:0001",
       "attributes": {
         "chemical_formula_descriptive": "Es2 O3",
-        "local_id": "example.db:structs:0001",
         "url": "http://example.db/structs/0001",
         "immutable_id": "http://example.db/structs/0001@123",
         "last_modified": "2007-04-05T14:30Z"
@@ -704,7 +701,6 @@ Example:
       "id": "example.db:structs:1234",
       "attributes": {
         "chemical_formula_descriptive": "Es2",
-        "local_id": "example.db:structs:1234",
         "url": "http://example.db/structs/1234",
         "immutable_id": "http://example.db/structs/1234@123",
         "last_modified": "2007-04-07T12:02Z"
@@ -718,14 +714,14 @@ Example:
 
 ## <a name="h.4.2">4.2. Single Entry Endpoints</a>
 
-A client can request a specific entry by appending an ID component to the URL of an entry listing
+A client can request a specific entry by appending an URL-encoded ID component to the URL of an entry listing
 endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the `id` field.
 
 Examples:
 
-* <http://example.com/optimade/v0.9/structures/exmpl:struct_3232823>
+* <http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823>
 * <http://example.com/optimade/v0.9/calculations/232132>
 
 ### <a name="h.4.2.1">4.2.1. URL Query Parameters</a>
@@ -751,7 +747,6 @@ Example:
     "id": "example.db:structs:1234",
     "attributes": {
       "chemical_formula_descriptive": "Es2",
-      "local_id": "example.db:structs:1234",
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
@@ -985,11 +980,6 @@ The resource objects' response dictionaries MUST include the following fields:
     * **href**: a string containing the OPTiMaDe base URL.
     * **meta**: a meta object containing non-standard meta-information about the implementation.
 
-  `attributes` MAY also contain the following OPTIONAL members:
-
-  * **local\_id**: String representing the provider's local ID for the implementation.
-  This MAY be different from the `id` field's value.
-
 Example:
 
 ```jsonc
@@ -1015,8 +1005,7 @@ Example:
           "meta": {
             "_exmpl_catalyst_group": "denox"
           }
-        },
-        "local_id": "catalytic_zeolites"
+        }
       }
     },
     {
@@ -1025,8 +1014,7 @@ Example:
       "attributes": {
         "name": "Zeolitic Frameworks",
         "description": "",
-        "base_url": "http://example.com/optimade/zeo_frameworks",
-        "local_id": "zeo_frameworks"
+        "base_url": "http://example.com/optimade/zeo_frameworks"
       }
     },
     {
@@ -1483,18 +1471,7 @@ This section defines standard entry types and their properties.
 * **Requirements/Conventions**: MUST be an existing entry type.
 * **Example**: `"structures"`
 
-### <a name="h.6.1.3">6.1.3. local\_id</a>
-
-* **Description**: The entry's local database ID.
-* **Type**: string.
-* **Requirements/Conventions**:
-  * **Response**: OPTIONAL in the response. 
-  * **Query**: If present, MUST be a queryable property with support for all mandatory filter operators.
-* **Examples**:
-  * `"8bd3e750-b477-41a0-9b11-3a799f21b44f"`
-  * `"fjeiwoj,54;@=%<>#32"` (Strings that are not URL-safe are allowed.)
-
-### <a name="h.6.1.4">6.1.4. immutable\_id</a>
+### <a name="h.6.1.3">6.1.3. immutable\_id</a>
 
 * **Description**: The entry's immutable ID (e.g., an UUID).
   This is important for databases having preferred IDs that point to "the latest version" of a
@@ -1508,7 +1485,7 @@ This section defines standard entry types and their properties.
   * `"8bd3e750-b477-41a0-9b11-3a799f21b44f"`
   * `"fjeiwoj,54;@=%<>#32"` (Strings that are not URL-safe are allowed.)
 
-### <a name="h.6.1.5">6.1.5. last\_modified</a>
+### <a name="h.6.1.4">6.1.4. last\_modified</a>
 
 * **Description**: Date and time representing when the entry was last modified.
 * **Type**: timestamp.
@@ -1518,7 +1495,7 @@ This section defines standard entry types and their properties.
 * **Example**: 
   * As part of JSON response format: `"2007-04-05T14:30Z"` (i.e., encoded as an [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6) string.)
 
-### <a name="h.6.1.6">6.1.6. database-provider-specific properties</a>
+### <a name="h.6.1.5">6.1.5. database-provider-specific properties</a>
 
 * **Description**: Database providers are allowed to insert database-provider-specific entries
   in the output of both standard entry types and database-provider-specific entry types.
@@ -2072,7 +2049,6 @@ be used as per the [JSON API 1.0 specification](https://jsonapi.org/format/1.0/#
     "id": "example.db:structs:1234",
     "attributes": {
       "formula": "Es2",
-      "local_id": "example.db:structs:1234",
       "url": "http://example.db/structs/1234",
       "immutable_id": "http://example.db/structs/1234@123",
       "last_modified": "2007-04-07T12:02Z"
