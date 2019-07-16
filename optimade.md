@@ -1014,7 +1014,7 @@ Example:
       "attributes": {
         "name": "Zeolitic Frameworks",
         "description": "",
-        "base_url": "http://example.com/optimade/zeo_frameworks",
+        "base_url": "http://example.com/optimade/zeo_frameworks"
       }
     },
     {
