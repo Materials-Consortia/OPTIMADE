@@ -717,14 +717,14 @@ Example:
 
 ## <a name="h.4.2">4.2. Single Entry Endpoints</a>
 
-A client can request a specific entry by appending an ID component to the URL of an entry listing
+A client can request a specific entry by appending an URL-encoded ID component to the URL of an entry listing
 endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the `id` field.
 
 Examples:
 
-* <http://example.com/optimade/v0.9/structures/exmpl:struct_3232823>
+* <http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823>
 * <http://example.com/optimade/v0.9/calculations/232132>
 
 ### <a name="h.4.2.1">4.2.1. URL Query Parameters</a>
