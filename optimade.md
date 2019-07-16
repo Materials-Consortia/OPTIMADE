@@ -117,7 +117,6 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * **ID**: The ID entry property is a unique string referencing a specific entry in the database. 
   The following constraints and conventions apply to IDs:
   * Taken together, the ID and entry type MUST uniquely identify the entry.
-  * IDs MUST be URL-safe strings; in particular, they MUST NOT contain commas.
   * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
   * IDs MAY change over time.
 * **Immutable ID**: A unique string that specifies a specific resource in a 
