@@ -444,7 +444,7 @@ Example:
 
 ## <a name="h.4.2">4.2. Single entry endpoints</a>
 
-A client can request a specific entry by appending an URI-encoded ID component to the URL
+A client can request a specific entry by appending an URL-encoded ID component to the URL
 of an entry listing endpoint. This will return properties for the entry with
 that ID.
 
