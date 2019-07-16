@@ -450,9 +450,6 @@ that ID.
 
 If using the JSON API format, the ID component MUST be the content of the id field.
 
-Note that entries cannot have an ID of 'info', as this would collide with the
-'Info' endpoint (described in [section '4.4. Info endpoints'](#h.4.4)) for a given entry type.
-
 Examples:
 
 * http://example.com/optimade/v0.9/structures/exmpl:struct/3232823
