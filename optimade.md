@@ -81,11 +81,9 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 * Property: anything that can be in the filtering of results.
 * Field: an entity that can be requested as partial output from the API.
 * ID: a unique identifier that specifies a specific resource in a database,
-  that does not necessarily need to be immutable. It MUST NOT be a reserved
-  word.
+  that does not necessarily need to be immutable.
 * Immutable ID: a unique identifier that specifies a specific resource in a
   database that MUST be immutable.
-* Reserved words: the list of reserved words in this standard is: info.
 * Property Types :
     * **string**, **integer**, **float**, **boolean**, **null value**: base data
       types as defined in more detail in [section '5.1. Lexical
