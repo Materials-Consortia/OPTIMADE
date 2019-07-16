@@ -444,7 +444,7 @@ Example:
 
 ## <a name="h.4.2">4.2. Single entry endpoints</a>
 
-A client can request a specific entry by appending an ID component to the URL
+A client can request a specific entry by appending an URI-encoded ID component to the URL
 of an entry listing endpoint. This will return properties for the entry with
 that ID.
 
@@ -452,8 +452,8 @@ If using the JSON API format, the ID component MUST be the content of the id fie
 
 Examples:
 
-* http://example.com/optimade/v0.9/structures/exmpl:struct/3232823
-* http://example.com/optimade/v0.9/calculations/exmpl:calc/232132
+* http://example.com/optimade/v0.9/structures/exmpl%3Astruct%2F3232823%0A
+* http://example.com/optimade/v0.9/calculations/exmpl%3Acalc%2F232132%0A
 
 ### <a name="h.4.2.1">4.2.1. URL Query Parameters</a>
 
