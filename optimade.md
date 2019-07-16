@@ -396,7 +396,6 @@ needs the following fields
 * **id**: a string which together with the type uniquely identifies the object, this can be the local database ID
 * **attributes**: a dictionary, containing key-value pairs representing the
   entries properties, and the following fields:
-    * **local\_id**: the entry's local database ID
     * **last\_modified**: an [ISO 8601](https://www.iso.org/standard/40874.html)
       representing the entry's last modification time
     * **immutable\_id**: an OPTIONAL field containing the entry's immutable ID
@@ -421,7 +420,6 @@ Example:
       "id": "example.db:structs:0001",
       "attributes": {
         "formula": "Es2 O3",
-        "local_id": "example.db:structs:0001",
         "url": "http://example.db/structs/0001",
         "immutable_id": "http://example.db/structs/0001@123",
         "last_modified": "2007-04-05T14:30Z"
@@ -432,7 +430,6 @@ Example:
       "type": "structure",
       "attributes": {
         "formula": "Es2"
-        "local_id": "example.db:structs:1234",
         "url": "http://example.db/structs/1234",
         "immutable_id": "http://example.db/structs/1234@123",
         "last_modified": "2007-04-07T12:02Z"
