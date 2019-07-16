@@ -914,7 +914,7 @@ The response for these endpoints MUST include the following information in the `
 
 * **description**: Description of the entry.
 * **properties**: A dictionary describing queryable properties for this entry type,
-where each key is a property ID. Each value is a dictionary, with the REQUIRED key `description`
+where each key is a property name. Each value is a dictionary, with the REQUIRED key `description`
 and OPTIONAL key `unit`.
 * **formats**: List of output formats available for this type of entry.
 * **output\_fields\_by\_format**: Dictionary of available output fields for this entry type,
