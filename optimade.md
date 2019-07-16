@@ -832,7 +832,6 @@ This section defines standard entry types and their properties.
 
 * Description: An entry's ID.
 * Requirements/Conventions:
-    * IDs MUST be URL-safe; in particular, they MUST NOT contain commas.
     * Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
 * Examples:
     * db/1234567
