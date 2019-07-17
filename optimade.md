@@ -921,7 +921,7 @@ Example:
 ```jsonc
 {
   "data": {
-    "description": "a structures",
+    "description": "a structure",
     "properties": {
       "nelements": {
         "description": "Number of elements",
