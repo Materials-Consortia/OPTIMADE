@@ -1941,24 +1941,21 @@ by multiple chemical elements.
     0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
 ### <a name="h.6.2.15">6.2.15. structure\_features</a>
+
 * **Description**: A list of strings that flag which special features are used by the structure.
-* **Type**: list of strings 
-* **Requirements/Conventions**: 
+* **Type**: list of strings
+* **Requirements/Conventions**:
   * **Response**: REQUIRED in the response (SHOULD be absent if there are no partial occupancies).
-  * **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries. 
-    Filter operators for comparisons on the string components MUST support equality, support for 
-    other comparison operators are OPTIONAL.
+  * **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries.
+    Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.
   * MUST be an empty list if no special features are used.
   * MUST be sorted alphabetically.
   * If a special feature listed below is used, the list MUST contain the corresponding string.
   * If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
   * **List of strings used to indicate special structure features**:
-    * `disorder`: This flag MUST be present if any one entry in the `species` list has a 
-      `chemical_symbols` list that is longer than 1 element.
-    * `unknown_positions`: This flag MUST be present if at least one component of the
-      `cartesian_site_positions` list of lists has value `null`.
-    * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.14)
-      list is present.  
+    * `disorder`: This flag MUST be present if any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element.
+    * `unknown_positions`: This flag MUST be present if at least one component of the `cartesian_site_positions` list of lists has value `null`.
+    * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.14) list is present.  
 * **Examples**: A structure having unknown positions and using assemblies:
 
   ```jsonc
