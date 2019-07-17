@@ -1699,13 +1699,19 @@ the Cartesian x, y, z directions.
 
 * **Description**: Cartesian positions of each site.
   A site is an atom, a site potentially occupied by an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
-* **Type**: list of list of floats
+* **Type**: list of list of floats and/or unknown values
 * **Requirements/Conventions**:
   * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
-  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the [6.2.14. `assemblies`](#h.6.2.14) property).
+  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the [6.2.15. `assemblies`](#h.6.2.15) property).
+  * If a component of the position is unknown, the `null` value should be provided instead (see section [3.3.5. Properties with unknown value](#h.3.3.5)).
+    Otherwise, it should be a float value, expressed in angstrom.
+    (See also the property `all_coordinates_known` under section [6.2.11](#h.6.2.11).)
+  * **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
+    If you decide to store internally the `cartesian_site_positions` as a float array, you might want to replace `null` values with `NaN` values.
+    The latter being valid float numbers in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
 * **Examples**:
   * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) `z` axis, 2 Å away from the origin.
 
