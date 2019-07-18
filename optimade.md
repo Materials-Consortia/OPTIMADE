@@ -1707,10 +1707,10 @@ the Cartesian x, y, z directions.
   * **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
-  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the [6.2.15. `assemblies`](#h.6.2.15) property).
+  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the [6.2.14. `assemblies`](#h.6.2.14) property).
   * If a component of the position is unknown, the `null` value should be provided instead (see section [3.3.5. Properties with unknown value](#h.3.3.5)).
-    Otherwise, it should be a float value, expressed in angstrom.
-    (See also the property `all_coordinates_known` under section [6.2.11](#h.6.2.11).)
+    Otherwise, it should be a float value, expressed in angstrom (Å).
+    If at least one of the coordinates is unknown, the correct flag in the [`6.2.15. structure_features`](#h6.2.15) list MUST be set.
   * **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
     If you decide to store internally the `cartesian_site_positions` as a float array, you might want to replace `null` values with `NaN` values.
     The latter being valid float numbers in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
