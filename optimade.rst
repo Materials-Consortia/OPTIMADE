@@ -2067,7 +2067,7 @@ Appendices
 Database-Provider-Specific Namespace Prefixes
 ---------------------------------------------
 
-This standard refers to database-provider-specific prefixes. These are assigned and included in this standard in the file `providers.json <https://raw.githbusercontent.com/Materials-Consortia/OPTiMaDe/develop/providers.json>`__
+This standard refers to database-provider-specific prefixes. These are assigned and included in this standard in the file `providers.json <https://github.com/Materials-Consortia/OPTiMaDe/develop/providers.json>`__
 
 API implementations SHOULD NOT make up and use new prefixes not included in this standard, but SHOULD rather work to get such prefixes included in a future revision of this API specification.
 
