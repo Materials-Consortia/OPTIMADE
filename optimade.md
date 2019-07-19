@@ -555,7 +555,7 @@ endpoints.
 
 For these queries to succeed, the following behavior is suggested:
 
-* if a database receives a query filter with universal Optimade
+* if a database receives a query filter with universal OPTiMaDe
   properties (i.e. defined without a database prefix, and deemed
   universal for all databases), or a property with the database's
   private prefix (e.g. cod for the COD database), then the database
