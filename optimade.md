@@ -544,7 +544,7 @@ In the default response format, relationships are encoded as [JSON API Relations
 
 If a property name is not recognized by the queried endpoint, an
 error diagnosis would be appropriate. However, we also want to
-formulate a single query suitable for multiple databases, even when
+support the formulation of a single query suitable for multiple databases, even when
 querying database-specific properties. For example, we would like to
 construct the following query:
 
