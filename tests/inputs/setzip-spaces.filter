@@ -1,0 +1,1 @@
+elements :element_counts HAS "H": 6 AND elements : element_counts HAS ALL "H" : 6,"He": 7 AND elements: element_counts HAS ONLY "H" :6 AND elements:element_counts HAS ANY "H"  :   6,"He" : 7 AND elements   :   element_counts HAS ONLY "H" :6,"He": 7

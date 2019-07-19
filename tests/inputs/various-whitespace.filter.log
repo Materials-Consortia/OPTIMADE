@@ -1,0 +1,21 @@
++ directory-metadata
++ whoami
+saulius
++ hostname -f
+varanas.saulius-grazulis.lt
++ pwd
+/home/saulius/src/sauliusg-optimade/tests/inputs
++ svn info
+svn: E155007: '/home/saulius/src/sauliusg-optimade/tests/inputs' is not a working copy
++ df -h .
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       455G  359G   73G  84% /
++ type osname
+osname is /home/saulius/scripts/osname
++ osname
+LinuxMint-18.1
++ uname -m
+x86_64
++ date
+Thu Jun 13 18:55:31 EEST 2019
++ perl -e 'print "\x0B\f\t\tNOTa\n\n   \t > \n\r ___beta___\n\n"'

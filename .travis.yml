@@ -1,0 +1,23 @@
+sudo: required
+
+dist: trusty
+language: perl
+
+addons:
+    apt:
+        packages:
+            - ant
+            - unzip
+            - default-jdk
+            - subversion
+
+# Skip cpanm installation
+install: []
+
+script:
+    - make --version
+    - make tools
+    - make grammars
+    - make tests
+    - make listdiff
+    - exit $(make listdiff | head | wc -l)

@@ -1,0 +1,87 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Extract grammars from the *.md files and run tests agains them.
+
+MD_FILE_DIR ?= .
+
+TOOL_DIR ?= tests/tools
+
+MD_FILES ?= $(wildcard ${MD_FILE_DIR}/*.md)
+
+GRAMMAR_START_STRING ?= \(\* BEGIN EBNF GRAMMAR
+GRAMMAR_END_STRING   ?= \(\* END EBNF GRAMMAR
+
+RE_START_STRING ?= \#BEGIN
+RE_END_STRING   ?= \#END
+
+GRAMMARS ?= $(shell awk '/^${GRAMMAR_START_STRING}/{print $$5}' ${MD_FILES})
+GRAMMAR_DIR   ?= tests/generated
+EBNF_FILES    ?= ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
+GRAMMAR_FILES ?= ${EBNF_FILES:%.ebnf=%.g}
+
+REGEXPS = $(sort $(shell awk '/^${RE_START_STRING}/{print $$3}' ${MD_FILES} | tr -d "\r"))
+REGEXP_FILES = ${REGEXPS:%=${GRAMMAR_DIR}/%.ere} ${REGEXPS:%=${GRAMMAR_DIR}/%.pcre}
+
+GRAMMAR_DEPENDENCIES = .grammars.d
+
+include ${GRAMMAR_DEPENDENCIES}
+
+.PHONY: grammars
+
+grammars: ${GRAMMAR_FILES}
+
+all: grammars
+
+.PHONY: test tests
+
+${DIFF_FILES}: ${GRAMMAR_FILES}
+
+${OUTP_FILES}: ${GRAMMAR_FILES}
+
+#------------------------------------------------------------------------------
+
+${GRAMMAR_DEPENDENCIES}: ${MD_FILES}
+	awk '/^${GRAMMAR_START_STRING}/{print "${GRAMMAR_DIR}/"$$5".ebnf:", FILENAME}' \
+		$^ > $@
+	awk '/^${RE_START_STRING} ERE/{print "${GRAMMAR_DIR}/"$$3".ere:", FILENAME}' \
+		$^ | tr -d "\r" >> $@
+	awk '/^${RE_START_STRING} PCRE/{print "${GRAMMAR_DIR}/"$$3".pcre:", FILENAME}' \
+		$^ | tr -d "\r" >> $@
+
+${GRAMMAR_DIR}/%.ebnf:
+	awk '/^${GRAMMAR_START_STRING} $*/,/^${GRAMMAR_END_STRING} $*/' $< > $@
+
+${GRAMMAR_DIR}/%.ere:
+	awk '/^${RE_START_STRING} ERE $*/,/^${RE_END_STRING} ERE $*/' $< \
+		| tr -d "\r" > $@
+
+${GRAMMAR_DIR}/%.pcre:
+	awk '/^${RE_START_STRING} PCRE $*/,/^${RE_END_STRING} PCRE $*/' $< \
+		| tr -d "\r" > $@
+
+.PHONY: tools
+
+${GRAMMAR_DIR}/%.g: ${GRAMMAR_DIR}/%.ebnf | tools
+	${TOOL_DIR}/grammatiker/EBNF/scripts/ebnf2grammatica $< \
+	| perl -pe 's/\[\^\\x00-\\x7F\]/\[\\P\{ASCII\}\]/' \
+	> $@
+
+#------------------------------------------------------------------------------
+
+.PHONY: grammar-clean grammar-distclean
+
+grammar-clean:
+	rm -f ${EBNF_FILES}
+	rm -f ${REGEXP_FILES}
+	rm -f ${GRAMMAR_FILES}
+
+grammar-distclean: grammar-clean
+	rm -f ${GRAMMAR_DEPENDENCIES}
+
+.PHONY: clean distclean cleanAll
+
+clean: grammar-clean
+
+distclean: grammar-distclean
+
+cleanAll: grammar-distclean
