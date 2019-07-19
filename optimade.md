@@ -545,7 +545,7 @@ In the default response format, relationships are encoded as [JSON API Relations
 If a property name is not recognised by the queried end-point, an
 error diagnosis would be appropriate. However, we also want to
 formulate a single query suitable for multiple databases, even when
-querying database-sepcific properties. For example, we would like to
+querying database-specific properties. For example, we would like to
 construct the following query:
 
 `filter=_aida_bandgap<2.0 OR _mp_bandgap<2.5`
