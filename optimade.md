@@ -542,7 +542,7 @@ In the default response format, relationships are encoded as [JSON API Relations
 
 ## <a name="h.3.6">3.6. Handling unknown property names</a>
 
-If a property name is not recognised by the queried end-point, an
+If a property name is not recognized by the queried endpoint, an
 error diagnosis would be appropriate. However, we also want to
 formulate a single query suitable for multiple databases, even when
 querying database-specific properties. For example, we would like to
