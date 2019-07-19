@@ -474,23 +474,27 @@ to the corresponding database ID that was originally queried, using the object's
 
 ### <a name="h.3.3.4">3.3.4. HTTP Response Headers</a>
 
-There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site. 
+There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation. For such use, many browsers need the server to include the header `Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
 
 ### <a name="h.3.3.5">3.3.5. Properties with unknown value</a>
 
-Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present. 
-This is referred to as the property having an unknown value, or equivalently, that the property value is `null`.
+Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
+This is referred to as the property having an *unknown* value, or equivalently, that the property value is `null`.
 
-Properties with an unknown value MUST NOT be returned in the response, unless explicitly requested in the search query. 
+The text in this section describes how the API handles properties with the value `null`.
+The use of `null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section [6. Entry List](#h.6).
+For these properties, `null` MAY carry a special meaning.
+
+REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using `response_fields`, see section [4.4.1. URL Query Parameters](#h.4.4.1)).
+
+OPTIONAL properties with an unknown value MAY be returned in the response.
+If an OPTIONAL property is _not_ returned in a _full_ response (i.e., not using `response_fields`), the client MUST assume the property has an unknown value, i.e., `null`.
 
 If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with `null` values for this property.
 These properties MUST be set to `null` in the response.
 
-Filters with `IS UNKNOWN` and `IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property. This is discussed in [5.2. The Filter Language Syntax](#h.5.2). 
-
-The text in this section describes how the API handles properties that are `null`. 
-It does not regulate the handling of values inside property data structures that can be `null`. 
-The use of `null` values inside property data structures are described in the definitions of those data structures elsewhere in the specification.
+Filters with `IS UNKNOWN` and `IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
+This is discussed in section [5.2. The Filter Language Syntax](#h.5.2).
 
 ### <a name="h.3.3.6">3.3.6. Warnings</a>
 
@@ -1569,94 +1573,85 @@ This section defines standard entry types and their properties.
 
 * **Description**: The chemical formula for a structure as a string in a form chosen by the API implementation.
 * **Type**: string
-* **Requirements/Conventions**: 
-  * **Response**: REQUIRED in the response unless explicitly excluded. 
+* **Requirements/Conventions**:
+  * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: MUST be a queryable property with support for all mandatory filter operators.
-  * The chemical formula is given as a string consisting of 
-    properly capitalized element symbols followed by integers or decimal numbers, 
-    balanced parentheses, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, 
-    the `+`, `-`, `:` and `=` symbols. The parentheses are allowed to be followed by a number. 
-    Spaces are allowed anywhere except within chemical symbols. 
-    The order of elements and any groupings indicated by parentheses or brackets are chosen 
-    freely by the API implementation. 
-  * The string SHOULD be arithmetically consistent with the 
-    element ratios in the `chemical_formula_reduced` property.
-  * It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, 
-    are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html)
+  * The chemical formula is given as a string consisting of properly capitalized element symbols followed by integers or decimal numbers, balanced parentheses, square, and curly brackets `(`,`)`, `[`,`]`, `{`, `}`, commas, the `+`, `-`, `:` and `=` symbols.
+    The parentheses are allowed to be followed by a number.
+    Spaces are allowed anywhere except within chemical symbols.
+    The order of elements and any groupings indicated by parentheses or brackets are chosen freely by the API implementation.
+  * The string SHOULD be arithmetically consistent with the element ratios in the `chemical_formula_reduced` property.
+  * It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html).
 * **Examples**:
-    * `"(H2O)2 Na"`
-    * `"NaCl"`
-    * `"CaCO3"`
-    * `"CCaO3"`
-    * `"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
+  * `"(H2O)2 Na"`
+  * `"NaCl"`
+  * `"CaCO3"`
+  * `"CCaO3"`
+  * `"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
 * **Query examples**:
-    * Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
-    * A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
-    * A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
+  * Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
+  * A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
+  * A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
 
 ### <a name="h.6.2.5">6.2.5. chemical\_formula\_reduced</a>
 
-* **Description**: The reduced chemical formula for a structure as a string with element symbols and 
-    integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
+* **Description**: The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
+  The proportion number MUST be omitted if it is 1.
 * **Type**: string
 * **Requirements/Conventions**:
-  * **Response**: REQUIRED in the response unless explicitly excluded. 
-  * **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
-      Intricate querying on formula components are instead recommended to be formulated using set-type filter operators 
-      on the multi valued `elements` and `elements_proportions` properties. 
+  * **Response**: REQUIRED in the response unless explicitly excluded.
+  * **Query**: MUST be a queryable property.
+    However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued `elements` and `elements_proportions` properties.
   * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
   * Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
-  * For structures with no partial occupation, the chemical proportion numbers are the smallest integers 
-    for which the chemical proportion is exactly correct.
-  * For structures with partial occupation, the chemical proportion numbers are integers 
-    that within reasonable approximation indicate the correct chemical proportions. The
-    precise details of how to perform the rounding is chosen by the API implementation.
+  * For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
+  * For structures with partial occupation, the chemical proportion numbers are integers that within reasonable approximation indicate the correct chemical proportions.
+    The precise details of how to perform the rounding is chosen by the API implementation.
   * No spaces or separators are allowed.
 * **Examples**:
-    * `"H2NaO"`
-    * `"ClNa"`
-    * `"CCaO3"`
-* **Query examples**: 
-    * A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
-   
+  * `"H2NaO"`
+  * `"ClNa"`
+  * `"CCaO3"`
+* **Query examples**:
+  * A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
+
 ### <a name="h.6.2.6">6.2.6. chemical\_formula\_hill</a>
 
-* **Description**: The chemical formula for a structure as a string in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
-* **Requirements/Conventions**: 
+* **Description**: The chemical formula for a structure in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers.
+  The proportion number MUST be omitted if it is 1.
+* **Type**: string
+* **Requirements/Conventions**:
   * **Response**: OPTIONAL in the response.
-  * **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
-  * The overall scale factor of the chemical proportions is chosen such that the resulting values
-    are integers that indicate the most chemically relevant unit of which the system is composed. 
-    For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that 
-    represents two hydroperoxide molecules, 
-    `chemical_formula_hill` is `H2O2` (i.e., not `HO`, nor `H4O4`).
-  * If the chemical insight needed to ascribe a Hill formula to the system is not present, the
-    property MUST be handled as unset.
+  * **Query**: Support for queries on these properties are OPTIONAL.
+    If supported, only a subset of filter operators MAY be supported.
+  * The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
+    For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, `chemical_formula_hill` is `H2O2` (i.e., not `HO`, nor `H4O4`).
+  * If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
   * Element names MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
   * Elements MUST be placed in [Hill order](https://dx.doi.org/10.1021/ja02046a005), followed by their integer chemical proportion number.
-    Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second. After
-    that, all other elements are ordered alphabetically. If carbon is not present, all elements are ordered alphabetically. 
-  * If the system has sites with partial occupation and the total occupations of each element do not all sum up to integers, then the 
-    Hill formula SHOULD be handled as unset.
+    Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
+    After that, all other elements are ordered alphabetically.
+    If carbon is not present, all elements are ordered alphabetically.
+  * If the system has sites with partial occupation and the total occupations of each element do not all sum up to integers, then the Hill formula SHOULD be handled as unset.
   * No spaces or separators are allowed.
 * **Examples**:
   * `"H2O2"`
-* **Query examples**: 
+* **Query examples**:
   * A filter that matches an exactly given formula is `chemical_formula_hill="H2O2"`.
 
 ### <a name="h.6.2.7">6.2.7. chemical\_formula\_anonymous</a>
 
-* **Description**: The anonymous formula is the `chemical_formula_reduced`, but where the elements are
-    instead first ordered by their chemical proportion number, and then, in order left to right, replaced
-    by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
-* **Type**: string.
-* **Requirements/Conventions**: 
-  * **Response**: REQUIRED in the response unless explicitly excluded. 
-  * **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+* **Description**: The anonymous formula is the `chemical_formula_reduced`, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+* **Type**: string
+* **Requirements/Conventions**:
+  * **Response**: REQUIRED in the response unless explicitly excluded.
+  * **Query**: MUST be a queryable property.
+    However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
 * **Examples**:
   * `"A2B"`
   * `"A42B42C16D12E10F9G5"`
-* **Querying**: 
+* **Querying**:
   * A filter that matches an exactly given formula is `chemical_formula_anonymous="A2B"`.
 
 ### <a name="h.6.2.8">6.2.8. dimension\_types</a>
@@ -1704,24 +1699,29 @@ the Cartesian x, y, z directions.
 
 ### <a name="h.6.2.10">6.2.10. cartesian\_site\_positions</a>
 
-* **Description**: Cartesian positions of each site. A site is an atom, a site potentially occupied by
-an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
-* **Type**: list of list of floats.
-* **Requirements/Conventions**: 
+* **Description**: Cartesian positions of each site.
+  A site is an atom, a site potentially occupied by an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
+* **Type**: list of list of floats and/or unknown values
+* **Requirements/Conventions**:
   * **Response**: REQUIRED in the response unless explicitly excluded.
-  * **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+  * **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
   * It MUST be a list of length N times 3, where N is the number of sites in the structure.
-  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see
-  e.g., the [6.2.14. `assemblies`](#h.6.2.14) property).
+  * An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the [6.2.14. `assemblies`](#h.6.2.14) property).
+  * If a component of the position is unknown, the `null` value should be provided instead (see section [3.3.5. Properties with unknown value](#h.3.3.5)).
+    Otherwise, it should be a float value, expressed in angstrom (Å).
+    If at least one of the coordinates is unknown, the correct flag in the [`6.2.15. structure_features`](#h6.2.15) list MUST be set.
+  * **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification:
+    If you decide to store internally the `cartesian_site_positions` as a float array, you might want to replace `null` values with `NaN` values.
+    The latter being valid float numbers in the IEEE 754 standard in [IEEE 754-1985](https://doi.org/10.1109/IEEESTD.1985.82928) and in the updated version [IEEE 754-2008](https://doi.org/10.1109/IEEESTD.2008.4610935).
 * **Examples**:
-  * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along
-  the (positive) `z` axis, 2 Å away from the origin.
+  * `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) `z` axis, 2 Å away from the origin.
 
 ### <a name="h.6.2.11">6.2.11. nsites</a>
 
 * **Description**: An integer specifying the length of the `cartesian_site_positions` property.
 * **Type**: integer
-* **Requirements/Conventions**: 
+* **Requirements/Conventions**:
   * **Response**: REQUIRED in the response unless explicitly excluded.
   * **Query**: MUST be a queryable property with support for all mandatory filter operators.
 * **Examples**:
@@ -1941,24 +1941,21 @@ by multiple chemical elements.
     0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
 ### <a name="h.6.2.15">6.2.15. structure\_features</a>
+
 * **Description**: A list of strings that flag which special features are used by the structure.
-* **Type**: list of strings 
-* **Requirements/Conventions**: 
+* **Type**: list of strings
+* **Requirements/Conventions**:
   * **Response**: REQUIRED in the response (SHOULD be absent if there are no partial occupancies).
-  * **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries. 
-    Filter operators for comparisons on the string components MUST support equality, support for 
-    other comparison operators are OPTIONAL.
+  * **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries.
+    Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.
   * MUST be an empty list if no special features are used.
   * MUST be sorted alphabetically.
   * If a special feature listed below is used, the list MUST contain the corresponding string.
   * If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
   * **List of strings used to indicate special structure features**:
-    * `disorder`: This flag MUST be present if any one entry in the `species` list has a 
-      `chemical_symbols` list that is longer than 1 element.
-    * `unknown_positions`: This flag MUST be present if at least one component of the
-      `cartesian_site_positions` list of lists has value `null`.
-    * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.14)
-      list is present.  
+    * `disorder`: This flag MUST be present if any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element.
+    * `unknown_positions`: This flag MUST be present if at least one component of the `cartesian_site_positions` list of lists has value `null`.
+    * `assemblies`: This flag MUST be present if the [`assemblies`](#h.6.2.14) list is present.  
 * **Examples**: A structure having unknown positions and using assemblies:
 
   ```jsonc
