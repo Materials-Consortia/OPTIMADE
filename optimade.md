@@ -1,4 +1,4 @@
-# OPTiMaDe API specification v0.9.8-develop
+# OPTiMaDe API specification v0.10.0-develop
 
 [1. Introduction](#h.1)
 
