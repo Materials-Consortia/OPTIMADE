@@ -558,7 +558,7 @@ For these queries to succeed, the following behavior is suggested:
 * if a database receives a query filter with universal OPTiMaDe
   properties (i.e. defined without a database prefix, and deemed
   universal for all databases), or a property with the database's
-  private prefix (e.g. cod for the COD database), then the database
+  private prefix (e.g. `_exmpl_`), then the API implementation
   MUST check if the provided property names are known, and MUST return
   an appropriate error code if they are not known the database.
 
