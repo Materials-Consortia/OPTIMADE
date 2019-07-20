@@ -1,0 +1,1 @@
+property MATCH /"^.?abc+[a-z0-9]*$"/
