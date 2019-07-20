@@ -2207,8 +2207,8 @@ StringProperty = String | Property ;
 FuzzyStringOpRhs = CONTAINS, StringProperty |
                    STARTS, [ WITH ], StringProperty |
                    ENDS, [ WITH ], StringProperty |
-                   MATCH, RegularExpression |
-                   NOT, MATCH, RegularExpression ;
+                   MATCH, ( RegularExpression | StringProperty ) |
+                   NOT, MATCH, ( RegularExpression | StringProperty ) ;
 
 SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
