@@ -50,57 +50,8 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 21
-              LIKE(9999)
-                TOKEN_44(9999): "L", line: 1, col: 22
-                TOKEN_41(9999): "I", line: 1, col: 23
-                TOKEN_43(9999): "K", line: 1, col: 24
-                TOKEN_37(9999): "E", line: 1, col: 25
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 26
-              String(9999)
-                TOKEN_3(9999): """, line: 1, col: 27
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_35(9999): "C", line: 1, col: 28
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_22(9999): "6", line: 1, col: 29
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 30
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_40(9999): "H", line: 1, col: 31
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_17(9999): "1", line: 1, col: 32
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 33
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 34
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_47(9999): "O", line: 1, col: 35
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_22(9999): "6", line: 1, col: 36
-                TOKEN_3(9999): """, line: 1, col: 37
-                Spaces(9999)
-                  Space(9999)
-                    nl(9999)
-                      SPECIAL_1(9999): "(...)", line: 1, col: 38
+Error: in tests/cases/Filter_073.inp: line 1:
+    unexpected token "L", expected "M"
+
+chemical_formula NOT LIKE "C6 H12 O6"
+                     ^

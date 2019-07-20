@@ -2202,8 +2202,13 @@ ValueOpRhs = Operator, Value ;
 
 KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
 
-FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String |
-                   LIKE, String | NOT, LIKE, String | UNLIKE, String ;
+StringProperty = String | Property ;
+
+FuzzyStringOpRhs = CONTAINS, StringProperty |
+                   STARTS, [ WITH ], StringProperty |
+                   ENDS, [ WITH ], StringProperty |
+                   MATCH, RegularExpression |
+                   NOT, MATCH, RegularExpression ;
 
 SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
 (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
@@ -2251,8 +2256,7 @@ ALL = 'A', 'L', 'L', [Spaces] ;
 ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
 ANY = 'A', 'N', 'Y', [Spaces] ;
 
-LIKE = 'L', 'I', 'K', 'E', [Spaces];
-UNLIKE = 'U', 'N', 'L', 'I', 'K', 'E', [Spaces];
+MATCH = 'M', 'A', 'T', 'C', 'H', [Spaces];
 
 (* OperatorComparison operator tokens: *)
 
@@ -2280,15 +2284,33 @@ LowercaseLetter =
 
 String = '"', { EscapedChar }, '"', [Spaces] ;
 
+UnescapedChar = Letter | Digit | Space | '/' |
+                Punctuator | RegexpMetacharacter |
+                UnicodeHighChar ;
+
 EscapedChar = UnescapedChar | '\', '"' | '\', '\' ;
 
-UnescapedChar = Letter | Digit | Space | Punctuator | UnicodeHighChar ;
-
 Punctuator =
-    '!' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' |
-    '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' |
-    ']' | '^' | '`' | '{' | '|' | '}' | '~'
+    '!' | '#' | '%' | '&' | "'" | ',' |
+    '-' | ':' | ';' | '<' | '=' | '>' | '@' |
+    '`' | '~'
 ;
+
+RegexpMetacharacter =
+    '(' | ')' | '[' | ']' | '+' | '*' | '?' | '.' | '{' | '}' |
+    '|' | '^' | '$'
+;
+
+(* Regular expressions: *)
+
+UnescapedREChar = Letter | Digit | Space | '"' |
+                  Punctuator | RegexpMetacharacter |
+                  UnicodeHighChar ;
+
+EscapedREChar = UnescapedREChar | '\', '/' | '\', '\' |
+                '\', RegexpMetacharacter ;
+
+RegularExpression = '/', { EscapedREChar }, '/', [Spaces] ;
 
 (* BEGIN EBNF GRAMMAR Number *)
 (* Number token syntax: *)

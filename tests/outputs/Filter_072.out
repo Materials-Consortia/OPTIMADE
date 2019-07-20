@@ -42,41 +42,9 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 17
-            FuzzyStringOpRhs(9999)
-              LIKE(9999)
-                TOKEN_44(9999): "L", line: 1, col: 18
-                TOKEN_41(9999): "I", line: 1, col: 19
-                TOKEN_43(9999): "K", line: 1, col: 20
-                TOKEN_37(9999): "E", line: 1, col: 21
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 22
-              String(9999)
-                TOKEN_3(9999): """, line: 1, col: 23
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_40(9999): "H", line: 1, col: 24
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 25
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 26
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_47(9999): "O", line: 1, col: 27
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 28
-                TOKEN_3(9999): """, line: 1, col: 29
-                Spaces(9999)
-                  Space(9999)
-                    nl(9999)
-                      SPECIAL_1(9999): "(...)", line: 1, col: 30
+Error: in tests/cases/Filter_072.inp: line 1:
+    unexpected token "L", expected one of "<", ">", "=", "!", "I",
+    "C", "S", "E", "M", "N", "H", or ":"
+
+chemical_formula LIKE "H2 O2"
+                 ^

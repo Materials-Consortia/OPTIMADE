@@ -49,19 +49,20 @@ Filter(9999)
                 TOKEN_41(9999): "I", line: 1, col: 22
                 TOKEN_46(9999): "N", line: 1, col: 23
                 TOKEN_51(9999): "S", line: 1, col: 24
-              String(9999)
-                TOKEN_3(9999): """, line: 1, col: 25
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_33(9999): "A", line: 1, col: 26
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      LowercaseLetter(9999)
-                        TOKEN_76(9999): "l", line: 1, col: 27
-                TOKEN_3(9999): """, line: 1, col: 28
+              StringProperty(9999)
+                String(9999)
+                  TOKEN_3(9999): """, line: 1, col: 25
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        UppercaseLetter(9999)
+                          TOKEN_33(9999): "A", line: 1, col: 26
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        LowercaseLetter(9999)
+                          TOKEN_76(9999): "l", line: 1, col: 27
+                  TOKEN_3(9999): """, line: 1, col: 28
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 29
         TOKEN_46(9999): "N", line: 1, col: 30
@@ -112,19 +113,20 @@ Filter(9999)
                   TOKEN_50(9999): "R", line: 1, col: 51
                   TOKEN_52(9999): "T", line: 1, col: 52
                   TOKEN_51(9999): "S", line: 1, col: 53
-                String(9999)
-                  TOKEN_3(9999): """, line: 1, col: 54
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        UppercaseLetter(9999)
-                          TOKEN_33(9999): "A", line: 1, col: 55
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        LowercaseLetter(9999)
-                          TOKEN_76(9999): "l", line: 1, col: 56
-                  TOKEN_3(9999): """, line: 1, col: 57
+                StringProperty(9999)
+                  String(9999)
+                    TOKEN_3(9999): """, line: 1, col: 54
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
+                        Letter(9999)
+                          UppercaseLetter(9999)
+                            TOKEN_33(9999): "A", line: 1, col: 55
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
+                        Letter(9999)
+                          LowercaseLetter(9999)
+                            TOKEN_76(9999): "l", line: 1, col: 56
+                    TOKEN_3(9999): """, line: 1, col: 57
         AND(9999)
           TOKEN_33(9999): "A", line: 1, col: 58
           TOKEN_46(9999): "N", line: 1, col: 59
@@ -173,20 +175,21 @@ Filter(9999)
                     TOKEN_46(9999): "N", line: 1, col: 78
                     TOKEN_36(9999): "D", line: 1, col: 79
                     TOKEN_51(9999): "S", line: 1, col: 80
-                  String(9999)
-                    TOKEN_3(9999): """, line: 1, col: 81
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Letter(9999)
-                          UppercaseLetter(9999)
-                            TOKEN_33(9999): "A", line: 1, col: 82
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Letter(9999)
-                          LowercaseLetter(9999)
-                            TOKEN_76(9999): "l", line: 1, col: 83
-                    TOKEN_3(9999): """, line: 1, col: 84
-                    Spaces(9999)
-                      Space(9999)
-                        nl(9999)
-                          SPECIAL_1(9999): "(...)", line: 1, col: 85
+                  StringProperty(9999)
+                    String(9999)
+                      TOKEN_3(9999): """, line: 1, col: 81
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            UppercaseLetter(9999)
+                              TOKEN_33(9999): "A", line: 1, col: 82
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            LowercaseLetter(9999)
+                              TOKEN_76(9999): "l", line: 1, col: 83
+                      TOKEN_3(9999): """, line: 1, col: 84
+                      Spaces(9999)
+                        Space(9999)
+                          nl(9999)
+                            SPECIAL_1(9999): "(...)", line: 1, col: 85

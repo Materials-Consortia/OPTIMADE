@@ -55,21 +55,22 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 25
-              String(9999)
-                TOKEN_3(9999): """, line: 1, col: 26
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Letter(9999)
-                      UppercaseLetter(9999)
-                        TOKEN_34(9999): "B", line: 1, col: 27
-                EscapedChar(9999)
-                  UnescapedChar(9999)
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 28
-                TOKEN_3(9999): """, line: 1, col: 29
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 30
+              StringProperty(9999)
+                String(9999)
+                  TOKEN_3(9999): """, line: 1, col: 26
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Letter(9999)
+                        UppercaseLetter(9999)
+                          TOKEN_34(9999): "B", line: 1, col: 27
+                  EscapedChar(9999)
+                    UnescapedChar(9999)
+                      Digit(9999)
+                        TOKEN_18(9999): "2", line: 1, col: 28
+                  TOKEN_3(9999): """, line: 1, col: 29
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 30
       AND(9999)
         TOKEN_33(9999): "A", line: 1, col: 31
         TOKEN_46(9999): "N", line: 1, col: 32
@@ -137,15 +138,16 @@ Filter(9999)
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 62
-                String(9999)
-                  TOKEN_3(9999): """, line: 1, col: 63
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        UppercaseLetter(9999)
-                          TOKEN_36(9999): "D", line: 1, col: 64
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Digit(9999)
-                        TOKEN_18(9999): "2", line: 1, col: 65
-                  TOKEN_3(9999): """, line: 1, col: 66
+                StringProperty(9999)
+                  String(9999)
+                    TOKEN_3(9999): """, line: 1, col: 63
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
+                        Letter(9999)
+                          UppercaseLetter(9999)
+                            TOKEN_36(9999): "D", line: 1, col: 64
+                    EscapedChar(9999)
+                      UnescapedChar(9999)
+                        Digit(9999)
+                          TOKEN_18(9999): "2", line: 1, col: 65
+                    TOKEN_3(9999): """, line: 1, col: 66
