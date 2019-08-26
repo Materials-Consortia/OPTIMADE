@@ -29,46 +29,46 @@ Definition of Terms
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in `RFC 2119 <http://tools.ietf.org/html/rfc2119>`__.
 
-Database provider
+**Database provider**
     A service that provides one or more databases with data desired to be made available using the OPTiMaDe API.
     
-Database-provider-specific prefix
+**Database-provider-specific prefix**
     Every database provider is designated a unique prefix.
     The prefix is used to separate the namespaces used by provider-specific extensions.
     These are defined in `Appendix 1 <#h.app1>`__.
     
-API implementation
+**API implementation**
     A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
     
-Identifier
+**Identifier**
     Names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_").
     
-Entry
+**Entry**
     A single instance of a specific type of resource served by the API implementation.
     For example, a ``structures`` entry is comprised by data that pertain to a single structure.
     
-Entry type
+**Entry type**
     Entries are categorized into types, e.g., ``structures``, ``calculations``, ``references``.
     Entry types MUST be named according to the rules for identifiers.
     
-Entry property
+**Entry property**
     One data item which pertains to an entry, e.g., the chemical formula of a structure.
     
-Entry property name
+**Entry property name**
     The name of an entry property.
     Entry property names MUST follow the rules for identifiers and MUST NOT have the same name as any of the entry types.
     
-Relationship
+**Relationship**
     Any entry can have one or more relationships with other entries.
     These are described in `3.5. Relationships <#h.3.5>`__.
     Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
     
-Queryable property
+**Queryable property**
     An entry property that can be referred to in the filtering of results.
     See section `5. API Filtering Format Specification <#h.5>`__ for more information on formulating filters on properties.
     The definitions of specific properties in `6. Entry List <#h.6>`__ states which ones MUST be queryable and which are RECOMMENDED.
 
-ID
+**ID**
     The ID entry property is a unique string referencing a specific entry in the database.
     The following constraints and conventions apply to IDs:
     
@@ -76,15 +76,15 @@ ID
     - Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
     - IDs MAY change over time.
       
-Immutable ID
+**Immutable ID**
     A unique string that specifies a specific resource in a database.
     The string MUST NOT change over time.
     
-Response format
+**Response format**
     The data format for the HTTP response, which can be selected using the ``response_format`` URL query parameter.
     For more info, see `3.3.1. Response Format <#h.3.3.1>`__.
     
-Field
+**Field**
     The key used in response formats that return data in associative-array-type data structures.
     This is particularly relevant for the default JSON-based response format.
     In this case, **field** refers to the name part of the name-value pairs of JSON objects.
@@ -204,7 +204,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     - **description**: a longer description of the database provider.
     - **prefix**: database-provider-specific prefix as found in `Appendix 1 <#h.app1>`__.
 
-    **provider** MAY include these fields:
+    ``provider`` MAY include these fields:
 
     - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the database provider, either directly as a string, or as a link object which can contain the following fields:
       
@@ -218,76 +218,76 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
       If the ``index`` meta-database (see section `3.4. Index Meta-Database <#h.3.4>`__) is implemented by the provider, the ``index_base_url`` field MUST be included.
 
-``meta`` MAY also include these fields:
+  ``meta`` MAY also include these fields:
 
-- **data\_available**: an integer containing the total number of data objects available in the database.
-- **last\_id**: a string containing the last ID returned.
-- **response\_message**: response string from the server.
-- **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
+  - **data\_available**: an integer containing the total number of data objects available in the database.
+  - **last\_id**: a string containing the last ID returned.
+  - **response\_message**: response string from the server.
+  - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
-  - **name**: name of the implementation.
-  - **version**: version string of the current implementation.
-  - **source\_url**: URL of the implementation source, either downloadable archive or version control system.
-  - **maintainer**: a dictionary providing details about the maintainer of the implementation, MUST contain the single field:
+    - **name**: name of the implementation.
+    - **version**: version string of the current implementation.
+    - **source\_url**: URL of the implementation source, either downloadable archive or version control system.
+    - **maintainer**: a dictionary providing details about the maintainer of the implementation, MUST contain the single field:
     
-    - **email** with the maintainer's email address.
+      - **email** with the maintainer's email address.
 
-- **warnings**: a list of warning resource objects representing non-critical errors or warnings.
-  A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field ``type``, which MUST have the value ``"warning"``.
-  The field ``detail`` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
-  The field ``status``, representing a HTTP response status code, MUST NOT be present for a warning resource object.
-  This is an exclusive field for error resource objects.
+  - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
+    A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field ``type``, which MUST have the value ``"warning"``.
+    The field ``detail`` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
+    The field ``status``, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    This is an exclusive field for error resource objects.
 
-  Example for a deprecation warning:
+    Example for a deprecation warning:
 
-  .. code:: jsonc
+    .. code:: jsonc
 
-     {
-       "id": "dep_chemical_formula_01",
-       "type": "warning",
-       "code": "_exmpl_dep_chemical_formula",
-       "title": "Deprecation Warning",
-       "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
-     }
-
-  **Note**: ``id``\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field ``code`` for this.
-  ``id``\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the ``type``.
-  
-  General OPTiMaDe warning codes are specified in `3.3.5. Warnings <#h.3.3.5>`__.
-
-- Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
-
-- Example for a request made to ``http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2``:
-
-  .. code:: jsonc
-
-     {
-       "meta": {
-         "query": {
-           "representation": "/structures/?filter=a=1 AND b=2",
-         },
-         "api_version": "v0.9",
-         "time_stamp": "2007-04-05T14:30Z",
-         "data_returned": 10,
-         "data_available": 10,
-         "more_data_available": false,
-         "provider": {
-           "name": "Example provider",
-           "description": "Provider used for examples, not to be assigned to a real database",
-           "prefix": "exmpl",
-           "homepage": "http://example.com"
-         },
-         "implementation": {
-           "name": "exmpl-optimade",
-           "version": "0.1.0",
-           "source_url": "http://git.example.com/exmpl-optimade",
-           "maintainer": {
-             "email": "admin@example.com"
-           }
-         }
+       {
+	 "id": "dep_chemical_formula_01",
+	 "type": "warning",
+	 "code": "_exmpl_dep_chemical_formula",
+	 "title": "Deprecation Warning",
+	 "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
        }
-       // ...
-     }
+
+    **Note**: ``id``\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field ``code`` for this.
+    ``id``\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the ``type``.
+
+    General OPTiMaDe warning codes are specified in `3.3.5. Warnings <#h.3.3.5>`__.
+
+  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
+
+  - Example for a request made to ``http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2``:
+
+    .. code:: jsonc
+
+       {
+	 "meta": {
+	   "query": {
+	     "representation": "/structures/?filter=a=1 AND b=2",
+	   },
+	   "api_version": "v0.9",
+	   "time_stamp": "2007-04-05T14:30Z",
+	   "data_returned": 10,
+	   "data_available": 10,
+	   "more_data_available": false,
+	   "provider": {
+	     "name": "Example provider",
+	     "description": "Provider used for examples, not to be assigned to a real database",
+	     "prefix": "exmpl",
+	     "homepage": "http://example.com"
+	   },
+	   "implementation": {
+	     "name": "exmpl-optimade",
+	     "version": "0.1.0",
+	     "source_url": "http://git.example.com/exmpl-optimade",
+	     "maintainer": {
+	       "email": "admin@example.com"
+	     }
+	   }
+	 }
+	 // ...
+       }
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
   Every resource object needs the ``type`` and ``id`` fields, and its attributes (described in section `4. API Endpoints <#h.4>`__) need to be in a dictionary corresponding to the ``attributes`` field.
@@ -337,8 +337,8 @@ The response MAY also return resources related to the primary data in the field:
   - **last**: the last page of data.
   - **first**: the first page of data.
 
-  - **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in ``data``.
-    Responses that contain related resources under ``included`` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
+- **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in ``data``.
+  Responses that contain related resources under ``included`` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
 
 If there were errors in producing the response all other fields MAY be present, but the top-level ``data`` field MUST be skipped, and the following field MUST be present:
 
@@ -567,6 +567,8 @@ Examples:
 - ``http://example.com/optimade/v0.9/structures?_exmpl_warning_verbosity=10``
 - ``http://example.com/optimade/v0.9/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"``
 
+..
+  
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
 
@@ -581,7 +583,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 - **id**: field containing the ID of entry as defined in section `2. Term Definition <#h.2>`__. This can be the local database ID.
 - **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for type and id.
 
-Database-provider-specific properties need to include the database-provider-specific prefix (see `Appendix 1 <#h.app1>`__).
+  Database-provider-specific properties need to include the database-provider-specific prefix (see `Appendix 1 <#h.app1>`__).
 
 OPTIONALLY it can also contains the following fields:
 
@@ -592,7 +594,7 @@ OPTIONALLY it can also contains the following fields:
 - **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
   
 - **relationships**: a dictionary containing references to other entries according to the description in `3.5. Relationships <#h.3.5>`__ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the ``"description"`` field inside the ``"meta"`` dictionary.
+  The OPTIONAL human-readable description of the relationship MAY be provided in the ``description`` field inside the ``meta`` dictionary.
 
 Example:
 
@@ -731,7 +733,7 @@ If this is an index meta-database base URL (see section `3.4. Index Meta-Databas
        - **id**: ID of the provider's chosen default OPTiMaDe API database.
 	 MUST be equal to a valid ``child`` object's ``id`` under the ``links`` endpoint.
 
-    Lastly, ``is_index`` MUST also be included in ``attributes`` and be ``true``.
+  Lastly, ``is_index`` MUST also be included in ``attributes`` and be ``true``.
 
 Example:
 
@@ -861,7 +863,7 @@ Links Endpoint
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current implementation.
 The endpoint MUST be provided at the path ``<base_url>/links``.
 
-It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single ``"parent"`` object and none or more ``"child"`` objects, see section `4.5.2 Parent and Child Objects <#h.4.4.2>`__).
+It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single ``parent`` object and none or more ``child`` objects, see section `4.5.2 Parent and Child Objects <#h.4.4.2>`__).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY handle the parameters specified in section `4.2.1. URL Query Parameters <#h.4.2.1>`__ for single entry endpoints.
@@ -940,23 +942,23 @@ Parent and Child Objects
 
 Resource objects that MAY be present under the Links endpoint.
 
-Either none or a single ``"parent"`` object MAY be present as part of the ``data`` array.
-The ``"parent"`` object represents a "link" to the OPTiMaDe implementation exactly one layer **above** the current implementation's layer.
+Either none or a single ``parent`` object MAY be present as part of the ``data`` array.
+The ``parent`` object represents a "link" to the OPTiMaDe implementation exactly one layer **above** the current implementation's layer.
 
-Any number of ``"child"`` objects MAY be present as part of the ``data`` array.
-A ``"child"`` object represents a "link" to an OPTiMaDe implementation exactly one layer **below** the current implementation's layer.
+Any number of ``child`` objects MAY be present as part of the ``data`` array.
+A ``child`` object represents a "link" to an OPTiMaDe implementation exactly one layer **below** the current implementation's layer.
 
     **Note**: The RECOMMENDED number of layers is two.
 
 Provider Objects
 ~~~~~~~~~~~~~~~~
 
-``"provider"`` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
+``provider`` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
 A known list of providers can be found in `Appendix 1 <#h.app1>`__.
 
-    **Note**: If a provider wishes to be added to ``"provider.json"``,
+    **Note**: If a provider wishes to be added to ``provider.json``,
     please suggest a change to the OPTiMaDe main repository (make a pull
     request). A link to the main repository may be found at the
     `OPTiMaDe homepage <http://www.optimade.org>`__.
@@ -966,7 +968,7 @@ Index Meta-Database Links Endpoint
 
 If the provider implements an "Index meta-database" (see section `3.4 Index Meta-Database <#h.3.4>`__), it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation of the provider's other OPTiMaDe databases.
 
-This will make all OPTiMaDe databases and implementations by the provider discoverable as ``"child"`` objects under the Links endpoint of the "Index meta-database".
+This will make all OPTiMaDe databases and implementations by the provider discoverable as ``child`` objects under the Links endpoint of the "Index meta-database".
 
 Custom Extension Endpoints
 --------------------------
@@ -1063,8 +1065,8 @@ More examples of the number tokens and machine-readable definitions and tests ca
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
   Currently the following operators are supported: ``=``, ``!=``, ``<=``, ``>=``, ``<``, ``>`` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; ``AND``, ``OR``, ``NOT`` for logical conjunctions, and a number of keyword operators discussed in the next section.
 
-In future extensions, operator tokens that are words MUST contain only upper-case letters.
-This requirement guarantees that no operator token will ever clash with a property name.
+  In future extensions, operator tokens that are words MUST contain only upper-case letters.
+  This requirement guarantees that no operator token will ever clash with a property name.
 
 The Filter Language Syntax
 --------------------------
@@ -1455,8 +1457,8 @@ chemical\_formula\_descriptive
   - A filter that matches an exactly given formula: ``chemical_formula_descriptive="(H2O)2 Na"``.
   - A filter that does a partial match: ``chemical_formula_descriptive CONTAINS "H2O"``.
 
-6.2.5. chemical\_formula\_reduced
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+chemical\_formula\_reduced
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
   The proportion number MUST be omitted if it is 1.
@@ -1560,11 +1562,11 @@ lattice\_vectors
 - **Type**: list of list of floats.
 - **Requirements/Conventions**:
 
-- **Response**: REQUIRED in the response unless explicitly excluded, except when `6.2.8. ``dimension_types`` <#h.6.2.8>`__ is equal to ``[0, 0, 0]`` (in this case it is OPTIONAL).
+  - **Response**: REQUIRED in the response unless explicitly excluded, except when `6.2.8. ``dimension_types`` <#h.6.2.8>`__ is equal to ``[0, 0, 0]`` (in this case it is OPTIONAL).
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
-  - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first  lattice vector SHOULD be set along ``x`` and the second on the ``xy``plane.
+  - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first  lattice vector SHOULD be set along ``x`` and the second on the ``xy``-plane.
   - This property MUST be an array of dimensions 3 times 3 regardless of the elements of `6.2.8. ``dimension_types`` <#h.6.2.8>`__. The vectors SHOULD by convention be chosen so the determinant of the ``lattice_vectors`` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
     
 - **Examples**:
@@ -1645,6 +1647,7 @@ species
   - ``original_name``: string (OPTIONAL).
     
 - **Requirements/Conventions**:
+  
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - Each list member MUST be a dictionary with the following keys:
@@ -1685,8 +1688,8 @@ species
   - ``"species": [ {"name": "Ti", "chemical_symbols": ["Ti"], "concentration": [1.0]} ]``: any site with this species is occupied by a Ti atom.
   - ``"species": [ {"name": "Ti", "chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]} ]``: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.
   - ``"species": [ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]``: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
-- ``"species": [ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]``: any site with this species is occupied by a carbon isotope with mass 12.
-- ``"species": [ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]``: any site with this species is occupied by a carbon isotope with mass 13.
+  - ``"species": [ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]``: any site with this species is occupied by a carbon isotope with mass 12.
+  - ``"species": [ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]``: any site with this species is occupied by a carbon isotope with mass 13.
 
 assemblies
 ~~~~~~~~~~
@@ -1733,8 +1736,8 @@ assemblies
   
   - Assemblies are essential to represent, for instance, the situation where an atom can statistically occupy two different positions (sites).
   - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it it is present in two conformations)
-  - Considerations on virtual alloys and on vacancies: In the special case of a virtual alloy, these specifications allow
-  two different, equivalent ways of specifying them. For instance, for a site at the origin with 30 % probability of being occupied by Si, 50 % probability of being occupied by Ge, and 20 % of being a vacancy, the following two representations are possible:
+  - Considerations on virtual alloys and on vacancies: In the special case of a virtual alloy, these specifications allow two different, equivalent ways of specifying them.
+    For instance, for a site at the origin with 30 % probability of being occupied by Si, 50 % probability of being occupied by Ge, and 20 % of being a vacancy, the following two representations are possible:
 
     - Using a single species:
 
@@ -1966,12 +1969,16 @@ Relationships with calculations MAY be used to indicate provenance where a struc
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
 
     - **Requirements/Conventions for database-provider-specific properties of calculations entries**:
-    - **Response**: OPTIONAL in the response.
-    - **Query**: Support for queries on these properties are OPTIONAL.
-      If supported, only a subset of filter operators MAY be supported.
+      
+      - **Response**: OPTIONAL in the response.
+      - **Query**: Support for queries on these properties are OPTIONAL.
+        If supported, only a subset of filter operators MAY be supported.
 
-Appendix: Database-Provider-Specific Namespace Prefixes
--------------------------------------------------------
+Appendices
+==========
+	
+Database-Provider-Specific Namespace Prefixes
+---------------------------------------------
 
 This standard refers to database-provider-specific prefixes. These are assigned and included in this standard in the file ``providers.json``.
 
@@ -1990,8 +1997,8 @@ In particular, the resource objects under the top-level ``data`` field are defin
 
     **Note**: Any provider wishing to be added to ``providers.json`` is kindly asked to suggest a change to this repository (using a pull request).
 
-Appendix: The Filter Language EBNF Grammar
-------------------------------------------
+The Filter Language EBNF Grammar
+--------------------------------
 
 .. code:: ebnf
 
@@ -2168,8 +2175,8 @@ Appendix: The Filter Language EBNF Grammar
 Note: when implementing a parser according this grammar, the implementers MAY choose to construct a lexer that ignores all whitespace (spaces, tabs, newlines, vertical tabulation and form feed characters, as described in the grammar 'Space' definition), and use such a lexer to recognize language elements that are described in the ``(* TOKENS *)`` section of the grammar.
 In that case, the '[Spaces]' element should probably be removed from the ``Filter = [Spaces], Expression`` definition as well, and the remaining grammar rules could then be used as a parser generator (like yacc, bison, antlr) input.
 
-Appendix: Regular Expressions for OPTiMaDe Filter Tokens
---------------------------------------------------------
+Regular Expressions for OPTiMaDe Filter Tokens
+----------------------------------------------
 
 The string below contains Perl-Compatible Regular Expressions to recognize identifiers, number, and string values as specified in this specification.
 
