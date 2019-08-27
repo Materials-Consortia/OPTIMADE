@@ -1755,19 +1755,19 @@ species
 
       -  If any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
 
-   - **concentration**: REQUIRED; MUST be a list of floats, with same length as :property:`chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
-     The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
+    - **concentration**: REQUIRED; MUST be a list of floats, with same length as :property:`chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
+      The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
      
-     - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations :val:`1/3` and :val:`2/3`, the concentration might look something like :val:`[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.       
-     - Experimental errors in the data present in the database. In this case, it is the responsibility of the client to decide how to process the data.
+      - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations :val:`1/3` and :val:`2/3`, the concentration might look something like :val:`[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.       
+      - Experimental errors in the data present in the database. In this case, it is the responsibility of the client to decide how to process the data.
 
-     Note that concentrations are uncorrelated between different site (even of the same species).
+      Note that concentrations are uncorrelated between different site (even of the same species).
 
-   - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
-   - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
+    - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
+    - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-         Note: With regards to "source database", we refer to the immediate source being queried via the OPTiMaDe API implementation.
-	 The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+          Note: With regards to "source database", we refer to the immediate source being queried via the OPTiMaDe API implementation.
+	  The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
@@ -1889,9 +1889,9 @@ assemblies
 	   ]
 	 }
 
-   Site 0 is present with a probability of 20 % and site 1 with a probability of 80 %. These two sites are correlated (either site 0 or 1 is present). Similarly, site 2 is present with a probability of 30 % and site 3 with a probability of 70 %.
-   These two sites are correlated (either site 2 or 3 is present).
-   However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 % probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with 0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
+    Site 0 is present with a probability of 20 % and site 1 with a probability of 80 %. These two sites are correlated (either site 0 or 1 is present). Similarly, site 2 is present with a probability of 30 % and site 3 with a probability of 70 %.
+    These two sites are correlated (either site 2 or 3 is present).
+    However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 % probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with 0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
