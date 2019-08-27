@@ -2,16 +2,106 @@
 OPTiMaDe API specification v0.10.1-develop
 ==========================================
 
-.. role:: json(code)
-   :language: json
+.. comment
 
+   This document uses RST text roles on (almost) all literals to specify the context to which each literal belongs.
+   This markup enables nicer formatting (e.g., html output can be formatted using css), as well as automated spell checks and testing.
+   Below follows the definitions of the text roles used:
+
+     # Filtering
+   
+     filter : full OPTiMaDe filter strings
+     filter-fragment : segments of filter strings, or filter strings that uses, e.g., "..."
+                       so they would not pass a validation.
+     filter-op : operators and keywords in the filtering language
+     ere : regex on ere form
+     pcre : regex on pcre form
+
+     # OPTiMaDe concepts
+
+     entry : names of type of resources served via OPTiMaDe pertaining to data in a database.
+     property : data item that pertains to an entry.
+     val : value examples that properties can be.
+           :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+
+     # URL queries
+
+     endpoint : specification of endpoints and endpoint names.
+     query-param : url query parameter names.
+     query-string : strings that represent segments of url query strings, with query parameters and values.
+     query-url : full urls, or relative starting with a '/' of url queries.
+
+     # HTTP
+
+     http-header : an http header name, or header + value.
+     http-error : an http error on form <number> <english text>.
+
+     # Responses
+
+     json : examples of json output.
+     field : keys in key-value dictionaries in responses.
+     field-val : value examples that fields can be set to.
+                 Note that `null` sometimes refer to the OPTiMaDe concept of :val:`null`, and sometimes to the javascript constant :field-val:`null`, and the markup distinguishes these two cases.
+     object : names of more complex response objects.
+
+     # Validation
+
+     <anything>-fail : means this is a counter-example of something
+                       that is meant to be on form <anything> but is not valid.
+     
 .. role:: filter(code)
-   :language: filter
+   :language: filter	    
+
+.. role:: filter-fragment(literal)
+
+.. role:: filter-op(literal)	  
+
+.. role:: ere(literal)
+
+.. role:: pcre(literal)	  	  	  
+
+   	  
+.. role:: entry(literal)
+
+.. role:: property(literal)
+
+.. role:: val(literal)
+
+.. role:: property-fail(literal)
+	  
+
+	  
+.. role:: endpoint(literal)	  
+   
+.. role:: query-param(literal)
+
+.. role:: query-val(literal)	  
+
+.. role:: query-string(literal)
+
+.. role:: query-url(literal)
+	  
+
+.. role:: http-header(literal)
+
+.. role:: http-error(literal)
+	  
+
+.. role:: json(code)
+   :language: json	  
+
+.. role:: field(literal)
+
+.. role:: field-val(literal)	  
+
+.. role:: object(literal)
+	      
 
 .. sectnum::
 
 .. contents::
-	      
+
+   
 Introduction
 ============
 
@@ -27,7 +117,7 @@ Exceptions to this rule are stated explicitly (e.g. non-compliant responses are 
 Definition of Terms
 ===================
 
-The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in `RFC 2119 <http://tools.ietf.org/html/rfc2119>`__.
+The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in :RFC:`2119`.
 
 **Database provider**
     A service that provides one or more databases with data desired to be made available using the OPTiMaDe API.
@@ -35,7 +125,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Database-provider-specific prefix**
     Every database provider is designated a unique prefix.
     The prefix is used to separate the namespaces used by provider-specific extensions.
-    These are defined in `Appendix 1 <#h.app1>`__.
+    These are defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
     
 **API implementation**
     A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
@@ -45,10 +135,10 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
-    For example, a ``structures`` entry is comprised by data that pertain to a single structure.
+    For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
     
 **Entry type**
-    Entries are categorized into types, e.g., ``structures``, ``calculations``, ``references``.
+    Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
     
 **Entry property**
@@ -60,13 +150,13 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     
 **Relationship**
     Any entry can have one or more relationships with other entries.
-    These are described in `3.5. Relationships <#h.3.5>`__.
+    These are described in section `Relationships`_.
     Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
     
 **Queryable property**
     An entry property that can be referred to in the filtering of results.
-    See section `5. API Filtering Format Specification <#h.5>`__ for more information on formulating filters on properties.
-    The definitions of specific properties in `6. Entry List <#h.6>`__ states which ones MUST be queryable and which are RECOMMENDED.
+    See section `API Filtering Format Specification`_ for more information on formulating filters on properties.
+    The definitions of specific properties in section `Entry List`_ states which ones MUST be queryable and which are RECOMMENDED.
 
 **ID**
     The ID entry property is a unique string referencing a specific entry in the database.
@@ -81,8 +171,8 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     The string MUST NOT change over time.
     
 **Response format**
-    The data format for the HTTP response, which can be selected using the ``response_format`` URL query parameter.
-    For more info, see `3.3.1. Response Format <#h.3.3.1>`__.
+    The data format for the HTTP response, which can be selected using the :query-param:`response_format` URL query parameter.
+    For more info, see section `Response Format`_.
     
 **Field**
     The key used in response formats that return data in associative-array-type data structures.
@@ -94,10 +184,10 @@ Data types
 
 An API implementation handles data types and their representations in three different contexts:
 
-- In the HTTP URL query filter, see `5. API Filtering Format Specification <#h.5>`__.
+- In the HTTP URL query filter, see section `API Filtering Format Specification`_.
 - In the HTTP response. The default response format is JSON-based and thus uses JSON data types.
   However, other response formats may use different data types.
-  For more info, see `3.3. Responses <#h.3.3>`__.
+  For more info, see section `Responses`_.
 - The underlying database backend(s) from which the implementation serves data.
 
 Hence, entry properties are described in this proposal using
@@ -111,8 +201,8 @@ representation in all contexts. They are as follows:
   The **values** of a dictionary may be any basic type, list, dictionary, or unknown.
 
 An entry property value that is not present in the database is **unknown**.
-This is equivalently expressed by the statement that the value of that entry property is ``null``.
-For more information see `3.3.5. Properties with unknown value <#h.3.3.5>`__
+This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
+For more information see section `Properties with unknown value`_
 
 The definition of a property of an entry type specifies a type. The value of that property MUST either have a value of that type, or be unknown.
 
@@ -135,7 +225,7 @@ If the client does not include a version number in the base URL, the request is 
 A query that includes a major and/or minor version is for the latest subversion of that major and/or minor version that the database provider implements.
 
 A database provider MAY choose to only support a subset of possible versions.
-The client can find out which versions are supported using the ``available_api_versions`` field of the ``attributes`` field from a query to the base URL ``info`` endpoint (see section `4.3.1. Base URL Info Endpoint <#h.4.3.1>`__).
+The client can find out which versions are supported using the :field:`available_api_versions` field of the :field:`attributes` field from a query to the base URL :endpoint:`info` endpoint (see section `Base URL Info Endpoint`_).
 The database provider SHOULD strive to implement the latest subversion of any major and minor version supported.
 Specifically, the latest version of this standard SHOULD be supported.
 
@@ -154,8 +244,8 @@ Examples of invalid base URLs:
 URL Encoding
 ------------
 
-Clients SHOULD encode URLs according to `RFC 3986 <http://tools.ietf.org/html/rfc3986>`__.
-API implementations MUST decode URLs according to `RFC 3986 <http://tools.ietf.org/html/rfc3986>`__.
+Clients SHOULD encode URLs according to :RFC:`3986`.
+API implementations MUST decode URLs according to :RFC:`3986`.
 
 Responses
 ---------
@@ -166,11 +256,11 @@ Response Format
 This document defines a JSON response format that complies with the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification.
 All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below and MUST respond in this format by default.
 
-Each endpoint MAY support additional formats, and SHOULD declare these formats under ``/info/<entry type>`` (see section `4.3.2. Entry Listing Info Endpoints <#h.4.3.2>`__).
-Clients can request these formats using the ``response_format`` URL query parameter.
-Specifying a ``response_format`` different from ``json`` (e.g. ``response_format=xml``) allows the API to break conformance not only with the JSON response format specification, but also, e.g., in terms of how content negotiation is implemented.
+Each endpoint MAY support additional formats, and SHOULD declare these formats under the endpoint :endpoint:`/info/<entry type>` (see section `Entry Listing Info Endpoints`_).
+Clients can request these formats using the :query-param:`response_format` URL query parameter.
+Specifying a :query-param:`response_format` different from :query-val:`json` (e.g. :query-string:`response_format=xml`) allows the API to break conformance not only with the JSON response format specification, but also, e.g., in terms of how content negotiation is implemented.
 
-Database-provider-specific ``response_format`` identifiers MUST include a database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
+Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
 JSON Response Schema: Common Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -179,9 +269,9 @@ In the JSON response format, property types translate as follows:
 
 - **string**, **boolean**, **list** are represented by their similarly named counterparts in JSON.
 - **integer**, **float** are represented as the JSON number type.
-- **timestamp** uses a string representation of date and time as    defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
+- **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
-- **unknown** properties are represented by either omitting the property or by a JSON ``null`` value.
+- **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
 
 Every response SHOULD contain the following fields, and MUST contain at least one:
 
@@ -196,29 +286,29 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the number of data objects returned for the query.
-  - **more\_data\_available**: ``false`` if all data for this query has been returned, and ``true`` if not.
+  - **more\_data\_available**: :field-val:`false` if all data for this query has been returned, and :field-val:`true` if not.
   - **provider**: information on the database provider of the implementation.
     It MUST be a dictionary with these fields:
     
     - **name**: a short name for the database provider.
     - **description**: a longer description of the database provider.
-    - **prefix**: database-provider-specific prefix as found in `Appendix 1 <#h.app1>`__.
+    - **prefix**: database-provider-specific prefix as found in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
-    ``provider`` MAY include these fields:
+    :field:`provider` MAY include these fields:
 
     - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the database provider, either directly as a string, or as a link object which can contain the following fields:
       
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
 	
-    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the ``index`` meta-database of the provider as specified in `Appendix 1 <#h.app1>`__, either directly as a string, or as a link object which can contain the following fields:
+    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in appendix `Database-Provider-Specific Namespace Prefixes`_, either directly as a string, or as a link object which can contain the following fields:
       
-      - **href**: a string containing the base URL for the database provider's ``index`` meta-database.
+      - **href**: a string containing the base URL for the database provider's index meta-database.
       - **meta**: a meta object containing non-standard meta-information about this link.
 
-      If the ``index`` meta-database (see section `3.4. Index Meta-Database <#h.3.4>`__) is implemented by the provider, the ``index_base_url`` field MUST be included.
+      If the index meta-database (see section `3.4. Index Meta-Database <#h.3.4>`__) is implemented by the provider, the :field:`index_base_url` field MUST be included.
 
-  ``meta`` MAY also include these fields:
+  :field:`meta` MAY also include these fields:
 
   - **data\_available**: an integer containing the total number of data objects available in the database.
   - **last\_id**: a string containing the last ID returned.
@@ -233,9 +323,9 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       - **email** with the maintainer's email address.
 
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
-    A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field ``type``, which MUST have the value ``"warning"``.
-    The field ``detail`` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
-    The field ``status``, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
+    The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
+    The field :field:`status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
     This is an exclusive field for error resource objects.
 
     Example for a deprecation warning:
@@ -250,14 +340,14 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 	 "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
        }
 
-    **Note**: ``id``\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field ``code`` for this.
-    ``id``\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the ``type``.
+    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field :field:`code` for this.
+    Warning :field:`id`\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the :field:`type`.
 
-    General OPTiMaDe warning codes are specified in `3.3.5. Warnings <#h.3.3.5>`__.
+    General OPTiMaDe warning codes are specified in section `Warnings`_.
 
-  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
+  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
-  - Example for a request made to ``http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2``:
+  - Example for a request made to :query-url:`http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2`:
 
     .. code:: jsonc
 
@@ -290,15 +380,15 @@ Every response SHOULD contain the following fields, and MUST contain at least on
        }
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
-  Every resource object needs the ``type`` and ``id`` fields, and its attributes (described in section `4. API Endpoints <#h.4>`__) need to be in a dictionary corresponding to the ``attributes`` field.
+  Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
 
 The response MAY also return resources related to the primary data in the field:
 
 - **links**: `JSON API links <http://jsonapi.org/format/1.0/#document-links>`__ is MANDATORY for implementing pagination.
-  (see section `4.1.1 URL Query Parameters ``page_*`` <#h.4.1.1>`__)
+  (see section `Entry Listing URL Query Parameters`_.)
   Each field of a links object, i.e. a "link", must be either
 
-  - ``null``
+  - :field-val:`null`
   - a string representing a URI, or
   - a dictionary ("link object") with fields
 
@@ -327,22 +417,22 @@ The response MAY also return resources related to the primary data in the field:
   The following fields are REQUIRED for implementing pagination:
 
   - **next**: represents a link to fetch the next set of results.
-    When the current response is the last page of data, this field MUST be either omitted or ``null``-valued.
+    When the current response is the last page of data, this field MUST be either omitted or :field-val:`null`\ -valued.
 
   The following fields are reserved for pagination.
-  Their values are as with ``next``, in the sense that they should be a "link".
+  Their values are as with :field:`next`, in the sense that they should be a "link".
   An implementation MAY offer these links:
 
-  - **prev**: the previous page of data. ``null`` or omitted when the current response is the first page of data.
+  - **prev**: the previous page of data. :field-val:`null` or omitted when the current response is the first page of data.
   - **last**: the last page of data.
   - **first**: the first page of data.
 
-- **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in ``data``.
-  Responses that contain related resources under ``included`` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
+- **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
+  Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
 
-If there were errors in producing the response all other fields MAY be present, but the top-level ``data`` field MUST be skipped, and the following field MUST be present:
+If there were errors in producing the response all other fields MAY be present, but the top-level :field:`data` field MUST be skipped, and the following field MUST be present:
 
-- **errors**: a list of `JSON API error objects <http://jsonapi.org/format/1.0/#error-objects>`__, where the field ``detail`` MUST be present.
+- **errors**: a list of `JSON API error objects <http://jsonapi.org/format/1.0/#error-objects>`__, where the field :field:`detail` MUST be present.
   All other fields are OPTIONAL.
 
 An example of a full response:
@@ -398,36 +488,36 @@ HTTP Response Status Codes
 All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
 The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
 
-See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending a ``GET`` request.
+See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending a HTTP GET request.
 
-**Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in `3.4. Index Meta-Database <#h.3.4>`__), the next course of action SHOULD be to fetch the resource objects under the ``links`` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's ``base_url`` value.
+**Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in `3.4. Index Meta-Database <#h.3.4>`__), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
 
 HTTP Response Headers
 ~~~~~~~~~~~~~~~~~~~~~
 
 There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation.
-For such use, many browsers need the server to include the header ``Access-Control-Allow-Origin: *`` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
+For such use, many browsers need the server to include the header :http-header:`Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
 
 Properties with unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
-This is referred to as the property having an *unknown* value, or equivalently, that the property value is ``null``.
+This is referred to as the property having an *unknown* value, or equivalently, that the property value is :val:`null`.
 
-The text in this section describes how the API handles properties with the value ``null``.
-The use of ``null`` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `6. Entry List <#h.6>`__.
-For these properties, ``null`` MAY carry a special meaning.
+The text in this section describes how the API handles properties with the value :val:`null`.
+The use of :val:`null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `Entry List`_.
+For these properties, :val:`null` MAY carry a special meaning.
 
-REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using ``response_fields``, see section `4.4.1. URL Query Parameters <#h.4.4.1>`__).
+REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using :query-param:`response_fields`, see section `Entry Listing URL Query Parameters`_).
 
 OPTIONAL properties with an unknown value MAY be returned in the response.
-If an OPTIONAL property is *not* returned in a *full* response (i.e., not using ``response_fields``), the client MUST assume the property has an unknown value, i.e., ``null``.
+If an OPTIONAL property is *not* returned in a *full* response (i.e., not using :query-param:`response_fields`), the client MUST assume the property has an unknown value, i.e., :val:`null`.
 
-If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with ``null`` values for this property.
-These properties MUST be set to ``null`` in the response.
+If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with :val:`null` values for this property.
+These properties MUST be set to :val:`null` in the response.
 
-Filters with ``IS UNKNOWN`` and ``IS KNOWN`` can be used to match entries with values that are, or are not, unknown for some property, respectively.
-This is discussed in section `5.2. The Filter Language Syntax <#h.5.2>`__.
+Filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
+This is discussed in section `The Filter Language Syntax`_.
 
 Warnings
 ~~~~~~~~
@@ -436,25 +526,25 @@ Non-critical exceptional situations occurring in the implementation SHOULD be re
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
 Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
-For implementation-specific warnings, they MUST be start with ``_`` and the database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
+For implementation-specific warnings, they MUST be start with ``_`` and the database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
 Index Meta-Database
 -------------------
 
 The main purpose of this "index" is to allow for automatic discoverability of all databases of a given provider. Thus, it acts as a meta-database for the database provider's implementation(s).
 
-The index meta-database MUST only provide the ``info`` and ``links`` endpoints, see sections `4.3. Info Endpoints <#h.4.3>`__ and `4.4. Links Endpoint <#h.4.4>`__.
-It MUST not expose any entry listing endpoints (e.g., ``structures``).
+The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
+It MUST not expose any entry listing endpoints (e.g., :endpoint:`structures`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
 
-The ``index_base_url`` field MUST be included in every response in the ``provider`` field under the top-level ``meta`` field (see section `3.3.2. JSON Response Schema: Common Fields <#h.3.3.2>`__).
+The :field:`index_base_url` field MUST be included in every response in the :field:`provider` field under the top-level :field:`meta` field (see section `JSON Response Schema: Common Fields`_).
 
-The ``is_index`` field under ``attributes``, as well as the ``relationships`` field, MUST be included in the ``info`` endpoint for the index meta-database (see section `4.3.1. Base URL Info Endpoint <#h.4.3.1>`__).
-The value for ``is_index`` MUST be ``true``.
+The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
+The value for :field:`is_index` MUST be :field-val:`true`.
 
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium can be found in `Appendix 1 <#h.app1>`__.
+    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium can be found in appendix `Database-Provider-Specific Namespace Prefixes`_.
     This list is also machine-readable, optimizing the automatic discoverability.
 
 Relationships
@@ -464,7 +554,7 @@ The API implementation MAY describe many-to-many relationships between entries a
 These relationships can be to the same, or to different, entry types.
 Response formats have to encode these relationships in ways appropriate for each format.
 
-In the default response format, relationships are encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__, see `4.1.2. JSON API Response Schema <#h.4.1.2>`__.
+In the default response format, relationships are encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__, see section `Entry Listing JSON Response Schema`_.
 
     **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties.
     For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
@@ -477,10 +567,10 @@ The URL component that follows the base URL MUST represent one of the following 
 
 - an "entry listing" endpoint
 - a "single entry" endpoint
-- an introspection ``info`` endpoint
-- an "entry listing" introspection ``info`` endpoint
-- a ``links`` endpoint to discover related implementations
-- a custom ``extensions`` endpoint prefix
+- an introspection :endpoint:`info` endpoint
+- an "entry listing" introspection :endpoint:`info` endpoint
+- a :endpoint:`links` endpoint to discover related implementations
+- a custom :endpoint:`extensions` endpoint prefix
 
 These endpoints are documented below.
 
@@ -496,18 +586,18 @@ Examples:
 - http://example.com/optimade/calculations
 
 There MAY be multiple entry listing endpoints, depending on how many types of entries an implementation provides.
-Specific standard entry types are specified in section `6. Entry list <#h.6>`__.
+Specific standard entry types are specified in section `Entry list`_.
 The API implementation MAY provide other entry types than the ones standardized in this specification, but such entry types MUST be prefixed by a database-provider-specific prefix.
 
-URL Query Parameters
-~~~~~~~~~~~~~~~~~~~~
+Entry Listing URL Query Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The client MAY provide a set of URL query parameters in order to alter the response and provide usage information. While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
 To adhere to the requirement on implementation-specific URL query parameters of `JSON API v1.0 <http://jsonapi.org/format/1.0>`__, query parameters that are not standardized by that specification have been given names that consist of at least two words separated by an underscore (a LOW LINE character '\_').
 
 Standard OPTIONAL URL query parameters standardized by the JSON API specification:
 
-- **filter**: a filter string, in the format described below in section `5. API Filtering Format Specification <#h.5>`__.
+- **filter**: a filter string, in the format described below in section `API Filtering Format Specification`_.
 
 - **page\_limit**: sets a numerical limit on the number of entries returned.
   See `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-pagination>`__.
@@ -518,34 +608,34 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 Example: http://example.com/optimade/v0.9/structures?page_limit=100
 
-- **page\_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified ``sort`` parameter (via the `"links" response field <#h.3.3.2>`__).
-  A server MAY implement pagination in concert with ``sort``.
+- **page\_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
+  A server MAY implement pagination in concert with :query-param:`sort`.
   The following parameters, all prefixed by "page\_", are RECOMMENDED for use with pagination.
   If an implementation chooses
 
-  - *offset-based pagination*: using ``page_offset`` and ``page_limit`` is RECOMMENDED.
-  - *cursor-based pagination*: using ``page_cursor`` and ``page_limit`` is RECOMMENDED.
-  - *page-based pagination*: using ``page_number`` and ``page_limit`` is RECOMMENDED (``page_limit`` is equivalent to page "size").
-  - *value-based pagination*: using ``page_above``/``page_below`` and ``page_limit`` is RECOMMENDED.
+  - *offset-based pagination*: using :field:`page_offset` and :field:`page_limit` is RECOMMENDED.
+  - *cursor-based pagination*: using :field:`page_cursor` and :field:`page_limit` is RECOMMENDED.
+  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED (:field:`page_limit` is equivalent to page "size").
+  - *value-based pagination*: using :field:`page_above`/:field:`page_below` and :field:`page_limit` is RECOMMENDED.
 
   Examples (all OPTIONAL behavior a server MAY implement):
 
-  - skip 50 structures and fetch up to 100: ``/structures?page_offset=50&page_limit=100``
-  - fetch page 2 of up to 50 structures per page: ``/structures?page_number=2&page_limit=50``
-  - fetch up to 100 structures above sort-field value ``4000`` (in this example, server chooses to fetch results sorted by increasing ``id``, so ``page_above`` value refers to an ``id`` value): ``/structures?page_above=4000&page_limit=100``
+  - skip 50 structures and fetch up to 100: :query-url:`/structures?page_offset=50&page_limit=100`.
+  - fetch page 2 of up to 50 structures per page: :query-url:`/structures?page_number=2&page_limit=50`.
+  - fetch up to 100 structures above sort-field value 4000 (in this example, server chooses to fetch results sorted by increasing :field:`id`, so :field:`page_above` value refers to an :field:`id` value): :query-url:`/structures?page_above=4000&page_limit=100`.
 
-- **sort**: If supporting sortable queries, an implementation MUST use the ``sort`` query parameter with format as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-sorting>`__.
+- **sort**: If supporting sortable queries, an implementation MUST use the :query-param:`sort` query parameter with format as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-sorting>`__.
 
   An implementation MAY support multiple sort fields for a single query.
   If it does, it again MUST conform to the JSON API 1.0 spec.
 
-  If an implementation supports sorting for an `entry listing endpoint <#h.4.4.2>`__, then the ``/info/<entries>`` endpoint MUST include, for each field name ``<fieldname>`` in its "data.properties.``<fieldname>``" response value, the key "sortable" with value ``true``.
+  If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value, the key :field:`sortable` with value :field-val:`true`.
   This is in addition to each property description (and optional unit).
-  An example is shown in section `4.4.2 Entry Listing Info Endpoints <#h.4.4.2>`__.
+  An example is shown in section `Entry Listing Info Endpoints`_.
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
-- **response\_format**: the output format requested (see section `3.3.1 Response Format <#h3.3.1>`__).
+- **response\_format**: the output format requested (see section `Response Format`_).
   Defaults to the format string 'json', which specifies the standard output format described in this specification.
   Example: http://example.com/optimade/v0.9/structures?response_format=xml
 - **email\_address**: an email address of the user making the request.
@@ -563,27 +653,27 @@ Example uses of custom URL query parameters include providing an access token fo
 
 Examples:
 
-- ``http://example.com/optimade/v0.9/structures?_exmpl_key=A3242DSFJFEJE``
-- ``http://example.com/optimade/v0.9/structures?_exmpl_warning_verbosity=10``
-- ``http://example.com/optimade/v0.9/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"``
+- :query-url:`http://example.com/optimade/v0.9/structures?_exmpl_key=A3242DSFJFEJE`
+- :query-url:`http://example.com/optimade/v0.9/structures?_exmpl_warning_verbosity=10`
+- :query-url:`http://example.com/optimade/v0.9/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
 
 ..
   
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
 
-JSON Response Schema
-~~~~~~~~~~~~~~~~~~~~
+Entry Listing JSON Response Schema
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-"Entry listing" endpoint response dictionaries MUST have a ``data`` key.
+"Entry listing" endpoint response dictionaries MUST have a :field:`data` key.
 The value of this key MUST be a list containing dictionaries that represent individual entries.
 In the default JSON response format every dictionary (`resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__) MUST have the following fields:
 
-- **type**: field containing the Entry type as defined in section `2. Term Definition <#h.2>`__
-- **id**: field containing the ID of entry as defined in section `2. Term Definition <#h.2>`__. This can be the local database ID.
+- **type**: field containing the Entry type as defined in section `Definition of Terms`_
+- **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
 - **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for type and id.
 
-  Database-provider-specific properties need to include the database-provider-specific prefix (see `Appendix 1 <#h.app1>`__).
+  Database-provider-specific properties need to include the database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
 OPTIONALLY it can also contains the following fields:
 
@@ -593,8 +683,8 @@ OPTIONALLY it can also contains the following fields:
     
 - **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
   
-- **relationships**: a dictionary containing references to other entries according to the description in `3.5. Relationships <#h.3.5>`__ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the ``description`` field inside the ``meta`` dictionary.
+- **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
+  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary.
 
 Example:
 
@@ -632,26 +722,26 @@ Single Entry Endpoints
 
 A client can request a specific entry by appending an URL-encoded ID component to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
 
-In the default JSON response format, the ID component MUST be the content of the ``id`` field.
+In the default JSON response format, the ID component MUST be the content of the :field:`id` field.
 
 Examples:
 
-- ``http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823``
-- ``http://example.com/optimade/v0.9/calculations/232132``
+- :query-url:`http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823`
+- :query-url:`http://example.com/optimade/v0.9/calculations/232132`
 
-URL Query Parameters
-~~~~~~~~~~~~~~~~~~~~
+Single Entry URL Query Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The client MAY provide a set of additional URL query parameters for this endpoint type.
 URL query parameters not recognized MUST be ignored.
 While the following URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them: **response\_format**, **email\_address**, **response\_fields**.
-The meaning of these URL query parameters are as defined above in section `4.1.1. URL Query Parameters <#h.4.1.1>`__.
+The meaning of these URL query parameters are as defined above in section `Entry Listing URL Query Parameters`_.
 
-JSON Response Schema
-~~~~~~~~~~~~~~~~~~~~
+Single Entry JSON Response Schema
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The response for a 'single entry' endpoint is the same as for 'entry listing' endpoint responses, except that the value of the ``data`` field MUST have only one or zero entries.
-In the default JSON response format, this means the value of the ``data`` field MUST be a single response object or ``null`` if there is no response object to return.
+The response for a 'single entry' endpoint is the same as for 'entry listing' endpoint responses, except that the value of the :field:`data` field MUST have only one or zero entries.
+In the default JSON response format, this means the value of the :field:`data` field MUST be a single response object or :field-val:`null` if there is no response object to return.
 
 Example:
 
@@ -689,8 +779,8 @@ There are two types of info endpoints:
    http://example.com/optimade/v0.9/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
-Common for them all are that the ``data`` field SHOULD return only a single resource object.
-If no resource object is provided, the value of the ``data`` field MUST be ``null``.
+Common for them all are that the :field:`data` field SHOULD return only a single resource object.
+If no resource object is provided, the value of the :field:`data` field MUST be :field-val:`null`.
 
 Base URL Info Endpoint
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -699,41 +789,41 @@ The Info endpoint on the base URL or directly after the version number (e.g. htt
 
 The single resource object's response dictionary MUST include the following fields:
 
-- **type**: ``"info"``
-- **id**: ``"/"``
+- **type**: :field-val:`"info"`
+- **id**: :field-val:`"/"`
 - **attributes**: Dictionary containing the following fields:
   
   - **api\_version**: Presently used version of the OPTiMaDe API.
   - **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 
-    - **url**: a string specifying a base URL that MUST adhere to the rules in section `3.1. Base URL <#h.3.1>`__
+    - **url**: a string specifying a base URL that MUST adhere to the rules in section `Base URL`_
     - **version**: a string containing the full version number of the API served at that base URL. The version number string MUST NOT be prefixed by, e.g., "v".
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
   - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the base URL).
 
-  ``attributes`` MAY also include the following OPTIONAL fields:
+  :field:`attributes` MAY also include the following OPTIONAL fields:
 
-  - **is\_index**: if ``true``, this is an index meta-database base URL (see section `3.4. Index Meta-Database <#h.3.4>`__).
+  - **is\_index**: if :field-val:`true`, this is an index meta-database base URL (see section `Index Meta-Database`_).
 
-    If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., default: ``"is_index": false``).
+    If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., the default is for :field:`is_index` to be :field-val:`false`).
 
-If this is an index meta-database base URL (see section `3.4. Index Meta-Database <#h.3.4>`__), then the response dictionary MUST also include the field:
+If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
 - **relationships**: Dictionary that MAY contain a single `JSON API relationships object <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__:
   
-  - **default**: Reference to the ``child`` object under the ``links`` endpoint that the provider has chosen as their "default" OPTiMaDe API database.
+  - **default**: Reference to the child identifier object under the :endpoint:`links` endpoint that the provider has chosen as their "default" OPTiMaDe API database.
     A client SHOULD present this database as the first choice when an end-user chooses this provider. This MUST include the field:
 
      - **data**: `JSON API resource linkage <http://jsonapi.org/format/1.0/#document-links>`__.
-       It MUST be either ``null`` or contain a single ``child`` identifier object with the fields:
+       It MUST be either :field-val:`null` or contain a single child identifier object with the fields:
        
-       - **type**: ``child``
+       - **type**: :field-val:`child`
        - **id**: ID of the provider's chosen default OPTiMaDe API database.
-	 MUST be equal to a valid ``child`` object's ``id`` under the ``links`` endpoint.
+	 MUST be equal to a valid child object's :field:`id` under the :field:`links` endpoint.
 
-  Lastly, ``is_index`` MUST also be included in ``attributes`` and be ``true``.
+  Lastly, :field:`is_index` MUST also be included in :field:`attributes` and be :field-val:`true`.
 
 Example:
 
@@ -817,14 +907,14 @@ Example for an index meta-database:
 Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Entry listing info endpoints are of the form ``<base_url>/info/<entry_type>`` (e.g., http://example.com/optimade/v0.9/info/structures).
-The response for these endpoints MUST include the following information in the ``data`` field:
+Entry listing info endpoints are of the form :endpoint:`<base_url>/info/<entry_type>` (e.g., http://example.com/optimade/v0.9/info/structures).
+The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
 - **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the REQUIRED key ``description`` and OPTIONAL key ``unit``.
+  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL key :field:`unit`.
 - **formats**: List of output formats available for this type of entry.
-- **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the ``formats`` list and the values are the keys of the ``properties`` dictionary.
+- **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
 Example:
 
@@ -861,20 +951,20 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current implementation.
-The endpoint MUST be provided at the path ``<base_url>/links``.
+The endpoint MUST be provided at the path :endpoint:`<base_url>/links`.
 
-It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single ``parent`` object and none or more ``child`` objects, see section `4.5.2 Parent and Child Objects <#h.4.4.2>`__).
+It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
-Alternatively, it MAY handle the parameters specified in section `4.2.1. URL Query Parameters <#h.4.2.1>`__ for single entry endpoints.
+Alternatively, it MAY handle the parameters specified in section `Single Entry URL Query Parameters`_ for single entry endpoints.
 
-JSON Response Schema
-~~~~~~~~~~~~~~~~~~~~
+Links Endpoint JSON Response Schema
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The resource objects' response dictionaries MUST include the following fields:
 
-- **type**: MUST be either ``"parent"``, ``"child"``, or ``"provider"``.
-  These objects are described in detail in sections `4.4.2. Parent and Child Objects <#h.4.4.2>`__ and `4.4.3. Provider Objects <#h.4.4.3>`__.
+- **type**: MUST be either :field-val:`"parent"`, :field-val:`"child"`, or :field-val:`"provider"`.
+  These objects are described in detail in sections `Parent and Child Objects`_ and `Provider Objects`_.
 - **id**: MUST be unique.
 - **attributes**: Dictionary that MUST contain the following fields:
    
@@ -942,21 +1032,21 @@ Parent and Child Objects
 
 Resource objects that MAY be present under the Links endpoint.
 
-Either none or a single ``parent`` object MAY be present as part of the ``data`` array.
-The ``parent`` object represents a "link" to the OPTiMaDe implementation exactly one layer **above** the current implementation's layer.
+Either none or a single :object:`parent` object MAY be present as part of the :field:`data` array.
+The :object:`parent` object represents a "link" to the OPTiMaDe implementation exactly one layer **above** the current implementation's layer.
 
-Any number of ``child`` objects MAY be present as part of the ``data`` array.
-A ``child`` object represents a "link" to an OPTiMaDe implementation exactly one layer **below** the current implementation's layer.
+Any number of :object:`child` objects MAY be present as part of the :field:`data` array.
+A :object:`child` object represents a "link" to an OPTiMaDe implementation exactly one layer **below** the current implementation's layer.
 
     **Note**: The RECOMMENDED number of layers is two.
 
 Provider Objects
 ~~~~~~~~~~~~~~~~
 
-``provider`` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
+The :object:`provider` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
-A known list of providers can be found in `Appendix 1 <#h.app1>`__.
+A known list of providers can be found in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
     **Note**: If a provider wishes to be added to ``provider.json``,
     please suggest a change to the OPTiMaDe main repository (make a pull
@@ -966,9 +1056,9 @@ A known list of providers can be found in `Appendix 1 <#h.app1>`__.
 Index Meta-Database Links Endpoint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the provider implements an "Index meta-database" (see section `3.4 Index Meta-Database <#h.3.4>`__), it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation of the provider's other OPTiMaDe databases.
+If the provider implements an "Index meta-database" (see section `Index Meta-Database`_), it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation of the provider's other OPTiMaDe databases.
 
-This will make all OPTiMaDe databases and implementations by the provider discoverable as ``child`` objects under the Links endpoint of the "Index meta-database".
+This will make all OPTiMaDe databases and implementations by the provider discoverable as :object:`child` objects under the Links endpoint of the "Index meta-database".
 
 Custom Extension Endpoints
 --------------------------
@@ -979,20 +1069,20 @@ These endpoints should have the form "<base\_url>/extensions/<custom paths>".
 API Filtering Format Specification
 ==================================
 
-An OPTiMaDe filter expression is passed in the parameter ``filter`` as an URL query parameter as `specified by JSON
+An OPTiMaDe filter expression is passed in the parameter :query-param:`filter` as an URL query parameter as `specified by JSON
 API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
-When provided as an URL query parameter, the contents of the ``filter`` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
-In particular, this means the client MUST escape special characters in string values as described below in the section "String values" before the URL encoding, and the API implementation MUST first URL-decode the ``filter`` parameter before reversing the escaping of string tokens.
+When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
+In particular, this means the client MUST escape special characters in string values as described below for `String values`_ before the URL encoding, and the API implementation MUST first URL-decode the :query-param:`filter` parameter before reversing the escaping of string tokens.
 
 Examples of syntactically correct query strings embedded in queries:
 
--  ``http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml``
+-  :query-url:`http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
 
 Or, fully URL encoded :
 
--  ``http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml``
+-  :query-url:`http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml`
 
 Lexical Tokens
 --------------
@@ -1006,28 +1096,30 @@ The following tokens are used in the filter query component:
 
 Examples of valid property names:
 
-- ``band_gap``
-- ``cell_length_a``
-- ``cell_volume``
+- :property:`band_gap`
+- :property:`cell_length_a`
+- :property:`cell_volume`
 
 Examples of incorrect property names:
 
-- ``0_kvak`` (starts with a number);
-- ``"foo bar"`` (contains space; contains quotes)
-- ``"BadLuck"`` (contains upper-case letters)
+- :property-fail:`0_kvak` (starts with a number);
+- :property-fail:`"foo bar"` (contains space; contains quotes)
+- :property-fail:`BadLuck` (contains upper-case letters)
 
-Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
+Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
 Examples::
 
-    * `_exmpl_formula_sum` (a property specific to that database)
-    * `_exmpl_band_gap`
-    * `_exmpl_supercell`
-    * `_exmpl_trajectory`
-    * `_exmpl_workflow_id`  
+    * :property:`_exmpl_formula_sum` (a property specific to that database)
+    * :property:`_exmpl_band_gap`
+    * :property:`_exmpl_supercell`
+    * :property:`_exmpl_trajectory`
+    * :property:`_exmpl_workflow_id`  
 
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
 
+.. _string values:
+  
 - **String values** MUST be enclosed in double quotes ("", ASCII symbol 92 dec, 0x5C hex).
   The quote and other special characters within the double quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote which is a part of the value, not a delimiter, MUST be prepended with a backslash character ("\\", ASCII symbol), and the backslash character itself, when taken literally, MUST be preceded by another backslash.
   An example of the escaped string value is given below:
@@ -1041,10 +1133,10 @@ Examples::
 - **Numeric values** are represented as decimal integers or is scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
 
-  - ERE: ``[-+]?([0-9]+(\.[0-9]\*)?|\.[0-9]+)([eE][-+]?[0-9]+)?``
-  - PCRE: ``[-+]?(?:\d+(\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?``
+  - ERE: :ere:`[-+]?([0-9]+(\.[0-9]\*)?|\.[0-9]+)([eE][-+]?[0-9]+)?`
+  - PCRE: :pcre:`[-+]?(?:\d+(\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?`
 
-An implementation of the search filter MAY reject numbers that are outside the machine representation of the underlying hardware; in such case it MUST return the error ``501 Not Implemented`` with an appropriate error message that indicates the cause of the error and an acceptable number range.
+An implementation of the search filter MAY reject numbers that are outside the machine representation of the underlying hardware; in such case it MUST return the error :http-error:`501 Not Implemented` with an appropriate error message that indicates the cause of the error and an acceptable number range.
 
 - Examples of valid numbers:
 
@@ -1063,7 +1155,7 @@ However, testing for equality to zero MUST be supported.
 More examples of the number tokens and machine-readable definitions and tests can be found in the `Materials-Consortia API Git repository <https://github.com/Materials-Consortia/API/>`__ (files `integers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst>`__, `not-numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst>`__, `numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst>`__, and `reals.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst>`__).
 
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
-  Currently the following operators are supported: ``=``, ``!=``, ``<=``, ``>=``, ``<``, ``>`` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; ``AND``, ``OR``, ``NOT`` for logical conjunctions, and a number of keyword operators discussed in the next section.
+  Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
 
   In future extensions, operator tokens that are words MUST contain only upper-case letters.
   This requirement guarantees that no operator token will ever clash with a property name.
@@ -1071,8 +1163,8 @@ More examples of the number tokens and machine-readable definitions and tests ca
 The Filter Language Syntax
 --------------------------
 
-All filtering expressions MUST follow the `EBNF <http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip>`__ grammar of `Appendix 2 <#h.app2>`__ of this specification.
-The appendix contains a complete machine-readable EBNF, including the definition of the lexical tokens described above in `5.1. Lexical tokens <#h.5.1>`__. The EBNF is enclosed in special strings constructed as ``BEGIN`` and ``END``, both followed by ``EBNF GRAMMAR Filter``, to enable automatic extraction.
+All filtering expressions MUST follow the `EBNF <http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip>`__ grammar of appendix `The Filter Language EBNF Grammar`_ of this specification.
+The appendix contains a complete machine-readable EBNF, including the definition of the lexical tokens described above in section `Lexical Tokens`_. The EBNF is enclosed in special strings constructed as ``BEGIN`` and ``END``, both followed by ``EBNF GRAMMAR Filter``, to enable automatic extraction.
 
 Basic boolean operations
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1082,7 +1174,7 @@ A comparison clause prefixed by NOT matches entries for which the comparison is 
 
 Examples:
 
--  ``NOT ( chemical_formula_hill = "Al" AND chemical_formula_anonymous = "A" OR chemical_formula_anonymous = "H2O" AND NOT chemical_formula_hill = "Ti" )``
+- :filter:`NOT ( chemical_formula_hill = "Al" AND chemical_formula_anonymous = "A" OR chemical_formula_anonymous = "H2O" AND NOT chemical_formula_hill = "Ti" )`
 
 Numeric and String comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1100,28 +1192,28 @@ Where 'identifier' is a property name and 'constant' is either a numerical or st
 
 Examples:
 
-- ``nelements > 3``
-- ``chemical_formula_hill = "H2O" AND chemical_formula_anonymous != "AB"``
-- ``_exmpl_aax <= +.1e8 OR nelements >= 10 AND NOT ( _exmpl_x != "Some string" OR NOT _exmpl_a = 7)``
-- ``_exmpl_spacegroup="P2"``
-- ``_exmpl_cell_volume<100.0``
-- ``_exmpl_bandgap > 5.0 AND _exmpl_molecular_weight < 350``
-- ``_exmpl_melting_point<300 AND nelements=4 AND elements="Si,O2"``
-- ``_exmpl_some_string_property = 42`` (This is syntactically allowed without putting 42 in quotation marks, see the notes about comparisons of values of different types below.)
-- ``5 < _exmpl_a``
-- OPTIONAL: ``((NOT (_exmpl_a>_exmpl_b)) AND _exmpl_x>0)``
-- OPTIONAL: ``5 < 7``
+- :filter:`nelements > 3`
+- :filter:`chemical_formula_hill = "H2O" AND chemical_formula_anonymous != "AB"`
+- :filter:`_exmpl_aax <= +.1e8 OR nelements >= 10 AND NOT ( _exmpl_x != "Some string" OR NOT _exmpl_a = 7)`
+- :filter:`_exmpl_spacegroup="P2"`
+- :filter:`_exmpl_cell_volume<100.0`
+- :filter:`_exmpl_bandgap > 5.0 AND _exmpl_molecular_weight < 350`
+- :filter:`_exmpl_melting_point<300 AND nelements=4 AND elements="Si,O2"`
+- :filter:`_exmpl_some_string_property = 42` (This is syntactically allowed without putting 42 in quotation marks, see the notes about comparisons of values of different types below.)
+- :filter:`5 < _exmpl_a`
+- OPTIONAL: :filter:`((NOT (_exmpl_a>_exmpl_b)) AND _exmpl_x>0)`
+- OPTIONAL: :filter:`5 < 7`
 
 Substring comparisons
 ~~~~~~~~~~~~~~~~~~~~~
 
 In addition to the standard equality and inequality operators, matching of partial strings is provided by keyword operators:
 
-- ``identifier CONTAINS x``: Is true if the substring value x is found anywhere within the property.
+- :filter:`identifier CONTAINS x`: Is true if the substring value x is found anywhere within the property.
 
-- ``identifier STARTS WITH x``: Is true if the property starts with the substring value x. The ``WITH`` keyword may be omitted.
+- :filter:`identifier STARTS WITH x`: Is true if the property starts with the substring value x. The :filter-op:`WITH` keyword may be omitted.
 
-- ``identifier ENDS WITH x``: Is true if the property ends with the substring value x. The ``WITH`` keyword may be omitted.
+- :filter:`identifier ENDS WITH x`: Is true if the property ends with the substring value x. The :filter-op:`WITH` keyword may be omitted.
 
 OPTIONAL features:
 
@@ -1129,101 +1221,101 @@ OPTIONAL features:
 
 Examples:
 
-- ``chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"``
-- ``chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"``
+- :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
+- :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the following, ``list`` is a list-type property, and ``values`` is one or more ``value`` separated by commas (","), i.e., strings or numbers.
-An implementation MAY also support property names and nested property names in ``values``.
+In the following, :property:`list` is a list-type property, and :filter-fragment:`values` is one or more :filter-fragment:`value` separated by commas (","), i.e., strings or numbers.
+An implementation MAY also support property names and nested property names in :filter-fragment:`values`.
 
 The following constructs MUST be supported:
 
-- ``list HAS value``: matches if at least one element in ``list`` is equal to ``value``. (If ``list`` has no duplicate elements, this implements the set operator IN.)
-- ``list HAS ALL values``: matches if, for each ``value``, there is at least one element in ``list`` equal to that value. (If both ``list`` and ``values`` do not contain duplicate values, this implements the set operator >=.)
-- ``list HAS ANY values``: matches if at least one element in ``list`` is equal to at least one ``value``. (This is equivalent to a number of HAS statements separated by OR.)
-- ``LENGTH list <operator> value``: applies the numeric comparison ``<operator>`` for the number of items in the list property.
+- :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
+- :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
+- :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
+- :filter:`LENGTH list <operator> value``: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
 
 The following construct MAY be supported:
 
-- ``list HAS ONLY values``: matches if all elements in ``list`` are equal to at least one ``value``.
-  (If both ``list`` and ``values`` do not contain duplicate values, this implements the <= set operator.)
+- :filter:`list HAS ONLY values`: matches if all elements in :filter-fragment:`list` are equal to at least one :filter-fragment:`value`.
+  (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the <= set operator.)
 
 This construct is OPTIONAL as it may be difficult to realize in some underlying database implementations.
-However, if the desired search is over a property that can only take on a finite set of values (e.g., chemical elements) a client can formulate an equivalent search by inverting the list of values into ``inverse`` and express the filter as ``NOT list HAS inverse``.
+However, if the desired search is over a property that can only take on a finite set of values (e.g., chemical elements) a client can formulate an equivalent search by inverting the list of values into :filter-fragment:`inverse` and express the filter as :filter:`NOT list HAS inverse`.
 
 Furthermore, there is a set of OPTIONAL constructs that allows filters to be formulated over the values in *correlated positions* in multiple list properties.
 An implementation MAY support this syntax selectively only for specific properties.
 This type of filter is useful for, e.g., filtering on elements and correlated element counts available as two separate list properties.
 
-- ``list1:list2:... HAS val1:val2:...``
-- ``list1:list2:... HAS ALL val1:val2:...``
-- ``list1:list2:... HAS ANY val1:val2:...``
-- ``list1:list2:... HAS ONLY val1:val2:...``
+- :filter-fragment:`list1:list2:... HAS val1:val2:...`
+- :filter-fragment:`list1:list2:... HAS ALL val1:val2:...`
+- :filter-fragment:`list1:list2:... HAS ANY val1:val2:...`
+- :filter-fragment:`list1:list2:... HAS ONLY val1:val2:...`
 
-Finally, all the above constructs that allow a value or lists of values on the right-hand side MAY allow ``<operator> value`` in each place a value can appear.
-In that case, a match requires that the ``<operator>`` comparison is fulfilled instead of equality.
-Strictly, the definitions of the ``HAS``, ``HAS ALL``, ``HAS ANY`` and ``HAS ONLY`` operators as written above apply, but with the word 'equal' replaced with the ``<operator>`` comparison.
+Finally, all the above constructs that allow a value or lists of values on the right-hand side MAY allow :filter-fragment:`<operator> value` in each place a value can appear.
+In that case, a match requires that the :filter-fragment:`<operator>` comparison is fulfilled instead of equality.
+Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY` and :filter-fragment:`HAS ONLY` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
 
 For example:
 
-- ``list HAS < 3``: matches all entries for which ``list`` contains at least one element that is less than three.
-- ``list HAS ALL < 3, > 3``: matches only those entries for which ``list`` simultaneously contains at least one element less than three and one element greater than three.
+- :filter:`list HAS < 3`: matches all entries for which :filter-fragment:`list` contains at least one element that is less than three.
+- :filter:`list HAS ALL < 3, > 3`: matches only those entries for which :filter-fragment:`list` simultaneously contains at least one element less than three and one element greater than three.
 
 An implementation MAY support combining the operator syntax with the syntax for correlated lists in particularly on a list correlated with itself. For example:
 
-- ``list:list HAS >=2:<=5``: matches all entries for which ``list`` contains at least one element that is between the values 2 and 5.
+- :filter:`list:list HAS >=2:<=5`: matches all entries for which :filter-fragment:`list` contains at least one element that is between the values 2 and 5.
 
 Further examples of various comparisons of list properties:
 
-- ``elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS ONLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"``
-- OPTIONAL: ``elements HAS ONLY "H","He","Ga","Ta"``
-- OPTIONAL: ``elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7``
-- OPTIONAL: ``_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8``
+- :filter:`elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS ONLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
+- OPTIONAL: :filter:`elements HAS ONLY "H","He","Ga","Ta"`
+- OPTIONAL: :filter:`elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
+- OPTIONAL: :filter:`_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8`
   (note: specifying the = operator after HAS ANY is redundant here, if no operator is given, the test is for equality.)
-- OPTIONAL: ``elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0``
+- OPTIONAL: :filter:`elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0`
 
 Nested property names
 ~~~~~~~~~~~~~~~~~~~~~
 
-Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in `5.1. Lexical tokens <#h.5.1>`__, consisting of identifiers separated by periods ('.').
-A filter on a nested property name consisting of two identifiers ``identifier1.identifierd2`` matches if either one of these points are true:
+Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in section `Lexical Tokens`_, consisting of identifiers separated by periods ('.').
+A filter on a nested property name consisting of two identifiers :filter-fragment:`identifier1.identifierd2` matches if either one of these points are true:
 
-- ``identifier1`` references a dictionary-type property that contains as an identifier ``identifier2`` and the filter matches for the content of ``identifier2``.
+- :filter-fragment:`identifier1` references a dictionary-type property that contains as an identifier :filter-fragment:`identifier2` and the filter matches for the content of :filter-fragment:`identifier2`.
 
-- ``identifier1`` references a list of dictionaries that contain as an identifier ``identifier2`` and the filter matches for a flat list containing only the contents of ``identifier2`` for every dictionary in the list.
-  E.g., if ``identifier1`` is the list ``[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]``, then ``identifier1.identifier2`` is understood in the filter as the list ``[42, 96]``.
+- :filter-fragment:`identifier1` references a list of dictionaries that contain as an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the contents of :filter-fragment:`identifier2` for every dictionary in the list.
+  E.g., if :filter-fragment:`identifier1` is the list :filter-fragment:`[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]`, then :filter-fragment:`identifier1.identifier2` is understood in the filter as the list :filter-fragment:`[42, 96]`.
 
 The API implementation MAY allow this notation to generalize to arbitary depth.
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
 
-Relationships
-~~~~~~~~~~~~~
+Filtering on relationships
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As described in section `3.5. Relationships <#h.3.5>`__, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
-The API implementation MAY support queries on relationships with an entry type ``<entry type>`` by using special nested property names:
+As described in the section `Relationships`_, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
+The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>` by using special nested property names:
 
-- ``<entry type>.id`` references a list of IDs of relationships with entries of the type ``<entry type>``.
-- ``<entry type>.description`` references a correlated list of the human-readable descriptions of these relationships.
+- :filter-fragment:`<entry type>.id` references a list of IDs of relationships with entries of the type :filter-fragment:`<entry type>`.
+- :filter-fragment:`<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
 
-Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, ``id`` and ``description``.
-For example: a client queries the ``structures`` endpoint with a filter that references ``calculations.id``.
-For a specific structures entry, the nested property may behave as the list ``["calc-id-43", "calc-id-96"]`` and would then, e.g., match the filter ``calculations.id HAS "calc-id-96"``.
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, :filter-fragment:`id` and :filter-fragment:`description`.
+For example: a client queries the :endpoint:`structures` endpoint with a filter that references :filter-fragment:`calculations.id`.
+For a specific structures entry, the nested property may behave as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
     **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
     For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
 
-    - Query the ``references`` endpoint with a filter ``authors.lastname HAS "Schmit"`` and store the ``id`` values of the returned entries.
-    -  Query the ``structures`` endpoint with a filter ``references.id HAS ANY <list-of-IDs>``, where ``<list-of-IDs>`` are the IDs retrieved from the first query separated by commas.
+    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmit"` and store the :filter-fragment:`id` values of the returned entries.
+    -  Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
     (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
 
-Properties with unknown value
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Filtering on Properties with unknown value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Properties may have an unknown value, see `3.3.5. Properties with unknown value <#h.3.3.5>`__.
+Properties may have an unknown value, see section `Properties with unknown value`_.
 
 Filters that match when the property is known, or unknown, respectively can be constructed using the following syntax::
 
@@ -1231,27 +1323,27 @@ Filters that match when the property is known, or unknown, respectively can be c
     identifier IS UNKNOWN
 
 Except for the above constructs, filters that use any form of comparison that involve properties of unknown values MUST NOT match.
-Hence, by definition, an ``identifier`` of value ``null`` never matches equality (``=``), inequality (``<``, ``<=``, ``>``, ``>=``, ``!=``) or other comparison operators besides ``identifier IS UNKNOWN`` and ``NOT identifier IS KNOWN``.
-In particular, a filter that compares two properties that are both ``null`` for equality or inequality does not match.
+Hence, by definition, an :filter-fragment:`identifier` of value :filter-fragment:`null` never matches equality (:filter-op:`=`), inequality (:filter-op:`<`, :filter-op:`<=`, :filter-op:`>`, :filter-op:`>=`, :filter-op:`!=`) or other comparison operators besides :filter:`identifier IS UNKNOWN` and :filter:`NOT identifier IS KNOWN`.
+In particular, a filter that compares two properties that are both :val:`null` for equality or inequality does not match.
 
 Examples:
 
-- ``chemical_formula_hill IS KNOWN AND NOT chemical_formula_anonymous IS UNKNOWN``
+- :filter:`chemical_formula_hill IS KNOWN AND NOT chemical_formula_anonymous IS UNKNOWN`
 
 Precedence
 ~~~~~~~~~~
 
 The precedence (priority) of the operators MUST be as indicated in the list below:
 
-1. Comparison and keyword operators (``<``, ``<=``, ``=``, ``HAS``, ``STARTS``, etc.) -- highest priority;
-2. ``NOT``
-3. ``AND``
-4. ``OR`` -- lowest priority.
+1. Comparison and keyword operators (:filter-op:`<`, :filter-op:`<=`, :filter-op:`=`, :filter-op:`HAS`, :filter-op:`STARTS`, etc.) -- highest priority;
+2. :filter-op:`NOT`
+3. :filter-op:`AND`
+4. :filter-op:`OR` -- lowest priority.
 
 Examples:
 
--  ``NOT a > b OR c = 100 AND f = "C2 H6"``: this is interpreted as ``(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )`` when fully braced.
--  ``a >= 0 AND NOT b < c OR c = 0``: this is interpreted as ``((a >= 0) AND (NOT (b < c))) OR (c = 0)`` when fully braced.
+-  :filter:`NOT a > b OR c = 100 AND f = "C2 H6"`: this is interpreted as :filter:`(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )` when fully braced.
+-  :filter:`a >= 0 AND NOT b < c OR c = 0`: this is interpreted as :filter:`((a >= 0) AND (NOT (b < c))) OR (c = 0)` when fully braced.
 
 Type handling and conversions in comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1259,12 +1351,12 @@ Type handling and conversions in comparisons
 The definitions of specific properties in this standard define their types.
 Similarly, for database-provider-specific properties, the database provider decides their types.
 In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with a single exception of timestamps (see below).
-Different types of values MUST be reported as ``501 Not Implemented`` errors, meaning that type conversion is not implemented in the specification.
+Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
 As the filter language syntax does not define a lexical token for timestamps, values of this type are expressed using string tokens in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to
 RFC 3339 Internet Date/Time Format.
-Interpretation failures MUST be reported with error ``400 Bad Request``.
+Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
 Optional filter features
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1283,26 +1375,26 @@ Properties Used by Multiple Entry Types
 id
 ~~
 
-- **Description**: An entry's ID as defined in section `2. Term Definition <#h.2>`__.
+- **Description**: An entry's ID as defined in section `Definition of Terms`_.
 - **Type**: string.
 - **Requirements/Conventions**:
   
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
-  - See section `2. Term Definition <#h.2>`__.
+  - See section `Definition of Terms`_.
     
 - **Examples**:
   
-  - ``"db/1234567"``
-  - ``"cod/2000000"``
-  - ``"cod/2000000@1234567"``
-  - ``"nomad/L1234567890"``
-  - ``"42"``
+  - :val:`"db/1234567"`
+  - :val:`"cod/2000000"`
+  - :val:`"cod/2000000@1234567"`
+  - :val:`"nomad/L1234567890"`
+  - :val:`"42"`
 
 type
 ~~~~
 
-- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <#h.3.1>`__ type and ID at the url ``<base URL>/<type>/<id>``.
+- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the url :endpoint:`<base URL>/<type>/<id>`.
 - **Type**: string.
 - **Requirements/Conventions**:
   
@@ -1311,7 +1403,7 @@ type
     If supported, only a subset of string comparison operators MAY be supported.
     
 - **Requirements/Conventions**: MUST be an existing entry type.
-- **Example**: ``"structures"``
+- **Example**: :val:`"structures"`
 
 immutable\_id
 ~~~~~~~~~~~~~
@@ -1325,8 +1417,8 @@ immutable\_id
     
 - **Examples**:
   
-  - ``"8bd3e750-b477-41a0-9b11-3a799f21b44f"`` 
-  - ``"fjeiwoj,54;@=%<>#32"`` (Strings that are not URL-safe are allowed.)
+  - :val:`"8bd3e750-b477-41a0-9b11-3a799f21b44f"` 
+  - :val:`"fjeiwoj,54;@=%<>#32"` (Strings that are not URL-safe are allowed.)
 
 last\_modified
 ~~~~~~~~~~~~~~
@@ -1340,7 +1432,7 @@ last\_modified
     
 - **Example**:
   
-  - As part of JSON response format: ``"2007-04-05T14:30Z"`` (i.e., encoded as an `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ string.)
+  - As part of JSON response format: :VAL:`"2007-04-05T14:30Z"` (i.e., encoded as an `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ string.)
 
 database-provider-specific properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1352,7 +1444,7 @@ database-provider-specific properties
   - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of filter operators MAY be supported.
-  - These MUST be prefixed by a database-provider-specific prefix as defined in `Appendix 1 <#h.app1>`__.
+  - These MUST be prefixed by a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
   
@@ -1365,7 +1457,7 @@ database-provider-specific properties
 Structures Entries
 ------------------
 
-``structures`` entries (or objects) have the properties described above in section `6.1. Properties Used by Multiple Entry Types <#h.6.1>`__, as well as the following properties:
+:entry:`structures` entries (or objects) have the properties described above in section `Properties Used by Multiple Entry Types`_, as well as the following properties:
 
 elements
 ~~~~~~~~
@@ -1381,12 +1473,12 @@ elements
     
 - **Examples**:
 
-  - ``["Si"]``
-  - ``["Al","O","Si"]``
+  - :val:`["Si"]`
+  - :val:`["Al","O","Si"]`
     
 - **Query examples**:
-  - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: ``elements HAS ALL "Si", "Al", "O"``.
-  - To match structures with exactly these three elements, use ``elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3``.
+  - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
+  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3`.
 
 nelements
 ~~~~~~~~~
@@ -1398,12 +1490,12 @@ nelements
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
-- **Example**: ``3``
+- **Example**: :val:`3`
 - **Querying**:
 
-  -  Note: queries on this property can equivalently be formulated using ``LENGTH elements``.
-  -  A filter that matches structures that have exactly 4 elements: ``nelements=4``.
-  -  A filter that matches structures that have between 2 and 7 elements: ``nelements>=2 AND nelements<=7``.
+  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`LENGTH elements`.
+  -  A filter that matches structures that have exactly 4 elements: :filter:`nelements=4`.
+  -  A filter that matches structures that have between 2 and 7 elements: :filter:`nelements>=2 AND nelements<=7`.
 
 elements\_ratios
 ~~~~~~~~~~~~~~~~
@@ -1419,13 +1511,13 @@ elements\_ratios
     
 - **Examples**:
   
-  - ``[1.0]``
-  - ``[0.3333333333333333, 0.2222222222222222, 0.4444444444444444]``
+  - :val:`[1.0]`
+  - :val:`[0.3333333333333333, 0.2222222222222222, 0.4444444444444444]`
     
 - **Query examples**:
   
   - Note: useful filters can be formulated using the set operator syntax for correlated values. However, since the values are floating point values, the use of equality comparisons is generally not recommended.
-  - A filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: ``elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334``.
+  - A filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: :filter:`elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
 
 chemical\_formula\_descriptive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1440,22 +1532,22 @@ chemical\_formula\_descriptive
     The parentheses are allowed to be followed by a number.
     Spaces are allowed anywhere except within chemical symbols.
     The order of elements and any groupings indicated by parentheses or brackets are chosen freely by the API implementation.
-  - The string SHOULD be arithmetically consistent with the element ratios in the ``chemical_formula_reduced`` property.
+  - The string SHOULD be arithmetically consistent with the element ratios in the :property:`chemical_formula_reduced` property.
   - It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, are used with the meanings prescribed by `IUPAC's Nomenclature of Organic Chemistry <https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html>`__.
     
 - **Examples**:
   
-  - ``"(H2O)2 Na"``
-  - ``"NaCl"``
-  - ``"CaCO3"``
-  - ``"CCaO3"``
-  - ``"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"``
+  - :val:`"(H2O)2 Na"`
+  - :val:`"NaCl"`
+  - :val:`"CaCO3"`
+  - :val:`"CCaO3"`
+  - :val:`"(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"`
     
 - **Query examples**:
   
   - Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
-  - A filter that matches an exactly given formula: ``chemical_formula_descriptive="(H2O)2 Na"``.
-  - A filter that does a partial match: ``chemical_formula_descriptive CONTAINS "H2O"``.
+  - A filter that matches an exactly given formula: :filter:`chemical_formula_descriptive="(H2O)2 Na"`.
+  - A filter that does a partial match: :filter:`chemical_formula_descriptive CONTAINS "H2O"`.
 
 chemical\_formula\_reduced
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1469,8 +1561,8 @@ chemical\_formula\_reduced
     
   - **Query**: MUST be a queryable property.
     However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
-    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued ``elements`` and ``elements_proportions`` properties.
-  - Element names MUST have proper capitalization (e.g., ``"Si"``, not ``"SI"`` for "silicon").
+    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_proportions` properties.
+  - Element names MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
   - Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
   - For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
   - For structures with partial occupation, the chemical proportion numbers are integers that within reasonable approximation indicate the correct chemical proportions. The precise details of how to perform the rounding is chosen by the API implementation.
@@ -1478,13 +1570,13 @@ chemical\_formula\_reduced
     
 - **Examples**:
   
-  - ``"H2NaO"``
-  - ``"ClNa"``
-  - ``"CCaO3"``
+  - :val:`"H2NaO"`
+  - :val:`"ClNa"`
+  - :val:`"CCaO3"`
   
 - **Query examples**:
   
-  - A filter that matches an exactly given formula is ``chemical_formula_reduced="H2NaO"``.
+  - A filter that matches an exactly given formula is :filter:`chemical_formula_reduced="H2NaO"`.
 
 chemical\_formula\_hill
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -1497,9 +1589,9 @@ chemical\_formula\_hill
   - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
   - The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
-    For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, ``chemical_formula_hill`` is ``H2O2`` (i.e., not ``HO``, nor ``H4O4``).
+    For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
-  - Element names MUST have proper capitalization (e.g., ``"Si"``, not ``"SI"`` for "silicon").    
+  - Element names MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").    
   - Elements MUST be placed in `Hill order <https://dx.doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
     Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
     After that, all other elements are ordered alphabetically.
@@ -1508,16 +1600,16 @@ chemical\_formula\_hill
   - No spaces or separators are allowed.
     
 - **Examples**:
-  - ``"H2O2"``
+  - :val:`"H2O2"`
   
 - **Query examples**:
   
-  - A filter that matches an exactly given formula is ``chemical_formula_hill="H2O2"``.
+  - A filter that matches an exactly given formula is :filter:`chemical_formula_hill="H2O2"`.
 
 chemical\_formula\_anonymous
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: The anonymous formula is the ``chemical_formula_reduced``, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+- **Description**: The anonymous formula is the :property:`chemical_formula_reduced`, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
 - **Type**: string
 - **Requirements/Conventions**:
   
@@ -1526,20 +1618,19 @@ chemical\_formula\_anonymous
     
 - **Examples**:
   
-  - ``"A2B"``
-  - ``"A42B42C16D12E10F9G5"``
+  - :val:`"A2B"`
+  - :val:`"A42B42C16D12E10F9G5"`
     
 - **Querying**:
-  - A filter that matches an exactly given formula is ``chemical_formula_anonymous="A2B"``.
+  - A filter that matches an exactly given formula is :filter:`chemical_formula_anonymous="A2B"`.
 
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
 - **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `6.2.9. ``lattice_vectors`` <#h.6.2.9>`__).
-  This list indicates if the direction is periodic (value ``1``) or non-periodic (value ``0``).
-  Note: the elements in this list each refer to the direction of the corresponding entry in `6.2.9.
-  ``lattice_vectors`` <#h.6.2.9>`__ and *not* the Cartesian x, y, z directions.
+  For each of the three directions indicated by the three lattice vectors (see property `lattice_vectors`_).
+  This list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+  Note: the elements in this list each refer to the direction of the corresponding entry in property `lattice_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
   
@@ -1550,10 +1641,10 @@ dimension\_types
     
 - **Examples**:
   
-  - For a molecule: ``[0, 0, 0]``
-  - For a wire along the direction specified by the third lattice vector: ``[0, 0, 1]``
-  - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: ``[1, 0, 1]``
-  - For a bulk 3D system: ``[1, 1, 1]``
+  - For a molecule: :val:`[0, 0, 0]`
+  - For a wire along the direction specified by the third lattice vector: :val:`[0, 0, 1]`
+  - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: :val:`[1, 0, 1]`
+  - For a bulk 3D system: :val:`[1, 1, 1]`
 
 lattice\_vectors
 ~~~~~~~~~~~~~~~~
@@ -1562,16 +1653,16 @@ lattice\_vectors
 - **Type**: list of list of floats.
 - **Requirements/Conventions**:
 
-  - **Response**: REQUIRED in the response unless explicitly excluded, except when `6.2.8. ``dimension_types`` <#h.6.2.8>`__ is equal to ``[0, 0, 0]`` (in this case it is OPTIONAL).
+  - **Response**: REQUIRED in the response unless explicitly excluded, except when property `dimension_types`_ is equal to :val:`[0, 0, 0]` (in this case it is OPTIONAL).
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
-  - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first  lattice vector SHOULD be set along ``x`` and the second on the ``xy``-plane.
-  - This property MUST be an array of dimensions 3 times 3 regardless of the elements of `6.2.8. ``dimension_types`` <#h.6.2.8>`__. The vectors SHOULD by convention be chosen so the determinant of the ``lattice_vectors`` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+  - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
+  - This property MUST be an array of dimensions 3 times 3 regardless of the elements of property `dimension_types`_. The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
     
 - **Examples**:
     
-  - ``[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]`` represents a cell, where the first vector is ``(4, 0, 0)``, i.e., a vector aligned along the ``x`` axis of length 4 Å; the second vector is ``(0, 4, 0)``; and the third vector is ``(0, 1, 4)``.
+  - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
 
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1583,21 +1674,21 @@ cartesian\_site\_positions
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length N times 3, where N is the number of sites in the structure.
-  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the `6.2.14. ``assemblies`` <#h.6.2.14>`__ property).
-  - If a component of the position is unknown, the ``null`` value should be provided instead (see section `3.3.5. Properties with unknown value <#h.3.3.5>`__).
+  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
+  - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
     Otherwise, it should be a float value, expressed in angstrom (Å).
-    If at least one of the coordinates is unknown, the correct flag in the ```6.2.15. structure_features`` <#h6.2.15>`__ list MUST be set.
-  - **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification: If you decide to store internally the ``cartesian_site_positions`` as a float array, you might want to replace ``null`` values with ``NaN`` values.
+    If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
+  - **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification: If you decide to store internally the :property: `cartesian_site_positions` as a float array, you might want to represent :val:`null` values with :field-val:`NaN` values.
     The latter being valid float numbers in the IEEE 754 standard in `IEEE 754-1985 <https://doi.org/10.1109/IEEESTD.1985.82928>`__ and in the updated version `IEEE 754-2008 <https://doi.org/10.1109/IEEESTD.2008.4610935>`__.
     
 - **Examples**:
   
-  - ``[[0,0,0],[0,0,2]]`` indicates a structure with two sites, one sitting at the origin and one along the (positive) ``z`` axis, 2 Å away from the origin.
+  - :val:`[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the length of the ``cartesian_site_positions`` property.
+- **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
 - **Type**: integer  
 - **Requirements/Conventions**:
     
@@ -1606,33 +1697,33 @@ nsites
     
 - **Examples**:
   
-  - ``42``
+  - :val:`42`
     
 - **Query examples**:
 
-  - Match only structures with exactly 4 sites: ``nsites=4``
-  - Match structures that have between 2 and 7 sites: ``nsites>=2 AND nsites<=7``
+  - Match only structures with exactly 4 sites: :filter:`nsites=4`
+  - Match structures that have between 2 and 7 sites: :filter:`nsites>=2 AND nsites<=7`
 
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the `6.2.10. ``cartesian_site_positions`` <#h.6.2.10>`__ property).
-  The properties of the species are found in the `6.2.13. ``species`` <#h.6.2.13>`__ property.
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+  The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
-  - MUST have length equal to the number of sites in the structure (first dimension of the `6.2.10. ``cartesian_site_positions`` <#h.6.2.10>`__  list).
+  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
   - Each species MUST have a unique name.
-  - Each species name mentioned in the ``species_at_sites`` list MUST be described in the `6.2.13. ``species`` <#h.6.2.13>`__ list (i.e. for each value in the ``species_at_sites`` list there MUST exist exactly one dictionary in the ``species`` list with the ``name`` attribute equal to the corresponding ``species_at_sites`` value).
+  - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
     This latter case is useful when different atoms of the same type need to be grouped or distinguished, for instance in simulation codes to assign different initial spin states.
     
 - **Examples**:
   
-  - ``["Ti","O2"]`` indicates that the first site is hosting a species labeled ``"Ti"`` and the second a species labeled ``"O2"``.
+  - :val:`["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`.
 
 species
 ~~~~~~~
@@ -1640,11 +1731,11 @@ species
 - **Description**: A list describing the species of the sites of this structure. Species can be pure chemical elements, or virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements.
 - **Type**: list of dictionary with keys:
   
-  - ``name``: string (REQUIRED)
-  - ``chemical_symbols``: list of strings (REQUIRED)
-  - ``concentration``: list of float (REQUIRED)
-  - ``mass``: float (OPTIONAL)
-  - ``original_name``: string (OPTIONAL).
+  - :property:`name`: string (REQUIRED)
+  - :property:`chemical_symbols`: list of strings (REQUIRED)
+  - :property:`concentration`: list of float (REQUIRED)
+  - :property:`mass`: float (OPTIONAL)
+  - :property:`original_name`: string (OPTIONAL).
     
 - **Requirements/Conventions**:
   
@@ -1652,22 +1743,22 @@ species
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - Each list member MUST be a dictionary with the following keys:
 
-    - **name**: REQUIRED; gives the name of the species; the **name** value MUST be unique in the ``species`` list;
+    - **name**: REQUIRED; gives the name of the species; the **name** value MUST be unique in the :property:`species` list;
 
     - **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
       
       - It MUST be one of the following:
 
         - a valid chemical-element name, or
-        - the special value ``"X"`` to represent a non-chemical element, or
-        - the special value ``"vacancy"`` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the ``concentration`` list, see below).
+        - the special value :val:`"X"` to represent a non-chemical element, or
+        - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
 
-      -  If any one entry in the ``species`` list has a ``chemical_symbols`` list that is longer than 1 element, the correct flag MUST be set in the list ``structure_features`` (see section `6.2.15. ``structure_features`` <#h.6.2.15>`__).
+      -  If any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
 
-   - **concentration**: REQUIRED; MUST be a list of floats, with same length as ``chemical_symbols``. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
+   - **concentration**: REQUIRED; MUST be a list of floats, with same length as :property:`chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
      The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
      
-     - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations ``1/3`` and ``2/3``, the concentration might look something like ``[0.33333333333, 0.66666666666]``. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.       
+     - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations :val:`1/3` and :val:`2/3`, the concentration might look something like :val:`[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.       
      - Experimental errors in the data present in the database. In this case, it is the responsibility of the client to decide how to process the data.
 
      Note that concentrations are uncorrelated between different site (even of the same species).
@@ -1676,20 +1767,20 @@ species
    - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
          Note: With regards to "source database", we refer to the immediate source being queried via the OPTiMaDe API implementation.
-	 The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the `6.2.12. ``species_at_sites`` <#h.6.2.12>`__ list).
+	 The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
-  - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., ``"Ti"`` for titanium, ``"O"`` for oxygen, etc.)
+  - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
-    This means that a species ``{"name": "C", "chemical_symbols": ["Ti"], "concentration": [1.0]}`` is valid and represents a titanium species (and *not* a carbon species).
+    This means that a species :val:`{"name": "C", "chemical_symbols": ["Ti"], "concentration": [1.0]}` is valid and represents a titanium species (and *not* a carbon species).
   - It is NOT RECOMMENDED that a structure includes species that do not have at least one corresponding site.
     
 - **Examples**:
   
-  - ``"species": [ {"name": "Ti", "chemical_symbols": ["Ti"], "concentration": [1.0]} ]``: any site with this species is occupied by a Ti atom.
-  - ``"species": [ {"name": "Ti", "chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]} ]``: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.
-  - ``"species": [ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]``: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
-  - ``"species": [ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]``: any site with this species is occupied by a carbon isotope with mass 12.
-  - ``"species": [ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]``: any site with this species is occupied by a carbon isotope with mass 13.
+  - :val:`[ {"name": "Ti", "chemical_symbols": ["Ti"], "concentration": [1.0]} ]`: any site with this species is occupied by a Ti atom.
+  - :val:`[ {"name": "Ti", "chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]} ]`: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.
+  - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
+  - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.
+  - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.
 
 assemblies
 ~~~~~~~~~~
@@ -1697,37 +1788,37 @@ assemblies
 - **Description**: A description of groups of sites that are statistically correlated.
 - **Type**: list of dictionary with keys:
    
-  - ``sites_in_groups``: list of list of integers (REQUIRED)
-  - ``group_probabilities``: list of floats (REQUIRED)
+  - :property:`sites_in_groups`: list of list of integers (REQUIRED)
+  - :property:`group_probabilities`: list of floats (REQUIRED)
     
 - **Requirements/Conventions**:
 
   - **Response**: OPTIONAL in the response (SHOULD be absent if there are no partial occupancies).
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - If present, the correct flag MUST be set in the list ``structure_features`` (see section `6.2.15. ``structure_features`` <#h.6.2.15>`__).
+  - If present, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
   - Client implementations MUST check its presence (as its presence changes the interpretation of the structure).
   - If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have the following two keys:
     
     - **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.
       
-      Example: ``[[1], [2]]``: two groups, one with the second site, one with the third.
+      Example: :val:`[[1], [2]]`: two groups, one with the second site, one with the third.
       
-      Example: ``[[1,2], [3]]``: one group with the second and third site, one with the fourth.
+      Example: :val:`[[1,2], [3]]`: one group with the second and third site, one with the fourth.
       
-   - **group\_probabilities**: Statistical probability of each group. It MUST have the same length as ``sites_in_groups``.
+   - **group\_probabilities**: Statistical probability of each group. It MUST have the same length as :property:`sites_in_groups`.
      It SHOULD sum to one.
      See below for examples of how to specify the probability of the occurrence of a vacancy.
-     The possible reasons for the values not to sum to one are the same as already specified above for the ``concentration`` of each ``species``, see section `6.2.13. ``species`` <#h.6.2.13>`__.
+     The possible reasons for the values not to sum to one are the same as already specified above for the :property:`concentration` of each :property:`species`, see property `species`_.
 
   - If a site is not present in any group, it means that it is present with 100 % probability (as if no assembly was specified).
   - A site MUST NOT appear in more than one group.
     
 - **Examples** (for each entry of the assemblies list):
   
-  - ``{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}``: the first site and the second site never occur at the same time in the unit cell.
+  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
     Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.
-  - ``{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}``: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
+  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
     The second group is formed by the fourth site.
     Sites of the first group (the second and the third) are never present at the same time as the fourth site.
     30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).
@@ -1817,25 +1908,21 @@ structure\_features
   - If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
   - **List of strings used to indicate special structure features**:
 
-    - ``disorder``: This flag MUST be present if any one entry in the ``species`` list has a ``chemical_symbols`` list that is longer than 1 element.
-    - ``unknown_positions``: This flag MUST be present if at least one component of the ``cartesian_site_positions`` list of lists has value ``null``.
-    - ``assemblies``: This flag MUST be present if the ```assemblies`` <#h.6.2.14>`__ list is present.
+    - :val:`disorder`: This flag MUST be present if any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element.
+    - :val:`unknown_positions`: This flag MUST be present if at least one component of the :property:`cartesian_site_positions` list of lists has value :val:`null`.
+    - :val:`assemblies`: This flag MUST be present if the property `assemblies`_ is present.
 
--  **Examples**: A structure having unknown positions and using assemblies:
-
-   .. code:: jsonc
-	     
-        ["assemblies", "unknown_positions"]
+-  **Examples**: A structure having unknown positions and using assemblies: :val:`["assemblies", "unknown_positions"]`
 
 Calculations Entries
 --------------------
 
-``calculations`` entries have the properties described above in section `6.1. Properties Used by Multiple Entry Types <#h.6.1>`__.
+The :entry:`calculations` entries have the properties described above in section `Properties Used by Multiple Entry Types`_.
 
 References Entries
 ------------------
 
-``references`` entries describe bibliographic references.
+The :entry:`references` entries describe bibliographic references.
 The following properties are used to provide the bibliographic details:
 
 - **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **type**, **volume**, **year**: Meanings of these properties match the `BibTeX specification <http://bibtexml.sourceforge.net/btxdoc.pdf>`__, values are strings;
@@ -1880,8 +1967,8 @@ Example:
 Database-Provider-Specific Entry Types
 --------------------------------------
 
-Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix as given in `Appendix 1 <#h.app1>`__.
-Database-provider-specific entry types MUST have all properties described above in section `6.1. Properties Used by Multiple Entry Types <#h.6.1>`__.
+Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix as given in appendix `Database-Provider-Specific Namespace Prefixes`_.
+Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
 
 - **Requirements/Conventions for properties in database-provider-specific entry types**:
   
@@ -1892,17 +1979,17 @@ Database-provider-specific entry types MUST have all properties described above 
 Relationships Used by Multiple Entry Types
 ------------------------------------------
 
-In accordance with section `3.5. Relationships <#h.3.5>`__, all entry types MAY use relationships to describe relations to other entries.
+In accordance with section `Relationships`_, all entry types MAY use relationships to describe relations to other entries.
 
 References
 ~~~~~~~~~~
 
-The ``references`` relationship is used to provide bibliographic references for any of the entry types.
-It relates an entry with any number of ``references`` entries.
+The references relationship is used to provide bibliographic references for any of the entry types.
+It relates an entry with any number of :entry:`references` entries.
 
 If the response format supports inclusion of entries of a different type in the response, then the response SHOULD include all references-type entries mentioned in the response.
 
-For example, for the JSON response format, the top-level ``included`` field should be used as per the `JSON API 1.0 specification <https://jsonapi.org/format/1.0/#fetching-includes>`__:
+For example, for the JSON response format, the top-level :field:`included` field should be used as per the `JSON API 1.0 specification <https://jsonapi.org/format/1.0/#fetching-includes>`__:
 
 .. code:: jsonc
 
@@ -1976,7 +2063,7 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
 Appendices
 ==========
-	
+
 Database-Provider-Specific Namespace Prefixes
 ---------------------------------------------
 
@@ -1984,7 +2071,7 @@ This standard refers to database-provider-specific prefixes. These are assigned 
 
 API implementations SHOULD NOT make up and use new prefixes not included in this standard, but SHOULD rather work to get such prefixes included in a future revision of this API specification.
 
-**Examples**: A database-provider-specific prefix: ``"exmpl"``. Used as a field name in a response: ``_exmpl_custom_field``
+**Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
@@ -1993,7 +2080,7 @@ The database-provider-specific prefixes currently assigned are listed in the ``p
 This file serves as a machine-readable list of OPTiMaDe providers.
 
 The content of the ``providers.json`` file complies with the default JSON format specification for API responses.
-In particular, the resource objects under the top-level ``data`` field are defined to be valid resource objects for the Links endpoint, see section `4.4.3. Provider Objects <#h.4.4.3>`__.
+In particular, the resource objects under the top-level :field:`data` field are defined to be valid resource objects for the Links endpoint, see section `Provider Objects`_.
 
     **Note**: Any provider wishing to be added to ``providers.json`` is kindly asked to suggest a change to this repository (using a pull request).
 
