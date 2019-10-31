@@ -1804,7 +1804,6 @@ assemblies
     - **sites\_in\_groups**: Index of the sites (0-based) that belong to each group for each assembly.
       
       Example: :val:`[[1], [2]]`: two groups, one with the second site, one with the third.
-      
       Example: :val:`[[1,2], [3]]`: one group with the second and third site, one with the fourth.
       
     - **group\_probabilities**: Statistical probability of each group. It MUST have the same length as :property:`sites_in_groups`.
