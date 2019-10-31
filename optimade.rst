@@ -1470,7 +1470,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - The strings are the chemical symbols, written as uppercase letter plus optional lowercase letters.
   - The order MUST be alphabetical.
-  - Note: This may not contain the "x" that is suggested in chemical_symbols for the :property:`species` property.
+  - Note: This may not contain the "X" or "vacancy" suggested in chemical_symbols for the :property:`species` property.
     
 - **Examples**:
 
