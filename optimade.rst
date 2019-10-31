@@ -1470,6 +1470,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - The strings are the chemical symbols, written as uppercase letter plus optional lowercase letters.
   - The order MUST be alphabetical.
+  - Note: This may not contain the "x" that is suggested in chemical_symbols for the :property:`species` property.
     
 - **Examples**:
 
@@ -1561,7 +1562,7 @@ chemical\_formula\_reduced
     
   - **Query**: MUST be a queryable property.
     However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
-    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_proportions` properties.
+    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_ratios` properties.
   - Element names MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
   - Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
   - For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
@@ -1806,10 +1807,10 @@ assemblies
       
       Example: :val:`[[1,2], [3]]`: one group with the second and third site, one with the fourth.
       
-   - **group\_probabilities**: Statistical probability of each group. It MUST have the same length as :property:`sites_in_groups`.
-     It SHOULD sum to one.
-     See below for examples of how to specify the probability of the occurrence of a vacancy.
-     The possible reasons for the values not to sum to one are the same as already specified above for the :property:`concentration` of each :property:`species`, see property `species`_.
+    - **group\_probabilities**: Statistical probability of each group. It MUST have the same length as :property:`sites_in_groups`.
+      It SHOULD sum to one.
+      See below for examples of how to specify the probability of the occurrence of a vacancy.
+      The possible reasons for the values not to sum to one are the same as already specified above for the :property:`concentration` of each :property:`species`, see property `species`_.
 
   - If a site is not present in any group, it means that it is present with 100 % probability (as if no assembly was specified).
   - A site MUST NOT appear in more than one group.
