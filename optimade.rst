@@ -2137,7 +2137,12 @@ The Filter Language EBNF Grammar
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
 
-    FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String ;
+    StringProperty = String | Property ;
+    (* Support for Property tokens in StringProperty is optional *)
+
+    FuzzyStringOpRhs = CONTAINS, StringProperty |
+                   STARTS, [ WITH ], StringProperty |
+                   ENDS, [ WITH ], StringProperty ;
 
     SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
     (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
