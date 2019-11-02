@@ -560,6 +560,23 @@ In the default response format, relationships are encoded as `JSON API Relations
     For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
     It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
 
+Handling unknown property names
+===============================
+
+If a property name is not recognized by the queried endpoint, an error diagnosis would be appropriate. However, we also want to support the formulation of a single query suitable for multiple databases, even when querying database-specific properties.
+
+For example, we would like to construct the following query:
+
+`filter=_exmpl_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+
+and then send it query to AiiDA-backed and MP-backed OPTiMaDe endpoints.
+
+For these queries to succeed, the following behavior is suggested:
+
+* if a database receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's private prefix (e.g. `_exmpl_`), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if they are not known the database.
+
+* if a database received a query filter with a property from an unknown database, the end-point MUST behave as if that property is unknown, i.e. is if it has the value null. If the database prefix of the unknown property is similar to that of a known database, the response MAY issue a corresponding warning.
+
 API Endpoints
 =============
 
