@@ -569,13 +569,13 @@ For example, we would like to construct the following query:
 
 `filter=_exmpl_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
-and then send it query to OPTiMaDe endpoints backed by the engines Exmpl and Exmpl2.
+and then send it query to OPTiMaDe endpoints backed by the engines `Exmpl` and `Exmpl2`.
 
 For these queries to succeed, the following behavior is suggested:
 
-* if a database receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's private prefix (e.g. `_exmpl_`), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if they are not known the database.
+* if a database receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's own prefix (e.g. `_exmpl_` for the `Exmpl` engine), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if they are not known the database.
 
-* if a database received a query filter with a property from an unknown database, the end-point MUST behave as if that property is unknown, i.e. is if it has the value null. If the database prefix of the unknown property is similar to that of a known database, the response MAY issue a corresponding warning.
+* if a database received a query filter with a property from an unknown database (e.g. `_exmpl2_` for the `Exmpl` engine), the end-point MUST behave as if that property is unknown, i.e. is if it has the value null. If the database prefix of the unknown property is similar to that of a known database, the response MAY issue a corresponding warning.
 
 API Endpoints
 =============
