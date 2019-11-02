@@ -569,7 +569,7 @@ For example, we would like to construct the following query:
 
 `filter=_exmpl_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
-and then send it query to AiiDA-backed and MP-backed OPTiMaDe endpoints.
+and then send it query to OPTiMaDe endpoints backed by the engines Exmpl and Exmpl2.
 
 For these queries to succeed, the following behavior is suggested:
 
