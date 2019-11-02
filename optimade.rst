@@ -565,7 +565,7 @@ Handling unknown property names
 
 If a property name is not recognized by the queried endpoint, an error diagnosis would be appropriate. However, we also want to support the formulation of a single query suitable for multiple databases, even when querying database-specific properties.
 
-For example, an OPTiMaDe client might construct the following query:
+For example, an OPTiMaDe client might compose the following query:
 
 `filter=_exmpl_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
