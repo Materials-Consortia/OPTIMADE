@@ -573,9 +573,9 @@ and then send it query to OPTiMaDe endpoints backed by the engines `Exmpl` and `
 
 For these queries to succeed, the backend MUST implement the following behavior:
 
-* if a backend receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's own prefix (e.g. `_exmpl_` for the `Exmpl` engine), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if the property names are not known to the backend.
+* if an API implementation receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's own prefix (e.g. `_exmpl_` for the `Exmpl` engine), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if the property names are not known to the API implementation.
 
-* if a database received a query filter with a property from an unknown database (e.g. `_exmpl2_` for the `Exmpl` engine), the end-point MUST behave as if that property is unknown, i.e. is if it has the value null. If the database prefix of the unknown property is similar to that of a known database, the response SHOULD issue a corresponding note-level warning.
+* if the API implementation received a query filter with a property from an unknown database (e.g. `_exmpl2_` for the `Exmpl` engine), the API implementation MUST behave as if that property is unknown, i.e. is if it has the value null. If the database prefix of the unknown property is similar to that of a known database, the response MAY include a corresponding warning.
 
 API Endpoints
 =============
