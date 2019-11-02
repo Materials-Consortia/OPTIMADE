@@ -571,7 +571,7 @@ For example, we would like to construct the following query:
 
 and then send it query to OPTiMaDe endpoints backed by the engines `Exmpl` and `Exmpl2`.
 
-For these queries to succeed, the following behavior is suggested:
+For these queries to succeed, the backend MUST implement the following behavior:
 
 * if a database receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's own prefix (e.g. `_exmpl_` for the `Exmpl` engine), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if they are not known the database.
 
