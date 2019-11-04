@@ -8,38 +8,36 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 1
+                  TOKEN_84(9999): "e", line: 1, col: 1
                 LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 2
+                  TOKEN_91(9999): "l", line: 1, col: 2
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 3
+                  TOKEN_84(9999): "e", line: 1, col: 3
                 LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 4
+                  TOKEN_92(9999): "m", line: 1, col: 4
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 5
+                  TOKEN_84(9999): "e", line: 1, col: 5
                 LowercaseLetter(9999)
-                  TOKEN_78(9999): "n", line: 1, col: 6
+                  TOKEN_93(9999): "n", line: 1, col: 6
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "t", line: 1, col: 7
+                  TOKEN_99(9999): "t", line: 1, col: 7
                 LowercaseLetter(9999)
-                  TOKEN_83(9999): "s", line: 1, col: 8
+                  TOKEN_98(9999): "s", line: 1, col: 8
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 9
             SetOpRhs(9999)
               HAS(9999)
-                TOKEN_40(9999): "H", line: 1, col: 10
-                TOKEN_33(9999): "A", line: 1, col: 11
-                TOKEN_51(9999): "S", line: 1, col: 12
+                TOKEN_46(9999): "HAS", line: 1, col: 10
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 13
 Error: in tests/cases/Filter_032.inp: line 1:
-    unexpected token "I", expected one of "<", ">", "=", "!", """,
+    unexpected token "IS", expected one of "<", ">", "!", "=", """,
     "+", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".",
     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-    "_", "A", or "O"
+    "_", "ALL", "ANY", or "ONLY"
 
 elements HAS IS "H"
              ^
