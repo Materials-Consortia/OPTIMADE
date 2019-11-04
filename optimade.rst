@@ -2120,7 +2120,7 @@ The Filter Language EBNF Grammar
 
     ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-    ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
+    ExpressionPhrase = [ NOT ], ( Comparison | LengthComparison | OpeningBrace, Expression, ClosingBrace );
 
     Comparison = ConstantFirstComparison |
                  PropertyFirstComparison ;
@@ -2135,8 +2135,6 @@ The Filter Language EBNF Grammar
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
     ConstantFirstComparison = Constant, ValueOpRhs ;
-                    
-    PredicateComparison = LengthComparison ;
 
     ValueOpRhs = Operator, Value ;
 
