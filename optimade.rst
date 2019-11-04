@@ -1097,27 +1097,27 @@ The following tokens are used in the filter query component:
   This definition is similar to one used in most widespread programming languages, except that OPTiMaDe limits allowed letter set to lowercase letters only.
   This allows to tell OPTiMaDe identifiers and operator keywords apart unambiguously without consulting a reserved word table and to encode this distinction concisely in the EBNF Filter Language grammar.
 
-Examples of valid property names:
+  Examples of valid property names:
+  
+  - :property:`band_gap`
+  - :property:`cell_length_a`
+  - :property:`cell_volume`
+  
+  Examples of incorrect property names:
+  
+  - :property-fail:`0_kvak` (starts with a number);
+  - :property-fail:`"foo bar"` (contains space; contains quotes)
+  - :property-fail:`BadLuck` (contains upper-case letters)
+  
+  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
-- :property:`band_gap`
-- :property:`cell_length_a`
-- :property:`cell_volume`
+  Examples:
 
-Examples of incorrect property names:
-
-- :property-fail:`0_kvak` (starts with a number);
-- :property-fail:`"foo bar"` (contains space; contains quotes)
-- :property-fail:`BadLuck` (contains upper-case letters)
-
-Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
-
-Examples::
-
-    * :property:`_exmpl_formula_sum` (a property specific to that database)
-    * :property:`_exmpl_band_gap`
-    * :property:`_exmpl_supercell`
-    * :property:`_exmpl_trajectory`
-    * :property:`_exmpl_workflow_id`  
+  - :property:`_exmpl_formula_sum` (a property specific to that database)
+  - :property:`_exmpl_band_gap`
+  - :property:`_exmpl_supercell`
+  - :property:`_exmpl_trajectory`
+  - :property:`_exmpl_workflow_id`  
 
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
 
@@ -1238,7 +1238,7 @@ The following constructs MUST be supported:
 - :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
 - :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
-- :filter:`LENGTH list <operator> value``: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
+- :filter:`LENGTH list <operator> value`: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
 
 The following construct MAY be supported:
 
@@ -1311,7 +1311,7 @@ This means that the structures entry has a relationship with the calculations en
     For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
 
     - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmit"` and store the :filter-fragment:`id` values of the returned entries.
-    -  Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+    - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
     (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
 
