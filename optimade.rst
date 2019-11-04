@@ -2171,24 +2171,24 @@ The Filter Language EBNF Grammar
 
     (* Boolean relations: *)
 
-    AND = 'A', 'N', 'D', [Spaces] ;
-    NOT = 'N', 'O', 'T', [Spaces] ;
-    OR = 'O', 'R', [Spaces] ;
+    AND = 'AND', [Spaces] ;
+    NOT = 'NOT', [Spaces] ;
+    OR = 'OR', [Spaces] ;
 
-    IS = 'I', 'S', [Spaces] ;
-    KNOWN = 'K', 'N', 'O', 'W', 'N', [Spaces] ;
-    UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+    IS = 'IS', [Spaces] ;
+    KNOWN = 'KNOWN', [Spaces] ;
+    UNKNOWN = 'UNKNOWN', [Spaces] ;
 
-    CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S', [Spaces] ;
-    STARTS = 'S', 'T', 'A', 'R', 'T', 'S', [Spaces] ;
-    ENDS = 'E', 'N', 'D', 'S', [Spaces] ;
-    WITH = 'W', 'I', 'T', 'H', [Spaces] ;
+    CONTAINS = 'CONTAINS', [Spaces] ;
+    STARTS = 'STARTS', [Spaces] ;
+    ENDS = 'ENDS', [Spaces] ;
+    WITH = 'WITH', [Spaces] ;
 
-    LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
-    HAS = 'H', 'A', 'S', [Spaces] ;
-    ALL = 'A', 'L', 'L', [Spaces] ;
-    ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
-    ANY = 'A', 'N', 'Y', [Spaces] ;
+    LENGTH = 'LENGTH', [Spaces] ;
+    HAS = 'HAS', [Spaces] ;
+    ALL = 'ALL', [Spaces] ;
+    ONLY = 'ONLY', [Spaces] ;
+    ANY = 'ANY', [Spaces] ;
 
     (* OperatorComparison operator tokens: *)
 
