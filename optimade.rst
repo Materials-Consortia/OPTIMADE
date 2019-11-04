@@ -2120,18 +2120,18 @@ The Filter Language EBNF Grammar
 
     ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-    ExpressionPhrase = [ NOT ], ( Comparison | LengthComparison | OpeningBrace, Expression, ClosingBrace );
+    ExpressionPhrase = [ NOT ], ( Comparison | LengthComparison | OpeningBrace, Expression, ClosingBrace ) ;
 
-    Comparison = ConstantFirstComparison |
-                 PropertyFirstComparison ;
+    Comparison = ConstantFirstComparison
+               | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    PropertyFirstComparison = Property, ( 
-                    ValueOpRhs |
-                    KnownOpRhs |
-                    FuzzyStringOpRhs |
-                    SetOpRhs | 
-                    SetZipOpRhs );
+    PropertyFirstComparison = Property, 
+                    ( ValueOpRhs
+                    | KnownOpRhs
+                    | FuzzyStringOpRhs
+                    | SetOpRhs
+                    | SetZipOpRhs );
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
     ConstantFirstComparison = Constant, ValueOpRhs ;
@@ -2143,9 +2143,9 @@ The Filter Language EBNF Grammar
     StringProperty = String | Property ;
     (* Support for Property tokens in StringProperty is optional *)
 
-    FuzzyStringOpRhs = CONTAINS, StringProperty |
-                   STARTS, [ WITH ], StringProperty |
-                   ENDS, [ WITH ], StringProperty ;
+    FuzzyStringOpRhs = CONTAINS, StringProperty
+                     | STARTS, [ WITH ], StringProperty
+                     | ENDS, [ WITH ], StringProperty ;
 
     SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
     (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
@@ -2193,9 +2193,9 @@ The Filter Language EBNF Grammar
     ONLY = 'ONLY', [Spaces] ;
     ANY = 'ANY', [Spaces] ;
 
-    (* OperatorComparison operator tokens: *)
+    (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
+    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
 
     (* Property syntax *)
 
@@ -2203,17 +2203,13 @@ The Filter Language EBNF Grammar
 
     Letter = UppercaseLetter | LowercaseLetter ;
 
-    UppercaseLetter =
-        'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
-        'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
-        'Y' | 'Z'
-    ;
+    UppercaseLetter = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' 
+                    | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' 
+                    | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' ;
 
-    LowercaseLetter =
-        'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 
-        'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
-        'y' | 'z' | '_'
-    ;
+    LowercaseLetter = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' 
+                    | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' 
+                    | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | '_' ;
 
     (* Strings: *)
 
@@ -2223,11 +2219,9 @@ The Filter Language EBNF Grammar
 
     UnescapedChar = Letter | Digit | Space | Punctuator | UnicodeHighChar ;
 
-    Punctuator =
-        '!' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' |
-        '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' |
-        ']' | '^' | '`' | '{' | '|' | '}' | '~'
-    ;
+    Punctuator = '!' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' 
+               | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' 
+               | '@' | '[' | ']' | '^' | '`' | '{' | '|' | '}' | '~' ;
 
     (* BEGIN EBNF GRAMMAR Number *)
     (* Number token syntax: *)
