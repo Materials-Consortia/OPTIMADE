@@ -615,7 +615,7 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
 
   - *offset-based pagination*: using :field:`page_offset` and :field:`page_limit` is RECOMMENDED.
   - *cursor-based pagination*: using :field:`page_cursor` and :field:`page_limit` is RECOMMENDED.
-  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED (:field:`page_limit` is the maximum number of entries per page). It is RECOMMENDED that the first page has number 1, i.e., that :field:`page_number` is 1-based.
+  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED (:field:`page_limit` is the number of entries per page). It is RECOMMENDED that the first page has number 1, i.e., that :field:`page_number` is 1-based.
   - *value-based pagination*: using :field:`page_above`/:field:`page_below` and :field:`page_limit` is RECOMMENDED.
 
   Examples (all OPTIONAL behavior a server MAY implement):
