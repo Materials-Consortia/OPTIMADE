@@ -608,14 +608,14 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 Example: http://example.com/optimade/v0.9/structures?page_limit=100
 
-- **page\_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
+- **page\_{offset, number, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
   A server MAY implement pagination in concert with :query-param:`sort`.
   The following parameters, all prefixed by "page\_", are RECOMMENDED for use with pagination.
   If an implementation chooses
 
   - *offset-based pagination*: using :field:`page_offset` and :field:`page_limit` is RECOMMENDED.
   - *cursor-based pagination*: using :field:`page_cursor` and :field:`page_limit` is RECOMMENDED.
-  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED (:field:`page_limit` is equivalent to page "size").
+  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED. It is RECOMMENDED that the first page has number 1, i.e., that :field:`page_number` is 1-based.
   - *value-based pagination*: using :field:`page_above`/:field:`page_below` and :field:`page_limit` is RECOMMENDED.
 
   Examples (all OPTIONAL behavior a server MAY implement):
