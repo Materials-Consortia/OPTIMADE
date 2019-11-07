@@ -15,9 +15,5 @@ addons:
 install: []
 
 script:
-    - make --version
-    - make tools
-    - make grammars
-    - make tests
-    - make listdiff
-    - exit $(make listdiff | head | wc -l)
+    - make validate_without_docker
+    - exit $?
