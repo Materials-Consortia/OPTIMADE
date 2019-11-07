@@ -16,4 +16,3 @@ install: []
 
 script:
     - make validate_without_docker
-    - exit $?
