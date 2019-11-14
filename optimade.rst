@@ -1925,8 +1925,10 @@ References Entries
 The :entry:`references` entries describe bibliographic references.
 The following properties are used to provide the bibliographic details:
 
-- **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **type**, **volume**, **year**: Meanings of these properties match the `BibTeX specification <http://bibtexml.sourceforge.net/btxdoc.pdf>`__, values are strings;
-  
+- **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **volume**, **year**: meanings of these properties match the `BibTeX specification <http://bibtexml.sourceforge.net/btxdoc.pdf>`__, values are strings;
+
+- **bib_type**: type of the reference, corresponding to **type** property in the BibTeX specification, value is string;
+
 - **authors** and **editors**: lists of *person objects* which are dictionaries with the following keys:
   
   - **name**: Full name of the person, REQUIRED.
