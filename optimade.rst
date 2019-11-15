@@ -627,10 +627,11 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
 - **sort**: If supporting sortable queries, an implementation MUST use the :query-param:`sort` query parameter with format as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-sorting>`__.
 
   An implementation MAY support multiple sort fields for a single query.
-  If it does, it again MUST conform to the JSON API 1.0 spec.
+  If it does, it again MUST conform to the JSON API 1.0 specification.
 
-  If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value, the key :field:`sortable` with value :field-val:`true`.
-  This is in addition to each property description (and optional unit).
+  If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value, the key :field:`sortable` with value :field-val:`true` or :field-val:`false`.
+  The set of :field:`<fieldname>` s, with :field:`sortable` equal to :field-val:`true` make up the "sort fields" set according to its definition in the JSON API 1.0 specification.
+  The field :field:`sortable` is in addition to each property description (and optional unit).
   An example is shown in section `Entry Listing Info Endpoints`_.
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
@@ -912,7 +913,7 @@ The response for these endpoints MUST include the following information in the :
 
 - **description**: Description of the entry.
 - **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL key :field:`unit`.
+  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL keys :field:`unit` and :field:`sortable` (see `Entry Listing URL Query Parameters`_ for more information on :field:`sortable`).
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
@@ -930,7 +931,8 @@ Example:
 	   },
 	   "lattice_vectors": {
 	     "description": "Unit cell lattice vectors",
-	     "unit": "Å"
+	     "unit": "Å",
+       "sortable": false
 	   }
 	   // ... <other property descriptions>
 	 },
