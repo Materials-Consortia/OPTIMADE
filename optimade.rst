@@ -2104,7 +2104,7 @@ The Filter Language EBNF Grammar
     ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
     (* Support for Operator in ValueList is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value} ;
+    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
     (* Support for Operator in ValueZip is OPTIONAL *)
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
@@ -2115,7 +2115,7 @@ The Filter Language EBNF Grammar
 
     ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-    ExpressionPhrase = [ NOT ], ( Comparison | LengthComparison | OpeningBrace, Expression, ClosingBrace ) ;
+    ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace ) ;
 
     Comparison = ConstantFirstComparison
                | PropertyFirstComparison ;
@@ -2147,9 +2147,9 @@ The Filter Language EBNF Grammar
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
-    LengthComparison = LENGTH, Property, Operator, Value ;
+    PredicateComparison = LENGTH, Property, Operator, Value ;
 
-    PropertyZipAddon = Colon, Property, {Colon, Property} ;
+    PropertyZipAddon = Colon, Property, { Colon, Property } ;
 
     (* Property *)
 
