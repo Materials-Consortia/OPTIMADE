@@ -630,7 +630,7 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
   If it does, it again MUST conform to the JSON API 1.0 specification.
 
   If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value, the key :field:`sortable` with value :field-val:`true` or :field-val:`false`.
-  The set of :field:`<fieldname>` s, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
+  The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
   The field :field:`sortable` is in addition to each property description (and optional unit).
   An example is shown in section `Entry Listing Info Endpoints`_.
 
