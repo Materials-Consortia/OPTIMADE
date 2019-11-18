@@ -1671,7 +1671,7 @@ cartesian\_site\_positions
 - **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: SHOULD NOT be present in the response unless explicitly included.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length N times 3, where N is the number of sites in the structure.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
@@ -1692,7 +1692,7 @@ nsites
 - **Type**: integer  
 - **Requirements/Conventions**:
     
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: SHOULD NOT be present in the response unless explicitly included.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Examples**:
@@ -1712,7 +1712,7 @@ species\_at\_sites
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: SHOULD NOT be present in the response unless explicitly included.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
@@ -1739,7 +1739,7 @@ species
     
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: SHOULD NOT be present in the response unless explicitly included.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - Each list member MUST be a dictionary with the following keys:
 
@@ -1793,7 +1793,7 @@ assemblies
     
 - **Requirements/Conventions**:
 
-  - **Response**: OPTIONAL in the response (SHOULD be absent if there are no partial occupancies).
+  - **Response**: SHOULD NOT be present in the response unless the property is explicitly included and the structure has partial occupancies.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - If present, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
