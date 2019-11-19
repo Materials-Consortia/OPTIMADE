@@ -2130,6 +2130,8 @@ The Filter Language EBNF Grammar
 
     ConstantFirstComparison = Constant, ValueOpRhs ;
 
+    PredicateComparison = LengthComparison ;
+
     ValueOpRhs = Operator, Value ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
@@ -2147,7 +2149,7 @@ The Filter Language EBNF Grammar
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
-    PredicateComparison = LENGTH, Property, Operator, Value ;
+    LengthComparison = LENGTH, Property, Operator, Value ;
 
     PropertyZipAddon = Colon, Property, { Colon, Property } ;
 
