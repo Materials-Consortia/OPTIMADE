@@ -4,32 +4,33 @@ Filter(9999)
     ExpressionClause(9999)
       ExpressionPhrase(9999)
         PredicateComparison(9999)
-          LENGTH(9999)
-            TOKEN_53(9999): "LENGTH", line: 1, col: 1
-            Spaces(9999)
-              Space(9999)
-                TOKEN_1(9999): " ", line: 1, col: 7
-          Property(9999)
-            Identifier(9999)
-              LowercaseLetter(9999)
-                TOKEN_84(9999): "e", line: 1, col: 8
-              LowercaseLetter(9999)
-                TOKEN_91(9999): "l", line: 1, col: 9
-              LowercaseLetter(9999)
-                TOKEN_84(9999): "e", line: 1, col: 10
-              LowercaseLetter(9999)
-                TOKEN_92(9999): "m", line: 1, col: 11
-              LowercaseLetter(9999)
-                TOKEN_84(9999): "e", line: 1, col: 12
-              LowercaseLetter(9999)
-                TOKEN_93(9999): "n", line: 1, col: 13
-              LowercaseLetter(9999)
-                TOKEN_99(9999): "t", line: 1, col: 14
-              LowercaseLetter(9999)
-                TOKEN_98(9999): "s", line: 1, col: 15
+          LengthComparison(9999)
+            LENGTH(9999)
+              TOKEN_53(9999): "LENGTH", line: 1, col: 1
               Spaces(9999)
                 Space(9999)
-                  TOKEN_1(9999): " ", line: 1, col: 16
+                  TOKEN_1(9999): " ", line: 1, col: 7
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_84(9999): "e", line: 1, col: 8
+                LowercaseLetter(9999)
+                  TOKEN_91(9999): "l", line: 1, col: 9
+                LowercaseLetter(9999)
+                  TOKEN_84(9999): "e", line: 1, col: 10
+                LowercaseLetter(9999)
+                  TOKEN_92(9999): "m", line: 1, col: 11
+                LowercaseLetter(9999)
+                  TOKEN_84(9999): "e", line: 1, col: 12
+                LowercaseLetter(9999)
+                  TOKEN_93(9999): "n", line: 1, col: 13
+                LowercaseLetter(9999)
+                  TOKEN_99(9999): "t", line: 1, col: 14
+                LowercaseLetter(9999)
+                  TOKEN_98(9999): "s", line: 1, col: 15
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 16
 Error: in tests/cases/Filter_029.inp: line 1:
     unexpected token "IS", expected one of "<", ">", "!", or "="
 
