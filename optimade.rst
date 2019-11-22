@@ -1931,7 +1931,7 @@ structure\_features
   - **List of strings used to indicate special structure features**:
 
     - :val:`disorder`: This flag MUST be present if any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element.
-    - :val:`unknown_positions`: This flag MUST be present if at least one component of the :property:`cartesian_site_positions` list of lists has value :val:`null`.
+    - :val:`unknown_positions`: This flag MUST be present if at least one component of the :property:`cartesian_site_positions` and :property:`fractional_site_positions` lists of lists has value :val:`null`.
     - :val:`assemblies`: This flag MUST be present if the property `assemblies`_ is present.
 
 -  **Examples**: A structure having unknown positions and using assemblies: :val:`["assemblies", "unknown_positions"]`
