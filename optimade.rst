@@ -1710,7 +1710,7 @@ fractional\_site\_positions
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
+- **Description**: An integer specifying the length of :property:`cartesian_site_positions` and  :property:`fractional_site_positions` properties.
 - **Type**: integer  
 - **Requirements/Conventions**:
     
