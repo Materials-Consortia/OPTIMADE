@@ -1653,7 +1653,7 @@ lattice\_vectors
 ~~~~~~~~~~~~~~~~
 
 - **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
-- **Type**: list of list of floats.
+- **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
 
   - **Response**: REQUIRED in the response unless explicitly excluded, except when property `dimension_types`_ is equal to :val:`[0, 0, 0]` and `fractional_site_positions`_ are not provided (in this case it is OPTIONAL).
@@ -1662,6 +1662,7 @@ lattice\_vectors
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
   - This property MUST be an array of dimensions 3 times 3 regardless of the elements of property `dimension_types`_. The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+  - If `fractional_site_positions`_ are provided, the vectors in non-periodic directions MUST NOT be expressed as unknown values. Otherwise they MAY be expressed as `[null, null, null]`.
     
 - **Examples**:
     
