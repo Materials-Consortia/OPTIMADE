@@ -1688,6 +1688,25 @@ cartesian\_site\_positions
   
   - :val:`[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 
+fractional\_site\_positions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Positions of each site expressed as fractions of the `lattice_vectors`_. Description of a site matches the one given in `cartesian_site_positions`_.
+- **Type**: list of list of floats and/or unknown values
+- **Requirements/Conventions**:
+
+  - **Response**: OPTIONAL in the response.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+  - It MUST be a list of length N times 3, where N is the number of sites in the structure.
+  - An entry MAY have multiple sites at the same fractional position (for a relevant use of this, see e.g., the property `assemblies`_).
+  - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
+    Otherwise, it should be a float value.
+    If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
+
+- **Examples**:
+
+  - :val:`[[0,0,0],[0.5,0.5,0.5]]` indicates a structure with two sites, one sitting at the origin and one at the center of the unit cell.
+
 nsites
 ~~~~~~
 
