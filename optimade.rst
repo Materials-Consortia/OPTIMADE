@@ -1420,7 +1420,6 @@ immutable\_id
 - **Type**: string.
 - **Requirements/Conventions**:
   
-  - **Response**: OPTIONAL in the response.
   - **Query**: If present, MUST be a queryable property with support for all mandatory filter operators.
     
 - **Examples**:
@@ -1449,7 +1448,6 @@ database-provider-specific properties
 - **Type**: Decided by the API implementation.
 - **Requirements/Conventions**:
   
-  - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of filter operators MAY be supported.
   - These MUST be prefixed by a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
@@ -1594,7 +1592,6 @@ chemical\_formula\_hill
 - **Type**: string
 - **Requirements/Conventions**:
   
-  - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
   - The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
@@ -1982,7 +1979,6 @@ Database-provider-specific entry types MUST have all properties described above 
 
 - **Requirements/Conventions for properties in database-provider-specific entry types**:
   
-  - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of filter operators MAY be supported.
 
@@ -2067,7 +2063,6 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
     - **Requirements/Conventions for database-provider-specific properties of calculations entries**:
       
-      - **Response**: OPTIONAL in the response.
       - **Query**: Support for queries on these properties are OPTIONAL.
         If supported, only a subset of filter operators MAY be supported.
 
