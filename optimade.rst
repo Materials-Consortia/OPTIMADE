@@ -1387,7 +1387,7 @@ id
 - **Type**: string.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - See section `Definition of Terms`_.
     
@@ -1406,7 +1406,7 @@ type
 - **Type**: string.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, only a subset of string comparison operators MAY be supported.
     
@@ -1434,7 +1434,7 @@ last\_modified
 - **Type**: timestamp.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Example**:
@@ -1472,7 +1472,7 @@ elements
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - The strings are the chemical symbols, written as uppercase letter plus optional lowercase letters.
   - The order MUST be alphabetical.
@@ -1493,7 +1493,7 @@ nelements
 - **Type**: integer
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Example**: :val:`3`
@@ -1510,7 +1510,7 @@ elements\_ratios
 - **Type**: list of floats
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - Composed by the proportions of elements in the structure as a list of floating point numbers.
   - The sum of the numbers MUST be 1.0 (within floating point accuracy)
@@ -1532,7 +1532,7 @@ chemical\_formula\_descriptive
 - **Type**: string
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - The chemical formula is given as a string consisting of properly capitalized element symbols followed by integers or decimal numbers, balanced parentheses, square, and curly brackets ``(``,\ ``)``, ``[``,\ ``]``, ``{``, ``}``, commas, the ``+``, ``-``, ``:`` and ``=`` symbols.
     The parentheses are allowed to be followed by a number.
@@ -1563,8 +1563,7 @@ chemical\_formula\_reduced
 - **Type**: string
 - **Requirements/Conventions**:
    
-  - **Response**: REQUIRED in the response unless explicitly excluded.
-    
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property.
     However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
     Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_proportions` properties.
@@ -1618,7 +1617,7 @@ chemical\_formula\_anonymous
 - **Type**: string
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
     
 - **Examples**:
@@ -1639,7 +1638,7 @@ dimension\_types
 - **Type**: list of integers.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property. Support for equality comparison is REQUIRED, support for other comparison operators are OPTIONAL.    
   - MUST be a list of length 3.
   - Each integer element MUST assume only the value 0 or 1.
@@ -1658,7 +1657,7 @@ lattice\_vectors
 - **Type**: list of list of floats.
 - **Requirements/Conventions**:
 
-  - **Response**: REQUIRED in the response unless explicitly excluded, except when property `dimension_types`_ is equal to :val:`[0, 0, 0]` (in this case it is OPTIONAL).
+  - **Response**: REQUIRED in the response, except when property `dimension_types`_ is equal to :val:`[0, 0, 0]` (in this case it is OPTIONAL).
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
@@ -1676,7 +1675,7 @@ cartesian\_site\_positions
 - **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length N times 3, where N is the number of sites in the structure.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
@@ -1697,7 +1696,7 @@ nsites
 - **Type**: integer  
 - **Requirements/Conventions**:
     
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Examples**:
@@ -1717,7 +1716,7 @@ species\_at\_sites
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
@@ -1744,7 +1743,7 @@ species
     
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response unless explicitly excluded.
+  - **Response**: REQUIRED in the response.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - Each list member MUST be a dictionary with the following keys:
 
