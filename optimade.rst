@@ -1690,10 +1690,6 @@ nsites
 
 - **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
 - **Type**: integer  
-- **Requirements/Conventions**:
-    
-  - **Query**: MUST be a queryable property with support for all mandatory filter operators.
-    
 - **Examples**:
   
   - :val:`42`
