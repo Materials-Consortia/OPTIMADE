@@ -1450,8 +1450,6 @@ database-provider-specific properties
 - **Type**: Decided by the API implementation.
 - **Requirements/Conventions**:
   
-  - **Query**: Support for queries on these properties are OPTIONAL.
-    If supported, only a subset of filter operators MAY be supported.
   - These MUST be prefixed by a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
@@ -1593,7 +1591,6 @@ chemical\_formula\_hill
 - **Type**: string
 - **Requirements/Conventions**:
   
-  - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
   - The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
@@ -1660,7 +1657,6 @@ lattice\_vectors
 - **Requirements/Conventions**:
 
   - **Response**: REQUIRED in the response.
-  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
@@ -1677,7 +1673,6 @@ cartesian\_site\_positions
 - **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
   
-  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length N times 3, where N is the number of sites in the structure.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
@@ -1716,7 +1711,6 @@ species\_at\_sites
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
-  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
@@ -1742,7 +1736,6 @@ species
     
 - **Requirements/Conventions**:
   
-  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - Each list member MUST be a dictionary with the following keys:
 
     - **name**: REQUIRED; gives the name of the species; the **name** value MUST be unique in the :property:`species` list;
