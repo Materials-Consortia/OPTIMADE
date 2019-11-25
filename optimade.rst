@@ -1696,7 +1696,7 @@ nsites
 - **Requirements/Conventions**:
     
   - **Response**: REQUIRED in the response unless explicitly excluded.
-  - **Query**: SHOULD be a queryable property with support for all mandatory filter operators.
+  - **Query**: Support for queries on this property is OPTIONAL.
     
 - **Examples**:
   
