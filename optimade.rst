@@ -734,6 +734,8 @@ Examples:
 - :query-url:`http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823`
 - :query-url:`http://example.com/optimade/v0.9/calculations/232132`
 
+The requirements for property inclusion are the same as defined in section `Entry Listing Endpoints`_.
+
 Single Entry URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
