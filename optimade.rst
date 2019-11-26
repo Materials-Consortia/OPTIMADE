@@ -567,15 +567,17 @@ When an implementation receives a request with a query filter that refers to an 
 
 * If the property name has no database-specific prefix, or the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name. 
 
-  * If the property name has a database-specific prefix that does not belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
-  Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
-  However, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with similar information.
+* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
+
+  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
+
+  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
 
 The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
 
-For example, the following query can be sent to API implementations exmpl1 and exmpl2 without generating any errors:
+For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
-:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+   :filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
 API Endpoints
 =============
