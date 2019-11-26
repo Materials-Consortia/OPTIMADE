@@ -563,19 +563,19 @@ In the default response format, relationships are encoded as `JSON API Relations
 Handling unknown property names
 ===============================
 
-If a property name is not recognized by the queried endpoint, an error diagnosis would be appropriate. However, we also want to support the formulation of a single query suitable for multiple databases, even when querying database-specific properties.
+When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
 
-For example, an OPTiMaDe client might compose the following query:
+* If the property name has no database-specific prefix, or the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name. 
 
-`filter=_exmpl_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+  * If the property name has a database-specific prefix that does not belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
+  Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
+  However, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with similar information.
 
-and then send it query to OPTiMaDe endpoints backed by the engines `Exmpl` and `Exmpl2`.
+The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
 
-For these queries to succeed, the backend MUST implement the following behavior:
+For example, the following query can be sent to API implementations exmpl1 and exmpl2 without generating any errors:
 
-* if an API implementation receives a query filter with universal OPTiMaDe properties (i.e. defined without a database prefix, and deemed universal for all databases), or a property with the database's own prefix (e.g. `_exmpl_` for the `Exmpl` engine), then the API implementation MUST check if the provided property names are known, and MUST return an appropriate error code if the property names are not known to the API implementation.
-
-* if the API implementation received a query filter with a property from an unknown database (e.g. `_exmpl2_` for the `Exmpl` engine), the API implementation MUST behave as if that property is unknown, i.e. is if it has the value null. If the database prefix of the unknown property is similar to that of a known database, the response MAY include a corresponding warning.
+:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
 API Endpoints
 =============
