@@ -1,0 +1,8 @@
+# Makelocal-spell
+
+all: spell
+
+spell: 
+	aspell -x -p ./.words.lst -l en_US -c optimade.rst
+
+.PHONY: all spell
