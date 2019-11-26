@@ -1662,7 +1662,7 @@ lattice\_vectors
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
   - This property MUST be an array of dimensions 3 times 3 regardless of the elements of property `dimension_types`_. The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - If `fractional_site_positions`_ are provided, the vectors in non-periodic directions MUST NOT be expressed as unknown values. Otherwise they MAY be expressed as `[null, null, null]`.
+  - :val:`null` values are allowed in the output. A vector of :val:`[null, null, null]` MAY be used for non-periodic directions where a numerical vector would not be meaningful. However, if the implementation also supports the `fractional_site_positions`_ property, the lattice vectors are relevant also for the non-periodic directions, and thus no all-`null` vectors are expected in the output. 
     
 - **Examples**:
     
