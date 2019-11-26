@@ -1703,7 +1703,7 @@ fractional\_site\_positions
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
     Otherwise, it should be a float value.
     If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
-  - The order of the list MUST match the order of `cartesian_site_positions`_.
+  - The order of the list MUST match the order of `cartesian_site_positions`_, i.e., the list refers to the same positions as `cartesian_site_positions` *in the exact same order*, only expressed in fractional coordinates instead of cartesian.
 
 - **Examples**:
 
