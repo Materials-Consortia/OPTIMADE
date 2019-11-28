@@ -156,7 +156,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Queryable property**
     An entry property that can be referred to in the filtering of results.
     See section `API Filtering Format Specification`_ for more information on formulating filters on properties.
-    The definitions of specific properties in section `Entry List`_ states which ones MUST be queryable and which are RECOMMENDED.
+    The definitions of specific properties in section `Entry List`_ states which ones MUST be queryable, the rest being OPTIONAL.
 
 **ID**
     The ID entry property is a unique string referencing a specific entry in the database.
