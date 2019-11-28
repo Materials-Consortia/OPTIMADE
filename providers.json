@@ -60,7 +60,7 @@
       "attributes": {
         "name": "Materials Cloud",
         "description": "Materials Cloud: A platform for Open Science built for seamless sharing of resources in computational materials science (http://www.materialscloud.org)",
-        "base_url": null
+        "base_url": "https://www.materialscloud.org/optimade"
       }
     },
     {
