@@ -37,7 +37,7 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 21
-              StringProperty(9999)
+              Value(9999)
                 Property(9999)
                   Identifier(9999)
                     LowercaseLetter(9999)

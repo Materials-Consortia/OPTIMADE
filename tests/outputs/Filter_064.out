@@ -67,7 +67,7 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 35
-              StringProperty(9999)
+              Value(9999)
                 String(9999)
                   TOKEN_3(9999): """, line: 1, col: 36
                   EscapedChar(9999)
@@ -136,7 +136,7 @@ Filter(9999)
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 68
-                StringProperty(9999)
+                Value(9999)
                   String(9999)
                     TOKEN_3(9999): """, line: 1, col: 69
                     EscapedChar(9999)
@@ -205,7 +205,7 @@ Filter(9999)
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 99
-                  StringProperty(9999)
+                  Value(9999)
                     String(9999)
                       TOKEN_3(9999): """, line: 1, col: 100
                       EscapedChar(9999)

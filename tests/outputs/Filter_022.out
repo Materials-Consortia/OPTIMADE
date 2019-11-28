@@ -46,7 +46,7 @@ Filter(9999)
                     TOKEN_1(9999): " ", line: 1, col: 18
 Error: in tests/cases/Filter_022.inp: line 1:
     unexpected token "UNKNOWN", expected one of "<", ">", "!", "=",
-    "IS", "CONTAINS", "STARTS", "ENDS", "HAS", or ":"
+    "IS", "CONTAINS", "STARTS", "ENDS", "HAS", ":", or "LENGTH"
 
 prototype_formula UNKNOWN
                   ^

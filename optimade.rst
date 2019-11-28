@@ -1238,7 +1238,7 @@ The following constructs MUST be supported:
 - :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
 - :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
-- :filter:`LENGTH list <operator> value`: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
+- :filter:`list LENGTH <operator> value`: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
 
 The following construct MAY be supported:
 
@@ -1481,7 +1481,7 @@ elements
     
 - **Query examples**:
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
-  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3`.
+  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH = 3`.
 
 nelements
 ~~~~~~~~~
@@ -1496,7 +1496,7 @@ nelements
 - **Example**: :val:`3`
 - **Querying**:
 
-  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`LENGTH elements`.
+  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`elements LENGTH`.
   -  A filter that matches structures that have exactly 4 elements: :filter:`nelements=4`.
   -  A filter that matches structures that have between 2 and 7 elements: :filter:`nelements>=2 AND nelements<=7`.
 

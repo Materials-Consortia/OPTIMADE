@@ -48,10 +48,14 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 26
-Error: in tests/cases/Filter_019.inp: line 1:
-    unexpected token "4", expected one of """, "a", "b", "c", "d",
-    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
-    "r", "s", "t", "u", "v", "w", "x", "y", "z", or "_"
-
-chemical_formula CONTAINS 42
-                          ^
+              Value(9999)
+                Number(9999)
+                  Digits(9999)
+                    Digit(9999)
+                      TOKEN_20(9999): "4", line: 1, col: 27
+                    Digit(9999)
+                      TOKEN_18(9999): "2", line: 1, col: 28
+                  Spaces(9999)
+                    Space(9999)
+                      nl(9999)
+                        SPECIAL_1(9999): "(...)", line: 1, col: 29
