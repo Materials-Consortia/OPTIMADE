@@ -31,9 +31,9 @@
       "type": "provider",
       "id": "cod",
       "attributes": {
-        "name": "Crystallography open database",
-        "description": "",
-        "base_url": null
+        "name": "Crystallography Open Database",
+        "description": "Open-access collection of crystal structures of organic, inorganic, metal-organics compounds and minerals, excluding biopolymers",
+        "base_url": "https://www.crystallography.net/cod/optimade/"
       }
     },
     {
@@ -121,7 +121,7 @@
       "type": "provider",
       "id": "pcod",
       "attributes": {
-        "name": "predicted crystallography open database",
+        "name": "Predicted Crystallography Open Database",
         "description": "",
         "base_url": null
       }
@@ -130,9 +130,9 @@
       "type": "provider",
       "id": "tcod",
       "attributes": {
-        "name": "theoretical crystallography open database",
-        "description": "",
-        "base_url": null
+        "name": "Theoretical Crystallography Open Database",
+        "description": "Open-access collection of theoretically calculated or refined crystal structures of organic, inorganic, metal-organic compounds and minerals, excluding biopolymers",
+        "base_url": "https://www.crystallography.net/tcod/optimade/"
       }
     }
   ]
