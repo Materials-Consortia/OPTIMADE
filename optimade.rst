@@ -565,7 +565,7 @@ Handling unknown property names
 
 When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
 
-* If the property name has no database-specific prefix, or the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name. 
+* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
 
 * If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
 
