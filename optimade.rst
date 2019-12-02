@@ -1698,7 +1698,7 @@ fractional\_site\_positions
 
   - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
-  - It MUST be a list of length N times 3, where N is the number of sites in the structure.
+  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three fractional coordinates of a site.
   - An entry MAY have multiple sites at the same fractional position (for a relevant use of this, see e.g., the property `assemblies`_).
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
     Otherwise, it should be a float value.
