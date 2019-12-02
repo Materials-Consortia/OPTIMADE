@@ -1676,7 +1676,7 @@ cartesian\_site\_positions
   
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
-  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three cartesian coordinates of a site.
+  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
     Otherwise, it should be a float value, expressed in angstrom (Å).
