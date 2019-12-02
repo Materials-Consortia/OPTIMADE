@@ -589,7 +589,7 @@ There MAY be multiple entry listing endpoints, depending on how many types of en
 Specific standard entry types are specified in section `Entry list`_.
 The API implementation MAY provide other entry types than the ones standardized in this specification, but such entry types MUST be prefixed by a database-provider-specific prefix.
 
-By default, only those properties MUST be present in entry descriptions that are marked as REQUIRED in section `Entry list`_.
+By default, only those properties that are marked as REQUIRED in section `Entry list`_ MUST be present in the response.
 Query parameter *response_fields* MAY be used to explicitly include or exclude properties.
 
 Entry Listing URL Query Parameters
