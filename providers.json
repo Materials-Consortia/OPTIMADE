@@ -42,7 +42,7 @@
       "attributes": {
         "name": "Example provider",
         "description": "Provider used for examples, not to be assigned to a real database",
-        "base_url": "http://example.com/optimade/index"
+        "base_url": "http://example.com/optimade"
       }
     },
     {
@@ -51,7 +51,7 @@
       "attributes": {
         "name": "The High-Throughput Toolkit",
         "description": "Prefix for implementation-specific identifiers used in the httk implementation at http://httk.org/",
-	"base_url": null
+        "base_url": null
       }
     },
     {
@@ -60,7 +60,7 @@
       "attributes": {
         "name": "Materials Cloud",
         "description": "Materials Cloud: A platform for Open Science built for seamless sharing of resources in computational materials science (http://www.materialscloud.org)",
-        "base_url": null
+        "base_url": "https://www.materialscloud.org/optimade"
       }
     },
     {
@@ -105,7 +105,7 @@
       "attributes": {
         "name": "OPTiMaDe implementations and libraries",
         "description": "Prefix for implementation-specific identifiers used in API implementations and libraries provided at https://github.com/Materials-Consortia",
-	"base_url": null
+        "base_url": null
       }
     },
     {
