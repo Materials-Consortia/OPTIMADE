@@ -645,17 +645,14 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
 
   All related resource objects MUST be returned as part of an array value for the top-level :field:`included` field, see section `JSON Response Schema: Common Fields`_.
 
-  The value of :query-param:`include` MUST be a comma-separated list of relationship paths.
-  A relationship path is a dot-separated list of relationship names.
-  Relationship paths MAY be supported.
+  The value of :query-param:`include` MUST be a comma-separated list of "relationship paths", as defined in the `JSON API <https://jsonapi.org/format/1.0/#fetching-includes>`__.
   If relationship paths are not supported, or a server is unable to identify a relationship path a :http-error:`400 Bad Request` response MUST be made.
 
   The **default value** for :query-param:`include` is :query-val:`references`.
-
   This means :entry:`references` entries MUST always be included under the top-level field :field:`included` as default, since a server assumes if :query-param:`include` is not specified by a client in the request, it is still specified as :query-string:`include=references`.
   Note, if a client explicitly specifies :query-param:`include` and leaves out :query-val:`references`, :entry:`references` resource objects MUST NOT be included under the top-level field :field:`included`, as per the definition of :field:`included`, see section `JSON Response Schema: Common Fields`_.
 
-  Since an empty query parameter value is never allowed (due to the requirements on value types for each query parameter), :entry:`references` can only be omitted on behalf of other related resource object types.
+    **Note**: If a client wishes to explicitly exclude any related resource objects being returned under the top-level field :field:`included`, they can write :query-string:`?include=`.
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
