@@ -286,7 +286,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
-  - **more\_data\_available**: :field-val:`false` if all data for this :query-param:`filter` query has been returned in the response, and :field-val:`true` if not.
+  - **more\_data\_available**: :field-val:`false` if all data resource objects for this :query-param:`filter` query has been returned in the response or it is the last page if pagination is implemented, and :field-val:`true` if not.
   - **provider**: information on the database provider of the implementation.
     It MUST be a dictionary with these fields:
     
