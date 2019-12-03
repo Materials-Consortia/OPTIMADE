@@ -646,7 +646,7 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
   All related resource objects MUST be returned as part of an array value for the top-level :field:`included` field, see section `JSON Response Schema: Common Fields`_.
 
   The value of :query-param:`include` MUST be a comma-separated list of relationship paths.
-  A relationships path is a dot-separated list of relationship names.
+  A relationship path is a dot-separated list of relationship names.
   Relationship paths MAY be supported.
   If relationship paths are not supported, or a server is unable to identify a relationship path a :http-error:`400 Bad Request` response MUST be made.
 
