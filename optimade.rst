@@ -430,7 +430,7 @@ The response MAY also return resources related to the primary data in the field:
 - **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
   Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
   
-  The definition of this field is similar to that found ind the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
+  The definition of this field is similar to that found in the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
   Specifically, if the query parameter :query-param:`include` is included in the request, :field:`included` MUST NOT include unrequested resource objects.
   For further information on the parameter :query-param:`include`, see section `Entry Listing URL Query Parameters`_.
 
