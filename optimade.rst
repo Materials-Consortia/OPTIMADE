@@ -1354,8 +1354,7 @@ In the syntactic constructs that can accommodate values of more than one type, t
 Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
 As the filter language syntax does not define a lexical token for timestamps, values of this type are expressed using string tokens in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
-In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to
-RFC 3339 Internet Date/Time Format.
+In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
 Optional filter features
