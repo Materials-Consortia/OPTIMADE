@@ -1786,7 +1786,6 @@ assemblies
     
 - **Requirements/Conventions**:
 
-  - **Response**: OPTIONAL in the response (SHOULD be absent if there are no partial occupancies).
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - If present, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
@@ -1893,7 +1892,7 @@ structure\_features
 - **Type**: list of strings
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response (SHOULD be absent if there are no partial occupancies).
+  - **Response**: REQUIRED in the response.
   - **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries. Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.
   - MUST be an empty list if no special features are used.
   - MUST be sorted alphabetically.
