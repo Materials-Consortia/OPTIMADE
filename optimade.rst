@@ -652,7 +652,7 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
   This means :entry:`references` entries MUST always be included under the top-level field :field:`included` as default, since a server assumes if :query-param:`include` is not specified by a client in the request, it is still specified as :query-string:`include=references`.
   Note, if a client explicitly specifies :query-param:`include` and leaves out :query-val:`references`, :entry:`references` resource objects MUST NOT be included under the top-level field :field:`included`, as per the definition of :field:`included`, see section `JSON Response Schema: Common Fields`_.
 
-    **Note**: If a client wishes to explicitly exclude any related resource objects being returned under the top-level field :field:`included`, they can write :query-string:`?include=`.
+    **Note**: A query with the parameter :query-param:`include` set to the empty string means no related resource objects are to be returned under the top-level field :field:`included`.
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
