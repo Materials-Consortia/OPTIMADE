@@ -429,6 +429,12 @@ The response MAY also return resources related to the primary data in the field:
 
 - **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
   Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
+  
+  The definition of this field may be found in the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
+  Specifically, if the query parameter :query-param:`include` is included in the request, :field:`included` MUST NOT include unrequested resource objects.
+  For further information on the parameter :query-param:`include`, see section `Entry Listing URL Query Parameters`_.
+
+  This value MUST be either an empty array or an array of related resource objects.
 
 If there were errors in producing the response all other fields MAY be present, but the top-level :field:`data` field MUST be skipped, and the following field MUST be present:
 
@@ -635,6 +641,19 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
   The field :field:`sortable` is in addition to each property description (and optional unit).
   An example is shown in section `Entry Listing Info Endpoints`_.
 
+- **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
+
+  All related resource objects MUST be returned as part of an array value for the top-level :field:`included` field, see section `JSON Response Schema: Common Fields`_.
+
+  The value of :query-param:`include` MUST be a comma-separated list of "relationship paths", as defined in the `JSON API <https://jsonapi.org/format/1.0/#fetching-includes>`__.
+  If relationship paths are not supported, or a server is unable to identify a relationship path a :http-error:`400 Bad Request` response MUST be made.
+
+  The **default value** for :query-param:`include` is :query-val:`references`.
+  This means :entry:`references` entries MUST always be included under the top-level field :field:`included` as default, since a server assumes if :query-param:`include` is not specified by a client in the request, it is still specified as :query-string:`include=references`.
+  Note, if a client explicitly specifies :query-param:`include` and leaves out :query-val:`references`, :entry:`references` resource objects MUST NOT be included under the top-level field :field:`included`, as per the definition of :field:`included`, see section `JSON Response Schema: Common Fields`_.
+
+    **Note**: A query with the parameter :query-param:`include` set to the empty string means no related resource objects are to be returned under the top-level field :field:`included`.
+
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
 - **response\_format**: the output format requested (see section `Response Format`_).
@@ -659,8 +678,6 @@ Examples:
 - :query-url:`http://example.com/optimade/v0.9/structures?_exmpl_warning_verbosity=10`
 - :query-url:`http://example.com/optimade/v0.9/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
 
-..
-  
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
 
