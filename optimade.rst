@@ -285,8 +285,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
   - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
-  - **data\_returned**: an integer containing the number of data objects returned for the query.
-  - **more\_data\_available**: :field-val:`false` if all data for this query has been returned, and :field-val:`true` if not.
+  - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
+  - **more\_data\_available**: :field-val:`false` if all data resource objects for this :query-param:`filter` query have been returned in the response or if it is the last page of a paginated response, and :field-val:`true` otherwise. 
   - **provider**: information on the database provider of the implementation.
     It MUST be a dictionary with these fields:
     
@@ -310,7 +310,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
   :field:`meta` MAY also include these fields:
 
-  - **data\_available**: an integer containing the total number of data objects available in the database.
+  - **data\_available**: an integer containing the total number of data resource objects available in the database for the endpoint.
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
@@ -1673,7 +1673,7 @@ cartesian\_site\_positions
 - **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
   
-  - It MUST be a list of length N times 3, where N is the number of sites in the structure.
+  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
     Otherwise, it should be a float value, expressed in angstrom (Å).
