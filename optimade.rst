@@ -508,8 +508,7 @@ The text in this section describes how the API handles properties with the value
 The use of :val:`null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `Entry List`_.
 For these properties, :val:`null` MAY carry a special meaning.
 
-REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using :query-param:`response_fields`, see section `Entry Listing URL Query Parameters`_).
-
+REQUIRED properties with an unknown value MUST be returned in the response.
 OPTIONAL properties with an unknown value MAY be returned in the response.
 If an OPTIONAL property is *not* returned in a *full* response (i.e., not using :query-param:`response_fields`), the client MUST assume the property has an unknown value, i.e., :val:`null`.
 
@@ -647,8 +646,9 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   The email SHOULD be that of a person and not an automatic system.
   Example: http://example.com/optimade/v0.9/structures?email_address=user@example.com
 - **response\_fields**: a comma-delimited set of fields to be provided in the output.
-  If provided, only these fields MUST be returned and no others.
-  Example: http://example.com/optimade/v0.9/structures?response_fields=id,url
+  If provided, these fields MUST be returned along the REQUIRED fields.
+  No other OPTIONAL fields MUST be returned in such case.
+  Example: http://example.com/optimade/v0.9/structures?response_fields=url,nsites
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
