@@ -1411,8 +1411,6 @@ type
 - **Requirements/Conventions**:
   
   - **Response**: REQUIRED in the response.
-  - **Query**: Support for queries on this property is OPTIONAL.
-    If supported, only a subset of string comparison operators MAY be supported.
     
 - **Requirements/Conventions**: MUST be an existing entry type.
 - **Example**: :val:`"structures"`
@@ -1424,7 +1422,7 @@ immutable\_id
 - **Type**: string.
 - **Requirements/Conventions**:
   
-  - **Query**: If present, MUST be a queryable property with support for all mandatory filter operators.
+  - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Examples**:
   
@@ -1786,8 +1784,6 @@ assemblies
     
 - **Requirements/Conventions**:
 
-  - **Query**: Support for queries on this property is OPTIONAL.
-    If supported, filters MAY support only a subset of comparison operators.
   - If present, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
   - Client implementations MUST check its presence (as its presence changes the interpretation of the structure).
   - If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have the following two keys:
@@ -1931,8 +1927,6 @@ The following properties are used to provide the bibliographic details:
 - **Requirements/Conventions**:
   
   - **Response**: Every references entry MUST contain at least one of the properties.
-  - **Query**: Support for queries on any of these properties is OPTIONAL.
-    If supported, filters MAY support only a subset of comparison operators.
 
 Example:
 
@@ -1963,11 +1957,6 @@ Database-Provider-Specific Entry Types
 
 Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix as given in appendix `Database-Provider-Specific Namespace Prefixes`_.
 Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
-
-- **Requirements/Conventions for properties in database-provider-specific entry types**:
-  
-  - **Query**: Support for queries on these properties are OPTIONAL.
-    If supported, only a subset of filter operators MAY be supported.
 
 Relationships Used by Multiple Entry Types
 ------------------------------------------
@@ -2047,11 +2036,6 @@ Relationships with calculations MAY be used to indicate provenance where a struc
     **Note**: We intend to implement in a future version of this API a standardized mechanism to differentiate these two cases, thus allowing databases a common way of exposing the full provenance tree with inputs and outputs between structures and calculations.
 
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
-
-    - **Requirements/Conventions for database-provider-specific properties of calculations entries**:
-      
-      - **Query**: Support for queries on these properties are OPTIONAL.
-        If supported, only a subset of filter operators MAY be supported.
 
 Appendices
 ==========
