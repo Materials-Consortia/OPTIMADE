@@ -1083,6 +1083,7 @@ The filter expression allows desired properties to be compared against search va
 
 Only those properties marked as REQUIRED in section `Entry list`_ MUST be queryable.
 Query support for other properties is OPTIONAL.
+If supported, only a subset of filter operators MAY be supported for optionally queryable properties.
 
 When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
 In particular, this means the client MUST escape special characters in string values as described below for `String values`_ before the URL encoding, and the API implementation MUST first URL-decode the :query-param:`filter` parameter before reversing the escaping of string tokens.
