@@ -648,7 +648,7 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 - **response\_fields**: a comma-delimited set of fields to be provided in the output.
   If provided, these fields MUST be returned along with the REQUIRED fields.
   No other OPTIONAL fields MUST be returned in such case.
-  Example: http://example.com/optimade/v0.9/structures?response_fields=url,nsites
+  Example: http://example.com/optimade/v0.9/structures?response_fields=last_modified,nsites
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
