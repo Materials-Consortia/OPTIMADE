@@ -646,7 +646,7 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   The email SHOULD be that of a person and not an automatic system.
   Example: http://example.com/optimade/v0.9/structures?email_address=user@example.com
 - **response\_fields**: a comma-delimited set of fields to be provided in the output.
-  If provided, these fields MUST be returned along the REQUIRED fields.
+  If provided, these fields MUST be returned along with the REQUIRED fields.
   No other OPTIONAL fields MUST be returned in such case.
   Example: http://example.com/optimade/v0.9/structures?response_fields=url,nsites
 
