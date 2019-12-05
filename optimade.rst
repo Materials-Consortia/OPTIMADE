@@ -552,7 +552,7 @@ The :field:`index_base_url` field MUST be included in every response in the :fie
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrived as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
     This list is also machine-readable, optimizing the automatic discoverability.
 
 Relationships
