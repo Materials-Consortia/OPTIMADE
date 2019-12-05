@@ -125,7 +125,8 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Database-provider-specific prefix**
     Every database provider is designated a unique prefix.
     The prefix is used to separate the namespaces used by provider-specific extensions.
-    These are defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    The list of presently defined prefixes is maintained externally from this specification.
+    For more information, see appendix `Database-Provider-Specific Namespace Prefixes`_.
     
 **API implementation**
     A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
@@ -260,7 +261,7 @@ Each endpoint MAY support additional formats, and SHOULD declare these formats u
 Clients can request these formats using the :query-param:`response_format` URL query parameter.
 Specifying a :query-param:`response_format` different from :query-val:`json` (e.g. :query-string:`response_format=xml`) allows the API to break conformance not only with the JSON response format specification, but also, e.g., in terms of how content negotiation is implemented.
 
-Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
 JSON Response Schema: Common Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -292,7 +293,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     
     - **name**: a short name for the database provider.
     - **description**: a longer description of the database provider.
-    - **prefix**: database-provider-specific prefix as found in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    - **prefix**: database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
     :field:`provider` MAY include these fields:
 
@@ -301,7 +302,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
 	
-    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in appendix `Database-Provider-Specific Namespace Prefixes`_, either directly as a string, or as a link object which can contain the following fields:
+    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in the list of providers (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+      It is specified either directly as a string, or as a link object, which can contain the following fields:
       
       - **href**: a string containing the base URL for the database provider's index meta-database.
       - **meta**: a meta object containing non-standard meta-information about this link.
@@ -345,7 +347,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
     General OPTiMaDe warning codes are specified in section `Warnings`_.
 
-  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
   - Example for a request made to :query-url:`http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2`:
 
@@ -532,7 +534,7 @@ Non-critical exceptional situations occurring in the implementation SHOULD be re
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
 Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
-For implementation-specific warnings, they MUST be start with ``_`` and the database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
 Index Meta-Database
 -------------------
@@ -550,7 +552,7 @@ The :field:`index_base_url` field MUST be included in every response in the :fie
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium can be found in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
     This list is also machine-readable, optimizing the automatic discoverability.
 
 Relationships
@@ -1066,7 +1068,7 @@ Provider Objects
 The :object:`provider` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
-A known list of providers can be found in appendix `Database-Provider-Specific Namespace Prefixes`_.
+A list of known providers can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
     **Note**: If a provider wishes to be added to ``provider.json``,
     please suggest a change to the OPTiMaDe main repository (make a pull
@@ -1126,7 +1128,7 @@ The following tokens are used in the filter query component:
   - :property-fail:`"foo bar"` (contains space; contains quotes)
   - :property-fail:`BadLuck` (contains upper-case letters)
   
-  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
   Examples:
 
@@ -1464,7 +1466,7 @@ database-provider-specific properties
   - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of filter operators MAY be supported.
-  - These MUST be prefixed by a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+  - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
   
@@ -1989,7 +1991,7 @@ Example:
 Database-Provider-Specific Entry Types
 --------------------------------------
 
-Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix as given in appendix `Database-Provider-Specific Namespace Prefixes`_.
+Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
 
 - **Requirements/Conventions for properties in database-provider-specific entry types**:
@@ -2089,22 +2091,17 @@ Appendices
 Database-Provider-Specific Namespace Prefixes
 ---------------------------------------------
 
-This standard refers to database-provider-specific prefixes. These are assigned and included in this standard in the file ``providers.json``.
+This standard refers to database-provider-specific prefixes and database providers.
 
-API implementations SHOULD NOT make up and use new prefixes not included in this standard, but SHOULD rather work to get such prefixes included in a future revision of this API specification.
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL [https://www.optimade.org/providers/](https://www.optimade.org/providers/).
+Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
+
+API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
 **Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
-
-The database-provider-specific prefixes currently assigned are listed in the ``providers.json`` file provided in the main repository.
-This file serves as a machine-readable list of OPTiMaDe providers.
-
-The content of the ``providers.json`` file complies with the default JSON format specification for API responses.
-In particular, the resource objects under the top-level :field:`data` field are defined to be valid resource objects for the Links endpoint, see section `Provider Objects`_.
-
-    **Note**: Any provider wishing to be added to ``providers.json`` is kindly asked to suggest a change to this repository (using a pull request).
 
 The Filter Language EBNF Grammar
 --------------------------------
