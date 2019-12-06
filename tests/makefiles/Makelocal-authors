@@ -1,0 +1,8 @@
+# Makelocal-authors
+
+test_authors: tests/generated/AUTHORS.sorted
+	diff -u AUTHORS tests/generated/AUTHORS.sorted || true
+
+tests/generated/AUTHORS.sorted: AUTHORS
+	awk '{print} /The OPTiMaDe development team in alphabetical order:/ {exit}' AUTHORS > tests/generated/AUTHORS.sorted
+	awk 'NAMES {print} /The OPTiMaDe development team in alphabetical order:/ {NAMES=1}' AUTHORS | sed 's/Di /Di_/' | awk '{printf("%s:%s\n",$$NF,$$0)}' | sort | awk -F: '{print $$2}' | sed 's/Di_/Di /' >> tests/generated/AUTHORS.sorted

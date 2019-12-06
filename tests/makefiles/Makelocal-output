@@ -1,0 +1,15 @@
+# Makelocal-spell
+
+pdf: optimade.pdf
+
+optimade.pdf: optimade.rst
+	pandoc optimade.rst -o optimade.pdf
+
+html: optimade.html
+
+optimade.html: optimade.rst
+	rst2html --syntax-highlight=none optimade.rst optimade.html
+
+
+.PHONY: pdf
+

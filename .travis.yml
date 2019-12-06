@@ -1,12 +1,13 @@
 sudo: required
 
-dist: trusty
+dist: xenial
 language: perl
 
 addons:
     apt:
         packages:
             - ant
+	    - ant-optional
             - unzip
             - default-jdk
             - subversion
@@ -16,8 +17,4 @@ install: []
 
 script:
     - make --version
-    - make tools
-    - make grammars
-    - make tests
-    - make listdiff
-    - exit $(make listdiff | head | wc -l)
+    - make audit
