@@ -596,8 +596,8 @@ There MAY be multiple entry listing endpoints, depending on how many types of en
 Specific standard entry types are specified in section `Entry list`_.
 The API implementation MAY provide other entry types than the ones standardized in this specification, but such entry types MUST be prefixed by a database-provider-specific prefix.
 
-Only the properties that are marked as REQUIRED in section `Entry list`_ MUST be present in the response.
-The query parameter *response_fields* is used by the client to request OPTIONAL properties to be included in the response, see Section `Entry Listing URL Query Parameters`_.
+Only the properties marked as REQUIRED in section `Entry list`_ MUST be present in the response.
+The query parameter :query-param:`response_fields` is used by the client to request OPTIONAL properties to be included in the response, see Section `Entry Listing URL Query Parameters`_.
 
 Entry Listing URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -667,9 +667,9 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   The email SHOULD be that of a person and not an automatic system.
   Example: http://example.com/optimade/v0.9/structures?email_address=user@example.com
 - **response\_fields**: a comma-delimited set of fields to be provided in the output.
-  If provided, these fields MUST be returned along the REQUIRED fields.
+  If provided, these fields MUST be returned along with the REQUIRED fields.
   No other OPTIONAL fields MUST be returned in such case.
-  Example: http://example.com/optimade/v0.9/structures?response_fields=url,nsites
+  Example: http://example.com/optimade/v0.9/structures?response_fields=last_modified,nsites
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
