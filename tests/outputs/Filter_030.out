@@ -7,5 +7,5 @@ Error: in tests/cases/Filter_030.inp: line 1:
     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
     "_", or "("
 
-LENGTH elements = 42
+LENGTH elements 42
 ^

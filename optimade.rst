@@ -1238,7 +1238,7 @@ The following constructs MUST be supported:
 - :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
 - :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
-- :filter:`list LENGTH <operator> value`: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
+- :filter:`list LENGTH value`: applies the numeric comparison for the number of items in the :filter-fragment:`list` property.
 
 The following construct MAY be supported:
 
@@ -1257,9 +1257,9 @@ This type of filter is useful for, e.g., filtering on elements and correlated el
 - :filter-fragment:`list1:list2:... HAS ANY val1:val2:...`
 - :filter-fragment:`list1:list2:... HAS ONLY val1:val2:...`
 
-Finally, all the above constructs that allow a value or lists of values on the right-hand side MAY allow :filter-fragment:`<operator> value` in each place a value can appear.
+Finally, all the above constructs that allow a value or lists of values on the right-hand side :filter-fragment:`MAY` and :filter-fragment:`LENGTH` allow :filter-fragment:`<operator> value` in each place a value can appear.
 In that case, a match requires that the :filter-fragment:`<operator>` comparison is fulfilled instead of equality.
-Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY` and :filter-fragment:`HAS ONLY` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
+Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY`, :filter-fragment:`HAS ONLY` and :filter-fragment:`LENGTH` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
 
 For example:
 
@@ -1481,7 +1481,7 @@ elements
     
 - **Query examples**:
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
-  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH = 3`.
+  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
 
 nelements
 ~~~~~~~~~
@@ -2126,6 +2126,8 @@ The Filter Language EBNF Grammar
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
+    ConstantFirstComparison = Constant, ValueOpRhs ;
+
     PropertyFirstComparison = Property, ( ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
@@ -2133,8 +2135,6 @@ The Filter Language EBNF Grammar
                                         | SetZipOpRhs
                                         | LengthOpRhs ) ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
-
-    ConstantFirstComparison = Constant, ValueOpRhs ;
 
     ValueOpRhs = Operator, Value ;
 
@@ -2150,9 +2150,10 @@ The Filter Language EBNF Grammar
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
-    LengthOpRhs = LENGTH, [ Operator ], Value ;
-
     PropertyZipAddon = Colon, Property, { Colon, Property } ;
+
+    LengthOpRhs = LENGTH, [ Operator ], Value ;
+    (* Note: support for [ Operator ] in LengthOpRhs is OPTIONAL *)
 
     (* Property *)
 
