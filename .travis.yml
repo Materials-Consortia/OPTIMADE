@@ -7,7 +7,7 @@ addons:
     apt:
         packages:
             - ant
-	    - ant-optional
+            - ant-optional
             - unzip
             - default-jdk
             - subversion
