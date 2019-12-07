@@ -577,7 +577,7 @@ The rationale for treating properties from other databases as unknown rather tha
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
-   :filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
 API Endpoints
 =============
