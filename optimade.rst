@@ -5,7 +5,7 @@ OPTiMaDe API specification v0.10.1-develop
 .. comment
 
    This document uses RST text roles on (almost) all literals to specify the context to which each literal belongs.
-   This markup enables nicer formatting (e.g., html output can be formatted using css), as well as automated spell checks and testing.
+   This markup enables nicer formatting (e.g., HTML output can be formatted using CSS), as well as automated spell checks and testing.
    Below follows the definitions of the text roles used:
 
      # Filtering
