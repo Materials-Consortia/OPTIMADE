@@ -27,9 +27,9 @@ OPTiMaDe API specification v0.10.1-develop
      # URL queries
 
      endpoint : specification of endpoints and endpoint names.
-     query-param : url query parameter names.
-     query-string : strings that represent segments of url query strings, with query parameters and values.
-     query-url : full urls, or relative starting with a '/' of url queries.
+     query-param : URL query parameter names.
+     query-string : strings that represent segments of URL query strings, with query parameters and values.
+     query-url : full URLs, or relative starting with a '/' of URL queries.
 
      # HTTP
 
@@ -1416,7 +1416,7 @@ id
 type
 ~~~~
 
-- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the url :endpoint:`<base URL>/<type>/<id>`.
+- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the URL :endpoint:`<base URL>/<type>/<id>`.
 - **Type**: string.
 - **Requirements/Conventions**:
   
