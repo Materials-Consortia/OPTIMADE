@@ -33,8 +33,8 @@ OPTiMaDe API specification v0.10.1-develop
 
      # HTTP
 
-     http-header : an http header name, or header + value.
-     http-error : an http error on form <number> <english text>.
+     http-header : an HTTP header name, or header + value.
+     http-error : an HTTP error on form <number> <english text>.
 
      # Responses
 
