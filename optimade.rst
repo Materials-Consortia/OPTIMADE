@@ -38,7 +38,7 @@ OPTiMaDe API specification v0.10.1-develop
 
      # Responses
 
-     json : examples of json output.
+     json : examples of JSON output.
      field : keys in key-value dictionaries in responses.
      field-val : value examples that fields can be set to.
                  Note that `null` sometimes refer to the OPTiMaDe concept of :val:`null`, and sometimes to the javascript constant :field-val:`null`, and the markup distinguishes these two cases.
