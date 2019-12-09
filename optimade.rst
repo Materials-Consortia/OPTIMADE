@@ -1257,7 +1257,7 @@ This type of filter is useful for, e.g., filtering on elements and correlated el
 - :filter-fragment:`list1:list2:... HAS ANY val1:val2:...`
 - :filter-fragment:`list1:list2:... HAS ONLY val1:val2:...`
 
-Finally, all the above constructs that allow a value or lists of values on the right-hand side :filter-fragment:`MAY` and :filter-fragment:`LENGTH` allow :filter-fragment:`<operator> value` in each place a value can appear.
+Finally, all the above constructs that allow a value or lists of values on the right-hand side MAY allow :filter-fragment:`<operator> value` in each place a value can appear.
 In that case, a match requires that the :filter-fragment:`<operator>` comparison is fulfilled instead of equality.
 Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY`, :filter-fragment:`HAS ONLY` and :filter-fragment:`LENGTH` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
 
