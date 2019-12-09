@@ -568,6 +568,25 @@ In the default response format, relationships are encoded as `JSON API Relations
     For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
     It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
 
+Handling unknown property names
+===============================
+
+When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
+
+* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
+
+* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
+
+  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
+
+  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
+
+The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
+
+For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
+
+:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+
 API Endpoints
 =============
 
