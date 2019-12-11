@@ -5,7 +5,7 @@ OPTiMaDe API specification v0.10.1-develop
 .. comment
 
    This document uses RST text roles on (almost) all literals to specify the context to which each literal belongs.
-   This markup enables nicer formatting (e.g., html output can be formatted using css), as well as automated spell checks and testing.
+   This markup enables nicer formatting (e.g., HTML output can be formatted using CSS), as well as automated spell checks and testing.
    Below follows the definitions of the text roles used:
 
      # Filtering
@@ -27,18 +27,18 @@ OPTiMaDe API specification v0.10.1-develop
      # URL queries
 
      endpoint : specification of endpoints and endpoint names.
-     query-param : url query parameter names.
-     query-string : strings that represent segments of url query strings, with query parameters and values.
-     query-url : full urls, or relative starting with a '/' of url queries.
+     query-param : URL query parameter names.
+     query-string : strings that represent segments of URL query strings, with query parameters and values.
+     query-url : full URLs, or relative starting with a '/' of URL queries.
 
      # HTTP
 
-     http-header : an http header name, or header + value.
-     http-error : an http error on form <number> <english text>.
+     http-header : an HTTP header name, or header + value.
+     http-error : an HTTP error on form <number> <english text>.
 
      # Responses
 
-     json : examples of json output.
+     json : examples of JSON output.
      field : keys in key-value dictionaries in responses.
      field-val : value examples that fields can be set to.
                  Note that `null` sometimes refer to the OPTiMaDe concept of :val:`null`, and sometimes to the javascript constant :field-val:`null`, and the markup distinguishes these two cases.
@@ -1435,7 +1435,7 @@ id
 type
 ~~~~
 
-- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the url :endpoint:`<base URL>/<type>/<id>`.
+- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the URL :endpoint:`<base URL>/<type>/<id>`.
 - **Type**: string.
 - **Requirements/Conventions**:
   
