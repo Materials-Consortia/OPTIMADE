@@ -1276,7 +1276,7 @@ The following constructs MUST be supported:
 - :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
 - :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
-- :filter:`LENGTH list <operator> value`: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
+- :filter:`list LENGTH value`: matches if the number of items in the :filter-fragment:`list` property is equal to :filter-fragment:`value`.
 
 The following construct MAY be supported:
 
@@ -1297,7 +1297,7 @@ This type of filter is useful for, e.g., filtering on elements and correlated el
 
 Finally, all the above constructs that allow a value or lists of values on the right-hand side MAY allow :filter-fragment:`<operator> value` in each place a value can appear.
 In that case, a match requires that the :filter-fragment:`<operator>` comparison is fulfilled instead of equality.
-Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY` and :filter-fragment:`HAS ONLY` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
+Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY`, :filter-fragment:`HAS ONLY` and :filter-fragment:`LENGTH` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
 
 For example:
 
@@ -1519,7 +1519,7 @@ elements
     
 - **Query examples**:
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
-  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3`.
+  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
 
 nelements
 ~~~~~~~~~
@@ -1534,7 +1534,7 @@ nelements
 - **Example**: :val:`3`
 - **Querying**:
 
-  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`LENGTH elements`.
+  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`elements LENGTH`.
   -  A filter that matches structures that have exactly 4 elements: :filter:`nelements=4`.
   -  A filter that matches structures that have between 2 and 7 elements: :filter:`nelements>=2 AND nelements<=7`.
 
@@ -2153,33 +2153,29 @@ The Filter Language EBNF Grammar
 
     ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-    ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace ) ;
+    ExpressionPhrase = [ NOT ], ( Comparison | OpeningBrace, Expression, ClosingBrace ) ;
 
     Comparison = ConstantFirstComparison
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
+    ConstantFirstComparison = Constant, ValueOpRhs ;
+
     PropertyFirstComparison = Property, ( ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
-                                        | SetZipOpRhs ) ;
+                                        | SetZipOpRhs
+                                        | LengthOpRhs ) ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
-
-    ConstantFirstComparison = Constant, ValueOpRhs ;
-
-    PredicateComparison = LengthComparison ;
 
     ValueOpRhs = Operator, Value ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
 
-    StringProperty = String | Property ;
-    (* Support for Property tokens in StringProperty is optional *)
-
-    FuzzyStringOpRhs = CONTAINS, StringProperty
-                     | STARTS, [ WITH ], StringProperty
-                     | ENDS, [ WITH ], StringProperty ;
+    FuzzyStringOpRhs = CONTAINS, Value
+                     | STARTS, [ WITH ], Value
+                     | ENDS, [ WITH ], Value ;
 
     SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
     (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
@@ -2187,9 +2183,10 @@ The Filter Language EBNF Grammar
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
-    LengthComparison = LENGTH, Property, Operator, Value ;
-
     PropertyZipAddon = Colon, Property, { Colon, Property } ;
+
+    LengthOpRhs = LENGTH, [ Operator ], Value ;
+    (* Note: support for [ Operator ] in LengthOpRhs is OPTIONAL *)
 
     (* Property *)
 

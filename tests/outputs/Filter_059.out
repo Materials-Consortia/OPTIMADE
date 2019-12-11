@@ -50,7 +50,7 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 27
-              StringProperty(9999)
+              Value(9999)
                 String(9999)
                   TOKEN_3(9999): """, line: 1, col: 28
                   EscapedChar(9999)
@@ -125,7 +125,7 @@ Filter(9999)
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 66
-                StringProperty(9999)
+                Value(9999)
                   String(9999)
                     TOKEN_3(9999): """, line: 1, col: 67
                     EscapedChar(9999)
