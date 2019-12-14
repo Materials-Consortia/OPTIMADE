@@ -1,7 +1,10 @@
-# Makelocal-docker
+#---*- Makefile -*-------------------------------------------------------
+
+# Helper targets for handling a docker container,
+# for now only used to run 'make audit'.
+
+.PHONY: docker_audit
 
 docker_audit: 
 	docker build -t optimade . -f tests/tools/Dockerfile
 	docker run -it --rm optimade:latest
-
-.PHONY: docker_test

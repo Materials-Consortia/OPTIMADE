@@ -19,4 +19,4 @@ ENV LANG en_US.utf8
 WORKDIR /root/optimade
 COPY . .
 
-CMD ["/bin/bash", "-c", "rm -f /root/optimade/tests/tools/grammatica-1.6.zip; make clean; make audit"]
+CMD ["/bin/bash", "-c", "make distclean; make audit"]

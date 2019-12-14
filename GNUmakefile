@@ -18,17 +18,23 @@
 #
 # - spell: runs an interactive spellchecker
 #
-# - extract_*: extract the corresponding part from the
-#   specification document and prints it out on stdout.
+#
+# Extracting machine-readable parts of the specification
+########################################################
+#
+# - tests/generated/<part>.<format>: extracts the corresponding
+#   part from the specification document and places the result
+#   in the target file.
+#
 #   The following such targets exist:
-#   - extract_filter_grammar
-#   - extract_number_grammar
-#   - extract_pcre_identifiers
-#   - extract_pcre_numbers
-#   - extract_pcre_strings
-#   - extract_ere_identifiers
-#   - extract_ere_numbers
-#   - extract_ere_strings
+#   - tests/generated/Filter.ebnf
+#   - tests/generated/Number.ebnf
+#   - tests/generated/identifiers.pcre
+#   - tests/generated/numbers.pcre
+#   - tests/generated/strings.pcre
+#   - tests/generated/identifiers.ere
+#   - tests/generated/numbers.ere
+#   - tests/generated/strings.ere
 #
 #
 # Targets for testing / auditing the specification

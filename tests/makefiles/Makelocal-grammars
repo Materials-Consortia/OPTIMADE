@@ -50,15 +50,15 @@ ${GRAMMAR_DEPENDENCIES}: ${RST_FILES}
 
 ${GRAMMAR_DIR}/%.ebnf:
 	awk '/^ *${GRAMMAR_START_STRING} $*/,/^ *${GRAMMAR_END_STRING} $*/' $< \
-		| sed 's/^ *//' > $@
+		| sed 's/^    //' > $@
 
 ${GRAMMAR_DIR}/%.ere:
 	awk '/^ *${RE_START_STRING} ERE $*/,/^ *${RE_END_STRING} ERE $*/' $< \
-		| sed 's/^ *//' | tr -d "\r" > $@
+		| sed 's/^    //' | tr -d "\r" > $@
 
 ${GRAMMAR_DIR}/%.pcre:
 	awk '/^ *${RE_START_STRING} PCRE $*/,/^ *${RE_END_STRING} PCRE $*/' $< \
-		| sed 's/^ *//' | tr -d "\r" > $@
+		| sed 's/^    //' | tr -d "\r" > $@
 
 .PHONY: tools
 

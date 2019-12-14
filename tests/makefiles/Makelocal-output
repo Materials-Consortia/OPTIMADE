@@ -1,15 +1,22 @@
-# Makelocal-spell
+#---*- Makefile -*-------------------------------------------------------
 
-pdf: optimade.pdf
+# Makelocal-output
 
-optimade.pdf: optimade.rst
-	pandoc optimade.rst -o optimade.pdf
-
-html: optimade.html
-
-optimade.html: optimade.rst
-	rst2html --syntax-highlight=none optimade.rst optimade.html
-
+PDF_FILES = ${RST_FILES:%.rst=%.pdf}
 
 .PHONY: pdf
+
+pdf: ${PDF_FILES}
+
+%.pdf: %.rst
+	pandoc $< -o $@
+
+HTML_FILES = ${RST_FILES:%.rst=%.html}
+
+.PHONY: html
+
+html: ${HTML_FILES}
+
+%.html: %.rst
+	rst2html --syntax-highlight=none $< $@
 
