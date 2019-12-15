@@ -5,7 +5,7 @@ OPTiMaDe API specification v0.10.1-develop
 .. comment
 
    This document uses RST text roles on (almost) all literals to specify the context to which each literal belongs.
-   This markup enables nicer formatting (e.g., html output can be formatted using css), as well as automated spell checks and testing.
+   This markup enables nicer formatting (e.g., HTML output can be formatted using CSS), as well as automated spell checks and testing.
    Below follows the definitions of the text roles used:
 
      # Filtering
@@ -27,18 +27,18 @@ OPTiMaDe API specification v0.10.1-develop
      # URL queries
 
      endpoint : specification of endpoints and endpoint names.
-     query-param : url query parameter names.
-     query-string : strings that represent segments of url query strings, with query parameters and values.
-     query-url : full urls, or relative starting with a '/' of url queries.
+     query-param : URL query parameter names.
+     query-string : strings that represent segments of URL query strings, with query parameters and values.
+     query-url : full URLs, or relative starting with a '/' of URL queries.
 
      # HTTP
 
-     http-header : an http header name, or header + value.
-     http-error : an http error on form <number> <english text>.
+     http-header : an HTTP header name, or header + value.
+     http-error : an HTTP error on form <number> <english text>.
 
      # Responses
 
-     json : examples of json output.
+     json : examples of JSON output.
      field : keys in key-value dictionaries in responses.
      field-val : value examples that fields can be set to.
                  Note that `null` sometimes refer to the OPTiMaDe concept of :val:`null`, and sometimes to the javascript constant :field-val:`null`, and the markup distinguishes these two cases.
@@ -125,7 +125,8 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Database-provider-specific prefix**
     Every database provider is designated a unique prefix.
     The prefix is used to separate the namespaces used by provider-specific extensions.
-    These are defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    The list of presently defined prefixes is maintained externally from this specification.
+    For more information, see appendix `Database-Provider-Specific Namespace Prefixes`_.
     
 **API implementation**
     A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
@@ -260,7 +261,7 @@ Each endpoint MAY support additional formats, and SHOULD declare these formats u
 Clients can request these formats using the :query-param:`response_format` URL query parameter.
 Specifying a :query-param:`response_format` different from :query-val:`json` (e.g. :query-string:`response_format=xml`) allows the API to break conformance not only with the JSON response format specification, but also, e.g., in terms of how content negotiation is implemented.
 
-Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
 JSON Response Schema: Common Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -285,14 +286,14 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
   - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
-  - **data\_returned**: an integer containing the number of data objects returned for the query.
-  - **more\_data\_available**: :field-val:`false` if all data for this query has been returned, and :field-val:`true` if not.
+  - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
+  - **more\_data\_available**: :field-val:`false` if all data resource objects for this :query-param:`filter` query have been returned in the response or if it is the last page of a paginated response, and :field-val:`true` otherwise. 
   - **provider**: information on the database provider of the implementation.
     It MUST be a dictionary with these fields:
     
     - **name**: a short name for the database provider.
     - **description**: a longer description of the database provider.
-    - **prefix**: database-provider-specific prefix as found in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    - **prefix**: database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
     :field:`provider` MAY include these fields:
 
@@ -301,7 +302,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
 	
-    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in appendix `Database-Provider-Specific Namespace Prefixes`_, either directly as a string, or as a link object which can contain the following fields:
+    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in the list of providers (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+      It is specified either directly as a string, or as a link object, which can contain the following fields:
       
       - **href**: a string containing the base URL for the database provider's index meta-database.
       - **meta**: a meta object containing non-standard meta-information about this link.
@@ -310,7 +312,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
   :field:`meta` MAY also include these fields:
 
-  - **data\_available**: an integer containing the total number of data objects available in the database.
+  - **data\_available**: an integer containing the total number of data resource objects available in the database for the endpoint.
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
@@ -345,7 +347,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
     General OPTiMaDe warning codes are specified in section `Warnings`_.
 
-  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
   - Example for a request made to :query-url:`http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2`:
 
@@ -429,6 +431,12 @@ The response MAY also return resources related to the primary data in the field:
 
 - **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
   Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
+  
+  The definition of this field may be found in the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
+  Specifically, if the query parameter :query-param:`include` is included in the request, :field:`included` MUST NOT include unrequested resource objects.
+  For further information on the parameter :query-param:`include`, see section `Entry Listing URL Query Parameters`_.
+
+  This value MUST be either an empty array or an array of related resource objects.
 
 If there were errors in producing the response all other fields MAY be present, but the top-level :field:`data` field MUST be skipped, and the following field MUST be present:
 
@@ -526,7 +534,7 @@ Non-critical exceptional situations occurring in the implementation SHOULD be re
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
 Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
-For implementation-specific warnings, they MUST be start with ``_`` and the database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
 Index Meta-Database
 -------------------
@@ -544,7 +552,7 @@ The :field:`index_base_url` field MUST be included in every response in the :fie
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium can be found in appendix `Database-Provider-Specific Namespace Prefixes`_.
+    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
     This list is also machine-readable, optimizing the automatic discoverability.
 
 Relationships
@@ -559,6 +567,25 @@ In the default response format, relationships are encoded as `JSON API Relations
     **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties.
     For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
     It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
+
+Handling unknown property names
+===============================
+
+When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
+
+* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
+
+* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
+
+  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
+
+  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
+
+The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
+
+For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
+
+:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
 
 API Endpoints
 =============
@@ -608,14 +635,14 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
 Example: http://example.com/optimade/v0.9/structures?page_limit=100
 
-- **page\_{offset, page, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
+- **page\_{offset, number, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
   A server MAY implement pagination in concert with :query-param:`sort`.
   The following parameters, all prefixed by "page\_", are RECOMMENDED for use with pagination.
   If an implementation chooses
 
   - *offset-based pagination*: using :field:`page_offset` and :field:`page_limit` is RECOMMENDED.
   - *cursor-based pagination*: using :field:`page_cursor` and :field:`page_limit` is RECOMMENDED.
-  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED (:field:`page_limit` is equivalent to page "size").
+  - *page-based pagination*: using :field:`page_number` and :field:`page_limit` is RECOMMENDED. It is RECOMMENDED that the first page has number 1, i.e., that :field:`page_number` is 1-based.
   - *value-based pagination*: using :field:`page_above`/:field:`page_below` and :field:`page_limit` is RECOMMENDED.
 
   Examples (all OPTIONAL behavior a server MAY implement):
@@ -627,11 +654,26 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
 - **sort**: If supporting sortable queries, an implementation MUST use the :query-param:`sort` query parameter with format as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-sorting>`__.
 
   An implementation MAY support multiple sort fields for a single query.
-  If it does, it again MUST conform to the JSON API 1.0 spec.
+  If it does, it again MUST conform to the JSON API 1.0 specification.
 
-  If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value, the key :field:`sortable` with value :field-val:`true`.
-  This is in addition to each property description (and optional unit).
+  If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value that can be used for sorting, the key :field:`sortable` with value :field-val:`true`.
+  If a field name under an entry listing endpoint supporting sorting cannot be used for sorting, the server MUST either leave out the :field:`sortable` key or set it equal to :field-val:`false` for the specific field name.
+  The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
+  The field :field:`sortable` is in addition to each property description (and optional unit).
   An example is shown in section `Entry Listing Info Endpoints`_.
+
+- **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
+
+  All related resource objects MUST be returned as part of an array value for the top-level :field:`included` field, see section `JSON Response Schema: Common Fields`_.
+
+  The value of :query-param:`include` MUST be a comma-separated list of "relationship paths", as defined in the `JSON API <https://jsonapi.org/format/1.0/#fetching-includes>`__.
+  If relationship paths are not supported, or a server is unable to identify a relationship path a :http-error:`400 Bad Request` response MUST be made.
+
+  The **default value** for :query-param:`include` is :query-val:`references`.
+  This means :entry:`references` entries MUST always be included under the top-level field :field:`included` as default, since a server assumes if :query-param:`include` is not specified by a client in the request, it is still specified as :query-string:`include=references`.
+  Note, if a client explicitly specifies :query-param:`include` and leaves out :query-val:`references`, :entry:`references` resource objects MUST NOT be included under the top-level field :field:`included`, as per the definition of :field:`included`, see section `JSON Response Schema: Common Fields`_.
+
+    **Note**: A query with the parameter :query-param:`include` set to the empty string means no related resource objects are to be returned under the top-level field :field:`included`.
 
 Standard OPTIONAL URL query parameters not in the JSON API specification:
 
@@ -657,8 +699,6 @@ Examples:
 - :query-url:`http://example.com/optimade/v0.9/structures?_exmpl_warning_verbosity=10`
 - :query-url:`http://example.com/optimade/v0.9/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
 
-..
-  
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
 
@@ -912,7 +952,7 @@ The response for these endpoints MUST include the following information in the :
 
 - **description**: Description of the entry.
 - **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL key :field:`unit`.
+  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL keys :field:`unit` and :field:`sortable` (see `Entry Listing URL Query Parameters`_ for more information on :field:`sortable`).
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
@@ -920,32 +960,33 @@ Example:
 
 .. code:: jsonc
 
-     {
-       "data": {
-	 "description": "a structures entry",
-	 "properties": {
-	   "nelements": {
-	     "description": "Number of elements",
-	     "sortable": true
-	   },
-	   "lattice_vectors": {
-	     "description": "Unit cell lattice vectors",
-	     "unit": "Å"
-	   }
-	   // ... <other property descriptions>
-	 },
-	 "formats": ["json", "xml"],
-	 "output_fields_by_format": {
-	   "json": [
-	     "nelements",
-	     "lattice_vectors",
-	     // ...
-	   ],
-	   "xml": ["nelements"]
-	 }
-       }
-       // ...
-     }
+    {
+      "data": {
+        "description": "a structures entry",
+        "properties": {
+          "nelements": {
+            "description": "Number of elements",
+            "sortable": true
+          },
+          "lattice_vectors": {
+            "description": "Unit cell lattice vectors",
+            "unit": "Å",
+            "sortable": false
+          }
+          // ... <other property descriptions>
+        },
+        "formats": ["json", "xml"],
+        "output_fields_by_format": {
+          "json": [
+            "nelements",
+            "lattice_vectors",
+            // ...
+          ],
+          "xml": ["nelements"]
+        }
+      }
+      // ...
+    }
 
 Links Endpoint
 --------------
@@ -1046,7 +1087,7 @@ Provider Objects
 The :object:`provider` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
-A known list of providers can be found in appendix `Database-Provider-Specific Namespace Prefixes`_.
+A list of known providers can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
 
     **Note**: If a provider wishes to be added to ``provider.json``,
     please suggest a change to the OPTiMaDe main repository (make a pull
@@ -1094,27 +1135,27 @@ The following tokens are used in the filter query component:
   This definition is similar to one used in most widespread programming languages, except that OPTiMaDe limits allowed letter set to lowercase letters only.
   This allows to tell OPTiMaDe identifiers and operator keywords apart unambiguously without consulting a reserved word table and to encode this distinction concisely in the EBNF Filter Language grammar.
 
-Examples of valid property names:
+  Examples of valid property names:
+  
+  - :property:`band_gap`
+  - :property:`cell_length_a`
+  - :property:`cell_volume`
+  
+  Examples of incorrect property names:
+  
+  - :property-fail:`0_kvak` (starts with a number);
+  - :property-fail:`"foo bar"` (contains space; contains quotes)
+  - :property-fail:`BadLuck` (contains upper-case letters)
+  
+  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
-- :property:`band_gap`
-- :property:`cell_length_a`
-- :property:`cell_volume`
+  Examples:
 
-Examples of incorrect property names:
-
-- :property-fail:`0_kvak` (starts with a number);
-- :property-fail:`"foo bar"` (contains space; contains quotes)
-- :property-fail:`BadLuck` (contains upper-case letters)
-
-Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
-
-Examples::
-
-    * :property:`_exmpl_formula_sum` (a property specific to that database)
-    * :property:`_exmpl_band_gap`
-    * :property:`_exmpl_supercell`
-    * :property:`_exmpl_trajectory`
-    * :property:`_exmpl_workflow_id`  
+  - :property:`_exmpl_formula_sum` (a property specific to that database)
+  - :property:`_exmpl_band_gap`
+  - :property:`_exmpl_supercell`
+  - :property:`_exmpl_trajectory`
+  - :property:`_exmpl_workflow_id`  
 
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
 
@@ -1235,7 +1276,7 @@ The following constructs MUST be supported:
 - :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
 - :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
-- :filter:`LENGTH list <operator> value``: applies the numeric comparison :filter-fragment:`<operator>` for the number of items in the list property.
+- :filter:`list LENGTH value`: matches if the number of items in the :filter-fragment:`list` property is equal to :filter-fragment:`value`.
 
 The following construct MAY be supported:
 
@@ -1256,7 +1297,7 @@ This type of filter is useful for, e.g., filtering on elements and correlated el
 
 Finally, all the above constructs that allow a value or lists of values on the right-hand side MAY allow :filter-fragment:`<operator> value` in each place a value can appear.
 In that case, a match requires that the :filter-fragment:`<operator>` comparison is fulfilled instead of equality.
-Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY` and :filter-fragment:`HAS ONLY` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
+Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS ALL`, :filter-fragment:`HAS ANY`, :filter-fragment:`HAS ONLY` and :filter-fragment:`LENGTH` operators as written above apply, but with the word 'equal' replaced with the :filter-fragment:`<operator>` comparison.
 
 For example:
 
@@ -1308,7 +1349,7 @@ This means that the structures entry has a relationship with the calculations en
     For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
 
     - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmit"` and store the :filter-fragment:`id` values of the returned entries.
-    -  Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+    - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
     (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
 
@@ -1393,7 +1434,7 @@ id
 type
 ~~~~
 
-- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the url :endpoint:`<base URL>/<type>/<id>`.
+- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the URL :endpoint:`<base URL>/<type>/<id>`.
 - **Type**: string.
 - **Requirements/Conventions**:
   
@@ -1443,7 +1484,7 @@ database-provider-specific properties
   - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of filter operators MAY be supported.
-  - These MUST be prefixed by a database-provider-specific prefix as defined in appendix `Database-Provider-Specific Namespace Prefixes`_.
+  - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
   
@@ -1478,7 +1519,7 @@ elements
     
 - **Query examples**:
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
-  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND LENGTH elements = 3`.
+  - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
 
 nelements
 ~~~~~~~~~
@@ -1493,7 +1534,7 @@ nelements
 - **Example**: :val:`3`
 - **Querying**:
 
-  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`LENGTH elements`.
+  -  Note: queries on this property can equivalently be formulated using :filter-fragment:`elements LENGTH`.
   -  A filter that matches structures that have exactly 4 elements: :filter:`nelements=4`.
   -  A filter that matches structures that have between 2 and 7 elements: :filter:`nelements>=2 AND nelements<=7`.
 
@@ -1673,7 +1714,7 @@ cartesian\_site\_positions
   
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
-  - It MUST be a list of length N times 3, where N is the number of sites in the structure.
+  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
     Otherwise, it should be a float value, expressed in angstrom (Å).
@@ -1715,7 +1756,6 @@ species\_at\_sites
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
-  - Each species MUST have a unique name.
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
@@ -1724,6 +1764,7 @@ species\_at\_sites
 - **Examples**:
   
   - :val:`["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`.
+  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicating the first two sites contains the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
 
 species
 ~~~~~~~
@@ -1924,8 +1965,10 @@ References Entries
 The :entry:`references` entries describe bibliographic references.
 The following properties are used to provide the bibliographic details:
 
-- **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **type**, **volume**, **year**: Meanings of these properties match the `BibTeX specification <http://bibtexml.sourceforge.net/btxdoc.pdf>`__, values are strings;
-  
+- **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **volume**, **year**: meanings of these properties match the `BibTeX specification <http://bibtexml.sourceforge.net/btxdoc.pdf>`__, values are strings;
+
+- **bib_type**: type of the reference, corresponding to **type** property in the BibTeX specification, value is string;
+
 - **authors** and **editors**: lists of *person objects* which are dictionaries with the following keys:
   
   - **name**: Full name of the person, REQUIRED.
@@ -1966,7 +2009,7 @@ Example:
 Database-Provider-Specific Entry Types
 --------------------------------------
 
-Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix as given in appendix `Database-Provider-Specific Namespace Prefixes`_.
+Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
 
 - **Requirements/Conventions for properties in database-provider-specific entry types**:
@@ -2066,22 +2109,17 @@ Appendices
 Database-Provider-Specific Namespace Prefixes
 ---------------------------------------------
 
-This standard refers to database-provider-specific prefixes. These are assigned and included in this standard in the file ``providers.json``.
+This standard refers to database-provider-specific prefixes and database providers.
 
-API implementations SHOULD NOT make up and use new prefixes not included in this standard, but SHOULD rather work to get such prefixes included in a future revision of this API specification.
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL [https://www.optimade.org/providers/](https://www.optimade.org/providers/).
+Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
+
+API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
 **Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
-
-The database-provider-specific prefixes currently assigned are listed in the ``providers.json`` file provided in the main repository.
-This file serves as a machine-readable list of OPTiMaDe providers.
-
-The content of the ``providers.json`` file complies with the default JSON format specification for API responses.
-In particular, the resource objects under the top-level :field:`data` field are defined to be valid resource objects for the Links endpoint, see section `Provider Objects`_.
-
-    **Note**: Any provider wishing to be added to ``providers.json`` is kindly asked to suggest a change to this repository (using a pull request).
 
 The Filter Language EBNF Grammar
 --------------------------------
@@ -2103,7 +2141,7 @@ The Filter Language EBNF Grammar
     ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
     (* Support for Operator in ValueList is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value} ;
+    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
     (* Support for Operator in ValueZip is OPTIONAL *)
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
@@ -2114,29 +2152,29 @@ The Filter Language EBNF Grammar
 
     ExpressionClause = ExpressionPhrase, [ AND, ExpressionClause ] ;
 
-    ExpressionPhrase = [ NOT ], ( Comparison | PredicateComparison | OpeningBrace, Expression, ClosingBrace );
+    ExpressionPhrase = [ NOT ], ( Comparison | OpeningBrace, Expression, ClosingBrace ) ;
 
-    Comparison = ConstantFirstComparison |
-                 PropertyFirstComparison ;
+    Comparison = ConstantFirstComparison
+               | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    PropertyFirstComparison = Property, ( 
-                    ValueOpRhs |
-                    KnownOpRhs |
-                    FuzzyStringOpRhs |
-                    SetOpRhs | 
-                    SetZipOpRhs );
-    (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
-
     ConstantFirstComparison = Constant, ValueOpRhs ;
-                    
-    PredicateComparison = LengthComparison ;
+
+    PropertyFirstComparison = Property, ( ValueOpRhs
+                                        | KnownOpRhs
+                                        | FuzzyStringOpRhs
+                                        | SetOpRhs
+                                        | SetZipOpRhs
+                                        | LengthOpRhs ) ;
+    (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
     ValueOpRhs = Operator, Value ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ; 
 
-    FuzzyStringOpRhs = CONTAINS, String | STARTS, [ WITH ], String | ENDS, [ WITH ], String ;
+    FuzzyStringOpRhs = CONTAINS, Value
+                     | STARTS, [ WITH ], Value
+                     | ENDS, [ WITH ], Value ;
 
     SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
     (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
@@ -2144,9 +2182,10 @@ The Filter Language EBNF Grammar
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
-    LengthComparison = LENGTH, Property, Operator, Value ;
+    PropertyZipAddon = Colon, Property, { Colon, Property } ;
 
-    PropertyZipAddon = Colon, Property, {Colon, Property} ;
+    LengthOpRhs = LENGTH, [ Operator ], Value ;
+    (* Note: support for [ Operator ] in LengthOpRhs is OPTIONAL *)
 
     (* Property *)
 
@@ -2165,28 +2204,28 @@ The Filter Language EBNF Grammar
 
     (* Boolean relations: *)
 
-    AND = 'A', 'N', 'D', [Spaces] ;
-    NOT = 'N', 'O', 'T', [Spaces] ;
-    OR = 'O', 'R', [Spaces] ;
+    AND = 'AND', [Spaces] ;
+    NOT = 'NOT', [Spaces] ;
+    OR = 'OR', [Spaces] ;
 
-    IS = 'I', 'S', [Spaces] ;
-    KNOWN = 'K', 'N', 'O', 'W', 'N', [Spaces] ;
-    UNKNOWN = 'U', 'N', 'K', 'N', 'O', 'W', 'N', [Spaces] ;
+    IS = 'IS', [Spaces] ;
+    KNOWN = 'KNOWN', [Spaces] ;
+    UNKNOWN = 'UNKNOWN', [Spaces] ;
 
-    CONTAINS = 'C', 'O', 'N', 'T', 'A', 'I', 'N', 'S', [Spaces] ;
-    STARTS = 'S', 'T', 'A', 'R', 'T', 'S', [Spaces] ;
-    ENDS = 'E', 'N', 'D', 'S', [Spaces] ;
-    WITH = 'W', 'I', 'T', 'H', [Spaces] ;
+    CONTAINS = 'CONTAINS', [Spaces] ;
+    STARTS = 'STARTS', [Spaces] ;
+    ENDS = 'ENDS', [Spaces] ;
+    WITH = 'WITH', [Spaces] ;
 
-    LENGTH = 'L', 'E', 'N', 'G', 'T', 'H', [Spaces] ;
-    HAS = 'H', 'A', 'S', [Spaces] ;
-    ALL = 'A', 'L', 'L', [Spaces] ;
-    ONLY = 'O', 'N', 'L', 'Y', [Spaces] ;
-    ANY = 'A', 'N', 'Y', [Spaces] ;
+    LENGTH = 'LENGTH', [Spaces] ;
+    HAS = 'HAS', [Spaces] ;
+    ALL = 'ALL', [Spaces] ;
+    ONLY = 'ONLY', [Spaces] ;
+    ANY = 'ANY', [Spaces] ;
 
-    (* OperatorComparison operator tokens: *)
+    (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | '=' | '!', '=' ), [Spaces] ;
+    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
 
     (* Property syntax *)
 
@@ -2194,17 +2233,13 @@ The Filter Language EBNF Grammar
 
     Letter = UppercaseLetter | LowercaseLetter ;
 
-    UppercaseLetter =
-        'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
-        'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
-        'Y' | 'Z'
-    ;
+    UppercaseLetter = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' 
+                    | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' 
+                    | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' ;
 
-    LowercaseLetter =
-        'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 
-        'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
-        'y' | 'z' | '_'
-    ;
+    LowercaseLetter = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' 
+                    | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' 
+                    | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | '_' ;
 
     (* Strings: *)
 
@@ -2214,11 +2249,9 @@ The Filter Language EBNF Grammar
 
     UnescapedChar = Letter | Digit | Space | Punctuator | UnicodeHighChar ;
 
-    Punctuator =
-        '!' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' |
-        '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' |
-        ']' | '^' | '`' | '{' | '|' | '}' | '~'
-    ;
+    Punctuator = '!' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' 
+               | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' 
+               | '@' | '[' | ']' | '^' | '`' | '{' | '|' | '}' | '~' ;
 
     (* BEGIN EBNF GRAMMAR Number *)
     (* Number token syntax: *)
