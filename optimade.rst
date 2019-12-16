@@ -2304,7 +2304,7 @@ Regular Expressions for OPTiMaDe Filter Tokens
 
 The string below contains Perl-Compatible Regular Expressions to recognize identifiers, number, and string values as specified in this specification.
 
-::
+.. code:: 
 
     #BEGIN PCRE identifiers
     [a-z_][a-z_0-9]*
@@ -2320,7 +2320,7 @@ The string below contains Perl-Compatible Regular Expressions to recognize ident
 
 The strings below contain Extended Regular Expressions (EREs) to recognize identifiers, number, and string values as specified in this specification.
 
-::
+.. code:: 
 
     #BEGIN ERE identifiers
     [a-z_][a-z_0-9]*
