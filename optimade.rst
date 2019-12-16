@@ -1806,15 +1806,13 @@ species
 
     - **name**: REQUIRED; gives the name of the species; the **name** value MUST be unique in the :property:`species` list;
 
-    - **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species.
+    - **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species. Each item of the list MUST be one of the following:
       
-      - It MUST be one of the following:
+      - a valid chemical-element name, or
+      - the special value :val:`"X"` to represent a non-chemical element, or
+      - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
 
-        - a valid chemical-element name, or
-        - the special value :val:`"X"` to represent a non-chemical element, or
-        - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
-
-      -  If any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
+      If any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
 
     - **concentration**: REQUIRED; MUST be a list of floats, with same length as :property:`chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
       The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
