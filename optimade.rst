@@ -126,7 +126,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Every database provider is designated a unique prefix.
     The prefix is used to separate the namespaces used by provider-specific extensions.
     The list of presently defined prefixes is maintained externally from this specification.
-    For more information, see appendix `Database-Provider-Specific Namespace Prefixes`_.
+    For more information, see section `Database-Provider-Specific Namespace Prefixes`_.
     
 **API implementation**
     A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
@@ -153,6 +153,11 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Any entry can have one or more relationships with other entries.
     These are described in section `Relationships`_.
     Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
+
+**Query filter**
+    An expression used to influence the entries returned in the response to an URL query.
+    The filter is specified using the URL query parameter :query-param:`filter`
+    using a format described in the section `API Filtering Format Specification`_.
     
 **Queryable property**
     An entry property that can be referred to in the filtering of results.
@@ -213,7 +218,7 @@ General API Requirements and Conventions
 Base URL
 --------
 
-Each database provider will publish a base URL that serves the API.
+Each database provider will publish one or more base URL that serves the API.
 An example could be: http://example.com/optimade/.
 Every URL component that follows the base URL MUST behave as standardized in this API specification.
 
@@ -242,29 +247,116 @@ Examples of invalid base URLs:
 - http://example.com/optimade/v0/
 - http://example.com/optimade/0.9/
 
+Index Meta-Database
+-------------------
+
+A database provider MAY publish a special Index Meta-Database base URL. The main purpose of this base URL is to allow for automatic discoverability of all databases of the provider. Thus, it acts as a meta-database for the database provider's implementation(s).
+
+The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
+It MUST not expose any entry listing endpoints (e.g., :endpoint:`structures`).
+
+These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
+However, they MUST return the correct and updated information on all currently provided implementations.
+
+The :field:`index_base_url` field MUST be included in every response in the :field:`provider` field under the top-level :field:`meta` field (see section `JSON Response Schema: Common Fields`_).
+
+The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
+The value for :field:`is_index` MUST be :field-val:`true`.
+
+    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
+    This list is also machine-readable, optimizing the automatic discoverability.
+
+Database-Provider-Specific Namespace Prefixes
+---------------------------------------------
+
+This standard refers to database-provider-specific prefixes and database providers.
+
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL `https://www.optimade.org/providers/ <https://www.optimade.org/providers/>`__.
+Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
+
+API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
+
+**Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+
+The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
+Identifiers prefixed with underscores will not be used for standardized names.
+    
 URL Encoding
 ------------
 
 Clients SHOULD encode URLs according to :RFC:`3986`.
 API implementations MUST decode URLs according to :RFC:`3986`.
 
+Relationships
+-------------
+
+The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe each relationship.
+These relationships can be to the same, or to different, entry types.
+Response formats have to encode these relationships in ways appropriate for each format.
+
+In the default response format, relationships are encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__, see section `Entry Listing JSON Response Schema`_.
+
+    **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties.
+    For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
+    It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
+
+Properties with unknown value
+-----------------------------
+
+Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
+This is referred to as the property having an *unknown* value, or equivalently, that the property value is :val:`null`.
+
+The text in this section describes how the API handles properties with the value :val:`null`.
+The use of :val:`null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `Entry List`_.
+For these properties, :val:`null` MAY carry a special meaning.
+
+REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using :query-param:`response_fields`, see section `Entry Listing URL Query Parameters`_).
+
+OPTIONAL properties with an unknown value MAY be returned in the response.
+If an OPTIONAL property is *not* returned in a *full* response (i.e., not using :query-param:`response_fields`), the client MUST assume the property has an unknown value, i.e., :val:`null`.
+
+If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with :val:`null` values for this property.
+These properties MUST be set to :val:`null` in the response.
+
+Filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
+This is discussed in section `The Filter Language Syntax`_.
+
+Handling unknown property names
+-------------------------------
+
+When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
+
+* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
+
+* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
+
+  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
+
+  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
+
+The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
+
+For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
+
+:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+
 Responses
----------
+=========
 
 Response Format
-~~~~~~~~~~~~~~~
+---------------
 
-This document defines a JSON response format that complies with the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification.
+This section defines a JSON response format that complies with the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification.
 All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below and MUST respond in this format by default.
 
 Each endpoint MAY support additional formats, and SHOULD declare these formats under the endpoint :endpoint:`/info/<entry type>` (see section `Entry Listing Info Endpoints`_).
 Clients can request these formats using the :query-param:`response_format` URL query parameter.
 Specifying a :query-param:`response_format` different from :query-val:`json` (e.g. :query-string:`response_format=xml`) allows the API to break conformance not only with the JSON response format specification, but also, e.g., in terms of how content negotiation is implemented.
 
-Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
 JSON Response Schema: Common Fields
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 In the JSON response format, property types translate as follows:
 
@@ -293,7 +385,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     
     - **name**: a short name for the database provider.
     - **description**: a longer description of the database provider.
-    - **prefix**: database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+    - **prefix**: database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
     :field:`provider` MAY include these fields:
 
@@ -302,13 +394,13 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
 	
-    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in the list of providers (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in the list of providers (see section `Database-Provider-Specific Namespace Prefixes`_).
       It is specified either directly as a string, or as a link object, which can contain the following fields:
       
       - **href**: a string containing the base URL for the database provider's index meta-database.
       - **meta**: a meta object containing non-standard meta-information about this link.
 
-      If the index meta-database (see section `3.4. Index Meta-Database <#h.3.4>`__) is implemented by the provider, the :field:`index_base_url` field MUST be included.
+      If the index meta-database (see section `Index Meta-Database`_) is implemented by the provider, the :field:`index_base_url` field MUST be included.
 
   :field:`meta` MAY also include these fields:
 
@@ -347,7 +439,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
     General OPTiMaDe warning codes are specified in section `Warnings`_.
 
-  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
   - Example for a request made to :query-url:`http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2`:
 
@@ -491,101 +583,29 @@ An example of a full response:
      }
 
 HTTP Response Status Codes
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
 The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
 
 See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending a HTTP GET request.
 
-**Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in `3.4. Index Meta-Database <#h.3.4>`__), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
+**Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section `Index Meta-Database`_), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
 
 HTTP Response Headers
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation.
 For such use, many browsers need the server to include the header :http-header:`Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
 
-Properties with unknown value
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
-This is referred to as the property having an *unknown* value, or equivalently, that the property value is :val:`null`.
-
-The text in this section describes how the API handles properties with the value :val:`null`.
-The use of :val:`null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `Entry List`_.
-For these properties, :val:`null` MAY carry a special meaning.
-
-REQUIRED properties with an unknown value MUST be returned in the response, unless explicitly left out (e.g., by using :query-param:`response_fields`, see section `Entry Listing URL Query Parameters`_).
-
-OPTIONAL properties with an unknown value MAY be returned in the response.
-If an OPTIONAL property is *not* returned in a *full* response (i.e., not using :query-param:`response_fields`), the client MUST assume the property has an unknown value, i.e., :val:`null`.
-
-If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with :val:`null` values for this property.
-These properties MUST be set to :val:`null` in the response.
-
-Filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
-This is discussed in section `The Filter Language Syntax`_.
-
 Warnings
-~~~~~~~~
+--------
 
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
 Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
-For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see appendix `Database-Provider-Specific Namespace Prefixes`_).
-
-Index Meta-Database
--------------------
-
-The main purpose of this "index" is to allow for automatic discoverability of all databases of a given provider. Thus, it acts as a meta-database for the database provider's implementation(s).
-
-The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
-It MUST not expose any entry listing endpoints (e.g., :endpoint:`structures`).
-
-These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
-However, they MUST return the correct and updated information on all currently provided implementations.
-
-The :field:`index_base_url` field MUST be included in every response in the :field:`provider` field under the top-level :field:`meta` field (see section `JSON Response Schema: Common Fields`_).
-
-The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
-The value for :field:`is_index` MUST be :field-val:`true`.
-
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
-    This list is also machine-readable, optimizing the automatic discoverability.
-
-Relationships
--------------
-
-The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe each relationship.
-These relationships can be to the same, or to different, entry types.
-Response formats have to encode these relationships in ways appropriate for each format.
-
-In the default response format, relationships are encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__, see section `Entry Listing JSON Response Schema`_.
-
-    **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties.
-    For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
-    It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
-
-Handling unknown property names
-===============================
-
-When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
-
-* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
-
-* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
-
-  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
-
-  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
-
-The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
-
-For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
-
-:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see section `Database-Provider-Specific Namespace Prefixes`_).
 
 API Endpoints
 =============
@@ -713,7 +733,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 - **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
 - **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for type and id.
 
-  Database-provider-specific properties need to include the database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  Database-provider-specific properties need to include the database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
 OPTIONALLY it can also contains the following fields:
 
@@ -1087,7 +1107,7 @@ Provider Objects
 The :object:`provider` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
-A list of known providers can be retrieved as described in appendix `Database-Provider-Specific Namespace Prefixes`_.
+A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
 
     **Note**: If a provider wishes to be added to ``provider.json``,
     please suggest a change to the OPTiMaDe main repository (make a pull
@@ -1147,7 +1167,7 @@ The following tokens are used in the filter query component:
   - :property-fail:`"foo bar"` (contains space; contains quotes)
   - :property-fail:`BadLuck` (contains upper-case letters)
   
-  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
   Examples:
 
@@ -1484,7 +1504,7 @@ database-provider-specific properties
   - **Response**: OPTIONAL in the response.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of filter operators MAY be supported.
-  - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  - These MUST be prefixed by a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
   
@@ -2009,7 +2029,7 @@ Example:
 Database-Provider-Specific Entry Types
 --------------------------------------
 
-Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
 
 - **Requirements/Conventions for properties in database-provider-specific entry types**:
@@ -2105,21 +2125,6 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
 Appendices
 ==========
-
-Database-Provider-Specific Namespace Prefixes
----------------------------------------------
-
-This standard refers to database-provider-specific prefixes and database providers.
-
-A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL [https://www.optimade.org/providers/](https://www.optimade.org/providers/).
-Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
-
-API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
-
-**Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
-
-The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
-Identifiers prefixed with underscores will not be used for standardized names.
 
 The Filter Language EBNF Grammar
 --------------------------------
