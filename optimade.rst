@@ -157,7 +157,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Queryable property**
     An entry property that can be referred to in the filtering of results.
     See section `API Filtering Format Specification`_ for more information on formulating filters on properties.
-    The definitions of specific properties in section `Entry List`_ states which ones MUST be queryable, the rest being OPTIONAL.
+    The section `Entry List`_ specifies the REQUIRED level of query support for different properties. If nothing is specified, any support for queries is OPTIONAL.
 
 **ID**
     The ID entry property is a unique string referencing a specific entry in the database.
@@ -516,15 +516,13 @@ The text in this section describes how the API handles properties with the value
 The use of :val:`null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `Entry List`_.
 For these properties, :val:`null` MAY carry a special meaning.
 
-REQUIRED properties with an unknown value MUST be returned in the response.
-OPTIONAL properties with an unknown value MAY be returned in the response.
-If an OPTIONAL property is *not* returned in a *full* response (i.e., not using :query-param:`response_fields`), the client MUST assume the property has an unknown value, i.e., :val:`null`.
+Responses that include entries where REQUIRED properties have an unknown value MUST include these properties with the value :val:`null`.
 
-If a property is explicitly requested in a search query without value range filters, then all entries otherwise satisfying the query SHOULD be returned, including those with :val:`null` values for this property.
-These properties MUST be set to :val:`null` in the response.
+Responses to requests where OPTIONAL properties have been explicitly requested via the :query-param:`response_fields` query parameter, and which includes entries where those properties have an unknown value, MUST include these properties with the value :val:`null`.
+(For more info on the :query-param:`response_fields` query parameter, see section `Entry Listing URL Query Parameters`_.)
 
-Filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
-This is discussed in section `The Filter Language Syntax`_.
+The interaction of properties with an unknown value with query filters is described in the section `Filtering on Properties with unknown value`_.
+In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
 
 Warnings
 ~~~~~~~~
@@ -587,7 +585,16 @@ Entry Listing Endpoints
 Entry listing endpoints return a list of resource objects representing entries of a specific type.
 For example, a list of structures, or a list of calculations.
 
-Examples:
+For each entry in the list, a set of properties and their corresponding values are given on the form dictated by the output format.
+The section `Entry list`_ specifies properties as belonging to one of three categories:
+
+1. Some properties are marked as REQUIRED in the response. These properties MUST always be present for all entries in the response.
+
+2. Properties marked as part of the "default response" MUST be included if the query parameter :query-param:`response_fields` is not part of the request, or if they are explicity requested in :query-param:`response_fields`. Otherwise they MUST NOT be included.
+
+3. Properties that are neither REQUIRED, nor part of the "default response" MUST be included if explicity requested in the :query-param:`response_fields`. Otherwise they SHOULD NOT be included.
+
+Examples of entry listing endpoints:
 
 - http://example.com/optimade/v0.9/structures
 - http://example.com/optimade/calculations
@@ -595,9 +602,6 @@ Examples:
 There MAY be multiple entry listing endpoints, depending on how many types of entries an implementation provides.
 Specific standard entry types are specified in section `Entry list`_.
 The API implementation MAY provide other entry types than the ones standardized in this specification, but such entry types MUST be prefixed by a database-provider-specific prefix.
-
-Only the properties marked as REQUIRED in section `Entry list`_ MUST be present in the response.
-The query parameter :query-param:`response_fields` is used by the client to request OPTIONAL properties to be included in the response, see Section `Entry Listing URL Query Parameters`_.
 
 Entry Listing URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -753,7 +757,7 @@ Examples:
 - :query-url:`http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823`
 - :query-url:`http://example.com/optimade/v0.9/calculations/232132`
 
-The requirements for property inclusion are the same as defined in section `Entry Listing Endpoints`_.
+The rules for which properties are to be present for an entry in the response are the same as defined in section `Entry Listing Endpoints`_.
 
 Single Entry URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1100,9 +1104,8 @@ An OPTiMaDe filter expression is passed in the parameter :query-param:`filter` a
 API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
-Only those properties marked as REQUIRED in section `Entry list`_ MUST be queryable.
-Query support for other properties is OPTIONAL.
-If supported, only a subset of filter operators MAY be supported for optionally queryable properties.
+All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter featrues.
+The level of query support REQUIRED for other properties is described in `Entry list`_.
 
 When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
 In particular, this means the client MUST escape special characters in string values as described below for `String values`_ before the URL encoding, and the API implementation MUST first URL-decode the :query-param:`filter` parameter before reversing the escaping of string tokens.
@@ -1410,8 +1413,9 @@ id
 - **Type**: string.
 - **Requirements/Conventions**:
   
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null` for any entries.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
-  - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - See section `Definition of Terms`_.
     
 - **Examples**:
@@ -1429,6 +1433,8 @@ type
 - **Type**: string.
 - **Requirements/Conventions**:
   
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null` for any entries.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
     
 - **Requirements/Conventions**: MUST be an existing entry type.
@@ -1441,6 +1447,7 @@ immutable\_id
 - **Type**: string.
 - **Requirements/Conventions**:
   
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null` for all entries.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Examples**:
@@ -1455,8 +1462,9 @@ last\_modified
 - **Type**: timestamp.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
+  - **Response**: Part of the default response, i.e., REQUIRED in the response unless the query parameter :query-param:`response_fields` is present and does not include this property.
     
 - **Example**:
   
@@ -1469,6 +1477,9 @@ database-provider-specific properties
 - **Type**: Decided by the API implementation.
 - **Requirements/Conventions**:
   
+  - **Support**: Support for database-provider-specific properties is fully OPTIONAL.
+  - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
+  - **Response**: API implementations are free to choose whether database-provider-specific properties are only included when requested using the query parameter :query-param:`response_fields`, or if they are regarded as part of the "deault response", i.e., also included when the query parameter :query-param:`response_fields` is not present. Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
@@ -1491,7 +1502,7 @@ elements
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - The strings are the chemical symbols, written as uppercase letter plus optional lowercase letters.
   - The order MUST be alphabetical.
@@ -1512,7 +1523,7 @@ nelements
 - **Type**: integer
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
     
 - **Example**: :val:`3`
@@ -1529,7 +1540,7 @@ elements\_ratios
 - **Type**: list of floats
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - Composed by the proportions of elements in the structure as a list of floating point numbers.
   - The sum of the numbers MUST be 1.0 (within floating point accuracy)
@@ -1551,7 +1562,7 @@ chemical\_formula\_descriptive
 - **Type**: string
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter operators.
   - The chemical formula is given as a string consisting of properly capitalized element symbols followed by integers or decimal numbers, balanced parentheses, square, and curly brackets ``(``,\ ``)``, ``[``,\ ``]``, ``{``, ``}``, commas, the ``+``, ``-``, ``:`` and ``=`` symbols.
     The parentheses are allowed to be followed by a number.
@@ -1582,7 +1593,7 @@ chemical\_formula\_reduced
 - **Type**: string
 - **Requirements/Conventions**:
    
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property.
     However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
     Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_proportions` properties.
@@ -1610,6 +1621,9 @@ chemical\_formula\_hill
 - **Type**: string
 - **Requirements/Conventions**:
   
+  - **Support**: OPTIONAL support in implementations, i.e., may be :val:`null` for all entries.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, only a subset of filter operators MAY be supported.
   - The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
@@ -1635,7 +1649,7 @@ chemical\_formula\_anonymous
 - **Type**: string
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
     
 - **Examples**:
@@ -1656,7 +1670,7 @@ dimension\_types
 - **Type**: list of integers.
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property. Support for equality comparison is REQUIRED, support for other comparison operators are OPTIONAL.    
   - MUST be a list of length 3.
   - Each integer element MUST assume only the value 0 or 1.
@@ -1675,7 +1689,9 @@ lattice\_vectors
 - **Type**: list of list of floats.
 - **Requirements/Conventions**:
 
-  - **Response**: REQUIRED in the response.
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
@@ -1692,6 +1708,8 @@ cartesian\_site\_positions
 - **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
   
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
   - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
@@ -1709,6 +1727,11 @@ nsites
 
 - **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
 - **Type**: integer  
+- **Requirements/Conventions**:
+
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: MUST be a queryable property with support for all mandatory filter operators.
+
 - **Examples**:
   
   - :val:`42`
@@ -1726,6 +1749,9 @@ species\_at\_sites
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+
   - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
@@ -1751,6 +1777,8 @@ species
     
 - **Requirements/Conventions**:
   
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - Each list member MUST be a dictionary with the following keys:
 
     - **name**: REQUIRED; gives the name of the species; the **name** value MUST be unique in the :property:`species` list;
@@ -1803,6 +1831,10 @@ assemblies
     
 - **Requirements/Conventions**:
 
+  - **Support**: OPTIONAL support in implementations, i.e., may be :val:`null` for all entries.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+
+  - The property SHOULD be :val:`null` for entries that have no partial occupancies.
   - If present, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
   - Client implementations MUST check its presence (as its presence changes the interpretation of the structure).
   - If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have the following two keys:
@@ -1907,7 +1939,7 @@ structure\_features
 - **Type**: list of strings
 - **Requirements/Conventions**:
   
-  - **Response**: REQUIRED in the response.
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null` for any entries.
   - **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries. Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.
   - MUST be an empty list if no special features are used.
   - MUST be sorted alphabetically.
@@ -1945,7 +1977,9 @@ The following properties are used to provide the bibliographic details:
 
 - **Requirements/Conventions**:
   
-  - **Response**: Every references entry MUST contain at least one of the properties.
+  - **Support**: OPTIONAL support in implementations, i.e., any of the properties may be :val:`null` for all entries.
+  - **Query**: Support for queries on any of these properties is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+  - Every references entry MUST contain at least one of the properties.
 
 Example:
 
@@ -1976,6 +2010,11 @@ Database-Provider-Specific Entry Types
 
 Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
+
+* **Requirements/Conventions for properties in database-provider-specific entry types**:
+
+  - **Support**: Support for any properties in database-provider-specific entry types is fully OPTIONAL.
+  - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
 
 Relationships Used by Multiple Entry Types
 ------------------------------------------
