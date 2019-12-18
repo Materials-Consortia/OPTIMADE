@@ -518,7 +518,7 @@ For these properties, :val:`null` MAY carry a special meaning.
 
 Responses that include entries where REQUIRED properties have an unknown value MUST include these properties with the value :val:`null`.
 
-Responses to requests where OPTIONAL properties have been explicitly requested via the :query-param:`response_fields` query parameter, and which includes entries where those properties have an unknown value, MUST include these properties with the value :val:`null`.
+Responses to requests where OPTIONAL properties have been explicitly requested via the :query-param:`response_fields` query parameter, and which include entries where those properties have an unknown value, MUST include these properties with the value :val:`null`.
 (For more info on the :query-param:`response_fields` query parameter, see section `Entry Listing URL Query Parameters`_.)
 
 The interaction of properties with an unknown value with query filters is described in the section `Filtering on Properties with unknown value`_.
@@ -585,7 +585,7 @@ Entry Listing Endpoints
 Entry listing endpoints return a list of resource objects representing entries of a specific type.
 For example, a list of structures, or a list of calculations.
 
-For each entry in the list, a set of properties and their corresponding values are given on the form dictated by the output format.
+Each entry in the list includes a set of properties and their corresponding values.
 The section `Entry list`_ specifies properties as belonging to one of three categories:
 
 1. Some properties are marked as REQUIRED in the response. These properties MUST always be present for all entries in the response.
@@ -1479,7 +1479,7 @@ database-provider-specific properties
   
   - **Support**: Support for database-provider-specific properties is fully OPTIONAL.
   - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
-  - **Response**: API implementations are free to choose whether database-provider-specific properties are only included when requested using the query parameter :query-param:`response_fields`, or if they are regarded as part of the "deault response", i.e., also included when the query parameter :query-param:`response_fields` is not present. Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
+  - **Response**: API implementations are free to choose whether database-provider-specific properties are only included when requested using the query parameter :query-param:`response_fields`, or if they are regarded as part of the "default response", i.e., also included when the query parameter :query-param:`response_fields` is not present. Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
     
 - **Examples**: A few examples of valid database-provided-specific property names follows:
