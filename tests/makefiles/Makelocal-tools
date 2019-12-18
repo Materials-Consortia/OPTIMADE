@@ -30,9 +30,9 @@ GRAMMATICA_ZIP = ${GRAMMATICA_TOP}/grammatica-${GRAMMATICA_VERSION}.zip
 grammatica: ${GRAMMATICA_LOG}
 
 ${GRAMMATICA_LOG}:
-	test ! -f ${GRAMMATICA_ZIP} \
-		&& wget -O ${GRAMMATICA_ZIP} ${GRAMMATICA_URL} \
-		|| ( rm -vf ${GRAMMATICA_ZIP}; exit 12 )
+	test -f ${GRAMMATICA_ZIP} \
+		|| wget -O ${GRAMMATICA_ZIP} ${GRAMMATICA_URL} \
+		|| (rm -vf ${GRAMMATICA_ZIP}; exit 12)
 	cd $(dir $@) && rm -rf $(notdir $(basename $@))
 	cd $(dir $@) && unzip ${GRAMMATICA_ZIP}
 	cd $(dir $@); ( set -uex; cd $(notdir $(basename $@)); ant -k ) 2>&1 \
