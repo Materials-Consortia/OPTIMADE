@@ -314,8 +314,6 @@ For these properties, :val:`null` MAY carry a special meaning.
 REQUIRED properties with an unknown value MUST be included and returned in the response with the value :val:`null`.
 
 OPTIONAL properties with an unknown value, if requested explicitly via the :query-param:`response_fields` query parameter, MUST be included and returned in the response with the value :val:`null`.
-
-Responses to requests where OPTIONAL properties have been explicitly requested via the :query-param:`response_fields` query parameter, and which include entries where those properties have an unknown value, MUST include these properties with the value :val:`null`.
 (For more info on the :query-param:`response_fields` query parameter, see section `Entry Listing URL Query Parameters`_.)
 
 The interaction of properties with an unknown value with query filters is described in the section `Filtering on Properties with an unknown value`_.
@@ -2062,7 +2060,8 @@ Database-provider-specific entry types MUST have all properties described above 
 * **Requirements/Conventions for properties in database-provider-specific entry types**:
 
   - **Support**: Support for any properties in database-provider-specific entry types is fully OPTIONAL.
-  - **Query**: Support for queries on these properties are OPTIONAL. If supported, only a subset of filter operators MAY be supported.
+  - **Query**: Support for queries on these properties are OPTIONAL.
+    If supported, only a subset of filter operators MAY be supported.
 
 Relationships Used by Multiple Entry Types
 ------------------------------------------
