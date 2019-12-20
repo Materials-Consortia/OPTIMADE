@@ -1197,12 +1197,12 @@ The following tokens are used in the filter query component:
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
 
 .. _string values:
-  
-- **String values** MUST be enclosed in double quotes ("", ASCII symbol 92 dec, 0x5C hex).
-  The quote and other special characters within the double quotes MUST be escaped using C/JSON/Perl/Python convention: a double quote which is a part of the value, not a delimiter, MUST be prepended with a backslash character ("\\", ASCII symbol), and the backslash character itself, when taken literally, MUST be preceded by another backslash.
-  An example of the escaped string value is given below:
 
-  - ``A double quote character (""", ASCII symbol 92 dec) MUST be prepended by a backslash ("\\", ASCII symbol 92 dec) when it is a part of the value and not a delimiter; the backslash character "\\" itself MUST be preceded by another backslash, forming a double backslash: \\\\``
+- **String values** MUST be enclosed in the double quote character (`"`, ASCII symbol 34 dec, 0x22 hex).
+  A double quote which is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex). A backslash character which is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
+  An example of an escaped string value, included the enclosing double quotes, is given below:
+
+  - "A double quote character (\\", ASCII symbol 92 dec) MUST be prepended by a backslash (\\\\, ASCII symbol 92 dec) when it is a part of the value and not a delimiter; the backslash character \\"\\\\\\" itself MUST be preceded by another backslash, forming a double backslash: \\\\\\\\"
 
   (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped).
 
