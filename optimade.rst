@@ -628,16 +628,17 @@ For example, a list of structures, or a list of calculations.
 Each entry in the list includes a set of properties and their corresponding values.
 The section `Entry list`_ specifies properties as belonging to one of three categories:
 
-1. Some properties are marked as REQUIRED in the response.
+1. Properties marked as REQUIRED in the response.
    These properties MUST always be present for all entries in the response.
 
-2. Some properties are marked as REQUIRED only if the query parameter :query-param:`response_fields` is not part of the request, or if they are explicity requested in :query-param:`response_fields`.
-   Otherwise they MUST NOT be included. One can think of these properties as consituting a default value for :query-param:`response_fields` when that parameter is omitted.
+2. Properties marked as REQUIRED only if the query parameter :query-param:`response_fields` is not part of the request, or if they are explicitly requested in :query-param:`response_fields`.
+   Otherwise they MUST NOT be included.
+   One can think of these properties as consituting a default value for :query-param:`response_fields` when that parameter is omitted.
 
-3. Properties that are not marked as REQUIRED in any case, MUST be included only if explicity requested in the query parameter :query-param:`response_fields`.
+3. Properties not marked as REQUIRED in any case, MUST be included only if explicitly requested in the query parameter :query-param:`response_fields`.
    Otherwise they SHOULD NOT be included.
 
-Examples of valid entry listing endpoints URLs:
+Examples of valid entry listing endpoint URLs:
 
 - http://example.com/optimade/v0.9/structures
 - http://example.com/optimade/calculations
@@ -1147,7 +1148,7 @@ An OPTiMaDe filter expression is passed in the parameter :query-param:`filter` a
 API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
-All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter featrues.
+All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter features.
 The level of query support REQUIRED for other properties is described in `Entry list`_.
 
 When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
@@ -1478,8 +1479,8 @@ type
   - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
+  - MUST be an existing entry type.
     
-- **Requirements/Conventions**: MUST be an existing entry type.
 - **Example**: :val:`"structures"`
 
 immutable\_id
@@ -2057,7 +2058,7 @@ Database-Provider-Specific Entry Types
 Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
 
-* **Requirements/Conventions for properties in database-provider-specific entry types**:
+- **Requirements/Conventions for properties in database-provider-specific entry types**:
 
   - **Support**: Support for any properties in database-provider-specific entry types is fully OPTIONAL.
   - **Query**: Support for queries on these properties are OPTIONAL.
