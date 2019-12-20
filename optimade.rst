@@ -1711,15 +1711,16 @@ lattice\_vectors
 ~~~~~~~~~~~~~~~~
 
 - **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
-- **Type**: list of list of floats.
+- **Type**: list of list of floats and/or unknown values
 - **Requirements/Conventions**:
 
-  - **Response**: REQUIRED in the response unless explicitly excluded, except when property `dimension_types`_ is equal to :val:`[0, 0, 0]` (in this case it is OPTIONAL).
+  - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
   - This property MUST be an array of dimensions 3 times 3 regardless of the elements of property `dimension_types`_. The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+  - :val:`null` values are allowed in the output. A vector of :val:`[null, null, null]` MAY be used for non-periodic directions where a numerical vector would not be meaningful. However, if the implementation also supports the `fractional_site_positions`_ property, the lattice vectors are relevant also for the non-periodic directions, and thus no all-`null` vectors are expected in the output. 
     
 - **Examples**:
     
@@ -1746,10 +1747,30 @@ cartesian\_site\_positions
   
   - :val:`[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 
+fractional\_site\_positions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Positions of each site expressed as fractions of the `lattice_vectors`_. Description of a site matches the one given in `cartesian_site_positions`_.
+- **Type**: list of list of floats and/or unknown values
+- **Requirements/Conventions**:
+
+  - **Response**: OPTIONAL in the response.
+  - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
+  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three fractional coordinates of a site.
+  - An entry MAY have multiple sites at the same fractional position (for a relevant use of this, see e.g., the property `assemblies`_).
+  - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with unknown value`_).
+    Otherwise, it should be a float value.
+    If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
+  - The order of the list MUST match the order of `cartesian_site_positions`_, i.e., the list refers to the same positions as `cartesian_site_positions` *in the exact same order*, only expressed in fractional coordinates instead of cartesian.
+
+- **Examples**:
+
+  - :val:`[[0,0,0],[0.5,0.5,0.5]]` indicates a structure with two sites, one sitting at the origin and one at the center of the unit cell.
+
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
+- **Description**: An integer specifying the length of :property:`cartesian_site_positions` and  :property:`fractional_site_positions` properties.
 - **Type**: integer  
 - **Requirements/Conventions**:
     
@@ -1768,14 +1789,14 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the properties `cartesian_site_positions`_ and `fractional_site_positions`_).
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
   
   - **Response**: REQUIRED in the response unless explicitly excluded.
   - **Query**: Support for queries on this property is OPTIONAL. If supported, filters MAY support only a subset of comparison operators.
-  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
+  - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and `fractional_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
@@ -1967,7 +1988,7 @@ structure\_features
   - **List of strings used to indicate special structure features**:
 
     - :val:`disorder`: This flag MUST be present if any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element.
-    - :val:`unknown_positions`: This flag MUST be present if at least one component of the :property:`cartesian_site_positions` list of lists has value :val:`null`.
+    - :val:`unknown_positions`: This flag MUST be present if at least one component of the :property:`cartesian_site_positions` and :property:`fractional_site_positions` lists of lists has value :val:`null`.
     - :val:`assemblies`: This flag MUST be present if the property `assemblies`_ is present.
 
 -  **Examples**: A structure having unknown positions and using assemblies: :val:`["assemblies", "unknown_positions"]`
