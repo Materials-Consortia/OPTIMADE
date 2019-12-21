@@ -248,6 +248,11 @@ Examples of invalid base URLs:
 - http://example.com/optimade/v0/
 - http://example.com/optimade/0.9/
 
+Note: the OPTiMaDe standard specifies the response from a number of end points under the base URLs.
+However, the base URLs themselves are not considered to be a part of the API.
+Hence, they are fully under the control of the API implementation.
+It is RECOMMENDED that the implementation serves a human-readable HTML document on base URLs which explain that the URL is an OPTiMaDe base URL which can be queried by an OPTiMaDe client.
+
 Index Meta-Database
 -------------------
 
