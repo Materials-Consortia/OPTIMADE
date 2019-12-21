@@ -1265,7 +1265,7 @@ Implementations MUST support comparisons in the forms::
 
 Where :filter-fragment:`identifier` is a property name and :filter-fragment:`constant` is either a numerical or string type constant.
 
-Implementations MAY also support comparisons with identifiers also on both sides, and comparisons with Numeric values on both sides, i.e., in the forms::
+Implementations MAY also support comparisons with identifiers also on both sides, and comparisons with numerical type constants on both sides, i.e., in the forms::
 
     identifier <operator> identifier
     constant <operator> constant
