@@ -1258,14 +1258,14 @@ Numeric and String comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Comparisons involving Numeric and String properties can be expressed using the usual comparison operators: '<', '>', '<=', '>=', '=', '!='.
-Implementations MUST support comparisons on the form::
+Implementations MUST support comparisons in the forms::
 
     identifier <operator> constant
     constant <operator> identifier
 
-Where 'identifier' is a property name and 'constant' is either a numerical or string type constant.
+Where :filter-fragment:`identifier` is a property name and :filter-fragment:`constant` is either a numerical or string type constant.
 
-Implementations MAY also support comparisons with identifiers also on both sides, and comparisons with Numeric values on both sides, i.e., on the forms::
+Implementations MAY also support comparisons with identifiers also on both sides, and comparisons with Numeric values on both sides, i.e., in the forms::
 
     identifier <operator> identifier
     constant <operator> constant
