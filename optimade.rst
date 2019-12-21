@@ -1050,6 +1050,11 @@ The resource objects' response dictionaries MUST include the following fields:
     - **href**: a string containing the OPTiMaDe base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
+  - **homepage\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+
+    - **href**: a string containing the implementation homepage URL.
+    - **meta**: a meta object containing non-standard meta-information about the homepage.
+      
 Example:
 
 .. code:: jsonc
