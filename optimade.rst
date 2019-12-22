@@ -1127,11 +1127,7 @@ The :object:`provider` objects are meant to indicate links to an "Index meta-dat
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
 A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
-
-    **Note**: If a provider wishes to be added to ``provider.json``,
-    please suggest a change to the OPTiMaDe main repository (make a pull
-    request). A link to the main repository may be found at the
-    `OPTiMaDe homepage <http://www.optimade.org>`__.
+This section also describes where to find information for how a provider can be added to this list.
 
 Index Meta-Database Links Endpoint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
