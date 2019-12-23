@@ -1271,8 +1271,9 @@ Implementations MAY also support comparisons with identifiers on both sides, and
     constant <operator> constant
 
 However, the latter form, :filter-fragment:`constant <operator> constant` where the constants are strings MUST return the error :http-error:`501 Not Implemented`.
-The reason is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous. 
-The OPTiMaDe specification will strive to address this issue in a future version.
+
+    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous.
+    The OPTiMaDe specification will strive to address this issue in a future version.
     
 Examples:
 
