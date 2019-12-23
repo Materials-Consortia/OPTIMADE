@@ -1199,7 +1199,8 @@ The following tokens are used in the filter query component:
 .. _string values:
 
 - **String values** MUST be enclosed in the double quote character (`"`, ASCII symbol 34 dec, 0x22 hex).
-  A double quote which is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex). A backslash character which is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
+  A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex).
+  A backslash character that is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
   An example of an escaped string value, including the enclosing double quotes, is given below:
 
   - "A double quote character (\\", ASCII symbol 34 dec) MUST be prepended by a backslash (\\\\, ASCII symbol 92 dec) when it is a part of the value and not a delimiter; the backslash character \\"\\\\\\" itself MUST be preceded by another backslash, forming a double backslash: \\\\\\\\"
