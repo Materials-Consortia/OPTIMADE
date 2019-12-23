@@ -512,7 +512,7 @@ The response MAY also return resources related to the primary data in the field:
     When the current response is the last page of data, this field MUST be either omitted or :field-val:`null`\ -valued.
 
   An implementation MAY also use the following reserved fields for pagination.
-They represent links in a similar way as for :field:`next`.
+  They represent links in a similar way as for :field:`next`.
 
   - **prev**: the previous page of data. :field-val:`null` or omitted when the current response is the first page of data.
   - **last**: the last page of data.
