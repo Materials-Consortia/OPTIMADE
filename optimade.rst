@@ -1072,7 +1072,8 @@ Example:
 	   "attributes": {
 	     "name": "Index",
 	     "description": "Index for example's OPTiMaDe databases",
-	     "base_url": "http://example.com/optimade/index"
+	     "base_url": "http://example.com/optimade/index",
+	     "homepage_url": "http://example.com"
 	   }
 	 },
 	 {
@@ -1086,7 +1087,8 @@ Example:
 	       "meta": {
 		 "_exmpl_catalyst_group": "denox"
 	       }
-	     }
+	     },
+	     "homepage_url": "http://example.com"
 	   }
 	 },
 	 {
@@ -1095,7 +1097,8 @@ Example:
 	   "attributes": {
 	     "name": "Zeolitic Frameworks",
 	     "description": "",
-	     "base_url": "http://example.com/optimade/zeo_frameworks"
+	     "base_url": "http://example.com/optimade/zeo_frameworks",
+	     "homepage_url": "http://example.com"
 	   }
 	 },
 	 {
@@ -1104,7 +1107,8 @@ Example:
 	   "attributes": {
 	     "name": "Example provider",
 	     "description": "Provider used for examples, not to be assigned to a real database",
-	     "base_url": "http://example.com/optimade/index"
+	     "base_url": "http://example.com/optimade/index",
+	     "homepage_url": "http://example.com"
 	   }
 	 }
 	 // ... <other objects>
