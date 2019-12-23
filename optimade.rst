@@ -1137,8 +1137,8 @@ This will make all OPTiMaDe databases and implementations by the provider discov
 Custom Extension Endpoints
 --------------------------
 
-API implementations can provide custom endpoints under the Extensions endpoint.
-These endpoints SHOULD have the form "<base\_url>/extensions/<custom paths>".
+API implementations MAY provide custom endpoints under the Extensions endpoint.
+These endpoints are then on the form "<base\_url>/extensions/<custom paths>".
 
 API Filtering Format Specification
 ==================================
