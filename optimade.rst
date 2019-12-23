@@ -1198,7 +1198,7 @@ The following tokens are used in the filter query component:
 
 .. _string values:
 
-- **String values** MUST be enclosed in the double quote character (`"`, ASCII symbol 34 dec, 0x22 hex).
+- **String values** MUST be surrounded by double quote characters (`"`, ASCII symbol 34 dec, 0x22 hex).
   A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex).
   A backslash character that is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
   An example of an escaped string value, including the enclosing double quotes, is given below:
