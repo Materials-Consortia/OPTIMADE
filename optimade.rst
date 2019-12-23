@@ -1742,8 +1742,10 @@ lattice\_vectors
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-   - This property MUST be an array of dimensions 3 times 3 regardless of the elements of :property:`dimension\_types`. The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero. The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - All three elements of the inner lists of floats MAY be :val:`null` for non-periodic dimensions, i.e., those dimensions for which :property:`dimension\_types` is 0.
+   - This property MUST be an array of dimensions 3 times 3 regardless of the elements of :property:`dimension\_types`.
+     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
+     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+  - All three elements of the inner lists of floats MAY be :val:`null` for non-periodic dimensions, i.e., those dimensions for which :property:`dimension\_types` is :val:`0`.
 
 - **Examples**:
     
