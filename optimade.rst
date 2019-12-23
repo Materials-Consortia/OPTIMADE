@@ -1264,16 +1264,23 @@ Numeric and String comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Comparisons involving Numeric and String properties can be expressed using the usual comparison operators: '<', '>', '<=', '>=', '=', '!='.
-Implementations MUST support comparisons on the form::
+Implementations MUST support comparisons in the forms::
 
     identifier <operator> constant
     constant <operator> identifier
 
-Where 'identifier' is a property name and 'constant' is either a numerical or string type constant. However, implementations MAY OPTIONALLY support comparisons with identifiers also on both sides, and comparisons with values on both sides, i.e., on the forms::
+Where :filter-fragment:`identifier` is a property name and :filter-fragment:`constant` is either a numerical or string type constant.
+
+Implementations MAY also support comparisons with identifiers on both sides, and comparisons with numerical type constants on both sides, i.e., in the forms::
 
     identifier <operator> identifier
     constant <operator> constant
 
+However, the latter form, :filter-fragment:`constant <operator> constant` where the constants are strings MUST return the error :http-error:`501 Not Implemented`.
+
+    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous.
+    The OPTiMaDe specification will strive to address this issue in a future version.
+    
 Examples:
 
 - :filter:`nelements > 3`
