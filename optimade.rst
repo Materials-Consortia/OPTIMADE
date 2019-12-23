@@ -1200,11 +1200,11 @@ The following tokens are used in the filter query component:
 
 - **String values** MUST be enclosed in the double quote character (`"`, ASCII symbol 34 dec, 0x22 hex).
   A double quote which is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex). A backslash character which is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
-  An example of an escaped string value, included the enclosing double quotes, is given below:
+  An example of an escaped string value, including the enclosing double quotes, is given below:
 
   - "A double quote character (\\", ASCII symbol 34 dec) MUST be prepended by a backslash (\\\\, ASCII symbol 92 dec) when it is a part of the value and not a delimiter; the backslash character \\"\\\\\\" itself MUST be preceded by another backslash, forming a double backslash: \\\\\\\\"
 
-  (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped).
+  (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped.)
 
   String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 
