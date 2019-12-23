@@ -1138,7 +1138,7 @@ Custom Extension Endpoints
 --------------------------
 
 API implementations MAY provide custom endpoints under the Extensions endpoint.
-These endpoints are then on the form "<base\_url>/extensions/<custom paths>".
+These endpoints MUST be on the form "<base\_url>/extensions/<custom paths>".
 
 API Filtering Format Specification
 ==================================
