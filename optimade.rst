@@ -756,7 +756,7 @@ OPTIONALLY it can also contains the following fields:
 - **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
   
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary.
+  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
 
 Example:
 
@@ -2100,7 +2100,7 @@ For example, for the JSON response format, the top-level :field:`included` field
                 "type": "references",
                 "id": "1234",
                 "meta": {
-                  "description": "This article has been retracted"
+                  "description": "Reference for the general crystal prototype."
                 }
               }
             ]
