@@ -478,7 +478,7 @@ The response MAY also return resources related to the primary data in the field:
 
 - **links**: `JSON API links <http://jsonapi.org/format/1.0/#document-links>`__ is MANDATORY for implementing pagination.
   (see section `Entry Listing URL Query Parameters`_.)
-  Each field of a links object, i.e. a "link", MUST be one of:
+  Each field of a links object, i.e., a "link", MUST be one of:
 
   - :field-val:`null`
   - a string representing a URI, or
@@ -512,7 +512,7 @@ The response MAY also return resources related to the primary data in the field:
     When the current response is the last page of data, this field MUST be either omitted or :field-val:`null`\ -valued.
 
   An implementation MAY also use the following reserved fields for pagination.
-  In a similar way as for :field:`next`, they represent links.
+They represent links in a similar way as for :field:`next`.
 
   - **prev**: the previous page of data. :field-val:`null` or omitted when the current response is the first page of data.
   - **last**: the last page of data.
@@ -1319,7 +1319,7 @@ The following construct MAY be supported:
 - :filter:`list HAS ONLY values`: matches if all elements in :filter-fragment:`list` are equal to at least one :filter-fragment:`value`.
   (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the <= set operator.)
 
-This construct is OPTIONAL as it can be difficult to realize it in some underlying database implementations.
+This construct is OPTIONAL as it can be difficult to realize in some underlying database implementations.
 However, if the desired search is over a property that can only take on a finite set of values (e.g., chemical elements) a client can formulate an equivalent search by inverting the list of values into :filter-fragment:`inverse` and express the filter as :filter:`NOT list HAS inverse`.
 
 Furthermore, there is a set of OPTIONAL constructs that allows filters to be formulated over the values in *correlated positions* in multiple list properties.
@@ -1551,7 +1551,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
-  - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property.)
+  - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
     
 - **Examples**:
 
