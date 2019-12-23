@@ -248,6 +248,11 @@ Examples of invalid base URLs:
 - http://example.com/optimade/v0/
 - http://example.com/optimade/0.9/
 
+Note: The OPTiMaDe standard specifies the response from a number of endpoints under the base URLs.
+However, the base URLs themselves are not considered to be a part of the API.
+Hence, they are fully under the control of the API implementation.
+It is RECOMMENDED that the implementation serves a human-readable HTML document on each base URL, and this document is used to explain that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
+
 Index Meta-Database
 -------------------
 
@@ -755,7 +760,7 @@ OPTIONALLY it can also contains the following fields:
 - **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
   
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary.
+  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
 
 Example:
 
@@ -1049,6 +1054,11 @@ The resource objects' response dictionaries MUST include the following fields:
     - **href**: a string containing the OPTiMaDe base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
+  - **homepage\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+
+    - **href**: a string containing the implementation homepage URL.
+    - **meta**: a meta object containing non-standard meta-information about the homepage.
+      
 Example:
 
 .. code:: jsonc
@@ -1121,11 +1131,7 @@ The :object:`provider` objects are meant to indicate links to an "Index meta-dat
 The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
 
 A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
-
-    **Note**: If a provider wishes to be added to ``provider.json``,
-    please suggest a change to the OPTiMaDe main repository (make a pull
-    request). A link to the main repository is found at the
-    `OPTiMaDe homepage <http://www.optimade.org>`__.
+This section also describes where to find information for how a provider can be added to this list.
 
 Index Meta-Database Links Endpoint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1257,16 +1263,23 @@ Numeric and String comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Comparisons involving Numeric and String properties can be expressed using the usual comparison operators: '<', '>', '<=', '>=', '=', '!='.
-Implementations MUST support comparisons on the form::
+Implementations MUST support comparisons in the forms::
 
     identifier <operator> constant
     constant <operator> identifier
 
-Where 'identifier' is a property name and 'constant' is either a numerical or string type constant. However, implementations MAY support comparisons with identifiers also on both sides, and comparisons with values on both sides, i.e., on the forms::
+Where :filter-fragment:`identifier` is a property name and :filter-fragment:`constant` is either a numerical or string type constant.
+
+Implementations MAY also support comparisons with identifiers on both sides, and comparisons with numerical type constants on both sides, i.e., in the forms::
 
     identifier <operator> identifier
     constant <operator> constant
 
+However, the latter form, :filter-fragment:`constant <operator> constant` where the constants are strings MUST return the error :http-error:`501 Not Implemented`.
+
+    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous.
+    The OPTiMaDe specification will strive to address this issue in a future version.
+    
 Examples:
 
 - :filter:`nelements > 3`
@@ -2099,7 +2112,7 @@ For example, for the JSON response format, the top-level :field:`included` field
                 "type": "references",
                 "id": "1234",
                 "meta": {
-                  "description": "This article has been retracted"
+                  "description": "Reference for the general crystal prototype."
                 }
               }
             ]
