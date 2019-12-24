@@ -193,7 +193,7 @@ An API implementation handles data types and their representations in three diff
 
 - In the HTTP URL query filter, see section `API Filtering Format Specification`_.
 - In the HTTP response. The default response format is JSON-based and thus uses JSON data types.
-  However, other response formats may use different data types.
+  However, other response formats can use different data types.
   For more info, see section `Responses`_.
 - The underlying database backend(s) from which the implementation serves data.
 
@@ -205,7 +205,7 @@ representation in all contexts. They are as follows:
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
 - **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
-  The **values** of a dictionary may be any basic type, list, dictionary, or unknown.
+  The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
 
 An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
@@ -259,7 +259,7 @@ Index Meta-Database
 A database provider MAY publish a special Index Meta-Database base URL. The main purpose of this base URL is to allow for automatic discoverability of all databases of the provider. Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
-It MUST not expose any entry listing endpoints (e.g., :endpoint:`structures`).
+It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
@@ -483,7 +483,7 @@ The response MAY also return resources related to the primary data in the field:
 
 - **links**: `JSON API links <http://jsonapi.org/format/1.0/#document-links>`__ is MANDATORY for implementing pagination.
   (see section `Entry Listing URL Query Parameters`_.)
-  Each field of a links object, i.e. a "link", must be either
+  Each field of a links object, i.e., a "link", MUST be one of:
 
   - :field-val:`null`
   - a string representing a URI, or
@@ -516,9 +516,8 @@ The response MAY also return resources related to the primary data in the field:
   - **next**: represents a link to fetch the next set of results.
     When the current response is the last page of data, this field MUST be either omitted or :field-val:`null`\ -valued.
 
-  The following fields are reserved for pagination.
-  Their values are as with :field:`next`, in the sense that they should be a "link".
-  An implementation MAY offer these links:
+  An implementation MAY also use the following reserved fields for pagination.
+  They represent links in a similar way as for :field:`next`.
 
   - **prev**: the previous page of data. :field-val:`null` or omitted when the current response is the first page of data.
   - **last**: the last page of data.
@@ -527,7 +526,7 @@ The response MAY also return resources related to the primary data in the field:
 - **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
   Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
   
-  The definition of this field may be found in the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
+  The definition of this field is found in the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
   Specifically, if the query parameter :query-param:`include` is included in the request, :field:`included` MUST NOT include unrequested resource objects.
   For further information on the parameter :query-param:`include`, see section `Entry Listing URL Query Parameters`_.
 
@@ -695,7 +694,7 @@ Example: http://example.com/optimade/v0.9/structures?page_limit=100
   If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value that can be used for sorting, the key :field:`sortable` with value :field-val:`true`.
   If a field name under an entry listing endpoint supporting sorting cannot be used for sorting, the server MUST either leave out the :field:`sortable` key or set it equal to :field-val:`false` for the specific field name.
   The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
-  The field :field:`sortable` is in addition to each property description (and optional unit).
+  The field :field:`sortable` is in addition to each property description (and the OPTIONAL field :field:`unit`).
   An example is shown in section `Entry Listing Info Endpoints`_.
 
 - **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
@@ -1033,7 +1032,7 @@ Links Endpoint
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current implementation.
 The endpoint MUST be provided at the path :endpoint:`<base_url>/links`.
 
-It may be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
+It can be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY handle the parameters specified in section `Single Entry URL Query Parameters`_ for single entry endpoints.
@@ -1048,8 +1047,8 @@ The resource objects' response dictionaries MUST include the following fields:
 - **id**: MUST be unique.
 - **attributes**: Dictionary that MUST contain the following fields:
    
-  - **name**: Human-readable name for the OPTiMaDe API implementation a client may provide in a list to an end-user.
-  - **description**: Human-readable description for the OPTiMaDe API implementation a client may provide in a list to an end-user.
+  - **name**: Human-readable name for the OPTiMaDe API implementation, e.g., for use in clients to show the name to the end-user.
+  - **description**: Human-readable description for the OPTiMaDe API implementation, e.g., for use in clients to show a description to the end-user.
   - **base\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the base URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
 
     - **href**: a string containing the OPTiMaDe base URL.
@@ -1144,8 +1143,8 @@ This will make all OPTiMaDe databases and implementations by the provider discov
 Custom Extension Endpoints
 --------------------------
 
-API implementations can provide custom endpoints under the Extensions endpoint.
-These endpoints should have the form "<base\_url>/extensions/<custom paths>".
+API implementations MAY provide custom endpoints under the Extensions endpoint.
+These endpoints MUST be on the form "<base\_url>/extensions/<custom paths>".
 
 API Filtering Format Specification
 ==================================
@@ -1230,7 +1229,7 @@ An implementation of the search filter MAY reject numbers that are outside the m
 
   - 1.234D12, .e1, -.E1, +.E2, 1.23E+++, +-123
 
-- **Note**: this number representation is more general than the number representation in JSON (for instance, ``1.`` is a valid numeric value for the filtering language specified here, but is not a valid float number in JSON, where one must write ``1.0`` instead).
+- **Note**: this number representation is more general than the number representation in JSON (for instance, ``1.`` is a valid numeric value for the filtering language specified here, but is not a valid float number in JSON, where the correct format is ``1.0`` instead).
 
 While the filtering language supports tests for equality between properties of floating point type and decimal numbers given in the filter string, such comparisons come with the usual caveats for testing for equality of floating point numbers.
 Normally, a client cannot rely on that a floating point number stored in a database takes on a representation that exactly matches the one obtained for a number given in the filtering string as a decimal number or as an integer.
@@ -1302,9 +1301,9 @@ In addition to the standard equality and inequality operators, matching of parti
 
 - :filter:`identifier CONTAINS x`: Is true if the substring value x is found anywhere within the property.
 
-- :filter:`identifier STARTS WITH x`: Is true if the property starts with the substring value x. The :filter-op:`WITH` keyword may be omitted.
+- :filter:`identifier STARTS WITH x`: Is true if the property starts with the substring value x. The :filter-op:`WITH` keyword MAY be omitted.
 
-- :filter:`identifier ENDS WITH x`: Is true if the property ends with the substring value x. The :filter-op:`WITH` keyword may be omitted.
+- :filter:`identifier ENDS WITH x`: Is true if the property ends with the substring value x. The :filter-op:`WITH` keyword MAY be omitted.
 
 OPTIONAL features:
 
@@ -1333,7 +1332,7 @@ The following construct MAY be supported:
 - :filter:`list HAS ONLY values`: matches if all elements in :filter-fragment:`list` are equal to at least one :filter-fragment:`value`.
   (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the <= set operator.)
 
-This construct is OPTIONAL as it may be difficult to realize in some underlying database implementations.
+This construct is OPTIONAL as it can be difficult to realize in some underlying database implementations.
 However, if the desired search is over a property that can only take on a finite set of values (e.g., chemical elements) a client can formulate an equivalent search by inverting the list of values into :filter-fragment:`inverse` and express the filter as :filter:`NOT list HAS inverse`.
 
 Furthermore, there is a set of OPTIONAL constructs that allows filters to be formulated over the values in *correlated positions* in multiple list properties.
@@ -1392,7 +1391,7 @@ The API implementation MAY support queries on relationships with an entry type :
 
 Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, :filter-fragment:`id` and :filter-fragment:`description`.
 For example: a client queries the :endpoint:`structures` endpoint with a filter that references :filter-fragment:`calculations.id`.
-For a specific structures entry, the nested property may behave as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
+For a specific structures entry, the nested property behaves as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
     **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
@@ -1406,7 +1405,7 @@ This means that the structures entry has a relationship with the calculations en
 Filtering on Properties with an unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Properties may have an unknown value, see section `Properties with an unknown value`_.
+Properties can have an unknown value, see section `Properties with an unknown value`_.
 
 Filters that match when the property is known, or unknown, respectively can be constructed using the following syntax::
 
@@ -1563,9 +1562,9 @@ elements
   
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The strings are the chemical symbols, written as uppercase letter plus optional lowercase letters.
+  - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
-  - Note: This may not contain the "X" or "vacancy" suggested in chemical_symbols for the :property:`species` property.
+  - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
     
 - **Examples**:
 
@@ -1612,7 +1611,8 @@ elements\_ratios
     
 - **Query examples**:
   
-  - Note: useful filters can be formulated using the set operator syntax for correlated values. However, since the values are floating point values, the use of equality comparisons is generally not recommended.
+  - Note: Useful filters can be formulated using the set operator syntax for correlated values.
+    However, since the values are floating point values, the use of equality comparisons is generally inadvisable.
   - A filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: :filter:`elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
 
 chemical\_formula\_descriptive
@@ -1656,7 +1656,7 @@ chemical\_formula\_reduced
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property.
     However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
-    Intricate querying on formula components are instead recommended to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_ratios` properties.
+    Intricate queries on formula components are instead suggested to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_ratios` properties.
   - Element names MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
   - Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
   - For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
@@ -1776,8 +1776,8 @@ cartesian\_site\_positions
     If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site.
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
-  - If a component of the position is unknown, the :val:`null` value should be provided instead (see section `Properties with an unknown value`_).
-    Otherwise, it should be a float value, expressed in angstrom (Å).
+  - If a component of the position is unknown, the :val:`null` value SHOULD be provided instead (see section `Properties with an unknown value`_).
+    Otherwise, it SHOULD be a float value, expressed in angstrom (Å).
     If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
   - **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification: If you decide to store internally the :property:`cartesian_site_positions` as a float array, you might want to represent :val:`null` values with :field-val:`NaN` values.
     The latter being valid float numbers in the IEEE 754 standard in `IEEE 754-1985 <https://doi.org/10.1109/IEEESTD.1985.82928>`__ and in the updated version `IEEE 754-2008 <https://doi.org/10.1109/IEEESTD.2008.4610935>`__.
@@ -2093,7 +2093,7 @@ It relates an entry with any number of :entry:`references` entries.
 
 If the response format supports inclusion of entries of a different type in the response, then the response SHOULD include all references-type entries mentioned in the response.
 
-For example, for the JSON response format, the top-level :field:`included` field should be used as per the `JSON API 1.0 specification <https://jsonapi.org/format/1.0/#fetching-includes>`__:
+For example, for the JSON response format, the top-level :field:`included` field SHOULD be used as per the `JSON API 1.0 specification <https://jsonapi.org/format/1.0/#fetching-includes>`__:
 
 .. code:: jsonc
 
@@ -2333,7 +2333,7 @@ The Filter Language EBNF Grammar
     (* END EBNF GRAMMAR Filter *)
 
 Note: when implementing a parser according this grammar, the implementers MAY choose to construct a lexer that ignores all whitespace (spaces, tabs, newlines, vertical tabulation and form feed characters, as described in the grammar 'Space' definition), and use such a lexer to recognize language elements that are described in the ``(* TOKENS *)`` section of the grammar.
-In that case, the '[Spaces]' element should probably be removed from the ``Filter = [Spaces], Expression`` definition as well, and the remaining grammar rules could then be used as a parser generator (like yacc, bison, antlr) input.
+In that case, it can be beneficial to remove the '[Spaces]' element from the ``Filter = [Spaces], Expression`` definition as well and use the remaining grammar rules as a parser generator input (e.g., for yacc, bison, antlr).
 
 Regular Expressions for OPTiMaDe Filter Tokens
 ----------------------------------------------
