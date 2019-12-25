@@ -1055,7 +1055,7 @@ The resource objects' response dictionaries MUST include the following fields:
     - **href**: a string containing the OPTiMaDe base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
-  - **homepage\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+  - **homepage**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
 
     - **href**: a string containing the implementation homepage URL.
     - **meta**: a meta object containing non-standard meta-information about the homepage.
@@ -1073,7 +1073,7 @@ Example:
 	     "name": "Index",
 	     "description": "Index for example's OPTiMaDe databases",
 	     "base_url": "http://example.com/optimade/index",
-	     "homepage_url": "http://example.com"
+	     "homepage": "http://example.com"
 	   }
 	 },
 	 {
@@ -1088,7 +1088,7 @@ Example:
 		 "_exmpl_catalyst_group": "denox"
 	       }
 	     },
-	     "homepage_url": "http://example.com"
+	     "homepage": "http://example.com"
 	   }
 	 },
 	 {
@@ -1098,7 +1098,7 @@ Example:
 	     "name": "Zeolitic Frameworks",
 	     "description": "",
 	     "base_url": "http://example.com/optimade/zeo_frameworks",
-	     "homepage_url": "http://example.com"
+	     "homepage": "http://example.com"
 	   }
 	 },
 	 {
@@ -1108,7 +1108,7 @@ Example:
 	     "name": "Example provider",
 	     "description": "Provider used for examples, not to be assigned to a real database",
 	     "base_url": "http://example.com/optimade/index",
-	     "homepage_url": "http://example.com"
+	     "homepage": "http://example.com"
 	   }
 	 }
 	 // ... <other objects>
