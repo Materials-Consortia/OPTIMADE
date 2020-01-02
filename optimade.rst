@@ -572,7 +572,7 @@ An example of a full response:
 	       "_exmpl_title": "This is an example site"
 	     }
 	   },
-	   "index_base_url": "http://example.com/optimade/index/"
+	   "index_base_url": "http://example.com/optimade"
 	 },
 	 "response_message": "OK"
 	 // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
@@ -1072,7 +1072,7 @@ Example:
 	   "attributes": {
 	     "name": "Index",
 	     "description": "Index for example's OPTiMaDe databases",
-	     "base_url": "http://example.com/optimade/index",
+	     "base_url": "http://example.com/optimade",
 	     "homepage": "http://example.com"
 	   }
 	 },
@@ -1097,7 +1097,7 @@ Example:
 	   "attributes": {
 	     "name": "Zeolitic Frameworks",
 	     "description": "",
-	     "base_url": "http://example.com/optimade/zeo_frameworks",
+	     "base_url": "http://example.com/zeo_frameworks/optimade",
 	     "homepage": "http://example.com"
 	   }
 	 },
@@ -1107,7 +1107,7 @@ Example:
 	   "attributes": {
 	     "name": "Example provider",
 	     "description": "Provider used for examples, not to be assigned to a real database",
-	     "base_url": "http://example.com/optimade/index",
+	     "base_url": "http://example.com/optimade",
 	     "homepage": "http://example.com"
 	   }
 	 }
