@@ -571,7 +571,7 @@ An example of a full response:
 	       "_exmpl_title": "This is an example site"
 	     }
 	   },
-	   "index_base_url": "http://example.com/optimade/index/"
+	   "index_base_url": "http://example.com/optimade"
 	 },
 	 "response_message": "OK"
 	 // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
@@ -1054,7 +1054,7 @@ The resource objects' response dictionaries MUST include the following fields:
     - **href**: a string containing the OPTiMaDe base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
-  - **homepage\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+  - **homepage**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
 
     - **href**: a string containing the implementation homepage URL.
     - **meta**: a meta object containing non-standard meta-information about the homepage.
@@ -1071,7 +1071,8 @@ Example:
 	   "attributes": {
 	     "name": "Index",
 	     "description": "Index for example's OPTiMaDe databases",
-	     "base_url": "http://example.com/optimade/index"
+	     "base_url": "http://example.com/optimade",
+	     "homepage": "http://example.com"
 	   }
 	 },
 	 {
@@ -1085,7 +1086,8 @@ Example:
 	       "meta": {
 		 "_exmpl_catalyst_group": "denox"
 	       }
-	     }
+	     },
+	     "homepage": "http://example.com"
 	   }
 	 },
 	 {
@@ -1094,7 +1096,8 @@ Example:
 	   "attributes": {
 	     "name": "Zeolitic Frameworks",
 	     "description": "",
-	     "base_url": "http://example.com/optimade/zeo_frameworks"
+	     "base_url": "http://example.com/zeo_frameworks/optimade",
+	     "homepage": "http://example.com"
 	   }
 	 },
 	 {
@@ -1103,7 +1106,8 @@ Example:
 	   "attributes": {
 	     "name": "Example provider",
 	     "description": "Provider used for examples, not to be assigned to a real database",
-	     "base_url": "http://example.com/optimade/index"
+	     "base_url": "http://example.com/optimade",
+	     "homepage": "http://example.com"
 	   }
 	 }
 	 // ... <other objects>
