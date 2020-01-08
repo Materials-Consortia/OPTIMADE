@@ -219,39 +219,35 @@ General API Requirements and Conventions
 Base URL
 --------
 
-Each database provider will publish one or more base URL that serves the API.
-An example could be: http://example.com/optimade/.
+Each database provider will publish one or more base URLs that serve the API, for example: http://example.com/optimade/.
 Every URL component that follows the base URL MUST behave as standardized in this API specification.
 
-The client MAY include a version number in the base URL, prefixed with the letter "v", where the version number indicates the version of the API standard that the client requests.
-The format is either vMAJOR or vMAJOR.MINOR where MAJOR is the major version number, and MINOR is the minor version number of the standard being referenced.
-If the major version is 0, the minor version MUST also be included.
-The database provider MAY support further levels of versioning separated from the major and minor version by a decimal point, e.g., patch version on the format vMAJOR.MINOR.PATCH. However, the client MUST NOT assume levels beyond the minor version are supported.
-
-If the client does not include a version number in the base URL, the request is for the latest version of this standard that the database provider implements.
-A query that includes a major and/or minor version is for the latest subversion of that major and/or minor version that the database provider implements.
-
-A database provider MAY choose to only support a subset of possible versions.
-The client can find out which versions are supported using the :field:`available_api_versions` field of the :field:`attributes` field from a query to the base URL :endpoint:`info` endpoint (see section `Base URL Info Endpoint`_).
-The database provider SHOULD strive to implement the latest subversion of any major and minor version supported.
-Specifically, the latest version of this standard SHOULD be supported.
+If database providers choose to implement multiple versions of the API standard, they MAY serve them under the same base URL, followed by the version number prefixed with the letter "v".
+Allowed formatting of the version are vMAJOR and vMAJOR.MINOR and vMAJOR.MINOR.PATCH, where MAJOR is the major version number, MINOR is the minor version number and PATCH is the patch version number of the corresponding standard.
+If the major version number is 0, then the minor version number MUST also be included.
 
 Examples of valid base URLs:
 
-- http://example.com/optimade/
-- http://example.com/optimade/v0.9/
+- http://example.com/optimade/, together with
+  http://example.com/optimade/v0.9/ and
+  http://example.com/optimade/v0.9.1/
 - http://example.com/
 - http://example.com/some/path/
 
 Examples of invalid base URLs:
 
-- http://example.com/optimade/v0/
-- http://example.com/optimade/0.9/
+- http://example.com/v0, together with
+  http://example.com/
+- http://example.com/optimade/0.9/, together with 
+  http://example.com/optimade/
 
-Note: The OPTiMaDe standard specifies the response from a number of endpoints under the base URLs.
-However, the base URLs themselves are not considered to be a part of the API.
-Hence, they are fully under the control of the API implementation.
-It is RECOMMENDED that the implementation serves a human-readable HTML document on each base URL, and this document is used to explain that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
+The base URL MUST serve the latest version of the standard that the provider implements.
+The database provider SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any supported major and minor version.
+
+Clients can query for supported versions using the :field:`available_api_versions` field of the :field:`attributes` field from a query to the base URL :endpoint:`info` endpoint (see section `Base URL Info Endpoint`_).
+
+Note: The base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to the base URL.
+It is RECOMMENDED that the implementation serves a human-readable HTML document on each base URL, which explains that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
 
 Index Meta-Database
 -------------------
