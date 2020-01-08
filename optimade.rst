@@ -244,10 +244,10 @@ Examples of invalid base URLs:
 The base URL MUST serve the latest version of the standard that the provider implements.
 The database provider SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any supported major and minor version.
 
-Clients can query for supported versions using the :field:`available_api_versions` field of the :field:`attributes` field from a query to the base URL :endpoint:`info` endpoint (see section `Base URL Info Endpoint`_).
+Clients can retrieve supported versions using the :field:`available_api_versions` field from a query to the base URL :endpoint:`info` endpoint (see section `Base URL Info Endpoint`_).
 
 Note: The base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to the base URL.
-It is RECOMMENDED that the implementation serves a human-readable HTML document on each base URL, which explains that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
+However, it is RECOMMENDED that the implementation serves a human-readable HTML document on each base URL, which explains that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
 
 Index Meta-Database
 -------------------
