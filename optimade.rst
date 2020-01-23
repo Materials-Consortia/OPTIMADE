@@ -954,11 +954,11 @@ Example for an index meta-database:
 	 "id": "/",
 	 "attributes": {
 	   "api_version": "v0.9.8",
-	   "available_api_versions": {
-	     "0.9.5": "http://example.com/optimade/v0.9/",
-	     "0.9.2": "http://example.com/optimade/v0.9.2/",
-	     "1.0.2": "http://example.com/optimade/v1.0/"
-	   },
+	   "available_api_versions": [
+	     {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
+	     {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
+	     {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.2"}
+	   ],
 	   "formats": [
 	     "json",
 	     "xml"
