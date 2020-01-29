@@ -219,34 +219,27 @@ General API Requirements and Conventions
 Base URL
 --------
 
-Each database provider will publish one or more base URLs that serve the API, for example: http://example.com/optimade/.
+Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/v1.
 Every URL component that follows the base URL MUST behave as standardized in this API specification.
 
-If database providers choose to implement multiple versions of the API standard, they MAY serve them using version-specific base URLs below the same generic base URL.
-In this case, the generic base URL MUST serve the **latest** version of the standard implemented by the provider.
-Version-specific base URLs consist of the generic base URL, followed by the version number prefixed with the letter "v".
-Allowed formatting of the version are vMAJOR and vMAJOR.MINOR, vMAJOR.MINOR.PATCH, where MAJOR is the major version number, MINOR is the minor version number and PATCH is the patch version number of the corresponding standard.
-If the major version number is 0, then the minor version number MUST also be included.
+Base URLs SHOULD have the form :val:`<URL>/vMAJOR`, :val:`<URL>/vMAJOR.MINOR` or :val:`<URL>/vMAJOR.MINOR.PATCH`.
+Here, :val:`<URL>` represents a generic URL, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
+For any major version supported by the provider, the :val:`<URL>/vMAJOR` URL MUST point to the **latest** minor/patch version implemented by the provider.
+
+    **For implementers**: Clients can discover the latest supported version of the standard by cycling through :val:`<URL>/v0`, :val:`<URL>/v1`, :val:`<URL>/v2` etc.
 
 Examples of valid base URLs:
 
-- http://example.com/optimade/
-- http://example.com/
-- http://example.com/some/path/
-
-Examples of valid version-specific base URLs:
-
-- http://example.com/optimade/v0.9/
+- http://example.com/optimade/v0/
 - http://example.com/v0.9.1/
+- http://example.com/v1/
 
-Examples of invalid version-specific base URLs:
+Examples of invalid base URLs:
 
-- http://example.com/v0
 - http://example.com/optimade/0.9/
+- http://example.com/optimade/
 
-The database provider SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any supported major and minor version.
-
-Clients can retrieve supported versions using the :field:`available_api_versions` field from a query to the base URL :endpoint:`info` endpoint (see section `Base URL Info Endpoint`_).
+Database providers SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any major and minor version they support.
 
 Note: The base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to a base URL.
 However, it is RECOMMENDED that implementations serve a human-readable HTML document on a base URL, which explains that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
