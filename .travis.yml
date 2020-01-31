@@ -10,7 +10,7 @@ addons:
             - unzip
             - wget
             - make
-            - default-jdk
+            - openjdk-8-jdk
             - subversion
 
 script:
