@@ -1,7 +1,6 @@
 sudo: required
 
-dist: trusty
-language: perl
+dist: xenial
 
 addons:
     apt:
@@ -9,11 +8,10 @@ addons:
             - ant
             - ant-optional
             - unzip
+	    - wget
+	    - make
             - default-jdk
             - subversion
-
-# Skip cpanm installation
-install: []
 
 script:
     - make --version
