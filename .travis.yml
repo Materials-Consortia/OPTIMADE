@@ -8,8 +8,8 @@ addons:
             - ant
             - ant-optional
             - unzip
-	    - wget
-	    - make
+            - wget
+            - make
             - default-jdk
             - subversion
 
