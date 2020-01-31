@@ -14,5 +14,6 @@ addons:
             - subversion
 
 script:
+    - javac -version
     - make --version
     - make audit
