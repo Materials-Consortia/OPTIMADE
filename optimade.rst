@@ -232,7 +232,8 @@ All access to the API is provided under the **versioned base URLs**, which appen
 Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
 For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the *latest* minor/patch version implemented by the provider.
 
-    **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URLs in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
+    **For implementers**: Clients are recommended to discover the highest version supported by both the client and the API implementation by trying versioned base URLs in order of priority.
+    E.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
 
 Examples of valid versioned base URLs:
 
