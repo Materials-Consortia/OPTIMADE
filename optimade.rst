@@ -228,7 +228,7 @@ Base URL
 Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/.
 Every URL path segment that follows the base URL MUST behave as standardized in this API specification.
 
-All access to the API is provided under the **versioned base URLs**, which append a URL path segment to the base URL that SHOULD be on the form :query-url:`/vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
+All access to the API is provided under the **versioned base URLs**, which append a URL path segment to the base URL that SHOULD be of the form :query-url:`/vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
 Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
 For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the *latest* minor/patch version implemented by the provider.
 
