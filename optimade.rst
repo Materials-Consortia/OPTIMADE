@@ -232,7 +232,7 @@ All access to the API is provided under the **versioned base URLs**, which appen
 Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
 For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the **latest** minor/patch version implemented by the provider.
 
-    **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URL in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
+    **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URLs in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
 
 Examples of valid versioned base URLs:
 
@@ -1026,7 +1026,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current implementation.
-The links endpoint is accessed under the versioned base URL at :endpoint:`/links`.
+The links endpoint MUST be provided under the versioned base URL at :endpoint:`/links`.
 
 It can be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
 
@@ -1494,7 +1494,7 @@ type
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
-  - The entry of type `<type>` and ID `<id>` MUST be given as the response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
+  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
     
 - **Example**: :val:`"structures"`
 
