@@ -4,6 +4,9 @@ dist: xenial
 
 language: java
 
+jdk:
+  - openjdk8
+
 addons:
     apt:
         packages:
@@ -16,7 +19,6 @@ addons:
             - subversion
 
 script:
-    - jdk_switcher use openjdk8
     - javac -version
     - java -version
     - make --version
