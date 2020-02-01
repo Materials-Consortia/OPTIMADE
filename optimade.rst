@@ -230,7 +230,7 @@ Every URL path segment that follows the base URL MUST behave as standardized in 
 
 All access to the API is provided under the **versioned base URLs**, which append a URL path segment to the base URL that SHOULD be on the form :query-url:`/vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
 Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
-For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the **latest** minor/patch version implemented by the provider.
+For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the *latest* minor/patch version implemented by the provider.
 
     **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URLs in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
 
@@ -374,7 +374,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   - **query**: information on the query that was requested.
     It MUST be a dictionary with these fields:
 
-    - **representation**: a string with the part of the URL following the base URL.
+    - **representation**: a string with the part of the URL following the versioned base URL.
 
   - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
