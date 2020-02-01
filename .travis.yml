@@ -2,6 +2,8 @@ sudo: required
 
 dist: xenial
 
+language: java
+
 addons:
     apt:
         packages:
@@ -14,14 +16,8 @@ addons:
             - subversion
 
 script:
+    - jdk_switcher use openjdk8
     - javac -version
-    - java -version
-    - which javac
-    - which java
-    - update-alternatives --config javac
-    - sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
-    - sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/bin/java
-    - javac -version 
     - java -version
     - make --version
     - make audit
