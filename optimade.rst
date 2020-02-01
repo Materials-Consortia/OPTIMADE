@@ -219,14 +219,14 @@ General API Requirements and Conventions
 Base URL
 --------
 
-Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/v1.
+Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/
 Every URL component that follows the base URL MUST behave as standardized in this API specification.
 
-Base URLs SHOULD have the form :val:`<URL>/vMAJOR`, :val:`<URL>/vMAJOR.MINOR` or :val:`<URL>/vMAJOR.MINOR.PATCH`.
-Here, :val:`<URL>` represents a generic URL, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
+All access to the API is provided under **versioned base URLs**, which append a URL component to the base URL that SHOULD be on the form :query-url:`vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
+Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
 For any major version supported by the provider, the :val:`<URL>/vMAJOR` URL MUST point to the **latest** minor/patch version implemented by the provider.
 
-    **For implementers**: Clients can discover the latest supported version of the standard by cycling through :val:`<URL>/v0`, :val:`<URL>/v1`, :val:`<URL>/v2` etc.
+    **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URL in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
 
 Examples of valid base URLs:
 
@@ -241,8 +241,8 @@ Examples of invalid base URLs:
 
 Database providers SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any major and minor version they support.
 
-Note: The base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to a base URL.
-However, it is RECOMMENDED that implementations serve a human-readable HTML document on a base URL, which explains that the URL is an OPTiMaDe base URL meant to be queried by an OPTiMaDe client.
+Note: The base URLs and versioned base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to them.
+However, it is RECOMMENDED that implementations serve a human-readable HTML document on the base URLs and versioned base URLs, which explains that the URL is an OPTiMaDe URL meant to be queried by an OPTiMaDe client.
 
 Index Meta-Database
 -------------------
