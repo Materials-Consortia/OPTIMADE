@@ -135,10 +135,10 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_").
 
 **Base URL**
-    The topmost URL under which the API is served. See section `Base URL`.
+    The topmost URL under which the API is served. See section `Base URL`_.
 
 **Versioned base URL**
-   A URL formed by the base URL plus a path segment indicating a version of the API. See section `Base URL`.
+   A URL formed by the base URL plus a path segment indicating a version of the API. See section `Base URL`_.
     
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
