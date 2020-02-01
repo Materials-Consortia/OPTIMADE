@@ -8,7 +8,7 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 1
+                  TOKEN_80(9999): "a", line: 1, col: 1
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_30(9999): ">", line: 1, col: 2
@@ -21,9 +21,7 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 4
       AND(9999)
-        TOKEN_33(9999): "A", line: 1, col: 5
-        TOKEN_46(9999): "N", line: 1, col: 6
-        TOKEN_36(9999): "D", line: 1, col: 7
+        TOKEN_35(9999): "AND", line: 1, col: 5
         Spaces(9999)
           Space(9999)
             TOKEN_1(9999): " ", line: 1, col: 8
@@ -39,7 +37,7 @@ Filter(9999)
                     Property(9999)
                       Identifier(9999)
                         LowercaseLetter(9999)
-                          TOKEN_66(9999): "b", line: 1, col: 10
+                          TOKEN_81(9999): "b", line: 1, col: 10
                     ValueOpRhs(9999)
                       Operator(9999)
                         TOKEN_28(9999): "<", line: 1, col: 11
@@ -54,8 +52,7 @@ Filter(9999)
                             Space(9999)
                               TOKEN_1(9999): " ", line: 1, col: 14
             OR(9999)
-              TOKEN_47(9999): "O", line: 1, col: 15
-              TOKEN_50(9999): "R", line: 1, col: 16
+              TOKEN_59(9999): "OR", line: 1, col: 15
               Spaces(9999)
                 Space(9999)
                   TOKEN_1(9999): " ", line: 1, col: 17
@@ -67,7 +64,7 @@ Filter(9999)
                       Property(9999)
                         Identifier(9999)
                           LowercaseLetter(9999)
-                            TOKEN_67(9999): "c", line: 1, col: 18
+                            TOKEN_82(9999): "c", line: 1, col: 18
                       ValueOpRhs(9999)
                         Operator(9999)
                           TOKEN_2(9999): "!", line: 1, col: 19
@@ -76,13 +73,12 @@ Filter(9999)
                           Property(9999)
                             Identifier(9999)
                               LowercaseLetter(9999)
-                                TOKEN_66(9999): "b", line: 1, col: 21
+                                TOKEN_81(9999): "b", line: 1, col: 21
                               Spaces(9999)
                                 Space(9999)
                                   TOKEN_1(9999): " ", line: 1, col: 22
               OR(9999)
-                TOKEN_47(9999): "O", line: 1, col: 23
-                TOKEN_50(9999): "R", line: 1, col: 24
+                TOKEN_59(9999): "OR", line: 1, col: 23
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 25
@@ -94,7 +90,7 @@ Filter(9999)
                         Property(9999)
                           Identifier(9999)
                             LowercaseLetter(9999)
-                              TOKEN_88(9999): "x", line: 1, col: 26
+                              TOKEN_103(9999): "x", line: 1, col: 26
                         ValueOpRhs(9999)
                           Operator(9999)
                             TOKEN_30(9999): ">", line: 1, col: 27

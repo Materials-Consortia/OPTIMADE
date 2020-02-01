@@ -1,0 +1,31 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Targets for auditing the specification
+
+.PHONY: audit 
+
+audit: audit_grammars audit_authors audit_spelling
+	@echo "=============================================="
+	@echo "Audit of specification completed successfully."
+	@echo "=============================================="
+
+
+.PHONY: audit_grammars
+
+audit_grammars: 
+	$(MAKE) tools
+	$(MAKE) grammars
+	$(MAKE) tests
+	(exit $$($(MAKE) -s listdiff | head -n 1 | wc -l))
+
+
+.PHONY: audit_authors
+
+audit_authors: test_authors
+	diff -q AUTHORS tests/generated/AUTHORS.sorted
+
+
+.PHONY: audit audit_spelling
+
+audit_spelling:
+	@echo "Spellcheck is not yet part of the audit of the specification."

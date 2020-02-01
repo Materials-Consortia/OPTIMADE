@@ -8,45 +8,45 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_63(9999): "_", line: 1, col: 1
+                  TOKEN_78(9999): "_", line: 1, col: 1
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 2
+                  TOKEN_84(9999): "e", line: 1, col: 2
                 LowercaseLetter(9999)
-                  TOKEN_88(9999): "x", line: 1, col: 3
+                  TOKEN_103(9999): "x", line: 1, col: 3
                 LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 4
+                  TOKEN_92(9999): "m", line: 1, col: 4
                 LowercaseLetter(9999)
-                  TOKEN_80(9999): "p", line: 1, col: 5
+                  TOKEN_95(9999): "p", line: 1, col: 5
                 LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 6
+                  TOKEN_91(9999): "l", line: 1, col: 6
                 LowercaseLetter(9999)
-                  TOKEN_63(9999): "_", line: 1, col: 7
+                  TOKEN_78(9999): "_", line: 1, col: 7
                 LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 8
+                  TOKEN_92(9999): "m", line: 1, col: 8
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 9
+                  TOKEN_84(9999): "e", line: 1, col: 9
                 LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 10
+                  TOKEN_91(9999): "l", line: 1, col: 10
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "t", line: 1, col: 11
+                  TOKEN_99(9999): "t", line: 1, col: 11
                 LowercaseLetter(9999)
-                  TOKEN_73(9999): "i", line: 1, col: 12
+                  TOKEN_88(9999): "i", line: 1, col: 12
                 LowercaseLetter(9999)
-                  TOKEN_78(9999): "n", line: 1, col: 13
+                  TOKEN_93(9999): "n", line: 1, col: 13
                 LowercaseLetter(9999)
-                  TOKEN_71(9999): "g", line: 1, col: 14
+                  TOKEN_86(9999): "g", line: 1, col: 14
                 LowercaseLetter(9999)
-                  TOKEN_63(9999): "_", line: 1, col: 15
+                  TOKEN_78(9999): "_", line: 1, col: 15
                 LowercaseLetter(9999)
-                  TOKEN_80(9999): "p", line: 1, col: 16
+                  TOKEN_95(9999): "p", line: 1, col: 16
                 LowercaseLetter(9999)
-                  TOKEN_79(9999): "o", line: 1, col: 17
+                  TOKEN_94(9999): "o", line: 1, col: 17
                 LowercaseLetter(9999)
-                  TOKEN_73(9999): "i", line: 1, col: 18
+                  TOKEN_88(9999): "i", line: 1, col: 18
                 LowercaseLetter(9999)
-                  TOKEN_78(9999): "n", line: 1, col: 19
+                  TOKEN_93(9999): "n", line: 1, col: 19
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "t", line: 1, col: 20
+                  TOKEN_99(9999): "t", line: 1, col: 20
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_28(9999): "<", line: 1, col: 21
@@ -63,9 +63,7 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 25
       AND(9999)
-        TOKEN_33(9999): "A", line: 1, col: 26
-        TOKEN_46(9999): "N", line: 1, col: 27
-        TOKEN_36(9999): "D", line: 1, col: 28
+        TOKEN_35(9999): "AND", line: 1, col: 26
         Spaces(9999)
           Space(9999)
             TOKEN_1(9999): " ", line: 1, col: 29
@@ -76,23 +74,23 @@ Filter(9999)
               Property(9999)
                 Identifier(9999)
                   LowercaseLetter(9999)
-                    TOKEN_78(9999): "n", line: 1, col: 30
+                    TOKEN_93(9999): "n", line: 1, col: 30
                   LowercaseLetter(9999)
-                    TOKEN_69(9999): "e", line: 1, col: 31
+                    TOKEN_84(9999): "e", line: 1, col: 31
                   LowercaseLetter(9999)
-                    TOKEN_76(9999): "l", line: 1, col: 32
+                    TOKEN_91(9999): "l", line: 1, col: 32
                   LowercaseLetter(9999)
-                    TOKEN_69(9999): "e", line: 1, col: 33
+                    TOKEN_84(9999): "e", line: 1, col: 33
                   LowercaseLetter(9999)
-                    TOKEN_77(9999): "m", line: 1, col: 34
+                    TOKEN_92(9999): "m", line: 1, col: 34
                   LowercaseLetter(9999)
-                    TOKEN_69(9999): "e", line: 1, col: 35
+                    TOKEN_84(9999): "e", line: 1, col: 35
                   LowercaseLetter(9999)
-                    TOKEN_78(9999): "n", line: 1, col: 36
+                    TOKEN_93(9999): "n", line: 1, col: 36
                   LowercaseLetter(9999)
-                    TOKEN_84(9999): "t", line: 1, col: 37
+                    TOKEN_99(9999): "t", line: 1, col: 37
                   LowercaseLetter(9999)
-                    TOKEN_83(9999): "s", line: 1, col: 38
+                    TOKEN_98(9999): "s", line: 1, col: 38
               ValueOpRhs(9999)
                 Operator(9999)
                   TOKEN_29(9999): "=", line: 1, col: 39
@@ -105,9 +103,7 @@ Filter(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 41
         AND(9999)
-          TOKEN_33(9999): "A", line: 1, col: 42
-          TOKEN_46(9999): "N", line: 1, col: 43
-          TOKEN_36(9999): "D", line: 1, col: 44
+          TOKEN_35(9999): "AND", line: 1, col: 42
           Spaces(9999)
             Space(9999)
               TOKEN_1(9999): " ", line: 1, col: 45
@@ -118,21 +114,21 @@ Filter(9999)
                 Property(9999)
                   Identifier(9999)
                     LowercaseLetter(9999)
-                      TOKEN_69(9999): "e", line: 1, col: 46
+                      TOKEN_84(9999): "e", line: 1, col: 46
                     LowercaseLetter(9999)
-                      TOKEN_76(9999): "l", line: 1, col: 47
+                      TOKEN_91(9999): "l", line: 1, col: 47
                     LowercaseLetter(9999)
-                      TOKEN_69(9999): "e", line: 1, col: 48
+                      TOKEN_84(9999): "e", line: 1, col: 48
                     LowercaseLetter(9999)
-                      TOKEN_77(9999): "m", line: 1, col: 49
+                      TOKEN_92(9999): "m", line: 1, col: 49
                     LowercaseLetter(9999)
-                      TOKEN_69(9999): "e", line: 1, col: 50
+                      TOKEN_84(9999): "e", line: 1, col: 50
                     LowercaseLetter(9999)
-                      TOKEN_78(9999): "n", line: 1, col: 51
+                      TOKEN_93(9999): "n", line: 1, col: 51
                     LowercaseLetter(9999)
-                      TOKEN_84(9999): "t", line: 1, col: 52
+                      TOKEN_99(9999): "t", line: 1, col: 52
                     LowercaseLetter(9999)
-                      TOKEN_83(9999): "s", line: 1, col: 53
+                      TOKEN_98(9999): "s", line: 1, col: 53
                 ValueOpRhs(9999)
                   Operator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 54
@@ -143,12 +139,12 @@ Filter(9999)
                         UnescapedChar(9999)
                           Letter(9999)
                             UppercaseLetter(9999)
-                              TOKEN_51(9999): "S", line: 1, col: 56
+                              TOKEN_63(9999): "S", line: 1, col: 56
                       EscapedChar(9999)
                         UnescapedChar(9999)
                           Letter(9999)
                             LowercaseLetter(9999)
-                              TOKEN_73(9999): "i", line: 1, col: 57
+                              TOKEN_88(9999): "i", line: 1, col: 57
                       EscapedChar(9999)
                         UnescapedChar(9999)
                           Punctuator(9999)
@@ -157,7 +153,7 @@ Filter(9999)
                         UnescapedChar(9999)
                           Letter(9999)
                             UppercaseLetter(9999)
-                              TOKEN_47(9999): "O", line: 1, col: 59
+                              TOKEN_57(9999): "O", line: 1, col: 59
                       EscapedChar(9999)
                         UnescapedChar(9999)
                           Digit(9999)

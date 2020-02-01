@@ -8,7 +8,7 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 1
+                  TOKEN_80(9999): "a", line: 1, col: 1
             ValueOpRhs(9999)
               Operator(9999)
                 TOKEN_29(9999): "=", line: 1, col: 2

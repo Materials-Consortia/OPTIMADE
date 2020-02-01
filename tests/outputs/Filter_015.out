@@ -8,37 +8,37 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 1
+                  TOKEN_82(9999): "c", line: 1, col: 1
                 LowercaseLetter(9999)
-                  TOKEN_72(9999): "h", line: 1, col: 2
+                  TOKEN_87(9999): "h", line: 1, col: 2
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 3
+                  TOKEN_84(9999): "e", line: 1, col: 3
                 LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 4
+                  TOKEN_92(9999): "m", line: 1, col: 4
                 LowercaseLetter(9999)
-                  TOKEN_73(9999): "i", line: 1, col: 5
+                  TOKEN_88(9999): "i", line: 1, col: 5
                 LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 6
+                  TOKEN_82(9999): "c", line: 1, col: 6
                 LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 7
+                  TOKEN_80(9999): "a", line: 1, col: 7
                 LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 8
+                  TOKEN_91(9999): "l", line: 1, col: 8
                 LowercaseLetter(9999)
-                  TOKEN_63(9999): "_", line: 1, col: 9
+                  TOKEN_78(9999): "_", line: 1, col: 9
                 LowercaseLetter(9999)
-                  TOKEN_70(9999): "f", line: 1, col: 10
+                  TOKEN_85(9999): "f", line: 1, col: 10
                 LowercaseLetter(9999)
-                  TOKEN_79(9999): "o", line: 1, col: 11
+                  TOKEN_94(9999): "o", line: 1, col: 11
                 LowercaseLetter(9999)
-                  TOKEN_82(9999): "r", line: 1, col: 12
+                  TOKEN_97(9999): "r", line: 1, col: 12
                 LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 13
+                  TOKEN_92(9999): "m", line: 1, col: 13
                 LowercaseLetter(9999)
-                  TOKEN_85(9999): "u", line: 1, col: 14
+                  TOKEN_100(9999): "u", line: 1, col: 14
                 LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 15
+                  TOKEN_91(9999): "l", line: 1, col: 15
                 LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 16
+                  TOKEN_80(9999): "a", line: 1, col: 16
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 17
@@ -60,23 +60,21 @@ Filter(9999)
                     UnescapedChar(9999)
                       Letter(9999)
                         LowercaseLetter(9999)
-                          TOKEN_76(9999): "l", line: 1, col: 22
+                          TOKEN_91(9999): "l", line: 1, col: 22
                   TOKEN_3(9999): """, line: 1, col: 23
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 24
       AND(9999)
-        TOKEN_33(9999): "A", line: 1, col: 25
-        TOKEN_46(9999): "N", line: 1, col: 26
-        TOKEN_36(9999): "D", line: 1, col: 27
+        TOKEN_35(9999): "AND", line: 1, col: 25
         Spaces(9999)
           Space(9999)
             TOKEN_1(9999): " ", line: 1, col: 28
 Error: in tests/cases/Filter_015.inp: line 1:
-    unexpected token "O", expected one of "N", """, "+", "-", "0",
+    unexpected token "OR", expected one of "NOT", """, "+", "-", "0",
     "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "a", "b", "c",
     "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "_", "L", or "("
+    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "_", or "("
 
 chemical_formula = "Al" AND OR prototype_formula = "A"
                             ^

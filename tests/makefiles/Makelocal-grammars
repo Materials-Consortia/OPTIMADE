@@ -1,12 +1,12 @@
 #---*- Makefile -*-------------------------------------------------------
 
-# Extract grammars from the *.md files and run tests agains them.
+# Extract grammars from the *.rst files and run tests against them.
 
-MD_FILE_DIR ?= .
+RST_FILE_DIR ?= .
 
 TOOL_DIR ?= tests/tools
 
-MD_FILES ?= $(wildcard ${MD_FILE_DIR}/*.md)
+RST_FILES ?= $(wildcard ${RST_FILE_DIR}/*.rst)
 
 GRAMMAR_START_STRING ?= \(\* BEGIN EBNF GRAMMAR
 GRAMMAR_END_STRING   ?= \(\* END EBNF GRAMMAR
@@ -14,12 +14,12 @@ GRAMMAR_END_STRING   ?= \(\* END EBNF GRAMMAR
 RE_START_STRING ?= \#BEGIN
 RE_END_STRING   ?= \#END
 
-GRAMMARS ?= $(shell awk '/^${GRAMMAR_START_STRING}/{print $$5}' ${MD_FILES})
+GRAMMARS ?= $(shell awk '/^ *${GRAMMAR_START_STRING}/{print $$5}' ${RST_FILES})
 GRAMMAR_DIR   ?= tests/generated
 EBNF_FILES    ?= ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
 GRAMMAR_FILES ?= ${EBNF_FILES:%.ebnf=%.g}
 
-REGEXPS = $(sort $(shell awk '/^${RE_START_STRING}/{print $$3}' ${MD_FILES} | tr -d "\r"))
+REGEXPS = $(sort $(shell awk '/^ *${RE_START_STRING}/{print $$3}' ${RST_FILES} | tr -d "\r"))
 REGEXP_FILES = ${REGEXPS:%=${GRAMMAR_DIR}/%.ere} ${REGEXPS:%=${GRAMMAR_DIR}/%.pcre}
 
 GRAMMAR_DEPENDENCIES = .grammars.d
@@ -40,24 +40,25 @@ ${OUTP_FILES}: ${GRAMMAR_FILES}
 
 #------------------------------------------------------------------------------
 
-${GRAMMAR_DEPENDENCIES}: ${MD_FILES}
-	awk '/^${GRAMMAR_START_STRING}/{print "${GRAMMAR_DIR}/"$$5".ebnf:", FILENAME}' \
+${GRAMMAR_DEPENDENCIES}: ${RST_FILES}
+	awk '/^ *${GRAMMAR_START_STRING}/{print "${GRAMMAR_DIR}/"$$5".ebnf:", FILENAME}' \
 		$^ > $@
-	awk '/^${RE_START_STRING} ERE/{print "${GRAMMAR_DIR}/"$$3".ere:", FILENAME}' \
+	awk '/^ *${RE_START_STRING} ERE/{print "${GRAMMAR_DIR}/"$$3".ere:", FILENAME}' \
 		$^ | tr -d "\r" >> $@
-	awk '/^${RE_START_STRING} PCRE/{print "${GRAMMAR_DIR}/"$$3".pcre:", FILENAME}' \
+	awk '/^ *${RE_START_STRING} PCRE/{print "${GRAMMAR_DIR}/"$$3".pcre:", FILENAME}' \
 		$^ | tr -d "\r" >> $@
 
 ${GRAMMAR_DIR}/%.ebnf:
-	awk '/^${GRAMMAR_START_STRING} $*/,/^${GRAMMAR_END_STRING} $*/' $< > $@
+	awk '/^ *${GRAMMAR_START_STRING} $*/,/^ *${GRAMMAR_END_STRING} $*/' $< \
+		| sed 's/^    //' > $@
 
 ${GRAMMAR_DIR}/%.ere:
-	awk '/^${RE_START_STRING} ERE $*/,/^${RE_END_STRING} ERE $*/' $< \
-		| tr -d "\r" > $@
+	awk '/^ *${RE_START_STRING} ERE $*/,/^ *${RE_END_STRING} ERE $*/' $< \
+		| sed 's/^    //' | tr -d "\r" > $@
 
 ${GRAMMAR_DIR}/%.pcre:
-	awk '/^${RE_START_STRING} PCRE $*/,/^${RE_END_STRING} PCRE $*/' $< \
-		| tr -d "\r" > $@
+	awk '/^ *${RE_START_STRING} PCRE $*/,/^ *${RE_END_STRING} PCRE $*/' $< \
+		| sed 's/^    //' | tr -d "\r" > $@
 
 .PHONY: tools
 

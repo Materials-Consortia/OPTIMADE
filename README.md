@@ -5,9 +5,9 @@ to make materials databases interoperational by developing a common REST API.
 
 This repository contains the specification of the OPTiMaDe API.
 
-* [optimade.md](optimade.md): The API specification.
+* [optimade.rst](optimade.rst): The API specification.
 * [AUTHORS](AUTHORS): List of contributors.
-* [optimade.org](optimade.org): Public OPTiMaDe web site
+* [optimade.org](https://www.optimade.org): Public OPTiMaDe web site
 * [OPTiMaDe wiki](https://github.com/Materials-Consortia/OPTiMaDe/wiki): Information for developers
 
 ## For developers

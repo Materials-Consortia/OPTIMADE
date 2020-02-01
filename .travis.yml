@@ -1,23 +1,25 @@
 sudo: required
 
-dist: trusty
-language: perl
+dist: xenial
+
+language: java
+
+jdk:
+  - openjdk8
 
 addons:
     apt:
         packages:
             - ant
+            - ant-optional
             - unzip
-            - default-jdk
+            - wget
+            - make
+            - openjdk-8-jdk
             - subversion
 
-# Skip cpanm installation
-install: []
-
 script:
+    - javac -version
+    - java -version
     - make --version
-    - make tools
-    - make grammars
-    - make tests
-    - make listdiff
-    - exit $(make listdiff | head | wc -l)
+    - make audit

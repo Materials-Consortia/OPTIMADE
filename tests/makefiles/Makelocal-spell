@@ -1,0 +1,8 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Targets related to spellchecking the specification
+
+.PHONY: spell
+
+spell: 
+	aspell -x -p ./.words.lst -l en_US -c ${RST_FILES}

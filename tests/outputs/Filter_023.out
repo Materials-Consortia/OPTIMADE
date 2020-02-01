@@ -8,27 +8,27 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 1
+                  TOKEN_82(9999): "c", line: 1, col: 1
                 LowercaseLetter(9999)
-                  TOKEN_72(9999): "h", line: 1, col: 2
+                  TOKEN_87(9999): "h", line: 1, col: 2
                 LowercaseLetter(9999)
-                  TOKEN_69(9999): "e", line: 1, col: 3
+                  TOKEN_84(9999): "e", line: 1, col: 3
                 LowercaseLetter(9999)
-                  TOKEN_77(9999): "m", line: 1, col: 4
+                  TOKEN_92(9999): "m", line: 1, col: 4
                 LowercaseLetter(9999)
-                  TOKEN_73(9999): "i", line: 1, col: 5
+                  TOKEN_88(9999): "i", line: 1, col: 5
                 LowercaseLetter(9999)
-                  TOKEN_67(9999): "c", line: 1, col: 6
+                  TOKEN_82(9999): "c", line: 1, col: 6
                 LowercaseLetter(9999)
-                  TOKEN_65(9999): "a", line: 1, col: 7
+                  TOKEN_80(9999): "a", line: 1, col: 7
                 LowercaseLetter(9999)
-                  TOKEN_76(9999): "l", line: 1, col: 8
+                  TOKEN_91(9999): "l", line: 1, col: 8
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 9
 Error: in tests/cases/Filter_023.inp: line 1:
-    unexpected token "f", expected one of "<", ">", "=", "!", "I",
-    "C", "S", "E", "H", or ":"
+    unexpected token "f", expected one of "<", ">", "!", "=", "IS",
+    "CONTAINS", "STARTS", "ENDS", "HAS", ":", or "LENGTH"
 
 chemical formula IS KNOWN 42
          ^
