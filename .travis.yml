@@ -16,9 +16,11 @@ addons:
 script:
     - javac -version
     - java -version
+    - which javac
+    - which java
     - update-alternatives --config javac
-    - update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
-    - update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/bin/java
+    - sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+    - sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/bin/java
     - javac -version 
     - java -version
     - make --version
