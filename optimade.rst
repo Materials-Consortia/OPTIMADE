@@ -134,6 +134,12 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Identifier**
     Names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_").
 
+**Base URL**
+    The topmost URL under which the API is served. See section `Base URL`.
+
+**Versioned base URL**
+   A URL formed by the base URL plus a path segment indicating a version of the API. See section `Base URL`.
+    
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
     For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
@@ -219,12 +225,12 @@ General API Requirements and Conventions
 Base URL
 --------
 
-Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/
-Every URL component that follows the base URL MUST behave as standardized in this API specification.
+Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/.
+Every URL path segment that follows the base URL MUST behave as standardized in this API specification.
 
-All access to the API is provided under **versioned base URLs**, which append a URL component to the base URL that SHOULD be on the form :query-url:`vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
+All access to the API is provided under the **versioned base URLs**, which append a URL path segment to the base URL that SHOULD be on the form :query-url:`/vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
 Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
-For any major version supported by the provider, the :val:`<URL>/vMAJOR` URL MUST point to the **latest** minor/patch version implemented by the provider.
+For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the **latest** minor/patch version implemented by the provider.
 
     **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URL in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
 
@@ -242,7 +248,7 @@ Examples of invalid versioned base URLs:
 Database providers SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any major and minor version they support.
 
 Note: The base URLs and versioned base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to them.
-However, it is RECOMMENDED that implementations serve a human-readable HTML document on the base URLs and versioned base URLs, which explains that the URL is an OPTiMaDe URL meant to be queried by an OPTiMaDe client.
+However, it is RECOMMENDED that implementations serve a human-readable HTML document on base URLs and versioned base URLs, which explains that the URL is an OPTiMaDe URL meant to be queried by an OPTiMaDe client.
 
 Index Meta-Database
 -------------------
@@ -257,7 +263,7 @@ However, they MUST return the correct and updated information on all currently p
 
 The :field:`index_base_url` field MUST be included in every response in the :field:`provider` field under the top-level :field:`meta` field (see section `JSON Response Schema: Common Fields`_).
 
-The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base URL Info Endpoint`_).
+The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
     **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
@@ -492,7 +498,7 @@ The response MAY also return resources related to the primary data in the field:
       {
         "links": {
           "base_url": {
-            "href": "http://example.com/optimade/v0.9/",
+            "href": "http://example.com/optimade",
             "meta": {
               "_exmpl_db_version": "3.2.1"
             }
@@ -536,7 +542,7 @@ An example of a full response:
        "links": {
 	 "next": null,
 	 "base_url": {
-	   "href": "http://example.com/optimade/v0.9/",
+	   "href": "http://example.com/optimade",
 	   "meta": {
 	      "_exmpl_db_version": "3.2.1"
 	   }
@@ -603,7 +609,7 @@ For implementation-specific warnings, they MUST start with ``_`` and the databas
 API Endpoints
 =============
 
-The URL component that follows the base URL MUST represent one of the following endpoints:
+The URL path segment that follows the versioned base URL MUST represent one of the following endpoints:
 
 - an "entry listing" endpoint
 - a "single entry" endpoint
@@ -787,7 +793,7 @@ Example:
 Single Entry Endpoints
 ----------------------
 
-A client can request a specific entry by appending an URL-encoded ID component to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
+A client can request a specific entry by appending an URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the :field:`id` field.
 
@@ -843,18 +849,17 @@ Info endpoints provide introspective information, either about the API implement
 
 There are two types of info endpoints:
 
-1. the base URL (e.g., http://example.com/optimade/v0.9/info)
-2. type-specific entry listing endpoints (e.g.,
-   http://example.com/optimade/v0.9/info/structures)
+1. Base info endpoints: placed directly under the versioned base URL (e.g., http://example.com/optimade/v0.9/info)
+2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v0.9/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
 If no resource object is provided, the value of the :field:`data` field MUST be :field-val:`null`.
 
-Base URL Info Endpoint
-~~~~~~~~~~~~~~~~~~~~~~
+Base Info Endpoint
+~~~~~~~~~~~~~~~~~~
 
-The Info endpoint on the base URL or directly after the version number (e.g. http://example.com/optimade/v0.9/info) returns information relating to the API implementation.
+The Info endpoint under a versioned base URL (e.g. http://example.com/optimade/v0.9/info) returns information relating to the API implementation.
 
 The single resource object's response dictionary MUST include the following fields:
 
@@ -865,12 +870,12 @@ The single resource object's response dictionary MUST include the following fiel
   - **api\_version**: Presently used version of the OPTiMaDe API.
   - **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 
-    - **url**: a string specifying a base URL that MUST adhere to the rules in section `Base URL`_
-    - **version**: a string containing the full version number of the API served at that base URL. The version number string MUST NOT be prefixed by, e.g., "v".
+    - **url**: a string specifying a versioned base URL that MUST adhere to the rules in section `Base URL`_
+    - **version**: a string containing the full version number of the API served at that versioned base URL. The version number string MUST NOT be prefixed by, e.g., "v".
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
-  - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the base URL).
+  - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned base URL).
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
@@ -976,7 +981,7 @@ Example for an index meta-database:
 Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Entry listing info endpoints are of the form :endpoint:`<base_url>/info/<entry_type>` (e.g., http://example.com/optimade/v0.9/info/structures).
+Entry listing info endpoints are accessed under the versioned base URL as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v0.9/info/structures).
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
@@ -1021,7 +1026,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current implementation.
-The endpoint MUST be provided at the path :endpoint:`<base_url>/links`.
+The links endpoint is accessed under the versioned base URL at :endpoint:`/links`.
 
 It can be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
 
@@ -1139,7 +1144,8 @@ Custom Extension Endpoints
 --------------------------
 
 API implementations MAY provide custom endpoints under the Extensions endpoint.
-These endpoints MUST be on the form "<base\_url>/extensions/<custom paths>".
+Custom extension endpoints MUST be placed under the versioned base URL at :endpoint:`/extensions`.
+The API implementation is free to define roles of further URL path segments under this URL.
 
 API Filtering Format Specification
 ==================================
@@ -1480,7 +1486,7 @@ id
 type
 ~~~~
 
-- **Description**: The name of the type of an entry. Any entry MUST be able to be fetched using the `base URL <Base URL_>`_ type and ID at the URL :endpoint:`<base URL>/<type>/<id>`.
+- **Description**: The name of the type of an entry.
 - **Type**: string.
 - **Requirements/Conventions**:
 
@@ -1488,7 +1494,8 @@ type
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
-
+  - The entry of type `<type>` and ID `<id>` MUST be given as the response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
+    
 - **Example**: :val:`"structures"`
 
 immutable\_id
