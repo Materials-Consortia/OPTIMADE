@@ -228,13 +228,13 @@ For any major version supported by the provider, the :val:`<URL>/vMAJOR` URL MUS
 
     **For implementers**: Clients are recommended to discover the highest commonly supported version by the client and the API implementation by trying versioned base URL in order of priority, e.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
 
-Examples of valid base URLs:
+Examples of valid versioned base URLs:
 
 - http://example.com/optimade/v0/
 - http://example.com/v0.9.1/
 - http://example.com/v1/
 
-Examples of invalid base URLs:
+Examples of invalid versioned base URLs:
 
 - http://example.com/optimade/0.9/
 - http://example.com/optimade/
