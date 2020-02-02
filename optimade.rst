@@ -1,6 +1,6 @@
-==========================================
-OPTiMaDe API specification v0.10.1-develop
-==========================================
+=====================================
+OPTiMaDe API specification v1.0.0-rc1
+=====================================
 
 .. comment
 
@@ -443,7 +443,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
   - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
-  - Example for a request made to :query-url:`http://example.com/optimade/v0.9/structures/?filter=a=1 AND b=2`:
+  - Example for a request made to :query-url:`http://example.com/optimade/v1/structures/?filter=a=1 AND b=2`:
 
     .. code:: jsonc
 
@@ -452,7 +452,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 	   "query": {
 	     "representation": "/structures/?filter=a=1 AND b=2",
 	   },
-	   "api_version": "v0.9",
+	   "api_version": "1.0.0",
 	   "time_stamp": "2007-04-05T14:30Z",
 	   "data_returned": 10,
 	   "data_available": 10,
@@ -554,7 +554,7 @@ An example of a full response:
 	 "query": {
 	   "representation": "/structures?filter=a=1 AND b=2"
 	 },
-	 "api_version": "v0.9",
+	 "api_version": "1.0.0",
 	 "time_stamp": "2007-04-05T14:30Z",
 	 "data_returned": 10,
 	 "data_available": 10,
@@ -643,7 +643,7 @@ The section `Entry list`_ specifies properties as belonging to one of three cate
 
 Examples of valid entry listing endpoint URLs:
 
-- http://example.com/optimade/v0.9/structures
+- http://example.com/optimade/v1/structures
 - http://example.com/optimade/calculations
 
 There MAY be multiple entry listing endpoints, depending on how many types of entries an implementation provides.
@@ -667,7 +667,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   The database MAY have a maximum limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned).
   The default limit value is up to the API implementation to decide.
 
-Example: http://example.com/optimade/v0.9/structures?page_limit=100
+Example: http://example.com/optimade/v1/structures?page_limit=100
 
 - **page\_{offset, number, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
   A server MAY implement pagination in concert with :query-param:`sort`.
@@ -713,14 +713,14 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 
 - **response\_format**: the output format requested (see section `Response Format`_).
   Defaults to the format string 'json', which specifies the standard output format described in this specification.
-  Example: http://example.com/optimade/v0.9/structures?response_format=xml
+  Example: http://example.com/optimade/v1/structures?response_format=xml
 - **email\_address**: an email address of the user making the request.
   The email SHOULD be that of a person and not an automatic system.
-  Example: http://example.com/optimade/v0.9/structures?email_address=user@example.com
+  Example: http://example.com/optimade/v1/structures?email_address=user@example.com
 - **response\_fields**: a comma-delimited set of fields to be provided in the output.
   If provided, these fields MUST be returned along with the REQUIRED fields.
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
-  Example: http://example.com/optimade/v0.9/structures?response_fields=last_modified,nsites
+  Example: http://example.com/optimade/v1/structures?response_fields=last_modified,nsites
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
@@ -730,9 +730,9 @@ Example uses of custom URL query parameters include providing an access token fo
 
 Examples:
 
-- :query-url:`http://example.com/optimade/v0.9/structures?_exmpl_key=A3242DSFJFEJE`
-- :query-url:`http://example.com/optimade/v0.9/structures?_exmpl_warning_verbosity=10`
-- :query-url:`http://example.com/optimade/v0.9/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
+- :query-url:`http://example.com/optimade/v1/structures?_exmpl_key=A3242DSFJFEJE`
+- :query-url:`http://example.com/optimade/v1/structures?_exmpl_warning_verbosity=10`
+- :query-url:`http://example.com/optimade/v1/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
 
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
@@ -801,8 +801,8 @@ In the default JSON response format, the ID component MUST be the content of the
 
 Examples:
 
-- :query-url:`http://example.com/optimade/v0.9/structures/exmpl%3Astruct_3232823`
-- :query-url:`http://example.com/optimade/v0.9/calculations/232132`
+- :query-url:`http://example.com/optimade/v1/structures/exmpl%3Astruct_3232823`
+- :query-url:`http://example.com/optimade/v1/calculations/232132`
 
 The rules for which properties are to be present for an entry in the response are the same as defined in section `Entry Listing Endpoints`_.
 
@@ -851,8 +851,8 @@ Info endpoints provide introspective information, either about the API implement
 
 There are two types of info endpoints:
 
-1. Base info endpoints: placed directly under the versioned base URL (e.g., http://example.com/optimade/v0.9/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v0.9/info/structures)
+1. Base info endpoints: placed directly under the versioned base URL (e.g., http://example.com/optimade/v1/info)
+2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
@@ -861,7 +861,7 @@ If no resource object is provided, the value of the :field:`data` field MUST be 
 Base Info Endpoint
 ~~~~~~~~~~~~~~~~~~
 
-The Info endpoint under a versioned base URL (e.g. http://example.com/optimade/v0.9/info) returns information relating to the API implementation.
+The Info endpoint under a versioned base URL (e.g. http://example.com/optimade/v1/info) returns information relating to the API implementation.
 
 The single resource object's response dictionary MUST include the following fields:
 
@@ -910,12 +910,14 @@ Example:
 	 "type": "info",
 	 "id": "/",
 	 "attributes": {
-	   "api_version": "v0.9",
+	   "api_version": "1.0.0",
 	   "available_api_versions": [
+	     {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
 	     {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
-	     {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.2"},
 	     {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
-	     {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"}
+	     {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"},
+	     {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
+	     {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"},
 	   ],
 	   "formats": [
 	     "json",
@@ -951,12 +953,14 @@ Example for an index meta-database:
 	 "type": "info",
 	 "id": "/",
 	 "attributes": {
-	   "api_version": "v0.9.8",
+	   "api_version": "1.0.0",
 	   "available_api_versions": [
+	     {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
 	     {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
 	     {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
-	     {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.2"}
-	   ],
+	     {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
+	     {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
+  	   ],
 	   "formats": [
 	     "json",
 	     "xml"
@@ -983,7 +987,7 @@ Example for an index meta-database:
 Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Entry listing info endpoints are accessed under the versioned base URL as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v0.9/info/structures).
+Entry listing info endpoints are accessed under the versioned base URL as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures).
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
@@ -1164,11 +1168,11 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
 
 Or, fully URL encoded :
 
--  :query-url:`http://example.org/optimade/v0.9/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml`
 
 Lexical Tokens
 --------------
