@@ -11,7 +11,7 @@ This repository contains the specification of the OPTiMaDe API.
 
 ## For developers
 
-The [master branch of the repository](https://github.com/Materials-Consortia/OPTiMaDe/tree/master) is supposed to be at the latest named release of the specification.
+The [master branch of the repository](https://github.com/Materials-Consortia/OPTiMaDe/tree/master) is at the latest named release of the specification.
 A commit tagged with a version number without a suffix indicates a stable release.
 A commit tagged with the suffix `-rc<number>` indicates a release candidate version. 
 
