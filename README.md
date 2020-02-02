@@ -10,7 +10,9 @@ This repository contains the specification of the OPTiMaDe API.
 * [optimade.org](https://www.optimade.org): Public OPTiMaDe web site
 * [OPTiMaDe wiki](https://github.com/Materials-Consortia/OPTiMaDe/wiki): Information for developers
 
-The subdirectory `schemas/` contains the OpenAPI schema for the main OPTiMaDe API and index meta-database as implemented by the [Materials-Consortia/optimade-python-tools repository](https://github.com/Materials-Consortia/optimade-python-tools). Note: these schemas are an approximation of the full human-readable specification and may be missing certain constraints. Furthermore, they may not be up to date in the develop branch of the repository.
+The subdirectory `schemas/` contains OpenAPI schemas for the main OPTiMaDe API and index meta-database as implemented by the [optimade-python-tools repository](https://github.com/Materials-Consortia/optimade-python-tools).
+_Note_: These schemas are an approximation of the full human-readable specification and may be missing certain constraints.
+Furthermore, they may not be up to date in the develop branch of this repository.
 
 ## For developers
 
