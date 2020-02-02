@@ -17,5 +17,5 @@ A commit tagged with the suffix `-rc<number>` indicates a release candidate vers
 
 The [develop branch of the repository](https://github.com/Materials-Consortia/OPTiMaDe/tree/develop) contains the present in-development version of the specification.
 
-API and client implementations are RECOMMENDED to implement the latest named release.
-If the latest named release is a release candidate, it is also RECOMMENDED that they implement the latest stable release.
+API and client implementations are encouraged to support the latest named release.
+If the latest named release is a release candidate, implementations are also encouraged to support the latest stable release.
