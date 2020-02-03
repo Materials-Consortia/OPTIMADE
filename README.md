@@ -11,10 +11,10 @@ This repository contains the specification of the OPTiMaDe API.
 
 ## For developers
 
-The [master branch of the repository](https://github.com/Materials-Consortia/OPTiMaDe/tree/master) is at the latest named version of the specification.
-A commit tagged with a version number without a suffix (alpha, beta, release candidates and similar) indicates a stable release.
+The [master branch of the repository](https://github.com/Materials-Consortia/OPTiMaDe/tree/master) is at the latest release or pre-release version of the specification.
+Versions without a version number suffix (alpha, beta, release candidates and similar) indicates a stable release.
 
 The [develop branch of the repository](https://github.com/Materials-Consortia/OPTiMaDe/tree/develop) contains the present in-development version of the specification.
 
-API and client implementations are encouraged to support the latest version of the release.
-If the latest version is a release candidate, implementations are also encouraged to support the latest stable release.
+API and client implementations are encouraged to support the latest release or pre-release of the specification.
+If this is a pre-release, implementations are also encouraged to support the latest stable release.
