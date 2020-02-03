@@ -3,23 +3,23 @@
   "info": {
     "title": "OPTiMaDe API - Index meta-database",
     "description": "The [Open Databases Integration for Materials Design (OPTiMaDe) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.3.3) v0.3.3.",
-    "version": "0.10.1"
+    "version": "1.0.0"
   },
   "paths": {
-    "/index/optimade/info": {
+    "/index/optimade/v1/info": {
       "get": {
         "tags": [
           "Info"
         ],
         "summary": "Get Info",
-        "operationId": "get_info_index_optimade_info_get",
+        "operationId": "get_info_index_optimade_v1_info_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Info Index Optimade Info Get",
+                  "title": "Response Get Info Index Optimade V1 Info Get",
                   "anyOf": [
                     {
                       "$ref": "#/components/schemas/IndexInfoResponse"
@@ -35,13 +35,13 @@
         }
       }
     },
-    "/index/optimade/links": {
+    "/index/optimade/v1/links": {
       "get": {
         "tags": [
           "Links"
         ],
         "summary": "Get Links",
-        "operationId": "get_links_index_optimade_links_get",
+        "operationId": "get_links_index_optimade_v1_links_get",
         "parameters": [
           {
             "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
@@ -169,385 +169,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Links Index Optimade Links Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/LinksResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/index/optimade/v0.10.1/info": {
-      "get": {
-        "tags": [
-          "Info"
-        ],
-        "summary": "Get Info",
-        "operationId": "get_info_index_optimade_v0_10_1_info_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Get Info Index Optimade V0 10 1 Info Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/IndexInfoResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/index/optimade/v0.10.1/links": {
-      "get": {
-        "tags": [
-          "Links"
-        ],
-        "summary": "Get Links",
-        "operationId": "get_links_index_optimade_v0_10_1_links_get",
-        "parameters": [
-          {
-            "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
-            "required": false,
-            "schema": {
-              "title": "Filter",
-              "type": "string",
-              "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
-              "default": ""
-            },
-            "name": "filter",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Response Format",
-              "type": "string",
-              "default": "json"
-            },
-            "name": "response_format",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Email Address",
-              "type": "string",
-              "format": "email",
-              "default": ""
-            },
-            "name": "email_address",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Response Fields",
-              "type": "string",
-              "default": ""
-            },
-            "name": "response_fields",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Sort",
-              "type": "string",
-              "default": ""
-            },
-            "name": "sort",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Limit",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 20
-            },
-            "name": "page_limit",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Offset",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_offset",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Page",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_page",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Cursor",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_cursor",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Above",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_above",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Below",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_below",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Get Links Index Optimade V0 10 1 Links Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/LinksResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/index/optimade/v0.10/info": {
-      "get": {
-        "tags": [
-          "Info"
-        ],
-        "summary": "Get Info",
-        "operationId": "get_info_index_optimade_v0_10_info_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Get Info Index Optimade V0 10 Info Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/IndexInfoResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/index/optimade/v0.10/links": {
-      "get": {
-        "tags": [
-          "Links"
-        ],
-        "summary": "Get Links",
-        "operationId": "get_links_index_optimade_v0_10_links_get",
-        "parameters": [
-          {
-            "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
-            "required": false,
-            "schema": {
-              "title": "Filter",
-              "type": "string",
-              "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
-              "default": ""
-            },
-            "name": "filter",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Response Format",
-              "type": "string",
-              "default": "json"
-            },
-            "name": "response_format",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Email Address",
-              "type": "string",
-              "format": "email",
-              "default": ""
-            },
-            "name": "email_address",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Response Fields",
-              "type": "string",
-              "default": ""
-            },
-            "name": "response_fields",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Sort",
-              "type": "string",
-              "default": ""
-            },
-            "name": "sort",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Limit",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 20
-            },
-            "name": "page_limit",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Offset",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_offset",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Page",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_page",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Cursor",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_cursor",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Above",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_above",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Below",
-              "minimum": 0.0,
-              "type": "integer",
-              "default": 0
-            },
-            "name": "page_below",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Get Links Index Optimade V0 10 Links Get",
+                  "title": "Response Get Links Index Optimade V1 Links Get",
                   "anyOf": [
                     {
                       "$ref": "#/components/schemas/LinksResponse"
