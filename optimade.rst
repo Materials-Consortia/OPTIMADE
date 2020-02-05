@@ -644,7 +644,7 @@ The section `Entry list`_ specifies properties as belonging to one of three cate
 Examples of valid entry listing endpoint URLs:
 
 - http://example.com/optimade/v1/structures
-- http://example.com/optimade/calculations
+- http://example.com/optimade/v1/calculations
 
 There MAY be multiple entry listing endpoints, depending on how many types of entries an implementation provides.
 Specific standard entry types are specified in section `Entry list`_.
