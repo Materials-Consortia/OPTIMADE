@@ -1757,7 +1757,7 @@ lattice\_vectors
 ~~~~~~~~~~~~~~~~
 
 - **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
-- **Type**: list of list of floats.
+- **Type**: list of list of floats and/or unknown values.
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
@@ -1770,6 +1770,7 @@ lattice\_vectors
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
   - All three elements of the inner lists of floats MAY be :val:`null` for non-periodic dimensions, i.e., those dimensions for which :property:`dimension\_types` is :val:`0`.
+    To clarify, this means a vector MUST he either all floats or all :val:`null` for non-periodic dimensions; a single :val:`null` value MUST never be found.
 
 - **Examples**:
 
@@ -1779,7 +1780,7 @@ cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: Cartesian positions of each site. A site is an atom, a site potentially occupied by an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
-- **Type**: list of list of floats and/or unknown values
+- **Type**: list of list of floats and/or unknown values.
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
