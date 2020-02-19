@@ -1770,7 +1770,7 @@ lattice\_vectors
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
   - All three elements of the inner lists of floats MAY be :val:`null` for non-periodic dimensions, i.e., those dimensions for which :property:`dimension\_types` is :val:`0`.
-    To clarify, this means a vector MUST he either all floats or all :val:`null` for non-periodic dimensions; a single :val:`null` value MUST never be found.
+    To clarify, this means a vector MUST be either all floats or all :val:`null` for non-periodic dimensions; a single :val:`null` value MUST never be found.
 
 - **Examples**:
 
