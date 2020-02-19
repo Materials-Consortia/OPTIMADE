@@ -286,7 +286,7 @@ Database-Provider-Specific Namespace Prefixes
 
 This standard refers to database-provider-specific prefixes and database providers.
 
-A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL `https://www.optimade.org/providers/ <https://www.optimade.org/providers/>`__.
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
