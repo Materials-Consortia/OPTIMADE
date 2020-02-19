@@ -811,8 +811,9 @@ Single Entry URL Query Parameters
 
 The client MAY provide a set of additional URL query parameters for this endpoint type.
 URL query parameters not recognized MUST be ignored.
-While the following URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them: **response\_format**, **email\_address**, **response\_fields**.
-The URL query parameter **include** is OPTIONAL for both clients and API implementations.
+While the following URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them:
+:query-param:`response_format`, :query-param:`email_address`, :query-param:`response_fields`.
+The URL query parameter :query-param:`include` is OPTIONAL for both clients and API implementations.
 The meaning of these URL query parameters are as defined above in section `Entry Listing URL Query Parameters`_.
 
 Single Entry JSON Response Schema
