@@ -1757,7 +1757,7 @@ lattice\_vectors
 ~~~~~~~~~~~~~~~~
 
 - **Description**: The three lattice vectors in Cartesian coordinates, in ångström (Å).
-- **Type**: list of list of floats and/or unknown values.
+- **Type**: list of list of floats or unknown values.
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
@@ -1766,11 +1766,10 @@ lattice\_vectors
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-  - This property MUST be an array of dimensions 3 times 3 regardless of the elements of :property:`dimension\_types`.
+  - This property MUST be an array of dimensions 3 times 3 regardless of the elements of :property:`dimension_types`.
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - All three elements of the inner lists of floats MAY be :val:`null` for non-periodic dimensions, i.e., those dimensions for which :property:`dimension\_types` is :val:`0`.
-    To clarify, this means a vector MUST be either all floats or all :val:`null` for non-periodic dimensions; a single :val:`null` value MUST never be found.
+  - In the case of non-periodic dimensions, i.e., those dimensions for which :property:`dimension_types` is :val:`0`, implementers MAY choose to replace the values with a list of :val:`null` values.
 
 - **Examples**:
 
