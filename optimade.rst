@@ -139,7 +139,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 
 **Versioned base URL**
    A URL formed by the base URL plus a path segment indicating a version of the API. See section `Base URL`_.
-    
+
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
     For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
@@ -1369,7 +1369,7 @@ An implementation MAY support combining the operator syntax with the syntax for 
 
 Further examples of various comparisons of list properties:
 
-- :filter:`elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS ONLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
+- OPTIONAL: :filter:`elements HAS "H" AND elements HAS ALL "H","He","Ga","Ta" AND elements HAS ONLY "H","He","Ga","Ta" AND elements HAS ANY "H", "He", "Ga", "Ta"`
 - OPTIONAL: :filter:`elements HAS ONLY "H","He","Ga","Ta"`
 - OPTIONAL: :filter:`elements:_exmpl_element_counts HAS "H":6 AND elements:_exmpl_element_counts HAS ALL "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6 AND elements:_exmpl_element_counts HAS ANY "H":6,"He":7 AND elements:_exmpl_element_counts HAS ONLY "H":6,"He":7`
 - OPTIONAL: :filter:`_exmpl_element_counts HAS < 3 AND _exmpl_element_counts HAS ANY > 3, = 6, 4, != 8`
@@ -1503,7 +1503,7 @@ type
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
   - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
-    
+
 - **Example**: :val:`"structures"`
 
 immutable\_id
