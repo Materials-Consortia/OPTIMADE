@@ -1337,9 +1337,9 @@ The following constructs MUST be supported:
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
 - :filter:`list LENGTH value`: matches if the number of items in the :filter-fragment:`list` property is equal to :filter-fragment:`value`.
 
-The following construct MAY be supported:
+The :filter-fragment:`HAS ONLY` construct MAY be supported:
 
-- :filter:`list HAS ONLY values`: matches if all elements in :filter-fragment:`list` are equal to at least one :filter-fragment:`value`.
+- OPTIONAL: :filter:`list HAS ONLY values`: matches if all elements in :filter-fragment:`list` are equal to at least one :filter-fragment:`value`.
   (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the <= set operator.)
 
 This construct is OPTIONAL as it can be difficult to realize in some underlying database implementations.
@@ -1360,12 +1360,12 @@ Strictly, the definitions of the :filter-fragment:`HAS`, :filter-fragment:`HAS A
 
 For example:
 
-- :filter:`list HAS < 3`: matches all entries for which :filter-fragment:`list` contains at least one element that is less than three.
-- :filter:`list HAS ALL < 3, > 3`: matches only those entries for which :filter-fragment:`list` simultaneously contains at least one element less than three and one element greater than three.
+- OPTIONAL: :filter:`list HAS < 3`: matches all entries for which :filter-fragment:`list` contains at least one element that is less than three.
+- OPTIONAL: :filter:`list HAS ALL < 3, > 3`: matches only those entries for which :filter-fragment:`list` simultaneously contains at least one element less than three and one element greater than three.
 
 An implementation MAY support combining the operator syntax with the syntax for correlated lists in particularly on a list correlated with itself. For example:
 
-- :filter:`list:list HAS >=2:<=5`: matches all entries for which :filter-fragment:`list` contains at least one element that is between the values 2 and 5.
+- OPTIONAL: :filter:`list:list HAS >=2:<=5`: matches all entries for which :filter-fragment:`list` contains at least one element that is between the values 2 and 5.
 
 Further examples of various comparisons of list properties:
 
@@ -1624,7 +1624,7 @@ elements\_ratios
 
   - Note: Useful filters can be formulated using the set operator syntax for correlated values.
     However, since the values are floating point values, the use of equality comparisons is generally inadvisable.
-  - A filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: :filter:`elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
+  - An OPTIONAL filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: :filter:`elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
 
 chemical\_formula\_descriptive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
