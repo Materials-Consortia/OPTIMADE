@@ -661,7 +661,7 @@ Examples of valid entry listing endpoint URLs:
 
 There MAY be multiple entry listing endpoints, depending on how many types of entries an implementation provides.
 Specific standard entry types are specified in section `Entry list`_.
-The API implementation MAY provide other entry types than the ones standardized in this specification, but such entry types MUST be prefixed by a database-provider-specific prefix.
+The API implementation MAY provide other entry types than the ones standardized in this specification, but such entry types MUST be situated under the :endpoint:`extensions` endpoint.
 
 Entry Listing URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
