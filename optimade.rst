@@ -1387,7 +1387,7 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
 - :filter-fragment:`identifier1` references a list of dictionaries that contain as an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the contents of :filter-fragment:`identifier2` for every dictionary in the list.
   E.g., if :filter-fragment:`identifier1` is the list :filter-fragment:`[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]`, then :filter-fragment:`identifier1.identifier2` is understood in the filter as the list :filter-fragment:`[42, 96]`.
 
-The API implementation MAY allow this notation to generalize to arbitary depth.
+The API implementation MAY allow this notation to generalize to arbitrary depth.
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
 
 Filtering on relationships
