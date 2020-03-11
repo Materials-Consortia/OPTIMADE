@@ -1624,7 +1624,7 @@ elements\_ratios
 
   - Note: Useful filters can be formulated using the set operator syntax for correlated values.
     However, since the values are floating point values, the use of equality comparisons is generally inadvisable.
-  - An OPTIONAL filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: :filter:`elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
+  - OPTIONAL: a filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: :filter:`elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
 
 chemical\_formula\_descriptive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
