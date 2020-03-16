@@ -7,7 +7,7 @@
 test_authors: tests/generated/AUTHORS.sorted
 	diff -u AUTHORS tests/generated/AUTHORS.sorted || true
 
-AUTHORS_TAG=The OPTiMaDe development team in alphabetical order:
+AUTHORS_TAG=The OPTIMADE development team in alphabetical order:
 
 tests/generated/AUTHORS.sorted: AUTHORS
 	awk '{print} /${AUTHORS_TAG}/ {exit}' $< > $@

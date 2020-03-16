@@ -1,5 +1,5 @@
 ==============================================
-OPTiMaDe API specification v1.0.0-rc.1~develop
+OPTIMADE API specification v1.0.0-rc.1~develop
 ==============================================
 
 .. comment
@@ -10,16 +10,16 @@ OPTiMaDe API specification v1.0.0-rc.1~develop
 
      # Filtering
 
-     filter : full OPTiMaDe filter strings
+     filter : full OPTIMADE filter strings
      filter-fragment : segments of filter strings, or filter strings that uses, e.g., "..."
                        so they would not pass a validation.
      filter-op : operators and keywords in the filtering language
      ere : regex on ere form
      pcre : regex on pcre form
 
-     # OPTiMaDe concepts
+     # OPTIMADE concepts
 
-     entry : names of type of resources served via OPTiMaDe pertaining to data in a database.
+     entry : names of type of resources served via OPTIMADE pertaining to data in a database.
      property : data item that pertains to an entry.
      val : value examples that properties can be.
            :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
@@ -41,7 +41,7 @@ OPTiMaDe API specification v1.0.0-rc.1~develop
      json : examples of JSON output.
      field : keys in key-value dictionaries in responses.
      field-val : value examples that fields can be set to.
-                 Note that `null` sometimes refer to the OPTiMaDe concept of :val:`null`, and sometimes to the javascript constant :field-val:`null`, and the markup distinguishes these two cases.
+                 Note that `null` sometimes refer to the OPTIMADE concept of :val:`null`, and sometimes to the javascript constant :field-val:`null`, and the markup distinguishes these two cases.
      object : names of more complex response objects.
 
      # Validation
@@ -120,7 +120,7 @@ Definition of Terms
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in :RFC:`2119`.
 
 **Database provider**
-    A service that provides one or more databases with data desired to be made available using the OPTiMaDe API.
+    A service that provides one or more databases with data desired to be made available using the OPTIMADE API.
 
 **Database-provider-specific prefix**
     Every database provider is designated a unique prefix.
@@ -129,7 +129,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     For more information, see section `Database-Provider-Specific Namespace Prefixes`_.
 
 **API implementation**
-    A realization of the OPTiMaDe API that a database provider uses to serve data from one or more databases.
+    A realization of the OPTIMADE API that a database provider uses to serve data from one or more databases.
 
 **Identifier**
     Names that MUST start with a lowercase letter ([a-z]) or an underscore ("\_") followed by any number of lowercase alphanumerics ([a-z0-9]) and underscores ("\_").
@@ -250,7 +250,7 @@ Examples of invalid versioned base URLs:
 Database providers SHOULD strive to implement the latest released version of this standard, as well as the latest patch version of any major and minor version they support.
 
 Note: The base URLs and versioned base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to them.
-However, it is RECOMMENDED that implementations serve a human-readable HTML document on base URLs and versioned base URLs, which explains that the URL is an OPTiMaDe URL meant to be queried by an OPTiMaDe client.
+However, it is RECOMMENDED that implementations serve a human-readable HTML document on base URLs and versioned base URLs, which explains that the URL is an OPTIMADE URL meant to be queried by an OPTIMADE client.
 
 Index Meta-Database
 -------------------
@@ -276,7 +276,7 @@ Database-Provider-Specific Namespace Prefixes
 
 This standard refers to database-provider-specific prefixes and database providers.
 
-A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL `https://www.optimade.org/providers/ <https://www.optimade.org/providers/>`__.
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTIMADE Index Meta-Database with base URL `https://www.optimade.org/providers/ <https://www.optimade.org/providers/>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
@@ -336,7 +336,7 @@ When an implementation receives a request with a query filter that refers to an 
 
   * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
 
-The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTiMaDe to support queries using database-specific properties that can be sent to multiple databases.
+The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
@@ -439,7 +439,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
     **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field :field:`code` for this.
     Warning :field:`id`\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the :field:`type`.
 
-    General OPTiMaDe warning codes are specified in section `Warnings`_.
+    General OPTIMADE warning codes are specified in section `Warnings`_.
 
   - Other OPTIONAL additional information *global to the query* that is not specified in this document, MUST start with a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
@@ -596,7 +596,7 @@ See also the JSON API definitions of responses when `fetching <https://jsonapi.o
 HTTP Response Headers
 ---------------------
 
-There are relevant use-cases for allowing data served via OPTiMaDe to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation.
+There are relevant use-cases for allowing data served via OPTIMADE to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation.
 For such use, many browsers need the server to include the header :http-header:`Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
 
 Warnings
@@ -605,7 +605,7 @@ Warnings
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
-Warning codes starting with an alphanumeric character are reserved for general OPTiMaDe error codes (currently, none are specified).
+Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes (currently, none are specified).
 For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see section `Database-Provider-Specific Namespace Prefixes`_).
 
 API Endpoints
@@ -871,7 +871,7 @@ The single resource object's response dictionary MUST include the following fiel
 - **id**: :field-val:`"/"`
 - **attributes**: Dictionary containing the following fields:
 
-  - **api\_version**: Presently used version of the OPTiMaDe API.
+  - **api\_version**: Presently used version of the OPTIMADE API.
   - **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 
     - **url**: a string specifying a versioned base URL that MUST adhere to the rules in section `Base URL`_
@@ -891,14 +891,14 @@ If this is an index meta-database base URL (see section `Index Meta-Database`_),
 
 - **relationships**: Dictionary that MAY contain a single `JSON API relationships object <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__:
 
-  - **default**: Reference to the child identifier object under the :endpoint:`links` endpoint that the provider has chosen as their "default" OPTiMaDe API database.
+  - **default**: Reference to the child identifier object under the :endpoint:`links` endpoint that the provider has chosen as their "default" OPTIMADE API database.
     A client SHOULD present this database as the first choice when an end-user chooses this provider. This MUST include the field:
 
     - **data**: `JSON API resource linkage <http://jsonapi.org/format/1.0/#document-links>`__.
       It MUST be either :field-val:`null` or contain a single child identifier object with the fields:
 
       - **type**: :field-val:`child`
-      - **id**: ID of the provider's chosen default OPTiMaDe API database.
+      - **id**: ID of the provider's chosen default OPTIMADE API database.
         MUST be equal to a valid child object's :field:`id` under the :field:`links` endpoint.
 
   Lastly, :field:`is_index` MUST also be included in :field:`attributes` and be :field-val:`true`.
@@ -1033,7 +1033,7 @@ Example:
 Links Endpoint
 --------------
 
-This endpoint exposes information on other OPTiMaDe API implementations that are linked to the current implementation.
+This endpoint exposes information on other OPTIMADE API implementations that are linked to the current implementation.
 The links endpoint MUST be provided under the versioned base URL at :endpoint:`/links`.
 
 It can be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
@@ -1051,11 +1051,11 @@ The resource objects' response dictionaries MUST include the following fields:
 - **id**: MUST be unique.
 - **attributes**: Dictionary that MUST contain the following fields:
 
-  - **name**: Human-readable name for the OPTiMaDe API implementation, e.g., for use in clients to show the name to the end-user.
-  - **description**: Human-readable description for the OPTiMaDe API implementation, e.g., for use in clients to show a description to the end-user.
+  - **name**: Human-readable name for the OPTIMADE API implementation, e.g., for use in clients to show the name to the end-user.
+  - **description**: Human-readable description for the OPTIMADE API implementation, e.g., for use in clients to show a description to the end-user.
   - **base\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the base URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
 
-    - **href**: a string containing the OPTiMaDe base URL.
+    - **href**: a string containing the OPTIMADE base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
   - **homepage**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
@@ -1074,7 +1074,7 @@ Example:
 	   "id": "index",
 	   "attributes": {
 	     "name": "Index",
-	     "description": "Index for example's OPTiMaDe databases",
+	     "description": "Index for example's OPTIMADE databases",
 	     "base_url": "http://example.com/optimade",
 	     "homepage": "http://example.com"
 	   }
@@ -1125,10 +1125,10 @@ Parent and Child Objects
 Resource objects that MAY be present under the Links endpoint.
 
 Either none or a single :object:`parent` object MAY be present as part of the :field:`data` array.
-The :object:`parent` object represents a "link" to the OPTiMaDe implementation exactly one layer **above** the current implementation's layer.
+The :object:`parent` object represents a "link" to the OPTIMADE implementation exactly one layer **above** the current implementation's layer.
 
 Any number of :object:`child` objects MAY be present as part of the :field:`data` array.
-A :object:`child` object represents a "link" to an OPTiMaDe implementation exactly one layer **below** the current implementation's layer.
+A :object:`child` object represents a "link" to an OPTIMADE implementation exactly one layer **below** the current implementation's layer.
 
     **Note**: The RECOMMENDED number of layers is two.
 
@@ -1136,7 +1136,7 @@ Provider Objects
 ~~~~~~~~~~~~~~~~
 
 The :object:`provider` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
-The intention is to be able to auto-discover all providers of OPTiMaDe implementations.
+The intention is to be able to auto-discover all providers of OPTIMADE implementations.
 
 A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
 This section also describes where to find information for how a provider can be added to this list.
@@ -1144,9 +1144,9 @@ This section also describes where to find information for how a provider can be 
 Index Meta-Database Links Endpoint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the provider implements an "Index meta-database" (see section `Index Meta-Database`_), it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation of the provider's other OPTiMaDe databases.
+If the provider implements an "Index meta-database" (see section `Index Meta-Database`_), it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation of the provider's other OPTIMADE databases.
 
-This will make all OPTiMaDe databases and implementations by the provider discoverable as :object:`child` objects under the Links endpoint of the "Index meta-database".
+This will make all OPTIMADE databases and implementations by the provider discoverable as :object:`child` objects under the Links endpoint of the "Index meta-database".
 
 Custom Extension Endpoints
 --------------------------
@@ -1158,7 +1158,7 @@ The API implementation is free to define roles of further URL path segments unde
 API Filtering Format Specification
 ==================================
 
-An OPTiMaDe filter expression is passed in the parameter :query-param:`filter` as an URL query parameter as `specified by JSON
+An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as an URL query parameter as `specified by JSON
 API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
@@ -1183,8 +1183,8 @@ The following tokens are used in the filter query component:
 
 - **Property names**: the first character MUST be a lowercase letter, the subsequent symbols MUST be composed of lowercase letters or digits; the underscore ("\_", ASCII 95 dec (0x5F)) is considered to  be a lower-case letter when defining identifiers.
   The length of the identifiers is not limited, except that when passed as a URL query parameter the whole query SHOULD NOT be longer than the limits imposed by the URI specification.
-  This definition is similar to one used in most widespread programming languages, except that OPTiMaDe limits allowed letter set to lowercase letters only.
-  This allows to tell OPTiMaDe identifiers and operator keywords apart unambiguously without consulting a reserved word table and to encode this distinction concisely in the EBNF Filter Language grammar.
+  This definition is similar to one used in most widespread programming languages, except that OPTIMADE limits allowed letter set to lowercase letters only.
+  This allows to tell OPTIMADE identifiers and operator keywords apart unambiguously without consulting a reserved word table and to encode this distinction concisely in the EBNF Filter Language grammar.
 
   Examples of valid property names:
 
@@ -1288,7 +1288,7 @@ Implementations MAY also support comparisons with identifiers on both sides, and
 However, the latter form, :filter-fragment:`constant <operator> constant` where the constants are strings MUST return the error :http-error:`501 Not Implemented`.
 
     **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous.
-    The OPTiMaDe specification will strive to address this issue in a future version.
+    The OPTIMADE specification will strive to address this issue in a future version.
 
 Examples:
 
@@ -1790,7 +1790,7 @@ cartesian\_site\_positions
   - If a component of the position is unknown, the :val:`null` value SHOULD be provided instead (see section `Properties with an unknown value`_).
     Otherwise, it SHOULD be a float value, expressed in angstrom (Å).
     If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
-  - **Notes**: (for implementers) While this is unrelated to this OPTiMaDe specification: If you decide to store internally the :property:`cartesian_site_positions` as a float array, you might want to represent :val:`null` values with :field-val:`NaN` values.
+  - **Notes**: (for implementers) While this is unrelated to this OPTIMADE specification: If you decide to store internally the :property:`cartesian_site_positions` as a float array, you might want to represent :val:`null` values with :field-val:`NaN` values.
     The latter being valid float numbers in the IEEE 754 standard in `IEEE 754-1985 <https://doi.org/10.1109/IEEESTD.1985.82928>`__ and in the updated version `IEEE 754-2008 <https://doi.org/10.1109/IEEESTD.2008.4610935>`__.
 
 - **Examples**:
@@ -1878,7 +1878,7 @@ species
     - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-          Note: With regards to "source database", we refer to the immediate source being queried via the OPTiMaDe API implementation.
+          Note: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
 	  The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
@@ -2346,7 +2346,7 @@ The Filter Language EBNF Grammar
 Note: when implementing a parser according this grammar, the implementers MAY choose to construct a lexer that ignores all whitespace (spaces, tabs, newlines, vertical tabulation and form feed characters, as described in the grammar 'Space' definition), and use such a lexer to recognize language elements that are described in the ``(* TOKENS *)`` section of the grammar.
 In that case, it can be beneficial to remove the '[Spaces]' element from the ``Filter = [Spaces], Expression`` definition as well and use the remaining grammar rules as a parser generator input (e.g., for yacc, bison, antlr).
 
-Regular Expressions for OPTiMaDe Filter Tokens
+Regular Expressions for OPTIMADE Filter Tokens
 ----------------------------------------------
 
 The string below contains Perl-Compatible Regular Expressions to recognize identifiers, number, and string values as specified in this specification.

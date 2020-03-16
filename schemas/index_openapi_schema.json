@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "OPTiMaDe API - Index meta-database",
-    "description": "The [Open Databases Integration for Materials Design (OPTiMaDe) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.3.3) v0.3.3.",
+    "title": "OPTIMADE API - Index meta-database",
+    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.3.3) v0.3.3.",
     "version": "1.0.0"
   },
   "paths": {
@@ -44,12 +44,12 @@
         "operationId": "get_links_index_optimade_v1_links_get",
         "parameters": [
           {
-            "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
+            "description": "See [the full and latest OPTIMADE spec](https://github.com/Materials-Consortia/OPTIMADE/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
             "required": false,
             "schema": {
               "title": "Filter",
               "type": "string",
-              "description": "See [the full and latest OPTiMaDe spec](https://github.com/Materials-Consortia/OPTiMaDe/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
+              "description": "See [the full and latest OPTIMADE spec](https://github.com/Materials-Consortia/OPTIMADE/blob/develop/optimade.rst) for filter query syntax.\n\nExample: `chemical_formula = \"Al\" OR (prototype_formula = \"AB\" AND elements HAS Si, Al, O)`.\n",
               "default": ""
             },
             "name": "filter",
@@ -563,7 +563,7 @@
           "api_version": {
             "title": "Api Version",
             "type": "string",
-            "description": "Presently used version of the OPTiMaDe API"
+            "description": "Presently used version of the OPTIMADE API"
           },
           "available_api_versions": {
             "title": "Available Api Versions",
@@ -654,7 +654,7 @@
             "additionalProperties": {
               "$ref": "#/components/schemas/IndexRelationship"
             },
-            "description": "Reference to the child identifier object under the links endpoint that the provider has chosen as their 'default' OPTiMaDe API database. A client SHOULD present this database as the first choice when an end-user chooses this provider."
+            "description": "Reference to the child identifier object under the links endpoint that the provider has chosen as their 'default' OPTIMADE API database. A client SHOULD present this database as the first choice when an end-user chooses this provider."
           }
         },
         "description": "Index Meta-Database Base URL Info enpoint resource"
@@ -850,12 +850,12 @@
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "Human-readable name for the OPTiMaDe API implementation a client may provide in a list to an end-user."
+            "description": "Human-readable name for the OPTIMADE API implementation a client may provide in a list to an end-user."
           },
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "Human-readable description for the OPTiMaDe API implementation a client may provide in a list to an end-user."
+            "description": "Human-readable description for the OPTIMADE API implementation a client may provide in a list to an end-user."
           },
           "base_url": {
             "title": "Base Url",
@@ -1554,7 +1554,7 @@
             "description": "Warnings must be of type \"warning\""
           }
         },
-        "description": "OPTiMaDe-specific warning class based on OPTiMaDe-specific JSON API Error.\nFrom the specification:\n\n    A warning resource object is defined similarly to a JSON API\n    error object, but MUST also include the field type, which MUST\n    have the value \"warning\". The field detail MUST be present and\n    SHOULD contain a non-critical message, e.g., reporting\n    unrecognized search attributes or deprecated features.\n\nNote: Must be named \"Warnings\", since \"Warning\" is a built-in Python class."
+        "description": "OPTIMADE-specific warning class based on OPTIMADE-specific JSON API Error.\nFrom the specification:\n\n    A warning resource object is defined similarly to a JSON API\n    error object, but MUST also include the field type, which MUST\n    have the value \"warning\". The field detail MUST be present and\n    SHOULD contain a non-critical message, e.g., reporting\n    unrecognized search attributes or deprecated features.\n\nNote: Must be named \"Warnings\", since \"Warning\" is a built-in Python class."
       },
       "optimade__models__jsonapi__Error": {
         "title": "Error",
