@@ -55,25 +55,38 @@ DISTCLEAN_TARGETS += distclean-grammatica
 # Local installation of 'grammatiker':
 
 GRAMMATIKER_REV ?= 129
-GRAMMATIKER_URL = svn://saulius-grazulis.lt/grammatiker/trunk
+GRAMMATIKER_URL = svn://saulius-grazulis.lt/grammatiker
 GRAMMATIKER_LOG = ${TOOL_DIR}/grammatiker-r${GRAMMATIKER_REV}.log
 GRAMMATIKER_DIR = ${TOOL_DIR}/grammatiker
 
-.PHONY: grammatiker distclean-grammatiker
+.PHONY: grammatiker distclean-grammatiker grammatiker_submodule_init grammatiker_update_from_svn
 
 grammatiker: ${GRAMMATIKER_LOG}
 
 GRAMMATIKER_MAKE ?= make
 
-${GRAMMATIKER_LOG}: ${GRAMMATICA_LOG}
-	svn co -r ${GRAMMATIKER_REV} ${GRAMMATIKER_URL} ${GRAMMATIKER_DIR} \
-	2>&1 | tee $@
+grammatiker_submodule_init:
+	git submodule status | grep " ${GRAMMATIKER_DIR}" | egrep -q "^-" && git submodule init "${GRAMMATIKER_DIR}" || true
+	test -e "${GRAMMATIKER_DIR}/.git" || git submodule update "${GRAMMATIKER_DIR}"
+
+${GRAMMATIKER_LOG}: grammatiker_submodule_init ${GRAMMATICA_LOG}
 	rm -rf ${GRAMMATIKER_DIR}/EBNF/lib
 	ln -s ${GRAMMATICA_DIR} ${GRAMMATIKER_DIR}/EBNF/lib
 	rm -rf ${GRAMMATIKER_DIR}/BNF/lib
 	ln -s ${GRAMMATICA_DIR} ${GRAMMATIKER_DIR}/BNF/lib
 	test -d ${GRAMMATIKER_DIR} && ${GRAMMATIKER_MAKE} -C ${GRAMMATIKER_DIR} all tests \
 	2>&1 | tee -a $@
+
+grammatiker_svn_init: grammatiker_submodule_init
+	(cd "${GRAMMATIKER_DIR}"; git svn info >/dev/null 2>&1) || \
+	  (     cd "${GRAMMATIKER_DIR}"; \
+		git svn init ${GRAMMATIKER_URL} -s && \
+		git svn fetch && \
+		git rebase --onto remotes/origin/trunk --root master \
+	  )
+
+grammatiker_svn_update: grammatiker_svn_init
+	cd "${GRAMMATIKER_DIR}" && git svn rebase 
 
 distclean-grammatiker:
 	rm -rf ${GRAMMATIKER_DIR}
