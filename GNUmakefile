@@ -80,9 +80,7 @@
 #     git push gitrepo master
 #
 #   To alter the commit used by the OPTIMADE build chain:
-#     cd tests/tools/grammatiker
-#     git checkout <tag or hash>
-#     cd ../../..
+#     (cd tests/tools/grammatiker && git checkout <tag or hash>)
 #     git add tests/tools/grammatiker
 #     git commit -m "Update grammatiker submodule to revision <specifier>"
 #     
