@@ -1,11 +1,26 @@
 #!/bin/bash
 
+set -e
+
 URL="$1"
+DIR="$2"
 
-git checkout master
+if [ -z "$1" ]; then
+    echo "Usage: $0 <svn url>"
+    exit 0
+fi
 
-# Make sure the SVN repository is initialized
-git show-ref --verify --quiet refs/remotes/origin/master || git svn init "${URL}" -s
+if [ -n "$2" ]; then
+    cd "$2"
+fi
+
+git checkout --quiet master
+
+# Make sure the SVN repository is initialized to the right URL
+CONFIG_URL=$(git config --get svn-remote.svn.url)
+if [ "$CONFIG_URL" != "$URL" ]; then
+    git svn init "${URL}" -s
+fi
 
 # Fetch svn commits
 git svn fetch 
@@ -14,13 +29,15 @@ git svn fetch
 OLDREV=$(git svn find-rev "$(git log --max-count 1 --pretty=format:%H)")
 
 # Find last svn revision in the commits fetched from svn
-git checkout remotes/origin/master
-NEWREV=$(git svn find-rev "$(git log --max-count 1 --pretty=format:%H)")
-OLDCOMMIT=$(git svn find-rev r$OLDREV)
+git checkout --quiet remotes/origin/trunk
+LAST_NEW_COMMIT="$(git log --max-count 1 --pretty=format:%H)"
+LAST_OLD_COMMIT=$(git svn find-rev "r$OLDREV")
 
-git checkout master
+if [ "$LAST_NEW_COMMIT" == "$LAST_OLD_COMMIT" ]; then
+    echo "No new svn revisions to pull."
+    exit 0
+fi
 
-# Grab all commits that are not already in master
-git rebase --onto remotes/origin/trunk master 
-
-
+git checkout --quiet master
+# Rebase commits that are not already in master onto master
+git rebase --onto master "$LAST_OLD_COMMIT" "$LAST_NEW_COMMIT"

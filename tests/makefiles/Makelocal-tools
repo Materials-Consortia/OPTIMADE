@@ -76,15 +76,8 @@ ${GRAMMATIKER_LOG}: grammatiker_submodule_init ${GRAMMATICA_LOG}
 	test -d ${GRAMMATIKER_DIR} && ${GRAMMATIKER_MAKE} -C ${GRAMMATIKER_DIR} all tests \
 	2>&1 | tee -a $@
 
-grammatiker_svn_init: grammatiker_submodule_init
-	(cd "${GRAMMATIKER_DIR}"; git svn info >/dev/null 2>&1) || \
-	  (     cd "${GRAMMATIKER_DIR}"; \
-		git svn init ${GRAMMATIKER_URL} -s && \
-		git svn fetch 
-	  )
-
-grammatiker_svn_pull: grammatiker_svn_init
-	cd "${GRAMMATIKER_DIR}" && ${TOOL_DIR}/git_svn_pull "${GRAMMATIKER_URL}"
+grammatiker_svn_pull: 
+	${TOOL_DIR}/git_svn_pull "${GRAMMATIKER_URL}" "${GRAMMATIKER_DIR}"
 
 distclean-grammatiker:
 	rm -rf ${GRAMMATIKER_DIR}
@@ -92,10 +85,3 @@ distclean-grammatiker:
 
 DISTCLEAN_TARGETS += distclean-grammatiker
 
-grammatiker_svn_old: grammatiker_submodule_init
-	(cd "${GRAMMATIKER_DIR}"; git svn info >/dev/null 2>&1) || \
-	  (     cd "${GRAMMATIKER_DIR}"; \
-		git svn init ${GRAMMATIKER_URL} -s && \
-		git svn fetch && \
-		git rebase --onto remotes/origin/trunk --root master \
-	  )
