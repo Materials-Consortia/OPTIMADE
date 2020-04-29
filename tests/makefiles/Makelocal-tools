@@ -76,7 +76,7 @@ ${GRAMMATIKER_LOG}: grammatiker_submodule_init ${GRAMMATICA_LOG}
 	test -d ${GRAMMATIKER_DIR} && ${GRAMMATIKER_MAKE} -C ${GRAMMATIKER_DIR} all tests \
 	2>&1 | tee -a $@
 
-grammatiker_svn_pull: 
+grammatiker_svn_pull: grammatiker_submodule_init
 	${TOOL_DIR}/git_svn_pull "${GRAMMATIKER_URL}" "${GRAMMATIKER_DIR}"
 
 distclean-grammatiker:
