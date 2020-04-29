@@ -58,7 +58,7 @@ GRAMMATIKER_URL = svn://saulius-grazulis.lt/grammatiker
 GRAMMATIKER_LOG = ${TOOL_DIR}/grammatiker.log
 GRAMMATIKER_DIR = ${TOOL_DIR}/grammatiker
 
-.PHONY: grammatiker distclean-grammatiker grammatiker_submodule_init grammatiker_svn_init grammatiker_svn_pull
+.PHONY: grammatiker distclean-grammatiker grammatiker_submodule_init grammatiker_svn_pull
 
 grammatiker: ${GRAMMATIKER_LOG}
 
