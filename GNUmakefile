@@ -66,6 +66,29 @@
 # - test_authors: runs tests on the AUTHORS file (checks order)
 #
 #
+# Targets for build chain dependencies
+######################################
+#
+# - grammatiker_svn_update: connects the grammatiker submodule
+#   in tests/tools/grammatiker to the main svn repository
+#   and pulls the latest revisions via svn.
+#
+#   Upon running the above, one can update the git repository
+#   that hosts the submodule:
+#     cd tests/tools/grammatiker
+#     git remote add gitrepo git@github.com:Materials-Consortia/grammatiker.git
+#     git checkout -b new gitrepo/master
+#     git cherry-pick <ranges of hashes not yet in submodule repo>
+#     git push gitrepo master
+#
+#   The grammatiker commit used by OPTIMADE can be updated using:
+#     cd tests/tools/grammatiker
+#     git checkout <tag or hash>
+#     cd ../../..
+#     git add tests/tools/grammatiker
+#     git commit -m "Update grammatiker submodule to revision <specifier>"
+#     
+#
 # Furthermore, there are some more granular targets specifically for
 # testing the grammar.
 #

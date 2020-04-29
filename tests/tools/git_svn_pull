@@ -1,0 +1,26 @@
+#!/bin/bash
+
+URL="$1"
+
+git checkout master
+
+# Make sure the SVN repository is initialized
+git show-ref --verify --quiet refs/remotes/origin/master || git svn init "${URL}" -s
+
+# Fetch svn commits
+git svn fetch 
+
+# Find last svn revision in master
+OLDREV=$(git svn find-rev "$(git log --max-count 1 --pretty=format:%H)")
+
+# Find last svn revision in the commits fetched from svn
+git checkout remotes/origin/master
+NEWREV=$(git svn find-rev "$(git log --max-count 1 --pretty=format:%H)")
+OLDCOMMIT=$(git svn find-rev r$OLDREV)
+
+git checkout master
+
+# Grab all commits that are not already in master
+git rebase --onto remotes/origin/trunk master 
+
+

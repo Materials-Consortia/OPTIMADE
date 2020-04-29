@@ -54,12 +54,11 @@ DISTCLEAN_TARGETS += distclean-grammatica
 
 # Local installation of 'grammatiker':
 
-GRAMMATIKER_REV ?= 129
 GRAMMATIKER_URL = svn://saulius-grazulis.lt/grammatiker
-GRAMMATIKER_LOG = ${TOOL_DIR}/grammatiker-r${GRAMMATIKER_REV}.log
+GRAMMATIKER_LOG = ${TOOL_DIR}/grammatiker.log
 GRAMMATIKER_DIR = ${TOOL_DIR}/grammatiker
 
-.PHONY: grammatiker distclean-grammatiker grammatiker_submodule_init grammatiker_update_from_svn
+.PHONY: grammatiker distclean-grammatiker grammatiker_submodule_init grammatiker_svn_init grammatiker_svn_pull
 
 grammatiker: ${GRAMMATIKER_LOG}
 
@@ -81,15 +80,22 @@ grammatiker_svn_init: grammatiker_submodule_init
 	(cd "${GRAMMATIKER_DIR}"; git svn info >/dev/null 2>&1) || \
 	  (     cd "${GRAMMATIKER_DIR}"; \
 		git svn init ${GRAMMATIKER_URL} -s && \
-		git svn fetch && \
-		git rebase --onto remotes/origin/trunk --root master \
+		git svn fetch 
 	  )
 
-grammatiker_svn_update: grammatiker_svn_init
-	cd "${GRAMMATIKER_DIR}" && git svn rebase 
+grammatiker_svn_pull: grammatiker_svn_init
+	cd "${GRAMMATIKER_DIR}" && ${TOOL_DIR}/git_svn_pull "${GRAMMATIKER_URL}"
 
 distclean-grammatiker:
 	rm -rf ${GRAMMATIKER_DIR}
 	rm -f ${GRAMMATIKER_LOG}
 
 DISTCLEAN_TARGETS += distclean-grammatiker
+
+grammatiker_svn_old: grammatiker_submodule_init
+	(cd "${GRAMMATIKER_DIR}"; git svn info >/dev/null 2>&1) || \
+	  (     cd "${GRAMMATIKER_DIR}"; \
+		git svn init ${GRAMMATIKER_URL} -s && \
+		git svn fetch && \
+		git rebase --onto remotes/origin/trunk --root master \
+	  )
