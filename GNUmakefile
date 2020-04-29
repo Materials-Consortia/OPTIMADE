@@ -69,19 +69,17 @@
 # Targets for build chain dependencies
 ######################################
 #
-# - grammatiker_svn_update: connects the grammatiker submodule
-#   in tests/tools/grammatiker to the main svn repository
-#   and pulls the latest revisions via svn.
+# - grammatiker_svn_pull: connects the grammatiker submodule
+#   in tests/tools/grammatiker to the grammatiker svn repository
+#   and pulls new revisions, adding them as git commits
 #
-#   Upon running the above, one can update the git repository
-#   that hosts the submodule:
+#   Upon running the above, one can update a git repository
+#   with the grammatiker commits, e.g.:
 #     cd tests/tools/grammatiker
-#     git remote add gitrepo git@github.com:Materials-Consortia/grammatiker.git
-#     git checkout -b new gitrepo/master
-#     git cherry-pick <ranges of hashes not yet in submodule repo>
+#     git remote add gitrepo <repo>
 #     git push gitrepo master
 #
-#   The grammatiker commit used by OPTIMADE can be updated using:
+#   To alter the commit used by the OPTIMADE build chain:
 #     cd tests/tools/grammatiker
 #     git checkout <tag or hash>
 #     cd ../../..
