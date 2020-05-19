@@ -1004,6 +1004,7 @@ The response for these endpoints MUST include the following information in the :
 
   - :field:`unit`: String. The physical unit symbol in which the property's value is given.
   - :field:`sortable`: Boolean. Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
+  - :field:`type`: String. The type of the property's value. This can be any of the types used in JSON, i.e., the JavaScript language types: :val:`string`, :val:`integer`, :val:`number`, :val:`object`, :val:`array`, :val:`boolean`, and :val:`null`.
 
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
