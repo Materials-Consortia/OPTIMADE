@@ -998,12 +998,12 @@ The response for these endpoints MUST include the following information in the :
 
   *REQUIRED keys*:
 
-  - :field:`description`
+  - :field:`description`: String. Description of the property.
 
   *OPTIONAL keys*:
 
-  - :field:`unit`
-  - :field:`sortable` (see `Entry Listing URL Query Parameters`_ for more information this field).
+  - :field:`unit`: String. The physical unit symbol in which the property's value is given.
+  - :field:`sortable`: Boolean. Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
 
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
