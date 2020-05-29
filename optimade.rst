@@ -1004,7 +1004,67 @@ The response for these endpoints MUST include the following information in the :
 
   - :field:`unit`: String. The physical unit symbol in which the property's value is given.
   - :field:`sortable`: Boolean. Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
-  - :field:`type`: String. The type of the property's value. This can be any of the types defined in `Data types`_: :val:`string`, :val:`integer`, :val:`float`, :val:`boolean`, :val:`timestamp`, :val:`list`, :val:`dictionary`, and :val:`unknown`.
+  - :field:`type`: Dictionary or string.
+    The type of the property's value.
+    This can be any of the types defined in `Data types`_
+
+    :field:`type` SHOULD be given as a string if the property's type is either: :val:`string`, :val:`integer`, :val:`float`, :val:`boolean`, :val:`timestamp`, or :val:`unknown`.
+
+    If the property's type is either: :val:`list` or :val:`dictionary`, i.e., a collection type, the value of :field:`type` SHOULD be given as a dictionary with the keys:
+
+    - :field:`type`: String. Either :val:`list` or :val:`dictionary`.
+    - :field:`content`: Dictionary or string. Similar to the :field:`type` one level up.
+
+    :field:`content` reflects the content of the collection type.
+    This can again be a collection type, which will result in the value of :field:`content` being another dictionary with the keys :field:`type` and :field:`content`.
+
+    While there is no limit to the number of layers of collection types in this specification, a provider should take care to consider the practical limitations of clients and the practical usability and transparency of heavily layered properties.
+
+    If the :field:`type` is :val:`dictionary`, then :field:`content` MUST be a dictionary, where the keys are the keys of the property's dictionary value, and the values are again either a string with the OPTIMADE data type of the dictionary key's value type or a dictionary with the keys :field:`type` and :field:`content` if the dictionary key's value type is a collection type. The values for :field:`type` and :field:`content` follow the rules outlined above.
+
+    Example with the properties :property:`_exmpl_list_prop` with the human-readable type of "list of list of floats or unknown values", :property:`_exmpl_dict_prop` with the human-readable type of "list of dictionary with keys: :field:`name`: string; :field:`occupation`: list of float", and :property:`_exmpl_entry_version` with the human-readable type of "int":
+
+    .. code:: jsonc
+
+        {
+          "data": {
+            // ...
+            "properties": {
+              "_exmpl_entry_version": {
+                // ...
+                "type": "integer"
+              },
+              "_exmpl_list_prop": {
+                // ...
+                "type": {
+                  "type": "list",
+                  "content": {
+                    "type": "list",
+                    "content": "float"
+                  }
+                }
+              },
+              "_exmpl_dict_prop": {
+                // ...
+                "type": {
+                  "type": "list",
+                  "content": {
+                    "type": "dictionary",
+                    "content": {
+                      "name": "string",
+                      "occupation": {
+                        "type": "list",
+                        "content": "float"
+                      }
+                    }
+                  }
+                }
+              }
+              // ... <more properties>
+            }
+          }
+          // ...
+        }
 
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
@@ -1019,12 +1079,20 @@ Example:
         "properties": {
           "nelements": {
             "description": "Number of elements",
-            "sortable": true
+            "sortable": true,
+            "type": "integer"
           },
           "lattice_vectors": {
             "description": "Unit cell lattice vectors",
             "unit": "Å",
-            "sortable": false
+            "sortable": false,
+            "type": {
+              "type": "list",
+              "content": {
+                "type": "list",
+                "content": "float"
+              }
+            }
           }
           // ... <other property descriptions>
         },
