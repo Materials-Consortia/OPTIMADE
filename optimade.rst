@@ -998,17 +998,18 @@ The response for these endpoints MUST include the following information in the :
 
   *REQUIRED keys*:
 
-  - :field:`description`: String. Description of the property.
+  - :field:`description`: String. A human-readable description of the property.
 
   *OPTIONAL keys*:
 
   - :field:`unit`: String. The physical unit symbol in which the property's value is given.
+    It is RECOMMENDED that non-standard units are described in the description for the property.
   - :field:`sortable`: Boolean. Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
   - :field:`type`: Dictionary or string.
     The type of the property's value.
-    This can be any of the types defined in `Data types`_
+    This can be any of the types defined in `Data types`_.
 
-    :field:`type` SHOULD be given as a string if the property's type is either: :val:`string`, :val:`integer`, :val:`float`, :val:`boolean`, :val:`timestamp`, or :val:`unknown`.
+    :field:`type` SHOULD be given as a string if the property's type is either: :val:`string`, :val:`integer`, :val:`float`, :val:`boolean`, :val:`timestamp`, or :val:`unknown`, i.e., a primitive type.
 
     If the property's type is either: :val:`list` or :val:`dictionary`, i.e., a collection type, the value of :field:`type` SHOULD be given as a dictionary with the keys:
 
@@ -1018,7 +1019,7 @@ The response for these endpoints MUST include the following information in the :
     :field:`content` reflects the content of the collection type.
     This can again be a collection type, which will result in the value of :field:`content` being another dictionary with the keys :field:`type` and :field:`content`.
 
-    While there is no limit to the number of layers of collection types in this specification, a provider should take care to consider the practical limitations of clients and the practical usability and transparency of heavily layered properties.
+    While there is no limit to the number of layers of collection types in this specification, it is RECOMMENDED that a provider takes care to consider the practical limitations of clients and the practical usability and transparency of heavily layered properties.
 
     If the :field:`type` is :val:`dictionary`, then :field:`content` MUST be a dictionary, where the keys are the keys of the property's dictionary value, and the values are again either a string with the OPTIMADE data type of the dictionary key's value type or a dictionary with the keys :field:`type` and :field:`content` if the dictionary key's value type is a collection type. The values for :field:`type` and :field:`content` follow the rules outlined above.
 
