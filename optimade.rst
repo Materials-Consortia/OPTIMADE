@@ -1009,7 +1009,7 @@ The response for these endpoints MUST include the following information in the :
     The type of the property's value.
     This can be any of the types defined in `Data types`_.
 
-    :field:`type` SHOULD be given as a string if the property's type is either: :val:`string`, :val:`integer`, :val:`float`, :val:`boolean`, :val:`timestamp`, or :val:`unknown`, i.e., a primitive type.
+    :field:`type` SHOULD be given as a string if the property's type is either: :val:`string`, :val:`integer`, :val:`float`, :val:`boolean`, :val:`timestamp`, or :val:`unknown`, i.e., a basic type or :val:`unknown`.
 
     If the property's type is either: :val:`list` or :val:`dictionary`, i.e., a collection type, the value of :field:`type` SHOULD be given as a dictionary with the keys:
 
