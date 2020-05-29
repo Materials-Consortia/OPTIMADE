@@ -203,9 +203,8 @@ An API implementation handles data types and their representations in three diff
   For more info, see section `Responses`_.
 - The underlying database backend(s) from which the implementation serves data.
 
-Hence, entry properties are described in this proposal using
-context-independent types that are assumed to have some form of
-representation in all contexts. They are as follows:
+Hence, entry properties are described in this proposal using context-independent types that are assumed to have some form of representation in all contexts.
+They are as follows:
 
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
@@ -215,9 +214,10 @@ representation in all contexts. They are as follows:
 
 An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
-For more information see section `Properties with an unknown value`_
+For more information see section `Properties with an unknown value`_.
 
-The definition of a property of an entry type specifies a type. The value of that property MUST either have a value of that type, or be unknown.
+The definition of a property of an entry type specifies a type.
+The value of that property MUST either have a value of that type, or be unknown.
 
 General API Requirements and Conventions
 ========================================
