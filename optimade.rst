@@ -910,7 +910,7 @@ If this is an index meta-database base URL (see section `Index Meta-Database`_),
     - **data**: `JSON API resource linkage <http://jsonapi.org/format/1.0/#document-links>`__.
       It MUST be either :field-val:`null` or contain a single child identifier object with the fields:
 
-      - **type**: :field-val:`child`
+      - **type**: :field-val:`links`
       - **id**: ID of the provider's chosen default OPTIMADE API database.
         MUST be equal to a valid child object's :field:`id` under the :field:`links` endpoint.
 
@@ -992,7 +992,7 @@ Example for an index meta-database:
 	 },
 	 "relationships": {
 	   "default": {
-	     "data": { "type": "child", "id": "perovskites" }
+	     "data": { "type": "link", "id": "perovskites" }
 	   }
 	 }
        }
@@ -1046,10 +1046,23 @@ Example:
 Links Endpoint
 --------------
 
-This endpoint exposes information on other OPTIMADE API implementations that are linked to the current implementation.
+This endpoint exposes information on other OPTIMADE API implementations that are in some way related to the current implementation.
 The links endpoint MUST be provided under the versioned base URL at :endpoint:`/links`.
 
-It can be considered an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single :object:`parent` object and none or more child-type objects, see section `Parent and Child Objects`_).
+Link Types
+~~~~~~~~~~
+
+Each link has a :property:`link_type` attribute that specifies the type of the linked relation.
+
+The :property:`link_type` MUST be one of the following values:
+
+- :val:`child`: a link to another OPTIMADE implementation that MUST be within the same provider. This allows to create a tree-like structure of databases, by pointing to children sub-databases.
+- :val:`root`: a link to the root implementation, within the same provider. This MAY be an `Index Meta-Database`_. There MUST be only one root implementation per provider, and any child (or child of a child, at any depth) MUST have a link to the root implementation.
+- :val:`external`: a link to an external OPTIMADE implementation. This MAY be used to point to any other implementation, also in a different provider.
+- :val:`providers`: a link to a `List of Providers`_ implementation that includes the current implementation, e.g. `https://providers.optimade.org/ <https://providers.optimade.org/>`__. 
+
+
+Thanks to the :val:`root` and :val:`child` link types, links can be used as an introspective endpoint, similar to the Info endpoint, but at a higher level: that is, Info endpoints provide information on the given implementation, while the Links endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single object with link type :val:`root` and none or more objects with link type :val:`child`, see section `Child Links`_).
 
 For Links endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY handle the parameters specified in section `Single Entry URL Query Parameters`_ for single entry endpoints.
@@ -1059,8 +1072,7 @@ Links Endpoint JSON Response Schema
 
 The resource objects' response dictionaries MUST include the following fields:
 
-- **type**: MUST be either :field-val:`"parent"`, :field-val:`"child"`, or :field-val:`"provider"`.
-  These objects are described in detail in sections `Parent and Child Objects`_ and `Provider Objects`_.
+- **type**: MUST be :field-val:`"links"`.
 - **id**: MUST be unique.
 - **attributes**: Dictionary that MUST contain the following fields:
 
@@ -1076,6 +1088,8 @@ The resource objects' response dictionaries MUST include the following fields:
     - **href**: a string containing the implementation homepage URL.
     - **meta**: a meta object containing non-standard meta-information about the homepage.
 
+  - **link\_type**: a string containing the link type. It MUST be one of the values listed above in section `Link Types`_.
+
 Example:
 
 .. code:: jsonc
@@ -1083,17 +1097,18 @@ Example:
      {
        "data": [
 	 {
-	   "type": "parent",
+	   "type": "links",
 	   "id": "index",
 	   "attributes": {
 	     "name": "Index",
 	     "description": "Index for example's OPTIMADE databases",
 	     "base_url": "http://example.com/optimade",
-	     "homepage": "http://example.com"
+	     "homepage": "http://example.com",
+       "link_type: "root"
 	   }
 	 },
 	 {
-	   "type": "child",
+	   "type": "links",
 	   "id": "cat_zeo",
 	   "attributes": {
 	     "name": "Catalytic Zeolites",
@@ -1104,27 +1119,40 @@ Example:
 		 "_exmpl_catalyst_group": "denox"
 	       }
 	     },
-	     "homepage": "http://example.com"
+	     "homepage": "http://example.com",
+       "link_type: "child"
 	   }
 	 },
 	 {
-	   "type": "child",
+	   "type": "links",
 	   "id": "frameworks",
 	   "attributes": {
 	     "name": "Zeolitic Frameworks",
 	     "description": "",
 	     "base_url": "http://example.com/zeo_frameworks/optimade",
-	     "homepage": "http://example.com"
+	     "homepage": "http://example.com",
+       "link_type: "child"
 	   }
 	 },
 	 {
-	   "type": "provider",
-	   "id": "exmpl",
+	   "type": "links",
+	   "id": "frameworks",
 	   "attributes": {
-	     "name": "Example provider",
-	     "description": "Provider used for examples, not to be assigned to a real database",
-	     "base_url": "http://example.com/optimade",
-	     "homepage": "http://example.com"
+	     "name": "Some other DB",
+	     "description": "A DB by the example2 provider",
+	     "base_url": "http://example2.com/some_db/optimade",
+	     "homepage": "http://example2.com",
+       "link_type: "external"
+	   }
+	 },   
+	 {
+	   "type": "providers",
+	   "id": "optimade",
+	   "attributes": {
+	     "name": "Materials Consortia ",
+	     "description": "List of OPTIMADE providers maintained by the Materials Consortia organisation",
+	     "base_url": "http://providers.optimade.org",
+	     "homepage": "http://providers/optimade.org"
 	   }
 	 }
 	 // ... <other objects>
@@ -1132,23 +1160,25 @@ Example:
        // ...
      }
 
-Parent and Child Objects
-~~~~~~~~~~~~~~~~~~~~~~~~
+Child Links
+~~~~~~~~~~~
 
-Resource objects that MAY be present under the Links endpoint.
+Child resource objects that MAY be present under the Links endpoint.
 
-Either none or a single :object:`parent` object MAY be present as part of the :field:`data` array.
-The :object:`parent` object represents a "link" to the OPTIMADE implementation exactly one layer **above** the current implementation's layer.
+Any number of objects with :property:`link_type`=:val:`child` MAY be present as part of the :field:`data` array.
+A :val:`child` object represents a "link" to an OPTIMADE implementation within the same provider exactly one layer **below** the current implementation's layer.
 
-Any number of :object:`child` objects MAY be present as part of the :field:`data` array.
-A :object:`child` object represents a "link" to an OPTIMADE implementation exactly one layer **below** the current implementation's layer.
+Either none or a single object with :property:`link_type`=:val:`root` MAY be present as part of the :field:`data` array.
+The :val:`root` object represents a "link" to the topmost OPTIMADE implementation of the current provider.
+By following :val:`child` links from the :val:`root` object recursively, it MUST be possible to reach the current OPTIMADE implementation.
 
-    **Note**: The RECOMMENDED number of layers is two.
+In practice, this forms a tree structure for the OPTIMADE implementations of a provider. 
+**Note**: The RECOMMENDED number of layers is two.
 
-Provider Objects
-~~~~~~~~~~~~~~~~
+List of Providers
+~~~~~~~~~~~~~~~~~
 
-The :object:`provider` objects are meant to indicate links to an "Index meta-database" hosted by database providers.
+Objects with :property:`link_type`=:val:`providers` are meant to indicate links to an "Index meta-database" hosted by organisations that want to point to various database providers.
 The intention is to be able to auto-discover all providers of OPTIMADE implementations.
 
 A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
@@ -1157,9 +1187,9 @@ This section also describes where to find information for how a provider can be 
 Index Meta-Database Links Endpoint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the provider implements an "Index meta-database" (see section `Index Meta-Database`_), it is RECOMMENDED to adopt a structure, where the index meta-database is the "parent" implementation of the provider's other OPTIMADE databases.
+If the provider implements an "Index meta-database" (see section `Index Meta-Database`_), it is RECOMMENDED to adopt a structure where the index meta-database is the :val:`root` implementation of the provider's other OPTIMADE databases.
 
-This will make all OPTIMADE databases and implementations by the provider discoverable as :object:`child` objects under the Links endpoint of the "Index meta-database".
+This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the Links endpoint of the "Index meta-database".
 
 Custom Extension Endpoints
 --------------------------
