@@ -268,6 +268,19 @@ The :field:`index_base_url` field MUST be included in every response in the :fie
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
+A few suggestions and mandatory requirements of the OPTIMaDe specification are specifically relaxed **only for index meta-databases** to make it possible to serve them in the form of static files on restricted third-party hosting platforms:
+
+- When serving an index meta-database in the form of static files, it is RECOMMENDED that the responses only contain the :field:`data` field (as described in the section `JSON Response Schema: Common Fields`_.)
+  The motivation is that static files cannot keep dynamic fields such as :field:`time_stamp` updated.
+
+- The `JSON API specification <http://jsonapi.org/format/1.0>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
+  Hence, API Implementations MAY ignore the content of these headers and respond to all requests.
+  The motivation is that static file hosting is typically not flexible enough to support these requirements on HTTP headers.
+
+- API implementations SHOULD serve JSON content with either the JSON API mandated HTTP header :http-header:`Content-Type: application/vnd.api+json` or :http-header:`Content-Type: application/json`. However, if the hosting platform does not allow this, JSON content MAY be served with :http-header:`Content-Type: text/plain`.
+
+..
+
     **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
     This list is also machine-readable, optimizing the automatic discoverability.
 
@@ -276,7 +289,7 @@ Database-Provider-Specific Namespace Prefixes
 
 This standard refers to database-provider-specific prefixes and database providers.
 
-A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTIMADE Index Meta-Database with base URL `https://www.optimade.org/providers/ <https://www.optimade.org/providers/>`__.
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
