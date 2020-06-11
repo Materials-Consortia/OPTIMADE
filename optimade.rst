@@ -1061,7 +1061,8 @@ The :property:`link_type` MUST be one of the following values:
   This allows the creation of a tree-like structure of databases by pointing to children sub-databases.
 - :field-val:`root`: a link to the root implementation within the same provider.
   This is RECOMMENDED to be an `Index Meta-Database`_.
-  There MUST be only one :val:`root` implementation per provider and all implementations MUST have a link to this :val:`root` implementation. If the provider only supply a single implementation, the :val:`root` link links to the implementation itself.
+  There MUST be only one :val:`root` implementation per provider and all implementations MUST have a link to this :val:`root` implementation.
+  If the provider only supplies a single implementation, the :val:`root` link links to the implementation itself.
 - :field-val:`external`: a link to an external OPTIMADE implementation.
   This MAY be used to point to any other implementation, also in a different provider.
 - :field-val:`providers`: a link to a `List of Providers Links`_ implementation that includes the current implementation, e.g. `providers.optimade.org <https://providers.optimade.org/>`__. 
