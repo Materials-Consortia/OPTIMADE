@@ -1066,7 +1066,7 @@ The :property:`link_type` MUST be one of the following values:
   This MAY be used to point to any other implementation, also in a different provider.
 - :field-val:`providers`: a link to a `List of Providers Links`_ implementation that includes the current implementation, e.g. `providers.optimade.org <https://providers.optimade.org/>`__. 
 
-From to the :val:`root` and :val:`child` link types, links can be used as an introspective endpoint, similar to the `Info Endpoints`_, but at a higher level, i.e., `Info Endpoints`_ provide information on the given implementation, while the :endpoint:`/links` endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single object with link type :val:`root` and none or more objects with link type :val:`child`, see section `Child Links`_).
+Limiting to the :val:`root` and :val:`child` link types, links can be used as an introspective endpoint, similar to the `Info Endpoints`_, but at a higher level, i.e., `Info Endpoints`_ provide information on the given implementation, while the :endpoint:`/links` endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single object with link type :val:`root` and none or more objects with link type :val:`child`, see section `Internal Links: Root and Child Links`_).
 
 For :endpoint:`/links` endpoints, the API implementation MAY ignore any provided query parameters.
 Alternatively, it MAY handle the parameters specified in section `Single Entry URL Query Parameters`_ for single entry endpoints.
@@ -1166,19 +1166,14 @@ Example:
       // ...
     }
 
-Internal Links: Root & Child Links
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Child resource objects that MAY be present under the :endpoint:`/links` endpoint.
+Internal Links: Root and Child Links
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Any number of resource objects with :property:`link_type`=:val:`child` MAY be present as part of the :field:`data` list.
 A :val:`child` object represents a "link" to an OPTIMADE implementation within the same provider exactly one layer **below** the current implementation's layer.
 
-
-Root resource objects that MAY be present under the :endpoint:`/links` endpoint.
-
 Either none or a single resource object with :property:`link_type`=:val:`root` MAY be present as part of the :field:`data` list.
-Note, it may of course be reproduced under other implementations' :endpoint:`/links` endpoint for the same provider.
+Note: the same implementation may of course be linked by other implementations via a ' :endpoint:`/links` endpoint with :property:`link_type`=:val:`external`.
 
 The :val:`root` resource object represents a link to the topmost OPTIMADE implementation of the current provider.
 By following :val:`child` links from the :val:`root` object recursively, it MUST be possible to reach the current OPTIMADE implementation.
