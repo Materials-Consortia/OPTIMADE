@@ -1185,7 +1185,7 @@ In practice, this forms a tree structure for the OPTIMADE implementations of a p
 List of Providers Links
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Resource objects with :property:`link_type`=:val:`providers` links to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
+Resource objects with :property:`link_type`=:val:`providers` links MUST point to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
 The intention is to be able to auto-discover all providers of OPTIMADE implementations.
 
 A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
