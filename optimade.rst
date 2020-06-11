@@ -1173,7 +1173,7 @@ Internal Links: Root and Child Links
 Any number of resource objects with :property:`link_type`=:val:`child` MAY be present as part of the :field:`data` list.
 A :val:`child` object represents a "link" to an OPTIMADE implementation within the same provider exactly one layer **below** the current implementation's layer.
 
-Either none or a single resource object with :property:`link_type`=:val:`root` MAY be present as part of the :field:`data` list.
+Exactly one resource object with :property:`link_type`=:val:`root` MUST be present as part of the :field:`data` list.
 Note: the same implementation may of course be linked by other implementations via a ' :endpoint:`/links` endpoint with :property:`link_type`=:val:`external`.
 
 The :val:`root` resource object represents a link to the topmost OPTIMADE implementation of the current provider.
