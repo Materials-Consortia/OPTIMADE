@@ -1070,7 +1070,7 @@ The :property:`link_type` MUST be one of the following values:
 Limiting to the :val:`root` and :val:`child` link types, links can be used as an introspective endpoint, similar to the `Info Endpoints`_, but at a higher level, i.e., `Info Endpoints`_ provide information on the given implementation, while the :endpoint:`/links` endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single object with link type :val:`root` and none or more objects with link type :val:`child`, see section `Internal Links: Root and Child Links`_).
 
 For :endpoint:`/links` endpoints, the API implementation MAY ignore any provided query parameters.
-Alternatively, it MAY handle the parameters specified in section `Single Entry URL Query Parameters`_ for single entry endpoints.
+Alternatively, it MAY handle the parameters specified in section `Entry Listing URL Query Parameters`_ for entry listing endpoints.
 
 Links Endpoint JSON Response Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
