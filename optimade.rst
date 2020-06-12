@@ -706,7 +706,7 @@ Example: http://example.com/optimade/v1/structures?page_limit=100
   If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value that can be used for sorting, the key :field:`sortable` with value :field-val:`true`.
   If a field name under an entry listing endpoint supporting sorting cannot be used for sorting, the server MUST either leave out the :field:`sortable` key or set it equal to :field-val:`false` for the specific field name.
   The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
-  The field :field:`sortable` is in addition to each property description (and the OPTIONAL field :field:`unit`).
+  The field :field:`sortable` is in addition to each property description and other OPTIONAL fields.
   An example is shown in section `Entry Listing Info Endpoints`_.
 
 - **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
@@ -1008,7 +1008,21 @@ The response for these endpoints MUST include the following information in the :
 
 - **description**: Description of the entry.
 - **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL keys :field:`unit` and :field:`sortable` (see `Entry Listing URL Query Parameters`_ for more information on :field:`sortable`).
+  Each value is a dictionary, with the
+  
+  *REQUIRED keys*:
+
+  - :field:`description`: String.
+    A human-readable description of the property.
+  
+  *OPTIONAL keys*:
+
+  - :field:`unit`: String.
+    The physical unit symbol in which the property's value is given.
+    It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
+  - :field:`sortable`: Boolean.
+    Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
+
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
