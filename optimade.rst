@@ -1802,6 +1802,27 @@ dimension\_types
   - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: :val:`[1, 0, 1]`
   - For a bulk 3D system: :val:`[1, 1, 1]`
 
+nperiodic\_dimensions
+~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in :property:`dimension\_types`.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - The integer value MUST be between 0 and 3 inclusive.
+  - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
+
+- **Examples**:
+
+  - :val:`2` should be indicated in cases where :property:`dimension\_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
+
+- **Query examples**:
+
+  - Match only structures with exactly 3 periodic dimensions: :filter:`nperiodic\_dimensions=3`
+  - Match all structures with 2 or fewer periodic dimensions: :filter:`nperiodic\_dimensions<=2`
+
 lattice\_vectors
 ~~~~~~~~~~~~~~~~
 
