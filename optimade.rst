@@ -1828,8 +1828,8 @@ lattice\_vectors
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Cartesian positions of each site in the structure. 
-  A site is the location of a species (cf. the `species`_ property) as assigned by the `species_at_sites`_ property.
+- **Description**: Cartesian positions of each site in the structure.
+   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
 - **Type**: list of list of floats
 - **Requirements/Conventions**:
 
@@ -1888,7 +1888,7 @@ species
 ~~~~~~~
 
 - **Description**: A list describing the species of the sites of this structure.
-  Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to other elements). 
+  Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
   
 - **Type**: list of dictionary with keys:
 
