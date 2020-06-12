@@ -1811,7 +1811,7 @@ nperiodic\_dimensions
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be between 0 and 3 inclusive.
+  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension_types`_ property.
   - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
 
 - **Examples**:
