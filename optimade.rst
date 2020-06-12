@@ -1828,7 +1828,8 @@ lattice\_vectors
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: The cartesian positions of each site in the structure. A site is the position of a species (cf. the :property:`species` property.) as indicated by the :property:`species_at_sites` property.
+- **Description**: Cartesian positions of each site in the structure. 
+  A site is the location of a species (cf. the `species`_ property) as assigned by the `species_at_sites`_ property.
 - **Type**: list of list of floats
 - **Requirements/Conventions**:
 
@@ -1864,7 +1865,7 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site specified by the property `cartesian_site_positions`_ (in the same order.)
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
@@ -1887,7 +1888,7 @@ species
 ~~~~~~~
 
 - **Description**: A list describing the species of the sites of this structure.
-  Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (more or less exclusively used to indicate hydrogen atoms attached to other elements.) 
+  Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to other elements). 
   
 - **Type**: list of dictionary with keys:
 
@@ -2078,7 +2079,7 @@ structure\_features
     - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
     - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
--  **Examples**: A structure having implcit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+-  **Examples**: A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
 Calculations Entries
 --------------------
