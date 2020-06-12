@@ -1828,20 +1828,15 @@ lattice\_vectors
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Cartesian positions of each site. A site is an atom, a site potentially occupied by an atom, or a placeholder for a virtual mixture of atoms (e.g., in a virtual crystal approximation).
-- **Type**: list of list of floats and/or unknown values.
+- **Description**: The cartesian positions of each site in the structure. A site is the position of a species (cf. the :property:`species` property.) as indicated by the :property:`species_at_sites` property.
+- **Type**: list of list of floats
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site.
-  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
-  - If a component of the position is unknown, the :val:`null` value SHOULD be provided instead (see section `Properties with an unknown value`_).
-    Otherwise, it SHOULD be a float value, expressed in angstrom (Å).
-    If at least one of the coordinates is unknown, the correct flag in the list property `structure_features`_ MUST be set.
-  - **Notes**: (for implementers) While this is unrelated to this OPTIMADE specification: If you decide to store internally the :property:`cartesian_site_positions` as a float array, you might want to represent :val:`null` values with :field-val:`NaN` values.
-    The latter being valid float numbers in the IEEE 754 standard in `IEEE 754-1985 <https://doi.org/10.1109/IEEESTD.1985.82928>`__ and in the updated version `IEEE 754-2008 <https://doi.org/10.1109/IEEESTD.2008.4610935>`__.
+  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site expressed as float values, expressed in the unit angstrom (Å).
+  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_). 
 
 - **Examples**:
 
@@ -1869,7 +1864,7 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+- **Description**: Name of the species at each site specified by the property `cartesian_site_positions`_ (in the same order.)
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
@@ -1891,7 +1886,9 @@ species\_at\_sites
 species
 ~~~~~~~
 
-- **Description**: A list describing the species of the sites of this structure. Species can be pure chemical elements, or virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements.
+- **Description**: A list describing the species of the sites of this structure.
+  Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (more or less exclusively used to indicate hydrogen atoms attached to other elements.) 
+  
 - **Type**: list of dictionary with keys:
 
   - :property:`name`: string (REQUIRED)
@@ -1925,6 +1922,12 @@ species
 
       Note that concentrations are uncorrelated between different site (even of the same species).
 
+    - **attached**: OPTIONAL; if provided MUST be a list of length 1 or more of strings of chemical symbols for the elements attached to this site, or "X" for a non-chemical element.
+    - **nattached**: OPTIONAL; if provided MUST be a list of length 1 or more of integers indicating the number of attached atoms of the kind specified in the value of the :field:`attached` key.
+
+      The implementation MUST include either both or none of the :field:`attached` and :field:`nattached` keys, and if they are provided, they MUST be of the same length.
+      Furthermore, if they are provided, the `structure_features`_ property MUST include the string :val:`site_attachments`.
+      
     - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
@@ -2070,11 +2073,12 @@ structure\_features
   - If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
   - **List of strings used to indicate special structure features**:
 
-    - :val:`disorder`: This flag MUST be present if any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element.
-    - :val:`unknown_positions`: This flag MUST be present if at least one component of the :property:`cartesian_site_positions` list of lists has value :val:`null`.
-    - :val:`assemblies`: This flag MUST be present if the property `assemblies`_ is present.
+    - :val:`disorder`: this flag MUST be present if any one entry in the `species`_ list has a :field:`chemical_symbols` list that is longer than 1 element.
+    - :val:`implicit_atoms`: this flag MUST be present if the structure contains atoms that are not assigned to sites via the property `species_at_sites`_ (e.g., because their positions are unknown). When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`_, `species`_, and `assemblies`_ properties. 
+    - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
+    - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
--  **Examples**: A structure having unknown positions and using assemblies: :val:`["assemblies", "unknown_positions"]`
+-  **Examples**: A structure having implcit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
 Calculations Entries
 --------------------
