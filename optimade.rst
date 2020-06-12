@@ -1022,6 +1022,12 @@ The response for these endpoints MUST include the following information in the :
     It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
   - :field:`sortable`: Boolean.
     Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
+  - :field:`type`: String.
+    The type of the property's value.
+    This can be any of the types defined in `Data types`_.
+
+    Note, if the value is a nested type, only the outermost type should be reported.
+    E.g., for the entry resource :entry:`structures`, the :field:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
 
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
@@ -1036,12 +1042,14 @@ Example:
         "properties": {
           "nelements": {
             "description": "Number of elements",
-            "sortable": true
+            "sortable": true,
+            "type": "integer"
           },
           "lattice_vectors": {
             "description": "Unit cell lattice vectors",
             "unit": "Å",
-            "sortable": false
+            "sortable": false,
+            "type": "list"
           }
           // ... <other property descriptions>
         },
