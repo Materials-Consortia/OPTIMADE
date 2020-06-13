@@ -23,6 +23,8 @@ OPTIMADE API specification v1.0.0-rc.1~develop
      property : data item that pertains to an entry.
      val : value examples that properties can be.
            :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+     type : data type of values.
+            MUST equal a valid OPTIMADE data type as listed and defined under `Data types`_.
 
      # URL queries
 
@@ -66,6 +68,8 @@ OPTIMADE API specification v1.0.0-rc.1~develop
 .. role:: property(literal)
 
 .. role:: val(literal)
+
+.. role:: type(literal)
 
 .. role:: property-fail(literal)
 
@@ -1024,10 +1028,12 @@ The response for these endpoints MUST include the following information in the :
     Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
   - :field:`type`: String.
     The type of the property's value.
-    This can be any of the types defined in `Data types`_.
+    This MUST be any of the types defined in `Data types`_.
+
+    For the purpose of compatibility with future versions of this specification, a client MUST accept values that are not :type:`string`s specifying any of the OPTIMADE `Data types`_, but MUST then also disregard the :field:`type` field.
 
     Note, if the value is a nested type, only the outermost type should be reported.
-    E.g., for the entry resource :entry:`structures`, the :field:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
+    E.g., for the entry resource :entry:`structures`, the :property:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
 
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
@@ -1520,7 +1526,7 @@ Type handling and conversions in comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The definitions of specific properties in this standard define their types.
-Similarly, for database-provider-specific properties, the database provider decides their types.
+Similarly, for `database-provider-specific properties`_, the database provider decides their types.
 In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with a single exception of timestamps (see below).
 Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
@@ -1612,6 +1618,7 @@ database-provider-specific properties
 
 - **Description**: Database providers are allowed to insert database-provider-specific entries in the output of both standard entry types and database-provider-specific entry types.
 - **Type**: Decided by the API implementation.
+  MUST be one of the OPTIMADE `Data types`_.
 - **Requirements/Conventions**:
 
   - **Support**: Support for database-provider-specific properties is fully OPTIONAL.
@@ -1621,6 +1628,7 @@ database-provider-specific properties
     Implementations are thus allowed to decide that some of these properties are part of what can be seen as the default value of :query-param:`response_fields` when that query parameter is omitted.
     Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  - Implementations MUST add the properties to the list of :property:`properties` under the respective entry listing :endpoint:`info` endpoint (see `Entry Listing Info Endpoints`_).
 
 - **Examples**: A few examples of valid database-provided-specific property names follows:
 
