@@ -1836,7 +1836,7 @@ cartesian\_site\_positions
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - It MUST be a list of length equal to the number of sites in the structure where every element is a list of the three Cartesian coordinates of a site expressed as float values, expressed in the unit angstrom (Å).
+  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three Cartesian coordinates of a site expressed as float values in the unit angstrom (Å).
   - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_). 
 
 - **Examples**:
@@ -1947,7 +1947,7 @@ species
   - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
   - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.
   - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.
-  - :val:`[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached":"H", "nattached":3} ]` : any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
+  - :val:`[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]` : any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
 
 assemblies
 ~~~~~~~~~~
@@ -2076,7 +2076,8 @@ structure\_features
   - **List of strings used to indicate special structure features**:
 
     - :val:`disorder`: this flag MUST be present if any one entry in the `species`_ list has a :field:`chemical_symbols` list that is longer than 1 element.
-    - :val:`implicit_atoms`: this flag MUST be present if the structure contains atoms that are not assigned to sites via the property `species_at_sites`_ (e.g., because their positions are unknown). When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`_, `species`_, and `assemblies`_ properties. 
+    - :val:`implicit_atoms`: this flag MUST be present if the structure contains atoms that are not assigned to sites via the property `species_at_sites`_ (e.g., because their positions are unknown).
+      When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`_, `species`_, and `assemblies`_ properties. 
     - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
     - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
