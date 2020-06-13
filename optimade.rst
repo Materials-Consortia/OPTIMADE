@@ -1829,7 +1829,7 @@ cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: Cartesian positions of each site in the structure.
-   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
+  A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
 - **Type**: list of list of floats
 - **Requirements/Conventions**:
 
