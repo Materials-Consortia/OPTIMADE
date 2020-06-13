@@ -23,6 +23,8 @@ OPTIMADE API specification v1.0.0-rc.1~develop
      property : data item that pertains to an entry.
      val : value examples that properties can be.
            :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+     type : data type of values.
+            MUST equal a valid OPTIMADE data type as listed and defined under `Data types`_.
 
      # URL queries
 
@@ -66,6 +68,8 @@ OPTIMADE API specification v1.0.0-rc.1~develop
 .. role:: property(literal)
 
 .. role:: val(literal)
+
+.. role:: type(literal)
 
 .. role:: property-fail(literal)
 
@@ -706,7 +710,7 @@ Example: http://example.com/optimade/v1/structures?page_limit=100
   If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value that can be used for sorting, the key :field:`sortable` with value :field-val:`true`.
   If a field name under an entry listing endpoint supporting sorting cannot be used for sorting, the server MUST either leave out the :field:`sortable` key or set it equal to :field-val:`false` for the specific field name.
   The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
-  The field :field:`sortable` is in addition to each property description (and the OPTIONAL field :field:`unit`).
+  The field :field:`sortable` is in addition to each property description and other OPTIONAL fields.
   An example is shown in section `Entry Listing Info Endpoints`_.
 
 - **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
@@ -1008,7 +1012,29 @@ The response for these endpoints MUST include the following information in the :
 
 - **description**: Description of the entry.
 - **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the REQUIRED key :field:`description` and OPTIONAL keys :field:`unit` and :field:`sortable` (see `Entry Listing URL Query Parameters`_ for more information on :field:`sortable`).
+  Each value is a dictionary, with the
+  
+  *REQUIRED keys*:
+
+  - :field:`description`: String.
+    A human-readable description of the property.
+  
+  *OPTIONAL keys*:
+
+  - :field:`unit`: String.
+    The physical unit symbol in which the property's value is given.
+    It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
+  - :field:`sortable`: Boolean.
+    Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
+  - :field:`type`: String.
+    The type of the property's value.
+    This MUST be any of the types defined in `Data types`_.
+
+    For the purpose of compatibility with future versions of this specification, a client MUST accept values that are not :type:`string`s specifying any of the OPTIMADE `Data types`_, but MUST then also disregard the :field:`type` field.
+
+    Note, if the value is a nested type, only the outermost type should be reported.
+    E.g., for the entry resource :entry:`structures`, the :property:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
+
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
@@ -1022,12 +1048,14 @@ Example:
         "properties": {
           "nelements": {
             "description": "Number of elements",
-            "sortable": true
+            "sortable": true,
+            "type": "integer"
           },
           "lattice_vectors": {
             "description": "Unit cell lattice vectors",
             "unit": "Å",
-            "sortable": false
+            "sortable": false,
+            "type": "list"
           }
           // ... <other property descriptions>
         },
@@ -1545,7 +1573,7 @@ Type handling and conversions in comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The definitions of specific properties in this standard define their types.
-Similarly, for database-provider-specific properties, the database provider decides their types.
+Similarly, for `database-provider-specific properties`_, the database provider decides their types.
 In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with a single exception of timestamps (see below).
 Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
@@ -1637,6 +1665,7 @@ database-provider-specific properties
 
 - **Description**: Database providers are allowed to insert database-provider-specific entries in the output of both standard entry types and database-provider-specific entry types.
 - **Type**: Decided by the API implementation.
+  MUST be one of the OPTIMADE `Data types`_.
 - **Requirements/Conventions**:
 
   - **Support**: Support for database-provider-specific properties is fully OPTIONAL.
@@ -1646,6 +1675,7 @@ database-provider-specific properties
     Implementations are thus allowed to decide that some of these properties are part of what can be seen as the default value of :query-param:`response_fields` when that query parameter is omitted.
     Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  - Implementations MUST add the properties to the list of :property:`properties` under the respective entry listing :endpoint:`info` endpoint (see `Entry Listing Info Endpoints`_).
 
 - **Examples**: A few examples of valid database-provided-specific property names follows:
 
