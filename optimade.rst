@@ -1096,6 +1096,18 @@ The resource objects' response dictionaries MUST include the following fields:
   - **link\_type**: a string containing the link type.
     It MUST be one of the values listed above in section `Link Types`_.
 
+  - **aggregate**: a string indicating whether a client that is following links to aggregate results from different OPTIMADE implementations should follow this link or not. This flag SHOULD NOT be indicated for links where :property:`link_type` is not :val:`child`.
+
+    If not specified, clients MAY assume that the value is :val:`ok`.
+    If specified, and the value is anything different than :val:`ok`, the client MUST assume that the server is suggesting not to follow the link during aggregation by default (also if the value is not among the known ones, in case a future specification adds new accepted values).
+
+    Specific values indicate the reason why the server is providing the suggestion.
+    A client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links marked with :property:`aggregate`=:val:`test`).
+  
+    If specified, it MUST be one of the values listed in section `Link Aggregate Options`_.
+
+  - **no_aggregate_reason**: an OPTIONAL human-readable string indicating the reason for suggesting not to aggregate results following the link. It SHOULD NOT be present if :property:`aggregate`=:val:`ok`.
+
 Example:
 
 .. code:: jsonc
@@ -1138,6 +1150,31 @@ Example:
             "base_url": "http://example.com/zeo_frameworks/optimade",
             "homepage": "http://example.com",
             "link_type: "child"
+          }
+        },
+        {
+          "type": "links",
+          "id": "testdb",
+          "attributes": {
+            "name": "Test database",
+            "description": "A test database",
+            "base_url": "http://example.com/testdb/optimade",
+            "homepage": "http://example.com",
+            "link_type: "child",
+            "aggregate": "test"
+          }
+        },
+        {
+          "type": "links",
+          "id": "internaldb",
+          "attributes": {
+            "name": "Database for internal use",
+            "description": "An internal database",
+            "base_url": "http://example.com/internaldb/optimade",
+            "homepage": "http://example.com",
+            "link_type: "child",
+            "aggregate": "no",
+            "no_aggregate_reason": "This is a database for internal use and might contain non-sensical data"
           }
         },
         {
@@ -1197,6 +1234,16 @@ Index Meta-Database Links Endpoint
 If the provider implements an `Index Meta-Database`_, it is RECOMMENDED to adopt a structure where the index meta-database is the :val:`root` implementation of the provider.
 
 This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the Links endpoint of the `Index Meta-Database`_.
+
+Link Aggregate Options
+~~~~~~~~~~~~~~~~~~~~~~
+
+If specified, the :property:`aggregate` attributed MUST have one of the following values:
+
+- :val:`ok` (default value, if unspecified): it is ok to follow this link when aggregating OPTIMADE results.
+- :val:`test`: the linked database is a test database,  whose content might not be correct or migth not represent physically-meaningful data. Therefore by default the link should not be followed.
+- :val:`staging`: the linked database is almost production-ready, but final checks on its content are being performed, so the content might still contain errors. Therefore by default the link should not be followed.
+- :val:`no`: any other reason to suggest not to follow the link during aggregation of OPTIMADE results. The implementation MAY provide mode details in a human-readable form via the attribute :property:`no-aggregate-reason`.
 
 Custom Extension Endpoints
 --------------------------
