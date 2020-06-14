@@ -1874,8 +1874,7 @@ dimension\_types
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
-  - **Query**: MUST be a queryable property.
-    Support for equality comparison is REQUIRED, support for other comparison operators are OPTIONAL.
+  - **Query**: Support for queries on this property is OPTIONAL.
   - MUST be a list of length 3.
   - Each integer element MUST assume only the value 0 or 1.
 
