@@ -770,7 +770,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 
 - **type**: field containing the Entry type as defined in section `Definition of Terms`_
 - **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
-- **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for type and id.
+- **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for `type` and `id`.
 
   Database-provider-specific properties need to include the database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
@@ -1020,12 +1020,12 @@ The response for these endpoints MUST include the following information in the :
 - **description**: Description of the entry.
 - **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
   Each value is a dictionary, with the
-  
+
   *REQUIRED keys*:
 
   - :field:`description`: String.
     A human-readable description of the property.
-  
+
   *OPTIONAL keys*:
 
   - :field:`unit`: String.
@@ -1100,7 +1100,7 @@ The :property:`link_type` MUST be one of the following values:
   If the provider only supplies a single implementation, the :val:`root` link links to the implementation itself.
 - :field-val:`external`: a link to an external OPTIMADE implementation.
   This MAY be used to point to any other implementation, also in a different provider.
-- :field-val:`providers`: a link to a `List of Providers Links`_ implementation that includes the current implementation, e.g. `providers.optimade.org <https://providers.optimade.org/>`__. 
+- :field-val:`providers`: a link to a `List of Providers Links`_ implementation that includes the current implementation, e.g. `providers.optimade.org <https://providers.optimade.org/>`__.
 
 Limiting to the :val:`root` and :val:`child` link types, links can be used as an introspective endpoint, similar to the `Info Endpoints`_, but at a higher level, i.e., `Info Endpoints`_ provide information on the given implementation, while the :endpoint:`/links` endpoint provides information on the links between immediately related implementations (in particular, an array of none or a single object with link type :val:`root` and none or more objects with link type :val:`child`, see section `Internal Links: Root and Child Links`_).
 
@@ -1138,7 +1138,7 @@ The resource objects' response dictionaries MUST include the following fields:
 
     Specific values indicate the reason why the server is providing the suggestion.
     A client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links marked with :property:`aggregate`=:val:`test`).
-  
+
     If specified, it MUST be one of the values listed in section `Link Aggregate Options`_.
 
   - **no_aggregate_reason**: an OPTIONAL human-readable string indicating the reason for suggesting not to aggregate results following the link. It SHOULD NOT be present if :property:`aggregate`=:val:`ok`.
@@ -1251,7 +1251,7 @@ Note: the same implementation may of course be linked by other implementations v
 The :val:`root` resource object represents a link to the topmost OPTIMADE implementation of the current provider.
 By following :val:`child` links from the :val:`root` object recursively, it MUST be possible to reach the current OPTIMADE implementation.
 
-In practice, this forms a tree structure for the OPTIMADE implementations of a provider. 
+In practice, this forms a tree structure for the OPTIMADE implementations of a provider.
 **Note**: The RECOMMENDED number of layers is two.
 
 List of Providers Links
@@ -1854,7 +1854,8 @@ chemical\_formula\_anonymous
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
-  - **Query**: MUST be a queryable property. However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
+  - **Query**: MUST be a queryable property.
+    However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
 
 - **Examples**:
 
@@ -1888,13 +1889,13 @@ dimension\_types
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in :property:`dimension\_types`.
+- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension\_types`_.
 - **Type**: integer
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension_types`_ property.
+  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension\_types`_ property.
   - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
 
 - **Examples**:
@@ -1903,8 +1904,8 @@ nperiodic\_dimensions
 
 - **Query examples**:
 
-  - Match only structures with exactly 3 periodic dimensions: :filter:`nperiodic\_dimensions=3`
-  - Match all structures with 2 or fewer periodic dimensions: :filter:`nperiodic\_dimensions<=2`
+  - Match only structures with exactly 3 periodic dimensions: :filter:`nperiodic_dimensions=3`
+  - Match all structures with 2 or fewer periodic dimensions: :filter:`nperiodic_dimensions<=2`
 
 lattice\_vectors
 ~~~~~~~~~~~~~~~~
@@ -1941,7 +1942,7 @@ cartesian\_site\_positions
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three Cartesian coordinates of a site expressed as float values in the unit angstrom (Å).
-  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_). 
+  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`_).
 
 - **Examples**:
 
@@ -1993,7 +1994,7 @@ species
 
 - **Description**: A list describing the species of the sites of this structure.
   Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
-  
+
 - **Type**: list of dictionary with keys:
 
   - :property:`name`: string (REQUIRED)
@@ -2025,14 +2026,14 @@ species
       - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations :val:`1/3` and :val:`2/3`, the concentration might look something like :val:`[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.
       - Experimental errors in the data present in the database. In this case, it is the responsibility of the client to decide how to process the data.
 
-      Note that concentrations are uncorrelated between different site (even of the same species).
+      Note that concentrations are uncorrelated between different sites (even of the same species).
 
     - **attached**: OPTIONAL; if provided MUST be a list of length 1 or more of strings of chemical symbols for the elements attached to this site, or "X" for a non-chemical element.
     - **nattached**: OPTIONAL; if provided MUST be a list of length 1 or more of integers indicating the number of attached atoms of the kind specified in the value of the :field:`attached` key.
 
       The implementation MUST include either both or none of the :field:`attached` and :field:`nattached` keys, and if they are provided, they MUST be of the same length.
       Furthermore, if they are provided, the `structure_features`_ property MUST include the string :val:`site_attachments`.
-      
+
     - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
@@ -2051,7 +2052,7 @@ species
   - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
   - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.
   - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.
-  - :val:`[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]` : any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
+  - :val:`[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]`: any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
 
 assemblies
 ~~~~~~~~~~
@@ -2172,7 +2173,9 @@ structure\_features
 - **Requirements/Conventions**:
 
   - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
-  - **Query**: MUST be a queryable property. Filters on the list MUST support all mandatory HAS-type queries. Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.
+  - **Query**: MUST be a queryable property.
+    Filters on the list MUST support all mandatory HAS-type queries.
+    Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.
   - MUST be an empty list if no special features are used.
   - MUST be sorted alphabetically.
   - If a special feature listed below is used, the list MUST contain the corresponding string.
@@ -2181,7 +2184,7 @@ structure\_features
 
     - :val:`disorder`: this flag MUST be present if any one entry in the `species`_ list has a :field:`chemical_symbols` list that is longer than 1 element.
     - :val:`implicit_atoms`: this flag MUST be present if the structure contains atoms that are not assigned to sites via the property `species_at_sites`_ (e.g., because their positions are unknown).
-      When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`_, `species`_, and `assemblies`_ properties. 
+      When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`_, `species`_, and `assemblies`_ properties.
     - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
     - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
