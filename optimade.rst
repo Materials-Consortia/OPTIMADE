@@ -470,7 +470,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 	     "representation": "/structures/?filter=a=1 AND b=2",
 	   },
 	   "api_version": "1.0.0",
-	   "time_stamp": "2007-04-05T14:30Z",
+	   "time_stamp": "2007-04-05T14:30:20Z",
 	   "data_returned": 10,
 	   "data_available": 10,
 	   "more_data_available": false,
@@ -572,7 +572,7 @@ An example of a full response:
 	   "representation": "/structures?filter=a=1 AND b=2"
 	 },
 	 "api_version": "1.0.0",
-	 "time_stamp": "2007-04-05T14:30Z",
+	 "time_stamp": "2007-04-05T14:30:20Z",
 	 "data_returned": 10,
 	 "data_available": 10,
 	 "last_id": "xy10",
@@ -798,7 +798,7 @@ Example:
 	     "chemical_formula_descriptive": "Es2 O3",
 	     "url": "http://example.db/structs/0001",
 	     "immutable_id": "http://example.db/structs/0001@123",
-	     "last_modified": "2007-04-05T14:30Z"
+	     "last_modified": "2007-04-05T14:30:20Z"
 	   }
 	 },
 	 {
@@ -808,7 +808,7 @@ Example:
 	     "chemical_formula_descriptive": "Es2",
 	     "url": "http://example.db/structs/1234",
 	     "immutable_id": "http://example.db/structs/1234@123",
-	     "last_modified": "2007-04-07T12:02Z"
+	     "last_modified": "2007-04-07T12:02:20Z"
 	   }
 	 }
 	 // ...
@@ -858,7 +858,7 @@ Example:
 	   "chemical_formula_descriptive": "Es2",
 	   "url": "http://example.db/structs/1234",
 	   "immutable_id": "http://example.db/structs/1234@123",
-	   "last_modified": "2007-04-07T12:02Z"
+	   "last_modified": "2007-04-07T12:02:20Z"
 	 }
        },
        "meta": {
@@ -1665,7 +1665,7 @@ last\_modified
 
 - **Example**:
 
-  - As part of JSON response format: :VAL:`"2007-04-05T14:30Z"` (i.e., encoded as an `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ string.)
+  - As part of JSON response format: :VAL:`"2007-04-05T14:30:20Z"` (i.e., encoded as an `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ string.)
 
 database-provider-specific properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2278,7 +2278,7 @@ For example, for the JSON response format, the top-level :field:`included` field
           "formula": "Es2",
           "url": "http://example.db/structs/1234",
           "immutable_id": "http://example.db/structs/1234@123",
-          "last_modified": "2007-04-07T12:02Z"
+          "last_modified": "2007-04-07T12:02:20Z"
         },
         "relationships": {
           "references": {
