@@ -1036,9 +1036,7 @@ The response for these endpoints MUST include the following information in the :
   - :field:`type`: String.
     The type of the property's value.
     This MUST be any of the types defined in `Data types`_.
-
-    For the purpose of compatibility with future versions of this specification, a client MUST accept values that are not :type:`string`s specifying any of the OPTIMADE `Data types`_, but MUST then also disregard the :field:`type` field.
-
+    For the purpose of compatibility with future versions of this specification, a client MUST accept values that are not :type:`string` values specifying any of the OPTIMADE `Data types`_, but MUST then also disregard the :field:`type` field.
     Note, if the value is a nested type, only the outermost type should be reported.
     E.g., for the entry resource :entry:`structures`, the :property:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
 
