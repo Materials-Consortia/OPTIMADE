@@ -1135,11 +1135,11 @@ The resource objects' response dictionaries MUST include the following fields:
     If specified, and the value is anything different than :val:`ok`, the client MUST assume that the server is suggesting not to follow the link during aggregation by default (also if the value is not among the known ones, in case a future specification adds new accepted values).
 
     Specific values indicate the reason why the server is providing the suggestion.
-    A client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links marked with :property:`aggregate`=:val:`test`).
+    A client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links where :property:`aggregate` has value :val:`test`).
 
     If specified, it MUST be one of the values listed in section `Link Aggregate Options`_.
 
-  - **no_aggregate_reason**: an OPTIONAL human-readable string indicating the reason for suggesting not to aggregate results following the link. It SHOULD NOT be present if :property:`aggregate`=:val:`ok`.
+  - **no_aggregate_reason**: an OPTIONAL human-readable string indicating the reason for suggesting not to aggregate results following the link. It SHOULD NOT be present if :property:`aggregate` has value :val:`ok`.
 
 Example:
 
@@ -1240,11 +1240,11 @@ Example:
 Internal Links: Root and Child Links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Any number of resource objects with :property:`link_type`=:val:`child` MAY be present as part of the :field:`data` list.
+Any number of resource objects with :property:`link_type` equal to :val:`child` MAY be present as part of the :field:`data` list.
 A :val:`child` object represents a "link" to an OPTIMADE implementation within the same provider exactly one layer **below** the current implementation's layer.
 
-Exactly one resource object with :property:`link_type`=:val:`root` MUST be present as part of the :field:`data` list.
-Note: the same implementation may of course be linked by other implementations via a ' :endpoint:`/links` endpoint with :property:`link_type`=:val:`external`.
+Exactly one resource object with :property:`link_type` equal to :val:`root` MUST be present as part of the :field:`data` list.
+Note: the same implementation may of course be linked by other implementations via a :endpoint:`/links` endpoint with :property:`link_type` equal to :val:`external`.
 
 The :val:`root` resource object represents a link to the topmost OPTIMADE implementation of the current provider.
 By following :val:`child` links from the :val:`root` object recursively, it MUST be possible to reach the current OPTIMADE implementation.
@@ -1255,7 +1255,7 @@ In practice, this forms a tree structure for the OPTIMADE implementations of a p
 List of Providers Links
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Resource objects with :property:`link_type`=:val:`providers` links MUST point to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
+Resource objects with :property:`link_type` equal to :val:`providers` MUST point to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
 The intention is to be able to auto-discover all providers of OPTIMADE implementations.
 
 A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
