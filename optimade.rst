@@ -232,13 +232,26 @@ Base URL
 Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/.
 Every URL path segment that follows the base URL MUST behave as standardized in this API specification.
 
-All access to the API is provided under the **versioned base URLs**, which append a URL path segment to the base URL that SHOULD be of the form :query-url:`/vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
-Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
-For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the *latest* minor/patch version implemented by the provider.
-If the version has a suffix, e.g., `-rc<number>` for release candidate versions, this suffix SHOULD be omitted in the URL path segment.
+Implementations MUST serve a :endpoint:`versions` endpoint directly under the **base URLs**.
+This endpoint allows a client to discover the major versions of the API that the implementation provides.
+For the specification of this endpoint see section `Versions Endpoint`_.
 
-    **For implementers**: Clients are recommended to discover the highest version supported by both the client and the API implementation by trying versioned base URLs in order of priority.
-    E.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
+Versioned base URLs
+~~~~~~~~~~~~~~~~~~~
+
+Access to the API is primarily provided under **versioned base URLs**.
+An implementation MUST provide the form where a URL path segment :query-url:`/vMAJOR` is appended to the base URL, where :val:`MAJOR` is one of the major version numbers of the API that the implementation supports.
+This URL MUST serve the *latest* minor/patch version supported by the implementation.
+
+An implementation MAY also provide versioned base URLs on the forms :query-url:`/vMAJOR.MINOR` and :query-url:`/vMAJOR.MINOR.PATCH`.
+Here, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the API.
+A URL on the form  :query-url:`/vMAJOR.MINOR` MUST serve the *latest* patch version supported by the implementation of this minor version.
+
+API versions that are published with a suffix, e.g., `-rc<number>` to indicate a release candidate version, SHOULD be served on versioned base URLs without this suffix.
+
+It is the intent that future versions of this standard will not assign different meanings to URLs that begin with :query-url:`/v` and an integer.
+Hence, a client can safely attempt to access a specific version of the API via the corresponding versioned base URL. 
+Other forms of version negotiation is provided by the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
 Examples of valid versioned base URLs:
 
@@ -255,6 +268,29 @@ Database providers SHOULD strive to implement the latest released version of thi
 
 Note: The base URLs and versioned base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to them.
 However, it is RECOMMENDED that implementations serve a human-readable HTML document on base URLs and versioned base URLs, which explains that the URL is an OPTIMADE URL meant to be queried by an OPTIMADE client.
+  
+Unversioned base URLs
+~~~~~~~~~~~~~~~~~~~~~
+
+Implementations MAY also provide access to the API on the **unversioned base URL** as described in this subsection.
+
+Access via the unversioned URL is primarily intended for (i) convinience when manually interacting with the API, and (ii) to provide version agnostic permanent links to resource objects.
+Clients that perform automated processing of responses SHOULD access the API via versioned base URLs.
+
+Implementations MAY provide direct access to the full API under the unversioned base URL. 
+In this case, the implementation SHOULD serve its preferred version of the API (i.e., the lastest, most mature, and stable version.) 
+
+Implementations MAY instead issue a HTTP 307 temporary redirect for queries issued to endpoints under the unversioned base URL.  
+In that case, the redirect SHOULD be to the corresponding versioned URL for the implementations preferred version of the API.
+
+As a third alternative, implementations MAY choose to provide direct access only to Single Entry Endpoints (see section `Single Entry Endpoints`_) under the unversioned base URL, i.e., so that this form of access is only available for permanent links to resource objects.
+In that case, the response format SHOULD be that of the implementations preferred version of the API.
+Implementations MAY combine direct access to Single Entry Endpoints with redirects for other API queries.
+
+When an implementation serves (or redirects to) a preferred major version of the API on the unversioned base URL, that version MUST also be the version at the first line in the response of the :endpoint:`versions` endpoint (see `Versions Endpoint`_).
+
+    **For implementers**: Before enabling access to the API on unversioned base URLs, implementations are advised to consider that this feature may encourage careless automated access from clients that, without verification, assumes a specific version of the API to be served on the unversioned base URL.
+    The implementation needs to be prepared to break such clients on major version upgrades, or will otherwise get stuck at serving the *oldest* API version on the unversioned URL.
 
 Index Meta-Database
 -------------------
@@ -628,8 +664,11 @@ For implementation-specific warnings, they MUST start with ``_`` and the databas
 API Endpoints
 =============
 
-The URL path segment that follows the versioned base URL MUST represent one of the following endpoints:
+Access to API endpoints as desribed in the subsections below are to be provided under the versioned and/or the unversioned base URL as desribed in the section `Base URL`_.
 
+The endpoints are:
+
+- a :endpoint:`versions` endpoint 
 - an "entry listing" endpoint
 - a "single entry" endpoint
 - an introspection :endpoint:`info` endpoint
@@ -638,6 +677,34 @@ The URL path segment that follows the versioned base URL MUST represent one of t
 - a custom :endpoint:`extensions` endpoint prefix
 
 These endpoints are documented below.
+
+Versions Endpoint
+-----------------
+
+The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides. 
+This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
+
+The response to a query to this endpoint is in the :RFC:`4180` CSV format (and does therefore not comply with JSON:API data format of the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification).
+In the present version of the API the response contains only a single field, which is used to list the major versions of the API that the implementation supports.
+However, clients MUST accept responses that include other fields that follow the version.
+If the CSV response includes a header line, the name of the first field MUST be "#version", and the client can therefore safely disregard the first line if it starts with the '#' character.
+
+The major API versions in the response are to be ordered according to the preference of the API implementation.
+If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the top line of the response (after the optional CSV header).
+
+It is the intent that all future versions of this specification retain this endpoint and the meaning of the first field of the response.
+
+Example response:
+
+.. code:: CSV
+
+  #version
+  1
+  0
+
+The above response means that the API versions 1 and 0 are served under the versioned base URLs `/v1` and `/v0` respectively.
+The order of the versions indicate that the API implementation regards version 1 as preferred over version 0.
+If the API implementation allows access to the API on the unversioned base URL, this access has to be to version 1, since the number 1 appears in the first (non-header) line.
 
 Entry Listing Endpoints
 -----------------------
