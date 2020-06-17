@@ -249,7 +249,9 @@ A URL on the form  :query-url:`/vMAJOR.MINOR` MUST serve the *latest* patch vers
 
 API versions that are published with a suffix, e.g., `-rc<number>` to indicate a release candidate version, SHOULD be served on versioned base URLs without this suffix.
 
-It is the intent that future versions of this standard will not assign different meanings to URLs that begin with :query-url:`/v` and an integer.
+If a request is made to a versioned base URL that begins with `/v` and an integer followed by any other characters, indicating a version that the implementation does not recognize or support, it SHOULD respond with the custom HTTP server error status code :http-error:`553 API Version Not Supported`, perferably along with a user-friendly error message that directs the client to adapt the request to a version it provides.
+
+It is the intent that future versions of this standard will not assign different meanings to URLs that begin with :query-url:`/v` and an integer followed by other characters.
 Hence, a client can safely attempt to access a specific version of the API via the corresponding versioned base URL. 
 Other forms of version negotiation is provided by the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
