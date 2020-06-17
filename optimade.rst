@@ -684,10 +684,10 @@ Versions Endpoint
 The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides. 
 This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
 
-The response to a query to this endpoint is in the :RFC:`4180` CSV format (and does therefore not comply with JSON:API data format of the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification).
-In the present version of the API the response contains only a single field, which is used to list the major versions of the API that the implementation supports.
+The response to a query to this endpoint is in the :RFC:`4180` `text/csv; header=present` format (and does therefore not comply with JSON:API data format of the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification).
+In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
 However, clients MUST accept responses that include other fields that follow the version.
-If the CSV response includes a header line, the name of the first field MUST be "#version", and the client can therefore safely disregard the first line if it starts with the '#' character.
+The csv format header line MUST be provided, and the header for the first field MUST be `#version`.
 
 The major API versions in the response are to be ordered according to the preference of the API implementation.
 If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the top line of the response (after the optional CSV header).
