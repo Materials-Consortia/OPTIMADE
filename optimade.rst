@@ -242,6 +242,7 @@ Versioned base URLs
 Access to the API is primarily provided under **versioned base URLs**.
 An implementation MUST provide the form where a URL path segment :query-url:`/vMAJOR` is appended to the base URL, where :val:`MAJOR` is one of the major version numbers of the API that the implementation supports.
 This URL MUST serve the *latest* minor/patch version supported by the implementation.
+For example, the lastest minor and patch version of major version 1 of the API is served under :query-url:`/v1`.
 
 An implementation MAY also provide versioned base URLs on the forms :query-url:`/vMAJOR.MINOR` and :query-url:`/vMAJOR.MINOR.PATCH`.
 Here, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the API.
@@ -686,10 +687,10 @@ Versions Endpoint
 The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides. 
 This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
 
-The response to a query to this endpoint is in the :RFC:`4180` `text/csv; header=present` format (and does therefore not comply with the JSON:API data format of the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification).
+The response to a query to this endpoint is in the :RFC:`4180` CSV (`text/csv; header=present`) format (and does therefore not comply with the JSON:API data format of the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification).
 In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
 However, clients MUST accept responses that include other fields that follow the version.
-The csv format header line MUST be provided, and the header for the first field MUST be `#version`.
+The CSV format header line MUST be provided, and the header for the first field MUST be `version`.
 
 The major API versions in the response are to be ordered according to the preference of the API implementation.
 If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the top line of the response (after the optional CSV header).
@@ -700,7 +701,7 @@ Example response:
 
 .. code:: CSV
 
-  #version
+  version
   1
   0
 
