@@ -292,8 +292,7 @@ Implementations MAY combine direct access to Single Entry Endpoints with redirec
 
 When an implementation serves (or redirects to) a preferred major version of the API on the unversioned base URL, that version MUST also be the version at the first line in the response of the :endpoint:`versions` endpoint (see `Versions Endpoint`_).
 
-    **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that this feature may encourage careless automated access from clients that, without verification, assumes a specific version of the API to be served on the unversioned base URL.
-    The implementer needs to be prepared to break such clients on major version upgrades, or will otherwise get stuck at serving the *oldest* API version on the unversioned URL.
+    **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that an upgrade of the major version of the API served this way may change the behaviors of associated endpoints in ways that are not backwards compatible.
 
 Index Meta-Database
 -------------------
