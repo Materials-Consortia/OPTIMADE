@@ -278,9 +278,9 @@ Clients that perform automated processing of responses SHOULD access the API via
 
 Implementations serving the API on the unversioned base URL have a few alternative options:
 
-1. Direct access may be provided to the full API.
-2. Requests to endpoints under the unversioned base URL may be redirected using an HTTP 307 temporary redirect to the corresponding endpoints under a versioned base URL.
-3. Direct access may be limited to only single entry endpoints (see section `Single Entry Endpoints`_), i.e., so that this form of access is only available for permanent links to resource objects.
+1. Direct access MAY be provided to the full API.
+2. Requests to endpoints under the unversioned base URL MAY be redirected using an HTTP 307 temporary redirect to the corresponding endpoints under a versioned base URL.
+3. Direct access MAY be limited to only single entry endpoints (see section `Single Entry Endpoints`_), i.e., so that this form of access is only available for permanent links to resource objects.
 
 Implementations MAY combine direct access to Single Entry Endpoints with redirects for other API queries.
 
@@ -289,7 +289,7 @@ If this parameter is provided, the server MAY serve the request using (or redire
 However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the lastest, most mature, and stable version).
 In this case, that version MUST also be the first version in the response of the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
-    **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that an upgrade of the major version of the API served this way may change the behaviors of associated endpoints in ways that are not backward compatible.
+    **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that an upgrade of the major version of the API served this way can change the behaviors of associated endpoints in ways that are not backward compatible.
 
 Version Negotiation
 -------------------
