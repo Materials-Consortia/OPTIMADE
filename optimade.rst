@@ -242,7 +242,7 @@ Versioned base URLs
 Access to the API is primarily provided under **versioned base URLs**.
 An implementation MUST provide the form where a URL path segment :query-url:`/vMAJOR` is appended to the base URL, where :val:`MAJOR` is one of the major version numbers of the API that the implementation supports.
 This URL MUST serve the *latest* minor/patch version supported by the implementation.
-For example, the lastest minor and patch version of major version 1 of the API is served under :query-url:`/v1`.
+For example, the latest minor and patch version of major version 1 of the API is served under :query-url:`/v1`.
 
 An implementation MAY also provide versioned base URLs on the forms :query-url:`/vMAJOR.MINOR` and :query-url:`/vMAJOR.MINOR.PATCH`.
 Here, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the API.
@@ -692,7 +692,7 @@ However, clients MUST accept responses that include other fields that follow the
 The CSV format header line MUST be provided, and the header for the first field MUST be `version`.
 
 The major API versions in the response are to be ordered according to the preference of the API implementation.
-If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the top line of the response (after the optional CSV header).
+If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the top line of the response (after the CSV header).
 
 It is the intent that all future versions of this specification retain this endpoint and the meaning of the first field of the response.
 
