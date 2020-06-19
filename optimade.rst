@@ -692,7 +692,7 @@ However, clients MUST accept responses that include other fields that follow the
 The CSV format header line MUST be provided, and the header for the first field MUST be `version`.
 
 The major API versions in the response are to be ordered according to the preference of the API implementation.
-If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the top line of the response (after the CSV header).
+If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the first value in the response (i.e., it MUST be on the second line of the response directly following the required CSV header).
 
 It is the intent that all future versions of this specification retain this endpoint and the meaning of the first field of the response.
 
