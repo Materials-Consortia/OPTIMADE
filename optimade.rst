@@ -285,7 +285,7 @@ Implementations serving the API on the unversioned base URL have a few alternati
 Implementations MAY combine direct access to Single Entry Endpoints with redirects for other API queries.
 
 The client MAY provide a query parameter :query-param:`api_hint` to hint the server about a preferred API version.
-If this parameter is provided, the server MAY serve the request using (or redirect the request to) any version of the API that it finds appropriate, see section `Version Negotiation`_ for more details.
+When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best sutiable" version of the API to be selected to serve the request (or forward the request to).
 However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the lastest, most mature, and stable version).
 In this case, that version MUST also be the first version in the response of the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
@@ -305,7 +305,7 @@ The OPTIMADE API provides three concurrent mechanisms for version negotiation be
 
 The :query-param:`api_hint` query parameter MUST be accepted by all API endpoints.
 However, for endpoints under a versioned base URL this parameter SHOULD be ignored, and the request served as usual according to the version specified in the URL path segment.
-The client SHOULD set the value on the format :val:`vMAJOR` where MAJOR is a major version of the API.
+When a client provides the parameter, the value SHOULD be on the format :val:`vMAJOR` where MAJOR is a major version of the API.
 For example, if a client appends to the query string :query-string:`api_hint=v1` the hint provided is for major version 1.
 
 The intent of the :query-param:`api_hint` parameter is that if a client hints a version that is not supported by the server, the server can use the value to make a best-effort attempt at still serving the request, e.g., by invoking the closest supported version of the API.
