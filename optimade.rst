@@ -653,7 +653,7 @@ The section `Entry list`_ specifies properties as belonging to one of three cate
 
 2. Properties marked as REQUIRED only if the query parameter :query-param:`response_fields` is not part of the request, or if they are explicitly requested in :query-param:`response_fields`.
    Otherwise they MUST NOT be included.
-   One can think of these properties as consituting a default value for :query-param:`response_fields` when that parameter is omitted.
+   One can think of these properties as constituting a default value for :query-param:`response_fields` when that parameter is omitted.
 
 3. Properties not marked as REQUIRED in any case, MUST be included only if explicitly requested in the query parameter :query-param:`response_fields`.
    Otherwise they SHOULD NOT be included.
