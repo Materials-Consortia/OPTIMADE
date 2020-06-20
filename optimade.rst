@@ -285,7 +285,7 @@ Implementations serving the API on the unversioned base URL have a few alternati
 Implementations MAY combine direct access to Single Entry Endpoints with redirects for other API queries.
 
 The client MAY provide a query parameter :query-param:`api_hint` to hint the server about a preferred API version.
-When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best sutiable" version of the API to be selected to serve the request (or forward the request to).
+When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best suitable" version of the API to be selected to serve the request (or forward the request to).
 However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the lastest, most mature, and stable version).
 In this case, that version MUST also be the first version in the response of the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
