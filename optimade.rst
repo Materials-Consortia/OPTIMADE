@@ -300,17 +300,22 @@ The OPTIMADE API provides three concurrent mechanisms for version negotiation be
 2. A client can access the API under versioned base URLs.
    In this case, the server MUST respond according to the specified version or return an error if the version is not supported (see section `Versioned Base URLs`_).
   
-3. When accessing the API under the unversioned base URL, a client MAY append the query parameter :query-param:`api_hint` to hint the server about a preferred API version.
+3. When accessing the API under the unversioned base URL, clients are encouraged to append the OPTIONAL query parameter :query-param:`api_hint` to hint the server about a preferred API version for the request.
    This parameter is described in more detail below.
 
 The :query-param:`api_hint` query parameter MUST be accepted by all API endpoints.
 However, for endpoints under a versioned base URL this parameter SHOULD be ignored, and the request served as usual according to the version specified in the URL path segment.
-When a client provides the parameter, the value SHOULD be on the format :val:`vMAJOR` where MAJOR is a major version of the API.
-For example, if a client appends to the query string :query-string:`api_hint=v1` the hint provided is for major version 1.
+If the client provides the parameter, the value SHOULD be on the format :val:`vMAJOR` where MAJOR is a major version of the API.
+For example, if a client appends :query-string:`api_hint=v1` to the query string, the hint provided is for major version 1.
 
-The intent of the :query-param:`api_hint` parameter is that if a client hints a version that is not supported by the server, the server can use the value to make a best-effort attempt at still serving the request, e.g., by invoking the closest supported version of the API.
-However, the use of this parameter, if any, is entirely at the discretion of the implementation, and clients MUST NOT expect the response to be served according to the version that is hinted.
+If the server supports the version indicated by the :query-param:`api_hint` parameter, it SHOULD serve the request using this version.
+If the server does not support the version hinted, it MAY use the provided value to make a best-effort attempt at still serving the request, e.g., by invoking the closest supported version of the API.
+If the hinted version is not supported by the server and the request is not served using an alternative version, the server SHOULD respond with the custom HTTP server error status code :http-error:`553 Version Not Supported`.
+Note that the above protocol means that clients MUST NOT expect a returned response is served according to the version that is hinted.
 
+    **For end users**: Users are strongly encouraged to include the :query-param:`api_hint` query parameter for URLs in, e.g., journal publications for queries on endpoints under the unversioned base URL.
+    The version hint will make it possible to serve such queries in a reasonable way even after the server changes the major API version used for requests without version hints.
+    
 Index Meta-Database
 -------------------
 
