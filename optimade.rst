@@ -713,15 +713,18 @@ Versions Endpoint
 The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides. 
 This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
 
-The response to a query to this endpoint is in the :RFC:`4180` CSV (`text/csv; header=present`) format.
+The response to a query to this endpoint is in a restricted subset of the :RFC:`4180` CSV (`text/csv; header=present`) format.
+The restrictions are: (i) field values and header names MUST NOT contain commas, newlines, or double quote characters; (ii) Field values and header names MUST NOT be enclosed by double quotes; (iii) The first line MUST be a header line.
+These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurences of the comma ',' character to obtain the head names and field values.
+
 In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
+The CSV format header line MUST specify :val:`version` as the name for this field.
 However, clients MUST accept responses that include other fields that follow the version.
-The CSV format header line MUST be provided, and the header for the first field MUST be :val:`version`.
 
 The major API versions in the response are to be ordered according to the preference of the API implementation.
 If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the first value in the response (i.e., it MUST be on the second line of the response directly following the required CSV header).
 
-It is the intent that all future versions of this specification retain this endpoint and the meaning of the first field of the response.
+It is the intent that all future versions of this specification retain this endpoint, its restricted CSV response format, and the meaning of the first field of the response.
 
 Example response:
 
