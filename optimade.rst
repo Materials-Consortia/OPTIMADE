@@ -690,7 +690,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   It MAY return fewer.
   The database MAY have a maximum limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned).
   The default limit value is up to the API implementation to decide.
-  Example: http://example.com/optimade/v1/structures?page_limit=100
+  Example: :query-url:`http://example.com/optimade/v1/structures?page_limit=100`
 
 - **page\_{offset, number, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
   A server MAY implement pagination in concert with :query-param:`sort`.
@@ -736,14 +736,14 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 
 - **response\_format**: the output format requested (see section `Response Format`_).
   Defaults to the format string 'json', which specifies the standard output format described in this specification.
-  Example: http://example.com/optimade/v1/structures?response_format=xml
+  Example: :query-url:`http://example.com/optimade/v1/structures?response_format=xml`
 - **email\_address**: an email address of the user making the request.
   The email SHOULD be that of a person and not an automatic system.
-  Example: http://example.com/optimade/v1/structures?email_address=user@example.com
+  Example: :query-url:`http://example.com/optimade/v1/structures?email_address=user@example.com`
 - **response\_fields**: a comma-delimited set of fields to be provided in the output.
   If provided, these fields MUST be returned along with the REQUIRED fields.
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
-  Example: http://example.com/optimade/v1/structures?response_fields=last_modified,nsites
+  Example: :query-url:`http://example.com/optimade/v1/structures?response_fields=last_modified,nsites`
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
