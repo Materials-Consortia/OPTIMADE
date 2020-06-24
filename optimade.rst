@@ -1633,7 +1633,9 @@ type
   - MUST be an existing entry type.
   - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
 
-- **Example**: :val:`"structures"`
+- **Examples**:
+
+  - :val:`"structures"`
 
 immutable\_id
 ~~~~~~~~~~~~~
@@ -1661,7 +1663,7 @@ last\_modified
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response unless the query parameter :query-param:`response_fields` is present and does not include this property.
 
-- **Example**:
+- **Examples**:
 
   - As part of JSON response format: :VAL:`"2007-04-05T14:30:20Z"` (i.e., encoded as an `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ string.)
 
@@ -1727,7 +1729,10 @@ nelements
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
 
-- **Example**: :val:`3`
+- **Examples**:
+
+  - :val:`3`
+
 - **Querying**:
 
   -  Note: queries on this property can equivalently be formulated using :filter-fragment:`elements LENGTH`.
@@ -1838,6 +1843,7 @@ chemical\_formula\_hill
   - No spaces or separators are allowed.
 
 - **Examples**:
+
   - :val:`"H2O2"`
 
 - **Query examples**:
