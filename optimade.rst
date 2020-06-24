@@ -915,12 +915,12 @@ If this is an index meta-database base URL (see section `Index Meta-Database`_),
 
 - **relationships**: Dictionary that MAY contain a single `JSON API relationships object <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__:
 
-  - **default**: Reference to the child identifier object under the :endpoint:`links` endpoint that the provider has chosen as their "default" OPTIMADE API database.
+  - **default**: Reference to the links identifier object under the :endpoint:`links` endpoint that the provider has chosen as their "default" OPTIMADE API database.
     A client SHOULD present this database as the first choice when an end-user chooses this provider.
     This MUST include the field:
 
     - **data**: `JSON API resource linkage <http://jsonapi.org/format/1.0/#document-links>`__.
-      It MUST be either :field-val:`null` or contain a single child identifier object with the fields:
+      It MUST be either :field-val:`null` or contain a single links identifier object with the fields:
 
       - **type**: :field-val:`links`
       - **id**: ID of the provider's chosen default OPTIMADE API database.
