@@ -272,7 +272,7 @@ The :field:`index_base_url` field MUST be included in every response in the :fie
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
-A few suggestions and mandatory requirements of the OPTIMaDe specification are specifically relaxed **only for index meta-databases** to make it possible to serve them in the form of static files on restricted third-party hosting platforms:
+A few suggestions and mandatory requirements of the OPTIMADE specification are specifically relaxed **only for index meta-databases** to make it possible to serve them in the form of static files on restricted third-party hosting platforms:
 
 - When serving an index meta-database in the form of static files, it is RECOMMENDED that the responses only contain the :field:`data` field (as described in the section `JSON Response Schema: Common Fields`_.)
   The motivation is that static files cannot keep dynamic fields such as :field:`time_stamp` updated.
@@ -293,7 +293,7 @@ Database-Provider-Specific Namespace Prefixes
 
 This standard refers to database-provider-specific prefixes and database providers.
 
-A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTiMaDe Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
+A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
