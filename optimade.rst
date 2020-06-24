@@ -690,8 +690,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   It MAY return fewer.
   The database MAY have a maximum limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned).
   The default limit value is up to the API implementation to decide.
-
-Example: http://example.com/optimade/v1/structures?page_limit=100
+  Example: http://example.com/optimade/v1/structures?page_limit=100
 
 - **page\_{offset, number, cursor, above, below}**: A server MUST implement pagination in the case of no user-specified :query-param:`sort` parameter (via the :field:`links` response field, see section `JSON Response Schema: Common Fields`_).
   A server MAY implement pagination in concert with :query-param:`sort`.
