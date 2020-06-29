@@ -395,18 +395,9 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   :field:`meta` SHOULD include these fields:
 
   - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that point to a schema of the response.
-    It MUST be a dictionary with these fields:
-
-    - **href**: a string containing a URL to the schema.
-    - **meta**: a meta object containing information about the type and version of the schema provided.
-      It MUST be a dictionary with these fields:
-
-      - **schema\_type**: The format of the linked schema.
-	It SHOULD be the string "OpenAPI" in the present version of the API.
-
-      It MAY also include the following field:
-      
-      - **schema\_version**: A string indicating the version of the schema standard used for the linked schema.
+    If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an OpenAPI schema.
+    It is possible that future versions of this specification allow for alternative schema types.
+    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field **schema\_type** that is not equal to the string "OpenAPI" the client MUST not report the failure to validate the response against the schema as an error.
     
   - **query**: information on the query that was requested.
     It MUST be a dictionary with these fields:
