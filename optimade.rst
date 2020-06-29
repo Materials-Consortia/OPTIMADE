@@ -267,8 +267,6 @@ It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures`).
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
 
-The :field:`index_base_url` field MUST be included in every response in the :field:`provider` field under the top-level :field:`meta` field (see section `JSON Response Schema: Common Fields`_).
-
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
@@ -391,6 +389,14 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   It MUST be a dictionary with these fields:
 
   - **api\_version**: a string containing the version of the API implementation.
+
+  - **query**: information on the query that was requested.
+    It MUST be a dictionary with this field:
+
+    - **representation**: a string with the part of the URL following the versioned base URL.
+      Query parameters that have not been used in processing the request MAY be omitted.
+      In particular, if no query parameters have been involved in processing the request, the query part of the URL MAY be excluded.
+
   - **more\_data\_available**: :field-val:`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a :query-param:`filter` query at the last page of a paginated response) and :field-val:`true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page).
     
   :field:`meta` SHOULD also include these fields:
@@ -400,11 +406,6 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     It is possible that future versions of this specification allows for alternative schema types.
     Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field **schema\_type** that is not equal to the string "OpenAPI" the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
     
-  - **query**: information on the query that was requested.
-    It MUST be a dictionary with this field:
-
-    - **representation**: a string with the part of the URL following the versioned base URL.
-
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
   - **provider**: information on the database provider of the implementation.
@@ -586,8 +587,7 @@ An example of a full response:
 	     "meta": {
 	       "_exmpl_title": "This is an example site"
 	     }
-	   },
-	   "index_base_url": "http://example.com/optimade"
+	   }
 	 },
 	 "response_message": "OK"
 	 // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
