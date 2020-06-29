@@ -391,22 +391,22 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   It MUST be a dictionary with these fields:
 
   - **api\_version**: a string containing the version of the API implementation.
+  - **more\_data\_available**: :field-val:`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a :query-param:`filter` query at the last page of a paginated response) and :field-val:`true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page).
+    
+  :field:`meta` SHOULD also include these fields:
 
-  :field:`meta` SHOULD include these fields:
-
-  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that point to a schema of the response.
+  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that point to a schema for the response.
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an OpenAPI schema.
-    It is possible that future versions of this specification allow for alternative schema types.
-    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field **schema\_type** that is not equal to the string "OpenAPI" the client MUST not report the failure to validate the response against the schema as an error.
+    It is possible that future versions of this specification allows for alternative schema types.
+    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field **schema\_type** that is not equal to the string "OpenAPI" the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
     
   - **query**: information on the query that was requested.
-    It MUST be a dictionary with these fields:
+    It MUST be a dictionary with this field:
 
     - **representation**: a string with the part of the URL following the versioned base URL.
 
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
-  - **more\_data\_available**: :field-val:`false` if all data resource objects for this :query-param:`filter` query have been returned in the response or if it is the last page of a paginated response, and :field-val:`true` otherwise.
   - **provider**: information on the database provider of the implementation.
     It MUST be a dictionary with these fields:
 
@@ -420,14 +420,6 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
-
-    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in the list of providers (see section `Database-Provider-Specific Namespace Prefixes`_).
-      It is specified either directly as a string, or as a link object, which can contain the following fields:
-
-      - **href**: a string containing the base URL for the database provider's index meta-database.
-      - **meta**: a meta object containing non-standard meta-information about this link.
-
-      If the index meta-database (see section `Index Meta-Database`_) is implemented by the provider, the :field:`index_base_url` field MUST be included.
 
   :field:`meta` MAY also include these fields:
 
