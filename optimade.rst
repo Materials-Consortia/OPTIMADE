@@ -304,7 +304,8 @@ The OPTIMADE API provides three concurrent mechanisms for version negotiation be
    This parameter is described in more detail below.
 
 The :query-param:`api_hint` query parameter MUST be accepted by all API endpoints.
-However, for endpoints under a versioned base URL this parameter MUST be ignored, and the request served as usual according to the version specified in the URL path segment.
+However, for endpoints under a versioned base URL the request MUST be served as usual according to the version specified in the URL path segment regardless of the value of `api_hint`.
+In this case, the server MAY issue a warning if the value of `api_hint` suggests that the query may not be properly supported.
 If the client provides the parameter, the value SHOULD have the format :val:`vMAJOR` or :val:`vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API.
 For example, if a client appends :query-string:`api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.
 
