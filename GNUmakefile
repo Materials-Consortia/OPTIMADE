@@ -1,6 +1,6 @@
 #---*- Makefile -*-------------------------------------------------------
 #
-# This is the makefile for the OPTiMaDe specification
+# This is the makefile for the OPTIMADE specification
 # It contains targets for creating formatted documents,
 # auditing / testing the specification documents,
 # and a few other helpers.
