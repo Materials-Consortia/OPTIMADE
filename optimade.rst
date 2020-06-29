@@ -385,17 +385,34 @@ In the JSON response format, property types translate as follows:
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
 
-Every response SHOULD contain the following fields, and MUST contain at least one:
+Every response SHOULD contain the following fields, and MUST contain at least :field-val:`meta`:
 
 - **meta**: a `JSON API meta member <https://jsonapi.org/format/1.0/#document-meta>`__ that contains JSON API meta objects of non-standard meta-information.
   It MUST be a dictionary with these fields:
 
+  - **api\_version**: a string containing the version of the API implementation.
+
+  :field:`meta` SHOULD include these fields:
+
+  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that point to a schema of the response.
+    It MUST be a dictionary with these fields:
+
+    - **href**: a string containing a URL to the schema.
+    - **meta**: a meta object containing information about the type and version of the schema provided.
+      It MUST be a dictionary with these fields:
+
+      - **schema\_type**: The format of the linked schema.
+	It SHOULD be the string "OpenAPI" in the present version of the API.
+
+      It MAY also include the following field:
+      
+      - **schema\_version**: A string indicating the version of the schema standard used for the linked schema.
+    
   - **query**: information on the query that was requested.
     It MUST be a dictionary with these fields:
 
     - **representation**: a string with the part of the URL following the versioned base URL.
 
-  - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
   - **more\_data\_available**: :field-val:`false` if all data resource objects for this :query-param:`filter` query have been returned in the response or if it is the last page of a paginated response, and :field-val:`true` otherwise.
