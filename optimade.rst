@@ -274,7 +274,7 @@ The value for :field:`is_index` MUST be :field-val:`true`.
 
 A few suggestions and mandatory requirements of the OPTIMADE specification are specifically relaxed **only for index meta-databases** to make it possible to serve them in the form of static files on restricted third-party hosting platforms:
 
-- When serving an index meta-database in the form of static files, it is RECOMMENDED that the responses only contain the :field:`data` field (as described in the section `JSON Response Schema: Common Fields`_.)
+- When serving an index meta-database in the form of static files, it is RECOMMENDED that the response excludes the subfields in the top-level :field:`meta` field that would need to be dynamically generated (as described in the section `JSON Response Schema: Common Fields`_.)
   The motivation is that static files cannot keep dynamic fields such as :field:`time_stamp` updated.
 
 - The `JSON API specification <http://jsonapi.org/format/1.0>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
