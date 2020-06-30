@@ -282,7 +282,7 @@ Implementations serving the API on the unversioned base URL have a few alternati
 2. Requests to endpoints under the unversioned base URL MAY be redirected using an HTTP 307 temporary redirect to the corresponding endpoints under a versioned base URL.
 3. Direct access MAY be limited to only single entry endpoints (see section `Single Entry Endpoints`_), i.e., so that this form of access is only available for permanent links to resource objects.
 
-Implementations MAY combine direct access to Single Entry Endpoints with redirects for other API queries.
+Implementations MAY combine direct access to single entry endpoints with redirects for other API queries.
 
 The client MAY provide a query parameter :query-param:`api_hint` to hint the server about a preferred API version.
 When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best suitable" version of the API to be selected to serve the request (or forward the request to).
@@ -304,8 +304,8 @@ The OPTIMADE API provides three concurrent mechanisms for version negotiation be
    This parameter is described in more detail below.
 
 The :query-param:`api_hint` query parameter MUST be accepted by all API endpoints.
-However, for endpoints under a versioned base URL the request MUST be served as usual according to the version specified in the URL path segment regardless of the value of `api_hint`.
-In this case, the server MAY issue a warning if the value of `api_hint` suggests that the query may not be properly supported.
+However, for endpoints under a versioned base URL the request MUST be served as usual according to the version specified in the URL path segment regardless of the value of :query-param:`api_hint`.
+In this case, the server MAY issue a warning if the value of :query-param:`api_hint` suggests that the query may not be properly supported.
 If the client provides the parameter, the value SHOULD have the format :val:`vMAJOR` or :val:`vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API.
 For example, if a client appends :query-string:`api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.
 
