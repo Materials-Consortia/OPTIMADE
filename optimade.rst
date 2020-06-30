@@ -383,12 +383,12 @@ In the JSON response format, property types translate as follows:
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
 
-Every response SHOULD contain the following fields, and MUST contain at least :field-val:`meta`:
+Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
 - **meta**: a `JSON API meta member <https://jsonapi.org/format/1.0/#document-meta>`__ that contains JSON API meta objects of non-standard meta-information.
   It MUST be a dictionary with these fields:
 
-  - **api\_version**: a string containing the version of the API implementation.
+  - **api\_version**: a string containing the full version of the API implementation.
 
   - **query**: information on the query that was requested.
     It MUST be a dictionary with this field:
@@ -401,10 +401,10 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     
   :field:`meta` SHOULD also include these fields:
 
-  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that point to a schema for the response.
-    If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an OpenAPI schema.
+  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
+    If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allows for alternative schema types.
-    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field **schema\_type** that is not equal to the string "OpenAPI" the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
+    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`"OpenAPI"` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
     
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
