@@ -1029,6 +1029,7 @@ The response for these endpoints MUST include the following information in the :
 
   - :field:`unit`: String.
     The physical unit symbol in which the property's value is given.
+    This MUST be a valid representation of units according to version 2.1 of `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__.
     It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
   - :field:`sortable`: Boolean.
     Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
