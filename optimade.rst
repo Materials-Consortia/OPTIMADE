@@ -1058,7 +1058,7 @@ Example:
           },
           "lattice_vectors": {
             "description": "Unit cell lattice vectors",
-            "unit": "Å",
+            "unit": "Ao",
             "sortable": false,
             "type": "list"
           }
