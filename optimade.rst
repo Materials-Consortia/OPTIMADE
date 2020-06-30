@@ -454,7 +454,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
   - **query**: information on the query that was requested.
     It MUST be a dictionary with these fields:
 
-    - **representation**: a string with the part of the URL following the versioned base URL.
+    - **representation**: a string with the part of the URL following the versioned or unversioned base URL that serves the API.
 
   - **api\_version**: a string containing the version of the API implementation.
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
@@ -976,8 +976,8 @@ Info endpoints provide introspective information, either about the API implement
 
 There are two types of info endpoints:
 
-1. Base info endpoints: placed directly under the versioned base URL (e.g., http://example.com/optimade/v1/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures)
+1. Base info endpoints: placed directly under the versioned or unversioned base URL that serves the API (e.g., http://example.com/optimade/v1/info or http://example.com/optimade/info)
+2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
@@ -986,7 +986,7 @@ If no resource object is provided, the value of the :field:`data` field MUST be 
 Base Info Endpoint
 ~~~~~~~~~~~~~~~~~~
 
-The Info endpoint under a versioned base URL (e.g. http://example.com/optimade/v1/info) returns information relating to the API implementation.
+The Info endpoint under a versioned or unversioned base URL serving the API (e.g. http://example.com/optimade/v1/info or http://example.com/optimade/info) returns information relating to the API implementation.
 
 The single resource object's response dictionary MUST include the following fields:
 
@@ -1002,7 +1002,7 @@ The single resource object's response dictionary MUST include the following fiel
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
-  - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned base URL).
+  - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
@@ -1113,7 +1113,7 @@ Example for an index meta-database:
 Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Entry listing info endpoints are accessed under the versioned base URL as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures).
+Entry listing info endpoints are accessed under the versioned or unversioned base URL serving the API as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures).
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
@@ -1180,7 +1180,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTIMADE API implementations that are related to the current implementation.
-The links endpoint MUST be provided under the versioned base URL at :endpoint:`/links`.
+The links endpoint MUST be provided under the versioned or unversioned base URL severing the API at :endpoint:`/links`.
 
 Link Types
 ~~~~~~~~~~
@@ -1381,7 +1381,7 @@ Custom Extension Endpoints
 --------------------------
 
 API implementations MAY provide custom endpoints under the Extensions endpoint.
-Custom extension endpoints MUST be placed under the versioned base URL at :endpoint:`/extensions`.
+Custom extension endpoints MUST be placed under the versioned or unversioned base URL serving the API at :endpoint:`/extensions`.
 The API implementation is free to define roles of further URL path segments under this URL.
 
 API Filtering Format Specification
@@ -1730,7 +1730,7 @@ type
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
-  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
+  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned or unversioned base URL serving the API.
 
 - **Examples**:
 
