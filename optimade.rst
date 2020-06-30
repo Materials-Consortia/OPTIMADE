@@ -389,13 +389,16 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   It MUST be a dictionary with these fields:
 
   - **api\_version**: a string containing the full version of the API implementation.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    Example: :field-val:`1.0.0`.
 
   - **query**: information on the query that was requested.
     It MUST be a dictionary with this field:
 
-    - **representation**: a string with the part of the URL following the versioned base URL.
+    - **representation**: a string with the part of the URL following the versioned or unversioned base URL that serves the API.
       Query parameters that have not been used in processing the request MAY be omitted.
       In particular, if no query parameters have been involved in processing the request, the query part of the URL MAY be excluded.
+      Example: :field-val:`/structures?filter=nelements=2`.
 
   - **more\_data\_available**: :field-val:`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a :query-param:`filter` query at the last page of a paginated response) and :field-val:`true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page).
     
@@ -404,7 +407,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allows for alternative schema types.
-    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`"OpenAPI"` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
+    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
     
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
@@ -431,7 +434,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
     - **name**: name of the implementation.
     - **version**: version string of the current implementation.
-    - **source\_url**: URL of the implementation source, either downloadable archive or version control system.
+    - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the implementation.
+    - **source\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation source, either downloadable archive or version control system.
     - **maintainer**: a dictionary providing details about the maintainer of the implementation, MUST contain the single field:
 
       - **email** with the maintainer's email address.
@@ -894,11 +898,16 @@ The single resource object's response dictionary MUST include the following fiel
 - **id**: :field-val:`"/"`
 - **attributes**: Dictionary containing the following fields:
 
-  - **api\_version**: Presently used version of the OPTIMADE API.
+  - **api\_version**: Presently used full version of the OPTIMADE API.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    Example: :field-val:`1.0.0`.
+
   - **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 
     - **url**: a string specifying a versioned base URL that MUST adhere to the rules in section `Base URL`_
-    - **version**: a string containing the full version number of the API served at that versioned base URL. The version number string MUST NOT be prefixed by, e.g., "v".
+    - **version**: a string containing the full version number of the API served at that versioned base URL.
+      The version number string MUST NOT be prefixed by, e.g., "v".
+      Example: :field-val:`1.0.0`.
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
