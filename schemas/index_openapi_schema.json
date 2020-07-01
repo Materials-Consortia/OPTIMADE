@@ -1096,7 +1096,7 @@
         "title": "LinksResponse",
         "required": [
           "data",
-	  "meta"
+          "meta"
         ],
         "type": "object",
         "properties": {

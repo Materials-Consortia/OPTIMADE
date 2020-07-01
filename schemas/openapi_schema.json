@@ -1194,7 +1194,7 @@
         "title": "EntryInfoResponse",
         "required": [
           "data",
-	  "meta"
+          "meta"
         ],
         "type": "object",
         "properties": {
@@ -1634,7 +1634,7 @@
         "title": "InfoResponse",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
@@ -1893,7 +1893,7 @@
         "title": "LinksResponse",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
@@ -2733,7 +2733,7 @@
               }
             ],
             "description": "information on the database provider of the implementation."
-          },	    
+          },
           "data_available": {
             "title": "Data Available",
             "type": "integer",
@@ -3160,7 +3160,7 @@
         "title": "StructureResponseMany",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
@@ -3244,7 +3244,7 @@
         "title": "StructureResponseOne",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
