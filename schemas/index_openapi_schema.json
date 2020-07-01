@@ -521,8 +521,8 @@
       "ErrorResponse": {
         "title": "ErrorResponse",
         "required": [
-           "meta",
-           "errors"
+          "meta",
+          "errors"
         ],
         "type": "object",
         "properties": {
