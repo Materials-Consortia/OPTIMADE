@@ -475,6 +475,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 	     "representation": "/structures/?filter=a=1 AND b=2",
 	   },
 	   "api_version": "1.0.0",
+	   "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
 	   "time_stamp": "2007-04-05T14:30:20Z",
 	   "data_returned": 10,
 	   "data_available": 10,
