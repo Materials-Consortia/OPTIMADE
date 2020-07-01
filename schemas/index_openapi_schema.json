@@ -6,41 +6,20 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/versions": {
-      "get": {
-        "tags": [
-          "Versions"
-        ],
-        "summary": "Get Versions",
-        "operationId": "get_versions",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "text/csv": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/info": {
       "get": {
         "tags": [
           "Info"
         ],
         "summary": "Get Info",
-        "operationId": "get_info_v1_info_get",
+        "operationId": "get_info_info_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Info V1 Info Get",
+                  "title": "Response Get Info Info Get",
                   "anyOf": [
                     {
                       "$ref": "#/components/schemas/IndexInfoResponse"
@@ -62,7 +41,7 @@
           "Links"
         ],
         "summary": "Get Links",
-        "operationId": "get_links_v1_links_get",
+        "operationId": "get_links_links_get",
         "parameters": [
           {
             "description": "A filter string, in the format described in section API Filtering Format Specification of the specification.",
@@ -224,7 +203,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Links V1 Links Get",
+                  "title": "Response Get Links Links Get",
                   "anyOf": [
                     {
                       "$ref": "#/components/schemas/LinksResponse"
@@ -249,6 +228,26 @@
           }
         }
       }
+    },
+    "/versions": {
+      "get": {
+        "tags": [
+          "Versions"
+        ],
+        "summary": "Get Versions",
+        "description": "Respond with the text/csv representation for the served versions.",
+        "operationId": "get_versions_versions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/csv": {
+                "schema": {}
+              }
+            }
+	  }
+        }
+      }	
     }
   },
   "components": {
@@ -280,7 +279,7 @@
             "title": "Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "A string containing the full version number of the API served at that versioned base URL. The version number string MUST NOT be prefixed by, e.g., 'v'."
+            "description": "A string containing the full version number of the API served at that versioned base URL.\nThe version number string MUST NOT be prefixed by, e.g., 'v'.\nExamples: `1.0.0`, `1.0.0-rc.2`."
           }
         },
         "description": "A JSON object containing information about an available API version"
@@ -522,7 +521,8 @@
       "ErrorResponse": {
         "title": "ErrorResponse",
         "required": [
-          "errors"
+           "meta",
+           "errors"
         ],
         "type": "object",
         "properties": {
@@ -638,13 +638,43 @@
             "type": "string",
             "description": "version string of the current implementation"
           },
+          "homepage": {
+            "title": "Homepage",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Link"
+                  }
+                ]
+              }
+            ],
+            "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) pointing to the homepage of the implementation."
+          },	    
           "source_url": {
             "title": "Source Url",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "URL of the implementation source, either downloadable archive or version control system",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Link"
+                  }
+                ]
+              }
+            ],
+            "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) pointing to the implementation source, either downloadable archive or version control system."
           },
           "maintainer": {
             "title": "Maintainer",
@@ -688,7 +718,7 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "Presently used version of the OPTIMADE API"
+            "description": "Presently used full version of the OPTIMADE API.\nThe version number string MUST NOT be prefixed by, e.g., \"v\".\nExamples: `1.0.0`, `1.0.0-rc.2`."
           },
           "available_api_versions": {
             "title": "Available Api Versions",
@@ -787,7 +817,8 @@
       "IndexInfoResponse": {
         "title": "IndexInfoResponse",
         "required": [
-          "data"
+          "data",
+          "meta"
         ],
         "type": "object",
         "properties": {
@@ -1065,7 +1096,7 @@
         "title": "LinksResponse",
         "required": [
           "data",
-          "meta"
+	  "meta"
         ],
         "type": "object",
         "properties": {
@@ -1235,7 +1266,7 @@
           "prefix": {
             "title": "Prefix",
             "type": "string",
-            "description": "database-provider-specific prefix as found in Appendix 1."
+            "description": "database-provider-specific prefix as found in section Database-Provider-Specific Namespace Prefixes."
           },
           "homepage": {
             "title": "Homepage",
@@ -1255,25 +1286,6 @@
               }
             ],
             "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) pointing to homepage of the database provider, either directly as a string, or as a link object."
-          },
-          "index_base_url": {
-            "title": "Index Base Url",
-            "anyOf": [
-              {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 65536,
-                "format": "uri"
-              },
-              {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
-              }
-            ],
-            "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) pointing to the base URL for the `index` meta-database as specified in Appendix 1, either directly as a string, or as a link object."
           }
         },
         "description": "Information on the database provider of the implementation."
@@ -1498,8 +1510,13 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "A string containing the full version of the API implementation. The version number string MUST NOT be prefixed by, e.g., 'v'. Examples: `1.0.0`, `1.0.0-rc.2`"
+            "description": "Presently used full version of the OPTIMADE API.\nThe version number string MUST NOT be prefixed by, e.g., \"v\".\nExamples: `1.0.0`, `1.0.0-rc.2`."
           },
+          "more_data_available": {
+            "title": "More Data Available",
+            "type": "boolean",
+            "description": "`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a `filter` query at the last page of a paginated response) and `true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page)."
+          },	    
           "schema": {
             "title": "Schema",
             "anyOf": [
@@ -1517,8 +1534,8 @@
                 ]
               }
             ],
-            "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) that points to a schema for the response. If it is a string, or a dictionary containing no `meta` field, the provided URL MUST point at an [OpenAPI](https://swagger.io/specification/) schema. It is possible that future versions of this specification allows for alternative schema types. Hence, if the `meta` field of the JSON API links object is provided and contains a field `schema_type` that is not equal to the string `OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors."
-          },	    
+            "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) that points to a schema for the response.\nIf it is a string, or a dictionary containing no `meta` field, the provided URL MUST point at an [OpenAPI](https://swagger.io/specification/) schema.\nIt is possible that future versions of this specification allows for alternative schema types.\nHence, if the `meta` field of the JSON API links object is provided and contains a field `schema_type` that is not equal to the string `OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors."            
+          },
           "time_stamp": {
             "title": "Time Stamp",
             "type": "string",
@@ -1530,11 +1547,6 @@
             "minimum": 0.0,
             "type": "integer",
             "description": "An integer containing the total number of data resource objects returned for the current `filter` query, independent of pagination."
-          },
-          "more_data_available": {
-            "title": "More Data Available",
-            "type": "boolean",
-            "description": "`false` if all data resource objects for this `filter` query have been returned in the response or if it is the last page of a paginated response, and `true` otherwise."
           },
           "provider": {
             "title": "Provider",
@@ -1591,7 +1603,7 @@
           "representation": {
             "title": "Representation",
             "type": "string",
-            "description": "a string with the part of the URL that follows the base URL. Example: '/structures?'"
+            "description": "A string with the part of the URL following the versioned or unversioned base URL that serves the API.\nQuery parameters that have not been used in processing the request MAY be omitted.\nIn particular, if no query parameters have been involved in processing the request, the query pary of the URL MAY be excluded.\nExample: `/structures?filter=nelements=2`"
           }
         },
         "description": "Information on the query that was requested. "
