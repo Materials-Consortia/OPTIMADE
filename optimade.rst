@@ -390,7 +390,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **api\_version**: a string containing the full version of the API implementation.
     The version number string MUST NOT be prefixed by, e.g., "v".
-    Example: :field-val:`1.0.0`.
+    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
 
   - **query**: information on the query that was requested.
     It MUST be a dictionary with this field:
@@ -901,14 +901,14 @@ The single resource object's response dictionary MUST include the following fiel
 
   - **api\_version**: Presently used full version of the OPTIMADE API.
     The version number string MUST NOT be prefixed by, e.g., "v".
-    Example: :field-val:`1.0.0`.
+    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
 
   - **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 
     - **url**: a string specifying a versioned base URL that MUST adhere to the rules in section `Base URL`_
     - **version**: a string containing the full version number of the API served at that versioned base URL.
       The version number string MUST NOT be prefixed by, e.g., "v".
-      Example: :field-val:`1.0.0`.
+    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
