@@ -249,7 +249,7 @@ API versions that are published with a suffix, e.g., :val:`-rc<number>` to indic
 If a request is made to a versioned base URL that begins with :query-url:`/v` and an integer followed by any other characters, indicating a version that the implementation does not recognize or support, the implementation SHOULD respond with the custom HTTP server error status code :http-error:`553 Version Not Supported`, preferably along with a user-friendly error message that directs the client to adapt the request to a version it provides.
 
 It is the intent that future versions of this standard will not assign different meanings to URLs that begin with :query-url:`/v` and an integer followed by other characters.
-Hence, a client can safely attempt to access a specific version of the API via the corresponding versioned base URL. 
+Hence, a client can safely attempt to access a specific version of the API via the corresponding versioned base URL.
 For other forms of version negotiation, see section `Version Negotiation`_.
 
 Examples of valid versioned base URLs:
@@ -267,7 +267,7 @@ Database providers SHOULD strive to implement the latest released version of thi
 
 Note: The base URLs and versioned base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to them.
 However, it is RECOMMENDED that implementations serve a human-readable HTML document on base URLs and versioned base URLs, which explains that the URL is an OPTIMADE URL meant to be queried by an OPTIMADE client.
-  
+
 Unversioned base URL
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -299,7 +299,7 @@ The OPTIMADE API provides three concurrent mechanisms for version negotiation be
 
 2. A client can access the API under versioned base URLs.
    In this case, the server MUST respond according to the specified version or return an error if the version is not supported (see section `Versioned Base URLs`_).
-  
+
 3. When accessing the API under the unversioned base URL, clients are encouraged to append the OPTIONAL query parameter :query-param:`api_hint` to hint the server about a preferred API version for the request.
    This parameter is described in more detail below.
 
@@ -316,7 +316,7 @@ Note that the above protocol means that clients MUST NOT expect that a returned 
 
     **For end users**: Users are strongly encouraged to include the :query-param:`api_hint` query parameter for URLs in, e.g., journal publications for queries on endpoints under the unversioned base URL.
     The version hint will make it possible to serve such queries in a reasonable way even after the server changes the major API version used for requests without version hints.
-    
+
 Index Meta-Database
 -------------------
 
@@ -452,7 +452,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **api\_version**: a string containing the full version of the API implementation.
     The version number string MUST NOT be prefixed by, e.g., "v".
     Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
-    
+
   - **query**: information on the query that was requested.
     It MUST be a dictionary with this field:
 
@@ -462,14 +462,14 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
       Example: :field-val:`/structures?filter=nelements=2`.
 
   - **more\_data\_available**: :field-val:`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a :query-param:`filter` query at the last page of a paginated response) and :field-val:`true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page).
-    
+
   :field:`meta` SHOULD also include these fields:
 
   - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allows for alternative schema types.
     Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
-    
+
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
   - **provider**: information on the database provider of the implementation.
@@ -698,7 +698,7 @@ Access to API endpoints as described in the subsections below are to be provided
 
 The endpoints are:
 
-- a :endpoint:`versions` endpoint 
+- a :endpoint:`versions` endpoint
 - an "entry listing" endpoint
 - a "single entry" endpoint
 - an introspection :endpoint:`info` endpoint
@@ -716,7 +716,7 @@ However, in addition, all API endpoints MUST accept the :query-param:`api_hint` 
 Versions Endpoint
 -----------------
 
-The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides. 
+The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides.
 This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
 
 The response to a query to this endpoint is in a restricted subset of the :RFC:`4180` CSV (`text/csv; header=present`) format.
