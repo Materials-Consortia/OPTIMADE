@@ -232,13 +232,25 @@ Base URL
 Each database provider will publish one or more **base URLs** that serve the API, for example: http://example.com/optimade/.
 Every URL path segment that follows the base URL MUST behave as standardized in this API specification.
 
-All access to the API is provided under the **versioned base URLs**, which append a URL path segment to the base URL that SHOULD be of the form :query-url:`/vMAJOR`, :query-url:`/vMAJOR.MINOR` or :query-url:`/vMAJOR.MINOR.PATCH`. An implementation MUST provide the :query-url:`/vMAJOR` form, whereas the other forms are OPTIONAL.
-Here, :val:`MAJOR` is the major version number, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the standard implemented by the provider.
-For all major versions supported by the provider, the :val:`/vMAJOR` URL MUST serve the *latest* minor/patch version implemented by the provider.
-If the version has a suffix, e.g., `-rc<number>` for release candidate versions, this suffix SHOULD be omitted in the URL path segment.
+Versioned base URLs
+~~~~~~~~~~~~~~~~~~~
 
-    **For implementers**: Clients are recommended to discover the highest version supported by both the client and the API implementation by trying versioned base URLs in order of priority.
-    E.g., if major version 2 and lower are supported by the client, it would try: :query-url:`/v2`, :query-url:`/v1`, and then :query-url:`/v0`.
+Access to the API is primarily provided under **versioned base URLs**.
+An implementation MUST provide access to the API under a URL where the first path segment appended to the base URL is :query-url:`/vMAJOR`, where :val:`MAJOR` is one of the major version numbers of the API that the implementation supports.
+This URL MUST serve the *latest* minor/patch version supported by the implementation.
+For example, the latest minor and patch version of major version 1 of the API is served under :query-url:`/v1`.
+
+An implementation MAY also provide versioned base URLs on the forms :query-url:`/vMAJOR.MINOR` and :query-url:`/vMAJOR.MINOR.PATCH`.
+Here, :val:`MINOR` is the minor version number and :val:`PATCH` is the patch version number of the API.
+A URL on the form  :query-url:`/vMAJOR.MINOR` MUST serve the *latest* patch version supported by the implementation of this minor version.
+
+API versions that are published with a suffix, e.g., :val:`-rc<number>` to indicate a release candidate version, SHOULD be served on versioned base URLs without this suffix.
+
+If a request is made to a versioned base URL that begins with :query-url:`/v` and an integer followed by any other characters, indicating a version that the implementation does not recognize or support, the implementation SHOULD respond with the custom HTTP server error status code :http-error:`553 Version Not Supported`, preferably along with a user-friendly error message that directs the client to adapt the request to a version it provides.
+
+It is the intent that future versions of this standard will not assign different meanings to URLs that begin with :query-url:`/v` and an integer followed by other characters.
+Hence, a client can safely attempt to access a specific version of the API via the corresponding versioned base URL. 
+For other forms of version negotiation, see section `Version Negotiation`_.
 
 Examples of valid versioned base URLs:
 
@@ -255,7 +267,56 @@ Database providers SHOULD strive to implement the latest released version of thi
 
 Note: The base URLs and versioned base URLs themselves are not considered part of the API, and the standard does not specify the response for a request to them.
 However, it is RECOMMENDED that implementations serve a human-readable HTML document on base URLs and versioned base URLs, which explains that the URL is an OPTIMADE URL meant to be queried by an OPTIMADE client.
+  
+Unversioned base URL
+~~~~~~~~~~~~~~~~~~~~
 
+Implementations MAY also provide access to the API on the **unversioned base URL** as described in this subsection.
+
+Access via the unversioned URL is primarily intended for (i) convenience when manually interacting with the API, and (ii) to provide version agnostic permanent links to resource objects.
+Clients that perform automated processing of responses SHOULD access the API via versioned base URLs.
+
+Implementations serving the API on the unversioned base URL have a few alternative options:
+
+1. Direct access MAY be provided to the full API.
+2. Requests to endpoints under the unversioned base URL MAY be redirected using an HTTP 307 temporary redirect to the corresponding endpoints under a versioned base URL.
+3. Direct access MAY be limited to only single entry endpoints (see section `Single Entry Endpoints`_), i.e., so that this form of access is only available for permanent links to resource objects.
+
+Implementations MAY combine direct access to single entry endpoints with redirects for other API queries.
+
+The client MAY provide a query parameter :query-param:`api_hint` to hint the server about a preferred API version.
+When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best suitable" version of the API to be selected to serve the request (or forward the request to).
+However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the lastest, most mature, and stable version).
+In this case, that version MUST also be the first version in the response of the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
+
+    **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that an upgrade of the major version of the API served this way can change the behaviors of associated endpoints in ways that are not backward compatible.
+
+Version Negotiation
+-------------------
+The OPTIMADE API provides three concurrent mechanisms for version negotiation between client and server.
+
+1. The :endpoint:`versions` endpoint served directly under the unversioned base URL allows a client to discover all major API versions supported by a server in the order of preference (see section `Versions Endpoint`_).
+
+2. A client can access the API under versioned base URLs.
+   In this case, the server MUST respond according to the specified version or return an error if the version is not supported (see section `Versioned Base URLs`_).
+  
+3. When accessing the API under the unversioned base URL, clients are encouraged to append the OPTIONAL query parameter :query-param:`api_hint` to hint the server about a preferred API version for the request.
+   This parameter is described in more detail below.
+
+The :query-param:`api_hint` query parameter MUST be accepted by all API endpoints.
+However, for endpoints under a versioned base URL the request MUST be served as usual according to the version specified in the URL path segment regardless of the value of :query-param:`api_hint`.
+In this case, the server MAY issue a warning if the value of :query-param:`api_hint` suggests that the query may not be properly supported.
+If the client provides the parameter, the value SHOULD have the format :val:`vMAJOR` or :val:`vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API.
+For example, if a client appends :query-string:`api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.
+
+If the server supports the major version indicated by the :query-param:`api_hint` parameter at the same or a higher minor version (if provided), it SHOULD serve the request using this version.
+If the server does not support the major version hinted, or if it supports the major version but only at a minor version below the one hinted, it MAY use the provided values to make a best-effort attempt at still serving the request, e.g., by invoking the closest supported version of the API.
+If the hinted version is not supported by the server and the request is not served using an alternative version, the server SHOULD respond with the custom HTTP server error status code :http-error:`553 Version Not Supported`.
+Note that the above protocol means that clients MUST NOT expect that a returned response is served according to the version that is hinted.
+
+    **For end users**: Users are strongly encouraged to include the :query-param:`api_hint` query parameter for URLs in, e.g., journal publications for queries on endpoints under the unversioned base URL.
+    The version hint will make it possible to serve such queries in a reasonable way even after the server changes the major API version used for requests without version hints.
+    
 Index Meta-Database
 -------------------
 
@@ -291,7 +352,7 @@ Database-Provider-Specific Namespace Prefixes
 
 This standard refers to database-provider-specific prefixes and database providers.
 
-A list of known providers and their assigned prefixes is published in the form of a statically hosted OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
+A list of known providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
@@ -391,7 +452,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **api\_version**: a string containing the full version of the API implementation.
     The version number string MUST NOT be prefixed by, e.g., "v".
     Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
-
+    
   - **query**: information on the query that was requested.
     It MUST be a dictionary with this field:
 
@@ -633,8 +694,11 @@ For implementation-specific warnings, they MUST start with ``_`` and the databas
 API Endpoints
 =============
 
-The URL path segment that follows the versioned base URL MUST represent one of the following endpoints:
+Access to API endpoints as described in the subsections below are to be provided under the versioned and/or the unversioned base URL as explained in the section `Base URL`_.
 
+The endpoints are:
+
+- a :endpoint:`versions` endpoint 
 - an "entry listing" endpoint
 - a "single entry" endpoint
 - an introspection :endpoint:`info` endpoint
@@ -643,6 +707,42 @@ The URL path segment that follows the versioned base URL MUST represent one of t
 - a custom :endpoint:`extensions` endpoint prefix
 
 These endpoints are documented below.
+
+Query parameters
+----------------
+Query parameters to the endpoints are documented in the respective subsections below.
+However, in addition, all API endpoints MUST accept the :query-param:`api_hint` parameter described under `Version Negotiation`_.
+
+Versions Endpoint
+-----------------
+
+The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides. 
+This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
+
+The response to a query to this endpoint is in a restricted subset of the :RFC:`4180` CSV (`text/csv; header=present`) format.
+The restrictions are: (i) field values and header names MUST NOT contain commas, newlines, or double quote characters; (ii) Field values and header names MUST NOT be enclosed by double quotes; (iii) The first line MUST be a header line.
+These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurences of the comma ',' character to obtain the head names and field values.
+
+In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
+The CSV format header line MUST specify :val:`version` as the name for this field.
+However, clients MUST accept responses that include other fields that follow the version.
+
+The major API versions in the response are to be ordered according to the preference of the API implementation.
+If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the first value in the response (i.e., it MUST be on the second line of the response directly following the required CSV header).
+
+It is the intent that all future versions of this specification retain this endpoint, its restricted CSV response format, and the meaning of the first field of the response.
+
+Example response:
+
+.. code:: CSV
+
+  version
+  1
+  0
+
+The above response means that the API versions 1 and 0 are served under the versioned base URLs :query-url:`/v1` and :query-url:`/v0`, respectively.
+The order of the versions indicates that the API implementation regards version 1 as preferred over version 0.
+If the API implementation allows access to the API on the unversioned base URL, this access has to be to version 1, since the number 1 appears in the first (non-header) line.
 
 Entry Listing Endpoints
 -----------------------
@@ -673,7 +773,7 @@ Specific standard entry types are specified in section `Entry list`_.
 
 The API implementation MAY provide other entry types than the ones standardized in this specification.
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
-Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the base URL with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
+Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
 Any custom entry listing endpoint MUST also be added to the :property:`available\_endpoints` and :property:`entry\_types\_by\_format` attributes of the `Base Info Endpoint`_.
 
@@ -881,8 +981,8 @@ Info endpoints provide introspective information, either about the API implement
 
 There are two types of info endpoints:
 
-1. Base info endpoints: placed directly under the versioned base URL (e.g., http://example.com/optimade/v1/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures)
+1. Base info endpoints: placed directly under the versioned or unversioned base URL that serves the API (e.g., http://example.com/optimade/v1/info or http://example.com/optimade/info)
+2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
@@ -891,7 +991,7 @@ If no resource object is provided, the value of the :field:`data` field MUST be 
 Base Info Endpoint
 ~~~~~~~~~~~~~~~~~~
 
-The Info endpoint under a versioned base URL (e.g. http://example.com/optimade/v1/info) returns information relating to the API implementation.
+The Info endpoint under a versioned or unversioned base URL serving the API (e.g. http://example.com/optimade/v1/info or http://example.com/optimade/info) returns information relating to the API implementation.
 
 The single resource object's response dictionary MUST include the following fields:
 
@@ -912,7 +1012,7 @@ The single resource object's response dictionary MUST include the following fiel
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
-  - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned base URL).
+  - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
@@ -1023,7 +1123,7 @@ Example for an index meta-database:
 Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Entry listing info endpoints are accessed under the versioned base URL as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures).
+Entry listing info endpoints are accessed under the versioned or unversioned base URL serving the API as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures).
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
@@ -1039,6 +1139,7 @@ The response for these endpoints MUST include the following information in the :
 
   - :field:`unit`: String.
     The physical unit symbol in which the property's value is given.
+    This MUST be a valid representation of units according to version 2.1 of `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__.
     It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
   - :field:`sortable`: Boolean.
     Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
@@ -1067,7 +1168,7 @@ Example:
           },
           "lattice_vectors": {
             "description": "Unit cell lattice vectors",
-            "unit": "Å",
+            "unit": "Ao",
             "sortable": false,
             "type": "list"
           }
@@ -1090,7 +1191,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTIMADE API implementations that are related to the current implementation.
-The links endpoint MUST be provided under the versioned base URL at :endpoint:`/links`.
+The links endpoint MUST be provided under the versioned or unversioned base URL severing the API at :endpoint:`/links`.
 
 Link Types
 ~~~~~~~~~~
@@ -1291,7 +1392,7 @@ Custom Extension Endpoints
 --------------------------
 
 API implementations MAY provide custom endpoints under the Extensions endpoint.
-Custom extension endpoints MUST be placed under the versioned base URL at :endpoint:`/extensions`.
+Custom extension endpoints MUST be placed under the versioned or unversioned base URL serving the API at :endpoint:`/extensions`.
 The API implementation is free to define roles of further URL path segments under this URL.
 
 API Filtering Format Specification
@@ -1640,7 +1741,7 @@ type
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
-  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned base URL.
+  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned or unversioned base URL serving the API.
 
 - **Examples**:
 
