@@ -668,7 +668,7 @@ Specific standard entry types are specified in section `Entry list`_.
 
 The API implementation MAY provide other entry types than the ones standardized in this specification.
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
-Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the base URL with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
+Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
 Any custom entry listing endpoint MUST also be added to the :property:`available\_endpoints` and :property:`entry\_types\_by\_format` attributes of the `Base Info Endpoint`_.
 
