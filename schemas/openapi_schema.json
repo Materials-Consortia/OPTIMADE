@@ -23,7 +23,7 @@
                 }
               }
             }
-	  }
+          }
         }
       }
     },
@@ -967,7 +967,7 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "Presently used full version of the OPTIMADE API. The version number string MUST NOT be prefixed by, e.g., 'v'. Example: `1.0.0`."
+            "description": "Presently used full version of the OPTIMADE API. The version number string MUST NOT be prefixed by, e.g., 'v'. Examples: `1.0.0`, `1.0.0-rc.2`."
           },
           "available_api_versions": {
             "title": "Available Api Versions",
@@ -1195,7 +1195,7 @@
         "title": "EntryInfoResponse",
         "required": [
           "data",
-	  "meta"
+          "meta"
         ],
         "type": "object",
         "properties": {
@@ -1449,7 +1449,7 @@
         "title": "ErrorResponse",
         "required": [
           "errors",
-	  "meta"  
+          "meta"
         ],
         "type": "object",
         "properties": {
@@ -1636,7 +1636,7 @@
         "title": "InfoResponse",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
@@ -1895,7 +1895,7 @@
         "title": "LinksResponse",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
@@ -2689,7 +2689,7 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "A string containing the full version of the API implementation. The version number string MUST NOT be prefixed by, e.g., 'v'. Example: `1.0.0`."
+            "description": "A string containing the full version of the API implementation. The version number string MUST NOT be prefixed by, e.g., 'v'. Examples: `1.0.0`, `1.0.0-rc.2`."
           },
           "schema": {
             "title": "Schema",
@@ -3162,7 +3162,7 @@
         "title": "StructureResponseMany",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
@@ -3246,7 +3246,7 @@
         "title": "StructureResponseOne",
         "required": [
           "data",
-	  "meta"
+         "meta"
         ],
         "type": "object",
         "properties": {
