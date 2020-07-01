@@ -245,9 +245,9 @@
                 "schema": {}
               }
             }
-	  }
+          }
         }
-      }	
+      }
     }
   },
   "components": {
@@ -656,7 +656,7 @@
               }
             ],
             "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) pointing to the homepage of the implementation."
-          },	    
+          },
           "source_url": {
             "title": "Source Url",
             "anyOf": [
@@ -1516,7 +1516,7 @@
             "title": "More Data Available",
             "type": "boolean",
             "description": "`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a `filter` query at the last page of a paginated response) and `true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page)."
-          },	    
+          },
           "schema": {
             "title": "Schema",
             "anyOf": [
@@ -1534,7 +1534,7 @@
                 ]
               }
             ],
-            "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) that points to a schema for the response.\nIf it is a string, or a dictionary containing no `meta` field, the provided URL MUST point at an [OpenAPI](https://swagger.io/specification/) schema.\nIt is possible that future versions of this specification allows for alternative schema types.\nHence, if the `meta` field of the JSON API links object is provided and contains a field `schema_type` that is not equal to the string `OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors."            
+            "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) that points to a schema for the response.\nIf it is a string, or a dictionary containing no `meta` field, the provided URL MUST point at an [OpenAPI](https://swagger.io/specification/) schema.\nIt is possible that future versions of this specification allows for alternative schema types.\nHence, if the `meta` field of the JSON API links object is provided and contains a field `schema_type` that is not equal to the string `OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors."
           },
           "time_stamp": {
             "title": "Time Stamp",
