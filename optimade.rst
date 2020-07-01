@@ -1008,7 +1008,7 @@ The single resource object's response dictionary MUST include the following fiel
     - **url**: a string specifying a versioned base URL that MUST adhere to the rules in section `Base URL`_
     - **version**: a string containing the full version number of the API served at that versioned base URL.
       The version number string MUST NOT be prefixed by, e.g., "v".
-    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
+      Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
