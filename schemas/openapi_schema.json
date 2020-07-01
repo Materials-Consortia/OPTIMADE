@@ -3,10 +3,31 @@
   "info": {
     "title": "OPTIMADE API",
     "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.9.1) v0.9.1.",
-    "version": "1.0.0-rc.2"
+    "version": "1.0.0"
   },
   "paths": {
-    "/v1/info": {
+    "/versions": {
+      "get": {
+        "tags": [
+          "Versions"
+        ],
+        "summary": "Get Versions",
+        "operationId": "get_versions",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+	  }
+        }
+      }
+    },
+    "/info": {
       "get": {
         "tags": [
           "Info"
@@ -35,7 +56,7 @@
         }
       }
     },
-    "/v1/info/{entry}": {
+    "/info/{entry}": {
       "get": {
         "tags": [
           "Info"
@@ -85,7 +106,7 @@
         }
       }
     },
-    "/v1/links": {
+    "/links": {
       "get": {
         "tags": [
           "Links"
@@ -279,7 +300,7 @@
         }
       }
     },
-    "/v1/references": {
+    "/references": {
       "get": {
         "tags": [
           "References"
@@ -473,7 +494,7 @@
         }
       }
     },
-    "/v1/references/{entry_id}": {
+    "/references/{entry_id}": {
       "get": {
         "tags": [
           "References"
@@ -573,7 +594,7 @@
         }
       }
     },
-    "/v1/structures": {
+    "/structures": {
       "get": {
         "tags": [
           "Structures"
@@ -767,7 +788,7 @@
         }
       }
     },
-    "/v1/structures/{entry_id}": {
+    "/structures/{entry_id}": {
       "get": {
         "tags": [
           "Structures"
@@ -946,7 +967,7 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "Presently used version of the OPTIMADE API"
+            "description": "Presently used full version of the OPTIMADE API. The version number string MUST NOT be prefixed by, e.g., 'v'. Example: `1.0.0`."
           },
           "available_api_versions": {
             "title": "Available Api Versions",
@@ -1103,7 +1124,7 @@
           "unit": {
             "title": "Unit",
             "type": "string",
-            "description": "The physical unit of the entry property.\nIt is RECOMMENDED that non-standard (non-SI) units are described in the description for the property."
+            "description": "The physical unit of the entry property. This MUST be a valid representation of units according to version 2.1 of [The Unified Code for Units of Measure](https://unitsofmeasure.org/ucum.html). It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property."
           },
           "sortable": {
             "title": "Sortable",
@@ -1173,7 +1194,8 @@
       "EntryInfoResponse": {
         "title": "EntryInfoResponse",
         "required": [
-          "data"
+          "data",
+	  "meta"
         ],
         "type": "object",
         "properties": {
@@ -1426,7 +1448,8 @@
       "ErrorResponse": {
         "title": "ErrorResponse",
         "required": [
-          "errors"
+          "errors",
+	  "meta"  
         ],
         "type": "object",
         "properties": {
@@ -1542,11 +1565,42 @@
             "type": "string",
             "description": "version string of the current implementation"
           },
+          "homepage": {
+            "title": "Homepage",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Link"
+                  }
+                ]
+              }
+            ],
+            "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) pointing to homepage of the implementation."
+          },	    
           "source_url": {
             "title": "Source Url",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Link"
+                  }
+                ]
+              }
+            ],
             "description": "URL of the implementation source, either downloadable archive or version control system",
             "format": "uri"
           },
@@ -1581,7 +1635,8 @@
       "InfoResponse": {
         "title": "InfoResponse",
         "required": [
-          "data"
+          "data",
+	  "meta"
         ],
         "type": "object",
         "properties": {
@@ -1839,7 +1894,8 @@
       "LinksResponse": {
         "title": "LinksResponse",
         "required": [
-          "data"
+          "data",
+	  "meta"
         ],
         "type": "object",
         "properties": {
@@ -2053,25 +2109,6 @@
             ],
             "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) pointing to homepage of the database provider, either directly as a string, or as a link object."
           },
-          "index_base_url": {
-            "title": "Index Base Url",
-            "anyOf": [
-              {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 65536,
-                "format": "uri"
-              },
-              {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
-              }
-            ],
-            "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) pointing to the base URL for the `index` meta-database as specified in Appendix 1, either directly as a string, or as a link object."
-          }
         },
         "description": "Information on the database provider of the implementation."
       },
@@ -2334,7 +2371,8 @@
       "ReferenceResponseMany": {
         "title": "ReferenceResponseMany",
         "required": [
-          "data"
+          "data",
+          "meta"
         ],
         "type": "object",
         "properties": {
@@ -2417,7 +2455,8 @@
       "ReferenceResponseOne": {
         "title": "ReferenceResponseOne",
         "required": [
-          "data"
+          "data",
+          "meta"
         ],
         "type": "object",
         "properties": {
@@ -2633,10 +2672,7 @@
         "required": [
           "query",
           "api_version",
-          "time_stamp",
-          "data_returned",
-          "more_data_available",
-          "provider"
+          "more_data_available"
         ],
         "type": "object",
         "properties": {
@@ -2653,8 +2689,27 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "A string containing the version of the API implementation."
+            "description": "A string containing the full version of the API implementation. The version number string MUST NOT be prefixed by, e.g., 'v'. Example: `1.0.0`."
           },
+          "schema": {
+            "title": "Schema",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Link"
+                  }
+                ]
+              }
+            ],
+            "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) that points to a schema for the response. If it is a string, or a dictionary containing no `meta` field, the provided URL MUST point at an [OpenAPI](https://swagger.io/specification/) schema. It is possible that future versions of this specification allows for alternative schema types. Hence, if the `meta` field of the JSON API links object is provided and contains a field `schema_type` that is not equal to the string `OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors."
+          },	    
           "time_stamp": {
             "title": "Time Stamp",
             "type": "string",
@@ -3106,7 +3161,8 @@
       "StructureResponseMany": {
         "title": "StructureResponseMany",
         "required": [
-          "data"
+          "data",
+	  "meta"
         ],
         "type": "object",
         "properties": {
@@ -3189,7 +3245,8 @@
       "StructureResponseOne": {
         "title": "StructureResponseOne",
         "required": [
-          "data"
+          "data",
+	  "meta"
         ],
         "type": "object",
         "properties": {
