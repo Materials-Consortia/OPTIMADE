@@ -2,3 +2,8 @@
   rev: v2.2.3
   hooks:
   - id: trailing-whitespace
+    exclude: &exclude_files >
+      (?x)^(
+        tests/inputs/various-whitespace.filter|
+        tests/inputs/fuzzystring-leading-trailing-spaces.filter
+      )$
