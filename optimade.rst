@@ -328,14 +328,12 @@ It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures`).
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
 
-The :field:`index_base_url` field MUST be included in every response in the :field:`provider` field under the top-level :field:`meta` field (see section `JSON Response Schema: Common Fields`_).
-
 The :field:`is_index` field under :field:`attributes` as well as the :field:`relationships` field, MUST be included in the :endpoint:`info` endpoint for the index meta-database (see section `Base Info Endpoint`_).
 The value for :field:`is_index` MUST be :field-val:`true`.
 
 A few suggestions and mandatory requirements of the OPTIMADE specification are specifically relaxed **only for index meta-databases** to make it possible to serve them in the form of static files on restricted third-party hosting platforms:
 
-- When serving an index meta-database in the form of static files, it is RECOMMENDED that the responses only contain the :field:`data` field (as described in the section `JSON Response Schema: Common Fields`_.)
+- When serving an index meta-database in the form of static files, it is RECOMMENDED that the response excludes the subfields in the top-level :field:`meta` field that would need to be dynamically generated (as described in the section `JSON Response Schema: Common Fields`_.)
   The motivation is that static files cannot keep dynamic fields such as :field:`time_stamp` updated.
 
 - The `JSON API specification <http://jsonapi.org/format/1.0>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
@@ -446,20 +444,34 @@ In the JSON response format, property types translate as follows:
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
 
-Every response SHOULD contain the following fields, and MUST contain at least one:
+Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
 - **meta**: a `JSON API meta member <https://jsonapi.org/format/1.0/#document-meta>`__ that contains JSON API meta objects of non-standard meta-information.
   It MUST be a dictionary with these fields:
 
+  - **api\_version**: a string containing the full version of the API implementation.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
+    
   - **query**: information on the query that was requested.
-    It MUST be a dictionary with these fields:
+    It MUST be a dictionary with this field:
 
     - **representation**: a string with the part of the URL following the versioned or unversioned base URL that serves the API.
+      Query parameters that have not been used in processing the request MAY be omitted.
+      In particular, if no query parameters have been involved in processing the request, the query part of the URL MAY be excluded.
+      Example: :field-val:`/structures?filter=nelements=2`.
 
-  - **api\_version**: a string containing the version of the API implementation.
+  - **more\_data\_available**: :field-val:`false` if the response contains all data for the request (e.g., a request issued to a single entry endpoint, or a :query-param:`filter` query at the last page of a paginated response) and :field-val:`true` if the response is incomplete in the sense that multiple objects match the request, and not all of them have been included in the response (e.g., a query with multiple pages that is not at the last page).
+    
+  :field:`meta` SHOULD also include these fields:
+
+  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
+    If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
+    It is possible that future versions of this specification allows for alternative schema types.
+    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
+    
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
-  - **more\_data\_available**: :field-val:`false` if all data resource objects for this :query-param:`filter` query have been returned in the response or if it is the last page of a paginated response, and :field-val:`true` otherwise.
   - **provider**: information on the database provider of the implementation.
     It MUST be a dictionary with these fields:
 
@@ -474,14 +486,6 @@ Every response SHOULD contain the following fields, and MUST contain at least on
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
 
-    - **index\_base\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the base URL for the index meta-database of the provider as specified in the list of providers (see section `Database-Provider-Specific Namespace Prefixes`_).
-      It is specified either directly as a string, or as a link object, which can contain the following fields:
-
-      - **href**: a string containing the base URL for the database provider's index meta-database.
-      - **meta**: a meta object containing non-standard meta-information about this link.
-
-      If the index meta-database (see section `Index Meta-Database`_) is implemented by the provider, the :field:`index_base_url` field MUST be included.
-
   :field:`meta` MAY also include these fields:
 
   - **data\_available**: an integer containing the total number of data resource objects available in the database for the endpoint.
@@ -491,7 +495,8 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 
     - **name**: name of the implementation.
     - **version**: version string of the current implementation.
-    - **source\_url**: URL of the implementation source, either downloadable archive or version control system.
+    - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the implementation.
+    - **source\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation source, either downloadable archive or version control system.
     - **maintainer**: a dictionary providing details about the maintainer of the implementation, MUST contain the single field:
 
       - **email** with the maintainer's email address.
@@ -531,6 +536,7 @@ Every response SHOULD contain the following fields, and MUST contain at least on
 	     "representation": "/structures/?filter=a=1 AND b=2",
 	   },
 	   "api_version": "1.0.0",
+	   "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
 	   "time_stamp": "2007-04-05T14:30:20Z",
 	   "data_returned": 10,
 	   "data_available": 10,
@@ -647,8 +653,7 @@ An example of a full response:
 	     "meta": {
 	       "_exmpl_title": "This is an example site"
 	     }
-	   },
-	   "index_base_url": "http://example.com/optimade"
+	   }
 	 },
 	 "response_message": "OK"
 	 // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
@@ -994,11 +999,16 @@ The single resource object's response dictionary MUST include the following fiel
 - **id**: :field-val:`"/"`
 - **attributes**: Dictionary containing the following fields:
 
-  - **api\_version**: Presently used version of the OPTIMADE API.
+  - **api\_version**: Presently used full version of the OPTIMADE API.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
+
   - **available\_api\_versions**: MUST be a list of dictionaries, each containing the fields:
 
     - **url**: a string specifying a versioned base URL that MUST adhere to the rules in section `Base URL`_
-    - **version**: a string containing the full version number of the API served at that versioned base URL. The version number string MUST NOT be prefixed by, e.g., "v".
+    - **version**: a string containing the full version number of the API served at that versioned base URL.
+      The version number string MUST NOT be prefixed by, e.g., "v".
+    Examples: :field-val:`1.0.0`, :field-val:`1.0.0-rc.2`.
 
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
