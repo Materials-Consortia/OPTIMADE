@@ -5,6 +5,6 @@
 
 .PHONY: docker_audit
 
-docker_audit: 
+docker_audit:
 	docker build -t optimade . -f tests/tools/Dockerfile
 	docker run -it --rm optimade:latest

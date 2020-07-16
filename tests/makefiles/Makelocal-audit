@@ -2,7 +2,7 @@
 
 # Targets for auditing the specification
 
-.PHONY: audit 
+.PHONY: audit
 
 audit: audit_grammars audit_authors audit_spelling
 	@echo "=============================================="
@@ -12,7 +12,7 @@ audit: audit_grammars audit_authors audit_spelling
 
 .PHONY: audit_grammars
 
-audit_grammars: 
+audit_grammars:
 	$(MAKE) tools
 	$(MAKE) grammars
 	$(MAKE) tests
