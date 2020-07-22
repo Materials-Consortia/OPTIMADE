@@ -1191,7 +1191,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTIMADE API implementations that are related to the current implementation.
-The links endpoint MUST be provided under the versioned or unversioned base URL severing the API at :endpoint:`/links`.
+The links endpoint MUST be provided under the versioned or unversioned base URL serving the API at :endpoint:`/links`.
 
 Link Types
 ~~~~~~~~~~
