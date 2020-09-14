@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "OPTIMADE API",
-    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.11.0) v0.11.0.",
+    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.12.0) v0.12.0.",
     "version": "1.0.0"
   },
   "paths": {
@@ -2116,7 +2116,8 @@
         "properties": {
           "name": {
             "title": "Name",
-            "type": "string"
+            "type": "string",
+            "description": "Full name of the person, REQUIRED."
           },
           "firstname": {
             "title": "Firstname",
@@ -2128,7 +2129,8 @@
             "type": "string",
             "description": "Last name of the person."
           }
-        }
+        },
+        "description": "A person, i.e., an author, editor or other."
       },
       "Provider": {
         "title": "Provider",
@@ -2836,7 +2838,8 @@
         "properties": {
           "name": {
             "title": "Name",
-            "type": "string"
+            "type": "string",
+            "description": "Gives the name of the species; the **name** value MUST be unique in the `species` list."
           },
           "chemical_symbols": {
             "title": "Chemical Symbols",
@@ -2998,6 +3001,8 @@
           "chemical_formula_reduced",
           "chemical_formula_anonymous",
           "dimension_types",
+          "nperiodic_dimensions",
+          "lattice_vectors",
           "cartesian_site_positions",
           "nsites",
           "species",
@@ -3338,35 +3343,63 @@
           },
           "first": {
             "title": "First",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The first page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The first page of data"
           },
           "last": {
             "title": "Last",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The last page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The last page of data"
           },
           "prev": {
             "title": "Prev",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The previous page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The previous page of data"
           },
           "next": {
             "title": "Next",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The next page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The next page of data"
           }
         },
         "description": "A set of Links objects, possibly including pagination"
