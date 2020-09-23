@@ -2114,6 +2114,8 @@ species
   - :property:`name`: string (REQUIRED)
   - :property:`chemical_symbols`: list of strings (REQUIRED)
   - :property:`concentration`: list of float (REQUIRED)
+  - :property:`attached`: list of strings (OPTIONAL)
+  - :property:`nattached`: list of integers (OPTIONAL)
   - :property:`mass`: float (OPTIONAL)
   - :property:`original_name`: string (OPTIONAL).
 
