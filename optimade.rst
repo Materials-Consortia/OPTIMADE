@@ -1409,7 +1409,7 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+elements="Si,O2"&response_format=xml`
 
 Or, fully URL encoded :
 
