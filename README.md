@@ -27,4 +27,4 @@ If this is a pre-release, implementations are also encouraged to support the lat
 
 Pending the publication of an OPTIMADE paper, we kindly ask that you cite the Zenodo archive for this repository:
 
-> Andersen *et al*, The OPTIMADE Specification, http://doi.org/10.5281/zenodo.4195051
+> Andersen *et al*, The OPTIMADE Specification, https://doi.org/10.5281/zenodo.4195050
