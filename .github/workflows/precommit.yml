@@ -1,10 +1,16 @@
-name: Pre-commit checks
+name: Tests
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
 
 jobs:
 
   pre-commit:
+    name: Pre-commit checks
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -20,3 +26,21 @@ jobs:
     - name: Run pre-commit tests
       run: |
         pre-commit run --all-files
+
+  java-tests:
+    name: Test grammar and formatting
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Run tests
+      run: |
+        javac -version
+        java -version
+        make --version
+        make audit
