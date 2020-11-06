@@ -25,6 +25,6 @@ If this is a pre-release, implementations are also encouraged to support the lat
 
 ## How to cite
 
-Pending the release of an OPTIMADE paper, we kindly ask that you cite the Zenodo archive for this repository:
+Pending the publication of an OPTIMADE paper, we kindly ask that you cite the Zenodo archive for this repository:
 
 > Andersen *et al*, The OPTIMADE Specification, http://doi.org/10.5281/zenodo.4195051
