@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: 3.8
     - name: Install dependencies
-      run: pip install pre-commit==2.2.0
+      run: pip install pre-commit==2.8.2
     - name: Run pre-commit tests
       run: pre-commit run --all-files
 
