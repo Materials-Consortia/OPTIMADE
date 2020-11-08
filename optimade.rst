@@ -36,7 +36,7 @@ OPTIMADE API specification v1.0.0~develop
      # HTTP
 
      http-header : an HTTP header name, or header + value.
-     http-error : an HTTP error on form <number> <english text>.
+     http-error : an HTTP error on form <number> <English text>.
 
      # Responses
 
@@ -286,7 +286,7 @@ Implementations MAY combine direct access to single entry endpoints with redirec
 
 The client MAY provide a query parameter :query-param:`api_hint` to hint the server about a preferred API version.
 When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best suitable" version of the API to be selected to serve the request (or forward the request to).
-However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the lastest, most mature, and stable version).
+However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the latest, most mature, and stable version).
 In this case, that version MUST also be the first version in the response of the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
     **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that an upgrade of the major version of the API served this way can change the behaviors of associated endpoints in ways that are not backward compatible.
@@ -721,7 +721,7 @@ This endpoint is special in that it MUST be provided directly on the unversioned
 
 The response to a query to this endpoint is in a restricted subset of the :RFC:`4180` CSV (`text/csv; header=present`) format.
 The restrictions are: (i) field values and header names MUST NOT contain commas, newlines, or double quote characters; (ii) Field values and header names MUST NOT be enclosed by double quotes; (iii) The first line MUST be a header line.
-These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurences of the comma ',' character to obtain the head names and field values.
+These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurrences of the comma ',' character to obtain the head names and field values.
 
 In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
 The CSV format header line MUST specify :val:`version` as the name for this field.
@@ -1317,7 +1317,7 @@ Example:
             "homepage": "http://example.com",
             "link_type: "child",
             "aggregate": "no",
-            "no_aggregate_reason": "This is a database for internal use and might contain non-sensical data"
+            "no_aggregate_reason": "This is a database for internal use and might contain nonsensical data"
           }
         },
         {
@@ -1384,7 +1384,7 @@ Link Aggregate Options
 If specified, the :property:`aggregate` attributed MUST have one of the following values:
 
 - :val:`ok` (default value, if unspecified): it is ok to follow this link when aggregating OPTIMADE results.
-- :val:`test`: the linked database is a test database,  whose content might not be correct or migth not represent physically-meaningful data. Therefore by default the link should not be followed.
+- :val:`test`: the linked database is a test database,  whose content might not be correct or might not represent physically-meaningful data. Therefore by default the link should not be followed.
 - :val:`staging`: the linked database is almost production-ready, but final checks on its content are being performed, so the content might still contain errors. Therefore by default the link should not be followed.
 - :val:`no`: any other reason to suggest not to follow the link during aggregation of OPTIMADE results. The implementation MAY provide mode details in a human-readable form via the attribute :property:`no-aggregate-reason`.
 
@@ -1526,7 +1526,7 @@ Implementations MAY also support comparisons with identifiers on both sides, and
 
 However, the latter form, :filter-fragment:`constant <operator> constant` where the constants are strings MUST return the error :http-error:`501 Not Implemented`.
 
-    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous.
+    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambiguous.
     The OPTIMADE specification will strive to address this issue in a future version.
 
 Examples:
@@ -1619,7 +1619,7 @@ Nested property names
 ~~~~~~~~~~~~~~~~~~~~~
 
 Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in section `Lexical Tokens`_, consisting of identifiers separated by periods ('.').
-A filter on a nested property name consisting of two identifiers :filter-fragment:`identifier1.identifierd2` matches if either one of these points are true:
+A filter on a nested property name consisting of two identifiers :filter-fragment:`identifier1.identifier2` matches if either one of these points are true:
 
 - :filter-fragment:`identifier1` references a dictionary-type property that contains as an identifier :filter-fragment:`identifier2` and the filter matches for the content of :filter-fragment:`identifier2`.
 
