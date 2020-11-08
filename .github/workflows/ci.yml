@@ -28,7 +28,7 @@ jobs:
         pre-commit run --all-files
 
   java-tests:
-    name: Test grammar and formatting
+    name: Audit of specification and associated files
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
