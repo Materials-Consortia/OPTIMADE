@@ -21,26 +21,42 @@ jobs:
       with:
         python-version: 3.8
     - name: Install dependencies
-      run: |
-        pip install pre-commit==2.2.0
+      run: pip install pre-commit==2.8.2
     - name: Run pre-commit tests
-      run: |
-        pre-commit run --all-files
+      run: pre-commit run --all-files
 
-  java-tests:
-    name: Test grammar and formatting
+  audit-grammar:
+    name: Audit the grammar files
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Run tests
-      run: |
-        javac -version
-        java -version
-        make --version
-        make audit
+    - run: make audit_grammars
+
+  audit-authors:
+    name: Audit the AUTHORS list
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v2
+    - run: make audit_authors
+
+  audit-spelling:
+    name: Audit spelling in the specification
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v2
+    - run: make audit_spelling
+
+  audit-schemas:
+    name: Audit OpenAPI schemas with swagger validator
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v2
+    - run: make audit_schemas
