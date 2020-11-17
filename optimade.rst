@@ -2241,11 +2241,11 @@ assemblies
 	   {
 	     "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
 	     "species_at_sites": ["Si", "Ge", "vac"],
-	     "species": {
-	       "Si": { "chemical_symbols": ["Si"], "concentration": [1.0] },
-	       "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.0] },
-	       "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.0] }
-	     },
+	     "species": [
+	       { "name": "Si", "chemical_symbols": ["Si"], "concentration": [1.0] },
+	       { "name": "Ge", "chemical_symbols": ["Ge"], "concentration": [1.0] },
+	       { "name": "vac", "chemical_symbols": ["vacancy"], "concentration": [1.0] }
+	     ],
 	     "assemblies": [
 	       {
 		 "sites_in_groups": [ [0], [1], [2] ],
