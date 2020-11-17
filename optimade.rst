@@ -1,6 +1,6 @@
-=================================
-OPTIMADE API specification v1.0.0
-=================================
+=========================================
+OPTIMADE API specification v1.0.0~develop
+=========================================
 
 .. comment
 
@@ -501,6 +501,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
       - **email** with the maintainer's email address.
 
+    - **issue\_tracker**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
+
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
@@ -553,7 +555,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 	     "source_url": "http://git.example.com/exmpl-optimade",
 	     "maintainer": {
 	       "email": "admin@example.com"
-	     }
+	     },
+	     "issue_tracker": "http://tracker.example.com/exmpl-optimade"
 	   }
 	 }
 	 // ...
@@ -1191,7 +1194,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTIMADE API implementations that are related to the current implementation.
-The links endpoint MUST be provided under the versioned or unversioned base URL severing the API at :endpoint:`/links`.
+The links endpoint MUST be provided under the versioned or unversioned base URL serving the API at :endpoint:`/links`.
 
 Link Types
 ~~~~~~~~~~
@@ -1409,7 +1412,7 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+elements="Si,O2"&response_format=xml`
 
 Or, fully URL encoded :
 
@@ -2114,6 +2117,8 @@ species
   - :property:`name`: string (REQUIRED)
   - :property:`chemical_symbols`: list of strings (REQUIRED)
   - :property:`concentration`: list of float (REQUIRED)
+  - :property:`attached`: list of strings (OPTIONAL)
+  - :property:`nattached`: list of integers (OPTIONAL)
   - :property:`mass`: float (OPTIONAL)
   - :property:`original_name`: string (OPTIONAL).
 

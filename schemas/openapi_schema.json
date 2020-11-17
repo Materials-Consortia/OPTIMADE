@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "OPTIMADE API",
-    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.9.7) v0.9.7.",
+    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.12.0) v0.12.0.",
     "version": "1.0.0"
   },
   "paths": {
@@ -245,6 +245,19 @@
             },
             "name": "include",
             "in": "query"
+          },
+          {
+            "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+            "required": false,
+            "schema": {
+              "title": "Api Hint",
+              "pattern": "(v[0-9]+(\\.[0-9]+)?)?",
+              "type": "string",
+              "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+              "default": ""
+            },
+            "name": "api_hint",
+            "in": "query"
           }
         ],
         "responses": {
@@ -439,6 +452,19 @@
             },
             "name": "include",
             "in": "query"
+          },
+          {
+            "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+            "required": false,
+            "schema": {
+              "title": "Api Hint",
+              "pattern": "(v[0-9]+(\\.[0-9]+)?)?",
+              "type": "string",
+              "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+              "default": ""
+            },
+            "name": "api_hint",
+            "in": "query"
           }
         ],
         "responses": {
@@ -538,6 +564,19 @@
               "default": "references"
             },
             "name": "include",
+            "in": "query"
+          },
+          {
+            "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+            "required": false,
+            "schema": {
+              "title": "Api Hint",
+              "pattern": "(v[0-9]+(\\.[0-9]+)?)?",
+              "type": "string",
+              "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+              "default": ""
+            },
+            "name": "api_hint",
             "in": "query"
           }
         ],
@@ -733,6 +772,19 @@
             },
             "name": "include",
             "in": "query"
+          },
+          {
+            "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+            "required": false,
+            "schema": {
+              "title": "Api Hint",
+              "pattern": "(v[0-9]+(\\.[0-9]+)?)?",
+              "type": "string",
+              "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+              "default": ""
+            },
+            "name": "api_hint",
+            "in": "query"
           }
         ],
         "responses": {
@@ -833,6 +885,19 @@
             },
             "name": "include",
             "in": "query"
+          },
+          {
+            "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+            "required": false,
+            "schema": {
+              "title": "Api Hint",
+              "pattern": "(v[0-9]+(\\.[0-9]+)?)?",
+              "type": "string",
+              "description": "If the client provides the parameter, the value SHOULD have the format `vMAJOR` or `vMAJOR.MINOR`, where MAJOR is a major version and MINOR is a minor version of the API. For example, if a client appends `api_hint=v1.0` to the query string, the hint provided is for major version 1 and minor version 0.",
+              "default": ""
+            },
+            "name": "api_hint",
+            "in": "query"
           }
         ],
         "responses": {
@@ -879,8 +944,10 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "text/csv": {
-                "schema": {}
+              "text/csv; header=present": {
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -890,6 +957,16 @@
   },
   "components": {
     "schemas": {
+      "Aggregate": {
+        "title": "Aggregate",
+        "enum": [
+          "ok",
+          "test",
+          "staging",
+          "no"
+        ],
+        "description": "Enumeration of aggregate values"
+      },
       "Assembly": {
         "title": "Assembly",
         "required": [
@@ -918,7 +995,7 @@
             "description": "Statistical probability of each group. It MUST have the same length as `sites_in_groups`.\nIt SHOULD sum to one.\nSee below for examples of how to specify the probability of the occurrence of a vacancy.\nThe possible reasons for the values not to sum to one are the same as already specified above for the `concentration` of each `species`."
           }
         },
-        "description": "A description of groups of sites that are statistically correlated.\n\n- **Examples** (for each entry of the assemblies list):\n    - `{\"sites_in_groups\": [[0], [1]], \"group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.\n      Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.\n    - `{\"sites_in_groups\": [[1,2], [3]], \"group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.\n      The second group is formed by the fourth site. Sites of the first group (the second and the third) are never present at the same time as the fourth site.\n      30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).\n\n    "
+        "description": "A description of groups of sites that are statistically correlated.\n\n- **Examples** (for each entry of the assemblies list):\n    - `{\"sites_in_groups\": [[0], [1]], \"group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.\n      Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.\n    - `{\"sites_in_groups\": [[1,2], [3]], \"group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.\n      The second group is formed by the fourth site. Sites of the first group (the second and the third) are never present at the same time as the fourth site.\n      30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent)."
       },
       "Attributes": {
         "title": "Attributes",
@@ -1018,16 +1095,20 @@
       "BaseInfoResource": {
         "title": "BaseInfoResource",
         "required": [
+          "id",
+          "type",
           "attributes"
         ],
         "type": "object",
         "properties": {
           "id": {
             "title": "Id",
+            "pattern": "^/$",
             "type": "string"
           },
           "type": {
             "title": "Type",
+            "pattern": "^info$",
             "type": "string"
           },
           "links": {
@@ -1108,6 +1189,20 @@
         },
         "description": "Minimum requirements to represent a relationship resource"
       },
+      "DataType": {
+        "title": "DataType",
+        "enum": [
+          "string",
+          "integer",
+          "float",
+          "boolean",
+          "timestamp",
+          "list",
+          "dictionary",
+          "unknown"
+        ],
+        "description": "Optimade Data Types\n\nSee the section \"Data types\" in the OPTIMADE API specification for more information."
+      },
       "EntryInfoProperty": {
         "title": "EntryInfoProperty",
         "required": [
@@ -1131,18 +1226,7 @@
             "description": "Defines whether the entry property can be used for sorting with the \"sort\" parameter.\nIf the entry listing endpoint supports sorting, this key MUST be present for sortable properties with value `true`."
           },
           "type": {
-            "title": "Type",
-            "enum": [
-              "string",
-              "integer",
-              "float",
-              "boolean",
-              "timestamp",
-              "list",
-              "dictionary",
-              "unknown"
-            ],
-            "description": "The type of the property's value.\nThis MUST be any of the types defined in the Data types section.\nFor the purpose of compatibility with future versions of this specification, a client MUST accept values that are not `string` values specifying any of the OPTIMADE Data types, but MUST then also disregard the `type` field.\nNote, if the value is a nested type, only the outermost type should be reported.\nE.g., for the entry resource `structures`, the `species` property is defined as a list of dictionaries, hence its `type` value would be `list`."
+            "$ref": "#/components/schemas/DataType"
           }
         }
       },
@@ -1336,7 +1420,7 @@
             "description": "A dictionary containing references to other entries according to the description in section Relationships encoded as [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships).\nThe OPTIONAL human-readable description of the relationship MAY be provided in the `description` field inside the `meta` dictionary of the JSON API resource identifier object."
           }
         },
-        "description": "Resource objects appear in a JSON API document to represent resources."
+        "description": "The base model for an entry resource."
       },
       "EntryResourceAttributes": {
         "title": "EntryResourceAttributes",
@@ -1432,11 +1516,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A link that leads to further details about this particular occurrence of the problem."
@@ -1457,11 +1537,7 @@
             "uniqueItems": true,
             "anyOf": [
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Resource"
-                  }
-                ]
+                "$ref": "#/components/schemas/Resource"
               },
               {
                 "type": "array",
@@ -1574,11 +1650,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) pointing to the homepage of the implementation."
@@ -1593,11 +1665,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) pointing to the implementation source, either downloadable archive or version control system."
@@ -1744,10 +1812,21 @@
         },
         "description": "A link **MUST** be represented as either: a string containing the link's URL or a link object."
       },
+      "LinkType": {
+        "title": "LinkType",
+        "enum": [
+          "child",
+          "root",
+          "external",
+          "providers"
+        ],
+        "description": "Enumeration of link_type values"
+      },
       "LinksResource": {
         "title": "LinksResource",
         "required": [
           "id",
+          "type",
           "attributes"
         ],
         "type": "object",
@@ -1759,6 +1838,7 @@
           },
           "type": {
             "title": "Type",
+            "pattern": "^links$",
             "type": "string",
             "description": "These objects are described in detail in the section Links Endpoint"
           },
@@ -1832,11 +1912,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "JSON API links object, pointing to the base URL for this implementation"
@@ -1851,35 +1927,16 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "JSON API links object, pointing to a homepage URL for this implementation"
           },
           "link_type": {
-            "title": "Link Type",
-            "enum": [
-              "child",
-              "root",
-              "external",
-              "providers"
-            ],
-            "description": "The type of the linked relation.\nMUST be one of these values: 'child', 'root', 'external', 'providers'."
+            "$ref": "#/components/schemas/LinkType"
           },
           "aggregate": {
-            "title": "Aggregate",
-            "enum": [
-              "ok",
-              "test",
-              "staging",
-              "no"
-            ],
-            "description": "A string indicating whether a client that is following links to aggregate results from different OPTIMADE implementations should follow this link or not.\nThis flag SHOULD NOT be indicated for links where `link_type` is not `child`.\n\nIf not specified, clients MAY assume that the value is `ok`.\nIf specified, and the value is anything different than `ok`, the client MUST assume that the server is suggesting not to follow the link during aggregation by default (also if the value is not among the known ones, in case a future specification adds new accepted values).\n\nSpecific values indicate the reason why the server is providing the suggestion.\nA client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links marked with `aggregate`=`test`).\n\nIf specified, it MUST be one of the values listed in section Link Aggregate Options.",
-            "default": "ok"
+            "$ref": "#/components/schemas/Aggregate"
           },
           "no_aggregate_reason": {
             "title": "No Aggregate Reason",
@@ -2041,6 +2098,15 @@
         },
         "description": "detail MUST be present"
       },
+      "Periodicity": {
+        "title": "Periodicity",
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "description": "An enumeration."
+      },
       "Person": {
         "title": "Person",
         "required": [
@@ -2050,7 +2116,8 @@
         "properties": {
           "name": {
             "title": "Name",
-            "type": "string"
+            "type": "string",
+            "description": "Full name of the person, REQUIRED."
           },
           "firstname": {
             "title": "Firstname",
@@ -2062,7 +2129,8 @@
             "type": "string",
             "description": "Last name of the person."
           }
-        }
+        },
+        "description": "A person, i.e., an author, editor or other."
       },
       "Provider": {
         "title": "Provider",
@@ -2098,11 +2166,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "a [JSON API links object](http://jsonapi.org/format/1.0#document-links) pointing to homepage of the database provider, either directly as a string, or as a link object."
@@ -2128,11 +2192,7 @@
             "uniqueItems": true,
             "anyOf": [
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/BaseRelationshipResource"
-                  }
-                ]
+                "$ref": "#/components/schemas/BaseRelationshipResource"
               },
               {
                 "type": "array",
@@ -2159,6 +2219,7 @@
         "title": "ReferenceResource",
         "required": [
           "id",
+          "type",
           "attributes"
         ],
         "type": "object",
@@ -2170,6 +2231,7 @@
           },
           "type": {
             "title": "Type",
+            "pattern": "^references$",
             "type": "string",
             "description": "The name of the type of an entry.\n- **Type**: string.\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n    - MUST be an existing entry type.\n    - The entry of type <type> and ID <id> MUST be returned in response to a request for `/<type>/<id>` under the versioned base URL.\n- **Example**: `\"structures\"`"
           },
@@ -2204,7 +2266,7 @@
             "description": "A dictionary containing references to other entries according to the description in section Relationships encoded as [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships).\nThe OPTIONAL human-readable description of the relationship MAY be provided in the `description` field inside the `meta` dictionary of the JSON API resource identifier object."
           }
         },
-        "description": "The `references` entries describe bibliographic references.\nThe following properties are used to provide the bibliographic details:\n\n- **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **volume**, **year**: meanings of these properties match the [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf), values are strings;\n- **bib_type**: type of the reference, corresponding to **type** property in the BibTeX specification, value is string;\n- **authors** and **editors**: lists of *person objects* which are dictionaries with the following keys:\n    - **name**: Full name of the person, REQUIRED.\n    - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.\n- **doi** and **url**: values are strings.\n- **Requirements/Conventions**:\n    - **Support**: OPTIONAL support in implementations, i.e., any of the properties MAY be `null`.\n    - **Query**: Support for queries on any of these properties is OPTIONAL.\n        If supported, filters MAY support only a subset of comparison operators.\n    - Every references entry MUST contain at least one of the properties.\n\n    "
+        "description": "The `references` entries describe bibliographic references.\n\nThe following properties are used to provide the bibliographic details:\n\n- **address**, **annote**, **booktitle**, **chapter**, **crossref**, **edition**, **howpublished**, **institution**, **journal**, **key**, **month**, **note**, **number**, **organization**, **pages**, **publisher**, **school**, **series**, **title**, **volume**, **year**: meanings of these properties match the [BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf), values are strings;\n- **bib_type**: type of the reference, corresponding to **type** property in the BibTeX specification, value is string;\n- **authors** and **editors**: lists of *person objects* which are dictionaries with the following keys:\n    - **name**: Full name of the person, REQUIRED.\n    - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.\n- **doi** and **url**: values are strings.\n- **Requirements/Conventions**:\n    - **Support**: OPTIONAL support in implementations, i.e., any of the properties MAY be `null`.\n    - **Query**: Support for queries on any of these properties is OPTIONAL.\n        If supported, filters MAY support only a subset of comparison operators.\n    - Every references entry MUST contain at least one of the properties."
       },
       "ReferenceResourceAttributes": {
         "title": "ReferenceResourceAttributes",
@@ -2364,7 +2426,7 @@
             "description": "Meaning of property matches the BiBTeX specification."
           }
         },
-        "description": "Model that stores the attributes of a reference. Many properties match the\nmeaning described in the\n[BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf)."
+        "description": "Model that stores the attributes of a reference.\n\nMany properties match the meaning described in the\n[BibTeX specification](http://bibtexml.sourceforge.net/btxdoc.pdf)."
       },
       "ReferenceResponseMany": {
         "title": "ReferenceResponseMany",
@@ -2462,11 +2524,7 @@
             "title": "Data",
             "anyOf": [
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ReferenceResource"
-                  }
-                ]
+                "$ref": "#/components/schemas/ReferenceResource"
               },
               {
                 "type": "object"
@@ -2545,11 +2603,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A link for the relationship itself (a 'relationship link').\nThis link allows the client to directly manipulate the relationship.\nWhen fetched successfully, this link returns the [linkage](https://jsonapi.org/format/1.0/#document-resource-object-linkage) for the related resources as its primary data.\n(See [Fetching Relationships](https://jsonapi.org/format/1.0/#fetching-relationships).)"
@@ -2564,11 +2618,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A [related resource link](https://jsonapi.org/format/1.0/#document-resource-object-related-resource-links)."
@@ -2653,11 +2703,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A link that identifies the resource represented by the resource object."
@@ -2704,11 +2750,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) that points to a schema for the response.\nIf it is a string, or a dictionary containing no `meta` field, the provided URL MUST point at an [OpenAPI](https://swagger.io/specification/) schema.\nIt is possible that future versions of this specification allows for alternative schema types.\nHence, if the `meta` field of the JSON API links object is provided and contains a field `schema_type` that is not equal to the string `OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors."
@@ -2780,7 +2822,7 @@
           "representation": {
             "title": "Representation",
             "type": "string",
-            "description": "A string with the part of the URL following the versioned or unversioned base URL that serves the API.\nQuery parameters that have not been used in processing the request MAY be omitted.\nIn particular, if no query parameters have been involved in processing the request, the query pary of the URL MAY be excluded.\nExample: `/structures?filter=nelements=2`"
+            "description": "A string with the part of the URL following the versioned or unversioned base URL that serves the API.\nQuery parameters that have not been used in processing the request MAY be omitted.\nIn particular, if no query parameters have been involved in processing the request, the query part of the URL MAY be excluded.\nExample: `/structures?filter=nelements=2`"
           }
         },
         "description": "Information on the query that was requested. "
@@ -2796,7 +2838,8 @@
         "properties": {
           "name": {
             "title": "Name",
-            "type": "string"
+            "type": "string",
+            "description": "Gives the name of the species; the **name** value MUST be unique in the `species` list."
           },
           "chemical_symbols": {
             "title": "Chemical Symbols",
@@ -2841,7 +2884,17 @@
             "description": "If provided MUST be a list of length 1 or more of integers indicating the number of attached atoms of the kind specified in the value of the :field:`attached` key."
           }
         },
-        "description": "A list describing the species of the sites of this structure.\nSpecies can represent pure chemical elements, virtual-crystal atoms representing a\nstatistical occupation of a given site by multiple chemical elements, and/or a\nlocation to which there are attached atoms, i.e., atoms whose precise location are\nunknown beyond that they are attached to that position (frequently used to indicate\nhydrogen atoms attached to another element, e.g., a carbon with three attached\nhydrogens might represent a methyl group, -CH3).\n\n- **Examples**:\n    - `[ {\"name\": \"Ti\", \"chemical_symbols\": [\"Ti\"], \"concentration\": [1.0]} ]`: any site with this species is occupied by a Ti atom.\n    - `[ {\"name\": \"Ti\", \"chemical_symbols\": [\"Ti\", \"vacancy\"], \"concentration\": [0.9, 0.1]} ]`: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.\n    - `[ {\"name\": \"BaCa\", \"chemical_symbols\": [\"vacancy\", \"Ba\", \"Ca\"], \"concentration\": [0.05, 0.45, 0.5], \"mass\": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.\n    - `[ {\"name\": \"C12\", \"chemical_symbols\": [\"C\"], \"concentration\": [1.0], \"mass\": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.\n    - `[ {\"name\": \"C13\", \"chemical_symbols\": [\"C\"], \"concentration\": [1.0], \"mass\": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.\n    - `[ {\"name\": \"CH3\", \"chemical_symbols\": [\"C\"], \"concentration\": [1.0], \"attached\": [\"H\"], \"nattached\": [3]} ]`: any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.\n\n    "
+        "description": "A list describing the species of the sites of this structure.\n\nSpecies can represent pure chemical elements, virtual-crystal atoms representing a\nstatistical occupation of a given site by multiple chemical elements, and/or a\nlocation to which there are attached atoms, i.e., atoms whose precise location are\nunknown beyond that they are attached to that position (frequently used to indicate\nhydrogen atoms attached to another element, e.g., a carbon with three attached\nhydrogens might represent a methyl group, -CH3).\n\n- **Examples**:\n    - `[ {\"name\": \"Ti\", \"chemical_symbols\": [\"Ti\"], \"concentration\": [1.0]} ]`: any site with this species is occupied by a Ti atom.\n    - `[ {\"name\": \"Ti\", \"chemical_symbols\": [\"Ti\", \"vacancy\"], \"concentration\": [0.9, 0.1]} ]`: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.\n    - `[ {\"name\": \"BaCa\", \"chemical_symbols\": [\"vacancy\", \"Ba\", \"Ca\"], \"concentration\": [0.05, 0.45, 0.5], \"mass\": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.\n    - `[ {\"name\": \"C12\", \"chemical_symbols\": [\"C\"], \"concentration\": [1.0], \"mass\": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.\n    - `[ {\"name\": \"C13\", \"chemical_symbols\": [\"C\"], \"concentration\": [1.0], \"mass\": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.\n    - `[ {\"name\": \"CH3\", \"chemical_symbols\": [\"C\"], \"concentration\": [1.0], \"attached\": [\"H\"], \"nattached\": [3]} ]`: any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms."
+      },
+      "StructureFeatures": {
+        "title": "StructureFeatures",
+        "enum": [
+          "disorder",
+          "implicit_atoms",
+          "site_attachments",
+          "assemblies"
+        ],
+        "description": "Enumeration of structure_features values"
       },
       "StructureRelationship": {
         "title": "StructureRelationship",
@@ -2861,11 +2914,7 @@
             "uniqueItems": true,
             "anyOf": [
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/BaseRelationshipResource"
-                  }
-                ]
+                "$ref": "#/components/schemas/BaseRelationshipResource"
               },
               {
                 "type": "array",
@@ -2892,6 +2941,7 @@
         "title": "StructureResource",
         "required": [
           "id",
+          "type",
           "attributes"
         ],
         "type": "object",
@@ -2903,6 +2953,7 @@
           },
           "type": {
             "title": "Type",
+            "pattern": "^structures$",
             "type": "string",
             "description": "The name of the type of an entry.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n    - MUST be an existing entry type.\n    - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for `/<type>/<id>` under the versioned base URL.\n\n- **Examples**:\n    - `\"structures\"`"
           },
@@ -2950,6 +3001,8 @@
           "chemical_formula_reduced",
           "chemical_formula_anonymous",
           "dimension_types",
+          "nperiodic_dimensions",
+          "lattice_vectors",
           "cartesian_site_positions",
           "nsites",
           "species",
@@ -3012,30 +3065,12 @@
           },
           "dimension_types": {
             "title": "Dimension Types",
+            "maxItems": 3,
+            "minItems": 3,
             "type": "array",
-            "items": [
-              {
-                "enum": [
-                  0,
-                  1
-                ],
-                "type": "integer"
-              },
-              {
-                "enum": [
-                  0,
-                  1
-                ],
-                "type": "integer"
-              },
-              {
-                "enum": [
-                  0,
-                  1
-                ],
-                "type": "integer"
-              }
-            ],
+            "items": {
+              "$ref": "#/components/schemas/Periodicity"
+            },
             "description": "List of three integers.\nFor each of the three directions indicated by the three lattice vectors (see property `lattice_vectors`), this list indicates if the direction is periodic (value `1`) or non-periodic (value `0`).\nNote: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors` and *not* the Cartesian x, y, z directions.\n\n- **Type**: list of integers.\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: Support for queries on this property is OPTIONAL.\n    - MUST be a list of length 3.\n    - Each integer element MUST assume only the value 0 or 1.\n\n- **Examples**:\n    - For a molecule: `[0, 0, 0]`\n    - For a wire along the direction specified by the third lattice vector: `[0, 0, 1]`\n    - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: `[1, 0, 1]`\n    - For a bulk 3D system: `[1, 1, 1]`"
           },
           "nperiodic_dimensions": {
@@ -3045,51 +3080,17 @@
           },
           "lattice_vectors": {
             "title": "Lattice Vectors",
+            "maxItems": 3,
+            "minItems": 3,
             "type": "array",
-            "items": [
-              {
-                "type": "array",
-                "items": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
               },
-              {
-                "type": "array",
-                "items": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              {
-                "type": "array",
-                "items": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              }
-            ],
+              "minItems": 3,
+              "maxItems": 3
+            },
             "description": "The three lattice vectors in Cartesian coordinates, in \u00e5ngstr\u00f6m (\u00c5).\n\n- **Type**: list of list of floats or unknown values.\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: Support for queries on this property is OPTIONAL.\n      If supported, filters MAY support only a subset of comparison operators.\n    - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.\n      (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).\n    - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.\n    - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`.\n      The vectors SHOULD by convention be chosen so the determinant of the `lattice_vectors` matrix is different from zero.\n      The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.\n    - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types` is `0`) MAY be given as a list of all `null` values.\n        If a lattice vector contains the value `null`, all coordinates of that lattice vector MUST be `null`.\n\n- **Examples**:\n    - `[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is `(4, 0, 0)`, i.e., a vector aligned along the `x` axis of length 4 \u00c5; the second vector is `(0, 4, 0)`; and the third vector is `(0, 1, 4)`."
           },
           "cartesian_site_positions": {
@@ -3097,17 +3098,11 @@
             "type": "array",
             "items": {
               "type": "array",
-              "items": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "number"
-                }
-              ]
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
             },
             "description": "Cartesian positions of each site in the structure.\nA site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.\n\n- **Type**: list of list of floats\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: Support for queries on this property is OPTIONAL.\n      If supported, filters MAY support only a subset of comparison operators.\n    - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three Cartesian coordinates of a site expressed as float values in the unit angstrom (\u00c5).\n    - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`).\n\n- **Examples**:\n    - `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 \u00c5 away from the origin."
           },
@@ -3144,12 +3139,7 @@
             "title": "Structure Features",
             "type": "array",
             "items": {
-              "enum": [
-                "disorder",
-                "implicit_atoms",
-                "site_attachments",
-                "assemblies"
-              ]
+              "$ref": "#/components/schemas/StructureFeatures"
             },
             "description": "A list of strings that flag which special features are used by the structure.\n\n- **Type**: list of strings\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property.\n    Filters on the list MUST support all mandatory HAS-type queries.\n    Filter operators for comparisons on the string components MUST support equality, support for other comparison operators are OPTIONAL.\n    - MUST be an empty list if no special features are used.\n    - MUST be sorted alphabetically.\n    - If a special feature listed below is used, the list MUST contain the corresponding string.\n    - If a special feature listed below is not used, the list MUST NOT contain the corresponding string.\n    - **List of strings used to indicate special structure features**:\n        - `disorder`: this flag MUST be present if any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element.\n        - `implicit_atoms`: this flag MUST be present if the structure contains atoms that are not assigned to sites via the property `species_at_sites` (e.g., because their positions are unknown).\n           When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`, `species` and `assemblies` properties.\n        - `site_attachments`: this flag MUST be present if any one entry in the `species` list includes `attached` and `nattached`.\n        - `assemblies`: this flag MUST be present if the property `assemblies` is present.\n\n- **Examples**: A structure having implicit atoms and using assemblies: `[\"assemblies\", \"implicit_atoms\"]`"
           }
@@ -3252,11 +3242,7 @@
             "title": "Data",
             "anyOf": [
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/StructureResource"
-                  }
-                ]
+                "$ref": "#/components/schemas/StructureResource"
               },
               {
                 "type": "object"
@@ -3335,11 +3321,7 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A link to itself"
@@ -3354,46 +3336,70 @@
                 "format": "uri"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Link"
-                  }
-                ]
+                "$ref": "#/components/schemas/Link"
               }
             ],
             "description": "A related resource link"
           },
           "first": {
             "title": "First",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The first page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The first page of data"
           },
           "last": {
             "title": "Last",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The last page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The last page of data"
           },
           "prev": {
             "title": "Prev",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The previous page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The previous page of data"
           },
           "next": {
             "title": "Next",
-            "maxLength": 65536,
-            "minLength": 1,
-            "type": "string",
-            "description": "The next page of data",
-            "format": "uri"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "format": "uri"
+              },
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The next page of data"
           }
         },
         "description": "A set of Links objects, possibly including pagination"
@@ -3427,7 +3433,8 @@
       "Warnings": {
         "title": "Warnings",
         "required": [
-          "detail"
+          "detail",
+          "type"
         ],
         "type": "object",
         "properties": {
@@ -3444,11 +3451,6 @@
               }
             ],
             "description": "A links object storing about"
-          },
-          "status": {
-            "title": "Status",
-            "type": "string",
-            "description": "the HTTP status code applicable to this problem, expressed as a string value."
           },
           "code": {
             "title": "Code",
@@ -3485,6 +3487,7 @@
           },
           "type": {
             "title": "Type",
+            "pattern": "^warning$",
             "type": "string",
             "description": "Warnings must be of type \"warning\""
           }
