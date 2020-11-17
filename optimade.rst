@@ -501,6 +501,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
       - **email** with the maintainer's email address.
 
+    - **issue\_tracker**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
+
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
@@ -553,7 +555,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 	     "source_url": "http://git.example.com/exmpl-optimade",
 	     "maintainer": {
 	       "email": "admin@example.com"
-	     }
+	     },
+	     "issue_tracker": "http://tracker.example.com/exmpl-optimade"
 	   }
 	 }
 	 // ...
@@ -2243,11 +2246,11 @@ assemblies
 	   {
 	     "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
 	     "species_at_sites": ["Si", "Ge", "vac"],
-	     "species": {
-	       "Si": { "chemical_symbols": ["Si"], "concentration": [1.0] },
-	       "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.0] },
-	       "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.0] }
-	     },
+	     "species": [
+	       { "name": "Si", "chemical_symbols": ["Si"], "concentration": [1.0] },
+	       { "name": "Ge", "chemical_symbols": ["Ge"], "concentration": [1.0] },
+	       { "name": "vac", "chemical_symbols": ["vacancy"], "concentration": [1.0] }
+	     ],
 	     "assemblies": [
 	       {
 		 "sites_in_groups": [ [0], [1], [2] ],
