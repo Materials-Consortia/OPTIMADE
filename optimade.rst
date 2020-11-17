@@ -1,6 +1,6 @@
-=================================
-OPTIMADE API specification v1.0.0
-=================================
+=========================================
+OPTIMADE API specification v1.0.0~develop
+=========================================
 
 .. comment
 
@@ -1194,7 +1194,7 @@ Links Endpoint
 --------------
 
 This endpoint exposes information on other OPTIMADE API implementations that are related to the current implementation.
-The links endpoint MUST be provided under the versioned or unversioned base URL severing the API at :endpoint:`/links`.
+The links endpoint MUST be provided under the versioned or unversioned base URL serving the API at :endpoint:`/links`.
 
 Link Types
 ~~~~~~~~~~
@@ -1412,7 +1412,7 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+elements="Si,O2"&response_format=xml`
 
 Or, fully URL encoded :
 
@@ -2117,6 +2117,8 @@ species
   - :property:`name`: string (REQUIRED)
   - :property:`chemical_symbols`: list of strings (REQUIRED)
   - :property:`concentration`: list of float (REQUIRED)
+  - :property:`attached`: list of strings (OPTIONAL)
+  - :property:`nattached`: list of integers (OPTIONAL)
   - :property:`mass`: float (OPTIONAL)
   - :property:`original_name`: string (OPTIONAL).
 
