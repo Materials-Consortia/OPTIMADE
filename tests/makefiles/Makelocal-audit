@@ -28,7 +28,7 @@ audit_authors: test_authors
 .PHONY: audit audit_spelling
 
 audit_spelling:
-	$(MAKE) spell
+	@echo "Spellcheck is not yet part of the audit of the specification."
 
 
 .PHONY: audit_schemas
