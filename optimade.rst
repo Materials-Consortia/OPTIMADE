@@ -2153,7 +2153,8 @@ species
       The implementation MUST include either both or none of the :field:`attached` and :field:`nattached` keys, and if they are provided, they MUST be of the same length.
       Furthermore, if they are provided, the `structure_features`_ property MUST include the string :val:`site_attachments`.
 
-    - **mass**: OPTIONAL. If present MUST be a list of floats, with same length as :property:`chemical_symbols`, providing element masses expressed in a.m.u. Elements denoting vacancies MUST have masses equal to 0.
+    - **mass**: OPTIONAL. If present MUST be a list of floats, with the same length as :property:`chemical_symbols`, providing element masses expressed in a.m.u.
+      Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
           Note: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
