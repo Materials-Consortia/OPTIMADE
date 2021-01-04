@@ -2563,6 +2563,11 @@ The Filter Language EBNF Grammar
 
     Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
 
+    (* Boolean values *)
+
+    TRUE = 'TRUE', [Spaces] ;
+    FALSE = 'FALSE', [Spaces] ;
+
     (* Property syntax *)
 
     Identifier = LowercaseLetter, { LowercaseLetter | Digit }, [Spaces] ;
