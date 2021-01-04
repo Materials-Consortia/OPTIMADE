@@ -1568,6 +1568,12 @@ Examples:
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
 - :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
 
+Comparisons of boolean values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apart from straightforward comparisons ('=' and '!=') other usual comparison operators ('<', '>', '<=', '>=') MUST be supported.
+In such comparisons TRUE is held greater than FALSE.
+
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
