@@ -2565,7 +2565,7 @@ The Filter Language EBNF Grammar
 
     (* Boolean values *)
 
-    BooleanValue = ( 'TRUE', 'FALSE' ), [Spaces] ;
+    BooleanValue = ( 'TRUE' | 'FALSE' ), [Spaces] ;
 
     (* Property syntax *)
 
