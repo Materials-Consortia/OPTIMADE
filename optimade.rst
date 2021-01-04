@@ -2471,7 +2471,7 @@ The Filter Language EBNF Grammar
 
     Constant = String | Number ;
 
-    Value = String | Number | Property ;
+    Value = String | Number | BooleanValue | Property ;
     (* Note: support for Property in Value is OPTIONAL *)
 
     ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
@@ -2565,8 +2565,7 @@ The Filter Language EBNF Grammar
 
     (* Boolean values *)
 
-    TRUE = 'TRUE', [Spaces] ;
-    FALSE = 'FALSE', [Spaces] ;
+    BooleanValue = ( 'TRUE', 'FALSE' ), [Spaces] ;
 
     (* Property syntax *)
 
