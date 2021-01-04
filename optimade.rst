@@ -1574,6 +1574,13 @@ Comparisons of boolean values
 Apart from straightforward comparisons ('=' and '!=') other usual comparison operators ('<', '>', '<=', '>=') MUST be supported.
 In such comparisons TRUE is held greater than FALSE.
 
+Examples:
+
+- :filter:`true = TRUE`
+- :filter:`true != FALSE`
+- :filter:`true > FALSE`
+- :filter:`anything <= TRUE`: matches all entries.
+
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
