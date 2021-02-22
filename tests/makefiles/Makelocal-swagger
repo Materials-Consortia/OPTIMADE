@@ -1,0 +1,13 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Targets for validating the specification with swagger
+
+.PHONY: validate_schemas
+
+validate_schemas: validate_schema validate_index_schema
+
+validate_schema:
+	./tests/scripts/validate_swagger.sh ./schemas/openapi_schema.json
+
+validate_index_schema:
+	./tests/scripts/validate_swagger.sh ./schemas/index_openapi_schema.json

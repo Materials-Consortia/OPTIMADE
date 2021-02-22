@@ -4,7 +4,7 @@
 
 .PHONY: audit
 
-audit: audit_grammars audit_authors audit_spelling
+audit: audit_grammars audit_authors audit_spelling audit_schemas
 	@echo "=============================================="
 	@echo "Audit of specification completed successfully."
 	@echo "=============================================="
@@ -29,3 +29,9 @@ audit_authors: test_authors
 
 audit_spelling:
 	@echo "Spellcheck is not yet part of the audit of the specification."
+
+
+.PHONY: audit_schemas
+
+audit_schemas:
+	$(MAKE) validate_schemas

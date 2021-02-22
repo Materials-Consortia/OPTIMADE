@@ -36,7 +36,7 @@ OPTIMADE API specification v1.0.0~develop
      # HTTP
 
      http-header : an HTTP header name, or header + value.
-     http-error : an HTTP error on form <number> <english text>.
+     http-error : an HTTP error on form <number> <English text>.
 
      # Responses
 
@@ -286,7 +286,7 @@ Implementations MAY combine direct access to single entry endpoints with redirec
 
 The client MAY provide a query parameter :query-param:`api_hint` to hint the server about a preferred API version.
 When this parameter is provided, the request is to be handled as described in section `Version Negotiation`_, which allows a "best suitable" version of the API to be selected to serve the request (or forward the request to).
-However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the lastest, most mature, and stable version).
+However, if :query-param:`api_hint` is not provided, the implementation SHOULD serve (or redirect to) its preferred version of the API (i.e., the latest, most mature, and stable version).
 In this case, that version MUST also be the first version in the response of the :endpoint:`versions` endpoint (see section `Versions Endpoint`_).
 
     **For implementers**: Before enabling access to the API on unversioned base URLs, implementers are advised to consider that an upgrade of the major version of the API served this way can change the behaviors of associated endpoints in ways that are not backward compatible.
@@ -501,6 +501,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
       - **email** with the maintainer's email address.
 
+    - **issue\_tracker**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
+
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
@@ -553,7 +555,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 	     "source_url": "http://git.example.com/exmpl-optimade",
 	     "maintainer": {
 	       "email": "admin@example.com"
-	     }
+	     },
+	     "issue_tracker": "http://tracker.example.com/exmpl-optimade"
 	   }
 	 }
 	 // ...
@@ -721,7 +724,7 @@ This endpoint is special in that it MUST be provided directly on the unversioned
 
 The response to a query to this endpoint is in a restricted subset of the :RFC:`4180` CSV (`text/csv; header=present`) format.
 The restrictions are: (i) field values and header names MUST NOT contain commas, newlines, or double quote characters; (ii) Field values and header names MUST NOT be enclosed by double quotes; (iii) The first line MUST be a header line.
-These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurences of the comma ',' character to obtain the head names and field values.
+These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurrences of the comma ',' character to obtain the head names and field values.
 
 In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
 The CSV format header line MUST specify :val:`version` as the name for this field.
@@ -1317,7 +1320,7 @@ Example:
             "homepage": "http://example.com",
             "link_type: "child",
             "aggregate": "no",
-            "no_aggregate_reason": "This is a database for internal use and might contain non-sensical data"
+            "no_aggregate_reason": "This is a database for internal use and might contain nonsensical data"
           }
         },
         {
@@ -1384,7 +1387,7 @@ Link Aggregate Options
 If specified, the :property:`aggregate` attributed MUST have one of the following values:
 
 - :val:`ok` (default value, if unspecified): it is ok to follow this link when aggregating OPTIMADE results.
-- :val:`test`: the linked database is a test database,  whose content might not be correct or migth not represent physically-meaningful data. Therefore by default the link should not be followed.
+- :val:`test`: the linked database is a test database,  whose content might not be correct or might not represent physically-meaningful data. Therefore by default the link should not be followed.
 - :val:`staging`: the linked database is almost production-ready, but final checks on its content are being performed, so the content might still contain errors. Therefore by default the link should not be followed.
 - :val:`no`: any other reason to suggest not to follow the link during aggregation of OPTIMADE results. The implementation MAY provide mode details in a human-readable form via the attribute :property:`no-aggregate-reason`.
 
@@ -1409,7 +1412,7 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+ nelements=4+AND+elements="Si,O2"&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+elements="Si,O2"&response_format=xml`
 
 Or, fully URL encoded :
 
@@ -1526,7 +1529,7 @@ Implementations MAY also support comparisons with identifiers on both sides, and
 
 However, the latter form, :filter-fragment:`constant <operator> constant` where the constants are strings MUST return the error :http-error:`501 Not Implemented`.
 
-    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambigous.
+    **Note:** The motivation to exclude the form :filter-fragment:`constant <operator> constant` for strings is that filter language strings can refer to data of different data types (e.g., strings and timestamps), and thus this construct is not unambiguous.
     The OPTIMADE specification will strive to address this issue in a future version.
 
 Examples:
@@ -1619,7 +1622,7 @@ Nested property names
 ~~~~~~~~~~~~~~~~~~~~~
 
 Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in section `Lexical Tokens`_, consisting of identifiers separated by periods ('.').
-A filter on a nested property name consisting of two identifiers :filter-fragment:`identifier1.identifierd2` matches if either one of these points are true:
+A filter on a nested property name consisting of two identifiers :filter-fragment:`identifier1.identifier2` matches if either one of these points are true:
 
 - :filter-fragment:`identifier1` references a dictionary-type property that contains as an identifier :filter-fragment:`identifier2` and the filter matches for the content of :filter-fragment:`identifier2`.
 
@@ -2116,7 +2119,7 @@ species
   - :property:`concentration`: list of float (REQUIRED)
   - :property:`attached`: list of strings (OPTIONAL)
   - :property:`nattached`: list of integers (OPTIONAL)
-  - :property:`mass`: float (OPTIONAL)
+  - :property:`mass`: list of floats (OPTIONAL)
   - :property:`original_name`: string (OPTIONAL).
 
 - **Requirements/Conventions**:
@@ -2150,7 +2153,8 @@ species
       The implementation MUST include either both or none of the :field:`attached` and :field:`nattached` keys, and if they are provided, they MUST be of the same length.
       Furthermore, if they are provided, the `structure_features`_ property MUST include the string :val:`site_attachments`.
 
-    - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
+    - **mass**: OPTIONAL. If present MUST be a list of floats, with the same length as :property:`chemical_symbols`, providing element masses expressed in a.m.u.
+      Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
           Note: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
@@ -2165,9 +2169,9 @@ species
 
   - :val:`[ {"name": "Ti", "chemical_symbols": ["Ti"], "concentration": [1.0]} ]`: any site with this species is occupied by a Ti atom.
   - :val:`[ {"name": "Ti", "chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]} ]`: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.
-  - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
-  - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.
-  - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.
+  - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": [0.0, 137.327, 40.078]} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability.
+  - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": [12.0]} ]`: any site with this species is occupied by a carbon isotope with mass 12.
+  - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": [13.0]} ]`: any site with this species is occupied by a carbon isotope with mass 13.
   - :val:`[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]`: any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
 
 assemblies
@@ -2243,11 +2247,11 @@ assemblies
 	   {
 	     "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
 	     "species_at_sites": ["Si", "Ge", "vac"],
-	     "species": {
-	       "Si": { "chemical_symbols": ["Si"], "concentration": [1.0] },
-	       "Ge": { "chemical_symbols": ["Ge"], "concentration": [1.0] },
-	       "vac": { "chemical_symbols": ["vacancy"], "concentration": [1.0] }
-	     },
+	     "species": [
+	       { "name": "Si", "chemical_symbols": ["Si"], "concentration": [1.0] },
+	       { "name": "Ge", "chemical_symbols": ["Ge"], "concentration": [1.0] },
+	       { "name": "vac", "chemical_symbols": ["vacancy"], "concentration": [1.0] }
+	     ],
 	     "assemblies": [
 	       {
 		 "sites_in_groups": [ [0], [1], [2] ],
