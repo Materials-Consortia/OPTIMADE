@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "OPTIMADE API - Index meta-database",
-    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.13.2) v0.13.2.",
+    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.13.3) v0.13.3.",
     "version": "1.0.0~develop"
   },
   "paths": {
@@ -1081,10 +1081,23 @@
             "description": "JSON API links object, pointing to a homepage URL for this implementation"
           },
           "link_type": {
-            "$ref": "#/components/schemas/LinkType"
+            "title": "Link Type",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LinkType"
+              }
+            ],
+            "description": "The type of the linked relation.\nMUST be one of these values: 'child', 'root', 'external', 'providers'."
           },
           "aggregate": {
-            "$ref": "#/components/schemas/Aggregate"
+            "title": "Aggregate",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Aggregate"
+              }
+            ],
+            "description": "A string indicating whether a client that is following links to aggregate results from different OPTIMADE implementations should follow this link or not.\nThis flag SHOULD NOT be indicated for links where `link_type` is not `child`.\n\nIf not specified, clients MAY assume that the value is `ok`.\nIf specified, and the value is anything different than `ok`, the client MUST assume that the server is suggesting not to follow the link during aggregation by default (also if the value is not among the known ones, in case a future specification adds new accepted values).\n\nSpecific values indicate the reason why the server is providing the suggestion.\nA client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links marked with `aggregate`=`test`).\n\nIf specified, it MUST be one of the values listed in section Link Aggregate Options.",
+            "default": "ok"
           },
           "no_aggregate_reason": {
             "title": "No Aggregate Reason",
