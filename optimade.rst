@@ -1412,11 +1412,11 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+elements="Si,O2"&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+chemical_formula_descriptive="SiO2"&response_format=xml`
 
 Or, fully URL encoded :
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+elements%3D%22Si%2CO2%22&response_format=xml`
+-  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&response_format=xml`
 
 Lexical Tokens
 --------------
@@ -1540,7 +1540,7 @@ Examples:
 - :filter:`_exmpl_spacegroup="P2"`
 - :filter:`_exmpl_cell_volume<100.0`
 - :filter:`_exmpl_bandgap > 5.0 AND _exmpl_molecular_weight < 350`
-- :filter:`_exmpl_melting_point<300 AND nelements=4 AND elements="Si,O2"`
+- :filter:`_exmpl_melting_point<300 AND nelements=4 AND chemical_formula_descriptive="SiO2"`
 - :filter:`_exmpl_some_string_property = 42` (This is syntactically allowed without putting 42 in quotation marks, see the notes about comparisons of values of different types below.)
 - :filter:`5 < _exmpl_a`
 - OPTIONAL: :filter:`((NOT (_exmpl_a>_exmpl_b)) AND _exmpl_x>0)`
