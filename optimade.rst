@@ -416,7 +416,7 @@ The rationale for treating properties from other databases as unknown rather tha
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
-:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+:filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
 Responses
 =========
@@ -1539,7 +1539,7 @@ Examples:
 - :filter:`_exmpl_aax <= +.1e8 OR nelements >= 10 AND NOT ( _exmpl_x != "Some string" OR NOT _exmpl_a = 7)`
 - :filter:`_exmpl_spacegroup="P2"`
 - :filter:`_exmpl_cell_volume<100.0`
-- :filter:`_exmpl_bandgap > 5.0 AND _exmpl_molecular_weight < 350`
+- :filter:`_exmpl_band_gap > 5.0 AND _exmpl_molecular_weight < 350`
 - :filter:`_exmpl_melting_point<300 AND nelements=4 AND chemical_formula_descriptive="SiO2"`
 - :filter:`_exmpl_some_string_property = 42` (This is syntactically allowed without putting 42 in quotation marks, see the notes about comparisons of values of different types below.)
 - :filter:`5 < _exmpl_a`
