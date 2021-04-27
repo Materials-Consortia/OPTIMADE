@@ -1799,11 +1799,11 @@ database-provider-specific properties
 
 - **Examples**: A few examples of valid database-provided-specific property names follows:
 
-  - \_exmpl\_formula\_sum
-  - \_exmpl\_band\_gap
-  - \_exmpl\_supercell
-  - \_exmpl\_trajectory
-  - \_exmpl\_workflow\_id
+  - :property:`_exmpl_formula_sum`
+  - :property:`_exmpl_band_gap`
+  - :property:`_exmpl_supercell`
+  - :property:`_exmpl_trajectory`
+  - :property:`_exmpl_workflow_id`
 
 Structures Entries
 ------------------
