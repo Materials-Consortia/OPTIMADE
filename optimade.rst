@@ -1842,7 +1842,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements`_ and `elements\_ratios`_, if they are provided.
+  - MUST be equal to the lengths of the list properties `elements`_ and `elements\_ratios`_, if they are provided.
 
 - **Examples**:
 
