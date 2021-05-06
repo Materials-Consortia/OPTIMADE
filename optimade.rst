@@ -1865,7 +1865,7 @@ elements\_ratios
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - Composed by the proportions of elements in the structure as a list of floating point numbers.
   - The sum of the numbers MUST be 1.0 (within floating point accuracy)
-  - MUST be of equal length as `elements` and refer to the elements in the same order as `elements`_, if the latter is provided.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements`_, if the latter is provided.
 
 - **Examples**:
 
