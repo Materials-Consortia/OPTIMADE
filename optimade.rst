@@ -1834,6 +1834,7 @@ elements
 
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
   - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
+  - Note: length queries on this property can be equivalently formulated by filtering on the `nelements`_ property directly.
 
 nelements
 ~~~~~~~~~
@@ -1844,6 +1845,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - The integer value MUST be equal to the length of the `elements`_ property.
 
 - **Examples**:
 
