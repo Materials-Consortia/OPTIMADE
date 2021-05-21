@@ -357,7 +357,9 @@ Visiting this URL in a web browser gives a human-readable description of how to 
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
-**Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+**Examples**:
+
+- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
@@ -1981,6 +1983,7 @@ chemical\_formula\_anonymous
   - :val:`"A42B42C16D12E10F9G5"`
 
 - **Querying**:
+
   - A filter that matches an exactly given formula is :filter:`chemical_formula_anonymous="A2B"`.
 
 dimension\_types
@@ -2309,7 +2312,9 @@ structure\_features
     - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
     - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
--  **Examples**: A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+-  **Examples**:
+
+    - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
 Calculations Entries
 --------------------
