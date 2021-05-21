@@ -1829,6 +1829,7 @@ elements
   - :val:`["Al","O","Si"]`
 
 - **Query examples**:
+
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
   - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
 
