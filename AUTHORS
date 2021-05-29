@@ -1,25 +1,27 @@
-The initial release of the OPTIMADE API was developed by the
-participants of the workshops "Open Databases Integration for Materials
-Design", held at:
+The OPTIMADE API has been developed with contributions by the participants of the workshops "Open Database Integration for Materials Design", held at:
 - the Lorentz Center in Leiden, Netherlands from 2016-10-24 to 2016-10-28
 - the CECAM in Lausanne, Switzerland from 2018-06-11 to 2018-06-15
 - the CECAM in Lausanne, Switzerland from 2019-06-11 to 2019-06-14
+- the CECAM in Lausanne, Switzerland (virtually) 2020-06-08 to 2020-06-12
 
-The OPTIMADE development team in alphabetical order:
-
+Contributors to the development of the OPTIMADE specification and implementation in alphabetical order:
 Casper Andersen
 Thomas Archer
 Rickard Armiento
 Rossella Aversa
 Evgeny Blokhin
+Kamal Choudhary
+Pauline Colinet
 Gareth Conduit
+Stefano Curtarolo
 Davide Di Stefano
 Alexander Dorsk
 Claudia Draxl
 Shyam Dwaraknath
 Suleyman Er
+Marco Esters
 Matthew Evans
-Adam Fekete
+Ádám Fekete
 Marco Fornari
 Matteo Giantomassi
 Abhijith Gopakumar
@@ -27,34 +29,38 @@ Marco Govoni
 Saulius Gražulis
 Geoffroy Hautier
 Vinay Hegde
+Matthew Horton
+Patrick Huck
 Georg Huhs
 Jens Hummelshoej
 Karsten W. Jacobsen
 Ankit Kariryaa
 Boris Kozinsky
 Snehal Kumbhar
+Mohan Liu
 Nicola Marzari
 Andrius Merkys
 Fawzi Mohamed
 Andrew Morris
 Arash Mostofi
-Nicolas Mounet
 Corey Oses
+Kristin Persson
 Guido Petretto
 Giovanni Pizzi
 Thomas Purcell
 Francesco Ricci
 Gian-Marco Rignanese
+Frisco Rose
 Matthias Scheffler
 Markus Scheidgen
 Daniel Speckhard
 Leopold Talirz
 Cormac Toher
-Daniele Tomerini
 Martin Uhrin
 Pierre Villars
 David Waroquiers
 Donald Winston
 Chris Wolverton
+Michael Wu
 Yibin Xu
 Xiaoyu Yang
