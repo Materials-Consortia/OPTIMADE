@@ -2371,6 +2371,21 @@ Example:
       }
     }
 
+Files Entries
+-------------
+
+The :entry:`files` entries describe files.
+The following properties are used to do so:
+
+name
+~~~~
+
+url
+~~~
+
+content\_type
+~~~~~~~~~~~~~
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
