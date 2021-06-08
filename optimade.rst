@@ -2525,8 +2525,7 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 Files
 ~~~~~
 
-Relationships with files MAY be used to relate an entry with any number of :entry:`files` entries.
-Alternatively, they MAY be used to provide file representations of entries.
+Relationships with files may be used to relate an entry with any number of :entry:`files` entries.
 
 .. code:: jsonc
 
