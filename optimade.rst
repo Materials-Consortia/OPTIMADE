@@ -2377,14 +2377,59 @@ Files Entries
 The :entry:`files` entries describe files.
 The following properties are used to do so:
 
-name
-~~~~
-
 url
 ~~~
 
-content\_type
-~~~~~~~~~~~~~
+- **Description**: The URL to get the contents of a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - **Response**: REQUIRED in the response.
+
+- **Examples**:
+
+  - :val:`"https://www.crystallography.net/cod/1000000.cif"`
+
+name
+~~~~
+
+- **Description**: base name of a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"1000000.cif"`
+
+media\_type
+~~~~~~~~~~~
+
+- **Description**: media type identifier for a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"chemical/x-cif"`
+
+version
+~~~~~~~
+
+- **Description**: version information of a file (e.g. commit, revision, timestamp)
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
 
 Database-Provider-Specific Entry Types
 --------------------------------------
