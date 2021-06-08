@@ -2522,6 +2522,41 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
 
+Files
+~~~~~
+
+Relationships with files MAY be used to relate an entry with any number of :entry:`files` entries.
+Alternatively, they MAY be used to provide file representations of entries.
+
+.. code:: jsonc
+
+    {
+      "data": {
+        "type": "structures",
+        "id": "example.db:structs:1234",
+        "attributes": {
+          "formula": "H2O"
+        },
+        "relationships": {
+          "files": {
+            "data": [
+              { "type": "files", "id": "example.db:files:1234" }
+            ]
+          }
+        }
+      },
+      "included": [
+        {
+          "type": "files",
+          "id": "example.db:files:1234",
+          "attributes": {
+            "media_type": "chemical/x-cif",
+            "url": "https://example.db/files/1234.cif"
+          }
+        }
+      ]
+    }
+
 Appendices
 ==========
 
