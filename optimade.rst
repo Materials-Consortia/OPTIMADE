@@ -1820,6 +1820,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements\_ratios`_, if the latter is provided.
   - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
 
 - **Examples**:
@@ -1842,7 +1843,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be equal to the length of the `elements`_ property.
+  - MUST be equal to the lengths of the list properties `elements`_ and `elements\_ratios`_, if they are provided.
 
 - **Examples**:
 
@@ -1865,6 +1866,7 @@ elements\_ratios
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - Composed by the proportions of elements in the structure as a list of floating point numbers.
   - The sum of the numbers MUST be 1.0 (within floating point accuracy)
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements`_, if the latter is provided.
 
 - **Examples**:
 
