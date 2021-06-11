@@ -1048,39 +1048,39 @@ Example:
 
     {
       "data": {
-      "type": "info",
-      "id": "/",
-      "attributes": {
-        "api_version": "1.0.0",
-        "available_api_versions": [
-          {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
-          {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
-          {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
-        ],
-        "formats": [
-          "json",
-          "xml"
-        ],
-        "entry_types_by_format": {
-          "json": [
-            "structures",
-            "calculations"
+        "type": "info",
+        "id": "/",
+        "attributes": {
+          "api_version": "1.0.0",
+          "available_api_versions": [
+            {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
+            {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
+            {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
           ],
-          "xml": [
-            "structures"
-          ]
-        },
-        "available_endpoints": [
-          "structures",
-          "calculations",
-          "info",
-          "links"
-        ],
-        "is_index": false
-      }
+          "formats": [
+            "json",
+            "xml"
+          ],
+          "entry_types_by_format": {
+            "json": [
+              "structures",
+              "calculations"
+            ],
+            "xml": [
+              "structures"
+            ]
+          },
+          "available_endpoints": [
+            "structures",
+            "calculations",
+            "info",
+            "links"
+          ],
+          "is_index": false
+        }
       }
       // ...
     }
@@ -1347,9 +1347,7 @@ Example:
             "link_type": "providers"
           }
         }
-      // ... <other objects>
       ]
-      // ...
     }
 
 Internal Links: Root and Child Links
