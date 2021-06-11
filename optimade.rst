@@ -514,11 +514,11 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     .. code:: jsonc
 
        {
-	 "id": "dep_chemical_formula_01",
-	 "type": "warning",
-	 "code": "_exmpl_dep_chemical_formula",
-	 "title": "Deprecation Warning",
-	 "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
+         "id": "dep_chemical_formula_01",
+         "type": "warning",
+         "code": "_exmpl_dep_chemical_formula",
+         "title": "Deprecation Warning",
+         "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
        }
 
     **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field :field:`code` for this.
@@ -533,32 +533,32 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     .. code:: jsonc
 
        {
-	 "meta": {
-	   "query": {
-	     "representation": "/structures/?filter=a=1 AND b=2",
-	   },
-	   "api_version": "1.0.0",
-	   "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
-	   "time_stamp": "2007-04-05T14:30:20Z",
-	   "data_returned": 10,
-	   "data_available": 10,
-	   "more_data_available": false,
-	   "provider": {
-	     "name": "Example provider",
-	     "description": "Provider used for examples, not to be assigned to a real database",
-	     "prefix": "exmpl",
-	     "homepage": "http://example.com"
-	   },
-	   "implementation": {
-	     "name": "exmpl-optimade",
-	     "version": "0.1.0",
-	     "source_url": "http://git.example.com/exmpl-optimade",
-	     "maintainer": {
-	       "email": "admin@example.com"
-	     }
-	   }
-	 }
-	 // ...
+         "meta": {
+           "query": {
+             "representation": "/structures/?filter=a=1 AND b=2"
+           },
+           "api_version": "1.0.0",
+           "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
+           "time_stamp": "2007-04-05T14:30:20Z",
+           "data_returned": 10,
+           "data_available": 10,
+           "more_data_available": false,
+           "provider": {
+             "name": "Example provider",
+             "description": "Provider used for examples, not to be assigned to a real database",
+             "prefix": "exmpl",
+             "homepage": "http://example.com"
+           },
+           "implementation": {
+             "name": "exmpl-optimade",
+             "version": "0.1.0",
+             "source_url": "http://git.example.com/exmpl-optimade",
+             "maintainer": {
+               "email": "admin@example.com"
+             }
+           }
+         }
+         // ...
        }
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
@@ -628,44 +628,44 @@ An example of a full response:
 
      {
        "links": {
-	 "next": null,
-	 "base_url": {
-	   "href": "http://example.com/optimade",
-	   "meta": {
-	      "_exmpl_db_version": "3.2.1"
-	   }
-	 }
+         "next": null,
+         "base_url": {
+           "href": "http://example.com/optimade",
+           "meta": {
+              "_exmpl_db_version": "3.2.1"
+           }
+         }
        },
        "meta": {
-	 "query": {
-	   "representation": "/structures?filter=a=1 AND b=2"
-	 },
-	 "api_version": "1.0.0",
-	 "time_stamp": "2007-04-05T14:30:20Z",
-	 "data_returned": 10,
-	 "data_available": 10,
-	 "last_id": "xy10",
-	 "more_data_available": false,
-	 "provider": {
-	   "name": "Example provider",
-	   "description": "Provider used for examples, not to be assigned to a real database",
-	   "prefix": "exmpl",
-	   "homepage": {
-	     "href": "http://example.com",
-	     "meta": {
-	       "_exmpl_title": "This is an example site"
-	     }
-	   }
-	 },
-	 "response_message": "OK"
-	 // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
+         "query": {
+           "representation": "/structures?filter=a=1 AND b=2"
+         },
+         "api_version": "1.0.0",
+         "time_stamp": "2007-04-05T14:30:20Z",
+         "data_returned": 10,
+         "data_available": 10,
+         "last_id": "xy10",
+         "more_data_available": false,
+         "provider": {
+           "name": "Example provider",
+           "description": "Provider used for examples, not to be assigned to a real database",
+           "prefix": "exmpl",
+           "homepage": {
+             "href": "http://example.com",
+             "meta": {
+               "_exmpl_title": "This is an example site"
+             }
+           }
+         },
+         "response_message": "OK"
+         // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
        },
        "data": [
-	 // ...
+         // ...
        ],
        "included": [
-	 // ...
-       ],
+         // ...
+       ]
      }
 
 HTTP Response Status Codes
@@ -897,27 +897,27 @@ Example:
 
      {
        "data": [
-	 {
-	   "type": "structures",
-	   "id": "example.db:structs:0001",
-	   "attributes": {
-	     "chemical_formula_descriptive": "Es2 O3",
-	     "url": "http://example.db/structs/0001",
-	     "immutable_id": "http://example.db/structs/0001@123",
-	     "last_modified": "2007-04-05T14:30:20Z"
-	   }
-	 },
-	 {
-	   "type": "structures",
-	   "id": "example.db:structs:1234",
-	   "attributes": {
-	     "chemical_formula_descriptive": "Es2",
-	     "url": "http://example.db/structs/1234",
-	     "immutable_id": "http://example.db/structs/1234@123",
-	     "last_modified": "2007-04-07T12:02:20Z"
-	   }
-	 }
-	 // ...
+         {
+           "type": "structures",
+           "id": "example.db:structs:0001",
+           "attributes": {
+             "chemical_formula_descriptive": "Es2 O3",
+             "url": "http://example.db/structs/0001",
+             "immutable_id": "http://example.db/structs/0001@123",
+             "last_modified": "2007-04-05T14:30:20Z"
+           }
+         },
+         {
+           "type": "structures",
+           "id": "example.db:structs:1234",
+           "attributes": {
+             "chemical_formula_descriptive": "Es2",
+             "url": "http://example.db/structs/1234",
+             "immutable_id": "http://example.db/structs/1234@123",
+             "last_modified": "2007-04-07T12:02:20Z"
+           }
+         }
+         // ...
        ]
        // ...
      }
@@ -958,20 +958,20 @@ Example:
 
      {
        "data": {
-	 "type": "structures",
-	 "id": "example.db:structs:1234",
-	 "attributes": {
-	   "chemical_formula_descriptive": "Es2",
-	   "url": "http://example.db/structs/1234",
-	   "immutable_id": "http://example.db/structs/1234@123",
-	   "last_modified": "2007-04-07T12:02:20Z"
-	 }
+         "type": "structures",
+         "id": "example.db:structs:1234",
+         "attributes": {
+           "chemical_formula_descriptive": "Es2",
+           "url": "http://example.db/structs/1234",
+           "immutable_id": "http://example.db/structs/1234@123",
+           "last_modified": "2007-04-07T12:02:20Z"
+         }
        },
        "meta": {
-	 "query": {
-	   "representation": "/structures/example.db:structs:1234?"
-	 }
-	 // ...
+         "query": {
+           "representation": "/structures/example.db:structs:1234?"
+         }
+         // ...
        }
        // ...
      }
@@ -1045,39 +1045,39 @@ Example:
 
     {
       "data": {
-      "type": "info",
-      "id": "/",
-      "attributes": {
-        "api_version": "1.0.0",
-        "available_api_versions": [
-          {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
-          {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
-          {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"},
-        ],
-        "formats": [
-          "json",
-          "xml"
-        ],
-        "entry_types_by_format": {
-          "json": [
-            "structures",
-            "calculations"
+        "type": "info",
+        "id": "/",
+        "attributes": {
+          "api_version": "1.0.0",
+          "available_api_versions": [
+            {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
+            {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
+            {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
           ],
-          "xml": [
-            "structures"
-          ]
-        },
-        "available_endpoints": [
-          "structures",
-          "calculations",
-          "info",
-          "links"
-        ],
-        "is_index": false
-      }
+          "formats": [
+            "json",
+            "xml"
+          ],
+          "entry_types_by_format": {
+            "json": [
+              "structures",
+              "calculations"
+            ],
+            "xml": [
+              "structures"
+            ]
+          },
+          "available_endpoints": [
+            "structures",
+            "calculations",
+            "info",
+            "links"
+          ],
+          "is_index": false
+        }
       }
       // ...
     }
@@ -1088,36 +1088,36 @@ Example for an index meta-database:
 
     {
       "data": {
-      "type": "info",
-      "id": "/",
-      "attributes": {
-        "api_version": "1.0.0",
-        "available_api_versions": [
-          {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
-          {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
-          {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
+        "type": "info",
+        "id": "/",
+        "attributes": {
+          "api_version": "1.0.0",
+          "available_api_versions": [
+            {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
+            {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
+            {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
+            ],
+          "formats": [
+            "json",
+            "xml"
           ],
-        "formats": [
-          "json",
-          "xml"
-        ],
-        "entry_types_by_format": {
-          "json": [],
-          "xml": []
+          "entry_types_by_format": {
+            "json": [],
+            "xml": []
+          },
+          "available_endpoints": [
+            "info",
+            "links"
+          ],
+          "is_index": true
         },
-        "available_endpoints": [
-          "info",
-          "links"
-        ],
-        "is_index": true
-      },
-      "relationships": {
-        "default": {
-          "data": { "type": "links", "id": "perovskites" }
+        "relationships": {
+          "default": {
+            "data": { "type": "links", "id": "perovskites" }
+          }
         }
-      }
       }
       // ...
     }
@@ -1267,7 +1267,7 @@ Example:
             "description": "Index for example's OPTIMADE databases",
             "base_url": "http://example.com/optimade",
             "homepage": "http://example.com",
-            "link_type: "root"
+            "link_type": "root"
           }
         },
         {
@@ -1283,7 +1283,7 @@ Example:
               }
             },
             "homepage": "http://example.com",
-            "link_type: "child"
+            "link_type": "child"
           }
         },
         {
@@ -1294,7 +1294,7 @@ Example:
             "description": "",
             "base_url": "http://example.com/zeo_frameworks/optimade",
             "homepage": "http://example.com",
-            "link_type: "child"
+            "link_type": "child"
           }
         },
         {
@@ -1305,7 +1305,7 @@ Example:
             "description": "A test database",
             "base_url": "http://example.com/testdb/optimade",
             "homepage": "http://example.com",
-            "link_type: "child",
+            "link_type": "child",
             "aggregate": "test"
           }
         },
@@ -1317,7 +1317,7 @@ Example:
             "description": "An internal database",
             "base_url": "http://example.com/internaldb/optimade",
             "homepage": "http://example.com",
-            "link_type: "child",
+            "link_type": "child",
             "aggregate": "no",
             "no_aggregate_reason": "This is a database for internal use and might contain nonsensical data"
           }
@@ -1330,7 +1330,7 @@ Example:
             "description": "A DB by the example2 provider",
             "base_url": "http://example2.com/some_db/optimade",
             "homepage": "http://example2.com",
-            "link_type: "external"
+            "link_type": "external"
           }
         },
         {
@@ -1344,9 +1344,7 @@ Example:
             "link_type": "providers"
           }
         }
-      // ... <other objects>
       ]
-      // ...
     }
 
 Internal Links: Root and Child Links
@@ -2162,8 +2160,8 @@ species
       Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-          Note: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
-	  The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+          **Note**: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
+          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
@@ -2231,40 +2229,40 @@ assemblies
 
       .. code:: jsonc
 
-	   {
-	     "cartesian_site_positions": [[0,0,0]],
-	     "species_at_sites": ["SiGe-vac"],
-	     "species": [
-		 {
-		   "name": "SiGe-vac",
-		   "chemical_symbols": ["Si", "Ge", "vacancy"],
-		   "concentration": [0.3, 0.5, 0.2]
-		 }
-	     ]
-	     // ...
-	   }
+           {
+             "cartesian_site_positions": [[0,0,0]],
+             "species_at_sites": ["SiGe-vac"],
+             "species": [
+                 {
+                   "name": "SiGe-vac",
+                   "chemical_symbols": ["Si", "Ge", "vacancy"],
+                   "concentration": [0.3, 0.5, 0.2]
+                 }
+             ]
+             // ...
+           }
 
 
     - Using multiple species and the assemblies:
 
       .. code:: jsonc
 
-	   {
-	     "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
-	     "species_at_sites": ["Si", "Ge", "vac"],
-	     "species": [
-	       { "name": "Si", "chemical_symbols": ["Si"], "concentration": [1.0] },
-	       { "name": "Ge", "chemical_symbols": ["Ge"], "concentration": [1.0] },
-	       { "name": "vac", "chemical_symbols": ["vacancy"], "concentration": [1.0] }
-	     ],
-	     "assemblies": [
-	       {
-		 "sites_in_groups": [ [0], [1], [2] ],
-		 "group_probabilities": [0.3, 0.5, 0.2]
-	       }
-	     ]
-	     // ...
-	   }
+           {
+             "cartesian_site_positions": [ [0,0,0], [0,0,0], [0,0,0] ],
+             "species_at_sites": ["Si", "Ge", "vac"],
+             "species": [
+               { "name": "Si", "chemical_symbols": ["Si"], "concentration": [1.0] },
+               { "name": "Ge", "chemical_symbols": ["Ge"], "concentration": [1.0] },
+               { "name": "vac", "chemical_symbols": ["vacancy"], "concentration": [1.0] }
+             ],
+             "assemblies": [
+               {
+                 "sites_in_groups": [ [0], [1], [2] ],
+                 "group_probabilities": [0.3, 0.5, 0.2]
+               }
+             ]
+             // ...
+           }
 
   - It is up to the database provider to decide which representation to use, typically depending on the internal format in which the structure is stored.
     However, given a structure identified by a unique ID, the API implementation MUST always provide the same representation for it.
@@ -2273,18 +2271,18 @@ assemblies
 
     .. code:: jsonc
 
-	 {
-	   "assemblies": [
-	     {
-	       "sites_in_groups": [ [0], [1] ],
-	       "group_probabilities": [0.2, 0.8],
-	     },
-	     {
-	       "sites_in_groups": [ [2], [3] ],
-	       "group_probabilities": [0.3, 0.7]
-	     }
-	   ]
-	 }
+         {
+           "assemblies": [
+             {
+               "sites_in_groups": [ [0], [1] ],
+               "group_probabilities": [0.2, 0.8]
+             },
+             {
+               "sites_in_groups": [ [2], [3] ],
+               "group_probabilities": [0.3, 0.7]
+             }
+           ]
+         }
 
     Site 0 is present with a probability of 20 % and site 1 with a probability of 80 %. These two sites are correlated (either site 0 or 1 is present). Similarly, site 2 is present with a probability of 30 % and site 3 with a probability of 70 %.
     These two sites are correlated (either site 2 or 3 is present).
@@ -2313,9 +2311,9 @@ structure\_features
     - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
     - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
--  **Examples**:
+- **Examples**:
 
-    - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+  - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
 Calculations Entries
 --------------------
