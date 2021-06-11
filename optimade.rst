@@ -537,7 +537,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
        {
          "meta": {
            "query": {
-             "representation": "/structures/?filter=a=1 AND b=2",
+             "representation": "/structures/?filter=a=1 AND b=2"
            },
            "api_version": "1.0.0",
            "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
@@ -668,7 +668,7 @@ An example of a full response:
        ],
        "included": [
          // ...
-       ],
+       ]
      }
 
 HTTP Response Status Codes
@@ -1058,7 +1058,7 @@ Example:
           {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
           {"url": "http://db.example.com/optimade/v0.9.5/", "version": "0.9.5"},
           {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
-          {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"},
+          {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
         ],
         "formats": [
           "json",
@@ -1091,36 +1091,36 @@ Example for an index meta-database:
 
     {
       "data": {
-      "type": "info",
-      "id": "/",
-      "attributes": {
-        "api_version": "1.0.0",
-        "available_api_versions": [
-          {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
-          {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
-          {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
-          {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
+        "type": "info",
+        "id": "/",
+        "attributes": {
+          "api_version": "1.0.0",
+          "available_api_versions": [
+            {"url": "http://db.example.com/optimade/v0/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9/", "version": "0.9.5"},
+            {"url": "http://db.example.com/optimade/v0.9.2/", "version": "0.9.2"},
+            {"url": "http://db.example.com/optimade/v1/", "version": "1.0.0"},
+            {"url": "http://db.example.com/optimade/v1.0/", "version": "1.0.0"}
+            ],
+          "formats": [
+            "json",
+            "xml"
           ],
-        "formats": [
-          "json",
-          "xml"
-        ],
-        "entry_types_by_format": {
-          "json": [],
-          "xml": []
+          "entry_types_by_format": {
+            "json": [],
+            "xml": []
+          },
+          "available_endpoints": [
+            "info",
+            "links"
+          ],
+          "is_index": true
         },
-        "available_endpoints": [
-          "info",
-          "links"
-        ],
-        "is_index": true
-      },
-      "relationships": {
-        "default": {
-          "data": { "type": "links", "id": "perovskites" }
+        "relationships": {
+          "default": {
+            "data": { "type": "links", "id": "perovskites" }
+          }
         }
-      }
       }
       // ...
     }
@@ -1270,7 +1270,7 @@ Example:
             "description": "Index for example's OPTIMADE databases",
             "base_url": "http://example.com/optimade",
             "homepage": "http://example.com",
-            "link_type: "root"
+            "link_type": "root"
           }
         },
         {
@@ -1286,7 +1286,7 @@ Example:
               }
             },
             "homepage": "http://example.com",
-            "link_type: "child"
+            "link_type": "child"
           }
         },
         {
@@ -1297,7 +1297,7 @@ Example:
             "description": "",
             "base_url": "http://example.com/zeo_frameworks/optimade",
             "homepage": "http://example.com",
-            "link_type: "child"
+            "link_type": "child"
           }
         },
         {
@@ -1308,7 +1308,7 @@ Example:
             "description": "A test database",
             "base_url": "http://example.com/testdb/optimade",
             "homepage": "http://example.com",
-            "link_type: "child",
+            "link_type": "child",
             "aggregate": "test"
           }
         },
@@ -1320,7 +1320,7 @@ Example:
             "description": "An internal database",
             "base_url": "http://example.com/internaldb/optimade",
             "homepage": "http://example.com",
-            "link_type: "child",
+            "link_type": "child",
             "aggregate": "no",
             "no_aggregate_reason": "This is a database for internal use and might contain nonsensical data"
           }
@@ -1333,7 +1333,7 @@ Example:
             "description": "A DB by the example2 provider",
             "base_url": "http://example2.com/some_db/optimade",
             "homepage": "http://example2.com",
-            "link_type: "external"
+            "link_type": "external"
           }
         },
         {
@@ -2280,7 +2280,7 @@ assemblies
            "assemblies": [
              {
                "sites_in_groups": [ [0], [1] ],
-               "group_probabilities": [0.2, 0.8],
+               "group_probabilities": [0.2, 0.8]
              },
              {
                "sites_in_groups": [ [2], [3] ],
