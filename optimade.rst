@@ -1813,7 +1813,7 @@ Structures Entries
 elements
 ~~~~~~~~
 
-- **Description**: Symbols of the different elements present in the structure.
+- **Description**: The chemical symbols of the different elements present in the structure.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
 
