@@ -7,3 +7,10 @@
         tests/inputs/various-whitespace.filter|
         tests/inputs/fuzzystring-leading-trailing-spaces.filter
       )$
+
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.1.10
+  hooks:
+  - id: remove-tabs
+    args: [ '--whitespaces-count', '2']
+    files: \.rst$
