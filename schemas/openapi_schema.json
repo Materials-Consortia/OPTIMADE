@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "OPTIMADE API",
-    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.13.3) v0.13.3.",
+    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.15.3) v0.15.3.",
     "version": "1.0.0~develop"
   },
   "paths": {
@@ -19,15 +19,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Info Info Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/InfoResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/InfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -59,25 +121,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Entry Info Info  Entry  Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/EntryInfoResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/EntryInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -266,25 +380,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Links Links Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/LinksResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/LinksResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -473,25 +639,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get References References Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/ReferenceResponseMany"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ReferenceResponseMany"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -586,25 +804,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Single Reference References  Entry Id  Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/ReferenceResponseOne"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ReferenceResponseOne"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -793,25 +1063,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Structures Structures Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/StructureResponseMany"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/StructureResponseMany"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -906,25 +1228,77 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Single Structure Structures  Entry Id  Get",
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/StructureResponseOne"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/StructureResponseOne"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "553": {
+            "description": "Version Not Supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -1368,7 +1742,7 @@
             "description": "Object containing links to relationships with entries of the `structures` type."
           }
         },
-        "description": "This model wraps the JSON API Relationships to include type-specific top level keys. "
+        "description": "This model wraps the JSON API Relationships to include type-specific top level keys."
       },
       "EntryResource": {
         "title": "EntryResource",
@@ -1618,19 +1992,6 @@
           }
         },
         "description": "an object containing references to the source of the error"
-      },
-      "HTTPValidationError": {
-        "title": "HTTPValidationError",
-        "type": "object",
-        "properties": {
-          "detail": {
-            "title": "Detail",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            }
-          }
-        }
       },
       "Implementation": {
         "title": "Implementation",
@@ -2845,7 +3206,7 @@
             "description": "A string with the part of the URL following the versioned or unversioned base URL that serves the API.\nQuery parameters that have not been used in processing the request MAY be omitted.\nIn particular, if no query parameters have been involved in processing the request, the query part of the URL MAY be excluded.\nExample: `/structures?filter=nelements=2`"
           }
         },
-        "description": "Information on the query that was requested. "
+        "description": "Information on the query that was requested."
       },
       "Species": {
         "title": "Species",
@@ -3052,13 +3413,13 @@
             "items": {
               "type": "string"
             },
-            "description": "Names of the different elements present in the structure.\n\n- **Type**: list of strings.\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.\n    - The order MUST be alphabetical.\n    - Note: This property SHOULD NOT contain the string \"X\" to indicate non-chemical elements or \"vacancy\" to indicate vacancies (in contrast to the field `chemical_symbols` for the `species` property).\n\n- **Examples**:\n    - `[\"Si\"]`\n    - `[\"Al\",\"O\",\"Si\"]`\n\n- **Query examples**:\n    - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: `elements HAS ALL \"Si\", \"Al\", \"O\"`.\n    - To match structures with exactly these three elements, use `elements HAS ALL \"Si\", \"Al\", \"O\" AND elements LENGTH 3`.",
+            "description": "Names of the different elements present in the structure.\n\n- **Type**: list of strings.\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.\n    - The order MUST be alphabetical.\n    - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements_ratios`, if the latter is provided.\n    - Note: This property SHOULD NOT contain the string \"X\" to indicate non-chemical elements or \"vacancy\" to indicate vacancies (in contrast to the field `chemical_symbols` for the `species` property).\n\n- **Examples**:\n    - `[\"Si\"]`\n    - `[\"Al\",\"O\",\"Si\"]`\n\n- **Query examples**:\n    - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: `elements HAS ALL \"Si\", \"Al\", \"O\"`.\n    - To match structures with exactly these three elements, use `elements HAS ALL \"Si\", \"Al\", \"O\" AND elements LENGTH 3`.\n    - Note: length queries on this property can be equivalently formulated by filtering on the `nelements`_ property directly.",
             "nullable": true
           },
           "nelements": {
             "title": "Nelements",
             "type": "integer",
-            "description": "Number of different elements in the structure as an integer.\n\n- **Type**: integer\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n\n- **Examples**:\n    - `3`\n\n- **Querying**:\n    - Note: queries on this property can equivalently be formulated using `elements LENGTH`.\n    - A filter that matches structures that have exactly 4 elements: `nelements=4`.\n    - A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
+            "description": "Number of different elements in the structure as an integer.\n\n- **Type**: integer\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - MUST be equal to the lengths of the list properties `elements` and `elements_ratios`, if they are provided.\n\n- **Examples**:\n    - `3`\n\n- **Querying**:\n    - Note: queries on this property can equivalently be formulated using `elements LENGTH`.\n    - A filter that matches structures that have exactly 4 elements: `nelements=4`.\n    - A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
             "nullable": true
           },
           "elements_ratios": {
@@ -3067,7 +3428,7 @@
             "items": {
               "type": "number"
             },
-            "description": "Relative proportions of different elements in the structure.\n\n- **Type**: list of floats\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - Composed by the proportions of elements in the structure as a list of floating point numbers.\n    - The sum of the numbers MUST be 1.0 (within floating point accuracy)\n\n- **Examples**:\n    - `[1.0]`\n    - `[0.3333333333333333, 0.2222222222222222, 0.4444444444444444]`\n\n- **Query examples**:\n    - Note: Useful filters can be formulated using the set operator syntax for correlated values.\n      However, since the values are floating point values, the use of equality comparisons is generally inadvisable.\n    - OPTIONAL: a filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: `elements:elements_ratios HAS ALL \"Al\":>0.3333, \"Al\":<0.3334`.",
+            "description": "Relative proportions of different elements in the structure.\n\n- **Type**: list of floats\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - Composed by the proportions of elements in the structure as a list of floating point numbers.\n    - The sum of the numbers MUST be 1.0 (within floating point accuracy)\n    - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements`, if the latter is provided.\n\n- **Examples**:\n    - `[1.0]`\n    - `[0.3333333333333333, 0.2222222222222222, 0.4444444444444444]`\n\n- **Query examples**:\n    - Note: Useful filters can be formulated using the set operator syntax for correlated values.\n      However, since the values are floating point values, the use of equality comparisons is generally inadvisable.\n    - OPTIONAL: a filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: `elements:elements_ratios HAS ALL \"Al\":>0.3333, \"Al\":<0.3334`.",
             "nullable": true
           },
           "chemical_formula_descriptive": {
@@ -3173,7 +3534,7 @@
             "items": {
               "$ref": "#/components/schemas/Assembly"
             },
-            "description": "A description of groups of sites that are statistically correlated.\n\n- **Type**: list of dictionary with keys:\n    - `sites_in_groups`: list of list of integers (REQUIRED)\n    - `group_probabilities`: list of floats (REQUIRED)\n\n- **Requirements/Conventions**:\n    - **Support**: OPTIONAL support in implementations, i.e., MAY be `null`.\n    - **Query**: Support for queries on this property is OPTIONAL.\n        If supported, filters MAY support only a subset of comparison operators.\n    - The property SHOULD be `null` for entries that have no partial occupancies.\n    - If present, the correct flag MUST be set in the list `structure_features`.\n    - Client implementations MUST check its presence (as its presence changes the interpretation of the structure).\n    - If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have the following two keys:\n        - **sites_in_groups**: Index of the sites (0-based) that belong to each group for each assembly.\n\n            Example: `[[1], [2]]`: two groups, one with the second site, one with the third.\n            Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth.\n\n        - **group_probabilities**: Statistical probability of each group. It MUST have the same length as `sites_in_groups`.\n            It SHOULD sum to one.\n            See below for examples of how to specify the probability of the occurrence of a vacancy.\n            The possible reasons for the values not to sum to one are the same as already specified above for the `concentration` of each `species`.\n\n    - If a site is not present in any group, it means that it is present with 100 % probability (as if no assembly was specified).\n    - A site MUST NOT appear in more than one group.\n\n- **Examples** (for each entry of the assemblies list):\n    - `{\"sites_in_groups\": [[0], [1]], \"group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.\n        Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.\n    - `{\"sites_in_groups\": [[1,2], [3]], \"group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.\n        The second group is formed by the fourth site.\n        Sites of the first group (the second and the third) are never present at the same time as the fourth site.\n        30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).\n\n- **Notes**:\n    - Assemblies are essential to represent, for instance, the situation where an atom can statistically occupy two different positions (sites).\n\n    - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it it is present in two conformations)\n\n    - Considerations on virtual alloys and on vacancies: In the special case of a virtual alloy, these specifications allow two different, equivalent ways of specifying them.\n        For instance, for a site at the origin with 30 % probability of being occupied by Si, 50 % probability of being occupied by Ge, and 20 % of being a vacancy, the following two representations are possible:\n\n        - Using a single species:\n            ```json\n            {\n              \"cartesian_site_positions\": [[0,0,0]],\n              \"species_at_sites\": [\"SiGe-vac\"],\n              \"species\": [\n              {\n                \"name\": \"SiGe-vac\",\n                \"chemical_symbols\": [\"Si\", \"Ge\", \"vacancy\"],\n                \"concentration\": [0.3, 0.5, 0.2]\n              }\n              ]\n              // ...\n            }\n            ```\n\n        - Using multiple species and the assemblies:\n            ```json\n            {\n              \"cartesian_site_positions\": [ [0,0,0], [0,0,0], [0,0,0] ],\n              \"species_at_sites\": [\"Si\", \"Ge\", \"vac\"],\n              \"species\": [\n                { \"name\": \"Si\", \"chemical_symbols\": [\"Si\"], \"concentration\": [1.0] },\n                { \"name\": \"Ge\", \"chemical_symbols\": [\"Ge\"], \"concentration\": [1.0] },\n                { \"name\": \"vac\", \"chemical_symbols\": [\"vacancy\"], \"concentration\": [1.0] }\n              },\n              \"assemblies\": [\n                {\n              \"sites_in_groups\": [ [0], [1], [2] ],\n              \"group_probabilities\": [0.3, 0.5, 0.2]\n                }\n              ]\n              // ...\n            }\n            ```\n\n    - It is up to the database provider to decide which representation to use, typically depending on the internal format in which the structure is stored.\n        However, given a structure identified by a unique ID, the API implementation MUST always provide the same representation for it.\n\n    - The probabilities of occurrence of different assemblies are uncorrelated.\n        So, for instance in the following case with two assemblies:\n        ```json\n        {\n          \"assemblies\": [\n            {\n              \"sites_in_groups\": [ [0], [1] ],\n              \"group_probabilities\": [0.2, 0.8],\n            },\n            {\n              \"sites_in_groups\": [ [2], [3] ],\n              \"group_probabilities\": [0.3, 0.7]\n            }\n          ]\n        }\n        ```\n\n        Site 0 is present with a probability of 20 % and site 1 with a probability of 80 %. These two sites are correlated (either site 0 or 1 is present). Similarly, site 2 is present with a probability of 30 % and site 3 with a probability of 70 %.\n        These two sites are correlated (either site 2 or 3 is present).\n        However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2*0.3 = 6 % probability; the pair (0, 3) with 0.2*0.7 = 14 % probability; the pair (1, 2) with 0.8*0.3 = 24 % probability; and the pair (1, 3) with 0.8*0.7 = 56 % probability)."
+            "description": "A description of groups of sites that are statistically correlated.\n\n- **Type**: list of dictionary with keys:\n    - `sites_in_groups`: list of list of integers (REQUIRED)\n    - `group_probabilities`: list of floats (REQUIRED)\n\n- **Requirements/Conventions**:\n    - **Support**: OPTIONAL support in implementations, i.e., MAY be `null`.\n    - **Query**: Support for queries on this property is OPTIONAL.\n        If supported, filters MAY support only a subset of comparison operators.\n    - The property SHOULD be `null` for entries that have no partial occupancies.\n    - If present, the correct flag MUST be set in the list `structure_features`.\n    - Client implementations MUST check its presence (as its presence changes the interpretation of the structure).\n    - If present, it MUST be a list of dictionaries, each of which represents an assembly and MUST have the following two keys:\n        - **sites_in_groups**: Index of the sites (0-based) that belong to each group for each assembly.\n\n            Example: `[[1], [2]]`: two groups, one with the second site, one with the third.\n            Example: `[[1,2], [3]]`: one group with the second and third site, one with the fourth.\n\n        - **group_probabilities**: Statistical probability of each group. It MUST have the same length as `sites_in_groups`.\n            It SHOULD sum to one.\n            See below for examples of how to specify the probability of the occurrence of a vacancy.\n            The possible reasons for the values not to sum to one are the same as already specified above for the `concentration` of each `species`.\n\n    - If a site is not present in any group, it means that it is present with 100 % probability (as if no assembly was specified).\n    - A site MUST NOT appear in more than one group.\n\n- **Examples** (for each entry of the assemblies list):\n    - `{\"sites_in_groups\": [[0], [1]], \"group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.\n        Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.\n    - `{\"sites_in_groups\": [[1,2], [3]], \"group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.\n        The second group is formed by the fourth site.\n        Sites of the first group (the second and the third) are never present at the same time as the fourth site.\n        30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).\n\n- **Notes**:\n    - Assemblies are essential to represent, for instance, the situation where an atom can statistically occupy two different positions (sites).\n\n    - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it it is present in two conformations)\n\n    - Considerations on virtual alloys and on vacancies: In the special case of a virtual alloy, these specifications allow two different, equivalent ways of specifying them.\n        For instance, for a site at the origin with 30 % probability of being occupied by Si, 50 % probability of being occupied by Ge, and 20 % of being a vacancy, the following two representations are possible:\n\n        - Using a single species:\n            ```json\n            {\n              \"cartesian_site_positions\": [[0,0,0]],\n              \"species_at_sites\": [\"SiGe-vac\"],\n              \"species\": [\n              {\n                \"name\": \"SiGe-vac\",\n                \"chemical_symbols\": [\"Si\", \"Ge\", \"vacancy\"],\n                \"concentration\": [0.3, 0.5, 0.2]\n              }\n              ]\n              // ...\n            }\n            ```\n\n        - Using multiple species and the assemblies:\n            ```json\n            {\n              \"cartesian_site_positions\": [ [0,0,0], [0,0,0], [0,0,0] ],\n              \"species_at_sites\": [\"Si\", \"Ge\", \"vac\"],\n              \"species\": [\n                { \"name\": \"Si\", \"chemical_symbols\": [\"Si\"], \"concentration\": [1.0] },\n                { \"name\": \"Ge\", \"chemical_symbols\": [\"Ge\"], \"concentration\": [1.0] },\n                { \"name\": \"vac\", \"chemical_symbols\": [\"vacancy\"], \"concentration\": [1.0] }\n              ],\n              \"assemblies\": [\n                {\n              \"sites_in_groups\": [ [0], [1], [2] ],\n              \"group_probabilities\": [0.3, 0.5, 0.2]\n                }\n              ]\n              // ...\n            }\n            ```\n\n    - It is up to the database provider to decide which representation to use, typically depending on the internal format in which the structure is stored.\n        However, given a structure identified by a unique ID, the API implementation MUST always provide the same representation for it.\n\n    - The probabilities of occurrence of different assemblies are uncorrelated.\n        So, for instance in the following case with two assemblies:\n        ```json\n        {\n          \"assemblies\": [\n            {\n              \"sites_in_groups\": [ [0], [1] ],\n              \"group_probabilities\": [0.2, 0.8],\n            },\n            {\n              \"sites_in_groups\": [ [2], [3] ],\n              \"group_probabilities\": [0.3, 0.7]\n            }\n          ]\n        }\n        ```\n\n        Site 0 is present with a probability of 20 % and site 1 with a probability of 80 %. These two sites are correlated (either site 0 or 1 is present). Similarly, site 2 is present with a probability of 30 % and site 3 with a probability of 70 %.\n        These two sites are correlated (either site 2 or 3 is present).\n        However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2*0.3 = 6 % probability; the pair (0, 3) with 0.2*0.7 = 14 % probability; the pair (1, 2) with 0.8*0.3 = 24 % probability; and the pair (1, 3) with 0.8*0.7 = 56 % probability)."
           },
           "structure_features": {
             "title": "Structure Features",
@@ -3443,32 +3804,6 @@
           }
         },
         "description": "A set of Links objects, possibly including pagination"
-      },
-      "ValidationError": {
-        "title": "ValidationError",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "loc": {
-            "title": "Location",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "msg": {
-            "title": "Message",
-            "type": "string"
-          },
-          "type": {
-            "title": "Error Type",
-            "type": "string"
-          }
-        }
       },
       "Warnings": {
         "title": "Warnings",
