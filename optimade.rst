@@ -880,7 +880,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 
   Database-provider-specific properties need to include the database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
 
-OPTIONALLY it can also contains the following fields:
+OPTIONALLY it can also contain the following fields:
 
 - **links**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ can OPTIONALLY contain the field
 
