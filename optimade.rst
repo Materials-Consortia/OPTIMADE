@@ -357,7 +357,9 @@ Visiting this URL in a web browser gives a human-readable description of how to 
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
-**Examples**: A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+**Examples**:
+
+- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
@@ -416,7 +418,7 @@ The rationale for treating properties from other databases as unknown rather tha
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
-:filter:`filter=_exmpl1_bandgap<2.0 OR _exmpl2_bandgap<2.5`
+:filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
 Responses
 =========
@@ -1536,7 +1538,7 @@ Examples:
 - :filter:`_exmpl_aax <= +.1e8 OR nelements >= 10 AND NOT ( _exmpl_x != "Some string" OR NOT _exmpl_a = 7)`
 - :filter:`_exmpl_spacegroup="P2"`
 - :filter:`_exmpl_cell_volume<100.0`
-- :filter:`_exmpl_bandgap > 5.0 AND _exmpl_molecular_weight < 350`
+- :filter:`_exmpl_band_gap > 5.0 AND _exmpl_molecular_weight < 350`
 - :filter:`_exmpl_melting_point<300 AND nelements=4 AND chemical_formula_descriptive="SiO2"`
 - :filter:`_exmpl_some_string_property = 42` (This is syntactically allowed without putting 42 in quotation marks, see the notes about comparisons of values of different types below.)
 - :filter:`5 < _exmpl_a`
@@ -1796,11 +1798,11 @@ database-provider-specific properties
 
 - **Examples**: A few examples of valid database-provided-specific property names follows:
 
-  - \_exmpl\_formula\_sum
-  - \_exmpl\_band\_gap
-  - \_exmpl\_supercell
-  - \_exmpl\_trajectory
-  - \_exmpl\_workflow\_id
+  - :property:`_exmpl_formula_sum`
+  - :property:`_exmpl_band_gap`
+  - :property:`_exmpl_supercell`
+  - :property:`_exmpl_trajectory`
+  - :property:`_exmpl_workflow_id`
 
 Structures Entries
 ------------------
@@ -1826,8 +1828,10 @@ elements
   - :val:`["Al","O","Si"]`
 
 - **Query examples**:
+
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: :filter:`elements HAS ALL "Si", "Al", "O"`.
   - To match structures with exactly these three elements, use :filter:`elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
+  - Note: length queries on this property can be equivalently formulated by filtering on the `nelements`_ property directly.
 
 nelements
 ~~~~~~~~~
@@ -1838,6 +1842,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - The integer value MUST be equal to the length of the `elements`_ property.
 
 - **Examples**:
 
@@ -1977,6 +1982,7 @@ chemical\_formula\_anonymous
   - :val:`"A42B42C16D12E10F9G5"`
 
 - **Querying**:
+
   - A filter that matches an exactly given formula is :filter:`chemical_formula_anonymous="A2B"`.
 
 dimension\_types
@@ -2305,7 +2311,9 @@ structure\_features
     - :val:`site_attachments`: this flag MUST be present if any one entry in the `species`_ list includes :field:`attached` and :field:`nattached`.
     - :val:`assemblies`: this flag MUST be present if the property `assemblies`_ is present.
 
--  **Examples**: A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+-  **Examples**:
+
+    - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
 Calculations Entries
 --------------------
