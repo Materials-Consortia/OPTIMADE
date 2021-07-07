@@ -22,3 +22,9 @@ The [develop branch of the repository](https://github.com/Materials-Consortia/OP
 
 API and client implementations are encouraged to support the latest release or pre-release of the specification.
 If this is a pre-release, implementations are also encouraged to support the latest stable release.
+
+## How to cite
+
+Pending the publication of an OPTIMADE paper, we kindly ask that you cite the Zenodo archive for this repository:
+
+> Andersen *et al*, The OPTIMADE Specification, https://doi.org/10.5281/zenodo.4195050
