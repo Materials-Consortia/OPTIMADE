@@ -2116,7 +2116,7 @@ species
   - :property:`concentration`: list of float (REQUIRED)
   - :property:`attached`: list of strings (OPTIONAL)
   - :property:`nattached`: list of integers (OPTIONAL)
-  - :property:`mass`: float (OPTIONAL)
+  - :property:`mass`: list of floats (OPTIONAL)
   - :property:`original_name`: string (OPTIONAL).
 
 - **Requirements/Conventions**:
@@ -2150,7 +2150,8 @@ species
       The implementation MUST include either both or none of the :field:`attached` and :field:`nattached` keys, and if they are provided, they MUST be of the same length.
       Furthermore, if they are provided, the `structure_features`_ property MUST include the string :val:`site_attachments`.
 
-    - **mass**: OPTIONAL. If present MUST be a float expressed in a.m.u.
+    - **mass**: OPTIONAL. If present MUST be a list of floats, with the same length as :property:`chemical_symbols`, providing element masses expressed in a.m.u.
+      Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
           Note: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
@@ -2165,9 +2166,9 @@ species
 
   - :val:`[ {"name": "Ti", "chemical_symbols": ["Ti"], "concentration": [1.0]} ]`: any site with this species is occupied by a Ti atom.
   - :val:`[ {"name": "Ti", "chemical_symbols": ["Ti", "vacancy"], "concentration": [0.9, 0.1]} ]`: any site with this species is occupied by a Ti atom with 90 % probability, and has a vacancy with 10 % probability.
-  - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": 88.5} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability. The mass of this site is (on average) 88.5 a.m.u.
-  - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 12.0} ]`: any site with this species is occupied by a carbon isotope with mass 12.
-  - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": 13.0} ]`: any site with this species is occupied by a carbon isotope with mass 13.
+  - :val:`[ {"name": "BaCa", "chemical_symbols": ["vacancy", "Ba", "Ca"], "concentration": [0.05, 0.45, 0.5], "mass": [0.0, 137.327, 40.078]} ]`: any site with this species is occupied by a Ba atom with 45 % probability, a Ca atom with 50 % probability, and by a vacancy with 5 % probability.
+  - :val:`[ {"name": "C12", "chemical_symbols": ["C"], "concentration": [1.0], "mass": [12.0]} ]`: any site with this species is occupied by a carbon isotope with mass 12.
+  - :val:`[ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": [13.0]} ]`: any site with this species is occupied by a carbon isotope with mass 13.
   - :val:`[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]`: any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
 
 assemblies
