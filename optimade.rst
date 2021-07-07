@@ -1810,7 +1810,7 @@ Structures Entries
 elements
 ~~~~~~~~
 
-- **Description**: Names of the different elements present in the structure.
+- **Description**: The chemical symbols of the different elements present in the structure.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
 
@@ -1919,7 +1919,7 @@ chemical\_formula\_reduced
   - **Query**: MUST be a queryable property.
     However, support for filters using partial string matching with this property is OPTIONAL (i.e., BEGINS WITH, ENDS WITH, and CONTAINS).
     Intricate queries on formula components are instead suggested to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_ratios` properties.
-  - Element names MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
+  - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
   - Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
   - For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
   - For structures with partial occupation, the chemical proportion numbers are integers that within reasonable approximation indicate the correct chemical proportions. The precise details of how to perform the rounding is chosen by the API implementation.
@@ -1949,7 +1949,7 @@ chemical\_formula\_hill
   - The overall scale factor of the chemical proportions is chosen such that the resulting values are integers that indicate the most chemically relevant unit of which the system is composed.
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
-  - Element names MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
+  - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
   - Elements MUST be placed in `Hill order <https://dx.doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
     Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
     After that, all other elements are ordered alphabetically.
@@ -2136,7 +2136,7 @@ species
 
     - **chemical\_symbols**: REQUIRED; MUST be a list of strings of all chemical elements composing this species. Each item of the list MUST be one of the following:
 
-      - a valid chemical-element name, or
+      - a valid chemical-element symbol, or
       - the special value :val:`"X"` to represent a non-chemical element, or
       - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
 
