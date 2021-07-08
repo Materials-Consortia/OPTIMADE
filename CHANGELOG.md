@@ -12,8 +12,8 @@ This is a minor release that primarily patches minor specification errors and in
 
 ### Patches
 
-- The `mass` field of the `species` attribute for the `structures` entry type has been updated from a float to a list of floats ([#344](https://github.com/Materials-Consortia/OPTIMADE/pull/344)). 
-    - This was deemed a specification bug that now is fixed in both the specification text and the schemas. 
+- The `mass` field of the `species` attribute for the `structures` entry type has been updated from a float to a list of floats ([#344](https://github.com/Materials-Consortia/OPTIMADE/pull/344)).
+    - This was deemed a specification bug that now is fixed in both the specification text and the schemas.
     - Note: this could constitute a breaking change for software implemented to strictly adhere to the v1.0.0 specification.
 - The specification text has been clarified in several places without change of intended meaning.
 - Multiple typos, grammatical errors, and incorrect API examples have been fixed.
