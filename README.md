@@ -6,6 +6,7 @@ This repository contains the specification of the OPTIMADE API.
 
 * [optimade.rst](optimade.rst): The API specification.
 * [AUTHORS](AUTHORS): List of contributors.
+* [CHANGELOG](CHANGELOG.md): The release notes for each version of the specification.
 * [optimade.org](https://www.optimade.org): Public OPTIMADE web site
 * [OPTIMADE wiki](https://github.com/Materials-Consortia/OPTIMADE/wiki): Information for developers
 
