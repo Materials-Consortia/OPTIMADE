@@ -8,8 +8,8 @@ This is a minor release that primarily clarifies the specification, with only tw
 
 ### Changes
 
-- The `mass` field of the `species` attribute for the `structures` type has been updated from a float to a list of floats [#344](https://github.com/Materials-Consortia/OPTIMADE/pull/344). This is a breaking change for any implementations that serve this optional field.
-- The `implementation` field of the general `meta` response has been updated to include an `issue_tracker` field [#339](https://github.com/Materials-Consortia/OPTIMADE/pull/339).
+- The `mass` field of the `species` attribute for the `structures` type has been updated from a float to a list of floats ([#344](https://github.com/Materials-Consortia/OPTIMADE/pull/344)). This is a breaking change for any implementations that serve this optional field.
+- The `implementation` field of the general `meta` response has been updated to include an `issue_tracker` field ([#339](https://github.com/Materials-Consortia/OPTIMADE/pull/339)).
 
 ### Fixes
 
