@@ -1132,11 +1132,11 @@ Entry listing info endpoints are accessed under the versioned or unversioned bas
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
-- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is on the OPTIMADE Property Definition format described in detail in the appendix `Property Definitions`_.
+- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the appendix `Property Definitions`_.
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
-Example:
+Example (the multi-line string is indented for readability, but represents a multiline string with no indentation):
 
 .. code:: jsonc
 
@@ -1145,15 +1145,33 @@ Example:
         "description": "a structures entry",
         "properties": {
           "nelements": {
-            "description": "Number of elements",
-            "sortable": true,
-            "type": "integer"
+            "type": ["integer", "null"],
+            "title": "Number of elements",
+            "description": "Number of different elements in the structure as an integer.
+
+              -  Note: queries on this property can equivalently be formulated using `elements LENGTH`.
+              -  A filter that matches structures that have exactly 4 elements: `nelements=4`.
+              -  A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
+            "examples": [
+              3
+            ],
+            "x-optimade-definition": {
+              "version": "1.0.0",
+              "sortable": true,
+              "support": "should",
+              "query": "full"
+            }
           },
           "lattice_vectors": {
-            "description": "Unit cell lattice vectors",
-            "unit": "Ao",
+            "title": "Unit cell lattice vectors",
+            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).
+
+            ...",
+            "x-optimade-unit": "angstrom",
             "sortable": false,
-            "type": "list"
+            "type": "array",
+
+            // ... <further fields defining lattice_vectors>
           }
           // ... <other property descriptions>
         },
@@ -2690,10 +2708,15 @@ A Property Definition is a dictionary that has the following format:
     This format makes it possible for a Property Definition in an Entry Listing Info endpoint to set :field:`x-optimade-property-uri` as a link back to the same Info endpoint.
     However, the field MAY also link to a resource external from the implementation to clarify to clients that a property used in several databases represents the same thing.
 
-  - :field:`support`: Boolean.
-    If :val:`TRUE`, the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD not be :val:`null`.
-    If :val:`FALSE`, the defined property MAY not be recognized by the implementation and MAY be equal to :val:`null`.
-    If the :field:`type` field outside of :field:`x-optimade-definition` is not a list where the string :val:`"null"` is the second element, then the defined property MUST NOT be :val:`null`, regardless of the value of the :field:`support` field.
+  - :field:`support`: String
+    The string MUST be one of the following:
+
+    - "must": the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST not be :val:`null`.
+    - "should", the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD not be :val:`null`.
+    - "may": the defined property MAY not be recognized by the implementation and MAY be equal to :val:`null`.
+
+    Note: the specification in this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field outside of :field:`x-optimade-definition`.
+    If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
 
   - :field:`query`: String.
     The string MUST be one of the following:
