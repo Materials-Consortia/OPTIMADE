@@ -2886,7 +2886,7 @@ A Property Definition is a dictionary that has the following format:
 Physical Units in Property Definitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meters. 
+In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meters.
 The unit is always permanently fixed by the Property Definition.
 Clients and servers that use other units internally thus have to do unit conversions as part of preparing and processing OPTIMADE responses.
 
@@ -2894,7 +2894,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 This field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and in any nested Inner Property Definitions for which the value represented has a physical unit.
 If the value is unitless, e.g., a string representing a chemical formula or an integer counting the number of atoms in the unit cell :field:`x-optimade-unit`: MUST be omitted or given as :val:`null`.
 
-A standard set of unit symbols for OPTIMADE are taken from version 3.09 unit database `definition.units` from `GNU units software <https://www.gnu.org/software/units/>`__. 
+A standard set of unit symbols for OPTIMADE are taken from version 3.09 unit database `definition.units` from `GNU units software <https://www.gnu.org/software/units/>`__.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD be set to the corresponding (compound) string symbol and no further definition be given.
 
 Compound unit expressions are created by combining unit symbols defined in the GNU units database, optionally prefixed by one or more of the prefixes defined in the database (indicated there by trailing '-'), multiplication '*', division '/', and power '^' directly followed by a positive integer.
@@ -2923,7 +2923,7 @@ The :field:`x-optimade-unit` field is a list of dictionaries that has the follow
 **OPTIONAL keys:**
 
 - :field:`standard`: Dictionary.
-  This field is used to define the unit symbol using a preexisting standard. 
+  This field is used to define the unit symbol using a preexisting standard.
   The dictionary has the following format:
 
   **REQUIRED keys:**
@@ -2933,8 +2933,8 @@ The :field:`x-optimade-unit` field is a list of dictionaries that has the follow
     One of the following:
 
     - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
-    - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard. 
-      Not only symbols strictly defined within the QUDT standard are allowed, but also other symbols constructed by following to the scheme for how new unit symbols are formed in this standard. 
+    - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
+      Not only symbols strictly defined within the QUDT standard are allowed, but also other symbols constructed by following to the scheme for how new unit symbols are formed in this standard.
 
   - :field:`version`: String.
     The version string of the referenced standard.
