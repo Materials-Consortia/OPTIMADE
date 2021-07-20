@@ -2321,10 +2321,7 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` contains data belonging to a set of structures. These structures are for example related because they were created by the same procedure, e.g. molecular dynamic trajectories, relaxations of a molecule or crystal structure, Monte Carlo simulations, etc. Some examples of this data are: particle positions, pressure and energies. :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_,`reference\_frame`_,`nframes`_, `available_properties`_ and `next_part_trajectory`_. Next to this they can optionally have all the fields of the structures entries as well as database specific fields.
-
-The reference_structure holds an example structure which can be queried in the same way as the structures in the structures end point.
-The data belonging to the actual trajectory is only returned when this is specifically requested in the `response_field`_ parameter. In this case each property has a dictionary as a value which contains the values of this property and information about which value belongs to which frame. It is possible to request only part of a trajectory and to request only 1 out of every n frames. Querries on individual frames are currently not supported.
+- **Description**: The :entry:`trajectories` contains data belonging to a set of structures. These structures are for example related because they were created by the same procedure, e.g. molecular dynamic trajectories, relaxations of a molecule or crystal structure, Monte Carlo simulations, etc. Some examples of this data are: particle positions, pressure and energies. :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_, `reference\_frame`_, `nframes`_, `available_properties`_ and `next_part_trajectory`_. Next to this they can optionally have all the fields of the structures entries as well as database specific fields. The reference_structure holds an example structure which can be queried in the same way as the structures in the structures end point. The data belonging to the actual trajectory is only returned when this is specifically requested in the :query-param:`response_fields` parameter. In this case each property has a dictionary as a value which contains the values of this property and information about which value belongs to which frame. It is possible to request only part of a trajectory and to request only 1 out of every n frames. Querries on individual frames are currently not supported.
 
 reference\_structure
 ~~~~~~~~~~~~~~~~~~~~
@@ -2333,11 +2330,13 @@ reference\_structure
 - **Description**: This is an example structure which can be used to select trajectories with queries and to give a quick visualization of the kind of structure in the trajectory.
 - **Type**: dictionary
 - **Requirements/Conventions**:
-- Each trajectory MUST have a reference structure.
-- This reference structure MAY be one of the frames from the trajectory, in that case the reference\_frame field MUST specify which frame has been used.
-- Querries on the trajectories MUST be done on the information supplied in the reference\_structure. The subfields of the reference structure MUST have the same queryability as in the structure endpoint.
 
-  This reference frame has the same properties as the structure entries namely:
+  - Each trajectory MUST have a reference structure.
+  - This reference structure MAY be one of the frames from the trajectory, in that case the reference\_frame field MUST specify which frame has been used.
+  - Querries on the trajectories MUST be done on the information supplied in the reference\_structure when the property is in the reference_frame. The subfields of the reference structure MUST have the same queryability as in the structure endpoint.
+
+  - This reference frame has the same properties as the structure entries namely:
+
     - `elements`_
     - `nelements`_
     - `elements\_ratios`_
@@ -2355,21 +2354,21 @@ reference\_structure
     - `assemblies`_
     - `structure\_features`_
 
-It can also have a 'relationships'_ field for references that apply to the entire trajectory rather than to a single frame.
+  - It can also have a 'relationships'_ field for references that apply to the entire trajectory rather than to a single frame.
 
 reference\_frame
 ~~~~~~~~~~~~~~~~
+
 - **Description**: The number of the frame at which the reference structure was taken.
 - **Type**: integer
 - **Requirements/Conventions**:
 
-   - **Support**: MUST be supported if the reference frame is taken from the trajectory, if the reference structure is not in the trajectory, the value, if present, MUST be :val:`null`.
-
-   - **Query**: Support for queries on this property is OPTIONAL.
+  - **Support**: MUST be supported if the reference frame is taken from the trajectory, if the reference structure is not in the trajectory, the value, if present, MUST be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
      If supported, filters MAY support only a subset of comparison operators.
 
 - **Examples**:
-   - :val:`42`
+  - :val:`42`
 
 nframes
 ~~~~~~~
@@ -2377,17 +2376,14 @@ nframes
 - **Description**: The number of the frames in the trajectory.
 - **Type**: integer
 - **Requirements/Conventions**:
-    -   **Support**: MUST be supported by all implementations, i.e.,
+  
+  -   **Support**: MUST be supported by all implementations, i.e.,
         MUST NOT be :val:`null`.
-    -   **Query**: MUST be a queryable property with support for all
+  -   **Query**: MUST be a queryable property with support for all
         mandatory filter features.
-    -   The integer value MUST be equal to the length of the
+  -   The integer value MUST be equal to the length of the
         trajectory, that is, the number of frames.
-    -   The integer MUST be a positive non-zero value.
-
-- **Examples**:
-
-    -   :val:`42`
+  -   The integer MUST be a positive non-zero value.
 
 - **Querying**:
    -   A filter that matches trajectories that have exactly 100 frames:
@@ -2395,6 +2391,9 @@ nframes
    -   A filter that matches trajectories that have between 100 and 1000 frames:
         - :filter:`nframes>=100 AND nframes<=1000`.
 
+- **Examples**:
+
+  -   :val:`42`
 
 available_properties
 ~~~~~~~~~~~~~~~~~~~~
@@ -2405,9 +2404,10 @@ available_properties
 - **Description**: A list of the names of the properties for which data is available in the trajectory. It is up to the server to decide which properties to share and there are no Mandatory fields. When sharing cartesian\_site\_positions the lattice_vectors, dimension_types and species_list MUST, however, be shared as well.
 - **Type**: List of strings
 - **Requirements/Conventions**:
-    -   **Support**: MUST be supported by all implementations, i.e.,
+
+  -   **Support**: MUST be supported by all implementations, i.e.,
         MUST NOT be :val:`null`.
-    -   **Query**: MUST be a queryable property with support for all
+  -   **Query**: MUST be a queryable property with support for all
         mandatory filter features.
 
 - **Examples**:
@@ -2419,10 +2419,11 @@ next_part_trajectory
 - **Description**: When the returned number of frames is less than the total number of frames requested by the client the server MUST supply a link which the client can use to download the remainder of the trajectory.
 - **Type**: Link
 - **Requirements/Conventions**:
-    -   **Support**: MUST be present when the number of returned frames is smaller than the number of requested frames. MUST NOT be present otherwise.
+
+  - **Support**: MUST be present when the number of returned frames is smaller than the number of requested frames. MUST NOT be present otherwise.
 - **Examples**:
 
-  - :query-url:`/`
+  - :query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships,&first_frame=0&frame_step=5`
 
 
 Retrieving the trajectory data
@@ -2438,24 +2439,31 @@ Next to this the Client MAY specify the following parameters to customize the re
 While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
 
 - **first_frame**:
-    - **Description**: **first_frame** specifies the first frame that should be returned.
-    - **Type**: integer
-    - **Requirements/Conventions**: The value MUST be larger or equal to 0 and MUST be less or equal to nframes.(The total number of frames in the trajectory) The default value is 0. If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect name.
-    - **Examples**::query-url:`/trajectories?first_frame=1000`.
+
+  - **Description**: **first_frame** specifies the first frame that should be returned.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be larger or equal to 0 and MUST be less or equal to nframes.(The total number of frames in the trajectory) The default value is 0. If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect name.
+  - **Examples**:
+
+    - :query-url:`/trajectories/traj00000001?first_frame=1000`.
+
 - **last_frame**:
-    - **Description**: **last_frame** specifies the last frame that should be returned.
-    - **Type**: integer
-    - **Requirements/Conventions**: The value MUST be larger or equal to first_frame and MUST be less or equal to nframes. The default value is nframes.If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect name.
-    - **Examples**::query-url:`/trajectories?first_frame=1000`.
-    - **Examples**::query-url:`/trajectories?last_frame=2000`.
+
+  - **Description**: **last_frame** specifies the last frame that should be returned.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be larger or equal to first_frame and MUST be less or equal to nframes. The default value is nframes.If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect name.
+  - **Examples**:
+
+    - :query-url:`/trajectories/traj00000001?last_frame=2000`.
 
 - **frame_step**:
-    - **Description**:  Specifies that only one out of every **frame_step** steps should be returned.
-    - **Type**: integer
-    - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less or equal to . The default value is 1. If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect name.
-    - **Examples**::query-url:`/trajectories?first_frame=1000`.
-    - **Examples**::query-url:`/trajectories?frame_step=10`.
 
+  - **Description**:  Specifies that only one out of every **frame_step** steps should be returned.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less or equal to . The default value is 1. If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect name.
+  - **Examples**:
+
+    - :query-url:`/trajectories/traj00000001?frame_step=10`.
 
 .. The reason that there is a maximum number to the number of frames that are returned is that trajectories may be larger than the amount of memory available and JSON files should be processed whole.
 
@@ -2468,55 +2476,68 @@ Return format for Trajectory Data
 The data is returned in a data major format. i.e. the properties form the highest nesting level. Each property has a dictionary as the value with the fields. The property can be any of the fields described under the structures endpoint as well as a reference entry or a database specific field.
 
 - **frame_encoding**:
-    - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs. This is specified by the frame encoding parameter.
-    - **Type**: string
-    - **Requirements/Conventions**: The value Must be present.
-    - **Values**:
-        - **constant**: The value of the property is constant and thus has the same value for each frame in the trajectory.
-        - **explicit**: A value is given for each frame. The number of values must thus be equal to the number of frames. If for some reason a there is no value for a particular frame the value should be :val:`null`.
-        - **linear**: The value depends linearly on the frame number.
-        - **explicit_regular_sparse**: The value is set at every **offset_sparse** * **step_size_sparse** frames.
-        - **explicit_custom_sparse** : A separate list with frame numbers is present to indicate to which frame a value belongs.
 
--  **offset_linear**:
-     - **Description**: If **frame_encoding** is set to linear this property gives the value at frame 0.
-     - **Type**: float
-     - **Requirements/Conventions**: The value MAY be present when frame_encoding == linear, otherwise the value MUST NOT be present. The default value is 0.
-     - **Examples**:
-        - :val:`1.5`
+  - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs. This is specified by the frame encoding parameter.
+  - **Type**: string
+  - **Requirements/Conventions**: The value Must be present.
+  - **Values**:
+
+    - **constant**: The value of the property is constant and thus has the same value for each frame in the trajectory.
+    - **explicit**: A value is given for each frame. The number of values must thus be equal to the number of frames. If for some reason a there is no value for a particular frame the value should be :val:`null`.
+    - **linear**: The value depends linearly on the frame number.
+    - **explicit_regular_sparse**: The value is set at every **offset_sparse** * **step_size_sparse** frames.
+    - **explicit_custom_sparse** : A separate list with frame numbers is present to indicate to which frame a value belongs.
+
+- **offset_linear**:
+
+  - **Description**: If **frame_encoding** is set to linear this property gives the value at frame 0.
+  - **Type**: float
+  - **Requirements/Conventions**: The value MAY be present when frame_encoding == linear, otherwise the value MUST NOT be present. The default value is 0.
+  - **Examples**:
+
+    - :val:`1.5`
 
 - **step_size_linear**:
-     - **Description**: If **frame_encoding** is set to linear, this value gives the increase/decrease in the value of the property when going from one frame to the next.
-     - **Type**: float
-    - **Requirements/Conventions**: The value MUST be present when frame_encoding == linear. Otherwise it MUST NOT be present.
-    - **Examples**:
-        - :val:`0.0005`
 
--  **offset_sparse**:
-     - **Description**: If **frame_encoding** is set to explicit_regular_sparse this property gives the frame number  to which the first value belongs.
-     - **Type**: integer
-     - **Requirements/Conventions**: The value MAY be present when frame_encoding is set to explicit_regular_sparse, otherwise the value MUST NOT be present. The default value is 0.
-     - **Examples**:
-        - :val:`100`
+  - **Description**: If **frame_encoding** is set to linear, this value gives the increase/decrease in the value of the property when going from one frame to the next.
+  - **Type**: float
+  - **Requirements/Conventions**: The value MUST be present when frame_encoding == linear. Otherwise it MUST NOT be present.
+  - **Examples**:
+
+    - :val:`0.0005`
+
+- **offset_sparse**:
+
+  - **Description**: If **frame_encoding** is set to explicit_regular_sparse this property gives the frame number  to which the first value belongs.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MAY be present when frame_encoding is set to explicit_regular_sparse, otherwise the value MUST NOT be present. The default value is 0.
+  - **Examples**:
+
+    - :val:`100`
 
 - **step_size_sparse**:
-     - **Description**: If **frame_encoding** is set to explicit_regular_sparse, this value indicates that every  step_size_sparse frames a value is defined.
-     - **Type**: integer
-    - **Requirements/Conventions**: The value MUST be present when frame_encoding is set to explicit_regular_sparse. Otherwise it MUST NOT be present.
-    - **Examples**:
-        - :val:`100`
+
+  - **Description**: If **frame_encoding** is set to explicit_regular_sparse, this value indicates that every  step_size_sparse frames a value is defined.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be present when frame_encoding is set to explicit_regular_sparse. Otherwise it MUST NOT be present.
+  - **Examples**:
+
+    - :val:`100`
 
 - **frame_number**:
-     - **Description**: If **frame_encoding** is set to explicit_custom_sparse, this field holds the frames to which the values in the value field belong.
-     - **Type**: List of integers
-     - **Requirements/Conventions**: The value MUST be present when frame_encoding is set to explicit_custom_sparse. Otherwise it MUST NOT be present.
-     - **Examples**:
-        - :val:`[0,20,78,345]`
+
+  - **Description**: If **frame_encoding** is set to explicit_custom_sparse, this field holds the frames to which the values in the value field belong.
+  - **Type**: List of integers
+  - **Requirements/Conventions**: The value MUST be present when frame_encoding is set to explicit_custom_sparse. Otherwise it MUST NOT be present.
+  - **Examples**:
+
+    - :val:`[0,20,78,345]`
 
 - **values**:
-     - **Description**: The values belonging to this property. The format of this field depends on the property and on  the frame_encoding parameter.
-     - **Type**: Any
-     - **Requirements/Conventions**: The value MUST be present. If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level. In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume. This may be usefull for grand canonical simulations where the number of particles in the simulation volume is not constant.
+
+  - **Description**: The values belonging to this property. The format of this field depends on the property and on  the frame_encoding parameter.
+  - **Type**: Any
+  - **Requirements/Conventions**: The value MUST be present. If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level. In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume. This may be usefull for grand canonical simulations where the number of particles in the simulation volume is not constant.
 
 Example of returned trajectory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
