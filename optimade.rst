@@ -2326,7 +2326,7 @@ Trajectories Entries
   These structures are related because they were, for example, created by the same procedure, e.g. molecular dynamic trajectories, relaxations of a molecule or crystal structure, Monte Carlo simulations, etc.
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_, `reference\_frame`_, `nframes`_, `available_properties`_ and `next_part_trajectory`_.
-  Next to this they can optionally have all the fields of the structures entries, including relationships, as well as database specific fields.
+  Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
 
   The `reference\_structure`_ is an example of the kind of structures that are in the trajectory, and it is used to query the trajectory entries in the same way as the structures entries.
   The data belonging to the frames of the trajectory is only returned when this is specifically requested in the :query-param:`response_fields` parameter.
@@ -2366,17 +2366,15 @@ reference\_structure
     - `assemblies`_
     - `structure\_features`_
 
-  - It MAY also have a 'relationships'_ field for references that apply to the entire trajectory rather than to a single frame.
-
 reference\_frame
 ~~~~~~~~~~~~~~~~
 
-- **Description**: The number of the frame at which the reference structure was taken.
+- **Description**: The number of the frame at which the reference\_structure was taken.
 - **Type**: integer
 - **Requirements/Conventions**:
 
-  - **Support**: MUST be supported if the reference frame is taken from the trajectory.
-    If the reference structure is not in the trajectory, the value MUST NOT be present.
+  - **Support**: MUST be supported if the reference\_structure is taken from the trajectory.
+    If the reference\_structure is not in the trajectory, the value MUST NOT be present.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
 
@@ -2488,7 +2486,7 @@ Return format for Trajectory Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The returned data is first grouped per property and then by frame.
-The property can be any of the fields described under `structures entries`_ as well as a reference entry or a database specific field.
+The property can be any of the fields described under `structures entries`_ or a database specific field.
 Each property has a dictionary as the value, with the following fields:
 
 - **frame_encoding**:
@@ -2569,8 +2567,8 @@ Each property has a dictionary as the value, with the following fields:
     In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume.
     This may be useful for grand canonical simulations where the number of particles in the simulation volume is not constant.
 
-Example of returned trajectory
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Examples of a returned trajectory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is an example of the data field of a JSON object that could be returned after the following query:
 :query-url:`http://example.com/optimade/v1/trajectories/traj00000001`
@@ -2580,8 +2578,8 @@ This is an example of the data field of a JSON object that could be returned aft
     "data":{
       "id": "traj00000001",
       "type": "trajectories",
-      "last_modified":"2021-07-16T18:02:03Z"
       "attributes": {
+        "last_modified":"2021-07-16T18:02:03Z"
         "reference_structure":{
           "elements": ["H","O"],
           "nelements": 2,
@@ -2612,16 +2610,6 @@ This is an example of the data field of a JSON object that could be returned aft
               "concentration":[1.0],
             }
           ]
-          "relationships": {
-            "references": {
-              "data": [
-                {
-                  "type": "references",
-                  "id": "dummy/2019"
-                }
-              ]
-            }
-          }
         },
         "reference_frame": 0,
         "nframes": 360,
@@ -2635,23 +2623,33 @@ This is an example of the data field of a JSON object that could be returned aft
           "_exmpl_time",
           "_exmpl_ekin"
         ]
+        "relationships": {
+          "references": {
+            "data": [
+              {
+                "type": "references",
+                "id": "dummy/2019"
+              }
+            ]
+          }
+        }
       },
     },
     ...
 
 After the previous querry is an example of a JSON object that could be returned after the following query:
-:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=0`
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
 
 .. code:: jsonc
 
     "data":{
       "id": "traj00000001",
       "type": "trajectories",
-      "last_modified":"2021-07-16T18:02:03Z"
-      "attributes::{
+      "attributes:{
+        "last_modified":"2021-07-16T18:02:03Z"
         "cartesian_site_positions":{
           "frame_encoding": "explicit",
-          "values": [
+          "values":[
             [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
             [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
             [[2,2,2],[1.238,2.027,1.416],[2.762,1.973,1.416]],
@@ -2683,9 +2681,9 @@ After the previous querry is an example of a JSON object that could be returned 
           "step_size_sparse": 2,
           "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
         },
-        "species" : {
+        "species":{
           "frame_encoding": "constant",
-          "values": [
+          "values":[
             {
               "name":"O1",
               "chemical_symbols":["O"],
@@ -2705,20 +2703,15 @@ After the previous querry is an example of a JSON object that could be returned 
           "frame_encoding": "constant",
           "values":["O1","H1","H2"],
         },
-        "relationships":{
+        "_exmpl_temperature_set":{
           "frame_encoding": "explicit_custom_sparse",
-          "frame_number" : [0,5]
-          "values": {
-            "references":{
-              "data": {
-                "type": "structures",
-                "id": "example.db:structs:1234",
-              }
-            }
-          }
-        },
+          "frames":[0,9],
+          "values":[273,293]
+        }
         "next_part_trajectory":"http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10&"
       }
+    },
+    ...
 
 Calculations Entries
 --------------------
