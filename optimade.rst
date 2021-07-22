@@ -2421,7 +2421,7 @@ available_properties
 
 - **Examples**:
 
-  - :val:`["cartesian\_site\_positions","lattice_vectors","species","dimension_types","species_at_sites","_exmpl_Pressure"]`
+  - :val:`["cartesian_site_positions","lattice_vectors","species","dimension_types","species_at_sites","_exmpl_pressure"]`
 
 next_part_trajectory
 ~~~~~~~~~~~~~~~~~~~~
@@ -2572,144 +2572,153 @@ Each property has a dictionary as the value, with the following fields:
 Example of returned trajectory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is an example of a JSON object that could be returned after the following query:
+This is an example of the data field of a JSON object that could be returned after the following query:
 :query-url:`http://example.com/optimade/v1/trajectories/traj00000001`
 
 .. code:: jsonc
 
-    {
-      "reference_structure":{
-        "elements": ["H","O"],
-        "nelements": 2,
-        "elements_ratios": [0.666667,0.333333],
-        "chemical_formula_descriptive": "H2O",
-        "chemical_formula_reduced": "H2O",
-        "chemical_formula_anonymous": "A2B",
-        "dimension_types":[0,0,0],
-        "nperiodic_dimensions": 0,
-        "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
-        "cartesian_site_positions" : [[2.0,2.0,2.0],[1.238,2.0,1.416],[2.762,2.0,1.416]],
-        "nsites":3,
-        "species_at_sites":["O1","H1","H2"],
-        "species":[
-          {
-            "name":"O1",
-            "chemical_symbols":["O"],
-            "concentration":[1.0],
-          },{
-            "name":"H1",
-            "chemical_symbols":["H"],
-            "concentration":[1.0],
-          },{
-            "name":"H2",
-            "chemical_symbols":["H"],
-            "concentration":[1.0],
-          }
-        ]
-      },
+    "data":{
       "id": "traj00000001",
       "type": "trajectories",
       "last_modified":"2021-07-16T18:02:03Z"
-      "reference_frame": 0,
-      "nframes": 360
-      "relationships": {
-        "references": {
-          "data": [
+      "attributes": {
+        "reference_structure":{
+          "elements": ["H","O"],
+          "nelements": 2,
+          "elements_ratios": [0.666667,0.333333],
+          "chemical_formula_descriptive": "H2O",
+          "chemical_formula_reduced": "H2O",
+          "chemical_formula_anonymous": "A2B",
+          "dimension_types":[0,0,0],
+          "nperiodic_dimensions": 0,
+          "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
+          "cartesian_site_positions" : [[2.0,2.0,2.0],[1.238,2.0,1.416],[2.762,2.0,1.416]],
+          "nsites":3,
+          "species_at_sites":["O1","H1","H2"],
+          "species":[
             {
-              "type": "references",
-              "id": "dummy/2019"
+              "name":"O1",
+              "chemical_symbols":["O"],
+              "concentration":[1.0],
+            },
+            {
+              "name":"H1",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            },
+            {
+              "name":"H2",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
             }
           ]
-        }
-      }
-      "available_properties":[
-        "cartesian_site_positions",
-        "species",
-        "dimension_types",
-        "lattice_vectors",
-        "species_at_sites",
-        "_exmpl_temperature_set",
-        "_exmpl_time",
-        "_exmpl_ekin"
-      ]
-    }
+          "relationships": {
+            "references": {
+              "data": [
+                {
+                  "type": "references",
+                  "id": "dummy/2019"
+                }
+              ]
+            }
+          }
+        },
+        "reference_frame": 0,
+        "nframes": 360,
+        "available_properties":[
+          "cartesian_site_positions",
+          "species",
+          "dimension_types",
+          "lattice_vectors",
+          "species_at_sites",
+          "_exmpl_temperature_set",
+          "_exmpl_time",
+          "_exmpl_ekin"
+        ]
+      },
+    },
+    ...
 
 After the previous querry is an example of a JSON object that could be returned after the following query:
 :query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=0`
 
 .. code:: jsonc
 
-    {
+    "data":{
       "id": "traj00000001",
       "type": "trajectories",
-      "cartesian_site_positions":{
-        "frame_encoding": "explicit",
-        "values": [
-          [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
-          [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
-          [[2,2,2],[1.238,2.027,1.416],[2.762,1.973,1.416]],
-          [[2,2,2],[1.239,2.040,1.416],[2.761,1.960,1.416]],
-          [[2,2,2],[1.240,2.053,1.416],[2.760,1.947,1.416]],
-          [[2,2,2],[1.241,2.066,1.416],[2.759,1.934,1.416]],
-          [[2,2,2],[1.242,2.080,1.416],[2.758,1.920,1.416]],
-          [[2,2,2],[1.244,2.093,1.416],[2.756,1.907,1.416]],
-          [[2,2,2],[1.245,2.106,1.416],[2.755,1.894,1.416]],
-          [[2,2,2],[1.247,2.119,1.416],[2.753,1.881,1.416]],
-          [[2,2,2],[1.250,2.132,1.416],[2.750,1.868,1.416]]
-      ]
-      },
-      "lattice_vectors":{
-        "frame_encoding": "constant",
-        "values:[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
-      },
-      "dimension_types":{
-        "frame_encoding": "constant",
-        "values:[0,0,0]
-      },
-      "_exmpl_time":{
-        "frame_encoding": "linear",
-        "offset_linear": 0,
-        "step_size_linear": 1.5
-      },
-      "_exmpl_ekin":{
-        "frame_encoding": "explicit_regular_sparse",
-        "step_size_sparse": 2,
-        "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
-      },
-      "species" : {
-        "frame_encoding": "constant",
-        "values": [
-          {
-            "name":"O1",
-            "chemical_symbols":["O"],
-            "concentration":[1.0],
-          },{
-            "name":"H1",
-            "chemical_symbols":["H"],
-            "concentration":[1.0],
-          },{
-            "name":"H2",
-            "chemical_symbols":["H"],
-            "concentration":[1.0],
+      "last_modified":"2021-07-16T18:02:03Z"
+      "attributes::{
+        "cartesian_site_positions":{
+          "frame_encoding": "explicit",
+          "values": [
+            [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
+            [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
+            [[2,2,2],[1.238,2.027,1.416],[2.762,1.973,1.416]],
+            [[2,2,2],[1.239,2.040,1.416],[2.761,1.960,1.416]],
+            [[2,2,2],[1.240,2.053,1.416],[2.760,1.947,1.416]],
+            [[2,2,2],[1.241,2.066,1.416],[2.759,1.934,1.416]],
+            [[2,2,2],[1.242,2.080,1.416],[2.758,1.920,1.416]],
+            [[2,2,2],[1.244,2.093,1.416],[2.756,1.907,1.416]],
+            [[2,2,2],[1.245,2.106,1.416],[2.755,1.894,1.416]],
+            [[2,2,2],[1.247,2.119,1.416],[2.753,1.881,1.416]],
+            [[2,2,2],[1.250,2.132,1.416],[2.750,1.868,1.416]]
+          ]
+        },
+        "lattice_vectors":{
+          "frame_encoding": "constant",
+          "values:[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
+        },
+        "dimension_types":{
+          "frame_encoding": "constant",
+          "values:[0,0,0]
+        },
+        "_exmpl_time":{
+          "frame_encoding": "linear",
+          "offset_linear": 0,
+          "step_size_linear": 1.5
+        },
+        "_exmpl_ekin":{
+          "frame_encoding": "explicit_regular_sparse",
+          "step_size_sparse": 2,
+          "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
+        },
+        "species" : {
+          "frame_encoding": "constant",
+          "values": [
+            {
+              "name":"O1",
+              "chemical_symbols":["O"],
+              "concentration":[1.0],
+            },{
+              "name":"H1",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            },{
+              "name":"H2",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            }
+          ]
+        },
+        "species_at_sites":{
+          "frame_encoding": "constant",
+          "values":["O1","H1","H2"],
+        },
+        "relationships":{
+          "frame_encoding": "explicit_custom_sparse",
+          "frame_number" : [0,5]
+          "values": {
+            "references":{
+              "data": {
+                "type": "structures",
+                "id": "example.db:structs:1234",
+              }
+            }
           }
-        ]
-      },
-      "species_at_sites":{
-        "frame_encoding": "constant",
-        "values":["O1","H1","H2"],
-      },
-      "relationships":{
-        "frame_encoding": "explicit_custom_sparse",
-        "frame_number" : [0,5,20]
-        "values": {
-          "data": {
-            "type": "structures",
-            "id": "example.db:structs:1234",
-          }
-        }
-      },
-      "next_part_trajectory":"http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10&"
-    }
+        },
+        "next_part_trajectory":"http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10&"
+      }
 
 Calculations Entries
 --------------------
