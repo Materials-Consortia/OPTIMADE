@@ -196,6 +196,12 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     This is particularly relevant for the default JSON-based response format.
     In this case, **field** refers to the name part of the name-value pairs of JSON objects.
 
+**Trajectory**
+    A Trajectory contains data belonging to a set of structures. Usually this data will come from molecular dynamics simulations. It can however also contain data from structures that are related in an different way. For example the successive structures from a Monte Carlo simulation.
+
+**Frame**
+    An individual structure or data belonging to an individual structure from a trajectory.
+
 Data types
 ----------
 
@@ -323,7 +329,7 @@ Index Meta-Database
 A database provider MAY publish a special Index Meta-Database base URL. The main purpose of this base URL is to allow for automatic discoverability of all databases of the provider. Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
-It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures`).
+It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures` and :endpoint:`trajectories`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
@@ -2322,8 +2328,8 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry point contains data belonging to a set of structures.
-  These structures are related because they were, for example, created by the same procedure, e.g. molecular dynamic trajectories, relaxations of a molecule or crystal structure, Monte Carlo simulations, etc.
+- **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations. Usually this data will come from molecular dynamics simulations. It can however also be used to share data from structures that are related in an other way. For example the successive structures from a Monte Carlo simulation.
+
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_, `reference\_frame`_, `nframes`_, `available_properties`_ and `next_part_trajectory`_.
   Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
