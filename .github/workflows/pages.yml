@@ -34,7 +34,8 @@ jobs:
 
     - name: Commit to gh-pages
       run: |
-        git checkout -B gh-pages
+        git branch -D gh-pages
+        git checkout -b gh-pages
         git config user.name "${COMMIT_AUTHOR}"
         git config user.name "${COMMIT_AUTHOR_EMAIL}"
         git add optimade.html
