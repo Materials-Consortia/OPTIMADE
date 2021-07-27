@@ -2331,7 +2331,7 @@ Trajectories Entries
 - **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations. Usually this data will come from molecular dynamics simulations. It can however also be used to share data from structures that are related in an other way. For example the successive structures from a Monte Carlo simulation.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_, `reference\_frame`_, `nframes`_, `available_properties`_ and `next_part_trajectory`_.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_, `reference\_frame`_, `nframes`_ and `available_properties`_.
   Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
 
   The `reference\_structure`_ is an example of the kind of structures that are in the trajectory, and it is used to query the trajectory entries in the same way as the structures entries.
@@ -2427,19 +2427,6 @@ available_properties
 
   - :val:`["cartesian_site_positions","lattice_vectors","species","dimension_types","species_at_sites","_exmpl_pressure"]`
 
-next_part_trajectory
-~~~~~~~~~~~~~~~~~~~~
-- **Description**: This is a link the client can use to download the remainder of the trajectory data when the server returns fewer frames than the client requested.
-- **Type**: Link
-- **Requirements/Conventions**:
-
-  - **Support**: MUST be present when the number of returned frames is smaller than the number of requested frames.
-    MUST NOT be present otherwise.
-- **Examples**:
-    If, for example, the server has returned data on the first 30 frames it could provide this link to the client to download the next part of the trajectory.
-
-  - :query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,species,species_at_sites&first_frame=30`
-
 
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2486,7 +2473,7 @@ The numbering of the frames is zero based, so the first frame is frame number 0.
     - :query-url:`/trajectories/traj00000001?frame_step=10`.
 
 The server can decide how many frames are returned for each request.
-If the number of frames returned is less than the total number of frames requested by a client the server has to supply a link in the field `next_part_trajectory`_ which the client can use to download the rest of the trajectory.
+If the number of frames returned is less than the total number of frames requested by a client the server has to supply a link in the :field:`next` field of the :field:`links` section of the JSON response, which the client can use to download the rest of the trajectory.
 
 Return format for Trajectory Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2714,9 +2701,18 @@ After the previous querry is an example of a JSON object that could be returned 
           "frames":[0,9],
           "values":[273,293]
         }
-        "next_part_trajectory":"http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10&"
+        "next_part_trajectory"
       }
     },
+    "links":{
+      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
+      "base_url": {
+        "href": "http://example.com/optimade",
+        "meta": {
+          "_exmpl_db_version": "3.2.1"
+        }
+      }
+    }
     ...
 
 Calculations Entries
