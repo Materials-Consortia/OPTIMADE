@@ -33,7 +33,7 @@ jobs:
 
     - name: Commit to gh-pages
       run: |
-        git branch -D gh-pages
+        git branch -D gh-pages || true
         git checkout -b gh-pages
         git config user.name "${COMMIT_AUTHOR}"
         git config user.name "${COMMIT_AUTHOR_EMAIL}"
