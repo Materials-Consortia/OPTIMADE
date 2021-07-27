@@ -1,0 +1,51 @@
+name: Build GitHub pages
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+
+  build_html:
+    runs-on: ubuntu-latest
+
+    env:
+      COMMIT_AUTHOR: Pages Deployment
+      COMMIT_AUTHOR_EMAIL: action@github.com
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Strip .. comment block from rst
+      run: sed -i "s/.. comment/..  /g" optimade.rst
+
+    - name: Run Pandoc
+      run: |
+        docker pull pandoc/ubuntu
+        docker run -v $(pwd):/mnt pandoc/ubuntu \
+          --standalone \
+          --output=/mnt/optimade.html \
+          --to=html \
+          --metadata-file=/mnt/.github/pages/metadata.yml \
+          /mnt/optimade.rst
+
+    - name: Commit to gh-pages
+      run: |
+        git checkout -B gh-pages
+        git config user.name "${COMMIT_AUTHOR}"
+        git config user.name "${COMMIT_AUTHOR_EMAIL}"
+        git add optimade.html
+        git commit -m "Deploy to GitHub Pages: ${SHA}"
+        if git diff --cached --quiet; then
+            exit 0
+        fi
+
+    - name: Push changes
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        branch: gh-pages
+        force: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
