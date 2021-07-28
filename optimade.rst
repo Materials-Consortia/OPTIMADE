@@ -786,7 +786,7 @@ The API implementation MAY provide other entry types than the ones standardized 
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
 Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
-Any custom entry listing endpoint MUST also be added to the :property:`available\_endpoints` and :property:`entry\_types\_by\_format` attributes of the `Base Info Endpoint`_.
+Any custom entry listing endpoint MUST also be added to the :property:`available_endpoints` and :property:`entry_types_by_format` attributes of the `Base Info Endpoint`_.
 
 For more on custom endpoints, see `Custom Extension Endpoints`_.
 
@@ -871,7 +871,7 @@ Examples:
 
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_key=A3242DSFJFEJE`
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_warning_verbosity=10`
-- :query-url:`http://example.com/optimade/v1/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
+- :query-url:`http://example.com/optimade/v1/structures?_exmpl_filter="elements all in [Al, Si, Ga]"`
 
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
@@ -1828,7 +1828,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
-  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements\_ratios`_, if the latter is provided.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements_ratios`_, if the latter is provided.
   - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
 
 - **Examples**:
@@ -1851,7 +1851,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - MUST be equal to the lengths of the list properties `elements`_ and `elements\_ratios`_, if they are provided.
+  - MUST be equal to the lengths of the list properties `elements`_ and `elements_ratios`_, if they are provided.
 
 - **Examples**:
 
@@ -1999,8 +1999,8 @@ dimension\_types
 ~~~~~~~~~~~~~~~~
 
 - **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
-  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
+  For each of the three directions indicated by the three lattice vectors (see property `lattice_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
 
@@ -2019,18 +2019,18 @@ dimension\_types
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension\_types`_.
+- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension_types`_.
 - **Type**: integer
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension\_types`_ property.
+  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension_types`_ property.
   - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
 
 - **Examples**:
 
-  - :val:`2` should be indicated in cases where :property:`dimension\_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
+  - :val:`2` should be indicated in cases where :property:`dimension_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
 
 - **Query examples**:
 
@@ -2050,10 +2050,10 @@ lattice\_vectors
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension\_types`_.
+  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`_.
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension\_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
+  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
     If a lattice vector contains the value :val:`null`, all coordinates of that lattice vector MUST be :val:`null`.
 
 - **Examples**:
@@ -2331,10 +2331,10 @@ Trajectories Entries
 - **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations. Usually this data will come from molecular dynamics simulations. It can however also be used to share data from structures that are related in an other way. For example the successive structures from a Monte Carlo simulation.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference\_structure`_, `reference\_frame`_, `nframes`_ and `available_properties`_.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
   Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
 
-  The `reference\_structure`_ is an example of the kind of structures that are in the trajectory, and it is used to query the trajectory entries in the same way as the structures entries.
+  The `reference_structure`_ is an example of the kind of structures that are in the trajectory, and it is used to query the trajectory entries in the same way as the structures entries.
   The data belonging to the frames of the trajectory is only returned when this is specifically requested in the :query-param:`response_fields` parameter.
   In this case each property has a dictionary as a value which contains the values of this property and information about which value belongs to which frame.
   It is possible to request only part of a trajectory and to request only 1 out of every n frames.
@@ -2349,38 +2349,38 @@ reference\_structure
 - **Requirements/Conventions**:
 
   - Each trajectory MUST have a reference_structure.
-  - This reference_structure MAY be one of the frames from the trajectory, in that case the `reference\_frame`_ field MUST specify which frame has been used.
-  - Queries on the trajectories MUST be done on the information supplied in the reference\_structure when the queried property is in the reference\_structure.
-    The subfields of the reference\_structure MUST have the same queryability as in the `structures entries`_.
+  - This reference_structure MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
+  - Queries on the trajectories MUST be done on the information supplied in the reference_structure when the queried property is in the reference_structure.
+    The subfields of the reference_structure MUST have the same queryability as in the `structures entries`_.
 
   - This reference frame has the same properties as the structure entries namely:
 
     - `elements`_
     - `nelements`_
-    - `elements\_ratios`_
-    - `chemical\_formula\_descriptive`_
-    - `chemical\_formula\_reduced`_
-    - `chemical\_formula\_hill`_
-    - `chemical\_formula\_anonymous`_
-    - `dimension\_types`_
-    - `nperiodic\_dimensions`_
-    - `lattice\_vectors`_
-    - `cartesian\_site\_positions`_
+    - `elements_ratios`_
+    - `chemical_formula_descriptive`_
+    - `chemical_formula_reduced`_
+    - `chemical_formula_hill`_
+    - `chemical_formula_anonymous`_
+    - `dimension_types`_
+    - `nperiodic_dimensions`_
+    - `lattice_vectors`_
+    - `cartesian_site_positions`_
     - `nsites`_
-    - `species\_at\_sites`_
+    - `species_at_sites`_
     - `species`_
     - `assemblies`_
-    - `structure\_features`_
+    - `structure_features`_
 
-reference\_frame
+reference_frame
 ~~~~~~~~~~~~~~~~
 
-- **Description**: The number of the frame at which the reference\_structure was taken.
+- **Description**: The number of the frame at which the reference_structure was taken.
 - **Type**: integer
 - **Requirements/Conventions**:
 
-  - **Support**: MUST be supported if the reference\_structure is taken from the trajectory.
-    If the reference\_structure is not in the trajectory, the value MUST NOT be present.
+  - **Support**: MUST be supported if the reference_structure is taken from the trajectory.
+    If the reference_structure is not in the trajectory, the value MUST NOT be present.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
 
@@ -2416,7 +2416,7 @@ available_properties
 
 - **Description**: A list of the names of the properties for which data is available in the trajectory.
   It is up to the server to decide which properties to share and there are no mandatory fields.
-  When sharing `cartesian\_site\_positions`_ the lattice_vectors, species, dimension_types and species_at_sites MUST be shared as well.
+  When sharing `cartesian_site_positions`_ the lattice_vectors, species, dimension_types and species_at_sites MUST be shared as well.
 - **Type**: List of strings
 - **Requirements/Conventions**:
 
@@ -2431,9 +2431,9 @@ available_properties
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The preceding properties 7.3.1-4 and the fields described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response\_fields property` (see the section `Entry Listing URL Query Parameters`_) is specified.
+The preceding properties 7.3.1-4 and the fields described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
 
-The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response\_fields.
+The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
 Next to this the client MAY specify the following parameters to customize the return from the server.
 While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
@@ -2631,7 +2631,7 @@ This is an example of the data field of a JSON object that could be returned aft
     ...
 
 After the previous querry is an example of a JSON object that could be returned after the following query:
-:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
 
 .. code:: jsonc
 
@@ -2705,7 +2705,7 @@ After the previous querry is an example of a JSON object that could be returned 
       }
     },
     "links":{
-      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response\_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
+      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
       "base_url": {
         "href": "http://example.com/optimade",
         "meta": {
