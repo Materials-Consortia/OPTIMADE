@@ -1571,15 +1571,13 @@ Examples:
 Comparisons of boolean values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Apart from straightforward comparisons ('=' and '!=') other usual comparison operators ('<', '>', '<=', '>=') MUST be supported.
-In such comparisons TRUE is held greater than FALSE.
+Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
+Other usual comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
 
 Examples:
 
 - :filter:`property = TRUE`
 - :filter:`property != FALSE`
-- :filter:`property > FALSE`
-- :filter:`property <= TRUE` (note: this will match all entries.)
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
