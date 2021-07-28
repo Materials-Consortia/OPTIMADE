@@ -1576,10 +1576,10 @@ In such comparisons TRUE is held greater than FALSE.
 
 Examples:
 
-- :filter:`true = TRUE`
-- :filter:`true != FALSE`
-- :filter:`true > FALSE`
-- :filter:`anything <= TRUE`: matches all entries.
+- :filter:`property = TRUE`
+- :filter:`property != FALSE`
+- :filter:`property > FALSE`
+- :filter:`property <= TRUE` (note: this will match all entries.)
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
