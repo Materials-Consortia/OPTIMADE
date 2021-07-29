@@ -23,7 +23,7 @@ This is a minor release that primarily patches minor specification errors and in
 
 This is release v1.0.1 of the OPTIMADE API specification.
 
-This release contains all of the patches from [v1.1.0](https://github.com/Materials-Consortia/OPTIMADE/releases/tag/v1.1.0), whilst maintaining compatibility with v1.0.
+This release contains all of the patches from [v1.1.0](https://github.com/Materials-Consortia/OPTIMADE/releases/tag/v1.1.0), whilst maintaining compatibility with v1.0.0.
 
 ## v1.0.0 (July 1, 2020)
 
