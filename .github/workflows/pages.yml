@@ -27,6 +27,8 @@ jobs:
         docker run -v $(pwd):/mnt pandoc/ubuntu \
           --standalone \
           --output=/mnt/optimade.html \
+          --toc \
+          --number-sections \
           --to=html \
           --metadata-file=/mnt/.github/pages/metadata.yml \
           /mnt/optimade.rst
