@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.1 (July 28, 2021)
+## v1.0.1 (August 10, 2021)
 
 This is release v1.0.1 of the OPTIMADE API specification.
 
