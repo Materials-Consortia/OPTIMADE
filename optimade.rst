@@ -19,10 +19,10 @@ OPTIMADE API specification v1.1.0~develop
 
      # OPTIMADE concepts
 
-     entry : names of type of resources served via OPTIMADE pertaining to data in a database.
-     property : data item that pertains to an entry.
+     entry : names of type of resources, served via OPTIMADE, pertaining to data in a database.
+     property : data item that belongs to an entry.
      val : value examples that properties can be.
-           :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+           :val: is ONLY used when referencing values of actual properties, i.e., information that belongs to the database.
      type : data type of values.
             MUST equal a valid OPTIMADE data type as listed and defined under `Data types`_.
 
@@ -146,14 +146,14 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
-    For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
+    For example, a :entry:`structures` entry is comprised by data that belong to a single structure.
 
 **Entry type**
     Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
 
 **Entry property**
-    One data item which pertains to an entry, e.g., the chemical formula of a structure.
+    One data item which belongs to an entry, e.g., the chemical formula of a structure.
 
 **Entry property name**
     The name of an entry property.
@@ -162,7 +162,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Relationship**
     Any entry can have one or more relationships with other entries.
     These are described in section `Relationships`_.
-    Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
+    Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
     An expression used to influence the entries returned in the response to an URL query.
@@ -987,7 +987,7 @@ Info endpoints provide introspective information, either about the API implement
 There are two types of info endpoints:
 
 1. Base info endpoints: placed directly under the versioned or unversioned base URL that serves the API (e.g., http://example.com/optimade/v1/info or http://example.com/optimade/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
+2. Entry listing info endpoints: placed under the endpoints belonging to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
