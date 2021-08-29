@@ -26,7 +26,10 @@ If this is a pre-release, implementations are also encouraged to support the lat
 
 ## How to cite
 
-Pending the publication of an OPTIMADE paper, we kindly ask that you cite the preprint and Zenodo archive for this repository:
+If you use OPTIMADE to access or host data, we kindly ask that you cite our paper:
 
-- Andersen *et al*, OPTIMADE: an API for exchanging materials data, arXiv:2103.02068 https://arxiv.org/abs/2103.02068
-- Andersen *et al*, The OPTIMADE Specification, https://doi.org/10.5281/zenodo.4195050
+- Andersen *et al*, OPTIMADE, an API for exchanging materials data, *Sci. Data* **8**, 217 (2021) [10.1038/s41597-021-00974-z](https://doi.org/10.1038/s41597-021-00974-z)
+
+To cite an individual version of the specification, please use the versioned records on Zenodo:
+
+- Andersen *et al*, The OPTIMADE Specification, *Zenodo*, [10.5281/zenodo.4195050](https://doi.org/10.5281/zenodo.4195050)
