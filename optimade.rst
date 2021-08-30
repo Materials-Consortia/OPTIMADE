@@ -2416,7 +2416,7 @@ available_properties
 
 - **Description**: A list of the names of the properties for which data is available in the trajectory.
   It is up to the server to decide which properties to share and there are no mandatory fields.
-  When sharing `cartesian_site_positions`_ the lattice_vectors, species, dimension_types and species_at_sites MUST be shared as well.
+  When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST be shared as well.
 - **Type**: List of strings
 - **Requirements/Conventions**:
 
