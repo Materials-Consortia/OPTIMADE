@@ -1573,6 +1573,8 @@ Comparisons of boolean values
 
 Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
 Other usual comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
+It should be noted that boolean values are supposed to be used only in direct comparisons with properties, but not compound comparisons.
+For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
 
 Examples:
 
