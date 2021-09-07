@@ -1489,6 +1489,8 @@ However, testing for equality to zero MUST be supported.
 
 More examples of the number tokens and machine-readable definitions and tests can be found in the `Materials-Consortia API Git repository <https://github.com/Materials-Consortia/API/>`__ (files `integers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst>`__, `not-numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst>`__, `numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst>`__, and `reals.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst>`__).
 
+- **Boolean values** are represented with the tokens :filter-op:`TRUE` and :filter-op:`FALSE`.
+
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
   Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
 
@@ -1565,6 +1567,19 @@ Examples:
 
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
 - :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
+
+Comparisons of boolean values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
+Other usual comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
+It should be noted that boolean values are supposed to be used only in direct comparisons with properties, but not compound comparisons.
+For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
+
+Examples:
+
+- :filter:`property = TRUE`
+- :filter:`property != FALSE`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2479,7 +2494,7 @@ The Filter Language EBNF Grammar
 
     Constant = String | Number ;
 
-    Value = String | Number | Property ;
+    Value = String | Number | BooleanValue | Property ;
     (* Note: support for Property in Value is OPTIONAL *)
 
     ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
@@ -2570,6 +2585,10 @@ The Filter Language EBNF Grammar
     (* Comparison operator tokens: *)
 
     Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
+
+    (* Boolean values *)
+
+    BooleanValue = ( 'TRUE' | 'FALSE' ), [Spaces] ;
 
     (* Property syntax *)
 
