@@ -2550,7 +2550,7 @@ Relationships with files may be used to relate an entry with any number of :entr
           "id": "example.db:files:1234",
           "attributes": {
             "media_type": "chemical/x-cif",
-            "url": "https://example.db/files/1234.cif"
+            "url": "https://example.org/files/cifs/1234.cif"
           }
         }
       ]
