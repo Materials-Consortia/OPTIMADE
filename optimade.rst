@@ -2371,6 +2371,66 @@ Example:
       }
     }
 
+Files Entries
+-------------
+
+The :entry:`files` entries describe files.
+The following properties are used to do so:
+
+url
+~~~
+
+- **Description**: The URL to get the contents of a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - **Response**: REQUIRED in the response.
+
+- **Examples**:
+
+  - :val:`"https://example.org/files/cifs/1000000.cif"`
+
+name
+~~~~
+
+- **Description**: base name of a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"1000000.cif"`
+
+media\_type
+~~~~~~~~~~~
+
+- **Description**: media type identifier for a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"chemical/x-cif"`
+
+version
+~~~~~~~
+
+- **Description**: version information of a file (e.g. commit, revision, timestamp)
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
@@ -2461,6 +2521,40 @@ Relationships with calculations MAY be used to indicate provenance where a struc
     **Note**: We intend to implement in a future version of this API a standardized mechanism to differentiate these two cases, thus allowing databases a common way of exposing the full provenance tree with inputs and outputs between structures and calculations.
 
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
+
+Files
+~~~~~
+
+Relationships with files may be used to relate an entry with any number of :entry:`files` entries.
+
+.. code:: jsonc
+
+    {
+      "data": {
+        "type": "structures",
+        "id": "example.db:structs:1234",
+        "attributes": {
+          "formula": "H2O"
+        },
+        "relationships": {
+          "files": {
+            "data": [
+              { "type": "files", "id": "example.db:files:1234" }
+            ]
+          }
+        }
+      },
+      "included": [
+        {
+          "type": "files",
+          "id": "example.db:files:1234",
+          "attributes": {
+            "media_type": "chemical/x-cif",
+            "url": "https://example.org/files/cifs/1234.cif"
+          }
+        }
+      ]
+    }
 
 Appendices
 ==========
