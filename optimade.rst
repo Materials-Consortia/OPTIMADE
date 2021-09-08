@@ -2392,7 +2392,7 @@ url
 
 - **Examples**:
 
-  - :val:`"https://www.crystallography.net/cod/1000000.cif"`
+  - :val:`"https://example.org/files/cifs/1000000.cif"`
 
 name
 ~~~~
