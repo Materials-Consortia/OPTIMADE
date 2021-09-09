@@ -2443,7 +2443,7 @@ The numbering of the frames is zero based, so the first frame is frame number 0.
 
   - **Description**: **first_frame** specifies the first frame that should be returned.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to 0 and MUST be less than or equal to nframes.(The total number of frames in the trajectory)
+  - **Requirements/Conventions**: The value MUST be larger or equal to 0 and MUST be less than nframes.(The total number of frames in the trajectory)
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
     The default value is 0.
   - **Examples**:
@@ -2454,7 +2454,7 @@ The numbering of the frames is zero based, so the first frame is frame number 0.
 
   - **Description**: **last_frame** specifies the last frame that should be returned.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to first_frame and MUST be less than or equal to nframes(the total number of frames in the trajectory).
+  - **Requirements/Conventions**: The value MUST be larger or equal to first_frame and MUST be less than nframes(the total number of frames in the trajectory).
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
     The default value is nframes.
   - **Examples**:
