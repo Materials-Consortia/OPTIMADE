@@ -1,4 +1,4 @@
-=========================================
+c=========================================
 OPTIMADE API specification v1.1.0~develop
 =========================================
 
@@ -2340,7 +2340,7 @@ Trajectories Entries
   It is possible to request only part of a trajectory and to request only 1 out of every n frames.
   Queries on individual frames are currently not supported.
 
-reference\_structure
+reference_structure
 ~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: This is an example of the structures that can be found in the trajectory.
@@ -2375,9 +2375,9 @@ reference\_structure
 reference_frame
 ~~~~~~~~~~~~~~~~
 
-- **Description**: The number of the frame at which the reference_structure was taken.
+- **Description**: The number of the frame at which the reference_structure was taken. The first frame is frame 0.
 - **Type**: integer
-- **Requirements/Conventions**:
+- **Requirements/Conventions**: The value MUST be equal or larger than 0 and less than nframes.
 
   - **Support**: MUST be supported if the reference_structure is taken from the trajectory.
     If the reference_structure is not in the trajectory, the value MUST NOT be present.
@@ -2482,7 +2482,7 @@ The returned data is first grouped per property and then by frame.
 The property can be any of the fields described under `structures entries`_ or a database specific field.
 Each property has a dictionary as the value, with the following fields:
 
-- **frame_encoding**:
+- **frame_serialization_format**:
 
   - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs.
     This is specified by the frame encoding parameter.
@@ -2497,13 +2497,13 @@ Each property has a dictionary as the value, with the following fields:
     - **linear**: The value is a linear function of the frame number.
       This function is defined by offset_linear and step_size_linear.
     - **explicit_regular_sparse**: The value is set every one per **step_size_sparse** frames, with **offset_sparse** as the first frame.
-    - **explicit_custom_sparse**: A separate list with frame numbers is defined in the field frame_number to indicate to which frame a value belongs.
+    - **explicit_custom_sparse**: A separate list with frame numbers is defined in the field **sparse_frames** to indicate to which frame a value belongs.
 
 - **offset_linear**:
 
-  - **Description**: If **frame_encoding** is set to "linear" this property gives the value at frame 0.
+  - **Description**: If **frame_serialization_format** is set to "linear" this property gives the value at frame 0.
   - **Type**: float
-  - **Requirements/Conventions**: The value MAY be present when **frame_encoding** is set to "linear", otherwise the value MUST NOT be present.
+  - **Requirements/Conventions**: The value MAY be present when **frame_serialization_format** is set to "linear", otherwise the value MUST NOT be present.
     The default value is 0.
   - **Examples**:
 
@@ -2511,9 +2511,9 @@ Each property has a dictionary as the value, with the following fields:
 
 - **step_size_linear**:
 
-  - **Description**: If **frame_encoding** is set to "linear", this value gives the increase/decrease in the value of the property when going from one frame to the next.
+  - **Description**: If **frame_serialization_format** is set to "linear", this value gives the change in the value of the property per unit of frame number. e.g. If at frame 3 the value of the property is 0.6 and **step_size_linear** = 0.2 than at frame 4 the value of the property will be 0.8.
   - **Type**: float
-  - **Requirements/Conventions**: The value MUST be present when **frame_encoding** is set to "linear".
+  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "linear".
     Otherwise it MUST NOT be present.
   - **Examples**:
 
@@ -2521,9 +2521,9 @@ Each property has a dictionary as the value, with the following fields:
 
 - **offset_sparse**:
 
-  - **Description**: If **frame_encoding** is set to "explicit_regular_sparse" this property gives the frame number to which the first value belongs.
+  - **Description**: If **frame_serialization_format** is set to "explicit_regular_sparse" this property gives the frame number to which the first value belongs.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MAY be present when **frame_encoding** is set to "explicit_regular_sparse", otherwise the value MUST NOT be present.
+  - **Requirements/Conventions**: The value MAY be present when **frame_serialization_format** is set to "explicit_regular_sparse", otherwise the value MUST NOT be present.
     The default value is 0.
   - **Examples**:
 
@@ -2531,21 +2531,21 @@ Each property has a dictionary as the value, with the following fields:
 
 - **step_size_sparse**:
 
-  - **Description**: If **frame_encoding** is set to "explicit_regular_sparse", this value indicates that every step_size_sparse frames a value is defined.
+  - **Description**: If **frame_serialization_format** is set to "explicit_regular_sparse", this value indicates that every step_size_sparse frames a value is defined.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be present when frame_encoding is set to "explicit_regular_sparse".
+  - **Requirements/Conventions**: The value MUST be present when frame_serialization_format is set to "explicit_regular_sparse".
     Otherwise it MUST NOT be present.
   - **Examples**:
 
     - :val:`100`
 
-- **frame_number**:
+- **sparse_frames**:
 
-  - **Description**: If **frame_encoding** is set to "explicit_custom_sparse", this field holds the frames to which the values in the value field belong.
+  - **Description**: If **frame_serialization_format** is set to "explicit_custom_sparse", this field holds the frames to which the values in the value field belong.
   - **Type**: List of integers
-  - **Requirements/Conventions**: The value MUST be present when **frame_encoding** is set to "explicit_custom_sparse".
+  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "explicit_custom_sparse".
     Otherwise it MUST NOT be present.
-    The frame numbers MUST be in the same order as the values.
+    The frame numbers in **sparse_frames** MUST be in the same order as the values.
   - **Examples**:
 
     - :val:`[0,20,78,345]`
@@ -2553,9 +2553,9 @@ Each property has a dictionary as the value, with the following fields:
 - **values**:
 
   - **Description**: The values belonging to this property.
-    The format of this field depends on the property and on the frame_encoding parameter.
+    The format of this field depends on the property and on the frame_serialization_format parameter.
   - **Type**: Any
-  - **Requirements/Conventions**: The value MUST be present.
+  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is not set to linear.
     If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level.
     In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume.
     This may be useful for grand canonical simulations where the number of particles in the simulation volume is not constant.
@@ -2641,7 +2641,7 @@ After the previous querry is an example of a JSON object that could be returned 
       "attributes:{
         "last_modified":"2021-07-16T18:02:03Z"
         "cartesian_site_positions":{
-          "frame_encoding": "explicit",
+          "frame_serialization_format": "explicit",
           "values":[
             [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
             [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
@@ -2657,25 +2657,25 @@ After the previous querry is an example of a JSON object that could be returned 
           ]
         },
         "lattice_vectors":{
-          "frame_encoding": "constant",
+          "frame_serialization_format": "constant",
           "values:[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
         },
         "dimension_types":{
-          "frame_encoding": "constant",
+          "frame_serialization_format": "constant",
           "values:[0,0,0]
         },
         "_exmpl_time":{
-          "frame_encoding": "linear",
+          "frame_serialization_format": "linear",
           "offset_linear": 0,
           "step_size_linear": 1.5
         },
         "_exmpl_ekin":{
-          "frame_encoding": "explicit_regular_sparse",
+          "frame_serialization_format": "explicit_regular_sparse",
           "step_size_sparse": 2,
           "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
         },
         "species":{
-          "frame_encoding": "constant",
+          "frame_serialization_format": "constant",
           "values":[
             {
               "name":"O1",
@@ -2693,15 +2693,14 @@ After the previous querry is an example of a JSON object that could be returned 
           ]
         },
         "species_at_sites":{
-          "frame_encoding": "constant",
+          "frame_serialization_format": "constant",
           "values":["O1","H1","H2"],
         },
         "_exmpl_temperature_set":{
-          "frame_encoding": "explicit_custom_sparse",
+          "frame_serialization_format": "explicit_custom_sparse",
           "frames":[0,9],
           "values":[273,293]
         }
-        "next_part_trajectory"
       }
     },
     "links":{
