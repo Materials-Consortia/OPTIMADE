@@ -1,4 +1,4 @@
-c=========================================
+=========================================
 OPTIMADE API specification v1.1.0~develop
 =========================================
 
@@ -2414,18 +2414,68 @@ nframes
 available_properties
 ~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A list of the names of the properties for which data is available in the trajectory.
+- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory. The key is the name of the property. The value is a sub dictionary containing information about which value belongs to which frame. This makes it easier for a client to estimate the amount of data a query returns.
+
   It is up to the server to decide which properties to share and there are no mandatory fields.
-  When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST be shared as well.
-- **Type**: List of strings
+  When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST however be shared as well.
+
+
+- **Type**: dictionary of dictionaries
 - **Requirements/Conventions**:
 
   -   **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
   -   **Query**: MUST be a queryable property with support for all mandatory filter features.
 
+- **Sub dictionary fields**
+
+  - **frame_serialization**
+
+    -   **Description**: This property describes how the frames and the returned values of a property are related.  For each **frame_serialization** method there are additional fields that describe how the values belong to the frames. These fields should also be present here.
+A complete description of these fields can be found in the section: `Return Format for Trajectory Data`_
+
+  - **nvalues**:
+
+    - **Description**: This field gives the number of values for this property.
+    - **Type**: integer
+    - **Requirements/Conventions**: The value MUST be present when frame_serialization_format is set to explicit, explicit_regular_sparse or explicit_custom_sparse.
+    - **Examples**:
+
+      - :val:`100`
+
+
+
 - **Examples**:
 
-  - :val:`["cartesian_site_positions","lattice_vectors","species","dimension_types","species_at_sites","_exmpl_pressure"]`
+    .. code:: jsonc
+
+         "available_properties": {
+           "cartesian_site_positions": {
+             "frame_serialization_format": "explicit",
+             "nvalues": 1000
+           },
+           "lattice_vectors":{
+             "frame_serialization_format": "constant",
+           },
+           "species":{
+             "frame_serialization_format": "constant",
+           },
+           "dimension_types":{
+             "frame_serialization_format": "constant",
+           },
+           "species_at_sites":{
+             "frame_serialization_format": "constant",
+           },
+           "_exmpl_pressure":{
+             "frame_serialization_format": "explicit_custom_sparse",
+             "nvalues": 20
+           }
+           "_exmpl_temperature":{
+             "frame_serialization_format": "explicit_regular_sparse",
+             "step_size_sparse": 10
+             "nvalues": 100
+           }
+         }
+
 
 
 Retrieving the trajectory data
@@ -2485,7 +2535,7 @@ Each property has a dictionary as the value, with the following fields:
 - **frame_serialization_format**:
 
   - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs.
-    This is specified by the frame encoding parameter.
+    This is specified by the frame_serialization_format.
   - **Type**: string
   - **Requirements/Conventions**: This field MUST be present.
   - **Values**:
@@ -2549,6 +2599,7 @@ Each property has a dictionary as the value, with the following fields:
   - **Examples**:
 
     - :val:`[0,20,78,345]`
+
 
 - **values**:
 
