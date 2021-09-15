@@ -149,7 +149,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
 
 **Entry type**
-    Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
+    Entries are categorized into types, e.g., :entry:`structures`, :entry:`trajectories`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
 
 **Entry property**
@@ -195,6 +195,12 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     The key used in response formats that return data in associative-array-type data structures.
     This is particularly relevant for the default JSON-based response format.
     In this case, **field** refers to the name part of the name-value pairs of JSON objects.
+
+**Trajectory**
+    A Trajectory contains data belonging to a set of structures. Usually this data will come from molecular dynamics simulations. It can however also contain data from structures that are related in an different way. For example the successive structures from a Monte Carlo simulation.
+
+**Frame**
+    An individual structure or data belonging to an individual structure from a trajectory.
 
 Data types
 ----------
@@ -323,7 +329,7 @@ Index Meta-Database
 A database provider MAY publish a special Index Meta-Database base URL. The main purpose of this base URL is to allow for automatic discoverability of all databases of the provider. Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
-It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures`).
+It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures` and :endpoint:`trajectories`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
@@ -780,7 +786,7 @@ The API implementation MAY provide other entry types than the ones standardized 
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
 Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
-Any custom entry listing endpoint MUST also be added to the :property:`available\_endpoints` and :property:`entry\_types\_by\_format` attributes of the `Base Info Endpoint`_.
+Any custom entry listing endpoint MUST also be added to the :property:`available_endpoints` and :property:`entry_types_by_format` attributes of the `Base Info Endpoint`_.
 
 For more on custom endpoints, see `Custom Extension Endpoints`_.
 
@@ -865,7 +871,7 @@ Examples:
 
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_key=A3242DSFJFEJE`
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_warning_verbosity=10`
-- :query-url:`http://example.com/optimade/v1/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
+- :query-url:`http://example.com/optimade/v1/structures?_exmpl_filter="elements all in [Al, Si, Ga]"`
 
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
@@ -1067,6 +1073,7 @@ Example:
           "entry_types_by_format": {
             "json": [
               "structures",
+              "trajectories",
               "calculations"
             ],
             "xml": [
@@ -1075,6 +1082,7 @@ Example:
           },
           "available_endpoints": [
             "structures",
+            "trajectories",
             "calculations",
             "info",
             "links"
@@ -1447,7 +1455,6 @@ The following tokens are used in the filter query component:
   - :property:`_exmpl_formula_sum` (a property specific to that database)
   - :property:`_exmpl_band_gap`
   - :property:`_exmpl_supercell`
-  - :property:`_exmpl_trajectory`
   - :property:`_exmpl_workflow_id`
 
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
@@ -1749,6 +1756,7 @@ type
 - **Examples**:
 
   - :val:`"structures"`
+  - :val:`"trajectories"`
 
 immutable\_id
 ~~~~~~~~~~~~~
@@ -1802,7 +1810,6 @@ database-provider-specific properties
   - :property:`_exmpl_formula_sum`
   - :property:`_exmpl_band_gap`
   - :property:`_exmpl_supercell`
-  - :property:`_exmpl_trajectory`
   - :property:`_exmpl_workflow_id`
 
 Structures Entries
@@ -1821,7 +1828,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
-  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements\_ratios`_, if the latter is provided.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements_ratios`_, if the latter is provided.
   - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
 
 - **Examples**:
@@ -1844,7 +1851,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - MUST be equal to the lengths of the list properties `elements`_ and `elements\_ratios`_, if they are provided.
+  - MUST be equal to the lengths of the list properties `elements`_ and `elements_ratios`_, if they are provided.
 
 - **Examples**:
 
@@ -1992,8 +1999,8 @@ dimension\_types
 ~~~~~~~~~~~~~~~~
 
 - **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
-  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
+  For each of the three directions indicated by the three lattice vectors (see property `lattice_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
 
@@ -2012,18 +2019,18 @@ dimension\_types
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension\_types`_.
+- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension_types`_.
 - **Type**: integer
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension\_types`_ property.
+  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension_types`_ property.
   - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
 
 - **Examples**:
 
-  - :val:`2` should be indicated in cases where :property:`dimension\_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
+  - :val:`2` should be indicated in cases where :property:`dimension_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
 
 - **Query examples**:
 
@@ -2043,10 +2050,10 @@ lattice\_vectors
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension\_types`_.
+  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`_.
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension\_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
+  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
     If a lattice vector contains the value :val:`null`, all coordinates of that lattice vector MUST be :val:`null`.
 
 - **Examples**:
@@ -2317,6 +2324,467 @@ structure\_features
 - **Examples**:
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+
+Trajectories Entries
+--------------------
+
+- **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations. Usually this data will come from molecular dynamics simulations. It can however also be used to share data from structures that are related in an other way. For example the successive structures from a Monte Carlo simulation.
+
+  Some examples of the data that can be shared are the particle positions, the pressure and the energies.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
+  Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
+
+  The `reference_structure`_ is an example of the kind of structures that are in the trajectory, and it is used to query the trajectory entries in the same way as the structures entries.
+  The data belonging to the frames of the trajectory is only returned when this is specifically requested in the :query-param:`response_fields` parameter.
+  In this case each property has a dictionary as a value which contains the values of this property and information about which value belongs to which frame.
+  It is possible to request only part of a trajectory and to request only 1 out of every n frames.
+  Queries on individual frames are currently not supported.
+
+reference_structure
+~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: This is an example of the structures that can be found in the trajectory.
+  It can be used to select trajectories with queries and to give a quick visual impression of the structures in this trajectory.
+- **Type**: dictionary
+- **Requirements/Conventions**:
+
+  - Each trajectory MUST have a reference_structure.
+  - This reference_structure MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
+  - Queries on the trajectories MUST be done on the information supplied in the reference_structure when the queried property is in the reference_structure.
+    The subfields of the reference_structure MUST have the same queryability as in the `structures entries`_.
+
+  - This reference frame has the same properties as the structure entries namely:
+
+    - `elements`_
+    - `nelements`_
+    - `elements_ratios`_
+    - `chemical_formula_descriptive`_
+    - `chemical_formula_reduced`_
+    - `chemical_formula_hill`_
+    - `chemical_formula_anonymous`_
+    - `dimension_types`_
+    - `nperiodic_dimensions`_
+    - `lattice_vectors`_
+    - `cartesian_site_positions`_
+    - `nsites`_
+    - `species_at_sites`_
+    - `species`_
+    - `assemblies`_
+    - `structure_features`_
+
+reference_frame
+~~~~~~~~~~~~~~~~
+
+- **Description**: The number of the frame at which the reference_structure was taken. The first frame is frame 0.
+- **Type**: integer
+- **Requirements/Conventions**: The value MUST be equal or larger than 0 and less than nframes.
+
+  - **Support**: MUST be supported if the reference_structure is taken from the trajectory.
+    If the reference_structure is not in the trajectory, the value MUST NOT be present.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+
+- **Examples**:
+
+  - :val:`42`
+
+nframes
+~~~~~~~
+
+- **Description**: The number of the frames in the trajectory.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - The integer value MUST be equal to the length of the trajectory, that is, the number of frames.
+  - The integer MUST be a positive non-zero value.
+
+- **Querying**:
+
+  - A filter that matches trajectories that have exactly 100 frames:
+    - :filter:`nframes=100`
+  - A filter that matches trajectories that have between 100 and 1000 frames:
+    - :filter:`nframes>=100 AND nframes<=1000`
+
+- **Examples**:
+
+  -   :val:`42`
+
+available_properties
+~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory. The key is the name of the property. The value is a dictionary containing information about which value belongs to which frame. This makes it easier for a client to estimate the amount of data a query returns.
+
+  It is up to the server to decide which properties to share and there are no mandatory fields.
+  When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST however be shared as well.
+
+
+- **Type**: dictionary of dictionaries
+- **Requirements/Conventions**:
+
+  -   **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
+  -   **Query**: MUST be a queryable property with support for all mandatory filter features.
+
+- **Sub dictionary fields**
+
+  - **frame_serialization**
+
+    -   **Description**: This property describes how the frames and the returned values of a property are related.  For each **frame_serialization** method there are additional fields that describe how the values belong to the frames. These fields should also be present here.
+        A complete description of the **frame_serialization** methods and the fields belonging to these methods can be found in the section: `Return Format for Trajectory Data`_
+
+  - **nvalues**:
+
+    - **Description**: This field gives the number of values for this property.
+    - **Type**: integer
+    - **Requirements/Conventions**: The value MUST be present when frame_serialization_format is set to explicit, explicit_regular_sparse or explicit_custom_sparse.
+    - **Examples**:
+
+      - :val:`100`
+
+
+- **Examples**:
+
+    .. code:: jsonc
+
+         "available_properties": {
+           "cartesian_site_positions": {
+             "frame_serialization_format": "explicit",
+             "nvalues": 1000
+           },
+           "lattice_vectors":{
+             "frame_serialization_format": "constant",
+           },
+           "species":{
+             "frame_serialization_format": "constant",
+           },
+           "dimension_types":{
+             "frame_serialization_format": "constant",
+           },
+           "species_at_sites":{
+             "frame_serialization_format": "constant",
+           },
+           "_exmpl_pressure":{
+             "frame_serialization_format": "explicit_custom_sparse",
+             "nvalues": 20
+           }
+           "_exmpl_temperature":{
+             "frame_serialization_format": "explicit_regular_sparse",
+             "step_size_sparse": 10
+             "nvalues": 100
+           }
+         }
+
+
+
+Retrieving the trajectory data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The preceding properties 7.3.1-4 and the fields described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
+
+The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
+
+Next to this the client MAY specify the following parameters to customize the return from the server.
+While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
+The numbering of the frames is zero based, so the first frame is frame number 0.
+
+- **first_frame**:
+
+  - **Description**: **first_frame** specifies the first frame that should be returned.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be larger or equal to 0 and MUST be less than nframes.(The total number of frames in the trajectory)
+    If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
+    The default value is 0.
+  - **Examples**:
+
+    - :query-url:`/trajectories/traj00000001?first_frame=1000`
+
+- **last_frame**:
+
+  - **Description**: **last_frame** specifies the last frame that should be returned.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be larger or equal to first_frame and MUST be less than nframes(the total number of frames in the trajectory).
+    If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
+    The default value is nframes.
+  - **Examples**:
+
+    - :query-url:`/trajectories/traj00000001?last_frame=2000`
+
+- **frame_step**:
+
+  - **Description**:  Specifies that data should only be returned for one out of every **frame_step** frames.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less than or equal to the total number of frames.
+    If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
+    The default value is 1.
+  - **Examples**:
+
+    - :query-url:`/trajectories/traj00000001?frame_step=10`.
+
+The server can decide how many frames are returned for each request.
+If the number of frames returned is less than the total number of frames requested by a client the server has to supply a link in the :field:`next` field of the :field:`links` section of the JSON response, which the client can use to download the rest of the trajectory.
+
+Return format for Trajectory Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The returned data is first grouped per property and then by frame.
+The property can be any of the fields described under `structures entries`_ or a database specific field.
+Each property has a dictionary as the value, with the following fields:
+
+- **frame_serialization_format**:
+
+  - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs.
+    This is specified by the frame_serialization_format.
+  - **Type**: string
+  - **Requirements/Conventions**: This field MUST be present.
+  - **Values**:
+
+    - **constant**: The value of the property is constant and thus has the same value for each frame in the trajectory.
+    - **explicit**: A value is given for each frame.
+      The number of values MUST thus be equal to the number of frames and MUST be in the same order as the frames.
+      If there is no value for a particular frame the value MUST be :val:`null`.
+    - **linear**: The value is a linear function of the frame number.
+      This function is defined by offset_linear and step_size_linear.
+    - **explicit_regular_sparse**: The value is set every one per **step_size_sparse** frames, with **offset_sparse** as the first frame.
+    - **explicit_custom_sparse**: A separate list with frame numbers is defined in the field **sparse_frames** to indicate to which frame a value belongs.
+
+- **offset_linear**:
+
+  - **Description**: If **frame_serialization_format** is set to "linear" this property gives the value at frame 0.
+  - **Type**: float
+  - **Requirements/Conventions**: The value MAY be present when **frame_serialization_format** is set to "linear", otherwise the value MUST NOT be present.
+    The default value is 0.
+  - **Examples**:
+
+    - :val:`1.5`
+
+- **step_size_linear**:
+
+  - **Description**: If **frame_serialization_format** is set to "linear", this value gives the change in the value of the property per unit of frame number. e.g. If at frame 3 the value of the property is 0.6 and **step_size_linear** = 0.2 than at frame 4 the value of the property will be 0.8.
+  - **Type**: float
+  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "linear".
+    Otherwise it MUST NOT be present.
+  - **Examples**:
+
+    - :val:`0.0005`
+
+- **offset_sparse**:
+
+  - **Description**: If **frame_serialization_format** is set to "explicit_regular_sparse" this property gives the frame number to which the first value belongs.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MAY be present when **frame_serialization_format** is set to "explicit_regular_sparse", otherwise the value MUST NOT be present.
+    The default value is 0.
+  - **Examples**:
+
+    - :val:`100`
+
+- **step_size_sparse**:
+
+  - **Description**: If **frame_serialization_format** is set to "explicit_regular_sparse", this value indicates that every step_size_sparse frames a value is defined.
+  - **Type**: integer
+  - **Requirements/Conventions**: The value MUST be present when frame_serialization_format is set to "explicit_regular_sparse".
+    Otherwise it MUST NOT be present.
+  - **Examples**:
+
+    - :val:`100`
+
+- **sparse_frames**:
+
+  - **Description**: If **frame_serialization_format** is set to "explicit_custom_sparse", this field holds the frames to which the values in the value field belong.
+  - **Type**: List of integers
+  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "explicit_custom_sparse".
+    Otherwise it MUST NOT be present.
+    The frame numbers in **sparse_frames** MUST be in the same order as the values.
+  - **Examples**:
+
+    - :val:`[0,20,78,345]`
+
+
+- **values**:
+
+  - **Description**: The values belonging to this property.
+    The format of this field depends on the property and on the frame_serialization_format parameter.
+  - **Type**: List of Any
+  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is not set to linear.
+    If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level.
+    In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume.
+    This may be useful for grand canonical simulations where the number of particles in the simulation volume is not constant.
+
+Examples of a returned trajectory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is an example of the data field of a JSON object that could be returned after the following query:
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001`
+
+.. code:: jsonc
+
+    "data":{
+      "id": "traj00000001",
+      "type": "trajectories",
+      "attributes": {
+        "last_modified":"2021-07-16T18:02:03Z"
+        "reference_structure":{
+          "elements": ["H","O"],
+          "nelements": 2,
+          "elements_ratios": [0.666667,0.333333],
+          "chemical_formula_descriptive": "H2O",
+          "chemical_formula_reduced": "H2O",
+          "chemical_formula_anonymous": "A2B",
+          "dimension_types":[0,0,0],
+          "nperiodic_dimensions": 0,
+          "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
+          "cartesian_site_positions" : [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
+          "nsites":3,
+          "species_at_sites":["O1","H1","H2"],
+          "species":[
+            {
+              "name":"O1",
+              "chemical_symbols":["O"],
+              "concentration":[1.0],
+            },
+            {
+              "name":"H1",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            },
+            {
+              "name":"H2",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            }
+          ]
+        },
+        "reference_frame": 0,
+        "nframes": 360,
+        "available_properties":{
+          "cartesian_site_positions":{
+            "frame_serialization_format": "explicit",
+            "nvalues":360
+          },
+          "species":{
+            "frame_serialization_format": "constant",
+          },
+          "dimension_types":{
+            "frame_serialization_format": "constant",
+          },
+          "lattice_vectors":{
+            "frame_serialization_format": "constant",
+          },
+          "species_at_sites":{
+            "frame_serialization_format": "constant",
+          },
+          "_exmpl_temperature_set":{
+            "frame_serialization_format": "explicit_custom_sparse",
+            "nvalues":144,
+          },
+          "_exmpl_time":{
+            "frame_serialization_format": "linear",
+            "offset_linear": 0,
+            "step_size_linear": 1.5
+          },
+          "_exmpl_ekin":{
+            "frame_serialization_format": "explicit_regular_sparse",
+            "step_size_sparse": 2,
+            "nvalues":180,
+          }
+        }
+        "relationships": {
+          "references": {
+            "data": [
+              {
+                "type": "references",
+                "id": "dummy/2019"
+              }
+            ]
+          }
+        }
+      },
+    },
+    ...
+
+After the previous querry is an example of a JSON object that could be returned after the following query:
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
+
+.. code:: jsonc
+
+    "data":{
+      "id": "traj00000001",
+      "type": "trajectories",
+      "attributes:{
+        "last_modified":"2021-07-16T18:02:03Z"
+        "cartesian_site_positions":{
+          "frame_serialization_format": "explicit",
+          "values":[
+            [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
+            [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
+            [[2,2,2],[1.238,2.027,1.416],[2.762,1.973,1.416]],
+            [[2,2,2],[1.239,2.040,1.416],[2.761,1.960,1.416]],
+            [[2,2,2],[1.240,2.053,1.416],[2.760,1.947,1.416]],
+            [[2,2,2],[1.241,2.066,1.416],[2.759,1.934,1.416]],
+            [[2,2,2],[1.242,2.080,1.416],[2.758,1.920,1.416]],
+            [[2,2,2],[1.244,2.093,1.416],[2.756,1.907,1.416]],
+            [[2,2,2],[1.245,2.106,1.416],[2.755,1.894,1.416]],
+            [[2,2,2],[1.247,2.119,1.416],[2.753,1.881,1.416]],
+            [[2,2,2],[1.250,2.132,1.416],[2.750,1.868,1.416]]
+          ]
+        },
+        "lattice_vectors":{
+          "frame_serialization_format": "constant",
+          "values:[[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
+        },
+        "dimension_types":{
+          "frame_serialization_format": "constant",
+          "values:[[0,0,0]]
+        },
+        "_exmpl_time":{
+          "frame_serialization_format": "linear",
+          "offset_linear": 0,
+          "step_size_linear": 1.5
+        },
+        "_exmpl_ekin":{
+          "frame_serialization_format": "explicit_regular_sparse",
+          "step_size_sparse": 2,
+          "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
+        },
+        "species":{
+          "frame_serialization_format": "constant",
+          "values":[[
+            {
+              "name":"O1",
+              "chemical_symbols":["O"],
+              "concentration":[1.0],
+            },{
+              "name":"H1",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            },{
+              "name":"H2",
+              "chemical_symbols":["H"],
+              "concentration":[1.0],
+            }
+          ]]
+        },
+        "species_at_sites":{
+          "frame_serialization_format": "constant",
+          "values":[["O1","H1","H2"]],
+        },
+        "_exmpl_temperature_set":{
+          "frame_serialization_format": "explicit_custom_sparse",
+          "sparse_frames":[0,4,5,9],
+          "values":[273,273,293,293]
+        }
+      }
+    },
+    "links":{
+      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
+      "base_url": {
+        "href": "http://example.com/optimade",
+        "meta": {
+          "_exmpl_db_version": "3.2.1"
+        }
+      }
+    }
+    ...
 
 Calculations Entries
 --------------------
