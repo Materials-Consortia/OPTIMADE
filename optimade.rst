@@ -2331,7 +2331,7 @@ Trajectories Entries
 - **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations. Usually this data will come from molecular dynamics simulations. It can however also be used to share data from structures that are related in an other way. For example the successive structures from a Monte Carlo simulation.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
   Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
 
   The `reference_structure`_ is an example of the kind of structures that are in the trajectory, and it is used to query the trajectory entries in the same way as the structures entries.
@@ -2414,7 +2414,7 @@ nframes
 available_properties
 ~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory. The key is the name of the property. The value is a sub dictionary containing information about which value belongs to which frame. This makes it easier for a client to estimate the amount of data a query returns.
+- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory. The key is the name of the property. The value is a dictionary containing information about which value belongs to which frame. This makes it easier for a client to estimate the amount of data a query returns.
 
   It is up to the server to decide which properties to share and there are no mandatory fields.
   When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST however be shared as well.
@@ -2431,7 +2431,7 @@ available_properties
   - **frame_serialization**
 
     -   **Description**: This property describes how the frames and the returned values of a property are related.  For each **frame_serialization** method there are additional fields that describe how the values belong to the frames. These fields should also be present here.
-A complete description of these fields can be found in the section: `Return Format for Trajectory Data`_
+        A complete description of the **frame_serialization** methods and the fields belonging to these methods can be found in the section: `Return Format for Trajectory Data`_
 
   - **nvalues**:
 
@@ -2441,7 +2441,6 @@ A complete description of these fields can be found in the section: `Return Form
     - **Examples**:
 
       - :val:`100`
-
 
 
 - **Examples**:
@@ -2605,7 +2604,7 @@ Each property has a dictionary as the value, with the following fields:
 
   - **Description**: The values belonging to this property.
     The format of this field depends on the property and on the frame_serialization_format parameter.
-  - **Type**: Any
+  - **Type**: List of Any
   - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is not set to linear.
     If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level.
     In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume.
@@ -2634,7 +2633,7 @@ This is an example of the data field of a JSON object that could be returned aft
           "dimension_types":[0,0,0],
           "nperiodic_dimensions": 0,
           "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
-          "cartesian_site_positions" : [[2.0,2.0,2.0],[1.238,2.0,1.416],[2.762,2.0,1.416]],
+          "cartesian_site_positions" : [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
           "nsites":3,
           "species_at_sites":["O1","H1","H2"],
           "species":[
@@ -2657,16 +2656,38 @@ This is an example of the data field of a JSON object that could be returned aft
         },
         "reference_frame": 0,
         "nframes": 360,
-        "available_properties":[
-          "cartesian_site_positions",
-          "species",
-          "dimension_types",
-          "lattice_vectors",
-          "species_at_sites",
-          "_exmpl_temperature_set",
-          "_exmpl_time",
-          "_exmpl_ekin"
-        ]
+        "available_properties":{
+          "cartesian_site_positions":{
+            "frame_serialization_format": "explicit",
+            "nvalues":360
+          },
+          "species":{
+            "frame_serialization_format": "constant",
+          },
+          "dimension_types":{
+            "frame_serialization_format": "constant",
+          },
+          "lattice_vectors":{
+            "frame_serialization_format": "constant",
+          },
+          "species_at_sites":{
+            "frame_serialization_format": "constant",
+          },
+          "_exmpl_temperature_set":{
+            "frame_serialization_format": "explicit_custom_sparse",
+            "nvalues":144,
+          },
+          "_exmpl_time":{
+            "frame_serialization_format": "linear",
+            "offset_linear": 0,
+            "step_size_linear": 1.5
+          },
+          "_exmpl_ekin":{
+            "frame_serialization_format": "explicit_regular_sparse",
+            "step_size_sparse": 2,
+            "nvalues":180,
+          }
+        }
         "relationships": {
           "references": {
             "data": [
@@ -2709,11 +2730,11 @@ After the previous querry is an example of a JSON object that could be returned 
         },
         "lattice_vectors":{
           "frame_serialization_format": "constant",
-          "values:[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
+          "values:[[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
         },
         "dimension_types":{
           "frame_serialization_format": "constant",
-          "values:[0,0,0]
+          "values:[[0,0,0]]
         },
         "_exmpl_time":{
           "frame_serialization_format": "linear",
@@ -2727,7 +2748,7 @@ After the previous querry is an example of a JSON object that could be returned 
         },
         "species":{
           "frame_serialization_format": "constant",
-          "values":[
+          "values":[[
             {
               "name":"O1",
               "chemical_symbols":["O"],
@@ -2741,16 +2762,16 @@ After the previous querry is an example of a JSON object that could be returned 
               "chemical_symbols":["H"],
               "concentration":[1.0],
             }
-          ]
+          ]]
         },
         "species_at_sites":{
           "frame_serialization_format": "constant",
-          "values":["O1","H1","H2"],
+          "values":[["O1","H1","H2"]],
         },
         "_exmpl_temperature_set":{
           "frame_serialization_format": "explicit_custom_sparse",
-          "frames":[0,9],
-          "values":[273,293]
+          "sparse_frames":[0,4,5,9],
+          "values":[273,273,293,293]
         }
       }
     },
