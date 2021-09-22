@@ -1147,11 +1147,11 @@ Example (note: the description string has been wrapped for readability only):
           "nelements": {
             "type": ["integer", "null"],
             "title": "Number of elements",
-            "description": "Number of different elements in the structure as an integer.
-
-              -  Note: queries on this property can equivalently be formulated using `elements LENGTH`.
-              -  A filter that matches structures that have exactly 4 elements: `nelements=4`.
-              -  A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
+            "description": "Number of different elements in the structure as an integer.\n
+             \n
+             -  Note: queries on this property can equivalently be formulated using `elements LENGTH`.\n
+             -  A filter that matches structures that have exactly 4 elements: `nelements=4`.\n
+             -  A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
             "examples": [
               3
             ],
