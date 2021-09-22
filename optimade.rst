@@ -2718,7 +2718,7 @@ A Property Definition is a dictionary that has the following format:
     Note: the specification in this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field outside of :field:`x-optimade-definition`.
     If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
 
-  - :field:`query`: String.
+  - :field:`queryable`: String.
     The string MUST be one of the following:
 
     - :val:`"full"`: the defined property MUST be queryable using the OPTIMADE filter language with support for all mandatory filter features.
@@ -2727,9 +2727,9 @@ A Property Definition is a dictionary that has the following format:
       The level of support is described in the field :field:`query-description`.
     - :val:`"none"`: the defined property MAY not be queryable at all.
 
-  - :field:`query-description`: String.
+  - :field:`queryable-description`: String.
     This string is a human-readable multi-line text that describes the limitations of support of the OPTIMADE filter language.
-    It SHOULD only be given if the field :field:`query` is set to the string :val:`"partial"`.
+    It SHOULD only be given if the field :field:`queryable` is set to the string :val:`"partial"`.
     Formatting in the text SHOULD use Markdown in the `CommonMark v3.0 format <https://spec.commonmark.org/0.30/>`__.
 
   - :field:`unit-definitions`: List.
