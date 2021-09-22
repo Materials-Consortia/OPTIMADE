@@ -2901,7 +2901,7 @@ Compound unit expressions are created by combining unit symbols defined in the G
 Furthermore:
 
 - No whitespace, parenthesis, or other symbols than specified above are permitted.
-- If multiple string representations of the same unit exist in `definition.units`, the *first one* in that file consisting of only lowercase letter characters and no symbols SHOULD be used.
+- If multiple string representations of the same unit exist in `definition.units`, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
 - The unit symbols MUST appear in alphabetical order.
 - Consecutive divisions, e.g., :val:`a/b/c` are interpreted separately, i.e., :val:`b` and :val:`c` are both interpreted to be to the power of -1.
 
