@@ -2328,7 +2328,7 @@ Collections Entries
 
 An example use case would be to define a relationship between a collection of Structure entries that are all conceptually related (e.g., "A collection of FCC Al structures containing a single vacancy defect").
 
-:entry:`collections` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: :field:`relationships`, :field:`additional_metadata`, and :field:`aggregated_fields`.
+:entry:`collections` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `additional_metadata`_ and `aggregated_fields`_.
 
 additional_metadata
 ~~~~~~~~~~~~~~~~~~~
