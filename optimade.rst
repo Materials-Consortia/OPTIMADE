@@ -1132,33 +1132,11 @@ Entry listing info endpoints are accessed under the versioned or unversioned bas
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
-- **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the
-
-  *REQUIRED keys*:
-
-  - :field:`description`: String.
-    A human-readable description of the property.
-
-  *OPTIONAL keys*:
-
-  - :field:`unit`: String.
-    The physical unit symbol in which the property's value is given.
-    This MUST be a valid representation of units according to version 2.1 of `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__.
-    It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
-  - :field:`sortable`: Boolean.
-    Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
-  - :field:`type`: String.
-    The type of the property's value.
-    This MUST be any of the types defined in `Data types`_.
-    For the purpose of compatibility with future versions of this specification, a client MUST accept values that are not :type:`string` values specifying any of the OPTIMADE `Data types`_, but MUST then also disregard the :field:`type` field.
-    Note, if the value is a nested type, only the outermost type should be reported.
-    E.g., for the entry resource :entry:`structures`, the :property:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
-
+- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the appendix `Property Definitions`_.
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
-Example:
+Example (note: the description string has been wrapped for readability only):
 
 .. code:: jsonc
 
@@ -1167,15 +1145,33 @@ Example:
         "description": "a structures entry",
         "properties": {
           "nelements": {
-            "description": "Number of elements",
-            "sortable": true,
-            "type": "integer"
+            "type": ["integer", "null"],
+            "title": "Number of elements",
+            "description": "Number of different elements in the structure as an integer.\n
+             \n
+             -  Note: queries on this property can equivalently be formulated using `elements LENGTH`.\n
+             -  A filter that matches structures that have exactly 4 elements: `nelements=4`.\n
+             -  A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
+            "examples": [
+              3
+            ],
+            "x-optimade-definition": {
+              "version": "1.0.0",
+              "sortable": true,
+              "support": "should",
+              "query": "full"
+            }
           },
           "lattice_vectors": {
-            "description": "Unit cell lattice vectors",
-            "unit": "Ao",
+            "title": "Unit cell lattice vectors",
+            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).
+
+            ...",
+            "x-optimade-unit": "angstrom",
             "sortable": false,
-            "type": "list"
+            "type": "array",
+
+            // ... <further fields defining lattice_vectors>
           }
           // ... <other property descriptions>
         },
@@ -2672,3 +2668,301 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
+
+Property Definitions
+--------------------
+
+An OPTIMADE *Property Definition* defines a specific property, which will be referred to as *the defined property* throughout this appendix.
+The property definition uses a dictionary-based construct that strictly follows a subset of the `JSON Schema Validation Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-validation.html>`__ and `JSON Schema Core Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-core.html>`__ standards.
+While these standards are JSON-based, the dictionary construct can be realized in any format capable of representing the basic OPTIMADE data types. Hence, the field definitions below are given in terms of OPTIMADE data types, and the implementation maps these to the corresponding data types for the output format in which the property definition is expressed.
+
+Property definitions that define properties that are lists or dictionaries contain one or more nested *Inner Property Definition* to define the items and values of those constructs.
+
+A Property Definition is a dictionary that has the following format:
+
+**REQUIRED keys for non-Inner Property Definitions:**
+
+- :field:`title`: String.
+  A short single-line human-readable name for the defined property appropriate to show as part of a user interface.
+
+- :field:`description`: String.
+  A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
+  The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
+  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
+
+- :field:`x-optimade-definition`: Dictionary.
+  A dictionary of OPTIMADE-specific information about the defined property (i.e., the JSON Schema standard does not define these fields).
+  The dictionary has the following format:
+
+  **REQUIRED keys:**
+
+  - :field:`version`: String.
+    This string indicates the version of the property definition.
+    The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>` standard.
+
+  **OPTIONAL keys:**
+
+  - :field:`property-uri`: String.
+    A URI that SHOULD resolve to a JSON response that contains the present Property Definition.
+    The format of the response MUST be that of an `OPTIMADE Entry Listing Info Endpoint <Entry Listing Info Endpoints>`_, except the only mandatory keys are :field:`data` with the subfield :field:`properties`, but the response MAY contain other fields.
+    This format makes it possible for a Property Definition in an Entry Listing Info endpoint to set :field:`x-optimade-property-uri` as a link back to the same Info endpoint.
+    However, the field MAY also link to a resource external from the implementation to clarify to clients that a property used in several databases represents the same thing.
+
+  - :field:`support`: String
+    The string MUST be one of the following:
+
+    - "must": the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST not be :val:`null`.
+    - "should", the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD not be :val:`null`.
+    - "may": the defined property MAY not be recognized by the implementation and MAY be equal to :val:`null`.
+
+    Note: the specification in this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field outside of :field:`x-optimade-definition`.
+    If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
+
+  - :field:`query`: String.
+    The string MUST be one of the following:
+
+    - :val:`"full"`: the defined property MUST be queryable using the OPTIMADE filter language with support for all mandatory filter features.
+    - :val:`"partial:only full string"`: the defined property is a string that MUST be queryable using the OPTIMADE filter language. However, support for the partial string matching operators are OPTIONAL (i.e., the operators BEGINS WITH, ENDS WITH, and CONTAINS).
+    - :val:`"partial"`: the defined property MUST be queryable, but the support MAY be restricted to any subset of the filter language operators and features.
+      The level of support is described in the field :field:`query-description`.
+    - :val:`"none"`: the defined property MAY not be queryable at all.
+
+  - :field:`query-description`: String.
+    This string is a human-readable multi-line text that describes the limitations of support of the OPTIMADE filter language.
+    It SHOULD only be given if the field :field:`query` is set to the string :val:`"partial"`.
+    Formatting in the text SHOULD use Markdown in the `CommonMark v3.0 format <https://spec.commonmark.org/0.30/>`__.
+
+  - :field:`unit-definitions`: List.
+    A list of definitions of the symbols used in the Property Definition (including nested Inner Property Definitions) for physical units given as values of the :field:`x-optimade-unit` field.
+    See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
+
+  - :field:`sortable`: Boolean.
+    If :val:`TRUE`, specifies that results can be sorted on this property (see `Entry Listing URL Query Parameters`_ for more information on this field).
+    If :val:`FALSE`, specifies that results cannot be sorted on this property.
+    The field not being included means the same as :val:`FALSE`.
+
+  - :field:`resource-uris`: List.
+    A list of dictionaries that references remote resources that describe the property.
+    The format of each dictionary is:
+
+    **REQUIRED keys:**
+
+    - :field:`relation`: String.
+      A human-readable description the relationship between the property and the remote resource, e.g., "natural language description".
+
+    - :field:`uri`: String.
+      A URI of the external resource.
+
+**REQUIRED keys for all Property Definitions:**
+
+- :field:`type`: String or List.
+  The string or list specifies the type of the defined property.
+  It MUST be one of:
+
+  - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
+  - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
+
+..
+
+  Implementation notes:
+
+    - The strings used in the :field:`type` field are JSON type names encoded as strings, but they technically refer to the corresponding OPTIMADE data types.
+      Nevertheless, for consistency across formats, the JSON type names MUST be used regardless of the standard type names of the output format.
+      The motivation for this design decision is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+
+    - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
+      Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
+      This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
+
+**OPTIONAL keys for all Property Definitions:**
+
+- :field:`x-optimade-unit`: String.
+  The string is the symbol for the physical unit in which the value of the defined property is given, if it uses a unit.
+  See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this string.
+
+- :field:`enum`: List.
+  The defined property MUST take one of the values given in the provided list.
+  The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+  If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a `null` value and the :field:`type` MUST be a list where the second value is the string "null".
+
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
+  If :val:`FALSE`, the defined property is not deprecated.
+  The field not being present means :val:`FALSE`.
+
+- :field:`examples`: List.
+  A list of example values that the defined property can have.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+
+**OPTIONAL keys for Property Definitions where the type field includes "number" or "integer":**
+
+- :field:`multipleOf`: Integer.
+  An integer strictly greater than 0.
+  The defined property MUST have an integer value that when divided by the given integer results in an integer (i.e., it must be even divisible by this integer without a fractional part).
+
+- :field:`maximum`: Float or Integer.
+  The defined property is a float or integer that MUST be less than or equal to this number.
+
+- :field:`exclusiveMaximum`: Float or Integer.
+  The defined property is a float or integer that MUST be strictly less than this number; it cannot equal the number.
+
+- :field:`minimum`: Float or Integer.
+  The defined property is a float or integer that MUST be greater than or equal to this number.
+
+- :field:`exclusiveMinimum`: Float or Integer.
+  The defined property is a float or integer that MUST be strictly greater than this number; it cannot equal the number.
+
+**OPTIONAL keys for Property Definitions where the type field includes "string":**
+
+- :field:`maxLength`: Integer.
+  A non-negative integer.
+  The defined property is a string that MUST have a length that is less than or equal to the given integer.
+  The length of the string is defined according to :RFC:`8259`.
+
+- :field:`minLength`: Integer.
+  A non-negative integer.
+  The defined property is a string that MUST have a length that is less than or equal to the given integer.
+  The length of the string is defined according to :RFC:`8259`.
+
+- :field:`pattern`: String.
+  The defined property MUST adhere to the format as specified by the given string when interpreted as a regular expression according to the ECMA-262 regular expression dialect.
+
+- :field:`format`: String.
+  MUST be one of the following values to indicate that the defined property is a string that MUST adhere to the specified format:
+
+  - "date-time": the date-time production in :RFC:`3339` section 5.6.
+  - "date": the full-date production in :RFC:`3339` section 5.6.
+  - "time": the full-time production in :RFC:`3339` section 5.6.
+  - "duration": the duration production in :RFC:`3339` Appendix A.
+  - "email": the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
+  - "uri": the extended "Mailbox" ABNF rule in :RFC:`6531`, section 3.3.
+
+**REQUIRED keys for Property Definitions where the type field includes "array":**
+
+- :field:`items`: Dictionary.
+  A nested inner Property Definition.
+  The defined property is an array where all items MUST match the given Property Definition.
+
+**OPTIONAL keys for Property Definitions where the type field includes "array":**
+
+- :field:`maxItems`: Integer.
+  A non-negative integer.
+  The defined property is an array that MUST contain a number of items that is less than or equal to the given integer.
+
+- :field:`minItems`: Integer.
+  A non-negative integer.
+  The defined property is an array that MUST contain a number of items that is greater than or equal to the given integer.
+
+- :field:`uniqueItems`: Boolean.
+  If :val:`TRUE`, the defined property is an array that MUST only contain unique items.
+  If :val:`FALSE`, this field sets no limitation on the defined property.
+
+**REQUIRED keys for Property Definitions where the type field includes "object":**
+
+- :field:`properties`: Dictionary.
+  Each key in the given dictionary provides a nested inner Property Definition.
+  The value of each corresponding key in the defined property MUST adhere to this definition.
+  The defined property MUST only contain keys present in this dictionary.
+
+**OPTIONAL keys for Property Definitions where the type field includes "object":**
+
+- :field:`required`: List.
+  The list MUST only contain strings.
+  The defined property MUST have keys that match all the strings in this list.
+  Other keys present in the :field:`properties` field are OPTIONAL in the defined property.
+  If not present or empty, all keys in :field:`properties` are regarded as OPTIONAL.
+
+- :field:`maxProperties`: Integer.
+  The defined property is a dictionary where the number of keys MUST be less than or equal to the number given.
+
+- :field:`minProperties`: Integer.
+  The defined property is a dictionary where the number of keys MUST be greater than or equal to the number given.
+
+- :field:`dependentRequired`: Dictionary.
+  The dictionary keys are strings and the values are lists of unique strings.
+  If the defined property has a key that is equal to a key in the given dictionary, the defined property MUST also have keys that matches each of the corresponding values.
+  No restriction is inferred from this field for keys in the defined property that do not match any key in the given dictionary.
+
+Physical Units in Property Definitions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meters.
+The unit is always permanently fixed by the Property Definition.
+Clients and servers that use other units internally thus have to do unit conversions as part of preparing and processing OPTIMADE responses.
+
+The physical unit of a property, the embedded items of a list, or values of a dictionary, are defined with the field :field:`x-optimade-unit`.
+This field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and in any nested Inner Property Definitions for which the value represented has a physical unit.
+If the value is unitless, e.g., a string representing a chemical formula or an integer counting the number of atoms in the unit cell :field:`x-optimade-unit`: MUST be omitted or given as :val:`null`.
+
+A standard set of unit symbols for OPTIMADE are taken from version 3.09 unit database `definition.units` from `GNU units software <https://www.gnu.org/software/units/>`__.
+If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD be set to the corresponding (compound) string symbol and no further definition be given.
+
+Compound unit expressions are created by combining unit symbols defined in the GNU units database, optionally prefixed by one or more of the prefixes defined in the database (indicated there by trailing `-`), multiplication `*`, division `/`, and power `^` directly followed by a positive integer.
+Furthermore:
+
+- No whitespace, parenthesis, or other symbols than specified above are permitted.
+- If multiple string representations of the same unit exist in `definition.units`, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
+- The unit symbols MUST appear in alphabetical order.
+- Consecutive divisions, e.g., :val:`a/b/c` are interpreted separately, i.e., :val:`b` and :val:`c` are both interpreted to be to the power of -1.
+
+If a (compound) symbol based on the GNU units database is not used, the string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-definition` field in the topmost level of the Property Definition.
+
+The :field:`x-optimade-unit` field is a list of dictionaries that has the following format:
+
+**REQUIRED keys:**
+
+- :field:`symbol`: String.
+  Specifies the symbol to be used in :field:`x-optimade-unit` to reference this unit.
+
+- :field:`title`: String.
+  A human-readable single-line string name for the unit.
+
+- :field:`description`: String.
+  A human-readable multiple-line detailed description of the unit.
+
+**OPTIONAL keys:**
+
+- :field:`standard`: Dictionary.
+  This field is used to define the unit symbol using a preexisting standard.
+  The dictionary has the following format:
+
+  **REQUIRED keys:**
+
+  - :field:`name`: String.
+    The abbreviated name of the standard being referenced.
+    One of the following:
+
+    - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
+    - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
+      Not only symbols strictly defined within the QUDT standard are allowed, but also other symbols constructed by following to the scheme for how new unit symbols are formed in this standard.
+
+  - :field:`version`: String.
+    The version string of the referenced standard.
+
+  - :field:`symbol`: String.
+    The symbol to use from the referenced standard, expressed according to that standard.
+
+- :field:`resource-uris`: List.
+  A list of dictionaries that references remote resources that describe the unit.
+  The format of each dictionary is:
+
+  **REQUIRED keys:**
+
+  - :field:`relation`: String.
+    A human-readable description of the relationship between the unit and the remote resource, e.g., a "natural language description".
+
+  - :field:`uri`: String.
+    A URI of the external resource.
+
+
+
+Unrecognized keys in property definitions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implementations MAY add their own keys both inside and outside of :field:`x-optimade-description` on the form :field:`x-exmpl-name` where :field:`exmpl` is the database-specific prefix (without underscore characters) and :field:`name` is the part of the key chosen by the implementation.
+Implementations MUST NOT add keys to property definitions on other formats.
+
+Client and server implementations that interpret an OPTIMADE Property Definition and encounter unrecognized keys starting with :field:`x-exmpl-` where :field:`exmpl` is a recognized database prefix MAY issue errors or warnings.
+Other unrecognized keys starting with :field:`x-` MUST not issue errors, SHOULD NOT issue warnings, and MUST otherwise be ignored.
+
+To allow forward compatibility with future versions of both OPTIMADE and the JSON Schema standards, unrecognized keys that do not start with :field:`x-` SHOULD issue a warning but MUST otherwise be ignored.
