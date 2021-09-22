@@ -1136,7 +1136,7 @@ The response for these endpoints MUST include the following information in the :
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
-Example (the multi-line string is indented for readability, but represents a multiline string with no indentation):
+Example (note: the description string has been wrapped for readability only):
 
 .. code:: jsonc
 
