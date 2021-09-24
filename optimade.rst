@@ -2897,7 +2897,10 @@ If the value is unitless, e.g., a string representing a chemical formula or an i
 A standard set of unit symbols for OPTIMADE are taken from version 3.09 unit database `definition.units` from `GNU units software <https://www.gnu.org/software/units/>`__.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD be set to the corresponding (compound) string symbol and no further definition be given.
 
-Compound unit expressions are created by combining unit symbols defined in the GNU units database, optionally prefixed by one or more of the prefixes defined in the database (indicated there by trailing `-`), multiplication `*`, division `/`, and power `^` directly followed by a positive integer.
+The GNU units database is found in the file: "definitions.units" in the [Source Distribution](http://ftp.gnu.org/gnu/units/).
+A compound unit expression is created by combining the unit symbols defined in this database separated by a single multiplication `*` or division `/` symbol.
+The unit symbols can also be suffixed by a single `^` symbol followed by a positive integer to indicate the power of the preceding unit, e.g., `m^3` for cubic meter.
+The unit symbols can also be prefixed by one (but not more than one) of the prefixes defined in the database (indicated there by a trailing `-`).
 Furthermore:
 
 - No whitespace, parenthesis, or other symbols than specified above are permitted.
