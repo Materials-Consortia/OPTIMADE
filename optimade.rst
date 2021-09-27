@@ -2431,6 +2431,20 @@ version
   - **Query**: Support for queries on this property is OPTIONAL.
   - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
 
+description
+~~~~~~~~~~~
+
+- **Description**: free-form description of a file.
+- **Type**: string.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"POSCAR format file"`
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
