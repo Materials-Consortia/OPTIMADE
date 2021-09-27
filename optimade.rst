@@ -2409,7 +2409,7 @@ name
 media\_type
 ~~~~~~~~~~~
 
-- **Description**: media type identifier for a file.
+- **Description**: media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
 - **Type**: string.
 - **Requirements/Conventions**:
 
