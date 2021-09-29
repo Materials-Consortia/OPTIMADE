@@ -35,6 +35,8 @@ ${GRAMMATICA_LOG}:
 		|| (rm -vf ${GRAMMATICA_ZIP}; exit 12)
 	cd $(dir $@) && rm -rf $(notdir $(basename $@))
 	cd $(dir $@) && unzip ${GRAMMATICA_ZIP}
+	cd $(dir $@)$(notdir $(basename $@)) && xmlstarlet ed --inplace -u "//*[local-name()='javac']/@source" -v 1.6 build.xml
+	cd $(dir $@)$(notdir $(basename $@)) && xmlstarlet ed --inplace -u "//*[local-name()='javac']/@target" -v 1.6 build.xml
 	cd $(dir $@); ( set -uex; cd $(notdir $(basename $@)); ant -k ) 2>&1 \
 		| tee $(notdir $@)
 
