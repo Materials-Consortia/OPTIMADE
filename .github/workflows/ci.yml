@@ -35,6 +35,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install dependencies
+      run: apt-get install xmlstarlet
     - run: make audit_grammars
 
   audit-authors:
