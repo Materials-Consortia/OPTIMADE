@@ -2494,7 +2494,7 @@ The Filter Language EBNF Grammar
 
     Constant = String | Number ;
 
-    Value = String | Number | BooleanValue | Property ;
+    Value = String | Number | Property ;
     (* Note: support for Property in Value is OPTIONAL *)
 
     ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
@@ -2520,6 +2520,7 @@ The Filter Language EBNF Grammar
     ConstantFirstComparison = Constant, ValueOpRhs ;
 
     PropertyFirstComparison = Property, ( ValueOpRhs
+                                        | BooleanOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
@@ -2528,6 +2529,8 @@ The Filter Language EBNF Grammar
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
     ValueOpRhs = Operator, Value ;
+
+    BooleanOpRhs = BooleanOperator, ( TRUE | FALSE ) ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2585,10 +2588,12 @@ The Filter Language EBNF Grammar
     (* Comparison operator tokens: *)
 
     Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
+    BooleanOperator = [ '!' ], '=' , [Spaces] ;
 
     (* Boolean values *)
 
-    BooleanValue = ( 'TRUE' | 'FALSE' ), [Spaces] ;
+    TRUE = 'TRUE', [Spaces] ;
+    FALSE = 'FALSE', [Spaces] ;
 
     (* Property syntax *)
 
