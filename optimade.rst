@@ -1564,7 +1564,7 @@ OPTIONAL features:
 Examples:
 
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
-- :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
+- :filter:`chemical_formula_anonymous STARTS WITH "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
