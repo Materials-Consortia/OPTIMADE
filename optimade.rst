@@ -2445,6 +2445,36 @@ description
 
   - :val:`"POSCAR format file"`
 
+atime
+~~~~~
+
+- **Description**: time of last access of a file.
+- **Type**: timestamp.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+ctime
+~~~~~
+
+- **Description**: time of last status change of a file.
+- **Type**: timestamp.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+mtime
+~~~~~
+
+- **Description**: time of last modification of a file.
+- **Type**: timestamp.
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
