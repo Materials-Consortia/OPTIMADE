@@ -2406,6 +2406,19 @@ name
 
   - :val:`"1000000.cif"`
 
+size
+~~~~
+
+- **Description**: size of a file in bytes.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that either exact size of a file is given or its upper bound.
+    This way if a client reserves a static buffer or truncates the download stream after this many bytes the whole file would be received.
+    Such provision is included to allow the providers to serve on-the-fly compressed files.
+
 media\_type
 ~~~~~~~~~~~
 
