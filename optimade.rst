@@ -2380,7 +2380,7 @@ The following properties are used to do so:
 url
 ~~~
 
-- **Description**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ with a URL to get the contents of a file.
+- **Description**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ with a URL to get the contents of a file.
 - **Type**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
 - **Requirements/Conventions**:
 
@@ -2395,7 +2395,7 @@ url
 name
 ~~~~
 
-- **Description**: base name of a file.
+- **Description**: Base name of a file.
 - **Type**: string.
 - **Requirements/Conventions**:
 
@@ -2409,7 +2409,7 @@ name
 size
 ~~~~
 
-- **Description**: size of a file in bytes.
+- **Description**: Size of a file in bytes.
 - **Type**: integer
 - **Requirements/Conventions**:
 
@@ -2422,8 +2422,8 @@ size
 media\_type
 ~~~~~~~~~~~
 
-- **Description**: media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
-- **Type**: string.
+- **Description**: Media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
+- **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
@@ -2436,8 +2436,8 @@ media\_type
 version
 ~~~~~~~
 
-- **Description**: version information of a file (e.g. commit, revision, timestamp)
-- **Type**: string.
+- **Description**: Version information of a file (e.g. commit, revision, timestamp).
+- **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
@@ -2447,8 +2447,8 @@ version
 description
 ~~~~~~~~~~~
 
-- **Description**: free-form description of a file.
-- **Type**: string.
+- **Description**: Free-form description of a file.
+- **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
@@ -2461,8 +2461,8 @@ description
 atime
 ~~~~~
 
-- **Description**: time of last access of a file.
-- **Type**: timestamp.
+- **Description**: Time of last access of a file.
+- **Type**: timestamp
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
@@ -2471,8 +2471,8 @@ atime
 ctime
 ~~~~~
 
-- **Description**: time of last status change of a file.
-- **Type**: timestamp.
+- **Description**: Time of last status change of a file.
+- **Type**: timestamp
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
@@ -2481,8 +2481,8 @@ ctime
 mtime
 ~~~~~
 
-- **Description**: time of last modification of a file.
-- **Type**: timestamp.
+- **Description**: Time of last modification of a file.
+- **Type**: timestamp
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
