@@ -2504,7 +2504,7 @@ The Filter Language EBNF Grammar
     ValueList = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), { Comma, ( Value | EqOperator, Value | IneqOperator, OrderedValue ) } ;
     (* Support for Operator in ValueList is OPTIONAL *)
 
-    ValueZip = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValue ), {Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValu } ;
+    ValueZip = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValue ), { Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValue ) } ;
     (* Support for Operator in ValueZip is OPTIONAL *)
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
