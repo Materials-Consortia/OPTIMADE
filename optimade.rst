@@ -2501,10 +2501,10 @@ The Filter Language EBNF Grammar
 
     UnorderedValue = ( TRUE | FALSE ) ;
 
-    ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
+    ValueList = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), { Comma, ( Value | EqOperator, Value | IneqOperator, OrderedValue ) } ;
     (* Support for Operator in ValueList is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
+    ValueZip = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValue ), {Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValu } ;
     (* Support for Operator in ValueZip is OPTIONAL *)
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
@@ -2542,7 +2542,7 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    SetOpRhs = HAS, ( ( Value | EqOperator, Value | IneqOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
     (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
     (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
 
@@ -2591,9 +2591,9 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
+    Operator = ( EqOperator | IneqOperator ) ;
     EqOperator = [ '!' ], '=' , [Spaces] ;
     IneqOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
-    BooleanOperator = [ '!' ], '=' , [Spaces] ;
 
     (* Boolean values *)
 
