@@ -2494,8 +2494,12 @@ The Filter Language EBNF Grammar
 
     Constant = String | Number ;
 
-    Value = String | Number | Property ;
-    (* Note: support for Property in Value is OPTIONAL *)
+    Value = ( OrderedValue | UnorderedValue ) ;
+
+    OrderedValue = String | Number | Property ;
+    (* Note: support for Property in OrderedValue is OPTIONAL *)
+
+    UnorderedValue = ( TRUE | FALSE ) ;
 
     ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
     (* Support for Operator in ValueList is OPTIONAL *)
@@ -2519,8 +2523,8 @@ The Filter Language EBNF Grammar
 
     ConstantFirstComparison = Constant, ValueOpRhs ;
 
-    PropertyFirstComparison = Property, ( ValueOpRhs
-                                        | BooleanOpRhs
+    PropertyFirstComparison = Property, ( ValueEqRhs
+                                        | ValueIneqRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
@@ -2528,9 +2532,9 @@ The Filter Language EBNF Grammar
                                         | LengthOpRhs ) ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-    ValueOpRhs = Operator, Value ;
+    ValueEqRhs = EqOperator, Value ;
 
-    BooleanOpRhs = BooleanOperator, ( TRUE | FALSE ) ;
+    ValueIneqRhs = IneqOperator, OrderedValue ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2587,7 +2591,8 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
+    EqOperator = [ '!' ], '=' , [Spaces] ;
+    IneqOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
     BooleanOperator = [ '!' ], '=' , [Spaces] ;
 
     (* Boolean values *)
