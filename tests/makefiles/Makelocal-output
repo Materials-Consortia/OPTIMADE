@@ -18,5 +18,4 @@ HTML_FILES = ${RST_FILES:%.rst=%.html}
 html: ${HTML_FILES}
 
 %.html: %.rst
-	rst2html --syntax-highlight=none $< $@
-
+	./tests/makefiles/build_html.sh $<

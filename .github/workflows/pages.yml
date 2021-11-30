@@ -18,20 +18,13 @@ jobs:
 
     - uses: actions/checkout@v2
 
-    - name: Strip .. comment block from rst
-      run: sed -i -z "s/.. comment\n/..  /g" optimade.rst
-
     - name: Run Pandoc
       run: |
-        docker pull pandoc/ubuntu
-        docker run -v $(pwd):/mnt pandoc/ubuntu \
-          --standalone \
-          --output=/mnt/optimade.html \
-          --toc \
-          --number-sections \
-          --to=html \
-          --metadata-file=/mnt/.github/pages/metadata.yml \
-          /mnt/optimade.rst
+          docker run \
+            -v $(pwd):/data \
+            --entrypoint /data/tests/makefiles/build_html.sh \
+            pandoc/ubuntu:2.16.2 \
+            ./optimade.rst
 
     - name: Commit to gh-pages
       run: |
