@@ -2492,20 +2492,19 @@ The Filter Language EBNF Grammar
 
     (* Values *)
 
-    Constant = String | Number ;
+    OrderedConstant = String | Number ;
+    UnorderedConstant = ( TRUE | FALSE ) ;
 
-    Value = ( OrderedValue | UnorderedValue ) ;
+    Value = ( UnorderedConstant | OrderedValue ) ;
 
-    OrderedValue = String | Number | Property ;
+    OrderedValue = ( OrderedConstant | Property ) ;
     (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    UnorderedValue = ( TRUE | FALSE ) ;
+    ValueListEntry = ( Value | ValueEqRhs | ValueIneqRhs ) ;
+    (* Support for Operator in ValueListEntry is OPTIONAL *)
 
-    ValueList = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), { Comma, ( Value | EqOperator, Value | IneqOperator, OrderedValue ) } ;
-    (* Support for Operator in ValueList is OPTIONAL *)
-
-    ValueZip = ( Value | EqOperator, Value | IneqOperator, OrderedValue ), Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValue ), { Colon, ( Value | EqOperator, Value | IneqOperator, OrderedValue ) } ;
-    (* Support for Operator in ValueZip is OPTIONAL *)
+    ValueList = ValueListEntry, { Comma, ValueListEntry } ;
+    ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
 
@@ -2521,16 +2520,18 @@ The Filter Language EBNF Grammar
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    ConstantFirstComparison = Constant, ValueOpRhs ;
+    ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
+                              | UnorderedConstant, ValueEqRhs ) ;
 
-    PropertyFirstComparison = Property, ( ValueEqRhs
-                                        | ValueIneqRhs
+    PropertyFirstComparison = Property, ( ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
                                         | SetZipOpRhs
                                         | LengthOpRhs ) ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
+
+    ValueOpRhs = ( ValueEqRhs | ValueIneqRhs ) ;
 
     ValueEqRhs = EqOperator, Value ;
 

@@ -44,18 +44,20 @@ Filter(9999)
                 LowercaseLetter(9999)
                   TOKEN_86(9999): "e", line: 1, col: 18
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_28(9999): "<", line: 1, col: 19
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_17(9999): "1", line: 1, col: 20
-                    Digit(9999)
-                      TOKEN_16(9999): "0", line: 1, col: 21
-                    Digit(9999)
-                      TOKEN_16(9999): "0", line: 1, col: 22
-                  TOKEN_14(9999): ".", line: 1, col: 23
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_16(9999): "0", line: 1, col: 24
+              ValueIneqRhs(9999)
+                IneqOperator(9999)
+                  TOKEN_28(9999): "<", line: 1, col: 19
+                OrderedValue(9999)
+                  OrderedConstant(9999)
+                    Number(9999)
+                      Digits(9999)
+                        Digit(9999)
+                          TOKEN_17(9999): "1", line: 1, col: 20
+                        Digit(9999)
+                          TOKEN_16(9999): "0", line: 1, col: 21
+                        Digit(9999)
+                          TOKEN_16(9999): "0", line: 1, col: 22
+                      TOKEN_14(9999): ".", line: 1, col: 23
+                      Digits(9999)
+                        Digit(9999)
+                          TOKEN_16(9999): "0", line: 1, col: 24

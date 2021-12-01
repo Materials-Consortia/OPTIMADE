@@ -51,21 +51,23 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 27
               Value(9999)
-                String(9999)
-                  TOKEN_3(9999): """, line: 1, col: 28
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        UppercaseLetter(9999)
-                          TOKEN_38(9999): "C", line: 1, col: 29
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Digit(9999)
-                        TOKEN_18(9999): "2", line: 1, col: 30
-                  TOKEN_3(9999): """, line: 1, col: 31
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 32
+                OrderedValue(9999)
+                  OrderedConstant(9999)
+                    String(9999)
+                      TOKEN_3(9999): """, line: 1, col: 28
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            UppercaseLetter(9999)
+                              TOKEN_38(9999): "C", line: 1, col: 29
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Digit(9999)
+                            TOKEN_18(9999): "2", line: 1, col: 30
+                      TOKEN_3(9999): """, line: 1, col: 31
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 32
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 33
         Spaces(9999)
@@ -126,15 +128,17 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 66
                 Value(9999)
-                  String(9999)
-                    TOKEN_3(9999): """, line: 1, col: 67
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Letter(9999)
-                          UppercaseLetter(9999)
-                            TOKEN_33(9999): "A", line: 1, col: 68
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Digit(9999)
-                          TOKEN_18(9999): "2", line: 1, col: 69
-                    TOKEN_3(9999): """, line: 1, col: 70
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      String(9999)
+                        TOKEN_3(9999): """, line: 1, col: 67
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Letter(9999)
+                              UppercaseLetter(9999)
+                                TOKEN_33(9999): "A", line: 1, col: 68
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Digit(9999)
+                              TOKEN_18(9999): "2", line: 1, col: 69
+                        TOKEN_3(9999): """, line: 1, col: 70

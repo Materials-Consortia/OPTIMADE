@@ -20,16 +20,17 @@ Filter(9999)
                       LowercaseLetter(9999)
                         TOKEN_82(9999): "a", line: 1, col: 6
                   ValueOpRhs(9999)
-                    Operator(9999)
-                      TOKEN_30(9999): ">", line: 1, col: 7
-                    Value(9999)
-                      Property(9999)
-                        Identifier(9999)
-                          LowercaseLetter(9999)
-                            TOKEN_83(9999): "b", line: 1, col: 8
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 9
+                    ValueIneqRhs(9999)
+                      IneqOperator(9999)
+                        TOKEN_30(9999): ">", line: 1, col: 7
+                      OrderedValue(9999)
+                        Property(9999)
+                          Identifier(9999)
+                            LowercaseLetter(9999)
+                              TOKEN_83(9999): "b", line: 1, col: 8
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 9
             AND(9999)
               TOKEN_35(9999): "AND", line: 1, col: 10
               Spaces(9999)
@@ -44,13 +45,15 @@ Filter(9999)
                         LowercaseLetter(9999)
                           TOKEN_105(9999): "x", line: 1, col: 14
                     ValueOpRhs(9999)
-                      Operator(9999)
-                        TOKEN_30(9999): ">", line: 1, col: 15
-                      Value(9999)
-                        Number(9999)
-                          Digits(9999)
-                            Digit(9999)
-                              TOKEN_16(9999): "0", line: 1, col: 16
+                      ValueIneqRhs(9999)
+                        IneqOperator(9999)
+                          TOKEN_30(9999): ">", line: 1, col: 15
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_16(9999): "0", line: 1, col: 16
         ClosingBrace(9999)
           TOKEN_9(9999): ")", line: 1, col: 17
           Spaces(9999)

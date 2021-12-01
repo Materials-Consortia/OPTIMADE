@@ -33,20 +33,23 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 16
               Operator(9999)
-                TOKEN_29(9999): "=", line: 1, col: 17
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 18
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_20(9999): "4", line: 1, col: 19
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 20
+                EqOperator(9999)
+                  TOKEN_29(9999): "=", line: 1, col: 17
                   Spaces(9999)
                     Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 21
+                      TOKEN_1(9999): " ", line: 1, col: 18
+              Value(9999)
+                OrderedValue(9999)
+                  OrderedConstant(9999)
+                    Number(9999)
+                      Digits(9999)
+                        Digit(9999)
+                          TOKEN_20(9999): "4", line: 1, col: 19
+                        Digit(9999)
+                          TOKEN_18(9999): "2", line: 1, col: 20
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 21
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 22
         Spaces(9999)
@@ -84,20 +87,23 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 41
                 Operator(9999)
-                  TOKEN_30(9999): ">", line: 1, col: 42
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 43
-                Value(9999)
-                  Number(9999)
-                    Digits(9999)
-                      Digit(9999)
-                        TOKEN_20(9999): "4", line: 1, col: 44
-                      Digit(9999)
-                        TOKEN_18(9999): "2", line: 1, col: 45
+                  IneqOperator(9999)
+                    TOKEN_30(9999): ">", line: 1, col: 42
                     Spaces(9999)
                       Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 46
+                        TOKEN_1(9999): " ", line: 1, col: 43
+                Value(9999)
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      Number(9999)
+                        Digits(9999)
+                          Digit(9999)
+                            TOKEN_20(9999): "4", line: 1, col: 44
+                          Digit(9999)
+                            TOKEN_18(9999): "2", line: 1, col: 45
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 46
         AND(9999)
           TOKEN_35(9999): "AND", line: 1, col: 47
           Spaces(9999)
@@ -135,20 +141,23 @@ Filter(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 66
                   Operator(9999)
-                    TOKEN_28(9999): "<", line: 1, col: 67
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 68
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_20(9999): "4", line: 1, col: 69
-                        Digit(9999)
-                          TOKEN_18(9999): "2", line: 1, col: 70
+                    IneqOperator(9999)
+                      TOKEN_28(9999): "<", line: 1, col: 67
                       Spaces(9999)
                         Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 71
+                          TOKEN_1(9999): " ", line: 1, col: 68
+                  Value(9999)
+                    OrderedValue(9999)
+                      OrderedConstant(9999)
+                        Number(9999)
+                          Digits(9999)
+                            Digit(9999)
+                              TOKEN_20(9999): "4", line: 1, col: 69
+                            Digit(9999)
+                              TOKEN_18(9999): "2", line: 1, col: 70
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 71
           AND(9999)
             TOKEN_35(9999): "AND", line: 1, col: 72
             Spaces(9999)
@@ -186,21 +195,24 @@ Filter(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 91
                     Operator(9999)
-                      TOKEN_2(9999): "!", line: 1, col: 92
-                      TOKEN_29(9999): "=", line: 1, col: 93
-                      Spaces(9999)
-                        Space(9999)
-                          TOKEN_1(9999): " ", line: 1, col: 94
-                    Value(9999)
-                      Number(9999)
-                        Digits(9999)
-                          Digit(9999)
-                            TOKEN_20(9999): "4", line: 1, col: 95
-                          Digit(9999)
-                            TOKEN_18(9999): "2", line: 1, col: 96
+                      EqOperator(9999)
+                        TOKEN_2(9999): "!", line: 1, col: 92
+                        TOKEN_29(9999): "=", line: 1, col: 93
                         Spaces(9999)
                           Space(9999)
-                            TOKEN_1(9999): " ", line: 1, col: 97
+                            TOKEN_1(9999): " ", line: 1, col: 94
+                    Value(9999)
+                      OrderedValue(9999)
+                        OrderedConstant(9999)
+                          Number(9999)
+                            Digits(9999)
+                              Digit(9999)
+                                TOKEN_20(9999): "4", line: 1, col: 95
+                              Digit(9999)
+                                TOKEN_18(9999): "2", line: 1, col: 96
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 97
             AND(9999)
               TOKEN_35(9999): "AND", line: 1, col: 98
               Spaces(9999)
@@ -238,21 +250,24 @@ Filter(9999)
                           Space(9999)
                             TOKEN_1(9999): " ", line: 1, col: 117
                       Operator(9999)
-                        TOKEN_30(9999): ">", line: 1, col: 118
-                        TOKEN_29(9999): "=", line: 1, col: 119
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_1(9999): " ", line: 1, col: 120
-                      Value(9999)
-                        Number(9999)
-                          Digits(9999)
-                            Digit(9999)
-                              TOKEN_20(9999): "4", line: 1, col: 121
-                            Digit(9999)
-                              TOKEN_18(9999): "2", line: 1, col: 122
+                        IneqOperator(9999)
+                          TOKEN_30(9999): ">", line: 1, col: 118
+                          TOKEN_29(9999): "=", line: 1, col: 119
                           Spaces(9999)
                             Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 123
+                              TOKEN_1(9999): " ", line: 1, col: 120
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_20(9999): "4", line: 1, col: 121
+                                Digit(9999)
+                                  TOKEN_18(9999): "2", line: 1, col: 122
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 123
               AND(9999)
                 TOKEN_35(9999): "AND", line: 1, col: 124
                 Spaces(9999)
@@ -290,19 +305,22 @@ Filter(9999)
                             Space(9999)
                               TOKEN_1(9999): " ", line: 1, col: 143
                         Operator(9999)
-                          TOKEN_28(9999): "<", line: 1, col: 144
-                          TOKEN_29(9999): "=", line: 1, col: 145
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 146
-                        Value(9999)
-                          Number(9999)
-                            Digits(9999)
-                              Digit(9999)
-                                TOKEN_20(9999): "4", line: 1, col: 147
-                              Digit(9999)
-                                TOKEN_18(9999): "2", line: 1, col: 148
+                          IneqOperator(9999)
+                            TOKEN_28(9999): "<", line: 1, col: 144
+                            TOKEN_29(9999): "=", line: 1, col: 145
                             Spaces(9999)
                               Space(9999)
-                                nl(9999)
-                                  SPECIAL_1(9999): "(...)", line: 1, col: 149
+                                TOKEN_1(9999): " ", line: 1, col: 146
+                        Value(9999)
+                          OrderedValue(9999)
+                            OrderedConstant(9999)
+                              Number(9999)
+                                Digits(9999)
+                                  Digit(9999)
+                                    TOKEN_20(9999): "4", line: 1, col: 147
+                                  Digit(9999)
+                                    TOKEN_18(9999): "2", line: 1, col: 148
+                                Spaces(9999)
+                                  Space(9999)
+                                    nl(9999)
+                                      SPECIAL_1(9999): "(...)", line: 1, col: 149
