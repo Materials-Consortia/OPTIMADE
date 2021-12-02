@@ -2492,16 +2492,19 @@ The Filter Language EBNF Grammar
 
     (* Values *)
 
-    Constant = String | Number ;
+    OrderedConstant = String | Number ;
+    UnorderedConstant = ( TRUE | FALSE ) ;
 
-    Value = String | Number | Property ;
-    (* Note: support for Property in Value is OPTIONAL *)
+    Value = ( UnorderedConstant | OrderedValue ) ;
 
-    ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
-    (* Support for Operator in ValueList is OPTIONAL *)
+    OrderedValue = ( OrderedConstant | Property ) ;
+    (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
-    (* Support for Operator in ValueZip is OPTIONAL *)
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs ) ;
+    (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
+
+    ValueList = ValueListEntry, { Comma, ValueListEntry } ;
+    ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
 
@@ -2517,10 +2520,10 @@ The Filter Language EBNF Grammar
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    ConstantFirstComparison = Constant, ValueOpRhs ;
+    ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
+                              | UnorderedConstant, ValueEqRhs ) ;
 
     PropertyFirstComparison = Property, ( ValueOpRhs
-                                        | BooleanOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
@@ -2528,9 +2531,11 @@ The Filter Language EBNF Grammar
                                         | LengthOpRhs ) ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-    ValueOpRhs = Operator, Value ;
+    ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;
 
-    BooleanOpRhs = BooleanOperator, ( TRUE | FALSE ) ;
+    ValueEqRhs = EqualityOperator, Value ;
+
+    ValueRelCompRhs = RelativeComparisonOperator, OrderedValue ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2538,9 +2543,8 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
-    (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
@@ -2587,8 +2591,9 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
-    BooleanOperator = [ '!' ], '=' , [Spaces] ;
+    Operator = ( EqualityOperator | RelativeComparisonOperator ) ;
+    EqualityOperator = [ '!' ], '=' , [Spaces] ;
+    RelativeComparisonOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
 
     (* Boolean values *)
 

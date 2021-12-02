@@ -8,3 +8,7 @@
 docker_audit:
 	docker build -t optimade . -f tests/tools/Dockerfile
 	docker run -it --rm optimade:latest
+
+docker_rebuild_grammar_tests:
+	docker build -t optimade . -f tests/tools/Dockerfile
+	docker run -v $(CURDIR)/tests/outputs:/root/optimade/tests/outputs -it --rm optimade:latest /bin/bash -c "make distclean; make out"

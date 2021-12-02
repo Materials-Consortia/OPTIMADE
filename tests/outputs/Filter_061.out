@@ -65,15 +65,18 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 28
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_29(9999): "=", line: 1, col: 29
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 30
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_20(9999): "4", line: 1, col: 31
-                    Digit(9999)
-                      TOKEN_18(9999): "2", line: 1, col: 32
+              ValueEqRhs(9999)
+                EqualityOperator(9999)
+                  TOKEN_29(9999): "=", line: 1, col: 29
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 30
+                Value(9999)
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      Number(9999)
+                        Digits(9999)
+                          Digit(9999)
+                            TOKEN_20(9999): "4", line: 1, col: 31
+                          Digit(9999)
+                            TOKEN_18(9999): "2", line: 1, col: 32

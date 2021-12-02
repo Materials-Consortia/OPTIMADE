@@ -58,19 +58,20 @@ Filter(9999)
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 26
-              Operator(9999)
+              RelativeComparisonOperator(9999)
                 TOKEN_28(9999): "<", line: 1, col: 27
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 28
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_19(9999): "3", line: 1, col: 29
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 30
+              OrderedValue(9999)
+                OrderedConstant(9999)
+                  Number(9999)
+                    Digits(9999)
+                      Digit(9999)
+                        TOKEN_19(9999): "3", line: 1, col: 29
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 30
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 31
         Spaces(9999)
@@ -139,58 +140,72 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 64
                 ValueList(9999)
-                  Operator(9999)
-                    TOKEN_30(9999): ">", line: 1, col: 65
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 66
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_19(9999): "3", line: 1, col: 67
+                  ValueListEntry(9999)
+                    ValueRelCompRhs(9999)
+                      RelativeComparisonOperator(9999)
+                        TOKEN_30(9999): ">", line: 1, col: 65
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 66
+                      OrderedValue(9999)
+                        OrderedConstant(9999)
+                          Number(9999)
+                            Digits(9999)
+                              Digit(9999)
+                                TOKEN_19(9999): "3", line: 1, col: 67
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 68
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 69
-                  Operator(9999)
-                    TOKEN_29(9999): "=", line: 1, col: 70
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 71
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_22(9999): "6", line: 1, col: 72
+                  ValueListEntry(9999)
+                    ValueEqRhs(9999)
+                      EqualityOperator(9999)
+                        TOKEN_29(9999): "=", line: 1, col: 70
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 71
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_22(9999): "6", line: 1, col: 72
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 73
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 74
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_20(9999): "4", line: 1, col: 75
+                  ValueListEntry(9999)
+                    Value(9999)
+                      OrderedValue(9999)
+                        OrderedConstant(9999)
+                          Number(9999)
+                            Digits(9999)
+                              Digit(9999)
+                                TOKEN_20(9999): "4", line: 1, col: 75
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 76
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 77
-                  Operator(9999)
-                    TOKEN_2(9999): "!", line: 1, col: 78
-                    TOKEN_29(9999): "=", line: 1, col: 79
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 80
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_24(9999): "8", line: 1, col: 81
-                      Spaces(9999)
-                        Space(9999)
-                          nl(9999)
-                            SPECIAL_1(9999): "(...)", line: 1, col: 82
+                  ValueListEntry(9999)
+                    ValueEqRhs(9999)
+                      EqualityOperator(9999)
+                        TOKEN_2(9999): "!", line: 1, col: 78
+                        TOKEN_29(9999): "=", line: 1, col: 79
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 80
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_24(9999): "8", line: 1, col: 81
+                              Spaces(9999)
+                                Space(9999)
+                                  nl(9999)
+                                    SPECIAL_1(9999): "(...)", line: 1, col: 82
