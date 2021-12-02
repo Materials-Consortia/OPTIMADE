@@ -57,7 +57,7 @@ Filter(9999)
                           TOKEN_1(9999): " ", line: 1, col: 23
                   ValueOpRhs(9999)
                     ValueEqRhs(9999)
-                      EqOperator(9999)
+                      EqualityOperator(9999)
                         TOKEN_29(9999): "=", line: 1, col: 24
                         Spaces(9999)
                           Space(9999)
@@ -131,7 +131,7 @@ Filter(9999)
                             TOKEN_1(9999): " ", line: 1, col: 52
                     ValueOpRhs(9999)
                       ValueEqRhs(9999)
-                        EqOperator(9999)
+                        EqualityOperator(9999)
                           TOKEN_29(9999): "=", line: 1, col: 53
                           Spaces(9999)
                             Space(9999)
@@ -201,7 +201,7 @@ Filter(9999)
                             TOKEN_1(9999): " ", line: 1, col: 79
                     ValueOpRhs(9999)
                       ValueEqRhs(9999)
-                        EqOperator(9999)
+                        EqualityOperator(9999)
                           TOKEN_29(9999): "=", line: 1, col: 80
                           Spaces(9999)
                             Space(9999)
@@ -278,7 +278,7 @@ Filter(9999)
                               TOKEN_1(9999): " ", line: 1, col: 111
                       ValueOpRhs(9999)
                         ValueEqRhs(9999)
-                          EqOperator(9999)
+                          EqualityOperator(9999)
                             TOKEN_29(9999): "=", line: 1, col: 112
                             Spaces(9999)
                               Space(9999)
@@ -365,7 +365,7 @@ Filter(9999)
                             TOKEN_1(9999): " ", line: 1, col: 144
                     ValueOpRhs(9999)
                       ValueEqRhs(9999)
-                        EqOperator(9999)
+                        EqualityOperator(9999)
                           TOKEN_29(9999): "=", line: 1, col: 145
                           Spaces(9999)
                             Space(9999)
@@ -437,7 +437,7 @@ Filter(9999)
                               TOKEN_1(9999): " ", line: 1, col: 172
                       ValueOpRhs(9999)
                         ValueEqRhs(9999)
-                          EqOperator(9999)
+                          EqualityOperator(9999)
                             TOKEN_29(9999): "=", line: 1, col: 173
                             Spaces(9999)
                               Space(9999)
@@ -518,7 +518,7 @@ Filter(9999)
                                     TOKEN_1(9999): " ", line: 1, col: 201
                             ValueOpRhs(9999)
                               ValueEqRhs(9999)
-                                EqOperator(9999)
+                                EqualityOperator(9999)
                                   TOKEN_29(9999): "=", line: 1, col: 202
                                   Spaces(9999)
                                     Space(9999)
@@ -590,7 +590,7 @@ Filter(9999)
                                       TOKEN_1(9999): " ", line: 1, col: 229
                               ValueOpRhs(9999)
                                 ValueEqRhs(9999)
-                                  EqOperator(9999)
+                                  EqualityOperator(9999)
                                     TOKEN_29(9999): "=", line: 1, col: 230
                                     Spaces(9999)
                                       Space(9999)

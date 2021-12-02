@@ -11,7 +11,7 @@ Filter(9999)
                   TOKEN_82(9999): "a", line: 1, col: 1
             ValueOpRhs(9999)
               ValueEqRhs(9999)
-                EqOperator(9999)
+                EqualityOperator(9999)
                   TOKEN_29(9999): "=", line: 1, col: 2
                 Value(9999)
                   OrderedValue(9999)

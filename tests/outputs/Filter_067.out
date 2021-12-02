@@ -44,8 +44,8 @@ Filter(9999)
                                     Space(9999)
                                       TOKEN_1(9999): " ", line: 1, col: 15
                               ValueOpRhs(9999)
-                                ValueIneqRhs(9999)
-                                  IneqOperator(9999)
+                                ValueRelCompRhs(9999)
+                                  RelativeComparisonOperator(9999)
                                     TOKEN_30(9999): ">", line: 1, col: 16
                                     Spaces(9999)
                                       Space(9999)
@@ -101,8 +101,8 @@ Filter(9999)
                         LowercaseLetter(9999)
                           TOKEN_105(9999): "x", line: 1, col: 39
                     ValueOpRhs(9999)
-                      ValueIneqRhs(9999)
-                        IneqOperator(9999)
+                      ValueRelCompRhs(9999)
+                        RelativeComparisonOperator(9999)
                           TOKEN_30(9999): ">", line: 1, col: 40
                           Spaces(9999)
                             Space(9999)

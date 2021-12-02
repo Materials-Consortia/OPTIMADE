@@ -44,8 +44,8 @@ Filter(9999)
                 LowercaseLetter(9999)
                   TOKEN_86(9999): "e", line: 1, col: 18
             ValueOpRhs(9999)
-              ValueIneqRhs(9999)
-                IneqOperator(9999)
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
                   TOKEN_28(9999): "<", line: 1, col: 19
                 OrderedValue(9999)
                   OrderedConstant(9999)

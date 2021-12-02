@@ -2500,8 +2500,8 @@ The Filter Language EBNF Grammar
     OrderedValue = ( OrderedConstant | Property ) ;
     (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueListEntry = ( Value | ValueEqRhs | ValueIneqRhs ) ;
-    (* Support for Operator in ValueListEntry is OPTIONAL *)
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs ) ;
+    (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
 
     ValueList = ValueListEntry, { Comma, ValueListEntry } ;
     ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
@@ -2531,11 +2531,11 @@ The Filter Language EBNF Grammar
                                         | LengthOpRhs ) ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-    ValueOpRhs = ( ValueEqRhs | ValueIneqRhs ) ;
+    ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;
 
-    ValueEqRhs = EqOperator, Value ;
+    ValueEqRhs = EqualityOperator, Value ;
 
-    ValueIneqRhs = IneqOperator, OrderedValue ;
+    ValueRelCompRhs = RelativeComparisonOperator, OrderedValue ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2543,9 +2543,8 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( ( Value | EqOperator, Value | IneqOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
-    (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
@@ -2592,9 +2591,9 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
-    Operator = ( EqOperator | IneqOperator ) ;
-    EqOperator = [ '!' ], '=' , [Spaces] ;
-    IneqOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
+    Operator = ( EqualityOperator | RelativeComparisonOperator ) ;
+    EqualityOperator = [ '!' ], '=' , [Spaces] ;
+    RelativeComparisonOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
 
     (* Boolean values *)
 

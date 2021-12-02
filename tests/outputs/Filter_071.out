@@ -52,7 +52,7 @@ Filter(9999)
                     TOKEN_1(9999): " ", line: 1, col: 16
             ValueOpRhs(9999)
               ValueEqRhs(9999)
-                EqOperator(9999)
+                EqualityOperator(9999)
                   TOKEN_29(9999): "=", line: 1, col: 17
                   Spaces(9999)
                     Space(9999)

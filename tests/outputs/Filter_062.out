@@ -14,8 +14,8 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 2
             ValueOpRhs(9999)
-              ValueIneqRhs(9999)
-                IneqOperator(9999)
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
                   TOKEN_28(9999): "<", line: 1, col: 3
                   Spaces(9999)
                     Space(9999)

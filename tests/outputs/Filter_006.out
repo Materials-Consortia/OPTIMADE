@@ -11,7 +11,7 @@ Filter(9999)
                   TOKEN_83(9999): "b", line: 1, col: 1
             ValueOpRhs(9999)
               ValueEqRhs(9999)
-                EqOperator(9999)
+                EqualityOperator(9999)
                   TOKEN_29(9999): "=", line: 1, col: 2
                 Value(9999)
                   OrderedValue(9999)
@@ -57,8 +57,8 @@ Filter(9999)
                           Digit(9999)
                             TOKEN_17(9999): "1", line: 1, col: 14
                     ValueOpRhs(9999)
-                      ValueIneqRhs(9999)
-                        IneqOperator(9999)
+                      ValueRelCompRhs(9999)
+                        RelativeComparisonOperator(9999)
                           TOKEN_28(9999): "<", line: 1, col: 15
                         OrderedValue(9999)
                           Property(9999)
@@ -94,7 +94,7 @@ Filter(9999)
                                   TOKEN_105(9999): "x", line: 1, col: 26
                             ValueOpRhs(9999)
                               ValueEqRhs(9999)
-                                EqOperator(9999)
+                                EqualityOperator(9999)
                                   TOKEN_2(9999): "!", line: 1, col: 27
                                   TOKEN_29(9999): "=", line: 1, col: 28
                                 Value(9999)
@@ -120,8 +120,8 @@ Filter(9999)
                                   LowercaseLetter(9999)
                                     TOKEN_107(9999): "z", line: 1, col: 35
                               ValueOpRhs(9999)
-                                ValueIneqRhs(9999)
-                                  IneqOperator(9999)
+                                ValueRelCompRhs(9999)
+                                  RelativeComparisonOperator(9999)
                                     TOKEN_30(9999): ">", line: 1, col: 36
                                   OrderedValue(9999)
                                     OrderedConstant(9999)

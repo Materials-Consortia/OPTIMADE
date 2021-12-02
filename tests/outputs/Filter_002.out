@@ -20,8 +20,8 @@ Filter(9999)
                       LowercaseLetter(9999)
                         TOKEN_82(9999): "a", line: 1, col: 6
                   ValueOpRhs(9999)
-                    ValueIneqRhs(9999)
-                      IneqOperator(9999)
+                    ValueRelCompRhs(9999)
+                      RelativeComparisonOperator(9999)
                         TOKEN_30(9999): ">", line: 1, col: 7
                       OrderedValue(9999)
                         Property(9999)
@@ -45,8 +45,8 @@ Filter(9999)
                         LowercaseLetter(9999)
                           TOKEN_105(9999): "x", line: 1, col: 14
                     ValueOpRhs(9999)
-                      ValueIneqRhs(9999)
-                        IneqOperator(9999)
+                      ValueRelCompRhs(9999)
+                        RelativeComparisonOperator(9999)
                           TOKEN_30(9999): ">", line: 1, col: 15
                         OrderedValue(9999)
                           OrderedConstant(9999)

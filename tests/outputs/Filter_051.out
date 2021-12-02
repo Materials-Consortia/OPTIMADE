@@ -48,8 +48,8 @@ Filter(9999)
                 LowercaseLetter(9999)
                   TOKEN_101(9999): "t", line: 1, col: 20
             ValueOpRhs(9999)
-              ValueIneqRhs(9999)
-                IneqOperator(9999)
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
                   TOKEN_28(9999): "<", line: 1, col: 21
                 OrderedValue(9999)
                   OrderedConstant(9999)
@@ -95,7 +95,7 @@ Filter(9999)
                     TOKEN_100(9999): "s", line: 1, col: 38
               ValueOpRhs(9999)
                 ValueEqRhs(9999)
-                  EqOperator(9999)
+                  EqualityOperator(9999)
                     TOKEN_29(9999): "=", line: 1, col: 39
                   Value(9999)
                     OrderedValue(9999)
@@ -136,7 +136,7 @@ Filter(9999)
                       TOKEN_100(9999): "s", line: 1, col: 53
                 ValueOpRhs(9999)
                   ValueEqRhs(9999)
-                    EqOperator(9999)
+                    EqualityOperator(9999)
                       TOKEN_29(9999): "=", line: 1, col: 54
                     Value(9999)
                       OrderedValue(9999)

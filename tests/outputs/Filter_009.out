@@ -17,8 +17,8 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 4
             ValueOpRhs(9999)
-              ValueIneqRhs(9999)
-                IneqOperator(9999)
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
                   TOKEN_28(9999): "<", line: 1, col: 5
                   TOKEN_29(9999): "=", line: 1, col: 6
                   Spaces(9999)
@@ -63,8 +63,8 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 20
               ValueOpRhs(9999)
-                ValueIneqRhs(9999)
-                  IneqOperator(9999)
+                ValueRelCompRhs(9999)
+                  RelativeComparisonOperator(9999)
                     TOKEN_30(9999): ">", line: 1, col: 21
                     TOKEN_29(9999): "=", line: 1, col: 22
                     Spaces(9999)
@@ -112,7 +112,7 @@ Filter(9999)
                               TOKEN_1(9999): " ", line: 1, col: 38
                       ValueOpRhs(9999)
                         ValueEqRhs(9999)
-                          EqOperator(9999)
+                          EqualityOperator(9999)
                             TOKEN_2(9999): "!", line: 1, col: 39
                             TOKEN_29(9999): "=", line: 1, col: 40
                             Spaces(9999)
