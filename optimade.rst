@@ -1997,7 +1997,7 @@ smiles
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
-    Queries MUST treat the value of this property as a string, not the represented chemical structure.
+    Queries MUST treat the value of this property as a raw string, without SMILES-specific semantics.
     That is, providers MUST NOT perform substructure search, just regular string comparison.
   - MUST adhere to the `OpenSMILES specification v1.0 <http://opensmiles.org/opensmiles.html>`__.
   - When structures or their parts cannot be unambiguously depicted in SMILES according to OpenSMILES recommendations, using the guidelines from `Quirós et al. 2018 <https://jcheminf.biomedcentral.com/articles/10.1186/s13321-018-0279-6>`__ is RECOMMENDED.
