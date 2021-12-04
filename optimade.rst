@@ -1991,7 +1991,7 @@ chemical\_formula\_anonymous
 smiles
 ~~~~~~
 
-- **Description**: The SMILES descriptor for the structure.
+- **Description**: The SMILES (Simplified Molecular Input Line Entry Specification) descriptor for the structure.
 - **Type**: string
 - **Requirements/Conventions**:
 
