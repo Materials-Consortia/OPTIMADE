@@ -30,7 +30,7 @@ Filter(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 8
                     Value(9999)
-                      BooleanValue(9999)
+                      Boolean(9999)
                         TOKEN_67(9999): "TRUE", line: 1, col: 9
         ClosingBrace(9999)
           TOKEN_9(9999): ")", line: 1, col: 13
@@ -73,7 +73,7 @@ Filter(9999)
                           Space(9999)
                             TOKEN_1(9999): " ", line: 1, col: 27
                       Value(9999)
-                        BooleanValue(9999)
+                        Boolean(9999)
                           TOKEN_44(9999): "FALSE", line: 1, col: 28
           ClosingBrace(9999)
             TOKEN_9(9999): ")", line: 1, col: 33
