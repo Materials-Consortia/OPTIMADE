@@ -2380,8 +2380,8 @@ The following properties are used to do so:
 url
 ~~~
 
-- **Description**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ with a URL to get the contents of a file.
-- **Type**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
+- **Description**: The URL to get the contents of a file.
+- **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
