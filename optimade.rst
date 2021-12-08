@@ -2399,7 +2399,7 @@ name
 - **Type**: string
 - **Requirements/Conventions**:
 
-  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
 
 - **Examples**:
