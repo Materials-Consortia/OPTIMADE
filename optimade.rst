@@ -2396,7 +2396,7 @@ name
 ~~~~
 
 - **Description**: Base name of a file.
-- **Type**: string.
+- **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
