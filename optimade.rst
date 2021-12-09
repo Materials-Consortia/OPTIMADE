@@ -2459,6 +2459,26 @@ description
 
   - :val:`"POSCAR format file"`
 
+md5sum
+~~~~~~
+
+- **Description**: MD5 checksum of file contents.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+sha1sum
+~~~~~~~
+
+- **Description**: SHA1 checksum of file contents.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
 atime
 ~~~~~
 
