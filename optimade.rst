@@ -2401,6 +2401,7 @@ name
 
   - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - File name extension is an integral part of a file name and, if available, MUST be included.
 
 - **Examples**:
 
