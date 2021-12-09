@@ -10,14 +10,17 @@ Filter(9999)
                 LowercaseLetter(9999)
                   TOKEN_82(9999): "a", line: 1, col: 1
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_29(9999): "=", line: 1, col: 2
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_17(9999): "1", line: 1, col: 3
-                  Spaces(9999)
-                    Space(9999)
-                      nl(9999)
-                        SPECIAL_1(9999): "(...)", line: 1, col: 4
+              ValueEqRhs(9999)
+                EqualityOperator(9999)
+                  TOKEN_29(9999): "=", line: 1, col: 2
+                Value(9999)
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      Number(9999)
+                        Digits(9999)
+                          Digit(9999)
+                            TOKEN_17(9999): "1", line: 1, col: 3
+                        Spaces(9999)
+                          Space(9999)
+                            nl(9999)
+                              SPECIAL_1(9999): "(...)", line: 1, col: 4

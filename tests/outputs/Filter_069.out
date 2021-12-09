@@ -43,46 +43,47 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 3, col: 5
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_30(9999): ">", line: 3, col: 6
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 3, col: 7
-                  Space(9999)
-                    nl(9999)
-                      SPECIAL_1(9999): "(...)", line: 3, col: 8
-                  Space(9999)
-                    cr(9999)
-                      SPECIAL_2(9999): "(...)", line: 4, col: 1
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 4, col: 2
-              Value(9999)
-                Property(9999)
-                  Identifier(9999)
-                    LowercaseLetter(9999)
-                      TOKEN_80(9999): "_", line: 4, col: 3
-                    LowercaseLetter(9999)
-                      TOKEN_80(9999): "_", line: 4, col: 4
-                    LowercaseLetter(9999)
-                      TOKEN_80(9999): "_", line: 4, col: 5
-                    LowercaseLetter(9999)
-                      TOKEN_83(9999): "b", line: 4, col: 6
-                    LowercaseLetter(9999)
-                      TOKEN_86(9999): "e", line: 4, col: 7
-                    LowercaseLetter(9999)
-                      TOKEN_101(9999): "t", line: 4, col: 8
-                    LowercaseLetter(9999)
-                      TOKEN_82(9999): "a", line: 4, col: 9
-                    LowercaseLetter(9999)
-                      TOKEN_80(9999): "_", line: 4, col: 10
-                    LowercaseLetter(9999)
-                      TOKEN_80(9999): "_", line: 4, col: 11
-                    LowercaseLetter(9999)
-                      TOKEN_80(9999): "_", line: 4, col: 12
-                    Spaces(9999)
-                      Space(9999)
-                        nl(9999)
-                          SPECIAL_1(9999): "(...)", line: 4, col: 13
-                      Space(9999)
-                        nl(9999)
-                          SPECIAL_1(9999): "(...)", line: 5, col: 1
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
+                  TOKEN_30(9999): ">", line: 3, col: 6
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 3, col: 7
+                    Space(9999)
+                      nl(9999)
+                        SPECIAL_1(9999): "(...)", line: 3, col: 8
+                    Space(9999)
+                      cr(9999)
+                        SPECIAL_2(9999): "(...)", line: 4, col: 1
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 4, col: 2
+                OrderedValue(9999)
+                  Property(9999)
+                    Identifier(9999)
+                      LowercaseLetter(9999)
+                        TOKEN_80(9999): "_", line: 4, col: 3
+                      LowercaseLetter(9999)
+                        TOKEN_80(9999): "_", line: 4, col: 4
+                      LowercaseLetter(9999)
+                        TOKEN_80(9999): "_", line: 4, col: 5
+                      LowercaseLetter(9999)
+                        TOKEN_83(9999): "b", line: 4, col: 6
+                      LowercaseLetter(9999)
+                        TOKEN_86(9999): "e", line: 4, col: 7
+                      LowercaseLetter(9999)
+                        TOKEN_101(9999): "t", line: 4, col: 8
+                      LowercaseLetter(9999)
+                        TOKEN_82(9999): "a", line: 4, col: 9
+                      LowercaseLetter(9999)
+                        TOKEN_80(9999): "_", line: 4, col: 10
+                      LowercaseLetter(9999)
+                        TOKEN_80(9999): "_", line: 4, col: 11
+                      LowercaseLetter(9999)
+                        TOKEN_80(9999): "_", line: 4, col: 12
+                      Spaces(9999)
+                        Space(9999)
+                          nl(9999)
+                            SPECIAL_1(9999): "(...)", line: 4, col: 13
+                        Space(9999)
+                          nl(9999)
+                            SPECIAL_1(9999): "(...)", line: 5, col: 1

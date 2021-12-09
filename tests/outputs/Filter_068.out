@@ -69,28 +69,34 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 29
               ValueZip(9999)
-                Value(9999)
-                  String(9999)
-                    TOKEN_3(9999): """, line: 1, col: 30
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Letter(9999)
-                          UppercaseLetter(9999)
-                            TOKEN_46(9999): "H", line: 1, col: 31
-                    TOKEN_3(9999): """, line: 1, col: 32
+                ValueListEntry(9999)
+                  Value(9999)
+                    OrderedValue(9999)
+                      OrderedConstant(9999)
+                        String(9999)
+                          TOKEN_3(9999): """, line: 1, col: 30
+                          EscapedChar(9999)
+                            UnescapedChar(9999)
+                              Letter(9999)
+                                UppercaseLetter(9999)
+                                  TOKEN_46(9999): "H", line: 1, col: 31
+                          TOKEN_3(9999): """, line: 1, col: 32
                 Colon(9999)
                   TOKEN_26(9999): ":", line: 1, col: 33
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 34
-                Value(9999)
-                  Number(9999)
-                    Digits(9999)
-                      Digit(9999)
-                        TOKEN_22(9999): "6", line: 1, col: 35
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 36
+                ValueListEntry(9999)
+                  Value(9999)
+                    OrderedValue(9999)
+                      OrderedConstant(9999)
+                        Number(9999)
+                          Digits(9999)
+                            Digit(9999)
+                              TOKEN_22(9999): "6", line: 1, col: 35
+                          Spaces(9999)
+                            Space(9999)
+                              TOKEN_1(9999): " ", line: 1, col: 36
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 37
         Spaces(9999)
@@ -173,58 +179,70 @@ Filter(9999)
                       TOKEN_1(9999): " ", line: 1, col: 74
                 ValueZipList(9999)
                   ValueZip(9999)
-                    Value(9999)
-                      String(9999)
-                        TOKEN_3(9999): """, line: 1, col: 75
-                        EscapedChar(9999)
-                          UnescapedChar(9999)
-                            Letter(9999)
-                              UppercaseLetter(9999)
-                                TOKEN_46(9999): "H", line: 1, col: 76
-                        TOKEN_3(9999): """, line: 1, col: 77
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_1(9999): " ", line: 1, col: 78
+                    ValueListEntry(9999)
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            String(9999)
+                              TOKEN_3(9999): """, line: 1, col: 75
+                              EscapedChar(9999)
+                                UnescapedChar(9999)
+                                  Letter(9999)
+                                    UppercaseLetter(9999)
+                                      TOKEN_46(9999): "H", line: 1, col: 76
+                              TOKEN_3(9999): """, line: 1, col: 77
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 78
                     Colon(9999)
                       TOKEN_26(9999): ":", line: 1, col: 79
                       Spaces(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 80
-                    Value(9999)
-                      Number(9999)
-                        Digits(9999)
-                          Digit(9999)
-                            TOKEN_22(9999): "6", line: 1, col: 81
+                    ValueListEntry(9999)
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_22(9999): "6", line: 1, col: 81
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 82
                   ValueZip(9999)
-                    Value(9999)
-                      String(9999)
-                        TOKEN_3(9999): """, line: 1, col: 83
-                        EscapedChar(9999)
-                          UnescapedChar(9999)
-                            Letter(9999)
-                              UppercaseLetter(9999)
-                                TOKEN_46(9999): "H", line: 1, col: 84
-                        EscapedChar(9999)
-                          UnescapedChar(9999)
-                            Letter(9999)
-                              LowercaseLetter(9999)
-                                TOKEN_86(9999): "e", line: 1, col: 85
-                        TOKEN_3(9999): """, line: 1, col: 86
+                    ValueListEntry(9999)
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            String(9999)
+                              TOKEN_3(9999): """, line: 1, col: 83
+                              EscapedChar(9999)
+                                UnescapedChar(9999)
+                                  Letter(9999)
+                                    UppercaseLetter(9999)
+                                      TOKEN_46(9999): "H", line: 1, col: 84
+                              EscapedChar(9999)
+                                UnescapedChar(9999)
+                                  Letter(9999)
+                                    LowercaseLetter(9999)
+                                      TOKEN_86(9999): "e", line: 1, col: 85
+                              TOKEN_3(9999): """, line: 1, col: 86
                     Colon(9999)
                       TOKEN_26(9999): ":", line: 1, col: 87
                       Spaces(9999)
                         Space(9999)
                           TOKEN_1(9999): " ", line: 1, col: 88
-                    Value(9999)
-                      Number(9999)
-                        Digits(9999)
-                          Digit(9999)
-                            TOKEN_23(9999): "7", line: 1, col: 89
-                        Spaces(9999)
-                          Space(9999)
-                            TOKEN_1(9999): " ", line: 1, col: 90
+                    ValueListEntry(9999)
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_23(9999): "7", line: 1, col: 89
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 90
         AND(9999)
           TOKEN_35(9999): "AND", line: 1, col: 91
           Spaces(9999)
@@ -304,28 +322,34 @@ Filter(9999)
                         TOKEN_1(9999): " ", line: 1, col: 128
                   ValueZipList(9999)
                     ValueZip(9999)
-                      Value(9999)
-                        String(9999)
-                          TOKEN_3(9999): """, line: 1, col: 129
-                          EscapedChar(9999)
-                            UnescapedChar(9999)
-                              Letter(9999)
-                                UppercaseLetter(9999)
-                                  TOKEN_46(9999): "H", line: 1, col: 130
-                          TOKEN_3(9999): """, line: 1, col: 131
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 132
+                      ValueListEntry(9999)
+                        Value(9999)
+                          OrderedValue(9999)
+                            OrderedConstant(9999)
+                              String(9999)
+                                TOKEN_3(9999): """, line: 1, col: 129
+                                EscapedChar(9999)
+                                  UnescapedChar(9999)
+                                    Letter(9999)
+                                      UppercaseLetter(9999)
+                                        TOKEN_46(9999): "H", line: 1, col: 130
+                                TOKEN_3(9999): """, line: 1, col: 131
+                                Spaces(9999)
+                                  Space(9999)
+                                    TOKEN_1(9999): " ", line: 1, col: 132
                       Colon(9999)
                         TOKEN_26(9999): ":", line: 1, col: 133
-                      Value(9999)
-                        Number(9999)
-                          Digits(9999)
-                            Digit(9999)
-                              TOKEN_22(9999): "6", line: 1, col: 134
-                          Spaces(9999)
-                            Space(9999)
-                              TOKEN_1(9999): " ", line: 1, col: 135
+                      ValueListEntry(9999)
+                        Value(9999)
+                          OrderedValue(9999)
+                            OrderedConstant(9999)
+                              Number(9999)
+                                Digits(9999)
+                                  Digit(9999)
+                                    TOKEN_22(9999): "6", line: 1, col: 134
+                                Spaces(9999)
+                                  Space(9999)
+                                    TOKEN_1(9999): " ", line: 1, col: 135
           AND(9999)
             TOKEN_35(9999): "AND", line: 1, col: 136
             Spaces(9999)
@@ -402,20 +426,23 @@ Filter(9999)
                           TOKEN_1(9999): " ", line: 1, col: 171
                     ValueZipList(9999)
                       ValueZip(9999)
-                        Value(9999)
-                          String(9999)
-                            TOKEN_3(9999): """, line: 1, col: 172
-                            EscapedChar(9999)
-                              UnescapedChar(9999)
-                                Letter(9999)
-                                  UppercaseLetter(9999)
-                                    TOKEN_46(9999): "H", line: 1, col: 173
-                            TOKEN_3(9999): """, line: 1, col: 174
-                            Spaces(9999)
-                              Space(9999)
-                                TOKEN_1(9999): " ", line: 1, col: 175
-                              Space(9999)
-                                TOKEN_1(9999): " ", line: 1, col: 176
+                        ValueListEntry(9999)
+                          Value(9999)
+                            OrderedValue(9999)
+                              OrderedConstant(9999)
+                                String(9999)
+                                  TOKEN_3(9999): """, line: 1, col: 172
+                                  EscapedChar(9999)
+                                    UnescapedChar(9999)
+                                      Letter(9999)
+                                        UppercaseLetter(9999)
+                                          TOKEN_46(9999): "H", line: 1, col: 173
+                                  TOKEN_3(9999): """, line: 1, col: 174
+                                  Spaces(9999)
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 175
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 176
                         Colon(9999)
                           TOKEN_26(9999): ":", line: 1, col: 177
                           Spaces(9999)
@@ -425,44 +452,53 @@ Filter(9999)
                               TOKEN_1(9999): " ", line: 1, col: 179
                             Space(9999)
                               TOKEN_1(9999): " ", line: 1, col: 180
-                        Value(9999)
-                          Number(9999)
-                            Digits(9999)
-                              Digit(9999)
-                                TOKEN_22(9999): "6", line: 1, col: 181
+                        ValueListEntry(9999)
+                          Value(9999)
+                            OrderedValue(9999)
+                              OrderedConstant(9999)
+                                Number(9999)
+                                  Digits(9999)
+                                    Digit(9999)
+                                      TOKEN_22(9999): "6", line: 1, col: 181
                       Comma(9999)
                         TOKEN_12(9999): ",", line: 1, col: 182
                       ValueZip(9999)
-                        Value(9999)
-                          String(9999)
-                            TOKEN_3(9999): """, line: 1, col: 183
-                            EscapedChar(9999)
-                              UnescapedChar(9999)
-                                Letter(9999)
-                                  UppercaseLetter(9999)
-                                    TOKEN_46(9999): "H", line: 1, col: 184
-                            EscapedChar(9999)
-                              UnescapedChar(9999)
-                                Letter(9999)
-                                  LowercaseLetter(9999)
-                                    TOKEN_86(9999): "e", line: 1, col: 185
-                            TOKEN_3(9999): """, line: 1, col: 186
-                            Spaces(9999)
-                              Space(9999)
-                                TOKEN_1(9999): " ", line: 1, col: 187
+                        ValueListEntry(9999)
+                          Value(9999)
+                            OrderedValue(9999)
+                              OrderedConstant(9999)
+                                String(9999)
+                                  TOKEN_3(9999): """, line: 1, col: 183
+                                  EscapedChar(9999)
+                                    UnescapedChar(9999)
+                                      Letter(9999)
+                                        UppercaseLetter(9999)
+                                          TOKEN_46(9999): "H", line: 1, col: 184
+                                  EscapedChar(9999)
+                                    UnescapedChar(9999)
+                                      Letter(9999)
+                                        LowercaseLetter(9999)
+                                          TOKEN_86(9999): "e", line: 1, col: 185
+                                  TOKEN_3(9999): """, line: 1, col: 186
+                                  Spaces(9999)
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 187
                         Colon(9999)
                           TOKEN_26(9999): ":", line: 1, col: 188
                           Spaces(9999)
                             Space(9999)
                               TOKEN_1(9999): " ", line: 1, col: 189
-                        Value(9999)
-                          Number(9999)
-                            Digits(9999)
-                              Digit(9999)
-                                TOKEN_23(9999): "7", line: 1, col: 190
-                            Spaces(9999)
-                              Space(9999)
-                                TOKEN_1(9999): " ", line: 1, col: 191
+                        ValueListEntry(9999)
+                          Value(9999)
+                            OrderedValue(9999)
+                              OrderedConstant(9999)
+                                Number(9999)
+                                  Digits(9999)
+                                    Digit(9999)
+                                      TOKEN_23(9999): "7", line: 1, col: 190
+                                  Spaces(9999)
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 191
             AND(9999)
               TOKEN_35(9999): "AND", line: 1, col: 192
               Spaces(9999)
@@ -553,53 +589,65 @@ Filter(9999)
                             TOKEN_1(9999): " ", line: 1, col: 234
                       ValueZipList(9999)
                         ValueZip(9999)
-                          Value(9999)
-                            String(9999)
-                              TOKEN_3(9999): """, line: 1, col: 235
-                              EscapedChar(9999)
-                                UnescapedChar(9999)
-                                  Letter(9999)
-                                    UppercaseLetter(9999)
-                                      TOKEN_46(9999): "H", line: 1, col: 236
-                              TOKEN_3(9999): """, line: 1, col: 237
-                              Spaces(9999)
-                                Space(9999)
-                                  TOKEN_1(9999): " ", line: 1, col: 238
+                          ValueListEntry(9999)
+                            Value(9999)
+                              OrderedValue(9999)
+                                OrderedConstant(9999)
+                                  String(9999)
+                                    TOKEN_3(9999): """, line: 1, col: 235
+                                    EscapedChar(9999)
+                                      UnescapedChar(9999)
+                                        Letter(9999)
+                                          UppercaseLetter(9999)
+                                            TOKEN_46(9999): "H", line: 1, col: 236
+                                    TOKEN_3(9999): """, line: 1, col: 237
+                                    Spaces(9999)
+                                      Space(9999)
+                                        TOKEN_1(9999): " ", line: 1, col: 238
                           Colon(9999)
                             TOKEN_26(9999): ":", line: 1, col: 239
-                          Value(9999)
-                            Number(9999)
-                              Digits(9999)
-                                Digit(9999)
-                                  TOKEN_22(9999): "6", line: 1, col: 240
+                          ValueListEntry(9999)
+                            Value(9999)
+                              OrderedValue(9999)
+                                OrderedConstant(9999)
+                                  Number(9999)
+                                    Digits(9999)
+                                      Digit(9999)
+                                        TOKEN_22(9999): "6", line: 1, col: 240
                         Comma(9999)
                           TOKEN_12(9999): ",", line: 1, col: 241
                         ValueZip(9999)
-                          Value(9999)
-                            String(9999)
-                              TOKEN_3(9999): """, line: 1, col: 242
-                              EscapedChar(9999)
-                                UnescapedChar(9999)
-                                  Letter(9999)
-                                    UppercaseLetter(9999)
-                                      TOKEN_46(9999): "H", line: 1, col: 243
-                              EscapedChar(9999)
-                                UnescapedChar(9999)
-                                  Letter(9999)
-                                    LowercaseLetter(9999)
-                                      TOKEN_86(9999): "e", line: 1, col: 244
-                              TOKEN_3(9999): """, line: 1, col: 245
+                          ValueListEntry(9999)
+                            Value(9999)
+                              OrderedValue(9999)
+                                OrderedConstant(9999)
+                                  String(9999)
+                                    TOKEN_3(9999): """, line: 1, col: 242
+                                    EscapedChar(9999)
+                                      UnescapedChar(9999)
+                                        Letter(9999)
+                                          UppercaseLetter(9999)
+                                            TOKEN_46(9999): "H", line: 1, col: 243
+                                    EscapedChar(9999)
+                                      UnescapedChar(9999)
+                                        Letter(9999)
+                                          LowercaseLetter(9999)
+                                            TOKEN_86(9999): "e", line: 1, col: 244
+                                    TOKEN_3(9999): """, line: 1, col: 245
                           Colon(9999)
                             TOKEN_26(9999): ":", line: 1, col: 246
                             Spaces(9999)
                               Space(9999)
                                 TOKEN_1(9999): " ", line: 1, col: 247
-                          Value(9999)
-                            Number(9999)
-                              Digits(9999)
-                                Digit(9999)
-                                  TOKEN_23(9999): "7", line: 1, col: 248
-                              Spaces(9999)
-                                Space(9999)
-                                  nl(9999)
-                                    SPECIAL_1(9999): "(...)", line: 1, col: 249
+                          ValueListEntry(9999)
+                            Value(9999)
+                              OrderedValue(9999)
+                                OrderedConstant(9999)
+                                  Number(9999)
+                                    Digits(9999)
+                                      Digit(9999)
+                                        TOKEN_23(9999): "7", line: 1, col: 248
+                                    Spaces(9999)
+                                      Space(9999)
+                                        nl(9999)
+                                          SPECIAL_1(9999): "(...)", line: 1, col: 249

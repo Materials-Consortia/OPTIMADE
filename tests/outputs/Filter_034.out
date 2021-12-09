@@ -33,14 +33,16 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 13
               Value(9999)
-                String(9999)
-                  TOKEN_3(9999): """, line: 1, col: 14
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        UppercaseLetter(9999)
-                          TOKEN_46(9999): "H", line: 1, col: 15
-                  TOKEN_3(9999): """, line: 1, col: 16
+                OrderedValue(9999)
+                  OrderedConstant(9999)
+                    String(9999)
+                      TOKEN_3(9999): """, line: 1, col: 14
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            UppercaseLetter(9999)
+                              TOKEN_46(9999): "H", line: 1, col: 15
+                      TOKEN_3(9999): """, line: 1, col: 16
 Error: in tests/cases/Filter_034.inp: line 1:
     unexpected token ",", expected <EOF>
 

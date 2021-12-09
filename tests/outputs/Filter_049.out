@@ -39,23 +39,25 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 15
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_30(9999): ">", line: 1, col: 16
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 17
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_21(9999): "5", line: 1, col: 18
-                  TOKEN_14(9999): ".", line: 1, col: 19
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_16(9999): "0", line: 1, col: 20
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
+                  TOKEN_30(9999): ">", line: 1, col: 16
                   Spaces(9999)
                     Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 21
+                      TOKEN_1(9999): " ", line: 1, col: 17
+                OrderedValue(9999)
+                  OrderedConstant(9999)
+                    Number(9999)
+                      Digits(9999)
+                        Digit(9999)
+                          TOKEN_21(9999): "5", line: 1, col: 18
+                      TOKEN_14(9999): ".", line: 1, col: 19
+                      Digits(9999)
+                        Digit(9999)
+                          TOKEN_16(9999): "0", line: 1, col: 20
+                      Spaces(9999)
+                        Space(9999)
+                          TOKEN_1(9999): " ", line: 1, col: 21
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 22
         Spaces(9999)
@@ -117,17 +119,19 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 49
               ValueOpRhs(9999)
-                Operator(9999)
-                  TOKEN_28(9999): "<", line: 1, col: 50
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 51
-                Value(9999)
-                  Number(9999)
-                    Digits(9999)
-                      Digit(9999)
-                        TOKEN_19(9999): "3", line: 1, col: 52
-                      Digit(9999)
-                        TOKEN_21(9999): "5", line: 1, col: 53
-                      Digit(9999)
-                        TOKEN_16(9999): "0", line: 1, col: 54
+                ValueRelCompRhs(9999)
+                  RelativeComparisonOperator(9999)
+                    TOKEN_28(9999): "<", line: 1, col: 50
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 51
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      Number(9999)
+                        Digits(9999)
+                          Digit(9999)
+                            TOKEN_19(9999): "3", line: 1, col: 52
+                          Digit(9999)
+                            TOKEN_21(9999): "5", line: 1, col: 53
+                          Digit(9999)
+                            TOKEN_16(9999): "0", line: 1, col: 54

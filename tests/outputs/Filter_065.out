@@ -43,19 +43,21 @@ Filter(9999)
               CONTAINS(9999)
                 TOKEN_39(9999): "CONTAINS", line: 1, col: 17
               Value(9999)
-                String(9999)
-                  TOKEN_3(9999): """, line: 1, col: 25
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        UppercaseLetter(9999)
-                          TOKEN_33(9999): "A", line: 1, col: 26
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        LowercaseLetter(9999)
-                          TOKEN_93(9999): "l", line: 1, col: 27
-                  TOKEN_3(9999): """, line: 1, col: 28
+                OrderedValue(9999)
+                  OrderedConstant(9999)
+                    String(9999)
+                      TOKEN_3(9999): """, line: 1, col: 25
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            UppercaseLetter(9999)
+                              TOKEN_33(9999): "A", line: 1, col: 26
+                      EscapedChar(9999)
+                        UnescapedChar(9999)
+                          Letter(9999)
+                            LowercaseLetter(9999)
+                              TOKEN_93(9999): "l", line: 1, col: 27
+                      TOKEN_3(9999): """, line: 1, col: 28
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 29
       ExpressionClause(9999)
@@ -100,19 +102,21 @@ Filter(9999)
                 STARTS(9999)
                   TOKEN_65(9999): "STARTS", line: 1, col: 48
                 Value(9999)
-                  String(9999)
-                    TOKEN_3(9999): """, line: 1, col: 54
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Letter(9999)
-                          UppercaseLetter(9999)
-                            TOKEN_33(9999): "A", line: 1, col: 55
-                    EscapedChar(9999)
-                      UnescapedChar(9999)
-                        Letter(9999)
-                          LowercaseLetter(9999)
-                            TOKEN_93(9999): "l", line: 1, col: 56
-                    TOKEN_3(9999): """, line: 1, col: 57
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      String(9999)
+                        TOKEN_3(9999): """, line: 1, col: 54
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Letter(9999)
+                              UppercaseLetter(9999)
+                                TOKEN_33(9999): "A", line: 1, col: 55
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Letter(9999)
+                              LowercaseLetter(9999)
+                                TOKEN_93(9999): "l", line: 1, col: 56
+                        TOKEN_3(9999): """, line: 1, col: 57
         AND(9999)
           TOKEN_35(9999): "AND", line: 1, col: 58
         ExpressionClause(9999)
@@ -157,20 +161,22 @@ Filter(9999)
                   ENDS(9999)
                     TOKEN_42(9999): "ENDS", line: 1, col: 77
                   Value(9999)
-                    String(9999)
-                      TOKEN_3(9999): """, line: 1, col: 81
-                      EscapedChar(9999)
-                        UnescapedChar(9999)
-                          Letter(9999)
-                            UppercaseLetter(9999)
-                              TOKEN_33(9999): "A", line: 1, col: 82
-                      EscapedChar(9999)
-                        UnescapedChar(9999)
-                          Letter(9999)
-                            LowercaseLetter(9999)
-                              TOKEN_93(9999): "l", line: 1, col: 83
-                      TOKEN_3(9999): """, line: 1, col: 84
-                      Spaces(9999)
-                        Space(9999)
-                          nl(9999)
-                            SPECIAL_1(9999): "(...)", line: 1, col: 85
+                    OrderedValue(9999)
+                      OrderedConstant(9999)
+                        String(9999)
+                          TOKEN_3(9999): """, line: 1, col: 81
+                          EscapedChar(9999)
+                            UnescapedChar(9999)
+                              Letter(9999)
+                                UppercaseLetter(9999)
+                                  TOKEN_33(9999): "A", line: 1, col: 82
+                          EscapedChar(9999)
+                            UnescapedChar(9999)
+                              Letter(9999)
+                                LowercaseLetter(9999)
+                                  TOKEN_93(9999): "l", line: 1, col: 83
+                          TOKEN_3(9999): """, line: 1, col: 84
+                          Spaces(9999)
+                            Space(9999)
+                              nl(9999)
+                                SPECIAL_1(9999): "(...)", line: 1, col: 85

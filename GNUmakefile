@@ -53,6 +53,11 @@
 # - docker_audit: dynamically builds a docker image and
 #   runs the full suite of audit targets inside it.
 #
+# - docker_rebuild_grammar_tests: dynamically builds a docker image
+#   which is then used to reinitialize the "out" files that record
+#   how the grammar parses example inputs, which will then be used
+#   for future grammar audits.
+#
 # - audit_grammar: audits the filter language grammar included
 #   in the specification
 #

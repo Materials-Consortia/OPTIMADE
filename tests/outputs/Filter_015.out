@@ -43,28 +43,31 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 17
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_29(9999): "=", line: 1, col: 18
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 19
-              Value(9999)
-                String(9999)
-                  TOKEN_3(9999): """, line: 1, col: 20
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        UppercaseLetter(9999)
-                          TOKEN_33(9999): "A", line: 1, col: 21
-                  EscapedChar(9999)
-                    UnescapedChar(9999)
-                      Letter(9999)
-                        LowercaseLetter(9999)
-                          TOKEN_93(9999): "l", line: 1, col: 22
-                  TOKEN_3(9999): """, line: 1, col: 23
+              ValueEqRhs(9999)
+                EqualityOperator(9999)
+                  TOKEN_29(9999): "=", line: 1, col: 18
                   Spaces(9999)
                     Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 24
+                      TOKEN_1(9999): " ", line: 1, col: 19
+                Value(9999)
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      String(9999)
+                        TOKEN_3(9999): """, line: 1, col: 20
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Letter(9999)
+                              UppercaseLetter(9999)
+                                TOKEN_33(9999): "A", line: 1, col: 21
+                        EscapedChar(9999)
+                          UnescapedChar(9999)
+                            Letter(9999)
+                              LowercaseLetter(9999)
+                                TOKEN_93(9999): "l", line: 1, col: 22
+                        TOKEN_3(9999): """, line: 1, col: 23
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 24
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 25
         Spaces(9999)
@@ -72,9 +75,10 @@ Filter(9999)
             TOKEN_1(9999): " ", line: 1, col: 28
 Error: in tests/cases/Filter_015.inp: line 1:
     unexpected token "OR", expected one of "NOT", """, "+", "-", "0",
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "a", "b", "c",
-    "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "_", or "("
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "TRUE", "FALSE",
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "_", or "("
 
 chemical_formula = "Al" AND OR prototype_formula = "A"
                             ^

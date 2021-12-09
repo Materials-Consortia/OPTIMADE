@@ -27,7 +27,7 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 9
 Error: in tests/cases/Filter_023.inp: line 1:
-    unexpected token "f", expected one of "<", ">", "!", "=", "IS",
+    unexpected token "f", expected one of "!", "=", "<", ">", "IS",
     "CONTAINS", "STARTS", "ENDS", "HAS", ":", or "LENGTH"
 
 chemical formula IS KNOWN 42

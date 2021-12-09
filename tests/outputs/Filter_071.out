@@ -51,17 +51,20 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 16
             ValueOpRhs(9999)
-              Operator(9999)
-                TOKEN_29(9999): "=", line: 1, col: 17
-                Spaces(9999)
-                  Space(9999)
-                    TOKEN_1(9999): " ", line: 1, col: 18
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_21(9999): "5", line: 1, col: 19
+              ValueEqRhs(9999)
+                EqualityOperator(9999)
+                  TOKEN_29(9999): "=", line: 1, col: 17
                   Spaces(9999)
                     Space(9999)
-                      nl(9999)
-                        SPECIAL_1(9999): "(...)", line: 1, col: 20
+                      TOKEN_1(9999): " ", line: 1, col: 18
+                Value(9999)
+                  OrderedValue(9999)
+                    OrderedConstant(9999)
+                      Number(9999)
+                        Digits(9999)
+                          Digit(9999)
+                            TOKEN_21(9999): "5", line: 1, col: 19
+                        Spaces(9999)
+                          Space(9999)
+                            nl(9999)
+                              SPECIAL_1(9999): "(...)", line: 1, col: 20
