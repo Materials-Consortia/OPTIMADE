@@ -1576,10 +1576,14 @@ Other usual comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
 It should be noted that boolean values are supposed to be used only in direct comparisons with properties, but not compound comparisons.
 For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
 
+Boolean property :filter-fragment:`property` MAY be compared with :filter-fragment:`TRUE` by omitting the :filter-fragment:`= TRUE` altogether: :filter:`property`.
+Conversely, it MAY be compared with :filter-fragment:`FALSE` by negating the comparison with :filter-fragment:`TRUE`: :filter:`NOT property`.
+
 Examples:
 
 - :filter:`property = TRUE`
 - :filter:`property != FALSE`
+- :filter:`has_attached_hydrogens AND NOT has_disorder`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
