@@ -2462,7 +2462,7 @@ description
 atime
 ~~~~~
 
-- **Description**: Time of last access of a file.
+- **Description**: Time of last access of a file as per POSIX standard.
 - **Type**: timestamp
 - **Requirements/Conventions**:
 
@@ -2472,7 +2472,7 @@ atime
 ctime
 ~~~~~
 
-- **Description**: Time of last status change of a file.
+- **Description**: Time of last status change of a file as per POSIX standard.
 - **Type**: timestamp
 - **Requirements/Conventions**:
 
@@ -2482,7 +2482,7 @@ ctime
 mtime
 ~~~~~
 
-- **Description**: Time of last modification of a file.
+- **Description**: Time of last modification of a file as per POSIX standard.
 - **Type**: timestamp
 - **Requirements/Conventions**:
 
