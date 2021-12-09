@@ -1583,7 +1583,7 @@ Examples:
 
 - :filter:`property = TRUE`
 - :filter:`property != FALSE`
-- :filter:`has_attached_hydrogens AND NOT has_disorder`
+- :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
