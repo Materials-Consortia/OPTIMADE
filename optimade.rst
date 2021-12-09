@@ -2523,12 +2523,12 @@ The Filter Language EBNF Grammar
     ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
                               | UnorderedConstant, ValueEqRhs ) ;
 
-    PropertyFirstComparison = Property, ( ValueOpRhs
-                                        | KnownOpRhs
-                                        | FuzzyStringOpRhs
-                                        | SetOpRhs
-                                        | SetZipOpRhs
-                                        | LengthOpRhs ) ;
+    PropertyFirstComparison = Property, [ ( ValueOpRhs
+                                          | KnownOpRhs
+                                          | FuzzyStringOpRhs
+                                          | SetOpRhs
+                                          | SetZipOpRhs
+                                          | LengthOpRhs ) ] ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
     ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;
