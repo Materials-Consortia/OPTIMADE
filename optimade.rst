@@ -2531,8 +2531,8 @@ mtime
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - It should be noted that the values of :field:`mtime` and :field:`last_modified` do not necessary match.
-    :field:`mtime` pertains to the modification of the file, while :field:`last_modified` pertains to its contents.
+  - It should be noted that the values of :field:`last_modified`, :field:`modification_timestamp` and :field:`mtime` do not necessary match.
+    :field:`last_modified` pertains to the modification of the OPTIMADE metadata, :field:`modification_timestamp` pertains to file contents and :field:`mtime` pertains to the modification of the file (not necessary changing its contents).
     For example, appending an empty string to a file would result in the change of :field:`mtime` in some operating systems, but this would not be deemed as a modification of its contents.
 
 Database-Provider-Specific Entry Types
