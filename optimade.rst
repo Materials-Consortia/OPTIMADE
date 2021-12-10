@@ -2457,6 +2457,17 @@ version
   - **Query**: Support for queries on this property is OPTIONAL.
   - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
 
+modification_timestamp
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Timestamp of the last modification of file contents.
+  A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
 description
 ~~~~~~~~~~~
 
