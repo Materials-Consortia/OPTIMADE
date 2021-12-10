@@ -2392,6 +2392,18 @@ url
 
   - :val:`"https://example.org/files/cifs/1000000.cif"`
 
+url_stable_until
+~~~~~~~~~~~~~~~~
+
+- **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - :val:`null` means that there is no stability guarantee for the URL in `url`.
+    Indefinite support could be communicated by providing a date sufficiently far in the future, for example, :val:`9999-12-31`.
+
 name
 ~~~~
 
