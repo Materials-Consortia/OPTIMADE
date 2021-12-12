@@ -1808,8 +1808,7 @@ database-provider-specific properties
 Structures Entries
 ------------------
 
-:entry:`structures` entries (or objects) contain data that belongs to a single structure.
-They have the properties described above in section `Properties Used by Multiple Entry Types`_, as well as the following properties:
+:entry:`structures` entries (or objects) have the properties described above in section `Properties Used by Multiple Entry Types`_, as well as the following properties:
 
 elements
 ~~~~~~~~
