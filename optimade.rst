@@ -1808,7 +1808,8 @@ database-provider-specific properties
 Structures Entries
 ------------------
 
-:entry:`structures` entries (or objects) comprises data that belongs to a single structure. They have the properties described above in section `Properties Used by Multiple Entry Types`_, as well as the following properties:
+:entry:`structures` entries (or objects) contain data that belongs to a single structure.
+They have the properties described above in section `Properties Used by Multiple Entry Types`_, as well as the following properties:
 
 elements
 ~~~~~~~~
@@ -1991,7 +1992,8 @@ chemical\_formula\_anonymous
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
-- **Description**: List of three integers describing the periodicity of the boundaries of the unit cell. For each direction indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+- **Description**: List of three integers describing the periodicity of the boundaries of the unit cell.
+  For each direction indicated by the three `lattice\_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
   Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
