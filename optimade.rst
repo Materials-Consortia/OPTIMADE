@@ -1991,8 +1991,7 @@ chemical\_formula\_anonymous
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
-- **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+- **Description**: List of three integers describing the periodicity of the boundaries of the unit cell. For each direction indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
   Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
@@ -2004,10 +2003,10 @@ dimension\_types
 
 - **Examples**:
 
-  - For a molecule: :val:`[0, 0, 0]`
-  - For a wire along the direction specified by the third lattice vector: :val:`[0, 0, 1]`
-  - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: :val:`[1, 0, 1]`
-  - For a bulk 3D system: :val:`[1, 1, 1]`
+  - A non periodic unit cell, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
+  - For a 2D surface/slab, who's unit cell is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
+  - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
 
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
