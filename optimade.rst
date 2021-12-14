@@ -2467,6 +2467,7 @@ modification_timestamp
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - Timestamps of subsequent file modifications SHOULD be increasing (not earlier than previous timestamps).
 
 description
 ~~~~~~~~~~~
