@@ -197,7 +197,10 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     In this case, **field** refers to the name part of the name-value pairs of JSON objects.
 
 **Trajectory**
-    A Trajectory contains data belonging to a set of structures. Usually this data will come from molecular dynamics simulations. It can however also contain data from structures that are related in an different way. For example the successive structures from a Monte Carlo simulation.
+    A Trajectory contains data belonging to a set of structures.
+    Usually this data will come from molecular dynamics simulations.
+    It can however also contain data from structures that are related in an different way.
+    For example the successive structures from a Monte Carlo simulation.
 
 **Frame**
     An individual structure or data belonging to an individual structure from a trajectory.
@@ -2328,7 +2331,10 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations. Usually this data will come from molecular dynamics simulations. It can however also be used to share data from structures that are related in an other way. For example the successive structures from a Monte Carlo simulation.
+- **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations.
+  Usually this data will come from molecular dynamics simulations.
+  It can however also be used to share data from structures that are related in an other way.
+  For example the successive structures from a Monte Carlo simulation.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
@@ -2375,7 +2381,8 @@ reference_structure
 reference_frame
 ~~~~~~~~~~~~~~~~
 
-- **Description**: The number of the frame at which the reference_structure was taken. The first frame is frame 0.
+- **Description**: The number of the frame at which the reference_structure was taken.
+  The first frame is frame 0.
 - **Type**: integer
 - **Requirements/Conventions**: The value MUST be equal or larger than 0 and less than nframes.
 
@@ -2414,7 +2421,10 @@ nframes
 available_properties
 ~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory. The key is the name of the property. The value is a dictionary containing information about which value belongs to which frame. This makes it easier for a client to estimate the amount of data a query returns.
+- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory.
+  The key is the name of the property.
+  The value is a dictionary containing information about which value belongs to which frame.
+  This makes it easier for a client to estimate the amount of data a query returns.
 
   It is up to the server to decide which properties to share and there are no mandatory fields.
   When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST however be shared as well.
@@ -2430,7 +2440,9 @@ available_properties
 
   - **frame_serialization**
 
-    -   **Description**: This property describes how the frames and the returned values of a property are related.  For each **frame_serialization** method there are additional fields that describe how the values belong to the frames. These fields should also be present here.
+    -   **Description**: This property describes how the frames and the returned values of a property are related.
+        For each **frame_serialization** method there are additional fields that describe how the values belong to the frames.
+        These fields should also be present here.
         A complete description of the **frame_serialization** methods and the fields belonging to these methods can be found in the section: `Return Format for Trajectory Data`_
 
   - **nvalues**:
@@ -2560,7 +2572,8 @@ Each property has a dictionary as the value, with the following fields:
 
 - **step_size_linear**:
 
-  - **Description**: If **frame_serialization_format** is set to "linear", this value gives the change in the value of the property per unit of frame number. e.g. If at frame 3 the value of the property is 0.6 and **step_size_linear** = 0.2 than at frame 4 the value of the property will be 0.8.
+  - **Description**: If **frame_serialization_format** is set to "linear", this value gives the change in the value of the property per unit of frame number.
+    e.g. If at frame 3 the value of the property is 0.6 and **step_size_linear** = 0.2 than at frame 4 the value of the property will be 0.8.
   - **Type**: float
   - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "linear".
     Otherwise it MUST NOT be present.
