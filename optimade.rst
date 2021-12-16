@@ -2379,7 +2379,7 @@ reference_structure
     - `structure_features`_
 
 reference_frame
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 - **Description**: The number of the frame at which the reference_structure was taken.
   The first frame is frame 0.
@@ -2492,7 +2492,7 @@ available_properties
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The preceding properties 7.3.1-4 and the fields described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
+The preceding properties `reference_structure`_, `reference_frame`_, `nframes`, `available_properties`_ and the fields described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
 
 The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
