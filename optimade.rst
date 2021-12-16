@@ -2344,7 +2344,7 @@ Trajectories Entries
   The data belonging to the frames of the trajectory is only returned when this is specifically requested in the :query-param:`response_fields` parameter.
   In this case each property has a dictionary as a value which contains the values of this property and information about which value belongs to which frame.
   It is possible to request only part of a trajectory and to request only 1 out of every n frames.
-This is describe in more detail in the section `Retrieving the trajectory data`_
+  This is describe in more detail in the section `Retrieving the trajectory data`_
   Queries on individual frames are currently not supported.
 
 reference_structure
@@ -2355,9 +2355,9 @@ reference_structure
 - **Type**: dictionary
 - **Requirements/Conventions**:
 
-  - Each trajectory MUST have a reference_structure.
-  - This reference_structure MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
-  - Queries on the trajectories MUST be done on the information supplied in the reference_structure when the queried property is in the reference_structure.
+  - Each trajectory MUST have a :property:`reference_structure`.
+  - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
+  - Queries on the trajectories MUST be done on the information supplied in the :property:`reference_structure` when the queried property is in the :property:`reference_structure`.
     The subfields of the reference_structure MUST have the same queryability as in the `structures entries`_.
 
   - This reference frame has the same properties as the structure entries namely:
@@ -2382,13 +2382,13 @@ reference_structure
 reference_frame
 ~~~~~~~~~~~~~~~
 
-- **Description**: The number of the frame at which the reference_structure was taken.
+- **Description**: The number of the frame at which the `reference_structure`_ was taken.
   The first frame is frame 0.
 - **Type**: integer
 - **Requirements/Conventions**: The value MUST be equal or larger than 0 and less than nframes.
 
-  - **Support**: MUST be supported if the reference_structure is taken from the trajectory.
-    If the reference_structure is not in the trajectory, the value MUST NOT be present.
+  - **Support**: MUST be supported if the `reference_structure`_ is taken from the trajectory.
+    If the `reference_structure`_ is not in the trajectory, the value MUST NOT be present.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
 
@@ -2450,7 +2450,7 @@ available_properties
 
     - **Description**: This field gives the number of values for this property.
     - **Type**: integer
-    - **Requirements/Conventions**: The value MUST be present when frame_serialization_format is set to explicit, explicit_regular_sparse or explicit_custom_sparse.
+    - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to explicit, explicit_regular_sparse or explicit_custom_sparse.
     - **Examples**:
 
       - :val:`100`
@@ -2516,16 +2516,16 @@ The numbering of the frames is zero based, so the first frame is frame number 0.
 
   - **Description**: **last_frame** specifies the last frame that should be returned.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to first_frame and MUST be less than nframes(the total number of frames in the trajectory).
+  - **Requirements/Conventions**: The value MUST be larger or equal to :property:`first_frame` and MUST be less than `nframes`_ (the total number of frames in the trajectory).
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
-    The default value is nframes.
+    The default value is `nframes`_-1.
   - **Examples**:
 
     - :query-url:`/trajectories/traj00000001?last_frame=2000`
 
 - **frame_step**:
 
-  - **Description**:  Specifies that data should only be returned for one out of every **frame_step** frames.
+  - **Description**:  Specifies that data should only be returned for one out of every :property:`frame_step` frames.
   - **Type**: integer
   - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less than or equal to the total number of frames.
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
@@ -2547,7 +2547,7 @@ Each property has a dictionary as the value, with the following fields:
 - **frame_serialization_format**:
 
   - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs.
-    This is specified by the frame_serialization_format.
+    This is specified by the :property:`frame_serialization_format`.
   - **Type**: string
   - **Requirements/Conventions**: This field MUST be present.
   - **Values**:
@@ -2557,15 +2557,15 @@ Each property has a dictionary as the value, with the following fields:
       The number of values MUST thus be equal to the number of frames and MUST be in the same order as the frames.
       If there is no value for a particular frame the value MUST be :val:`null`.
     - **linear**: The value is a linear function of the frame number.
-      This function is defined by offset_linear and step_size_linear.
-    - **explicit_regular_sparse**: The value is set every one per **step_size_sparse** frames, with **offset_sparse** as the first frame.
-    - **explicit_custom_sparse**: A separate list with frame numbers is defined in the field **sparse_frames** to indicate to which frame a value belongs.
+      This function is defined by :property:`offset_linear` and :property:`step_size_linear`.
+    - **explicit_regular_sparse**: The value is set every one per :property:`step_size_sparse` frames, with :property:`offset_sparse` as the first frame.
+    - **explicit_custom_sparse**: A separate list with frame numbers is defined in the field :property:`sparse_frames` to indicate to which frame a value belongs.
 
 - **offset_linear**:
 
-  - **Description**: If **frame_serialization_format** is set to "linear" this property gives the value at frame 0.
+  - **Description**: If :property:`frame_serialization_format` is set to :val:`"linear"` this property gives the value at frame 0.
   - **Type**: float
-  - **Requirements/Conventions**: The value MAY be present when **frame_serialization_format** is set to "linear", otherwise the value MUST NOT be present.
+  - **Requirements/Conventions**: The value MAY be present when :property:`frame_serialization_format` is set to :val:`"linear"`, otherwise the value MUST NOT be present.
     The default value is 0.
   - **Examples**:
 
@@ -2573,10 +2573,10 @@ Each property has a dictionary as the value, with the following fields:
 
 - **step_size_linear**:
 
-  - **Description**: If **frame_serialization_format** is set to "linear", this value gives the change in the value of the property per unit of frame number.
-    e.g. If at frame 3 the value of the property is 0.6 and **step_size_linear** = 0.2 than at frame 4 the value of the property will be 0.8.
+  - **Description**: If :property:`frame_serialization_format` is set to :val:`"linear"`, this value gives the change in the value of the property per unit of frame number.
+    e.g. If at frame 3 the value of the property is 0.6 and :property:`step_size_linear` = 0.2 than at frame 4 the value of the property will be 0.8.
   - **Type**: float
-  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "linear".
+  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to "linear".
     Otherwise it MUST NOT be present.
   - **Examples**:
 
@@ -2584,9 +2584,9 @@ Each property has a dictionary as the value, with the following fields:
 
 - **offset_sparse**:
 
-  - **Description**: If **frame_serialization_format** is set to "explicit_regular_sparse" this property gives the frame number to which the first value belongs.
+  - **Description**: If :property:`frame_serialization_format` is set to :val:` "explicit_regular_sparse"` this property gives the frame number to which the first value belongs.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MAY be present when **frame_serialization_format** is set to "explicit_regular_sparse", otherwise the value MUST NOT be present.
+  - **Requirements/Conventions**: The value MAY be present when :property:`frame_serialization_format` is set to :val:`"explicit_regular_sparse"`, otherwise the value MUST NOT be present.
     The default value is 0.
   - **Examples**:
 
@@ -2594,9 +2594,9 @@ Each property has a dictionary as the value, with the following fields:
 
 - **step_size_sparse**:
 
-  - **Description**: If **frame_serialization_format** is set to "explicit_regular_sparse", this value indicates that every step_size_sparse frames a value is defined.
+  - **Description**: If :property:`frame_serialization_format` is set to :val:` "explicit_regular_sparse"`, this value indicates that every step_size_sparse frames a value is defined.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be present when frame_serialization_format is set to "explicit_regular_sparse".
+  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to :val:`"explicit_regular_sparse"`.
     Otherwise it MUST NOT be present.
   - **Examples**:
 
@@ -2604,11 +2604,11 @@ Each property has a dictionary as the value, with the following fields:
 
 - **sparse_frames**:
 
-  - **Description**: If **frame_serialization_format** is set to "explicit_custom_sparse", this field holds the frames to which the values in the value field belong.
+  - **Description**: If :property:`frame_serialization_format` is set to :val:`"explicit_custom_sparse"`, this field holds the frames to which the values in the value field belong.
   - **Type**: List of integers
-  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is set to "explicit_custom_sparse".
+  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to "explicit_custom_sparse".
     Otherwise it MUST NOT be present.
-    The frame numbers in **sparse_frames** MUST be in the same order as the values.
+    The frame numbers in :property:`sparse_frames` MUST be in the same order as the values.
   - **Examples**:
 
     - :val:`[0,20,78,345]`
@@ -2617,9 +2617,9 @@ Each property has a dictionary as the value, with the following fields:
 - **values**:
 
   - **Description**: The values belonging to this property.
-    The format of this field depends on the property and on the frame_serialization_format parameter.
+    The format of this field depends on the property and on the :property:`frame_serialization_format` parameter.
   - **Type**: List of Any
-  - **Requirements/Conventions**: The value MUST be present when **frame_serialization_format** is not set to linear.
+  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is not set to :val:`"linear"`.
     If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level.
     In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume.
     This may be useful for grand canonical simulations where the number of particles in the simulation volume is not constant.
