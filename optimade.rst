@@ -2347,7 +2347,7 @@ Trajectories Entries
   Queries on individual frames are currently not supported.
 
 reference_structure
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 - **Description**: This is an example of the structures that can be found in the trajectory.
   It can be used to select trajectories with queries and to give a quick visual impression of the structures in this trajectory.
