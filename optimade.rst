@@ -1576,10 +1576,14 @@ Other comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
 Boolean values are only supposed to be used in direct comparisons with properties, but not compound comparisons.
 For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
 
+Boolean property :filter-fragment:`property` MAY be compared with :filter-fragment:`TRUE` by omitting the :filter-fragment:`= TRUE` altogether: :filter:`property`.
+Conversely, it MAY be compared with :filter-fragment:`FALSE` by negating the comparison with :filter-fragment:`TRUE`: :filter:`NOT property`.
+
 Examples:
 
 - :filter:`property = TRUE`
 - :filter:`property != FALSE`
+- :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2523,12 +2527,12 @@ The Filter Language EBNF Grammar
     ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
                               | UnorderedConstant, ValueEqRhs ) ;
 
-    PropertyFirstComparison = Property, ( ValueOpRhs
+    PropertyFirstComparison = Property, [ ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
                                         | SetZipOpRhs
-                                        | LengthOpRhs ) ;
+                                        | LengthOpRhs ] ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
     ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;

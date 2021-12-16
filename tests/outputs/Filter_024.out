@@ -43,8 +43,7 @@ Filter(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 17
 Error: in tests/cases/Filter_024.inp: line 1:
-    unexpected token "KNOWN", expected one of "!", "=", "<", ">",
-    "IS", "CONTAINS", "STARTS", "ENDS", "HAS", ":", or "LENGTH"
+    unexpected token "KNOWN", expected <EOF>
 
 chemical_formula KNOWN
                  ^
