@@ -2493,7 +2493,7 @@ available_properties
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The preceding properties `reference_structure`_, `reference_frame`_, `nframes`_, `available_properties`_ and the fields described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
+The preceding properties `reference_structure`_, `reference_frame`_, `nframes`_, `available_properties`_ and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
 
 The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
