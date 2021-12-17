@@ -2440,12 +2440,12 @@ available_properties
 
 - **Sub dictionary fields**
 
-  - **frame_serialization**
+  - **frame_serialization_format**
 
     -   **Description**: This property describes how the frames and the returned values of a property are related.
-        For each **frame_serialization** method there are additional fields that describe how the values belong to the frames.
+        For each :property:`frame_serialization_format` method there are additional fields that describe how the values belong to the frames.
         These fields should also be present here.
-        A complete description of the **frame_serialization** methods and the fields belonging to these methods can be found in the section: `Return Format for Trajectory Data`_
+        A complete description of the :property:`frame_serialization_format` methods and the fields belonging to these methods can be found in the section: `Return Format for Trajectory Data`_
 
   - **nvalues**:
 
