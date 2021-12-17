@@ -2344,7 +2344,7 @@ Trajectories Entries
   The data belonging to the frames of the trajectory is only returned when this is specifically requested in the :query-param:`response_fields` parameter.
   In this case each property has a dictionary as a value which contains the values of this property and information about which value belongs to which frame.
   It is possible to request only part of a trajectory and to request only 1 out of every n frames.
-  This is describe in more detail in the section `Retrieving the trajectory data`_
+  This is described in more detail in the section `Retrieving the trajectory data`_.
   Queries on individual frames are currently not supported.
 
 reference_structure
