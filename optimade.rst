@@ -2340,7 +2340,7 @@ Trajectories Entries
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
   Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
 
-  The `reference_structure`_ is an example of the kind of structures that are in the trajectory.    
+  The `reference_structure`_ is an example of the kind of structures that are in the trajectory.
   It is used to query the trajectory entries in the same way as the structures entries.
   For each property in a trajectory there is a dictionary which contains the values of this property in the trajectory and information about which value belongs to which frame.
   It is possible to request only part of a trajectory and to request only 1 out of every n frames.
