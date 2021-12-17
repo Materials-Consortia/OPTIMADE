@@ -2498,7 +2498,7 @@ The preceding properties `reference_structure`_, `reference_frame`_, `nframes`_,
 
 The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
-Next to this the client MAY specify the following parameters to customize the return from the server.
+Next to this the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
 While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
 The numbering of the frames is zero based, so the first frame is frame number 0.
 
