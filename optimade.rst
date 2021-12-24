@@ -2475,11 +2475,14 @@ The fields below are all optional and are only used within specific research fie
 molecule_id
 ~~~~~~~~~~~
 
-- **Description**: This is the id of the molecule, i.e. a group of bound atoms, to which the atom belongs. It can be used to store the chainID field of the PDB file format. At present there is no entry to describe this molecule further, and the property is only used to describe that the atoms belong to the same molecule.
+- **Description**: This is the id of the molecule, i.e. a group of bound atoms, to which the atom belongs.
+  It can be used to store the chainID field of the PDB file format.
+  At present there is no entry to describe this molecule further, and the property is only used to describe that the atoms belong to the same molecule.
 - **Type**: list of strings
 - **Requirements/Conventions**:
   - **Support**: OPTIONAL support in implementations.
-  - **Query**:  Support for queries on this property is OPTIONAL. If supported, only a subset of the filter features MAY be supported.
+  - **Query**:  Support for queries on this property is OPTIONAL.
+  If supported, only a subset of the filter features MAY be supported.
   - The number of values in this list MUST be equal to the number of atoms and in the same order as the atoms.
 
 - **Examples**:
@@ -2490,7 +2493,8 @@ molecule_id
 monomer_type
 ~~~~~~~~~~~~
 
-- **Description**: A list of strings each describing the type of monomer to which an atom belongs. It can be used to store the value of the residue field of the PDB file format.
+- **Description**: A list of strings each describing the type of monomer to which an atom belongs.
+  It can be used to store the value of the residue field of the PDB file format.
 - **Type**: list of strings
 - **Requirements/Conventions**:
 
@@ -2506,7 +2510,9 @@ monomer_type
 residue_sequence_number
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A list of integers describing the position of the monomer/residue to which the atom belongs in a chain. This matches the residue sequence number field in the of the PDB file format. There is therefore no guarantee that these numbers are ordered or unique.
+- **Description**: A list of integers describing the position of the monomer/residue to which the atom belongs in a chain.
+  This matches the residue sequence number field in the of the PDB file format. 
+  There is therefore no guarantee that these numbers are ordered or unique.
 
 - **Type**: list of integers
 - **Requirements/Conventions**:
@@ -2522,7 +2528,8 @@ residue_sequence_number
 insertion_code
 ~~~~~~~~~~~~~~
 
-- **Description**: If two monomers/residues have the same residue_sequence_number the insertion_code is used to distinguish them. This matches the icode field in the of the PDB file format.
+- **Description**: If two monomers/residues have the same residue_sequence_number the insertion_code is used to distinguish them.
+  This matches the icode field in the of the PDB file format.
 - **Type**: list of strings
 - **Requirements/Conventions**:
 
