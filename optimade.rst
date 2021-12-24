@@ -2318,6 +2318,7 @@ structure\_features
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
+
 Calculations Entries
 --------------------
 
@@ -2464,6 +2465,77 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
 Appendices
 ==========
+
+
+Domain Specific Fields
+----------------------
+
+The fields below are all optional and are only used within specific research fields.
+
+
+molecule_id
+~~~~~~~~~~~
+
+- **Description**: This is the id of the molecule, i.e. a group of bound atoms, to which the atom belongs. It can be used to store the chainID field of the PDB file format. At present there is no entry to describe this molecule further, and the property is only used to describe that the atoms belong to the same molecule.
+- **Type**: list of strings
+- **Requirements/Conventions**:
+  - **Support**: OPTIONAL support in implementations.
+  - **Query**:  Support for queries on this property is OPTIONAL. If supported, only a subset of the filter features MAY be supported.
+  - The number of values in this list MUST be equal to the number of atoms and in the same order as the atoms.
+
+- **Examples**:
+
+  - For example for glycine, with implicit hydrogens and a water molecule :val:`["A","A","A","A","A","H2O_1"]`
+
+
+monomer_type
+~~~~~~~~~~~~
+
+- **Description**: A list of strings each describing the type of monomer to which an atom belongs. It can be used to store the value of the residue field of the PDB file format.
+- **Type**: list of strings
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations.
+  - **Query**:  Support for queries on this property is OPTIONAL. If supported, only a subset of the filter features MAY be supported.
+  - The number of values in this list MUST be equal to the number of atoms and in the same order as the atoms.
+  - Strings of 3 characters or less MUST match the strings belonging to this monomer as defined by wwPDB at `<ftp://ftp.wwpdb.org/pub/pdb/data/monomers>`_.
+
+- **Examples**:
+
+  - For example for glycine and a water molecule :val:`["GLY","GLY","GLY","GLY","GLY","HOH"]`
+
+residue_sequence_number
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A list of integers describing the position of the monomer/residue to which the atom belongs in a chain. This matches the residue sequence number field in the of the PDB file format. There is therefore no guarantee that these numbers are ordered or unique.
+
+- **Type**: list of integers
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations.
+  - **Query**:  Support for queries on this property is OPTIONAL. If supported, only a subset of the filter features MAY be supported.
+  - The number of values in this list MUST be equal to the number of atoms and in the same order as the atoms.
+
+- **Examples**:
+
+  - For example for glycine and a water molecule :val:`["1","1","1","1","1",""]`
+
+insertion_code
+~~~~~~~~~~~~~~
+
+- **Description**: If two monomers/residues have the same residue_sequence_number the insertion_code is used to distinguish them. This matches the icode field in the of the PDB file format.
+- **Type**: list of strings
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations.
+  - **Query**:  Support for queries on this property is OPTIONAL. If supported, only a subset of the filter features MAY be supported.
+  - The number of values in this list MUST be equal to the number of atoms and in the same order as the atoms.
+  - The combination of molecule_id, residue_sequence_number and insertion_code MUST be unique for every residue/monomer in a structure.
+
+- **Examples**:
+
+  - For example for glycine, and a water molecule :val:`["A","A","A","A","A",""]`
+
 
 The Filter Language EBNF Grammar
 --------------------------------
