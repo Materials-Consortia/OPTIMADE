@@ -2511,7 +2511,7 @@ residue_sequence_number
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A list of integers describing the position of the monomer/residue to which the atom belongs in a chain.
-  This matches the residue sequence number field in the of the PDB file format. 
+  This matches the residue sequence number field in the of the PDB file format.
   There is therefore no guarantee that these numbers are ordered or unique.
 
 - **Type**: list of integers
