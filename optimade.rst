@@ -2318,7 +2318,6 @@ structure\_features
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
-
 Calculations Entries
 --------------------
 
