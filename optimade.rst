@@ -2465,6 +2465,114 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 Appendices
 ==========
 
+Domain Specific Fields
+----------------------
+
+The fields below are all optional and are only used within specific research fields.
+
+group_type
+~~~~~~~~~~
+
+- **Description**: For each type of chemical group/molecule in the system there is a dictionary that describes this group/molecule.
+  Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
+
+- **Type**: list of dictionaries with the properties:
+   - :property:`name`: string (REQUIRED)
+   - :property:`molecular_formula`: string (OPTIONAL)
+   - :property:`mass`: float (OPTIONAL)
+   - :property:`subgroups`: list of strings (OPTIONAL)
+- **Requirements/Conventions**:
+   - **Support**: OPTIONAL support in implementations. When the :property:`groups` property is present the :property:`group_type property` MUST, however, be present as well.
+   - **Query**:  Support for queries on this property is OPTIONAL.
+     If supported, only a subset of the filter features MAY be supported.
+   - **name**: REQUIRED; gives the name of the group_type;
+      - The **name** value MUST be unique in the :property:`group_types` list.
+      - Strings of 3 characters or less MUST match the strings belonging to this group as defined by wwPDB at `<ftp://ftp.wwpdb.org/pub/pdb/data/monomers>`_.
+   - **molecular_formula**: OPTIONAL; The molecular formula of the molecule/group described in this group type.
+      - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
+      - Elements MUST be placed in alphabetical order, followed by an integer describing the number atoms of this element in the group.
+      - No spaces or separators are allowed.
+   - **mass**: OPTIONAL; The mass of the molecule or group in a.m.u.
+   - **sub_groups**: OPTIONAL; A list of strings containing the :property:`group_types` contained within this group.
+
+.. code:: jsonc
+  {
+    "group_type":[
+      {
+        "name" : "PME",
+        "molecular_formula": "C14H18N2O5",
+        "mass" : 294.307,
+        "subgroups":[
+          "PHE",
+          "ASP",
+        ]
+      },{
+        "name" : "PHE",
+        "molecular_formula": "C9H9NO",
+        "mass" : 163.176,
+      },{
+        "name": "ASP",
+        "molecular_formula": "C4H6NO3",
+        "mass" : 116.096,
+      }
+    ]
+  }
+
+groups
+~~~~~~
+
+- **Description**: A particular group of atoms and other subgroups.
+  Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
+- **Type**: list of dictionaries with the properties:
+   - :property:`group_id`: string (REQUIRED)
+   - :property:`type`: string (REQUIRED)
+   - :property:`parts`: list of strings and integers (REQUIRED)
+   - :property:`residue_sequence_number`: integer (OPTIONAL)
+   - :property:`insertion_code`: string (OPTIONAL)
+- **Requirements/Conventions**:
+   - **Query**:  Support for queries on this property is OPTIONAL.
+     If supported, only a subset of the filter features MAY be supported.
+   - **Support**: OPTIONAL support in implementations. When the :property:`group_type property` property is present the :property:`groups` property MUST be present as well.
+   - **group_id**: REQUIRED; A string that is unique for each group.
+   - **type**: REQUIRED; The :property:`group_type` of this group.
+   - **parts**: REQUIRED; A list containing :property:`group_id` strings of groups that are part of this group and integers referring to the index of `cartesian_site_positions`_, that belong to this group and are not in one of the sub groups.
+     Circular references are not allowed, i.e. a group is not allowed to refer back to itself even if it is via another group.
+   - **residue_sequence_number**: An integers describing the position of the group/residue in a chain/group.
+     This matches the residue sequence number field in the of the PDB file format.
+     There is therefore no guarantee that these numbers are ordered or unique.
+   - **insertion_code**: If two groups/residues have the same residue_sequence_number the insertion_code is used to distinguish them.
+     Two groups that both belong to the same super group MUST have distinct combinations of the :property:`residue_sequence_number` and :property:`insertion_code`.
+     This matches the icode field in the of the PDB file format.
+
+- **Examples**:
+.. code:: jsonc
+  {
+    "groups":[
+      {
+        "group_id":"PME1",
+        "type": "PME",
+        "contains": [
+          "PHE1",
+          "ASP1",
+          1,2,3,4,
+        ],
+      },{
+        "group_id":"PHE1",
+        "type": "PME",
+        "contains": [5,6,7.8.9.10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+        "residue_sequence_number": 1
+        "insertion_code": null
+      },{
+        "group_id":"ASP1"
+        "type": "ASP"
+        "contains": [26,27,28,29,30,31,32,33,34,35,36,37,38,39]
+        "residue_sequence_number": 2
+        "insertion_code": "A"
+      }
+    ]
+  }
+
+
 The Filter Language EBNF Grammar
 --------------------------------
 
