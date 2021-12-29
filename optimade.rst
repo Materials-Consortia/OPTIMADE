@@ -2538,7 +2538,7 @@ groups
    - **type**: REQUIRED; The :property:`group_type` of this group.
    - **sub_groups**: REQUIRED; A list containing :property:`group_id` strings of groups that are part of this group. Circular references are not allowed, i.e. a group is not allowed to refer back to itself even if it is via another group.
    - **sites**; REQUIRED; A list of integers referring to the index of `cartesian_site_positions`_, that belong to this group and are not in one of the sub groups.
-   - 
+     The index of the first site is 0.
    - **residue_sequence_number**: An integers describing the position of the group/residue in a chain/group.
      This matches the residue sequence number field in the of the PDB file format.
      There is therefore no guarantee that these numbers are ordered or unique.
@@ -2552,24 +2552,26 @@ groups
   {
     "groups":[
       {
-        "group_id":"PME1",
+        "group_id": "PME1",
         "type": "PME",
-        "contains": [
+        "sub_groups": [
           "PHE1",
           "ASP1",
-          0,1,2,3,
         ],
+        "sites":[0,1,2,3]
       },{
-        "group_id":"PHE1",
+        "group_id": "PHE1",
         "type": "PME",
-        "contains": [4,5,6,7.8.9.10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
-        "residue_sequence_number": 1
+        "sites": [4,5,6,7.8.9.10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+        "sub_groups": [],
+        "residue_sequence_number": 1,
         "insertion_code": null
       },{
-        "group_id":"ASP1"
-        "type": "ASP"
-        "contains": [26,27,28,29,30,31,32,33,34,35,36,37,38]
-        "residue_sequ,ence_number": 2
+        "group_id": "ASP1",
+        "type": "ASP",
+        "sub_groups": [],
+        "sites": [26,27,28,29,30,31,32,33,34,35,36,37,38],
+        "residue_sequ,ence_number": 2,
         "insertion_code": "A"
       }
     ]
