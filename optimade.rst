@@ -2485,7 +2485,7 @@ group_type
    - **Support**: OPTIONAL support in implementations. When the :property:`groups` property is present the :property:`group_type property` MUST, however, be present as well.
    - **Query**:  Support for queries on this property is OPTIONAL.
      If supported, only a subset of the filter features MAY be supported.
-   - **name**: REQUIRED; gives the name of the group_type;
+   - **name**: REQUIRED; The name of the group_type;
       - The **name** value MUST be unique in the :property:`group_types` list.
       - Strings of 3 characters or less MUST match the strings belonging to this group as defined by wwPDB at `<ftp://ftp.wwpdb.org/pub/pdb/data/monomers>`_.
    - **molecular_formula**: OPTIONAL; The molecular formula of the molecule/group described in this group type.
@@ -2526,7 +2526,8 @@ groups
 - **Type**: list of dictionaries with the properties:
    - :property:`group_id`: string (REQUIRED)
    - :property:`type`: string (REQUIRED)
-   - :property:`parts`: list of strings and integers (REQUIRED)
+   - :property:`sub_groups`: list of strings (REQUIRED)
+   - :property:`sites`: list of integers (REQUIRED)
    - :property:`residue_sequence_number`: integer (OPTIONAL)
    - :property:`insertion_code`: string (OPTIONAL)
 - **Requirements/Conventions**:
@@ -2535,8 +2536,9 @@ groups
    - **Support**: OPTIONAL support in implementations. When the :property:`group_type property` property is present the :property:`groups` property MUST be present as well.
    - **group_id**: REQUIRED; A string that is unique for each group.
    - **type**: REQUIRED; The :property:`group_type` of this group.
-   - **parts**: REQUIRED; A list containing :property:`group_id` strings of groups that are part of this group and integers referring to the index of `cartesian_site_positions`_, that belong to this group and are not in one of the sub groups.
-     Circular references are not allowed, i.e. a group is not allowed to refer back to itself even if it is via another group.
+   - **sub_groups**: REQUIRED; A list containing :property:`group_id` strings of groups that are part of this group. Circular references are not allowed, i.e. a group is not allowed to refer back to itself even if it is via another group.
+   - **sites**; REQUIRED; A list of integers referring to the index of `cartesian_site_positions`_, that belong to this group and are not in one of the sub groups.
+
    - **residue_sequence_number**: An integers describing the position of the group/residue in a chain/group.
      This matches the residue sequence number field in the of the PDB file format.
      There is therefore no guarantee that these numbers are ordered or unique.
@@ -2545,6 +2547,7 @@ groups
      This matches the icode field in the of the PDB file format.
 
 - **Examples**:
+
 .. code:: jsonc
   {
     "groups":[
