@@ -2964,7 +2964,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 This field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and in any inner Property Definitions for which the value represented has a physical unit.
 If the value does not have a unit, e.g., a string representing a chemical formula or an integer counting the number of atoms in the unit cell :field:`x-optimade-unit`: MUST be omitted or given as :val:`null`.
 
-A standard set of unit symbols for OPTIMADE are taken from version 3.09 unit database :val:`definition.units` from `GNU units software <https://www.gnu.org/software/units/>`__.
+A standard set of unit symbols for OPTIMADE is taken from version 3.09 unit database :val:`definition.units` from `GNU units software <https://www.gnu.org/software/units/>`__.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD be set to the corresponding (compound) string symbol and no further definition be given.
 
 The GNU units database is found in the file: "definitions.units" in the [Source Distribution](http://ftp.gnu.org/gnu/units/).
