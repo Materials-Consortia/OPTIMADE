@@ -1418,6 +1418,10 @@ Or, fully URL encoded :
 
 -  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&response_format=xml`
 
+Aside from the OPTIMADE filter language, OPTIMADE has provisions to support other filters, for example, external filter languages.
+Supported filters are described below in `Other filters`_.
+If more than one filter is used in the same query, for example, :query-param:`filter` and :query-param:`filter_sql`, all filters MUST be combined as logical conjunction AND.
+
 Lexical Tokens
 --------------
 
@@ -1704,6 +1708,21 @@ Optional filter features
 
 Some features of the filtering language are marked OPTIONAL.
 An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error ``501 Not Implemented`` with an explanation of which OPTIONAL construct the error refers to.
+
+Other filters
+-------------
+
+filter_smarts
+~~~~~~~~~~~~~
+
+`SMARTS <https://www.daylight.com/dayhtml/doc/theory/theory.smarts.html>`__ is a query language for matching subgraph patterns in molecules, introduced by Daylight.
+When provided, URL parameter :query-param:`filter_smarts` MUST be understood as Daylight-conforming SMARTS query.
+Providers may support this OPTIONAL filtering feature for entry types describing molecules, for example, :entry:`structures`.
+Lack of support for :query-param:`filter_smarts` in an implementation MUST be reported with error ``501 Not Implemented``.
+
+Example:
+
+- :query-url:`http://example.org/optimade/v1/structures?filter_smarts=CaaO`
 
 Entry List
 ==========
