@@ -2465,6 +2465,110 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 Appendices
 ==========
 
+Domain Specific Fields
+----------------------
+
+The fields below are all optional and are only used within specific research fields.
+
+Every field has a standard domain-specific prefix.
+
+
+biomol_chains
+~~~~~~
+
+- **Description**: For each chain in the system there is a dictionary that describes this chain. Chains are groups of related residues (e.g. a polymer).
+  Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
+- **Type**: list of dictionaries with the properties:
+   - :property:`name`: string (REQUIRED)
+   - :property:`residues`: list of integers (REQUIRED)
+   - :property:`types`: list of strings
+   - :property:`sequences`: list of strings
+   - :property:`sequence_types`: list of strings
+- **Requirements/Conventions**:
+   - **Query**:  Support for queries on this property is OPTIONAL.
+     If supported, only a subset of the filter features MAY be supported.
+   - **name**: The chain name/letter.
+   - **residues**: A list of integers referring to the index of :field:`biomol_residues`, that belong to this chain.
+     The list SHOULD NOT be empty. The index of the first residue is 0.
+   - **types**: A list of tags specifying the type of molecules this chain contains.
+   - **sequences**: A list of residue sequences in current chain.
+   - **sequence_types**: A list of tags specifying the type of each sequence in the :property:`sequences` field. The type of a sequence is defined by its components (e.g. 'aminoacids').
+   - There SHOULD NOT be two or more chains with the same :property:`name`.
+   - Values in :property:`name` SHOULD be in capital letters.
+   - Values in :property:`name` SHOULD NOT be longer than 1 character when the number of chains is not greater than the number of letters in English alphabet (26).
+   - Values in :property:`sequences` SHOULD be in capital letters.
+   - Number of values in :property:`sequences` and :property:`sequence_types` MUST match.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "biomol_chains":[
+      {
+        "name": "A",
+        "residues":[0,1,2,3, ...],
+        "types": ['protein', 'ions'],
+	      "sequences": ['MSHHWGYG'],
+	      "sequence_types": ['aminoacids']
+      },
+      {
+        "name": "B",
+        "residues":[54,55,56,57, ...],
+        "types": ['nucleic acid'],
+	      "sequences": ['GATTACA'],
+	      "sequence_types": ['nucleotides']
+      },
+    ]
+  }
+
+biomol_residues
+~~~~~~
+
+- **Description**: For each residue in the system there is a dictionary that describes this residue. Residues are groups of related atoms (e.g. an aminoacid).
+  Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
+- **Type**: list of dictionaries with the properties:
+   - :property:`name`: string (REQUIRED)
+   - :property:`number`: integer (REQUIRED)
+   - :property:`insertion_code`: string or null (REQUIRED)
+   - :property:`sites`: list of integers (REQUIRED)
+- **Requirements/Conventions**:
+   - **Query**:  Support for queries on this property is OPTIONAL.
+     If supported, only a subset of the filter features MAY be supported.
+   - **name**: The residue name
+   - **number**: The residue number according to source notation.
+   - **insertion_code**: The residue insertion code. It MUST NOT be longer than 1 character. It MAY be null.
+   - **sites**: A list of integers referring to the index of :field:`cartesian_site_positions`, that belong to this residue.
+     The list SHOULD NOT be empty. The index of the first site is 0.
+   - There MUST NOT be two or more residues with the same integer in :property:`sites`.
+   - All :property:`name` and :property:`insertion_code` values SHOULD be in capital letters.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "biomol_residues":[
+      {
+        "name": "PHE",
+	      "number": 17,
+	      "insertion_code": null,
+        "sites":[0,1,2,3, ...]
+      },
+      {
+        "name": "ASP",
+	      "number": 18,
+	      "insertion_code": null,
+        "sites":[17,18,19,20, ...]
+      },
+      {
+        "name": "LEU",
+	      "number": 18,
+        "insertion_code": "A",
+        "sites":[29,30,31, ...]
+      },
+    ]
+  }
+
+
 The Filter Language EBNF Grammar
 --------------------------------
 
