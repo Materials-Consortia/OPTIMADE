@@ -2568,6 +2568,48 @@ biomol_residues
     ]
   }
 
+biomol_sequences
+~~~~~~
+
+- **Description**: A list of residue sequences in current structure. It may be any type of sequence, as this type is further specified in :field:`biomol_sequence_types`.
+  Sequences may be grouped and ordered in any form (e.g. by chains, by fragments of covalently bonded atoms, etc.) as long as they make sense when querying structures by sequence.
+- **Type**: list of strings
+- **Requirements/Conventions**:
+   - **Query**:  Support for queries on this property is OPTIONAL.
+   - There MUST be the same number of values that in :field:`biomol_sequence_types`.
+   - Values SHOULD be in capital letters.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "biomol_sequences":[
+      'MSHHWGYG',
+      'GATTACA'
+    ]
+  }
+
+
+biomol_sequence_types
+~~~~~~
+
+- **Description**: A list of tags specifying the type of each sequence in the :field:`biomol_sequences` field.
+  The type of a sequence is defined by its components (e.g. 'aminoacids').
+- **Type**: list of strings
+- **Requirements/Conventions**:
+   - **Query**:  Support for queries on this property is OPTIONAL.
+   - There MUST be the same number of values that in :field:`biomol_sequences`.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "biomol_sequence_types":[
+      'aminoacids',
+      'nucleotides'
+    ]
+  }
+
 
 The Filter Language EBNF Grammar
 --------------------------------
