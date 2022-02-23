@@ -2522,7 +2522,7 @@ biomol_chains
   }
 
 biomol_residues
-~~~~~~
+~~~~~~~~~~~~~~~
 
 - **Description**: For each residue in the system there is a dictionary that describes this residue. Residues are groups of related atoms (e.g. an aminoacid).
   Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
@@ -2569,7 +2569,7 @@ biomol_residues
   }
 
 biomol_sequences
-~~~~~~
+~~~~~~~~~~~~~~~~
 
 - **Description**: A list of residue sequences in current structure. It may be any type of sequence, as this type is further specified in :field:`biomol_sequence_types`.
   Sequences may be grouped and ordered in any form (e.g. by chains, by fragments of covalently bonded atoms, etc.) as long as they make sense when querying structures by sequence.
@@ -2591,7 +2591,7 @@ biomol_sequences
 
 
 biomol_sequence_types
-~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A list of tags specifying the type of each sequence in the :field:`biomol_sequences` field.
   The type of a sequence is defined by its components (e.g. 'aminoacids').
