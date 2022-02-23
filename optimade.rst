@@ -2474,7 +2474,7 @@ Every field has a standard domain-specific prefix.
 
 
 biomol_chains
-~~~~~~
+~~~~~~~~~~~~~
 
 - **Description**: For each chain in the system there is a dictionary that describes this chain. Chains are groups of related residues (e.g. a polymer).
   Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
