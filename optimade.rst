@@ -2490,9 +2490,11 @@ biomol_chains
    - **name**: The chain name/letter.
    - **residues**: A list of integers referring to the index of :field:`biomol_residues`, that belong to this chain.
      The list SHOULD NOT be empty. The index of the first residue is 0.
-   - **types**: A list of custom tags/labels specifying the type of molecules this chain contains (e.g. 'protein').
+   - **types**: A list of tags/labels specifying the type of molecules this chain contains (e.g. 'protein').
      This field is useful as an overview of every chain and as a query target for the structure.
-     Labels in this field are non-standard. Every implementation may use different labels according to its needs.
+     Standard labels for this field are the follwoing: 'protein', 'nucleic acid', 'carbohydrates', 'lipid', 'membrane', 'ligand', 'ion', 'solvent' and 'other'.
+     The list SHOULD contain values within the standard labels.
+     Additional custom labels MAY be used. These labels MUST include the database-provider-specific prefix with the following format: <prefix>:<label>.
    - **sequences**: A list of residue sequences in current chain.
    - **sequence_types**: A list of tags specifying the type of each sequence in the :property:`sequences` field. The type of a sequence is defined by its components (e.g. 'aminoacids').
    - There SHOULD NOT be two or more chains with the same :property:`name`.
