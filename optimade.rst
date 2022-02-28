@@ -2473,7 +2473,7 @@ The fields below are all optional and are only used within specific research fie
 Every field has a standard domain-specific prefix.
 
 
-biomol_chains
+_biomol_chains
 ~~~~~~~~~~~~~
 
 - **Description**: For each chain in the system there is a dictionary that describes this chain. Chains are groups of related residues (e.g. a polymer).
@@ -2525,7 +2525,7 @@ biomol_chains
     ]
   }
 
-biomol_residues
+_biomol_residues
 ~~~~~~~~~~~~~~~
 
 - **Description**: For each residue in the system there is a dictionary that describes this residue. Residues are groups of related atoms (e.g. an aminoacid).
@@ -2572,7 +2572,7 @@ biomol_residues
     ]
   }
 
-biomol_sequences
+_biomol_sequences
 ~~~~~~~~~~~~~~~~
 
 - **Description**: A list of residue sequences in current structure. It may be any type of sequence, as this type is further specified in :field:`biomol_sequence_types`.
@@ -2594,7 +2594,7 @@ biomol_sequences
   }
 
 
-biomol_sequence_types
+_biomol_sequence_types
 ~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A list of tags specifying the type of each sequence in the :field:`biomol_sequences` field.
