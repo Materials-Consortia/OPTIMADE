@@ -2578,42 +2578,36 @@ _biomol_residues
 _biomol_sequences
 ~~~~~~~~~~~~~~~~~
 
-- **Description**: A list of residue sequences in current structure. It may be any type of sequence, as this type is further specified in :field:`biomol_sequence_types`.
-  Sequences may be grouped and ordered in any form (e.g. by chains, by fragments of covalently bonded atoms, etc.) as long as they make sense when querying structures by sequence.
-- **Type**: list of strings
+- **Description**: A list of residue sequences in current structure.
+ Every sequence is a dictionary which includes the sequence itself and the type of sequence it is.
+ Every sequence may include a list of chain and residue indices.
+ Sequences may be grouped and ordered in any form (e.g. by chains, by fragments of covalently bonded atoms, etc.) as long as they make sense when querying structures by sequence.
+- **Type**: list of dictionaries with the properties:
+   - :property:`sequence`: string (REQUIRED)
+   - :property:`type`: string (REQUIRED)
+   - :property:`chains`: list of integers
 - **Requirements/Conventions**:
-   - **Query**:  Support for queries on this property is OPTIONAL.
-   - There MUST be the same number of values that in :field:`biomol_sequence_types`.
-   - Values SHOULD be in capital letters.
+   - **Query**:  Queries on this property SHOULD be supported.
+   - **sequence**: A string with a letter for each residue in the sequence. Letters SHOULD be capital letters.
+   - **type**: The type of a sequence is defined by its components (e.g. 'aminoacids').
+   - **chains**: A list of integers referring to indices in :field:`biomol_chains` for chains which include this sequence totally or partially.
+   There MUST NOT be repeated indices in :property:`chains`.
+
+
 
 - **Examples**:
 
 .. code:: jsonc
   {
     "biomol_sequences":[
-      'MSHHWGYG',
-      'GATTACA'
-    ]
-  }
-
-
-_biomol_sequence_types
-~~~~~~~~~~~~~~~~~~~~~~
-
-- **Description**: A list of tags specifying the type of each sequence in the :field:`biomol_sequences` field.
-  The type of a sequence is defined by its components (e.g. 'aminoacids').
-- **Type**: list of strings
-- **Requirements/Conventions**:
-   - **Query**:  Support for queries on this property is OPTIONAL.
-   - There MUST be the same number of values that in :field:`biomol_sequences`.
-
-- **Examples**:
-
-.. code:: jsonc
-  {
-    "biomol_sequence_types":[
-      'aminoacids',
-      'nucleotides'
+      {
+        sequence: 'MSHHWGYG',
+        type: 'aminoacids'
+      },
+      {
+        sequence: 'GATTACA',
+        type: 'nucleotides'
+      }
     ]
   }
 
