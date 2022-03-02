@@ -1785,7 +1785,7 @@ database-provider-specific properties
 
 - **Description**: Database providers are allowed to add database-provider-specific properties in the output of both standard entry types and database-provider-specific entry types.
   These database-provider-specific properties can be nested within other properties.
-  For example, the database-provider-specific property :property:`_exmpl_oxydation_state`, can be placed within the OPTIMADE property :property:`species`.
+  For example, the database-provider-specific property :property:`_exmpl_oxidation_state`, can be placed within the OPTIMADE property :property:`species`.
 
 - **Type**: Decided by the API implementation.
   MUST be one of the OPTIMADE `Data types`_.
