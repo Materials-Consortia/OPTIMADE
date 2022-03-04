@@ -2481,7 +2481,7 @@ available_properties
            "_exmpl_pressure":{
              "frame_serialization_format": "explicit_custom_sparse",
              "nvalues": 20
-           }
+           },
            "_exmpl_temperature":{
              "frame_serialization_format": "explicit_regular_sparse",
              "step_size_sparse": 10
