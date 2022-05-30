@@ -2056,6 +2056,17 @@ lattice\_vectors
 
   - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
 
+space\_group\_it\_number
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Symmetry space group number as defined in International Tables for Crystallography Vol. A.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - The integer value MUST be between 1 and 230.
+
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
