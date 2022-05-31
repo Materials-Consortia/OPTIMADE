@@ -2084,7 +2084,7 @@ space\_group\_it\_number
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
   - The integer value MUST be between 1 and 230.
-  - MUST be null if :property:`nperiodic_dimensions` is not equal to 3.
+  - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
 
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
