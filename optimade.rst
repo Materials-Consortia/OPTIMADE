@@ -2059,7 +2059,7 @@ lattice\_vectors
 space\_group\_hall
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Symmetry space group name as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
+- **Description**: A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
 - **Type**: string
 - **Requirements/Conventions**:
 
