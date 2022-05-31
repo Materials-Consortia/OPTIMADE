@@ -2081,7 +2081,7 @@ space\_group\_it\_number
 - **Type**: integer
 - **Requirements/Conventions**:
 
-  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
   - The integer value MUST be between 1 and 230.
   - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
