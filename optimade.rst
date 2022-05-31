@@ -2077,7 +2077,7 @@ space\_group\_hall
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Symmetry space group number as defined in International Tables for Crystallography Vol. A.
+- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
 - **Type**: integer
 - **Requirements/Conventions**:
 
