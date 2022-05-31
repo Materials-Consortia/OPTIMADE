@@ -2065,7 +2065,9 @@ space\_group\_hall
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - Each component of the space group name MUST be separated by a single space symbol.
+  - Each component of the Hall symbol MUST be separated by a single space symbol.
+  - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
+  - MUST be null if :property:`nperiodic_dimensions` is not equal to 3.
 
 - **Examples**:
 
