@@ -540,7 +540,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
              "representation": "/structures/?filter=a=1 AND b=2"
            },
            "api_version": "1.0.0",
-           "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
+           "schema": "http://schemas.optimade.org/openapi/v1/optimade.json",
            "time_stamp": "2007-04-05T14:30:20Z",
            "data_returned": 10,
            "data_available": 10,
@@ -1783,7 +1783,10 @@ last\_modified
 database-provider-specific properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Database providers are allowed to insert database-provider-specific entries in the output of both standard entry types and database-provider-specific entry types.
+- **Description**: Database providers are allowed to add database-provider-specific properties in the output of both standard entry types and database-provider-specific entry types.
+  Similarly, an implementation MAY add keys with a database-provider-specific prefix to dictionary properties and their sub-dictionaries.
+  For example, the database-provider-specific property :property:`_exmpl_oxidation_state`, can be placed within the OPTIMADE property :property:`species`.
+
 - **Type**: Decided by the API implementation.
   MUST be one of the OPTIMADE `Data types`_.
 - **Requirements/Conventions**:
