@@ -2674,7 +2674,7 @@ Relationships with files may be used to relate an entry with any number of :entr
         "type": "structures",
         "id": "example.db:structs:1234",
         "attributes": {
-          "formula": "H2O"
+          "chemical_formula_descriptive": "H2O"
         },
         "relationships": {
           "files": {
