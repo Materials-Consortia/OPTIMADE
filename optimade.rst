@@ -2004,9 +2004,9 @@ dimension\_types
 
 - **Examples**:
 
-  - A non periodic unit cell, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A nonperiodic structure, for example, for a single molecule : :val:`[0, 0, 0]`
   - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
-  - For a 2D surface/slab, who's unit cell is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
+  - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
   - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
 
 nperiodic\_dimensions
