@@ -19,10 +19,10 @@ OPTIMADE API specification v1.1.0~develop
 
      # OPTIMADE concepts
 
-     entry : names of type of resources served via OPTIMADE pertaining to data in a database.
-     property : data item that pertains to an entry.
+     entry : names of type of resources, served via OPTIMADE, pertaining to data in a database.
+     property : data item that belongs to an entry.
      val : value examples that properties can be.
-           :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+           :val: is ONLY used when referencing values of actual properties, i.e., information that belongs to the database.
      type : data type of values.
             MUST equal a valid OPTIMADE data type as listed and defined under `Data types`_.
 
@@ -146,14 +146,14 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
-    For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
+    For example, a :entry:`structures` entry is comprised by data that belong to a single structure.
 
 **Entry type**
     Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
 
 **Entry property**
-    One data item which pertains to an entry, e.g., the chemical formula of a structure.
+    One data item which belongs to an entry, e.g., the chemical formula of a structure.
 
 **Entry property name**
     The name of an entry property.
@@ -162,7 +162,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Relationship**
     Any entry can have one or more relationships with other entries.
     These are described in section `Relationships`_.
-    Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
+    Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
     An expression used to influence the entries returned in the response to an URL query.
@@ -988,7 +988,7 @@ Info endpoints provide introspective information, either about the API implement
 There are two types of info endpoints:
 
 1. Base info endpoints: placed directly under the versioned or unversioned base URL that serves the API (e.g., http://example.com/optimade/v1/info or http://example.com/optimade/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
+2. Entry listing info endpoints: placed under the endpoints belonging to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
@@ -1565,7 +1565,7 @@ OPTIONAL features:
 Examples:
 
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
-- :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
+- :filter:`chemical_formula_anonymous STARTS "A2" AND chemical_formula_anonymous ENDS WITH "D1"`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1995,8 +1995,8 @@ chemical\_formula\_anonymous
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
-- **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+- **Description**: List of three integers describing the periodicity of the boundaries of the unit cell.
+  For each direction indicated by the three `lattice\_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
   Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
@@ -2008,10 +2008,10 @@ dimension\_types
 
 - **Examples**:
 
-  - For a molecule: :val:`[0, 0, 0]`
-  - For a wire along the direction specified by the third lattice vector: :val:`[0, 0, 1]`
-  - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: :val:`[1, 0, 1]`
-  - For a bulk 3D system: :val:`[1, 1, 1]`
+  - A nonperiodic structure, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
+  - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
+  - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
 
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
@@ -2248,9 +2248,9 @@ assemblies
 
 - **Examples** (for each entry of the assemblies list):
 
-  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
+  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
     Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.
-  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
+  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
     The second group is formed by the fourth site.
     Sites of the first group (the second and the third) are never present at the same time as the fourth site.
     30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).
@@ -2270,11 +2270,11 @@ assemblies
              "cartesian_site_positions": [[0,0,0]],
              "species_at_sites": ["SiGe-vac"],
              "species": [
-                 {
-                   "name": "SiGe-vac",
-                   "chemical_symbols": ["Si", "Ge", "vacancy"],
-                   "concentration": [0.3, 0.5, 0.2]
-                 }
+               {
+                 "name": "SiGe-vac",
+                 "chemical_symbols": ["Si", "Ge", "vacancy"],
+                 "concentration": [0.3, 0.5, 0.2]
+               }
              ]
              // ...
            }
