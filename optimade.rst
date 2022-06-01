@@ -2427,8 +2427,8 @@ url
 
   - :val:`"https://example.org/files/cifs/1000000.cif"`
 
-url_stable_until
-~~~~~~~~~~~~~~~~
+url\_stable\_until
+~~~~~~~~~~~~~~~~~~
 
 - **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
 - **Type**: timestamp
@@ -2492,8 +2492,8 @@ version
   - **Query**: Support for queries on this property is OPTIONAL.
   - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
 
-modification_timestamp
-~~~~~~~~~~~~~~~~~~~~~~
+modification\_timestamp
+~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: Timestamp of the last modification of file contents.
   A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.
