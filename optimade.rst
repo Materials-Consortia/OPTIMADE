@@ -493,6 +493,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **data\_available**: an integer containing the total number of data resource objects available in the database for the endpoint.
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
+  - **request\_delay**: a float giving time in seconds a client should wait before issuing a subsequent request.
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
@@ -504,7 +505,6 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
       - **email** with the maintainer's email address.
 
     - **issue\_tracker**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
-    - **request\_delay**: a float giving time in seconds a client should wait before issuing a subsequent request.
 
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
