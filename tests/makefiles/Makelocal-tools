@@ -35,6 +35,7 @@ ${GRAMMATICA_LOG}:
 		|| (rm -vf ${GRAMMATICA_ZIP}; exit 12)
 	cd $(dir $@) && rm -rf $(notdir $(basename $@))
 	cd $(dir $@) && unzip ${GRAMMATICA_ZIP}
+	patch $(dir $@)/$(notdir $(basename $@))/build.xml $(dir $@)/grammatica-build.patch
 	cd $(dir $@); ( set -uex; cd $(notdir $(basename $@)); ant -k ) 2>&1 \
 		| tee $(notdir $@)
 
