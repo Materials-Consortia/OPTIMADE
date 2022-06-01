@@ -2414,6 +2414,8 @@ url
 ~~~
 
 - **Description**: The URL to get the contents of a file.
+  The URL MUST point to the actual contents of a file (i.e. octet stream), not an intermediate (preview) representation.
+  For example, if referring to a file on GitHub, a link should point to raw contents.
 - **Type**: string
 - **Requirements/Conventions**:
 
