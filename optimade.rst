@@ -2056,6 +2056,36 @@ lattice\_vectors
 
   - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
 
+space\_group\_hall
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Each component of the Hall symbol MUST be separated by a single space symbol.
+  - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
+  - MUST be null if :property:`nperiodic_dimensions` is not equal to 3.
+
+- **Examples**:
+
+  - :val:`P 2c -2ac`
+  - :val:`-I 4bd 2ab 3`
+
+space\_group\_it\_number
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - The integer value MUST be between 1 and 230.
+  - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
+
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
