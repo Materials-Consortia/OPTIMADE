@@ -2518,25 +2518,17 @@ description
 
   - :val:`"POSCAR format file"`
 
-md5sum
-~~~~~~
+checksums
+~~~~~~~~~
 
-- **Description**: MD5 checksum of file contents.
-- **Type**: string
-- **Requirements/Conventions**:
-
-  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-  - **Query**: Support for queries on this property is OPTIONAL.
-
-sha1sum
-~~~~~~~
-
-- **Description**: SHA1 checksum of file contents.
-- **Type**: string
-- **Requirements/Conventions**:
+* **Description**: Dictionary providing checksums of file contents.
+* **Type**: dictionary with keys identifying checksum functions and values (strings) giving the actual checksums
+* **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - Supported dictionary keys: :property:`md5`, :property:`sha1`, :property:`sha224`, :property:`sha256`, :property:`sha384`, :property:`sha512`.
+    Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
 
 atime
 ~~~~~
