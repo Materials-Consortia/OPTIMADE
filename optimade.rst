@@ -494,6 +494,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
   - **request\_delay**: a float giving time in seconds a client should wait before issuing a subsequent request.
+    An implementation MAY respond with :http-error:`429 Too Many Requests` error if a client refuses to respect the indicated delay.
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
