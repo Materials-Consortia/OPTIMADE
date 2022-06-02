@@ -1492,6 +1492,8 @@ However, testing for equality to zero MUST be supported.
 
 More examples of the number tokens and machine-readable definitions and tests can be found in the `Materials-Consortia API Git repository <https://github.com/Materials-Consortia/API/>`__ (files `integers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst>`__, `not-numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst>`__, `numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst>`__, and `reals.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst>`__).
 
+- **Boolean values** are represented with the tokens :filter-op:`TRUE` and :filter-op:`FALSE`.
+
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
   Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
 
@@ -1568,6 +1570,23 @@ Examples:
 
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
 - :filter:`chemical_formula_anonymous STARTS "A2" AND chemical_formula_anonymous ENDS WITH "D1"`
+
+Comparisons of boolean values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
+Other comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
+Boolean values are only supposed to be used in direct comparisons with properties, but not compound comparisons.
+For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
+
+Boolean property :filter-fragment:`property` MAY be compared with :filter-fragment:`TRUE` by omitting the :filter-fragment:`= TRUE` altogether: :filter:`property`.
+Conversely, it MAY be compared with :filter-fragment:`FALSE` by negating the comparison with :filter-fragment:`TRUE`: :filter:`NOT property`.
+
+Examples:
+
+- :filter:`property = TRUE`
+- :filter:`property != FALSE`
+- :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2513,16 +2532,19 @@ The Filter Language EBNF Grammar
 
     (* Values *)
 
-    Constant = String | Number ;
+    OrderedConstant = String | Number ;
+    UnorderedConstant = ( TRUE | FALSE ) ;
 
-    Value = String | Number | Property ;
-    (* Note: support for Property in Value is OPTIONAL *)
+    Value = ( UnorderedConstant | OrderedValue ) ;
 
-    ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
-    (* Support for Operator in ValueList is OPTIONAL *)
+    OrderedValue = ( OrderedConstant | Property ) ;
+    (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
-    (* Support for Operator in ValueZip is OPTIONAL *)
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs ) ;
+    (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
+
+    ValueList = ValueListEntry, { Comma, ValueListEntry } ;
+    ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
 
@@ -2538,17 +2560,22 @@ The Filter Language EBNF Grammar
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    ConstantFirstComparison = Constant, ValueOpRhs ;
+    ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
+                              | UnorderedConstant, ValueEqRhs ) ;
 
-    PropertyFirstComparison = Property, ( ValueOpRhs
+    PropertyFirstComparison = Property, [ ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
                                         | SetZipOpRhs
-                                        | LengthOpRhs ) ;
+                                        | LengthOpRhs ] ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-    ValueOpRhs = Operator, Value ;
+    ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;
+
+    ValueEqRhs = EqualityOperator, Value ;
+
+    ValueRelCompRhs = RelativeComparisonOperator, OrderedValue ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2556,9 +2583,8 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
-    (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
@@ -2605,7 +2631,14 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
+    Operator = ( EqualityOperator | RelativeComparisonOperator ) ;
+    EqualityOperator = [ '!' ], '=' , [Spaces] ;
+    RelativeComparisonOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
+
+    (* Boolean values *)
+
+    TRUE = 'TRUE', [Spaces] ;
+    FALSE = 'FALSE', [Spaces] ;
 
     (* Property syntax *)
 

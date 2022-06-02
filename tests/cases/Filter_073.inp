@@ -1,0 +1,1 @@
+((true = TRUE) AND (false = FALSE)) OR ((true != TRUE) AND (false != FALSE))
