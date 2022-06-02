@@ -2384,9 +2384,9 @@ reference_frame
 ~~~~~~~~~~~~~~~
 
 - **Description**: The number of the frame at which the `reference_structure`_ was taken.
-  The first frame is frame 0.
+  The first frame is frame 1.
 - **Type**: integer
-- **Requirements/Conventions**: The value MUST be equal or larger than 0 and less than nframes.
+- **Requirements/Conventions**: The value MUST be larger than 0 and equal or less than nframes.
 
   - **Support**: MUST be supported if the `reference_structure`_ is taken from the trajectory.
     If the `reference_structure`_ is not in the trajectory, the value MUST NOT be present.
@@ -2500,15 +2500,15 @@ The data from the trajectory frames SHOULD only be returned when the user specif
 
 Next to this the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
 While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
-The numbering of the frames is zero based, so the first frame is frame number 0.
+The numbering of the frames is one based, so the first frame is frame number 1.
 
 - **first_frame**:
 
   - **Description**: **first_frame** specifies the first frame that should be returned.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to 0 and MUST be less than nframes.(The total number of frames in the trajectory)
+  - **Requirements/Conventions**: The value MUST be larger than 0 and MUST be less or equal to  nframes.(The total number of frames in the trajectory)
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
-    The default value is 0.
+    The default value is 1.
   - **Examples**:
 
     - :query-url:`/trajectories/traj00000001?first_frame=1000`
@@ -2517,9 +2517,9 @@ The numbering of the frames is zero based, so the first frame is frame number 0.
 
   - **Description**: **last_frame** specifies the last frame that should be returned.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to :property:`first_frame` and MUST be less than `nframes`_ (the total number of frames in the trajectory).
+  - **Requirements/Conventions**: The value MUST be larger or equal to :property:`first_frame` and MUST not be larger than `nframes`_ (the total number of frames in the trajectory).
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
-    The default value is `nframes`_-1.
+    The default value is `nframes`.
   - **Examples**:
 
     - :query-url:`/trajectories/traj00000001?last_frame=2000`
@@ -2528,7 +2528,7 @@ The numbering of the frames is zero based, so the first frame is frame number 0.
 
   - **Description**:  Specifies that data should only be returned for one out of every :property:`frame_step` frames.
   - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less than or equal to the total number of frames.
+  - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less than or equal to `nframes`_.
     If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
     The default value is 1.
   - **Examples**:
@@ -2564,7 +2564,7 @@ Each property has a dictionary as the value, with the following fields:
 
 - **offset_linear**:
 
-  - **Description**: If :property:`frame_serialization_format` is set to :val:`"linear"` this property gives the value at frame 0.
+  - **Description**: If :property:`frame_serialization_format` is set to :val:`"linear"` this property gives the value at frame 1.
   - **Type**: float
   - **Requirements/Conventions**: The value MAY be present when :property:`frame_serialization_format` is set to :val:`"linear"`, otherwise the value MUST NOT be present.
     The default value is 0.
@@ -2669,7 +2669,7 @@ This is an example of the data field of a JSON object that could be returned aft
             }
           ]
         },
-        "reference_frame": 0,
+        "reference_frame": 1,
         "nframes": 360,
         "available_properties":{
           "cartesian_site_positions":{
