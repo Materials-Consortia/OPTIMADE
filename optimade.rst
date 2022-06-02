@@ -1020,7 +1020,8 @@ The single resource object's response dictionary MUST include the following fiel
   - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
 
   - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ providing a pointer to a license covering all the data provided under this database.
-    If the license is included in the `SPDX License List <https://spdx.org/licenses/>`__, then the URL MUST point to SPDX-hosted license fulltext, i.e., it MUST start with `https://spdx.org/licenses/`.
+    If the license is included in the `SPDX License List <https://spdx.org/licenses/>`__, then the URL MUST point to SPDX-hosted license fulltext, i.e., it MUST start with :field-val:`https://spdx.org/licenses/`, but MUST NOT include the terminating :field-val:`.html`.
+    Example: :field-val:`https://spdx.org/licenses/CC0-1.0`.
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
