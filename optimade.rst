@@ -1158,7 +1158,7 @@ Example (note: the description strings have been wrapped for readability only):
             "x-optimade-property": {
               "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
             },
-	    "x-optimade-unit: "unitless",
+            "x-optimade-unit: "unitless",
             "x-optimade-implementation": {
               "sortable": true,
               "query-support": "full"
@@ -1171,7 +1171,7 @@ Example (note: the description strings have been wrapped for readability only):
           },
           "lattice_vectors": {
             "title": "Unit cell lattice vectors",
-	    "type": ["array", "null"],
+            "type": ["array", "null"],
             "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
             \n
 	    - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
