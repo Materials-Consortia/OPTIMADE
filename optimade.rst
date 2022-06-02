@@ -2538,7 +2538,7 @@ The Filter Language EBNF Grammar
     (* Note: support for Property in OrderedValue is OPTIONAL *)
 
     ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs | FuzzyStringOpRhs ) ;
-    (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
+    (* Note: support for ValueEqRhs, ValueRelCompRhs and FuzzyStringOpRhs in ValueListEntry are OPTIONAL *)
 
     ValueList = ValueListEntry, { Comma, ValueListEntry } ;
     ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
@@ -2581,7 +2581,7 @@ The Filter Language EBNF Grammar
                      | ENDS, [ WITH ], Value ;
 
     SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue | FuzzyStringOpRhs ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, FuzzyStringOpRhs, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
