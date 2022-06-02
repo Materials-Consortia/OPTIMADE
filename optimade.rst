@@ -1761,7 +1761,7 @@ An OPTIMADE *Property Definition* defines a specific property, which will be ref
 The definition uses a dictionary-based construct that, when represented in the JSON output format, is compatible with the JSON Schema standard (for more information, see `Property Definition keys from JSON Schema`_).
 The format of Property Definitions defined below allows nesting inner Property Definitions to define properties that are comprised by values organized in lists and dictionaries to arbitrary depth.
 
-The field data types used in this section refers to OPTIMADE data types, and the implementation maps these to the corresponding data types for the output format in which the property definition is expressed.
+The field data types used in this section refer to OPTIMADE data types, and the implementation maps these to the corresponding data types for the output format in which the property definition is expressed.
 
 A Property Definition MUST be formatted according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
 
