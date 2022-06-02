@@ -2580,7 +2580,7 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue | FuzzyStringOpRhs ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
     (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
