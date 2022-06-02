@@ -2537,7 +2537,7 @@ The Filter Language EBNF Grammar
     OrderedValue = ( OrderedConstant | Property ) ;
     (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs ) ;
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs | FuzzyStringOpRhs ) ;
     (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
 
     ValueList = ValueListEntry, { Comma, ValueListEntry } ;
