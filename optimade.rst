@@ -1132,7 +1132,7 @@ Entry listing info endpoints are accessed under the versioned or unversioned bas
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
-- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the appendix `Property Definitions`_.
+- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the section `Property Definitions`_.
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
@@ -1757,7 +1757,7 @@ An implementation that encounters an OPTIONAL feature that it does not support M
 Property Definitions
 ====================
 
-An OPTIMADE *Property Definition* defines a specific property, which will be referred to as *the defined property* throughout this appendix.
+An OPTIMADE *Property Definition* defines a specific property, which will be referred to as *the defined property* throughout this section.
 The definition uses a dictionary-based construct that, when represented in the JSON output format, is compatible with the JSON Schema standard (for more information, see `Property Definition keys from JSON Schema`_).
 The format of Property Definitions defined below allows nesting inner Property Definitions to define properties that are comprised by values organized in lists and dictionaries to arbitrary depth.
 
@@ -3092,4 +3092,3 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
-
