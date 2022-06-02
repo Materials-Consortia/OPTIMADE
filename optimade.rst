@@ -1168,7 +1168,7 @@ Example (note: the description strings have been wrapped for readability only):
               "sortable": false,
               "query-support": "full"
             }
-          },	  
+          },
           "lattice_vectors": {
             "title": "Unit cell lattice vectors",
 	    "type": ["array", "null"],
@@ -1182,7 +1182,7 @@ Example (note: the description strings have been wrapped for readability only):
             ],
             "x-optimade-unit": "inapplicable",
 	    "x-optimade-property": {
-	      "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",	
+	      "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
 	      "unit-definitions": [
 	        {
 		  "symbol": "angstrom",
@@ -1199,14 +1199,14 @@ Example (note: the description strings have been wrapped for readability only):
             "x-optimade-implementation": {
               "sortable": false,
               "query-support": "none"
-            },	    
+            },
             "x-optimade-requirements": {
   	      "support": "should",
               "sortable": false,
               "query-support": "none"
-            }	    
+            }
 	    "maxItems": 3
-	    "minItems": 3	    
+	    "minItems": 3
 	    "items": {
 	       "type": "array",
 	       "x-optimade-unit": "inapplicable",
@@ -2754,10 +2754,10 @@ A Property Definition MUST be formatted according to the combination of the requ
   - :field:`version`: String.
     This string indicates the version of the property definition.
     The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
-    
+
   - :field:`unit-definitions`: List.
     A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
-    This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensioneless` or :val:`inapplicable`. 
+    This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensioneless` or :val:`inapplicable`.
     See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
 
   - :field:`resource-uris`: List.
@@ -2804,19 +2804,19 @@ A Property Definition MUST be formatted according to the combination of the requ
   - :field:`query-support-operators`: List of Strings.
     Defines the filter language features supported on this property.
     Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`:, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
-    
+
     - :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`: indicating support for filtering this property using the respective operator.
       If the property is of Boolean type, support for :val:`=` also designates support for boolean comparisons with the property being true that omit ":filter-fragment:`= TRUE`", e.g., specifying that filtering for ":filter:`is_yellow = TRUE`" is supported also implies support for ":filter:`is_yellow`" (which means the same thing).
       Support for ":filter:`NOT is_yellow`" also follows.
 
     - :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`: indicating support for substring filtering of this property using the respective operator. MUST NOT appear if the property is not of type String.
-      
+
     - :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`: indicating support for the MANDATORY features for list property comparison using the respective operator. MUST NOT appear if the property is not of type List.
 
     - :val:`HAS ONLY`: indicating support for list property comparison with all or a subset of the OPTIONAL constructs using this operator. MUST NOT appear if the property is not of type List.
 
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
-      
+
 - :field:`x-optimade-requirements`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality required by all implementations of this property.
   Omitting this field means the corresponding functionality is OPTIONAL.
@@ -3058,7 +3058,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
     - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
-      
+
   - :field:`version`: String.
     The version string of the referenced standard.
 
@@ -3066,10 +3066,10 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The symbol to use from the referenced standard, expressed according to that standard.
     This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
     However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
-    
+
 
 **OPTIONAL keys:**
-    
+
 - :field:`resource-uris`: List.
   A list of dictionaries that references remote resources that describe the unit.
   The format of each dictionary is:
