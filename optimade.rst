@@ -1174,56 +1174,56 @@ Example (note: the description strings have been wrapped for readability only):
             "type": ["array", "null"],
             "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
             \n
-	    - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
-	      list of the vector's coordinates along the x, y, and z Cartesian coordinates.
-	    ",
-	    "examples": [
+            - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
+              list of the vector's coordinates along the x, y, and z Cartesian coordinates.
+            ",
+            "examples": [
               [[4.0, 0.0, 0.0], [0.0, 4.0, 0.0], [0.0, 1.0, 4.0]]
             ],
             "x-optimade-unit": "inapplicable",
-	    "x-optimade-property": {
-	      "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
-	      "unit-definitions": [
-	        {
-		  "symbol": "angstrom",
-		  "title": "ångström",
-		  "description": "The ångström unit of length.",
-		  "standard": {
-		    "name": "gnu units",
-		    "version": "3.09",
-		    "symbol": "angstrom"
-		  }
-		}
-	      ]
+            "x-optimade-property": {
+              "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "unit-definitions": [
+                {
+                  "symbol": "angstrom",
+                  "title": "ångström",
+                  "description": "The ångström unit of length.",
+                  "standard": {
+                    "name": "gnu units",
+                    "version": "3.09",
+                    "symbol": "angstrom"
+                  }
+                }
+              ]
             }
             "x-optimade-implementation": {
               "sortable": false,
               "query-support": "none"
             },
             "x-optimade-requirements": {
-  	      "support": "should",
+              "support": "should",
               "sortable": false,
               "query-support": "none"
             }
-	    "maxItems": 3
-	    "minItems": 3
-	    "items": {
-	       "type": "array",
-	       "x-optimade-unit": "inapplicable",
-	       "maxItems": 3
-	       "minItems": 3
-	       "items": {
-  	         "type": "number",
-	       	 "x-optimade-unit": "angstrom",
-	         "x-optimade-implementation": {
+            "maxItems": 3
+            "minItems": 3
+            "items": {
+               "type": "array",
+               "x-optimade-unit": "inapplicable",
+               "maxItems": 3
+               "minItems": 3
+               "items": {
+                 "type": "number",
+                 "x-optimade-unit": "angstrom",
+                 "x-optimade-implementation": {
                    "sortable": true,
                    "query-support": "none"
                  },
-	         "x-optimade-requirements": {
+                 "x-optimade-requirements": {
                    "sortable": false,
                    "query": "none"
-		 }
-	       }
+                 }
+               }
             }
           }
           // ... <other property descriptions>
