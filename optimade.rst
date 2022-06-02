@@ -2689,7 +2689,7 @@ A Property Definition MUST be formatted according to the combination of the requ
 **REQUIRED keys for the outermost level of the Property Definition:**
 
 - :field:`title`: String and :field:`description`: String.
-  See the subsection `Property definition keys from a subset of JSON API Schema`_ for the definitions of these fields.
+  See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
 - :field:`x-optimade-property`: Dictionary.
@@ -2705,16 +2705,16 @@ A Property Definition MUST be formatted according to the combination of the requ
 
   **OPTIONAL keys:**
 
-  - :field:`version`: String.
-    This string indicates the version of the property definition.
-    The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>` standard.
-  
   - :field:`property-url`: String.    
     A URL that SHOULD return a JSON response that contains the present Property Definition.
     The format of the response MUST be that of an `OPTIMADE Entry Listing Info Endpoint <Entry Listing Info Endpoints>`_, except the only mandatory keys are :field:`data` with the subfield :field:`properties`, but the response MAY contain other fields.
     This format makes it possible for a Property Definition in an Entry Listing Info endpoint to set :field:`x-optimade-property-uri` as a link back to the same Info endpoint.
     However, the field MAY also link to a resource external from the implementation to clarify to clients that a property used in several databases represents the same thing.
-  
+
+  - :field:`version`: String.
+    This string indicates the version of the property definition.
+    The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>` standard.
+    
   - :field:`unit-definitions`: List.
     A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
     See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
@@ -2736,7 +2736,7 @@ A Property Definition MUST be formatted according to the combination of the requ
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given, if it uses a unit.
   If the :field:`x-optimade-unit` is omitted, it designates a unitless quantity or a field for which no unit is relevant (e.g., a String).
-  See subsection `Compound Units Expression in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
+  See subsection `Physical Units in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
 
 - :field:`x-optimade-implementation`: Dictionary
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
@@ -2763,13 +2763,13 @@ A Property Definition MUST be formatted according to the combination of the requ
     Defines the filter language features supported on this property.
     The strings MUST all be one of:
 
-    - :val:`"<"`, :val:`"<="`, :val:`">"`, :val:`">="`, :val:`"="`, or :val:`"!="`: indicating support for filtering this property using the respective operator. If the property is of Boolean type, support for :val:`=` also designate support of boolean comparisons that omit `= TRUE`.
+    - :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`: indicating support for filtering this property using the respective operator. If the property is of Boolean type, support for :val:`=` also designate support of boolean comparisons that omit :filter-fragment:`= TRUE`.
 
-    - :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`: indicating support for substring filtering of this property using the respective operator. MUST not appear if the property is not of type String.
+    - :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`: indicating support for substring filtering of this property using the respective operator. MUST NOT appear if the property is not of type String.
       
-    - :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`: indicating support for the MANDATORY features for list property comparison using the respective operator. MUST not appear if the property is not of type List.
+    - :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`: indicating support for the MANDATORY features for list property comparison using the respective operator. MUST NOT appear if the property is not of type List.
 
-    - :val:`HAS ONLY`: indicating support for list property comparison with all or a subset of the OPTIONAL constructs using this operator. MUST not appear if the property is not of type List.
+    - :val:`HAS ONLY`: indicating support for list property comparison with all or a subset of the OPTIONAL constructs using this operator. MUST NOT appear if the property is not of type List.
 
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
       
@@ -2783,7 +2783,7 @@ A Property Definition MUST be formatted according to the combination of the requ
     This field SHOULD only appear in a :field:`x-optimade-requirements` that appear at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
     The string MUST be one of the following:
 
-    - "must": the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST not be :val:`null`.
+    - "must": the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
     - "should", the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD not be :val:`null`.
     - "may": the defined property MAY not be recognized by the implementation and MAY be equal to :val:`null`.
 
@@ -2977,7 +2977,7 @@ If the unit is available in this database, or if it can be expressed as a compou
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
 Each unit symbol can also be suffixed by a single :val:`^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., :val:`m^3` for cubic meter, :val:`m^-3` for inverse cubic meter.
-(Positive integers MUST not be preceeded by a plus sign.)
+(Positive integers MUST NOT be preceeded by a plus sign.)
 The unit symbols can also be prefixed by one (but not more than one) of the prefixes defined in the database (indicated there by a trailing :val:`-`).
 Furthermore:
 
@@ -3020,7 +3020,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The version string of the referenced standard.
 
   - :field:`symbol`: String.
-    The symbol to use from the referenced standard, expressed according to that standard. (For `GNU Units` and `QUDT` this can be a compound unit expression.) 
+    The symbol to use from the referenced standard, expressed according to that standard. (For :val:`GNU Units` and :val:`QUDT` this can be a compound unit expression.) 
 
 **OPTIONAL keys:**
     
@@ -3043,6 +3043,6 @@ Implementations MAY add their own keys in Property Definitions, both inside and 
 Implementations MUST NOT add keys to property definitions on other formats.
 
 Client and server implementations that interpret an OPTIMADE Property Definition and encounter unrecognized keys starting with :field:`x-exmpl-` where :field:`exmpl` is a recognized database prefix MAY issue errors or warnings.
-Other unrecognized keys starting with :field:`x-` MUST not issue errors, SHOULD NOT issue warnings, and MUST otherwise be ignored.
+Other unrecognized keys starting with :field:`x-` MUST NOT issue errors, SHOULD NOT issue warnings, and MUST otherwise be ignored.
 
 To allow forward compatibility with future versions of both OPTIMADE and the JSON Schema standards, unrecognized keys that do not start with :field:`x-` SHOULD issue a warning but MUST otherwise be ignored.
