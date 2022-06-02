@@ -1136,7 +1136,7 @@ The response for these endpoints MUST include the following information in the :
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
-Example (note: the description string has been wrapped for readability only):
+Example (note: the description strings have been wrapped for readability only):
 
 .. code:: jsonc
 
@@ -1145,8 +1145,8 @@ Example (note: the description string has been wrapped for readability only):
         "description": "a structures entry",
         "properties": {
           "nelements": {
-            "type": ["integer", "null"],
             "title": "Number of elements",
+            "type": ["integer", "null"],
             "description": "Number of different elements in the structure as an integer.\n
              \n
              -  Note: queries on this property can equivalently be formulated using `elements LENGTH`.\n
@@ -1161,17 +1161,25 @@ Example (note: the description string has been wrapped for readability only):
 	    "x-optimade-unit: "unitless",
             "x-optimade-implementation": {
               "sortable": true,
-              "query": "full"
+              "query-support": "full"
             },
             "x-optimade-requirements": {
               "support": "should",
               "sortable": false,
-              "query": "full"
+              "query-support": "full"
             }
-          },
+          },	  
           "lattice_vectors": {
             "title": "Unit cell lattice vectors",
-            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).",
+	    "type": ["array", "null"],
+            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
+            \n
+	    - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
+	      list of the vector's coordinates along the x, y, and z Cartesian coordinates.
+	    ",
+	    "examples": [
+              [[4.0, 0.0, 0.0], [0.0, 4.0, 0.0], [0.0, 1.0, 4.0]]
+            ],
             "x-optimade-unit": "inapplicable",
 	    "x-optimade-property": {
 	      "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",	
@@ -1188,10 +1196,35 @@ Example (note: the description string has been wrapped for readability only):
 		}
 	      ]
             }
-            "sortable": false,
-            "type": "array",
-
-            // ... <further fields defining lattice_vectors>
+            "x-optimade-implementation": {
+              "sortable": false,
+              "query-support": "none"
+            },	    
+            "x-optimade-requirements": {
+  	      "support": "should",
+              "sortable": false,
+              "query-support": "none"
+            }	    
+	    "maxItems": 3
+	    "minItems": 3	    
+	    "items": {
+	       "type": "array",
+	       "x-optimade-unit": "inapplicable",
+	       "maxItems": 3
+	       "minItems": 3
+	       "items": {
+  	         "type": "number",
+	       	 "x-optimade-unit": "angstrom",
+	         "x-optimade-implementation": {
+                   "sortable": true,
+                   "query-support": "none"
+                 },
+	         "x-optimade-requirements": {
+                   "sortable": false,
+                   "query": "none"
+		 }
+	       }
+            }
           }
           // ... <other property descriptions>
         },
@@ -2053,7 +2086,7 @@ lattice\_vectors
 - **Type**: list of list of floats or unknown values.
 - **Requirements/Conventions**:
 
-  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.g
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
@@ -2724,6 +2757,7 @@ A Property Definition MUST be formatted according to the combination of the requ
     
   - :field:`unit-definitions`: List.
     A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
+    This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensioneless` or :val:`inapplicable`. 
     See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
 
   - :field:`resource-uris`: List.
