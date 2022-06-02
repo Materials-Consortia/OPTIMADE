@@ -1018,11 +1018,11 @@ The single resource object's response dictionary MUST include the following fiel
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
   - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
-  - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a pointer to a license covering all the data provided under this database.
+  - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a pointer to a license covering all the data and metadata provided under this database.
     If the license is included in the `SPDX License List <https://spdx.org/licenses/>`__, then the URL MUST point to SPDX-hosted license fulltext, i.e., it MUST start with :field-val:`https://spdx.org/licenses/`, but MUST NOT include the terminating :field-val:`.html`.
     Example: :field-val:`https://spdx.org/licenses/CC0-1.0`.
   - **license_is_compatible_with_cc_by_4_0**: Boolean value indicating compatibility with `Creative Commons Attribution 4.0 International license <https://spdx.org/licenses/CC-BY-4.0>`__.
-    This field may be used to check whether a particular database allows aggregation of its data.
+    This field may be used to check whether a particular database allows aggregation of its data and metadata.
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
