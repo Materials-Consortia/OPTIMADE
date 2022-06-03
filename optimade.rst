@@ -1021,15 +1021,16 @@ The single resource object's response dictionary MUST include the following fiel
   - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a pointer to a license covering all the data and metadata provided under this database.
     If the license is included in the `SPDX License List <https://spdx.org/licenses/>`__, then the URL MUST point to SPDX-hosted license fulltext, i.e., it MUST start with :field-val:`https://spdx.org/licenses/`, but MUST NOT include the terminating :field-val:`.html`.
     Example: :field-val:`https://spdx.org/licenses/CC0-1.0`.
-  - **compatible\_licenses**: List of SPDX license identifiers giving licenses the data and metadata in a database is compatible with.
-    In case the data and metadata is multiply-licensed, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata could be used.
-    If :field:`license` and :field:`compatible_licenses` contradict, :field:`compatible_licenses` has precedence.
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
   - **is\_index**: if :field-val:`true`, this is an index meta-database base URL (see section `Index Meta-Database`_).
 
     If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., the default is for :field:`is_index` to be :field-val:`false`).
+
+  - **compatible\_licenses**: List of SPDX license identifiers giving licenses the data and metadata in a database is compatible with.
+    In case the data and metadata is multiply-licensed, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata could be used.
+    If :field:`license` and :field:`compatible_licenses` contradict, :field:`compatible_licenses` has precedence.
 
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
