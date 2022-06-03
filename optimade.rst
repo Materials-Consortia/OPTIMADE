@@ -1028,7 +1028,7 @@ The single resource object's response dictionary MUST include the following fiel
 
     If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., the default is for :field:`is_index` to be :field-val:`false`).
 
-  - **compatible\_licenses**: List of SPDX license identifiers giving licenses the data and metadata in a database is compatible with.
+  - **compatible\_licenses**: List of SPDX license identifiers giving licenses that the data and metadata in a database is compatible with.
     In case the data and metadata is multiply-licensed, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata could be used.
     If :field:`license` and :field:`compatible_licenses` contradict, :field:`compatible_licenses` has precedence.
 
