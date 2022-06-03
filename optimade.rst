@@ -19,10 +19,10 @@ OPTIMADE API specification v1.1.0~develop
 
      # OPTIMADE concepts
 
-     entry : names of type of resources served via OPTIMADE pertaining to data in a database.
-     property : data item that pertains to an entry.
+     entry : names of type of resources, served via OPTIMADE, pertaining to data in a database.
+     property : data item that belongs to an entry.
      val : value examples that properties can be.
-           :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+           :val: is ONLY used when referencing values of actual properties, i.e., information that belongs to the database.
      type : data type of values.
             MUST equal a valid OPTIMADE data type as listed and defined under `Data types`_.
 
@@ -146,14 +146,14 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
-    For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
+    For example, a :entry:`structures` entry is comprised by data that belong to a single structure.
 
 **Entry type**
     Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
 
 **Entry property**
-    One data item which pertains to an entry, e.g., the chemical formula of a structure.
+    One data item which belongs to an entry, e.g., the chemical formula of a structure.
 
 **Entry property name**
     The name of an entry property.
@@ -162,7 +162,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Relationship**
     Any entry can have one or more relationships with other entries.
     These are described in section `Relationships`_.
-    Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
+    Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
     An expression used to influence the entries returned in the response to an URL query.
@@ -540,7 +540,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
              "representation": "/structures/?filter=a=1 AND b=2"
            },
            "api_version": "1.0.0",
-           "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
+           "schema": "http://schemas.optimade.org/openapi/v1/optimade.json",
            "time_stamp": "2007-04-05T14:30:20Z",
            "data_returned": 10,
            "data_available": 10,
@@ -987,7 +987,7 @@ Info endpoints provide introspective information, either about the API implement
 There are two types of info endpoints:
 
 1. Base info endpoints: placed directly under the versioned or unversioned base URL that serves the API (e.g., http://example.com/optimade/v1/info or http://example.com/optimade/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
+2. Entry listing info endpoints: placed under the endpoints belonging to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
@@ -1538,6 +1538,8 @@ However, testing for equality to zero MUST be supported.
 
 More examples of the number tokens and machine-readable definitions and tests can be found in the `Materials-Consortia API Git repository <https://github.com/Materials-Consortia/API/>`__ (files `integers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst>`__, `not-numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst>`__, `numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst>`__, and `reals.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst>`__).
 
+- **Boolean values** are represented with the tokens :filter-op:`TRUE` and :filter-op:`FALSE`.
+
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
   Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
 
@@ -1613,7 +1615,24 @@ OPTIONAL features:
 Examples:
 
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
-- :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
+- :filter:`chemical_formula_anonymous STARTS "A2" AND chemical_formula_anonymous ENDS WITH "D1"`
+
+Comparisons of boolean values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
+Other comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
+Boolean values are only supposed to be used in direct comparisons with properties, but not compound comparisons.
+For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
+
+Boolean property :filter-fragment:`property` MAY be compared with :filter-fragment:`TRUE` by omitting the :filter-fragment:`= TRUE` altogether: :filter:`property`.
+Conversely, it MAY be compared with :filter-fragment:`FALSE` by negating the comparison with :filter-fragment:`TRUE`: :filter:`NOT property`.
+
+Examples:
+
+- :filter:`property = TRUE`
+- :filter:`property != FALSE`
+- :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1623,7 +1642,7 @@ An implementation MAY also support property names and nested property names in :
 
 The following constructs MUST be supported:
 
-- :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
+- :filter:`list HAS value`: matches if at least one element in :filter-fragment:`list` is equal to :filter-fragment:`value`. (If :filter-fragment:`list` has no duplicate elements, this implements the set operator IN.)
 - :filter:`list HAS ALL values`: matches if, for each :filter-fragment:`value`, there is at least one element in :filter-fragment:`list` equal to that value. (If both :filter-fragment:`list` and :filter-fragment:`values` do not contain duplicate values, this implements the set operator >=.)
 - :filter:`list HAS ANY values`: matches if at least one element in :filter-fragment:`list` is equal to at least one :filter-fragment:`value`. (This is equivalent to a number of HAS statements separated by OR.)
 - :filter:`list LENGTH value`: matches if the number of items in the :filter-fragment:`list` property is equal to :filter-fragment:`value`.
@@ -2203,7 +2222,10 @@ last\_modified
 database-provider-specific properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Database providers are allowed to insert database-provider-specific entries in the output of both standard entry types and database-provider-specific entry types.
+- **Description**: Database providers are allowed to add database-provider-specific properties in the output of both standard entry types and database-provider-specific entry types.
+  Similarly, an implementation MAY add keys with a database-provider-specific prefix to dictionary properties and their sub-dictionaries.
+  For example, the database-provider-specific property :property:`_exmpl_oxidation_state`, can be placed within the OPTIMADE property :property:`species`.
+
 - **Type**: Decided by the API implementation.
   MUST be one of the OPTIMADE `Data types`_.
 - **Requirements/Conventions**:
@@ -2411,8 +2433,8 @@ chemical\_formula\_anonymous
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
-- **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+- **Description**: List of three integers describing the periodicity of the boundaries of the unit cell.
+  For each direction indicated by the three `lattice\_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
   Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
@@ -2424,10 +2446,10 @@ dimension\_types
 
 - **Examples**:
 
-  - For a molecule: :val:`[0, 0, 0]`
-  - For a wire along the direction specified by the third lattice vector: :val:`[0, 0, 1]`
-  - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: :val:`[1, 0, 1]`
-  - For a bulk 3D system: :val:`[1, 1, 1]`
+  - A nonperiodic structure, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
+  - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
+  - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
 
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
@@ -2472,6 +2494,36 @@ lattice\_vectors
 - **Examples**:
 
   - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
+
+space\_group\_hall
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Each component of the Hall symbol MUST be separated by a single space symbol.
+  - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
+  - MUST be null if :property:`nperiodic_dimensions` is not equal to 3.
+
+- **Examples**:
+
+  - :val:`P 2c -2ac`
+  - :val:`-I 4bd 2ab 3`
+
+space\_group\_it\_number
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - The integer value MUST be between 1 and 230.
+  - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
 
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2634,9 +2686,9 @@ assemblies
 
 - **Examples** (for each entry of the assemblies list):
 
-  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
+  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
     Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.
-  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
+  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
     The second group is formed by the fourth site.
     Sites of the first group (the second and the third) are never present at the same time as the fourth site.
     30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).
@@ -2656,11 +2708,11 @@ assemblies
              "cartesian_site_positions": [[0,0,0]],
              "species_at_sites": ["SiGe-vac"],
              "species": [
-                 {
-                   "name": "SiGe-vac",
-                   "chemical_symbols": ["Si", "Ge", "vacancy"],
-                   "concentration": [0.3, 0.5, 0.2]
-                 }
+               {
+                 "name": "SiGe-vac",
+                 "chemical_symbols": ["Si", "Ge", "vacancy"],
+                 "concentration": [0.3, 0.5, 0.2]
+               }
              ]
              // ...
            }
@@ -2791,6 +2843,165 @@ Example:
       }
     }
 
+Files Entries
+-------------
+
+The :entry:`files` entries describe files.
+The following properties are used to do so:
+
+url
+~~~
+
+- **Description**: The URL to get the contents of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - **Response**: REQUIRED in the response.
+  - The URL MUST point to the actual contents of a file (i.e. byte stream), not an intermediate (preview) representation.
+    For example, if referring to a file on GitHub, a link should point to raw contents.
+
+- **Examples**:
+
+  - :val:`"https://example.org/files/cifs/1000000.cif"`
+
+url\_stable\_until
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - :val:`null` means that there is no stability guarantee for the URL in `url`.
+    Indefinite support could be communicated by providing a date sufficiently far in the future, for example, :val:`9999-12-31`.
+
+name
+~~~~
+
+- **Description**: Base name of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - File name extension is an integral part of a file name and, if available, MUST be included.
+
+- **Examples**:
+
+  - :val:`"1000000.cif"`
+
+size
+~~~~
+
+- **Description**: Size of a file in bytes.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that either exact size of a file is given or its upper bound.
+    This way if a client reserves a static buffer or truncates the download stream after this many bytes the whole file would be received.
+    Such provision is included to allow the providers to serve on-the-fly compressed files.
+
+media\_type
+~~~~~~~~~~~
+
+- **Description**: Media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"chemical/x-cif"`
+
+version
+~~~~~~~
+
+- **Description**: Version information of a file (e.g. commit, revision, timestamp).
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
+
+modification\_timestamp
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Timestamp of the last modification of file contents.
+  A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Timestamps of subsequent file modifications SHOULD be increasing (not earlier than previous timestamps).
+
+description
+~~~~~~~~~~~
+
+- **Description**: Free-form description of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"POSCAR format file"`
+
+checksums
+~~~~~~~~~
+
+* **Description**: Dictionary providing checksums of file contents.
+* **Type**: dictionary with keys identifying checksum functions and values (strings) giving the actual checksums
+* **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Supported dictionary keys: :property:`md5`, :property:`sha1`, :property:`sha224`, :property:`sha256`, :property:`sha384`, :property:`sha512`.
+    Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+
+atime
+~~~~~
+
+- **Description**: Time of last access of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+ctime
+~~~~~
+
+- **Description**: Time of last status change of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+mtime
+~~~~~
+
+- **Description**: Time of last modification of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - It should be noted that the values of :field:`last_modified`, :field:`modification_timestamp` and :field:`mtime` do not necessary match.
+    :field:`last_modified` pertains to the modification of the OPTIMADE metadata, :field:`modification_timestamp` pertains to file contents and :field:`mtime` pertains to the modification of the file (not necessary changing its contents).
+    For example, appending an empty string to a file would result in the change of :field:`mtime` in some operating systems, but this would not be deemed as a modification of its contents.
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
@@ -2882,6 +3093,40 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
 
+Files
+~~~~~
+
+Relationships with files may be used to relate an entry with any number of :entry:`files` entries.
+
+.. code:: jsonc
+
+    {
+      "data": {
+        "type": "structures",
+        "id": "example.db:structs:1234",
+        "attributes": {
+          "chemical_formula_descriptive": "H2O"
+        },
+        "relationships": {
+          "files": {
+            "data": [
+              { "type": "files", "id": "example.db:files:1234" }
+            ]
+          }
+        }
+      },
+      "included": [
+        {
+          "type": "files",
+          "id": "example.db:files:1234",
+          "attributes": {
+            "media_type": "chemical/x-cif",
+            "url": "https://example.org/files/cifs/1234.cif"
+          }
+        }
+      ]
+    }
+
 Appendices
 ==========
 
@@ -2897,16 +3142,19 @@ The Filter Language EBNF Grammar
 
     (* Values *)
 
-    Constant = String | Number ;
+    OrderedConstant = String | Number ;
+    UnorderedConstant = ( TRUE | FALSE ) ;
 
-    Value = String | Number | Property ;
-    (* Note: support for Property in Value is OPTIONAL *)
+    Value = ( UnorderedConstant | OrderedValue ) ;
 
-    ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
-    (* Support for Operator in ValueList is OPTIONAL *)
+    OrderedValue = ( OrderedConstant | Property ) ;
+    (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
-    (* Support for Operator in ValueZip is OPTIONAL *)
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs ) ;
+    (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
+
+    ValueList = ValueListEntry, { Comma, ValueListEntry } ;
+    ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
 
@@ -2922,17 +3170,22 @@ The Filter Language EBNF Grammar
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    ConstantFirstComparison = Constant, ValueOpRhs ;
+    ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
+                              | UnorderedConstant, ValueEqRhs ) ;
 
-    PropertyFirstComparison = Property, ( ValueOpRhs
+    PropertyFirstComparison = Property, [ ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
                                         | SetZipOpRhs
-                                        | LengthOpRhs ) ;
+                                        | LengthOpRhs ] ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-    ValueOpRhs = Operator, Value ;
+    ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;
+
+    ValueEqRhs = EqualityOperator, Value ;
+
+    ValueRelCompRhs = RelativeComparisonOperator, OrderedValue ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2940,9 +3193,8 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
-    (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
@@ -2989,7 +3241,14 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
+    Operator = ( EqualityOperator | RelativeComparisonOperator ) ;
+    EqualityOperator = [ '!' ], '=' , [Spaces] ;
+    RelativeComparisonOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
+
+    (* Boolean values *)
+
+    TRUE = 'TRUE', [Spaces] ;
+    FALSE = 'FALSE', [Spaces] ;
 
     (* Property syntax *)
 
