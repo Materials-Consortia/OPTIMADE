@@ -2428,6 +2428,165 @@ Example:
       }
     }
 
+Files Entries
+-------------
+
+The :entry:`files` entries describe files.
+The following properties are used to do so:
+
+url
+~~~
+
+- **Description**: The URL to get the contents of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - **Response**: REQUIRED in the response.
+  - The URL MUST point to the actual contents of a file (i.e. byte stream), not an intermediate (preview) representation.
+    For example, if referring to a file on GitHub, a link should point to raw contents.
+
+- **Examples**:
+
+  - :val:`"https://example.org/files/cifs/1000000.cif"`
+
+url\_stable\_until
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - :val:`null` means that there is no stability guarantee for the URL in `url`.
+    Indefinite support could be communicated by providing a date sufficiently far in the future, for example, :val:`9999-12-31`.
+
+name
+~~~~
+
+- **Description**: Base name of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - File name extension is an integral part of a file name and, if available, MUST be included.
+
+- **Examples**:
+
+  - :val:`"1000000.cif"`
+
+size
+~~~~
+
+- **Description**: Size of a file in bytes.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that either exact size of a file is given or its upper bound.
+    This way if a client reserves a static buffer or truncates the download stream after this many bytes the whole file would be received.
+    Such provision is included to allow the providers to serve on-the-fly compressed files.
+
+media\_type
+~~~~~~~~~~~
+
+- **Description**: Media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"chemical/x-cif"`
+
+version
+~~~~~~~
+
+- **Description**: Version information of a file (e.g. commit, revision, timestamp).
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
+
+modification\_timestamp
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Timestamp of the last modification of file contents.
+  A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Timestamps of subsequent file modifications SHOULD be increasing (not earlier than previous timestamps).
+
+description
+~~~~~~~~~~~
+
+- **Description**: Free-form description of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"POSCAR format file"`
+
+checksums
+~~~~~~~~~
+
+* **Description**: Dictionary providing checksums of file contents.
+* **Type**: dictionary with keys identifying checksum functions and values (strings) giving the actual checksums
+* **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Supported dictionary keys: :property:`md5`, :property:`sha1`, :property:`sha224`, :property:`sha256`, :property:`sha384`, :property:`sha512`.
+    Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+
+atime
+~~~~~
+
+- **Description**: Time of last access of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+ctime
+~~~~~
+
+- **Description**: Time of last status change of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+mtime
+~~~~~
+
+- **Description**: Time of last modification of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - It should be noted that the values of :field:`last_modified`, :field:`modification_timestamp` and :field:`mtime` do not necessary match.
+    :field:`last_modified` pertains to the modification of the OPTIMADE metadata, :field:`modification_timestamp` pertains to file contents and :field:`mtime` pertains to the modification of the file (not necessary changing its contents).
+    For example, appending an empty string to a file would result in the change of :field:`mtime` in some operating systems, but this would not be deemed as a modification of its contents.
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
@@ -2518,6 +2677,40 @@ Relationships with calculations MAY be used to indicate provenance where a struc
     **Note**: We intend to implement in a future version of this API a standardized mechanism to differentiate these two cases, thus allowing databases a common way of exposing the full provenance tree with inputs and outputs between structures and calculations.
 
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
+
+Files
+~~~~~
+
+Relationships with files may be used to relate an entry with any number of :entry:`files` entries.
+
+.. code:: jsonc
+
+    {
+      "data": {
+        "type": "structures",
+        "id": "example.db:structs:1234",
+        "attributes": {
+          "chemical_formula_descriptive": "H2O"
+        },
+        "relationships": {
+          "files": {
+            "data": [
+              { "type": "files", "id": "example.db:files:1234" }
+            ]
+          }
+        }
+      },
+      "included": [
+        {
+          "type": "files",
+          "id": "example.db:files:1234",
+          "attributes": {
+            "media_type": "chemical/x-cif",
+            "url": "https://example.org/files/cifs/1234.cif"
+          }
+        }
+      ]
+    }
 
 Appendices
 ==========
