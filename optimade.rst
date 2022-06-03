@@ -1021,8 +1021,9 @@ The single resource object's response dictionary MUST include the following fiel
   - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a pointer to a license covering all the data and metadata provided under this database.
     If the license is included in the `SPDX License List <https://spdx.org/licenses/>`__, then the URL MUST point to SPDX-hosted license fulltext, i.e., it MUST start with :field-val:`https://spdx.org/licenses/`, but MUST NOT include the terminating :field-val:`.html`.
     Example: :field-val:`https://spdx.org/licenses/CC0-1.0`.
-  - **license_is_compatible_with_cc_by_4_0**: Boolean value indicating compatibility with `Creative Commons Attribution 4.0 International license <https://spdx.org/licenses/CC-BY-4.0>`__.
-    This field may be used to check whether a particular database allows aggregation of its data and metadata.
+  - **compatible\_licenses**: List of SPDX license identifiers giving licenses the data and metadata in a database is compatible with.
+    In case the data and metadata is multiply-licensed, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata could be used.
+    If :field:`license` and :field:`compatible_licenses` contradict, :field:`compatible_licenses` has precedence.
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
