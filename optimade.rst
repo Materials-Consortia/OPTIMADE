@@ -1863,7 +1863,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
     - :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`: indicating support for substring filtering of this property using the respective operator. MUST NOT appear if the property is not of type String.
 
-    - :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`: indicating support for the MANDATORY features for list property comparison using the respective operator. MUST NOT appear if the property is not of type List.
+    - :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`: indicating support of the MANDATORY features for list property comparison using the respective operator. MUST NOT appear if the property is not of type List.
 
     - :val:`HAS ONLY`: indicating support for list property comparison with all or a subset of the OPTIONAL constructs using this operator. MUST NOT appear if the property is not of type List.
 
@@ -1918,7 +1918,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 **OPTIONAL keys**
 
 - :field:`title`: String.
-  A short single-line human-readable explanation for the defined property appropriate to show as part of a user interface.
+  A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
 
 - :field:`description`: String.
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
@@ -2037,11 +2037,13 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
 
   - :field:`maxLength`: Integer.
     A non-negative integer.
-    The defined property is a string that MUST have a length that is less than or equal to the given integer. (The length of the string is the number of individual characters it is composed from.)
+    The defined property is a string that MUST have a length that is less than or equal to the given integer.
+    (The length of the string is the number of individual Unicode characters it is composed from.)
 
   - :field:`minLength`: Integer.
     A non-negative integer.
     The defined property is a string that MUST have a length that is less than or equal to the given integer.
+    (The definition of the length of a string is the same as in the field :field:`maxLength`.)
 
   - :field:`format`: String.
     Choose one of the following values to indicate that the defined property is a string that MUST adhere to the specified format:
