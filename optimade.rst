@@ -1850,7 +1850,7 @@ A Property Definition MUST be composed according to the combination of the requi
     - :val:`all mandatory`: the defined property MUST be queryable using the OPTIMADE filter language with support for all mandatory filter features.
     - :val:`equality only`: the defined property MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.
     - :val:`partial`: the defined property MUST be queryable with support for a subset of the filter language operators as specified by the field :field:`query-support-operators`.
-    - :val:`none`: the defined property does not need to be queryable with any features of the filering language.
+    - :val:`none`: the defined property does not need to be queryable with any features of the filter language.
 
   - :field:`query-support-operators`: List of Strings.
     Defines the filter language features supported on this property.
