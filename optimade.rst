@@ -1878,11 +1878,11 @@ A Property Definition MUST be composed according to the combination of the requi
     This field SHOULD only appear in a :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
     The string MUST be one of the following:
 
-    - "must": the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
-    - "should": the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD NOT be :val:`null`.
-    - "may": it is OPTIONAL for the implementation to recognize the defined property and it MAY be equal to :val:`null`.
+    - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
+    - :val:`should`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD NOT be :val:`null`.
+    - :val:`may`: it is OPTIONAL for the implementation to recognize the defined property and it MAY be equal to :val:`null`.
 
-    Omitting the field is equivalent to "may".
+    Omitting the field is equivalent to :val:`may`.
 
     Note: the specification by this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field.
     If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
@@ -1891,7 +1891,7 @@ Property Definition keys from JSON Schema
 -----------------------------------------
 
 In addition to the requirements on the format of a Property Definition in the previous section, it MUST also adhere to the OPTIONAL and REQUIRED keys described in this subsection.
-The format described in this subsection form a subset of the `JSON Schema Validation Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-validation.html>`__ and `JSON Schema Core Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-core.html>`__ standards.
+The format described in this subsection forms a subset of the `JSON Schema Validation Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-validation.html>`__ and `JSON Schema Core Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-core.html>`__ standards.
 
 **REQUIRED keys**
 
@@ -1917,7 +1917,7 @@ The format described in this subsection form a subset of the `JSON Schema Valida
 **OPTIONAL keys**
 
 - :field:`title`: String.
-  A short single-line human-readable name for the defined property appropriate to show as part of a user interface.
+  A short single-line human-readable explanation for the defined property appropriate to show as part of a user interface.
 
 - :field:`description`: String.
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
@@ -1932,7 +1932,7 @@ The format described in this subsection form a subset of the `JSON Schema Valida
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
   The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
-  If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a `null` value and the :field:`type` MUST be a list where the second value is the string "null".
+  If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
 
 - :field:`examples`: List.
   A list of example values that the defined property can have.
@@ -1940,7 +1940,7 @@ The format described in this subsection form a subset of the `JSON Schema Valida
 
 Depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
 
-- "object":
+- :val:`"object"`:
 
   **REQUIRED**
 
@@ -1968,7 +1968,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     If the defined property has a key that is equal to a key in the given dictionary, the defined property MUST also have keys that matches each of the corresponding values.
     No restriction is inferred from this field for keys in the defined property that do not match any key in the given dictionary.
 
-- "array":
+- :val:`"array"`:
 
   **REQUIRED**
 
@@ -1990,7 +1990,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     If :val:`TRUE`, the defined property is an array that MUST only contain unique items.
     If :val:`FALSE`, this field sets no limitation on the defined property.
 
-- "integer":
+- :val:`"integer"`:
 
   **OPTIONAL**
 
@@ -2010,7 +2010,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`exclusiveMinimum`: Integer.
     The defined property is an integer that MUST be strictly greater than this number; it cannot equal the number.
 
-- "number":
+- :val:`"number"`:
 
   **OPTIONAL**
 
@@ -2030,7 +2030,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`exclusiveMinimum`: Float.
     The defined property is a float that MUST be strictly greater than this number; it cannot equal the number.
 
-- "string":
+- :val:`"string"`:
 
   **OPTIONAL**
 
@@ -2047,12 +2047,12 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`format`: String.
     Choose one of the following values to indicate that the defined property is a string that MUST adhere to the specified format:
 
-    - "date-time": the date-time production in :RFC:`3339` section 5.6.
-    - "date": the full-date production in :RFC:`3339` section 5.6.
-    - "time": the full-time production in :RFC:`3339` section 5.6.
-    - "duration": the duration production in :RFC:`3339` Appendix A.
-    - "email": the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
-    - "uri": A string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
+    - :val:`"date-time"`: the date-time production in :RFC:`3339` section 5.6.
+    - :val:`"date"`: the full-date production in :RFC:`3339` section 5.6.
+    - :val:`"time"`: the full-time production in :RFC:`3339` section 5.6.
+    - :val:`"duration"`: the duration production in :RFC:`3339` Appendix A.
+    - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
+    - :val:`"uri"`: A string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
 
 Physical Units in Property Definitions
 --------------------------------------
@@ -2068,7 +2068,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - If the the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 
 A standard set of unit symbols for OPTIMADE is taken from version 3.09 unit database :val:`definition.units` from `GNU Units software <https://www.gnu.org/software/units/>`__ located in the file: "definitions.units" in `the GNU Units source distribution version 2.21 <http://ftp.gnu.org/gnu/units/>`__.
-If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition refering to the same symbol be given in the field :field:`standard`.
+If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
 Each unit symbol can also be suffixed by a single :val:`^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., :val:`m^3` for cubic meter, :val:`m^-3` for inverse cubic meter.
