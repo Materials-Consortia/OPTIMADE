@@ -2053,7 +2053,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     - :val:`"time"`: the full-time production in :RFC:`3339` section 5.6.
     - :val:`"duration"`: the duration production in :RFC:`3339` Appendix A.
     - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
-    - :val:`"uri"`: A string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
+    - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
 
 Physical Units in Property Definitions
 --------------------------------------
