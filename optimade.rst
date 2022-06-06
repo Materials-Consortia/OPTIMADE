@@ -1821,7 +1821,7 @@ A Property Definition MUST be composed according to the combination of the requi
       A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
 
     - :field:`uri`: String.
-      An URI of the external resource (which MAY be a resolvable URL).
+      A URI of the external resource (which MAY be a resolvable URL).
 
 **REQUIRED keys for all levels of the Property Definition:**
 
