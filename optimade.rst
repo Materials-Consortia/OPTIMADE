@@ -1782,7 +1782,7 @@ The format of Property Definitions defined below allows nesting inner Property D
 
 The field data types used in this section refer to OPTIMADE data types, and the implementation maps these to the corresponding data types for the output format in which the property definition is expressed.
 
-A Property Definition MUST be formatted according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
+A Property Definition MUST be composed according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
 
 **REQUIRED keys for the outermost level of the Property Definition:**
 
