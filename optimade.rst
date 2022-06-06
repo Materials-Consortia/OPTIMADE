@@ -2074,7 +2074,10 @@ If the unit is available in this database, or if it can be expressed as a compou
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
 Each unit symbol can also be suffixed by a single :val:`^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., :val:`m^3` for cubic meter, :val:`m^-3` for inverse cubic meter.
 (Positive integers MUST NOT be preceded by a plus sign.)
-The unit symbols can also be prefixed by one (but not more than one) of the prefixes defined in the database (indicated there by a trailing :val:`-`).
+The unit symbols MAY be prefixed by one (but not more than one) of the prefixes defined in the ``definitions.units`` file.
+A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
+If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
+If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
 For example :val:`"km"` for kilometers.
 Furthermore:
 
