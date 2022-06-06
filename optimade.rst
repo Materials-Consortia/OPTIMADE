@@ -1947,7 +1947,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`properties`: Dictionary.
     Gives key-value pairs where each value is an inner Property Definition.
     The defined property is a dictionary that can only contain keys present in this dictionary, and, if so, the corresponding value is described by the respective inner Property Definition.
-    (Or, if the :field:`type` field is the list "object" and "null", it can also be :val:`null`).
+    (Or, if the :field:`type` field is the list "object" and "null", it can also be :val:`null`.)
 
   **OPTIONAL**
 
@@ -1965,7 +1965,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
 
   - :field:`dependentRequired`: Dictionary.
     The dictionary keys are strings and the values are lists of unique strings.
-    If the defined property has a key that is equal to a key in the given dictionary, the defined property MUST also have keys that matches each of the corresponding values.
+    If the defined property has a key that is equal to a key in the given dictionary, the defined property MUST also have keys that match each of the corresponding values.
     No restriction is inferred from this field for keys in the defined property that do not match any key in the given dictionary.
 
 - :val:`"array"`:
@@ -2002,13 +2002,13 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     The defined property is an integer that MUST be less than or equal to this number.
 
   - :field:`exclusiveMaximum`: Integer.
-    The defined property is an integer that MUST be strictly less than this number; it cannot equal the number.
+    The defined property is an integer that MUST be strictly less than this number; it cannot be equal to the number.
 
   - :field:`minimum`: Integer.
     The defined property is an integer that MUST be greater than or equal to this number.
 
   - :field:`exclusiveMinimum`: Integer.
-    The defined property is an integer that MUST be strictly greater than this number; it cannot equal the number.
+    The defined property is an integer that MUST be strictly greater than this number; it cannot be equal to the number.
 
 - :val:`"number"`:
 
@@ -2022,13 +2022,13 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     The defined property is a float that MUST be less than or equal to this number.
 
   - :field:`exclusiveMaximum`: Float.
-    The defined property is a float that MUST be strictly less than this number; it cannot equal the number.
+    The defined property is a float that MUST be strictly less than this number; it cannot be equal to the number.
 
   - :field:`minimum`: Float.
     The defined property is a float that MUST be greater than or equal to this number.
 
   - :field:`exclusiveMinimum`: Float.
-    The defined property is a float that MUST be strictly greater than this number; it cannot equal the number.
+    The defined property is a float that MUST be strictly greater than this number; it cannot be equal to the number.
 
 - :val:`"string"`:
 
@@ -2036,13 +2036,11 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
 
   - :field:`maxLength`: Integer.
     A non-negative integer.
-    The defined property is a string that MUST have a length that is less than or equal to the given integer.
-    The length of the string is defined according to :RFC:`8259`.
+    The defined property is a string that MUST have a length that is less than or equal to the given integer. (The length of the string is the number of individual characters it is composed from.)
 
   - :field:`minLength`: Integer.
     A non-negative integer.
     The defined property is a string that MUST have a length that is less than or equal to the given integer.
-    The length of the string is defined according to :RFC:`8259`.
 
   - :field:`format`: String.
     Choose one of the following values to indicate that the defined property is a string that MUST adhere to the specified format:
@@ -2057,27 +2055,28 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
 Physical Units in Property Definitions
 --------------------------------------
 
-In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meters.
+In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meter (m).
 The unit is always permanently fixed by the Property Definition.
 Clients and servers that use other units internally thus have to do unit conversions as part of preparing and processing OPTIMADE responses.
 
 The physical unit of a property, the embedded items of a list, or values of a dictionary, are defined with the field :field:`x-optimade-unit` with the following requirements:
 
 - The field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and all inner Property Definitions.
-- If the property refers to a physical quantity that is dimensionless (often also refered to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
-- If the the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
+- If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+- If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.09 unit database :val:`definition.units` from `GNU Units software <https://www.gnu.org/software/units/>`__ located in the file: "definitions.units" in `the GNU Units source distribution version 2.21 <http://ftp.gnu.org/gnu/units/>`__.
+A standard set of unit symbols for OPTIMADE is taken from version 3.09 unit database :val:`definition.units` from `GNU Units software <https://www.gnu.org/software/units/>`__ located in the file "definitions.units" in `the GNU Units source distribution version 2.21 <http://ftp.gnu.org/gnu/units/>`__.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
 Each unit symbol can also be suffixed by a single :val:`^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., :val:`m^3` for cubic meter, :val:`m^-3` for inverse cubic meter.
-(Positive integers MUST NOT be preceeded by a plus sign.)
+(Positive integers MUST NOT be preceded by a plus sign.)
 The unit symbols can also be prefixed by one (but not more than one) of the prefixes defined in the database (indicated there by a trailing :val:`-`).
+For example :val:`"km"` for kilometers.
 Furthermore:
 
 - No whitespace, parenthesis, or other symbols than specified above are permitted.
-- If multiple string representations of the same unit exist in `definition.units`, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
+- If multiple string representations of the same unit exist in ``definition.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
 - The unit symbols MUST appear in alphabetical order.
 
 The string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
@@ -2105,7 +2104,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The abbreviated name of the standard being referenced.
     One of the following:
 
-    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file definitions.units distributed with GNU Units `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with GNU Units `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
     - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
     - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
@@ -2122,7 +2121,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
 **OPTIONAL keys:**
 
 - :field:`resource-uris`: List.
-  A list of dictionaries that references remote resources that describe the unit.
+  A list of dictionaries that reference remote resources that describe the unit.
   The format of each dictionary is:
 
   **REQUIRED keys:**
@@ -2136,7 +2135,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
 Unrecognized keys in property definitions
 -----------------------------------------
 
-Implementations MAY add their own keys in Property Definitions, both inside and outside of the fields :field:`x-optimade-property`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements` on the form :field:`x-exmpl-name` where :field:`exmpl` is the database-specific prefix (without underscore characters) and :field:`name` is the part of the key chosen by the implementation.
+Implementations MAY add their own keys in Property Definitions, both inside and outside of the fields :field:`x-optimade-property`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements` in the form of :field:`x-exmpl-name` where :field:`exmpl` is the database-specific prefix (without underscore characters) and :field:`name` is the part of the key chosen by the implementation.
 Implementations MUST NOT add keys to property definitions on other formats.
 
 Client and server implementations that interpret an OPTIMADE Property Definition and encounter unrecognized keys starting with :field:`x-exmpl-` where :field:`exmpl` is a recognized database prefix MAY issue errors or warnings.
