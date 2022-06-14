@@ -2917,7 +2917,7 @@ size
 media\_type
 ~~~~~~~~~~~
 
-- **Description**: Media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
+- **Description**: Media type identifier (also known as MIME type), for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
 - **Type**: string
 - **Requirements/Conventions**:
 
