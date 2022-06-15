@@ -494,8 +494,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
   - **request\_delay**: a non-negative float giving time in seconds that the client is suggested to wait before issuing a subsequent request.
-    An implementation MAY respond with :http-error:`429 Too Many Requests` error if a client refuses to respect the indicated delay.
-    In that case the response SHOULD contain a `Retry-After HTTP header <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After>`__ to instruct the client to wait before retrying.
+  
+        Implementation note: the functionality of this field overlaps to some degree features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
