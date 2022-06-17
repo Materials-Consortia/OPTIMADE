@@ -493,6 +493,10 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **data\_available**: an integer containing the total number of data resource objects available in the database for the endpoint.
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
+  - **request\_delay**: a non-negative float giving time in seconds that the client is suggested to wait before issuing a subsequent request.
+
+  Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
+
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
@@ -2921,7 +2925,7 @@ size
 media\_type
 ~~~~~~~~~~~
 
-- **Description**: Media type identifier for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
+- **Description**: Media type identifier (also known as MIME type), for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
 - **Type**: string
 - **Requirements/Conventions**:
 
@@ -3162,8 +3166,8 @@ The Filter Language EBNF Grammar
     OrderedValue = ( OrderedConstant | Property ) ;
     (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs ) ;
-    (* Note: support for ValueEqRhs and ValueRelCompRhs in ValueListEntry are OPTIONAL *)
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs | FuzzyStringOpRhs ) ;
+    (* Note: support for ValueEqRhs, ValueRelCompRhs and FuzzyStringOpRhs in ValueListEntry are OPTIONAL *)
 
     ValueList = ValueListEntry, { Comma, ValueListEntry } ;
     ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
@@ -3205,8 +3209,8 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, and ONLY in SetOpRhs are OPTIONAL *)
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue | FuzzyStringOpRhs ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, FuzzyStringOpRhs, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
