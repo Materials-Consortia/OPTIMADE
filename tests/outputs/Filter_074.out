@@ -1,0 +1,35 @@
+Parse tree from tests/cases/Filter_074.inp:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        Comparison(9999)
+          PropertyFirstComparison(9999)
+            Property(9999)
+              Identifier(9999)
+                LowercaseLetter(9999)
+                  TOKEN_101(9999): "t", line: 1, col: 1
+                LowercaseLetter(9999)
+                  TOKEN_99(9999): "r", line: 1, col: 2
+                LowercaseLetter(9999)
+                  TOKEN_102(9999): "u", line: 1, col: 3
+                LowercaseLetter(9999)
+                  TOKEN_86(9999): "e", line: 1, col: 4
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 5
+            ValueOpRhs(9999)
+              ValueRelCompRhs(9999)
+                RelativeComparisonOperator(9999)
+                  TOKEN_30(9999): ">", line: 1, col: 6
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 7
+Error: in tests/cases/Filter_074.inp: line 1:
+    unexpected token "FALSE", expected one of """, "+", "-", "0", "1",
+    "2", "3", "4", "5", "6", "7", "8", "9", ".", "a", "b", "c", "d",
+    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+    "r", "s", "t", "u", "v", "w", "x", "y", "z", or "_"
+
+true > FALSE
+       ^
