@@ -2442,7 +2442,7 @@ chemical\_formula\_anonymous
 smiles
 ~~~~~~
 
-- **Description**: The SMILES (Simplified Molecular Input Line Entry Specification) descriptor for the structure.
+- **Description**: The SMILES (Simplified Molecular Input Line Entry Specification) representation of the structure.
 - **Type**: string
 - **Requirements/Conventions**:
 
@@ -2451,9 +2451,9 @@ smiles
     Queries MUST treat the value of this property as a raw string, without SMILES-specific semantics.
     That is, providers MUST NOT perform substructure search, just regular string comparison.
   - MUST adhere to the `OpenSMILES specification v1.0 <http://opensmiles.org/opensmiles.html>`__.
-  - When structures or their parts cannot be unambiguously depicted in SMILES according to OpenSMILES recommendations, using the guidelines from `Quirós et al. 2018 <https://jcheminf.biomedcentral.com/articles/10.1186/s13321-018-0279-6>`__ is RECOMMENDED.
-  - Providers MAY canonicalize (i.e., use rules to establish stable order of atoms) produced SMILES descriptors, but this is not mandatory.
-    Generally, providers SHOULD NOT change the descriptor more frequently than the structure itself is modified.
+  - When structures or their parts cannot be unambiguously represented in SMILES according to OpenSMILES recommendations, using the guidelines from `Quirós et al. 2018 <https://jcheminf.biomedcentral.com/articles/10.1186/s13321-018-0279-6>`__ is RECOMMENDED.
+  - Providers MAY canonicalize (i.e., use rules to establish stable order of atoms) produced SMILES representations, but this is not mandatory.
+    Generally, providers SHOULD NOT change the representation more frequently than the structure itself is modified.
 
 dimension\_types
 ~~~~~~~~~~~~~~~~
