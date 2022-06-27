@@ -2442,7 +2442,7 @@ chemical\_formula\_anonymous
 smiles
 ~~~~~~
 
-- **Description**: The SMILES (Simplified Molecular Input Line Entry Specification) representation of the structure.
+- **Description**: The SMILES (Simplified Molecular Input Line Entry System) representation of the structure.
 - **Type**: string
 - **Requirements/Conventions**:
 
