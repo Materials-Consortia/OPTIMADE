@@ -2805,12 +2805,12 @@ Collections Entries
 
 Collections entries are used to define a set of Entries of any types.
 For example, a collection of Structure entries can be used to indicate that they are conceptually related, such as structures representing aluminium unit cells with point defects.
-The set of entries that belong to the collection is defined using a :val:`contents` relationship (see the `Relationships`_ section).
+The set of entries that belong to the collection is defined using relationships from the collection to each entry (OPTIMADE relationships are defined in `Relationships`_).
 A collection can contain other collections.
 Furthermore, implementations are suggested to add database-specific properties for additional metadata they want to store about the collections.
 An OPTIMADE response representing a collection with all referenced entries included via the JSON API field :field:`included` (or equivalent in other response formats) can be used as a universal format for storage or transfer of a subset of (or all) data in an OPTIMADE database.
 
-The following example shows how the :val:`contents` relationship from a collection to other entries defines the contents of a collection:
+The following example shows how relationships from a collection to other entries defines the contents of the collection:
 
 .. code:: jsonc
 
@@ -2828,6 +2828,10 @@ The following example shows how the :val:`contents` relationship from a collecti
               { "type": "structures", "id": "example.com:structures:4711" },
               { "type": "structures", "id": "example.com:structures:4712" },
               { "type": "structures", "id": "example.com:structures:4713" }
+            ]
+          },
+          "calculations": {
+            "data": [
               { "type": "calculations", "id": "example.com:calculations:1899" }
             ]
           }
