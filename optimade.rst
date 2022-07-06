@@ -2863,7 +2863,7 @@ name
 - **Examples**:
 
   - :val:`"Results set for vacancies in FCC Al"`
-  - :val:`"Training set for  the 'Si-001' interatomic potential."`
+  - :val:`"Training set for the 'Si-001' interatomic potential."`
 
 description
 ~~~~~~~~~~~
