@@ -2813,8 +2813,8 @@ Collections Entries
 -------------------
 
 Collections entries are used to define a set of Entries of any types.
-For example, a collection of Structure entries can be used to indicate that they are conceptually related, such as structures representing aluminium unit cells with point defects.
-The set of entries that belong to the collection is defined using relationships from the collection to each entry (OPTIMADE relationships are defined in `Relationships`_).
+For example, a collection of Structure entries can be used to indicate that they are conceptually related, such as structures representing aluminium unit cells with point defects, or structures that comprise a training set for a particular interatomic potential.
+The set of entries that belong to the collection is defined using one-to-many relationships from the collection to each entry (OPTIMADE relationships are defined in `Relationships`_).
 A collection can contain other collections.
 Furthermore, implementations are suggested to add database-specific properties for additional metadata they want to store about the collections.
 An OPTIMADE response representing a collection with all referenced entries included via the JSON API field :field:`included` (or equivalent in other response formats) can be used as a universal format for storage or transfer of a subset of (or all) data in an OPTIMADE database.
@@ -2826,7 +2826,7 @@ The following example shows how relationships from a collection to other entries
     {
       "data": {
         "type": "collections",
-        "id": "example.com:collections:42",
+        "id": "42",
         "attributes": {
           "name": "Results set for vacancies in FCC Al"
           "category": "results_set"
@@ -2863,6 +2863,7 @@ name
 - **Examples**:
 
   - :val:`"Results set for vacancies in FCC Al"`
+  - :val:`"Training set for  the 'Si-001' interatomic potential."`
 
 description
 ~~~~~~~~~~~
@@ -2877,6 +2878,7 @@ description
 - **Examples**:
 
   - :val:`"This collection contains structures used in an investigation into point defects in Al"`
+  - :val:`"Training set of structures, forces and energies used to construct the interatomic potential 'Si-001' for silicon, with associated bibliographic references."`
 
 category
 ~~~~~~~~
@@ -2892,6 +2894,7 @@ category
 - **Examples**:
 
   - :val:`"results_set"`
+  - :val:`"training_set"`
 
 Calculations Entries
 --------------------
