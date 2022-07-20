@@ -19,10 +19,10 @@ OPTIMADE API specification v1.1.0~develop
 
      # OPTIMADE concepts
 
-     entry : names of type of resources served via OPTIMADE pertaining to data in a database.
-     property : data item that pertains to an entry.
+     entry : names of type of resources, served via OPTIMADE, pertaining to data in a database.
+     property : data item that belongs to an entry.
      val : value examples that properties can be.
-           :val: is ONLY used when referencing values of actual properties, i.e., information that pertains to the database.
+           :val: is ONLY used when referencing values of actual properties, i.e., information that belongs to the database.
      type : data type of values.
             MUST equal a valid OPTIMADE data type as listed and defined under `Data types`_.
 
@@ -146,14 +146,14 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 
 **Entry**
     A single instance of a specific type of resource served by the API implementation.
-    For example, a :entry:`structures` entry is comprised by data that pertain to a single structure.
+    For example, a :entry:`structures` entry is comprised by data that belong to a single structure.
 
 **Entry type**
     Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
 
 **Entry property**
-    One data item which pertains to an entry, e.g., the chemical formula of a structure.
+    One data item which belongs to an entry, e.g., the chemical formula of a structure.
 
 **Entry property name**
     The name of an entry property.
@@ -162,7 +162,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 **Relationship**
     Any entry can have one or more relationships with other entries.
     These are described in section `Relationships`_.
-    Relationships describe links between entries rather than data that pertain to a single entry, and are thus regarded as distinct from the entry properties.
+    Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
     An expression used to influence the entries returned in the response to an URL query.
@@ -493,6 +493,10 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **data\_available**: an integer containing the total number of data resource objects available in the database for the endpoint.
   - **last\_id**: a string containing the last ID returned.
   - **response\_message**: response string from the server.
+  - **request\_delay**: a non-negative float giving time in seconds that the client is suggested to wait before issuing a subsequent request.
+
+  Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
+
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
@@ -540,7 +544,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
              "representation": "/structures/?filter=a=1 AND b=2"
            },
            "api_version": "1.0.0",
-           "schema": "http://schema.optimade.org/openapi/v1.0/optimade.json",
+           "schema": "http://schemas.optimade.org/openapi/v1/optimade.json",
            "time_stamp": "2007-04-05T14:30:20Z",
            "data_returned": 10,
            "data_available": 10,
@@ -987,7 +991,7 @@ Info endpoints provide introspective information, either about the API implement
 There are two types of info endpoints:
 
 1. Base info endpoints: placed directly under the versioned or unversioned base URL that serves the API (e.g., http://example.com/optimade/v1/info or http://example.com/optimade/info)
-2. Entry listing info endpoints: placed under the endpoints pertaining to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
+2. Entry listing info endpoints: placed under the endpoints belonging to specific entry types (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures)
 
 The types and output content of these info endpoints are described in more detail in the subsections below.
 Common for them all are that the :field:`data` field SHOULD return only a single resource object.
@@ -1018,6 +1022,9 @@ The single resource object's response dictionary MUST include the following fiel
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
   - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
+  - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a URL to a web page containing a human-readable text describing the license (or licensing options if there are multiple) covering all the data and metadata provided by this database.
+    Clients are advised not to try automated parsing of this link or its content, but rather rely on the field :field:`available_licenses` instead.
+    Example: :field-val:`https://example.com/licenses/example_license.html`.
 
   :field:`attributes` MAY also include the following OPTIONAL fields:
 
@@ -1025,6 +1032,12 @@ The single resource object's response dictionary MUST include the following fiel
 
     If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., the default is for :field:`is_index` to be :field-val:`false`).
 
+  - **available\_licenses**: List of `SPDX license identifiers <https://spdx.org/licenses/>` specifying a set of alternative licenses under which the client is granted access to all the data and metadata in this database.
+    If the data and metadata is available under multiple alternative licenses, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata can be used.
+    Inclusion of a license identifier in the list is a commitment of the database that the rights are in place to grant clients access to all the data and metadata according to the terms of either of these licenses (at the choice of the client).
+    If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database that the data and metadata is available, without exceptions, under the respective licenses.
+    If the database cannot make that commitment, e.g., if only part of the data is available under a license, the corresponding license identifier MUST NOT appear in :field:`available_licenses` (but, rather, the field :field:`license` is to be used to clarify the licensing situation.)
+    An empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field :field:`license`.
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
 - **relationships**: Dictionary that MAY contain a single `JSON API relationships object <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__:
@@ -1132,33 +1145,11 @@ Entry listing info endpoints are accessed under the versioned or unversioned bas
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
 - **description**: Description of the entry.
-- **properties**: A dictionary describing queryable properties for this entry type, where each key is a property name.
-  Each value is a dictionary, with the
-
-  *REQUIRED keys*:
-
-  - :field:`description`: String.
-    A human-readable description of the property.
-
-  *OPTIONAL keys*:
-
-  - :field:`unit`: String.
-    The physical unit symbol in which the property's value is given.
-    This MUST be a valid representation of units according to version 2.1 of `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__.
-    It is RECOMMENDED that non-standard (non-SI) units are described in the description for the property.
-  - :field:`sortable`: Boolean.
-    Whether the property can be used for sorting (see `Entry Listing URL Query Parameters`_ for more information on this field).
-  - :field:`type`: String.
-    The type of the property's value.
-    This MUST be any of the types defined in `Data types`_.
-    For the purpose of compatibility with future versions of this specification, a client MUST accept values that are not :type:`string` values specifying any of the OPTIMADE `Data types`_, but MUST then also disregard the :field:`type` field.
-    Note, if the value is a nested type, only the outermost type should be reported.
-    E.g., for the entry resource :entry:`structures`, the :property:`species` property is defined as a list of dictionaries, hence its :field:`type` value would be :val:`list`.
-
+- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the section `Property Definitions`_.
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
-Example:
+Example (note: the description strings have been wrapped for readability only):
 
 .. code:: jsonc
 
@@ -1167,15 +1158,86 @@ Example:
         "description": "a structures entry",
         "properties": {
           "nelements": {
-            "description": "Number of elements",
-            "sortable": true,
-            "type": "integer"
+            "title": "Number of elements",
+            "type": ["integer", "null"],
+            "description": "Number of different elements in the structure as an integer.\n
+             \n
+             -  Note: queries on this property can equivalently be formulated using `elements LENGTH`.\n
+             -  A filter that matches structures that have exactly 4 elements: `nelements=4`.\n
+             -  A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.",
+            "examples": [
+              3
+            ],
+            "x-optimade-property": {
+              "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
+            },
+            "x-optimade-unit: "dimensionless",
+            "x-optimade-implementation": {
+              "sortable": true,
+              "query-support": "full"
+            },
+            "x-optimade-requirements": {
+              "support": "should",
+              "sortable": false,
+              "query-support": "full"
+            }
           },
           "lattice_vectors": {
-            "description": "Unit cell lattice vectors",
-            "unit": "Ao",
-            "sortable": false,
-            "type": "list"
+            "title": "Unit cell lattice vectors",
+            "type": ["array", "null"],
+            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
+            \n
+            - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
+              list of the vector's coordinates along the x, y, and z Cartesian coordinates.
+            ",
+            "examples": [
+              [[4.0, 0.0, 0.0], [0.0, 4.0, 0.0], [0.0, 1.0, 4.0]]
+            ],
+            "x-optimade-unit": "inapplicable",
+            "x-optimade-property": {
+              "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "unit-definitions": [
+                {
+                  "symbol": "angstrom",
+                  "title": "ångström",
+                  "description": "The ångström unit of length.",
+                  "standard": {
+                    "name": "gnu units",
+                    "version": "3.09",
+                    "symbol": "angstrom"
+                  }
+                }
+              ]
+            }
+            "x-optimade-implementation": {
+              "sortable": false,
+              "query-support": "none"
+            },
+            "x-optimade-requirements": {
+              "support": "should",
+              "sortable": false,
+              "query-support": "none"
+            }
+            "maxItems": 3
+            "minItems": 3
+            "items": {
+               "type": "array",
+               "x-optimade-unit": "inapplicable",
+               "maxItems": 3
+               "minItems": 3
+               "items": {
+                 "type": "number",
+                 "x-optimade-unit": "angstrom",
+                 "x-optimade-implementation": {
+                   "sortable": true,
+                   "query-support": "none"
+                 },
+                 "x-optimade-requirements": {
+                   "sortable": false,
+                   "query": "none"
+                 }
+               }
+            }
           }
           // ... <other property descriptions>
         },
@@ -1489,6 +1551,8 @@ However, testing for equality to zero MUST be supported.
 
 More examples of the number tokens and machine-readable definitions and tests can be found in the `Materials-Consortia API Git repository <https://github.com/Materials-Consortia/API/>`__ (files `integers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/integers.lst>`__, `not-numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/not-numbers.lst>`__, `numbers.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/numbers.lst>`__, and `reals.lst <https://github.com/Materials-Consortia/API/blob/master/tests/inputs/reals.lst>`__).
 
+- **Boolean values** are represented with the tokens :filter-op:`TRUE` and :filter-op:`FALSE`.
+
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
   Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
 
@@ -1564,7 +1628,24 @@ OPTIONAL features:
 Examples:
 
 - :filter:`chemical_formula_anonymous CONTAINS "C2" AND chemical_formula_anonymous STARTS WITH "A2"`
-- :filter:`chemical_formula_anonymous STARTS "B2" AND chemical_formula_anonymous ENDS WITH "D2"`
+- :filter:`chemical_formula_anonymous STARTS "A2" AND chemical_formula_anonymous ENDS WITH "D1"`
+
+Comparisons of boolean values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
+Other comparison operators ('<', '>', '<=', '>=') MUST NOT be supported.
+Boolean values are only supposed to be used in direct comparisons with properties, but not compound comparisons.
+For example, :filter:`(nsites = 3 AND nelements = 3) = FALSE` is not supported.
+
+Boolean property :filter-fragment:`property` MAY be compared with :filter-fragment:`TRUE` by omitting the :filter-fragment:`= TRUE` altogether: :filter:`property`.
+Conversely, it MAY be compared with :filter-fragment:`FALSE` by negating the comparison with :filter-fragment:`TRUE`: :filter:`NOT property`.
+
+Examples:
+
+- :filter:`property = TRUE`
+- :filter:`property != FALSE`
+- :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1704,6 +1785,382 @@ Optional filter features
 
 Some features of the filtering language are marked OPTIONAL.
 An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error ``501 Not Implemented`` with an explanation of which OPTIONAL construct the error refers to.
+
+Property Definitions
+====================
+
+An OPTIMADE *Property Definition* defines a specific property, which will be referred to as *the defined property* throughout this section.
+The definition uses a dictionary-based construct that, when represented in the JSON output format, is compatible with the JSON Schema standard (for more information, see `Property Definition keys from JSON Schema`_).
+The format of Property Definitions defined below allows nesting inner Property Definitions to define properties that are comprised by values organized in lists and dictionaries to arbitrary depth.
+
+To make a property definition expressible in any output format, the fields of the property definition below are specified using OPTIMADE data types.
+When a property definition is communicated using a specific data format (e.g., JSON), the property definition is implemented in that data format by mapping the OPTIMADE data types into the corresponding data types for that output format.
+
+A Property Definition MUST be composed according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
+
+**REQUIRED keys for the outermost level of the Property Definition:**
+
+- :field:`title`: String and :field:`description`: String.
+  See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
+  They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
+
+- :field:`x-optimade-property`: Dictionary.
+  Additional information to define the property that is not covered by fields in the JSON Schema standard.
+
+  **REQUIRED keys:**
+
+  - :field:`property-uri`: String.
+    A static URI identifier that is a URN or URL representing the specific version of the property.
+    It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+    (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+
+  **OPTIONAL keys:**
+
+  - :field:`version`: String.
+    This string indicates the version of the property definition.
+    The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
+
+  - :field:`unit-definitions`: List.
+    A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
+    This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`.
+    See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
+
+  - :field:`resource-uris`: List.
+    A list of dictionaries that references remote resources that describe the property.
+    The format of each dictionary is:
+
+    **REQUIRED keys:**
+
+    - :field:`relation`: String.
+      A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
+
+    - :field:`uri`: String.
+      A URI of the external resource (which MAY be a resolvable URL).
+
+**REQUIRED keys for all levels of the Property Definition:**
+
+- :field:`x-optimade-unit`: String.
+  A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
+  See subsection `Physical Units in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
+
+**OPTIONAL keys at all nested levels of the Property Definition:**
+
+- :field:`x-optimade-implementation`: Dictionary.
+  A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
+  If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
+  The dictionary has the following format:
+
+  **OPTIONAL keys:**
+
+  - :field:`sortable`: Boolean.
+    If :val:`TRUE`, specifies that results can be sorted on this property (see `Entry Listing URL Query Parameters`_ for more information on this field).
+    If :val:`FALSE`, specifies that results cannot be sorted on this property.
+    Omitting the field is equivalent to :val:`FALSE`.
+
+  - :field:`query-support`: String.
+    Defines a required level of support in formulating queries on this field.
+    The string MUST be one of the following:
+
+    - :val:`all mandatory`: the defined property MUST be queryable using the OPTIMADE filter language with support for all mandatory filter features.
+    - :val:`equality only`: the defined property MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.
+    - :val:`partial`: the defined property MUST be queryable with support for a subset of the filter language operators as specified by the field :field:`query-support-operators`.
+    - :val:`none`: the defined property does not need to be queryable with any features of the filter language.
+
+  - :field:`query-support-operators`: List of Strings.
+    Defines the filter language features supported on this property.
+    Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`:, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
+
+    - :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`: indicating support for filtering this property using the respective operator.
+      If the property is of Boolean type, support for :val:`=` also designates support for boolean comparisons with the property being true that omit ":filter-fragment:`= TRUE`", e.g., specifying that filtering for ":filter:`is_yellow = TRUE`" is supported also implies support for ":filter:`is_yellow`" (which means the same thing).
+      Support for ":filter:`NOT is_yellow`" also follows.
+
+    - :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`: indicating support for substring filtering of this property using the respective operator. MUST NOT appear if the property is not of type String.
+
+    - :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`: indicating support of the MANDATORY features for list property comparison using the respective operator. MUST NOT appear if the property is not of type List.
+
+    - :val:`HAS ONLY`: indicating support for list property comparison with all or a subset of the OPTIONAL constructs using this operator. MUST NOT appear if the property is not of type List.
+
+    - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
+
+- :field:`x-optimade-requirements`: Dictionary.
+  A dictionary describing the level of OPTIMADE API functionality required by all implementations of this property.
+  Omitting this field means the corresponding functionality is OPTIONAL.
+  The dictionary has the same format as :field:`x-optimade-implementation`, except that it also allows the following OPTIONAL field:
+
+  - :field:`support`: String.
+    Describes the minimal required level of support for the Property by an implementation.
+    This field SHOULD only appear in a :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    The string MUST be one of the following:
+
+    - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
+    - :val:`should`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and SHOULD NOT be :val:`null`.
+    - :val:`may`: it is OPTIONAL for the implementation to recognize the defined property and it MAY be equal to :val:`null`.
+
+    Omitting the field is equivalent to :val:`may`.
+
+    Note: the specification by this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field.
+    If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
+
+Property Definition keys from JSON Schema
+-----------------------------------------
+
+In addition to the requirements on the format of a Property Definition in the previous section, it MUST also adhere to the OPTIONAL and REQUIRED keys described in this subsection.
+The format described in this subsection forms a subset of the `JSON Schema Validation Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-validation.html>`__ and `JSON Schema Core Draft 2020-12 <https://json-schema.org/draft/2020-12/json-schema-core.html>`__ standards.
+
+**REQUIRED keys**
+
+- :field:`type`: String or List.
+  The string or list specifies the type of the defined property.
+  It MUST be one of:
+
+  - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
+  - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
+
+..
+
+  Implementation notes:
+
+    - The strings used in the :field:`type` field are JSON type names encoded as strings, but they refer to the corresponding OPTIMADE data types.
+      Nevertheless, for consistency across formats, the JSON type names MUST be used regardless of the standard type names of the output format.
+      The motivation for this design decision is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+
+    - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
+      Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
+      This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
+
+**OPTIONAL keys**
+
+- :field:`title`: String.
+  A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
+
+- :field:`description`: String.
+  A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
+  The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
+  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
+
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
+  If :val:`FALSE`, the defined property is not deprecated.
+  The field not being present means :val:`FALSE`.
+
+- :field:`enum`: List.
+  The defined property MUST take one of the values given in the provided list.
+  The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+  If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
+
+- :field:`examples`: List.
+  A list of example values that the defined property can have.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+
+Depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
+
+- :val:`"object"`:
+
+  **REQUIRED**
+
+  - :field:`properties`: Dictionary.
+    Gives key-value pairs where each value is an inner Property Definition.
+    The defined property is a dictionary that can only contain keys present in this dictionary, and, if so, the corresponding value is described by the respective inner Property Definition.
+    (Or, if the :field:`type` field is the list "object" and "null", it can also be :val:`null`.)
+
+  **OPTIONAL**
+
+  - :field:`required`: List.
+    The list MUST only contain strings.
+    The defined property MUST have keys that match all the strings in this list.
+    Other keys present in the :field:`properties` field are OPTIONAL in the defined property.
+    If not present or empty, all keys in :field:`properties` are regarded as OPTIONAL.
+
+  - :field:`maxProperties`: Integer.
+    The defined property is a dictionary where the number of keys MUST be less than or equal to the number given.
+
+  - :field:`minProperties`: Integer.
+    The defined property is a dictionary where the number of keys MUST be greater than or equal to the number given.
+
+  - :field:`dependentRequired`: Dictionary.
+    The dictionary keys are strings and the values are lists of unique strings.
+    If the defined property has a key that is equal to a key in the given dictionary, the defined property MUST also have keys that match each of the corresponding values.
+    No restriction is inferred from this field for keys in the defined property that do not match any key in the given dictionary.
+
+- :val:`"array"`:
+
+  **REQUIRED**
+
+  - :field:`items`: Dictionary.
+    Specifies an inner Property Definition.
+    The defined property is a list where each item MUST match this inner Property Definition.
+
+  **OPTIONAL**
+
+  - :field:`maxItems`: Integer.
+    A non-negative integer.
+    The defined property is an array that MUST contain a number of items that is less than or equal to the given integer.
+
+  - :field:`minItems`: Integer.
+    A non-negative integer.
+    The defined property is an array that MUST contain a number of items that is greater than or equal to the given integer.
+
+  - :field:`uniqueItems`: Boolean.
+    If :val:`TRUE`, the defined property is an array that MUST only contain unique items.
+    If :val:`FALSE`, this field sets no limitation on the defined property.
+
+- :val:`"integer"`:
+
+  **OPTIONAL**
+
+  - :field:`multipleOf`: Integer.
+    An integer is strictly greater than 0.
+    The defined property MUST have an integer value that when divided by the given integer results in an integer (i.e., it must be even divisible by this integer without a fractional part).
+
+  - :field:`maximum`: Integer.
+    The defined property is an integer that MUST be less than or equal to this number.
+
+  - :field:`exclusiveMaximum`: Integer.
+    The defined property is an integer that MUST be strictly less than this number; it cannot be equal to the number.
+
+  - :field:`minimum`: Integer.
+    The defined property is an integer that MUST be greater than or equal to this number.
+
+  - :field:`exclusiveMinimum`: Integer.
+    The defined property is an integer that MUST be strictly greater than this number; it cannot be equal to the number.
+
+- :val:`"number"`:
+
+  **OPTIONAL**
+
+  - :field:`multipleOf`: Float.
+    An integer is strictly greater than 0.
+    The defined property MUST have an integer value that when divided by the given integer results in an integer (i.e., it must be even divisible by this integer without a fractional part).
+
+  - :field:`maximum`: Float.
+    The defined property is a float that MUST be less than or equal to this number.
+
+  - :field:`exclusiveMaximum`: Float.
+    The defined property is a float that MUST be strictly less than this number; it cannot be equal to the number.
+
+  - :field:`minimum`: Float.
+    The defined property is a float that MUST be greater than or equal to this number.
+
+  - :field:`exclusiveMinimum`: Float.
+    The defined property is a float that MUST be strictly greater than this number; it cannot be equal to the number.
+
+- :val:`"string"`:
+
+  **OPTIONAL**
+
+  - :field:`maxLength`: Integer.
+    A non-negative integer.
+    The defined property is a string that MUST have a length that is less than or equal to the given integer.
+    (The length of the string is the number of individual Unicode characters it is composed from.)
+
+  - :field:`minLength`: Integer.
+    A non-negative integer.
+    The defined property is a string that MUST have a length that is less than or equal to the given integer.
+    (The definition of the length of a string is the same as in the field :field:`maxLength`.)
+
+  - :field:`format`: String.
+    Choose one of the following values to indicate that the defined property is a string that MUST adhere to the specified format:
+
+    - :val:`"date-time"`: the date-time production in :RFC:`3339` section 5.6.
+    - :val:`"date"`: the full-date production in :RFC:`3339` section 5.6.
+    - :val:`"time"`: the full-time production in :RFC:`3339` section 5.6.
+    - :val:`"duration"`: the duration production in :RFC:`3339` Appendix A.
+    - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
+    - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
+
+Physical Units in Property Definitions
+--------------------------------------
+
+In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meter (m).
+The unit is always permanently fixed by the Property Definition.
+Clients and servers that use other units internally thus have to do unit conversions as part of preparing and processing OPTIMADE responses.
+
+The physical unit of a property, the embedded items of a list, or values of a dictionary, are defined with the field :field:`x-optimade-unit` with the following requirements:
+
+- The field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and all inner Property Definitions.
+- If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+- If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
+
+A standard set of unit symbols for OPTIMADE is taken from version 3.09 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.21.
+If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
+
+A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
+Each unit symbol can also be suffixed by a single :val:`^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., :val:`m^3` for cubic meter, :val:`m^-3` for inverse cubic meter.
+(Positive integers MUST NOT be preceded by a plus sign.)
+The unit symbols MAY be prefixed by one (but not more than one) of the prefixes defined in the ``definitions.units`` file.
+A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
+If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
+If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
+For example :val:`"km"` for kilometers.
+Furthermore:
+
+- No whitespace, parenthesis, or other symbols than specified above are permitted.
+- If multiple string representations of the same unit exist in ``definition.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
+- The unit symbols MUST appear in alphabetical order.
+
+The string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
+
+If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST be a list of dictionaries, all adhering to the following format:
+
+**REQUIRED keys:**
+
+- :field:`symbol`: String.
+  Specifies the symbol to be used in :field:`x-optimade-unit` to reference this unit.
+
+- :field:`title`: String.
+  A human-readable single-line string name for the unit.
+
+- :field:`description`: String.
+  A human-readable multiple-line detailed description of the unit.
+
+- :field:`standard`: Dictionary.
+  This field is used to define the unit symbol using a preexisting standard.
+  The dictionary has the following format:
+
+  **REQUIRED keys:**
+
+  - :field:`name`: String.
+    The abbreviated name of the standard being referenced.
+    One of the following:
+
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with GNU Units `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
+    - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
+    - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
+      Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
+
+  - :field:`version`: String.
+    The version string of the referenced standard.
+
+  - :field:`symbol`: String.
+    The symbol to use from the referenced standard, expressed according to that standard.
+    This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
+    However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
+
+
+**OPTIONAL keys:**
+
+- :field:`resource-uris`: List.
+  A list of dictionaries that reference remote resources that describe the unit.
+  The format of each dictionary is:
+
+  **REQUIRED keys:**
+
+  - :field:`relation`: String.
+    A human-readable description of the relationship between the unit and the remote resource, e.g., a "natural language description".
+
+  - :field:`uri`: String.
+    A URI of the external resource (which MAY be a resolvable URL).
+
+Unrecognized keys in property definitions
+-----------------------------------------
+
+Implementations MAY add their own keys in Property Definitions, both inside and outside of the fields :field:`x-optimade-property`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements` in the form of :field:`x-exmpl-name` where :field:`exmpl` is the database-specific prefix (without underscore characters) and :field:`name` is the part of the key chosen by the implementation.
+Implementations MUST NOT add keys to property definitions on other formats.
+
+Client and server implementations that interpret an OPTIMADE Property Definition and encounter unrecognized keys starting with :field:`x-exmpl-` where :field:`exmpl` is a recognized database prefix MAY issue errors or warnings.
+Other unrecognized keys starting with :field:`x-` MUST NOT issue errors, SHOULD NOT issue warnings, and MUST otherwise be ignored.
+
+To allow forward compatibility with future versions of both OPTIMADE and the JSON Schema standards, unrecognized keys that do not start with :field:`x-` SHOULD issue a warning but MUST otherwise be ignored.
 
 Entry List
 ==========
@@ -1994,8 +2451,8 @@ chemical\_formula\_anonymous
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
-- **Description**: List of three integers.
-  For each of the three directions indicated by the three lattice vectors (see property `lattice\_vectors`_), this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+- **Description**: List of three integers describing the periodicity of the boundaries of the unit cell.
+  For each direction indicated by the three `lattice\_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
   Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
@@ -2007,10 +2464,10 @@ dimension\_types
 
 - **Examples**:
 
-  - For a molecule: :val:`[0, 0, 0]`
-  - For a wire along the direction specified by the third lattice vector: :val:`[0, 0, 1]`
-  - For a 2D surface/slab, periodic on the plane defined by the first and third lattice vectors: :val:`[1, 0, 1]`
-  - For a bulk 3D system: :val:`[1, 1, 1]`
+  - A nonperiodic structure, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
+  - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
+  - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
 
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
@@ -2055,6 +2512,36 @@ lattice\_vectors
 - **Examples**:
 
   - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
+
+space\_group\_hall
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Each component of the Hall symbol MUST be separated by a single space symbol.
+  - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
+  - MUST be null if :property:`nperiodic_dimensions` is not equal to 3.
+
+- **Examples**:
+
+  - :val:`P 2c -2ac`
+  - :val:`-I 4bd 2ab 3`
+
+space\_group\_it\_number
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - The integer value MUST be between 1 and 230.
+  - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
 
 cartesian\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2217,9 +2704,9 @@ assemblies
 
 - **Examples** (for each entry of the assemblies list):
 
-  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities: [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
+  - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
     Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.
-  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities: [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
+  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
     The second group is formed by the fourth site.
     Sites of the first group (the second and the third) are never present at the same time as the fourth site.
     30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).
@@ -2239,11 +2726,11 @@ assemblies
              "cartesian_site_positions": [[0,0,0]],
              "species_at_sites": ["SiGe-vac"],
              "species": [
-                 {
-                   "name": "SiGe-vac",
-                   "chemical_symbols": ["Si", "Ge", "vacancy"],
-                   "concentration": [0.3, 0.5, 0.2]
-                 }
+               {
+                 "name": "SiGe-vac",
+                 "chemical_symbols": ["Si", "Ge", "vacancy"],
+                 "concentration": [0.3, 0.5, 0.2]
+               }
              ]
              // ...
            }
@@ -2374,6 +2861,165 @@ Example:
       }
     }
 
+Files Entries
+-------------
+
+The :entry:`files` entries describe files.
+The following properties are used to do so:
+
+url
+~~~
+
+- **Description**: The URL to get the contents of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - **Response**: REQUIRED in the response.
+  - The URL MUST point to the actual contents of a file (i.e. byte stream), not an intermediate (preview) representation.
+    For example, if referring to a file on GitHub, a link should point to raw contents.
+
+- **Examples**:
+
+  - :val:`"https://example.org/files/cifs/1000000.cif"`
+
+url\_stable\_until
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - :val:`null` means that there is no stability guarantee for the URL in `url`.
+    Indefinite support could be communicated by providing a date sufficiently far in the future, for example, :val:`9999-12-31`.
+
+name
+~~~~
+
+- **Description**: Base name of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - File name extension is an integral part of a file name and, if available, MUST be included.
+
+- **Examples**:
+
+  - :val:`"1000000.cif"`
+
+size
+~~~~
+
+- **Description**: Size of a file in bytes.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that either exact size of a file is given or its upper bound.
+    This way if a client reserves a static buffer or truncates the download stream after this many bytes the whole file would be received.
+    Such provision is included to allow the providers to serve on-the-fly compressed files.
+
+media\_type
+~~~~~~~~~~~
+
+- **Description**: Media type identifier (also known as MIME type), for a file as per `RFC 6838 Media Type Specifications and Registration Procedures <https://datatracker.ietf.org/doc/html/rfc6838>`__.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"chemical/x-cif"`
+
+version
+~~~~~~~
+
+- **Description**: Version information of a file (e.g. commit, revision, timestamp).
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - If provided, it MUST be guaranteed that file contents pertaining to the same combination of :field:`id` and :field:`version` are the same.
+
+modification\_timestamp
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Timestamp of the last modification of file contents.
+  A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Timestamps of subsequent file modifications SHOULD be increasing (not earlier than previous timestamps).
+
+description
+~~~~~~~~~~~
+
+- **Description**: Free-form description of a file.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - :val:`"POSCAR format file"`
+
+checksums
+~~~~~~~~~
+
+* **Description**: Dictionary providing checksums of file contents.
+* **Type**: dictionary with keys identifying checksum functions and values (strings) giving the actual checksums
+* **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Supported dictionary keys: :property:`md5`, :property:`sha1`, :property:`sha224`, :property:`sha256`, :property:`sha384`, :property:`sha512`.
+    Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+
+atime
+~~~~~
+
+- **Description**: Time of last access of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+ctime
+~~~~~
+
+- **Description**: Time of last status change of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+mtime
+~~~~~
+
+- **Description**: Time of last modification of a file as per POSIX standard.
+- **Type**: timestamp
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - It should be noted that the values of :field:`last_modified`, :field:`modification_timestamp` and :field:`mtime` do not necessary match.
+    :field:`last_modified` pertains to the modification of the OPTIMADE metadata, :field:`modification_timestamp` pertains to file contents and :field:`mtime` pertains to the modification of the file (not necessary changing its contents).
+    For example, appending an empty string to a file would result in the change of :field:`mtime` in some operating systems, but this would not be deemed as a modification of its contents.
+
 Database-Provider-Specific Entry Types
 --------------------------------------
 
@@ -2465,6 +3111,40 @@ Relationships with calculations MAY be used to indicate provenance where a struc
 
     At the moment the database providers are suggested to extend their API the way they choose, always using their database-provider-specific prefix in non-standardized fields.
 
+Files
+~~~~~
+
+Relationships with files may be used to relate an entry with any number of :entry:`files` entries.
+
+.. code:: jsonc
+
+    {
+      "data": {
+        "type": "structures",
+        "id": "example.db:structs:1234",
+        "attributes": {
+          "chemical_formula_descriptive": "H2O"
+        },
+        "relationships": {
+          "files": {
+            "data": [
+              { "type": "files", "id": "example.db:files:1234" }
+            ]
+          }
+        }
+      },
+      "included": [
+        {
+          "type": "files",
+          "id": "example.db:files:1234",
+          "attributes": {
+            "media_type": "chemical/x-cif",
+            "url": "https://example.org/files/cifs/1234.cif"
+          }
+        }
+      ]
+    }
+
 Appendices
 ==========
 
@@ -2480,16 +3160,19 @@ The Filter Language EBNF Grammar
 
     (* Values *)
 
-    Constant = String | Number ;
+    OrderedConstant = String | Number ;
+    UnorderedConstant = ( TRUE | FALSE ) ;
 
-    Value = String | Number | Property ;
-    (* Note: support for Property in Value is OPTIONAL *)
+    Value = ( UnorderedConstant | OrderedValue ) ;
 
-    ValueList = [ Operator ], Value, { Comma, [ Operator ], Value } ;
-    (* Support for Operator in ValueList is OPTIONAL *)
+    OrderedValue = ( OrderedConstant | Property ) ;
+    (* Note: support for Property in OrderedValue is OPTIONAL *)
 
-    ValueZip = [ Operator ], Value, Colon, [ Operator ], Value, {Colon, [ Operator ], Value } ;
-    (* Support for Operator in ValueZip is OPTIONAL *)
+    ValueListEntry = ( Value | ValueEqRhs | ValueRelCompRhs | FuzzyStringOpRhs ) ;
+    (* Note: support for ValueEqRhs, ValueRelCompRhs and FuzzyStringOpRhs in ValueListEntry are OPTIONAL *)
+
+    ValueList = ValueListEntry, { Comma, ValueListEntry } ;
+    ValueZip = ValueListEntry, Colon, ValueListEntry, { Colon, ValueListEntry } ;
 
     ValueZipList = ValueZip, { Comma, ValueZip } ;
 
@@ -2505,17 +3188,22 @@ The Filter Language EBNF Grammar
                | PropertyFirstComparison ;
     (* Note: support for ConstantFirstComparison is OPTIONAL *)
 
-    ConstantFirstComparison = Constant, ValueOpRhs ;
+    ConstantFirstComparison = ( OrderedConstant, ValueOpRhs
+                              | UnorderedConstant, ValueEqRhs ) ;
 
-    PropertyFirstComparison = Property, ( ValueOpRhs
+    PropertyFirstComparison = Property, [ ValueOpRhs
                                         | KnownOpRhs
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
                                         | SetZipOpRhs
-                                        | LengthOpRhs ) ;
+                                        | LengthOpRhs ] ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
-    ValueOpRhs = Operator, Value ;
+    ValueOpRhs = ( ValueEqRhs | ValueRelCompRhs ) ;
+
+    ValueEqRhs = EqualityOperator, Value ;
+
+    ValueRelCompRhs = RelativeComparisonOperator, OrderedValue ;
 
     KnownOpRhs = IS, ( KNOWN | UNKNOWN ) ;
 
@@ -2523,9 +3211,8 @@ The Filter Language EBNF Grammar
                      | STARTS, [ WITH ], Value
                      | ENDS, [ WITH ], Value ;
 
-    SetOpRhs = HAS, ( [ Operator ], Value | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
-    (* Note: support for ONLY in SetOpRhs is OPTIONAL *)
-    (* Note: support for [ Operator ] in SetOpRhs is OPTIONAL *)
+    SetOpRhs = HAS, ( ( Value | EqualityOperator, Value | RelativeComparisonOperator, OrderedValue | FuzzyStringOpRhs ) | ALL, ValueList | ANY, ValueList | ONLY, ValueList ) ;
+    (* Note: support for the alternatives with EqualityOperator, RelativeComparisonOperator, FuzzyStringOpRhs, and ONLY in SetOpRhs are OPTIONAL *)
 
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
@@ -2572,7 +3259,14 @@ The Filter Language EBNF Grammar
 
     (* Comparison operator tokens: *)
 
-    Operator = ( '<', [ '=' ] | '>', [ '=' ] | [ '!' ], '=' ), [Spaces] ;
+    Operator = ( EqualityOperator | RelativeComparisonOperator ) ;
+    EqualityOperator = [ '!' ], '=' , [Spaces] ;
+    RelativeComparisonOperator = ( '<' | '>' ), [ '=' ], [Spaces] ;
+
+    (* Boolean values *)
+
+    TRUE = 'TRUE', [Spaces] ;
+    FALSE = 'FALSE', [Spaces] ;
 
     (* Property syntax *)
 

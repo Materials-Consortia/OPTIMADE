@@ -1,0 +1,192 @@
+Parse tree from tests/cases/Filter_073.inp:
+Filter(9999)
+  Expression(9999)
+    ExpressionClause(9999)
+      ExpressionPhrase(9999)
+        OpeningBrace(9999)
+          TOKEN_8(9999): "(", line: 1, col: 1
+        Expression(9999)
+          ExpressionClause(9999)
+            ExpressionPhrase(9999)
+              OpeningBrace(9999)
+                TOKEN_8(9999): "(", line: 1, col: 2
+              Expression(9999)
+                ExpressionClause(9999)
+                  ExpressionPhrase(9999)
+                    Comparison(9999)
+                      PropertyFirstComparison(9999)
+                        Property(9999)
+                          Identifier(9999)
+                            LowercaseLetter(9999)
+                              TOKEN_101(9999): "t", line: 1, col: 3
+                            LowercaseLetter(9999)
+                              TOKEN_99(9999): "r", line: 1, col: 4
+                            LowercaseLetter(9999)
+                              TOKEN_102(9999): "u", line: 1, col: 5
+                            LowercaseLetter(9999)
+                              TOKEN_86(9999): "e", line: 1, col: 6
+                            Spaces(9999)
+                              Space(9999)
+                                TOKEN_1(9999): " ", line: 1, col: 7
+                        ValueOpRhs(9999)
+                          ValueEqRhs(9999)
+                            EqualityOperator(9999)
+                              TOKEN_29(9999): "=", line: 1, col: 8
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 9
+                            Value(9999)
+                              UnorderedConstant(9999)
+                                TRUE(9999)
+                                  TOKEN_67(9999): "TRUE", line: 1, col: 10
+              ClosingBrace(9999)
+                TOKEN_9(9999): ")", line: 1, col: 14
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 15
+            AND(9999)
+              TOKEN_35(9999): "AND", line: 1, col: 16
+              Spaces(9999)
+                Space(9999)
+                  TOKEN_1(9999): " ", line: 1, col: 19
+            ExpressionClause(9999)
+              ExpressionPhrase(9999)
+                OpeningBrace(9999)
+                  TOKEN_8(9999): "(", line: 1, col: 20
+                Expression(9999)
+                  ExpressionClause(9999)
+                    ExpressionPhrase(9999)
+                      Comparison(9999)
+                        PropertyFirstComparison(9999)
+                          Property(9999)
+                            Identifier(9999)
+                              LowercaseLetter(9999)
+                                TOKEN_87(9999): "f", line: 1, col: 21
+                              LowercaseLetter(9999)
+                                TOKEN_82(9999): "a", line: 1, col: 22
+                              LowercaseLetter(9999)
+                                TOKEN_93(9999): "l", line: 1, col: 23
+                              LowercaseLetter(9999)
+                                TOKEN_100(9999): "s", line: 1, col: 24
+                              LowercaseLetter(9999)
+                                TOKEN_86(9999): "e", line: 1, col: 25
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 26
+                          ValueOpRhs(9999)
+                            ValueEqRhs(9999)
+                              EqualityOperator(9999)
+                                TOKEN_29(9999): "=", line: 1, col: 27
+                                Spaces(9999)
+                                  Space(9999)
+                                    TOKEN_1(9999): " ", line: 1, col: 28
+                              Value(9999)
+                                UnorderedConstant(9999)
+                                  FALSE(9999)
+                                    TOKEN_44(9999): "FALSE", line: 1, col: 29
+                ClosingBrace(9999)
+                  TOKEN_9(9999): ")", line: 1, col: 34
+        ClosingBrace(9999)
+          TOKEN_9(9999): ")", line: 1, col: 35
+          Spaces(9999)
+            Space(9999)
+              TOKEN_1(9999): " ", line: 1, col: 36
+    OR(9999)
+      TOKEN_60(9999): "OR", line: 1, col: 37
+      Spaces(9999)
+        Space(9999)
+          TOKEN_1(9999): " ", line: 1, col: 39
+    Expression(9999)
+      ExpressionClause(9999)
+        ExpressionPhrase(9999)
+          OpeningBrace(9999)
+            TOKEN_8(9999): "(", line: 1, col: 40
+          Expression(9999)
+            ExpressionClause(9999)
+              ExpressionPhrase(9999)
+                OpeningBrace(9999)
+                  TOKEN_8(9999): "(", line: 1, col: 41
+                Expression(9999)
+                  ExpressionClause(9999)
+                    ExpressionPhrase(9999)
+                      Comparison(9999)
+                        PropertyFirstComparison(9999)
+                          Property(9999)
+                            Identifier(9999)
+                              LowercaseLetter(9999)
+                                TOKEN_101(9999): "t", line: 1, col: 42
+                              LowercaseLetter(9999)
+                                TOKEN_99(9999): "r", line: 1, col: 43
+                              LowercaseLetter(9999)
+                                TOKEN_102(9999): "u", line: 1, col: 44
+                              LowercaseLetter(9999)
+                                TOKEN_86(9999): "e", line: 1, col: 45
+                              Spaces(9999)
+                                Space(9999)
+                                  TOKEN_1(9999): " ", line: 1, col: 46
+                          ValueOpRhs(9999)
+                            ValueEqRhs(9999)
+                              EqualityOperator(9999)
+                                TOKEN_2(9999): "!", line: 1, col: 47
+                                TOKEN_29(9999): "=", line: 1, col: 48
+                                Spaces(9999)
+                                  Space(9999)
+                                    TOKEN_1(9999): " ", line: 1, col: 49
+                              Value(9999)
+                                UnorderedConstant(9999)
+                                  TRUE(9999)
+                                    TOKEN_67(9999): "TRUE", line: 1, col: 50
+                ClosingBrace(9999)
+                  TOKEN_9(9999): ")", line: 1, col: 54
+                  Spaces(9999)
+                    Space(9999)
+                      TOKEN_1(9999): " ", line: 1, col: 55
+              AND(9999)
+                TOKEN_35(9999): "AND", line: 1, col: 56
+                Spaces(9999)
+                  Space(9999)
+                    TOKEN_1(9999): " ", line: 1, col: 59
+              ExpressionClause(9999)
+                ExpressionPhrase(9999)
+                  OpeningBrace(9999)
+                    TOKEN_8(9999): "(", line: 1, col: 60
+                  Expression(9999)
+                    ExpressionClause(9999)
+                      ExpressionPhrase(9999)
+                        Comparison(9999)
+                          PropertyFirstComparison(9999)
+                            Property(9999)
+                              Identifier(9999)
+                                LowercaseLetter(9999)
+                                  TOKEN_87(9999): "f", line: 1, col: 61
+                                LowercaseLetter(9999)
+                                  TOKEN_82(9999): "a", line: 1, col: 62
+                                LowercaseLetter(9999)
+                                  TOKEN_93(9999): "l", line: 1, col: 63
+                                LowercaseLetter(9999)
+                                  TOKEN_100(9999): "s", line: 1, col: 64
+                                LowercaseLetter(9999)
+                                  TOKEN_86(9999): "e", line: 1, col: 65
+                                Spaces(9999)
+                                  Space(9999)
+                                    TOKEN_1(9999): " ", line: 1, col: 66
+                            ValueOpRhs(9999)
+                              ValueEqRhs(9999)
+                                EqualityOperator(9999)
+                                  TOKEN_2(9999): "!", line: 1, col: 67
+                                  TOKEN_29(9999): "=", line: 1, col: 68
+                                  Spaces(9999)
+                                    Space(9999)
+                                      TOKEN_1(9999): " ", line: 1, col: 69
+                                Value(9999)
+                                  UnorderedConstant(9999)
+                                    FALSE(9999)
+                                      TOKEN_44(9999): "FALSE", line: 1, col: 70
+                  ClosingBrace(9999)
+                    TOKEN_9(9999): ")", line: 1, col: 75
+          ClosingBrace(9999)
+            TOKEN_9(9999): ")", line: 1, col: 76
+            Spaces(9999)
+              Space(9999)
+                nl(9999)
+                  SPECIAL_1(9999): "(...)", line: 1, col: 77
