@@ -1234,7 +1234,7 @@ Example (note: the description strings have been wrapped for readability only):
                  },
                  "x-optimade-requirements": {
                    "sortable": false,
-                   "query": "none"
+                   "query-support": "none"
                  }
                }
             }
