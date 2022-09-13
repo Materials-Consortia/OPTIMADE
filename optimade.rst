@@ -3225,7 +3225,10 @@ _biomol_residues_at_sites
 _biomol_site_sequences
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides having atoms with coordinates in sites. The order of the elements in the `_biomol_site_sequences`_ list is not relevant. Each dictionary in the list holds two keys: sequence and type. The sequence is a string of one-letter codes identifying each amino acid or nucleotide as defined by the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_entity_poly.pdbx_seq_one_letter_code.html>`__. The type is a string defining the monomers of the sequence. Accepted values are “polypeptide” for amino acids, “polydeoxyribonucleotide”  for deoxyribonucleotides and “polyribonucleotide” for ribonucleotides, according to the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_pdbx_reference_linked_entity.link_to_entity_type.html>`__.
+- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides having atoms with coordinates in sites. 
+  The order of the elements in the `_biomol_site_sequences`_ list is not relevant.
+  Each dictionary in the list holds two keys: sequence and type. The sequence is a string of one-letter codes identifying each amino acid or nucleotide as defined by the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_entity_poly.pdbx_seq_one_letter_code.html>`__.
+  The type is a string defining the monomers of the sequence. Accepted values are “polypeptide” for amino acids, “polydeoxyribonucleotide”  for deoxyribonucleotides and “polyribonucleotide” for ribonucleotides, according to the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_pdbx_reference_linked_entity.link_to_entity_type.html>`__.
 - **Type**: list of dictionaries with the properties:
    - :property:`sequence`: string (REQUIRED)
    - :property:`type`: string (REQUIRED)
@@ -3253,8 +3256,9 @@ _biomol_site_sequences
 _biomol_full_sequences
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides including residues without coordinates in sites. The order of the elements in the `_biomol_full_sequences`_ list is not relevant.
-Each element in the list is a dictionary, with the same schema defined for `_biomol_site_sequences`_.
+- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides including residues without coordinates in sites.
+  The order of the elements in the `_biomol_full_sequences`_ list is not relevant.
+  Each element in the list is a dictionary, with the same schema defined for `_biomol_site_sequences`_.
 
 - **Examples**:
 
