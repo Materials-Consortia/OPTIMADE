@@ -3216,7 +3216,7 @@ _biomol_residues_at_sites
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - The number of values MUST be equal to :property: `nsites`, i.e. the number of sites in the structure.
-  - Residue indices mentioned in the `_biomol_residues_at_sites`_ list MUST be lower than the length of the list property `_biomol_residues`_ (i.e. for each value in the `_biomol_residues_at_sites`_ list there MUST exist one dictionary in the `_biomol_residues`_ list with the index equal to the corresponding `_biomol_residues_at_sites`_ value).
+  - Each value in the `_biomol_residues_at_sites`_ list MUST correspond to  the index of one the dictionaries in the `_biomol_residues`_ list.
 
 - **Examples**:
 
