@@ -3212,7 +3212,7 @@ _biomol_residues_at_sites
   The properties of the residues are found in the property `_biomol_residues`_.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
-  - **Support**: SHOULD be supported by all biomol implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Support**: MUST be supported when `_biomol_residues`_ is present as well, i.e., MUST NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - The number of values MUST be equal to :property: `nsites`, i.e. the number of sites in the structure.
