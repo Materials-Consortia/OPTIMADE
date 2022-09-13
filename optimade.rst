@@ -3177,7 +3177,6 @@ _biomol_residues
    - **chain**: The chain number this residue belongs to.
    - Values in :property:`chain` SHOULD be in capital letters.
    - Values in :property:`chain` SHOULD NOT be longer than 1 character when the number of chains is not greater than the number of letters in English alphabet (26).
-   - There MUST NOT be two or more residues with the same integer in :property:`sites`.
    - All :property:`name` and :property:`insertion_code` values SHOULD be in capital letters.
 
 - **Examples**:
