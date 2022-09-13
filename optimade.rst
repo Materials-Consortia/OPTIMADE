@@ -3158,59 +3158,6 @@ The fields below are all optional and are only used within specific research fie
 
 Every field has a standard domain-specific prefix.
 
-
-_biomol_chains
-~~~~~~~~~~~~~~
-
-- **Description**: For each chain in the system there is a dictionary that describes this chain. Chains are groups of related residues (e.g. a polymer).
-  Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
-- **Type**: list of dictionaries with the properties:
-   - :property:`name`: string (REQUIRED)
-   - :property:`residues`: list of integers (REQUIRED)
-   - :property:`types`: list of strings
-   - :property:`sequences`: list of strings
-   - :property:`sequence_types`: list of strings
-- **Requirements/Conventions**:
-   - **Query**:  Support for queries on this property is OPTIONAL.
-     If supported, only a subset of the filter features MAY be supported.
-   - **name**: The chain name/letter.
-   - **residues**: A list of integers referring to the index of :field:`biomol_residues`, that belong to this chain.
-     The list SHOULD NOT be empty. The index of the first residue is 0.
-   - **types**: A list of tags/labels specifying the type of molecules this chain contains (e.g. 'protein').
-     This field is useful as an overview of every chain and as a query target for the structure.
-     Standard labels for this field are the follwoing: 'protein', 'nucleic acid', 'carbohydrates', 'lipid', 'membrane', 'ligand', 'ion', 'solvent' and 'other'.
-     The list SHOULD contain values within the standard labels.
-     Additional custom labels MAY be used. These labels MUST include the database-provider-specific prefix with the following format: <prefix>:<label>.
-   - **sequences**: A list of residue sequences in current chain.
-   - **sequence_types**: A list of tags specifying the type of each sequence in the :property:`sequences` field. The type of a sequence is defined by its components (e.g. 'aminoacids').
-   - There SHOULD NOT be two or more chains with the same :property:`name`.
-   - Values in :property:`name` SHOULD be in capital letters.
-   - Values in :property:`name` SHOULD NOT be longer than 1 character when the number of chains is not greater than the number of letters in English alphabet (26).
-   - Values in :property:`sequences` SHOULD be in capital letters.
-   - Number of values in :property:`sequences` and :property:`sequence_types` MUST match.
-
-- **Examples**:
-
-.. code:: jsonc
-  {
-    "biomol_chains":[
-      {
-        "name": "A",
-        "residues":[0,1,2,3, ...],
-        "types": ['protein', 'ions'],
-	      "sequences": ['MSHHWGYG'],
-	      "sequence_types": ['aminoacids']
-      },
-      {
-        "name": "B",
-        "residues":[54,55,56,57, ...],
-        "types": ['nucleic acid'],
-	      "sequences": ['GATTACA'],
-	      "sequence_types": ['nucleotides']
-      },
-    ]
-  }
-
 _biomol_residues
 ~~~~~~~~~~~~~~~~
 
@@ -3220,15 +3167,16 @@ _biomol_residues
    - :property:`name`: string (REQUIRED)
    - :property:`number`: integer (REQUIRED)
    - :property:`insertion_code`: string or null (REQUIRED)
-   - :property:`sites`: list of integers (REQUIRED)
+   - :property:`chain`: string (OPTIONAL)
 - **Requirements/Conventions**:
    - **Query**:  Support for queries on this property is OPTIONAL.
      If supported, only a subset of the filter features MAY be supported.
    - **name**: The residue name
    - **number**: The residue number according to source notation.
    - **insertion_code**: The residue insertion code. It MUST NOT be longer than 1 character. It MAY be null.
-   - **sites**: A list of integers referring to the index of :field:`cartesian_site_positions`, that belong to this residue.
-     The list SHOULD NOT be empty. The index of the first site is 0.
+   - **chain**: The chain number this residue belongs to.
+   - Values in :property:`chain` SHOULD be in capital letters.
+   - Values in :property:`chain` SHOULD NOT be longer than 1 character when the number of chains is not greater than the number of letters in English alphabet (26).
    - There MUST NOT be two or more residues with the same integer in :property:`sites`.
    - All :property:`name` and :property:`insertion_code` values SHOULD be in capital letters.
 
@@ -3236,60 +3184,91 @@ _biomol_residues
 
 .. code:: jsonc
   {
-    "biomol_residues":[
+    "_biomol_residues":[
       {
         "name": "PHE",
-	      "number": 17,
-	      "insertion_code": null,
-        "sites":[0,1,2,3, ...]
+	"number": 17,
+	"insertion_code": null,
+        "chain": "A"
       },
       {
         "name": "ASP",
-	      "number": 18,
-	      "insertion_code": null,
-        "sites":[17,18,19,20, ...]
+	"number": 18,
+	"insertion_code": null,
+        "chain": "A"
       },
       {
         "name": "LEU",
-	      "number": 18,
+	"number": 18,
         "insertion_code": "A",
-        "sites":[29,30,31, ...]
+        "chain": "A"
       },
     ]
   }
+  
+_biomol_residues_at_sites
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-_biomol_sequences
-~~~~~~~~~~~~~~~~~
+- **Description**: Index of the residues at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+  The properties of the residues are found in the property `_biomol_residues`_.
+- **Type**: list of integers.
+- **Requirements/Conventions**:
+  - **Support**: SHOULD be supported by all biomol implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
+  - Residue indices mentioned in the `_biomol_residues_at_sites`_ list MUST be lower than the length of the list property `_biomol_residues`_ (i.e. for each value in the `_biomol_residues_at_sites`_ list there MUST exist one dictionary in the `_biomol_residues`_ list with the index equal to the corresponding `_biomol_residues_at_sites`_ value).
 
-- **Description**: A list of residue sequences in current structure.
- Every sequence is a dictionary which includes the sequence itself and the type of sequence it is.
- Every sequence may include a list of chain and residue indices.
- Sequences may be grouped and ordered in any form (e.g. by chains, by fragments of covalently bonded atoms, etc.) as long as they make sense when querying structures by sequence.
+- **Examples**:
+
+  - :val:`[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1, ... ]` indicates that the first 8 sites belong to the first residue in the the `residues`_ list, while the 9 following atoms belong to the second residue.
+
+_biomol_site_sequences
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides having atoms with coordinates in sites. The order of the elements in the `_biomol_site_sequences`_ list is not relevant. Each dictionary in the list holds two keys: sequence and type. The sequence is a string of one-letter codes identifying each amino acid or nucleotide as defined by the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_entity_poly.pdbx_seq_one_letter_code.html>`__. The type is a string defining the monomers of the sequence. Accepted values are “polypeptide” for amino acids, “polydeoxyribonucleotide”  for deoxyribonucleotides and “polyribonucleotide” for ribonucleotides, according to the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_pdbx_reference_linked_entity.link_to_entity_type.html>`__.
 - **Type**: list of dictionaries with the properties:
    - :property:`sequence`: string (REQUIRED)
    - :property:`type`: string (REQUIRED)
-   - :property:`chains`: list of integers
 - **Requirements/Conventions**:
    - **Query**:  Queries on this property SHOULD be supported.
    - **sequence**: A string with a letter for each residue in the sequence. Letters SHOULD be capital letters.
-   - **type**: The type of a sequence is defined by its components (e.g. 'aminoacids').
-   - **chains**: A list of integers referring to indices in :field:`biomol_chains` for chains which include this sequence totally or partially.
-   There MUST NOT be repeated indices in :property:`chains`.
-
-
+   - **type**: The type of a sequence is defined by the type of its residues (e.g. "polypeptide").
 
 - **Examples**:
 
 .. code:: jsonc
   {
-    "biomol_sequences":[
+    "_biomol_site_sequences":[
       {
         sequence: 'MSHHWGYG',
-        type: 'aminoacids'
+        type: 'polypeptide'
       },
       {
         sequence: 'GATTACA',
-        type: 'nucleotides'
+        type: 'polydeoxyribonucleotide'
+      }
+    ]
+  }
+  
+_biomol_full_sequences
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides including residues without coordinates in sites. The order of the elements in the `_biomol_full_sequences`_ list is not relevant.
+Each element in the list is a dictionary, with the same schema defined for `_biomol_site_sequences`_.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "_biomol_full_sequences":[
+      {
+        sequence: 'MSHHWGYG',
+        type: 'polypeptide'
+      },
+      {
+        sequence: 'GATTACA',
+        type: 'polydeoxyribonucleotide'
       }
     ]
   }
