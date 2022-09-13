@@ -1,0 +1,1 @@
+statements HAS ALL TRUE, = TRUE AND number:is_prime HAS ALL < 100 : TRUE
