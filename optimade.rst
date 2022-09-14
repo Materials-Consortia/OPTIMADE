@@ -3166,18 +3166,18 @@ _biomol_residues
 - **Type**: list of dictionaries with the properties:
    - :property:`name`: string (REQUIRED)
    - :property:`number`: integer (REQUIRED)
-   - :property:`insertion_code`: string or null (REQUIRED)
+   - :property:`icode`: string or null (REQUIRED)
    - :property:`chain`: string (OPTIONAL)
 - **Requirements/Conventions**:
    - **Query**:  Support for queries on this property is OPTIONAL.
      If supported, only a subset of the filter features MAY be supported.
    - **name**: The residue name
    - **number**: The residue number according to source notation.
-   - **insertion_code**: The residue insertion code. It MUST NOT be longer than 1 character. It MAY be null.
+   - **icode**: The residue insertion code. It MUST NOT be longer than 1 character. It MAY be null.
    - **chain**: The chain number this residue belongs to.
    - Values in :property:`chain` SHOULD be in capital letters.
    - Values in :property:`chain` SHOULD NOT be longer than 1 character when the number of chains is not greater than the number of letters in English alphabet (26).
-   - All :property:`name` and :property:`insertion_code` values SHOULD be in capital letters.
+   - All :property:`name` and :property:`icode` values SHOULD be in capital letters.
 
 - **Examples**:
 
@@ -3187,19 +3187,19 @@ _biomol_residues
       {
         "name": "PHE",
 	"number": 17,
-	"insertion_code": null,
+	"icode": null,
         "chain": "A"
       },
       {
         "name": "ASP",
 	"number": 18,
-	"insertion_code": null,
+	"icode": null,
         "chain": "A"
       },
       {
         "name": "LEU",
 	"number": 18,
-        "insertion_code": "A",
+        "icode": "A",
         "chain": "A"
       },
     ]
