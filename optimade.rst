@@ -3248,7 +3248,7 @@ _biomol_site_sequences
         type: 'polypeptide'
       },
       {
-        sequence: 'GATTACA',
+        sequence: '(DG)(DA)(DT)(DT)(DA)(DC)(DA)',
         type: 'polydeoxyribonucleotide'
       }
     ]
