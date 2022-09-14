@@ -3258,7 +3258,7 @@ _biomol_full_sequences
 ~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides including residues without coordinates in sites.
-  The order of the elements in the `_biomol_full_sequences`_ list is not relevant.
+  The elements in the `_biomol_full_sequences`_ list are unordered.
   Each element in the list is a dictionary, with the same schema defined for `_biomol_site_sequences`_.
 
 - **Examples**:
