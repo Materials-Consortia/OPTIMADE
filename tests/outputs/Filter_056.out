@@ -8,69 +8,70 @@ Filter(9999)
             Property(9999)
               Identifier(9999)
                 LowercaseLetter(9999)
-                  TOKEN_78(9999): "_", line: 1, col: 1
+                  TOKEN_80(9999): "_", line: 1, col: 1
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "e", line: 1, col: 2
+                  TOKEN_86(9999): "e", line: 1, col: 2
                 LowercaseLetter(9999)
-                  TOKEN_103(9999): "x", line: 1, col: 3
+                  TOKEN_105(9999): "x", line: 1, col: 3
                 LowercaseLetter(9999)
-                  TOKEN_92(9999): "m", line: 1, col: 4
+                  TOKEN_94(9999): "m", line: 1, col: 4
                 LowercaseLetter(9999)
-                  TOKEN_95(9999): "p", line: 1, col: 5
+                  TOKEN_97(9999): "p", line: 1, col: 5
                 LowercaseLetter(9999)
-                  TOKEN_91(9999): "l", line: 1, col: 6
+                  TOKEN_93(9999): "l", line: 1, col: 6
                 LowercaseLetter(9999)
-                  TOKEN_78(9999): "_", line: 1, col: 7
+                  TOKEN_80(9999): "_", line: 1, col: 7
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "e", line: 1, col: 8
+                  TOKEN_86(9999): "e", line: 1, col: 8
                 LowercaseLetter(9999)
-                  TOKEN_91(9999): "l", line: 1, col: 9
+                  TOKEN_93(9999): "l", line: 1, col: 9
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "e", line: 1, col: 10
+                  TOKEN_86(9999): "e", line: 1, col: 10
                 LowercaseLetter(9999)
-                  TOKEN_92(9999): "m", line: 1, col: 11
+                  TOKEN_94(9999): "m", line: 1, col: 11
                 LowercaseLetter(9999)
-                  TOKEN_84(9999): "e", line: 1, col: 12
+                  TOKEN_86(9999): "e", line: 1, col: 12
                 LowercaseLetter(9999)
-                  TOKEN_93(9999): "n", line: 1, col: 13
+                  TOKEN_95(9999): "n", line: 1, col: 13
                 LowercaseLetter(9999)
-                  TOKEN_99(9999): "t", line: 1, col: 14
+                  TOKEN_101(9999): "t", line: 1, col: 14
                 LowercaseLetter(9999)
-                  TOKEN_78(9999): "_", line: 1, col: 15
+                  TOKEN_80(9999): "_", line: 1, col: 15
                 LowercaseLetter(9999)
-                  TOKEN_82(9999): "c", line: 1, col: 16
+                  TOKEN_84(9999): "c", line: 1, col: 16
                 LowercaseLetter(9999)
-                  TOKEN_94(9999): "o", line: 1, col: 17
+                  TOKEN_96(9999): "o", line: 1, col: 17
                 LowercaseLetter(9999)
-                  TOKEN_100(9999): "u", line: 1, col: 18
+                  TOKEN_102(9999): "u", line: 1, col: 18
                 LowercaseLetter(9999)
-                  TOKEN_93(9999): "n", line: 1, col: 19
+                  TOKEN_95(9999): "n", line: 1, col: 19
                 LowercaseLetter(9999)
-                  TOKEN_99(9999): "t", line: 1, col: 20
+                  TOKEN_101(9999): "t", line: 1, col: 20
                 LowercaseLetter(9999)
-                  TOKEN_98(9999): "s", line: 1, col: 21
+                  TOKEN_100(9999): "s", line: 1, col: 21
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 22
             SetOpRhs(9999)
               HAS(9999)
-                TOKEN_46(9999): "HAS", line: 1, col: 23
+                TOKEN_47(9999): "HAS", line: 1, col: 23
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 26
-              Operator(9999)
+              RelativeComparisonOperator(9999)
                 TOKEN_28(9999): "<", line: 1, col: 27
                 Spaces(9999)
                   Space(9999)
                     TOKEN_1(9999): " ", line: 1, col: 28
-              Value(9999)
-                Number(9999)
-                  Digits(9999)
-                    Digit(9999)
-                      TOKEN_19(9999): "3", line: 1, col: 29
-                  Spaces(9999)
-                    Space(9999)
-                      TOKEN_1(9999): " ", line: 1, col: 30
+              OrderedValue(9999)
+                OrderedConstant(9999)
+                  Number(9999)
+                    Digits(9999)
+                      Digit(9999)
+                        TOKEN_19(9999): "3", line: 1, col: 29
+                    Spaces(9999)
+                      Space(9999)
+                        TOKEN_1(9999): " ", line: 1, col: 30
       AND(9999)
         TOKEN_35(9999): "AND", line: 1, col: 31
         Spaces(9999)
@@ -83,53 +84,53 @@ Filter(9999)
               Property(9999)
                 Identifier(9999)
                   LowercaseLetter(9999)
-                    TOKEN_78(9999): "_", line: 1, col: 35
+                    TOKEN_80(9999): "_", line: 1, col: 35
                   LowercaseLetter(9999)
-                    TOKEN_84(9999): "e", line: 1, col: 36
+                    TOKEN_86(9999): "e", line: 1, col: 36
                   LowercaseLetter(9999)
-                    TOKEN_103(9999): "x", line: 1, col: 37
+                    TOKEN_105(9999): "x", line: 1, col: 37
                   LowercaseLetter(9999)
-                    TOKEN_92(9999): "m", line: 1, col: 38
+                    TOKEN_94(9999): "m", line: 1, col: 38
                   LowercaseLetter(9999)
-                    TOKEN_95(9999): "p", line: 1, col: 39
+                    TOKEN_97(9999): "p", line: 1, col: 39
                   LowercaseLetter(9999)
-                    TOKEN_91(9999): "l", line: 1, col: 40
+                    TOKEN_93(9999): "l", line: 1, col: 40
                   LowercaseLetter(9999)
-                    TOKEN_78(9999): "_", line: 1, col: 41
+                    TOKEN_80(9999): "_", line: 1, col: 41
                   LowercaseLetter(9999)
-                    TOKEN_84(9999): "e", line: 1, col: 42
+                    TOKEN_86(9999): "e", line: 1, col: 42
                   LowercaseLetter(9999)
-                    TOKEN_91(9999): "l", line: 1, col: 43
+                    TOKEN_93(9999): "l", line: 1, col: 43
                   LowercaseLetter(9999)
-                    TOKEN_84(9999): "e", line: 1, col: 44
+                    TOKEN_86(9999): "e", line: 1, col: 44
                   LowercaseLetter(9999)
-                    TOKEN_92(9999): "m", line: 1, col: 45
+                    TOKEN_94(9999): "m", line: 1, col: 45
                   LowercaseLetter(9999)
-                    TOKEN_84(9999): "e", line: 1, col: 46
+                    TOKEN_86(9999): "e", line: 1, col: 46
                   LowercaseLetter(9999)
-                    TOKEN_93(9999): "n", line: 1, col: 47
+                    TOKEN_95(9999): "n", line: 1, col: 47
                   LowercaseLetter(9999)
-                    TOKEN_99(9999): "t", line: 1, col: 48
+                    TOKEN_101(9999): "t", line: 1, col: 48
                   LowercaseLetter(9999)
-                    TOKEN_78(9999): "_", line: 1, col: 49
+                    TOKEN_80(9999): "_", line: 1, col: 49
                   LowercaseLetter(9999)
-                    TOKEN_82(9999): "c", line: 1, col: 50
+                    TOKEN_84(9999): "c", line: 1, col: 50
                   LowercaseLetter(9999)
-                    TOKEN_94(9999): "o", line: 1, col: 51
+                    TOKEN_96(9999): "o", line: 1, col: 51
                   LowercaseLetter(9999)
-                    TOKEN_100(9999): "u", line: 1, col: 52
+                    TOKEN_102(9999): "u", line: 1, col: 52
                   LowercaseLetter(9999)
-                    TOKEN_93(9999): "n", line: 1, col: 53
+                    TOKEN_95(9999): "n", line: 1, col: 53
                   LowercaseLetter(9999)
-                    TOKEN_99(9999): "t", line: 1, col: 54
+                    TOKEN_101(9999): "t", line: 1, col: 54
                   LowercaseLetter(9999)
-                    TOKEN_98(9999): "s", line: 1, col: 55
+                    TOKEN_100(9999): "s", line: 1, col: 55
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 56
               SetOpRhs(9999)
                 HAS(9999)
-                  TOKEN_46(9999): "HAS", line: 1, col: 57
+                  TOKEN_47(9999): "HAS", line: 1, col: 57
                   Spaces(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 60
@@ -139,58 +140,72 @@ Filter(9999)
                     Space(9999)
                       TOKEN_1(9999): " ", line: 1, col: 64
                 ValueList(9999)
-                  Operator(9999)
-                    TOKEN_30(9999): ">", line: 1, col: 65
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 66
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_19(9999): "3", line: 1, col: 67
+                  ValueListEntry(9999)
+                    ValueRelCompRhs(9999)
+                      RelativeComparisonOperator(9999)
+                        TOKEN_30(9999): ">", line: 1, col: 65
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 66
+                      OrderedValue(9999)
+                        OrderedConstant(9999)
+                          Number(9999)
+                            Digits(9999)
+                              Digit(9999)
+                                TOKEN_19(9999): "3", line: 1, col: 67
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 68
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 69
-                  Operator(9999)
-                    TOKEN_29(9999): "=", line: 1, col: 70
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 71
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_22(9999): "6", line: 1, col: 72
+                  ValueListEntry(9999)
+                    ValueEqRhs(9999)
+                      EqualityOperator(9999)
+                        TOKEN_29(9999): "=", line: 1, col: 70
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 71
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_22(9999): "6", line: 1, col: 72
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 73
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 74
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_20(9999): "4", line: 1, col: 75
+                  ValueListEntry(9999)
+                    Value(9999)
+                      OrderedValue(9999)
+                        OrderedConstant(9999)
+                          Number(9999)
+                            Digits(9999)
+                              Digit(9999)
+                                TOKEN_20(9999): "4", line: 1, col: 75
                   Comma(9999)
                     TOKEN_12(9999): ",", line: 1, col: 76
                     Spaces(9999)
                       Space(9999)
                         TOKEN_1(9999): " ", line: 1, col: 77
-                  Operator(9999)
-                    TOKEN_2(9999): "!", line: 1, col: 78
-                    TOKEN_29(9999): "=", line: 1, col: 79
-                    Spaces(9999)
-                      Space(9999)
-                        TOKEN_1(9999): " ", line: 1, col: 80
-                  Value(9999)
-                    Number(9999)
-                      Digits(9999)
-                        Digit(9999)
-                          TOKEN_24(9999): "8", line: 1, col: 81
-                      Spaces(9999)
-                        Space(9999)
-                          nl(9999)
-                            SPECIAL_1(9999): "(...)", line: 1, col: 82
+                  ValueListEntry(9999)
+                    ValueEqRhs(9999)
+                      EqualityOperator(9999)
+                        TOKEN_2(9999): "!", line: 1, col: 78
+                        TOKEN_29(9999): "=", line: 1, col: 79
+                        Spaces(9999)
+                          Space(9999)
+                            TOKEN_1(9999): " ", line: 1, col: 80
+                      Value(9999)
+                        OrderedValue(9999)
+                          OrderedConstant(9999)
+                            Number(9999)
+                              Digits(9999)
+                                Digit(9999)
+                                  TOKEN_24(9999): "8", line: 1, col: 81
+                              Spaces(9999)
+                                Space(9999)
+                                  nl(9999)
+                                    SPECIAL_1(9999): "(...)", line: 1, col: 82
