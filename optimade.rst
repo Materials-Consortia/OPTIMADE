@@ -3114,6 +3114,7 @@ This is an example of the data field of a JSON object that could be returned aft
 
 .. code:: jsonc
 
+  {
     "data":{
       "id": "traj00000001",
       "type": "trajectories",
@@ -3158,20 +3159,20 @@ This is an example of the data field of a JSON object that could be returned aft
             "nvalues":360
           },
           "species":{
-            "frame_serialization_format": "constant",
+            "frame_serialization_format": "constant"
           },
           "dimension_types":{
-            "frame_serialization_format": "constant",
+            "frame_serialization_format": "constant"
           },
           "lattice_vectors":{
-            "frame_serialization_format": "constant",
+            "frame_serialization_format": "constant"
           },
           "species_at_sites":{
-            "frame_serialization_format": "constant",
+            "frame_serialization_format": "constant"
           },
           "_exmpl_temperature_set":{
             "frame_serialization_format": "explicit_custom_sparse",
-            "nvalues":144,
+            "nvalues":144
           },
           "_exmpl_time":{
             "frame_serialization_format": "linear",
@@ -3181,9 +3182,9 @@ This is an example of the data field of a JSON object that could be returned aft
           "_exmpl_ekin":{
             "frame_serialization_format": "explicit_regular_sparse",
             "step_size_sparse": 2,
-            "nvalues":180,
+            "nvalues":180
           }
-        }
+        },
         "relationships": {
           "references": {
             "data": [
@@ -3194,14 +3195,14 @@ This is an example of the data field of a JSON object that could be returned aft
             ]
           }
         }
-      },
-    },
-    ...
-
+      }
+    }
+    //,...
+  }
 After the previous querry is an example of a JSON object that could be returned after the following query:
 :query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
 
-.. code:: json
+.. code:: jsonc
 
   {
     "data":{
@@ -3270,18 +3271,19 @@ After the previous querry is an example of a JSON object that could be returned 
           "sparse_frames":[0,4,5,9],
           "values":[273,273,293,293]
         }
-      },
-      "links":{
-        "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
-        "base_url": {
-          "href": "http://example.com/optimade",
-          "meta": {
-            "_exmpl_db_version": "3.2.1"
-          }
-        }
       }
     },
-    ...
+    "links":{
+      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
+      "base_url": {
+        "href": "http://example.com/optimade",
+        "meta": {
+          "_exmpl_db_version": "3.2.1"
+        }
+      }
+    }
+    //,...
+  }
 
 Calculations Entries
 --------------------
