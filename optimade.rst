@@ -149,7 +149,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     For example, a :entry:`structures` entry is comprised by data that belong to a single structure.
 
 **Entry type**
-    Entries are categorized into types, e.g., :entry:`structures`, :entry:`trajectories`, :entry:`calculations`, :entry:`references`.
+    Entries are categorized into types, e.g., :entry:`structures`, :entry:`calculations`, :entry:`references`.
     Entry types MUST be named according to the rules for identifiers.
 
 **Entry property**
@@ -197,9 +197,9 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     In this case, **field** refers to the name part of the name-value pairs of JSON objects.
 
 **Trajectory**
-    A Trajectory contains data belonging to a set of structures.
+    A Trajectory contains data belonging to a sequence of structures.
     Usually this data will come from molecular dynamics simulations.
-    It can however also contain data from structures that are related in an different way.
+    It can however also contain data from structures that are related in a different way.
     For example the successive structures from a Monte Carlo simulation.
 
 **Frame**
@@ -332,7 +332,7 @@ Index Meta-Database
 A database provider MAY publish a special Index Meta-Database base URL. The main purpose of this base URL is to allow for automatic discoverability of all databases of the provider. Thus, it acts as a meta-database for the database provider's implementation(s).
 
 The index meta-database MUST only provide the :endpoint:`info` and :endpoint:`links` endpoints, see sections `Info Endpoints`_ and `Links Endpoint`_.
-It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures` and :endpoint:`trajectories`).
+It MUST NOT expose any entry listing endpoints (e.g., :endpoint:`structures`).
 
 These endpoints do not need to be queryable, i.e., they MAY be provided as static JSON files.
 However, they MUST return the correct and updated information on all currently provided implementations.
@@ -2823,7 +2823,7 @@ Trajectories Entries
 
 - **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations.
   Usually this data will come from molecular dynamics simulations.
-  It can however also be used to share data from structures that are related in an other way.
+  It can however also be used to share data from structures that are related in another way.
   For example the successive structures from a Monte Carlo simulation.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
@@ -2848,10 +2848,8 @@ reference_structure
   - Each trajectory MUST have a :property:`reference_structure`.
   - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
   - Queries on the trajectories MUST be done on the information supplied in the :property:`reference_structure` when the queried property is in the :property:`reference_structure`.
-    The subfields of the reference_structure MUST have the same queryability as in the `structures entries`_.
     For example, the query : http://example.com/optimade/v1/trajectories?filter=nelements=2 would use the `nelements`_ property within the reference_structure.
-
-  - This reference frame has the same properties as the structure entries namely:
+  - This reference frame has the same properties as the `structures entries`_ namely:
 
     - `elements`_
     - `nelements`_
@@ -2869,6 +2867,8 @@ reference_structure
     - `species`_
     - `assemblies`_
     - `structure_features`_
+
+  - The subfields of the :property:`reference_structure` MUST have the same queryability as in the :entry:`structures` entries.
 
 reference_frame
 ~~~~~~~~~~~~~~~
@@ -2945,7 +2945,6 @@ available_properties
     - **Examples**:
 
       - :val:`100`
-
 
 - **Examples**:
 
@@ -3127,7 +3126,7 @@ This is an example of the data field of a JSON object that could be returned aft
       "id": "traj00000001",
       "type": "trajectories",
       "attributes": {
-        "last_modified":"2021-07-16T18:02:03Z"
+        "last_modified":"2021-07-16T18:02:03Z",
         "reference_structure":{
           "elements": ["H","O"],
           "nelements": 2,
@@ -3145,17 +3144,17 @@ This is an example of the data field of a JSON object that could be returned aft
             {
               "name":"O1",
               "chemical_symbols":["O"],
-              "concentration":[1.0],
+              "concentration":[1.0]
             },
             {
               "name":"H1",
               "chemical_symbols":["H"],
-              "concentration":[1.0],
+              "concentration":[1.0]
             },
             {
               "name":"H2",
               "chemical_symbols":["H"],
-              "concentration":[1.0],
+              "concentration":[1.0]
             }
           ]
         },
@@ -3210,13 +3209,14 @@ This is an example of the data field of a JSON object that could be returned aft
 After the previous querry is an example of a JSON object that could be returned after the following query:
 :query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
 
-.. code:: jsonc
+.. code:: json
 
+  {
     "data":{
       "id": "traj00000001",
       "type": "trajectories",
-      "attributes:{
-        "last_modified":"2021-07-16T18:02:03Z"
+      "attributes":{
+        "last_modified":"2021-07-16T18:02:03Z",
         "cartesian_site_positions":{
           "frame_serialization_format": "explicit",
           "values":[
@@ -3235,11 +3235,11 @@ After the previous querry is an example of a JSON object that could be returned 
         },
         "lattice_vectors":{
           "frame_serialization_format": "constant",
-          "values:[[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
+          "values":[[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]]
         },
         "dimension_types":{
           "frame_serialization_format": "constant",
-          "values:[[0,0,0]]
+          "values":[[0,0,0]]
         },
         "_exmpl_time":{
           "frame_serialization_format": "linear",
@@ -3247,9 +3247,9 @@ After the previous querry is an example of a JSON object that could be returned 
           "step_size_linear": 1.5
         },
         "_exmpl_ekin":{
-          "frame_serialization_format": "explicit_regular_sparse",
-          "step_size_sparse": 2,
-          "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
+           "frame_serialization_format": "explicit_regular_sparse",
+           "step_size_sparse": 2,
+           "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
         },
         "species":{
           "frame_serialization_format": "constant",
@@ -3257,38 +3257,38 @@ After the previous querry is an example of a JSON object that could be returned 
             {
               "name":"O1",
               "chemical_symbols":["O"],
-              "concentration":[1.0],
+              "concentration":[1.0]
             },{
               "name":"H1",
               "chemical_symbols":["H"],
-              "concentration":[1.0],
+              "concentration":[1.0]
             },{
               "name":"H2",
               "chemical_symbols":["H"],
-              "concentration":[1.0],
+              "concentration":[1.0]
             }
           ]]
         },
         "species_at_sites":{
           "frame_serialization_format": "constant",
-          "values":[["O1","H1","H2"]],
+          "values":[["O1","H1","H2"]]
         },
         "_exmpl_temperature_set":{
           "frame_serialization_format": "explicit_custom_sparse",
           "sparse_frames":[0,4,5,9],
           "values":[273,273,293,293]
         }
-      }
-    },
-    "links":{
-      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
-      "base_url": {
-        "href": "http://example.com/optimade",
-        "meta": {
-          "_exmpl_db_version": "3.2.1"
+      },
+      "links":{
+        "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
+        "base_url": {
+          "href": "http://example.com/optimade",
+          "meta": {
+            "_exmpl_db_version": "3.2.1"
+          }
         }
       }
-    }
+    },
     ...
 
 Calculations Entries
