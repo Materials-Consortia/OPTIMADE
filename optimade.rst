@@ -196,15 +196,6 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     This is particularly relevant for the default JSON-based response format.
     In this case, **field** refers to the name part of the name-value pairs of JSON objects.
 
-**Trajectory**
-    A Trajectory contains data belonging to a sequence of structures.
-    Usually this data will come from molecular dynamics simulations.
-    It can however also contain data from structures that are related in a different way.
-    For example the successive structures from a Monte Carlo simulation.
-
-**Frame**
-    An individual structure or data belonging to an individual structure from a trajectory.
-
 Data types
 ----------
 
@@ -2821,10 +2812,11 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry point is used to share data from molecular simulations.
+- **Description**: The :entry:`trajectories` entry point is used to share data belonging to sequences of structures.
   Usually this data will come from molecular dynamics simulations.
   It can however also be used to share data from structures that are related in another way.
-  For example the successive structures from a Monte Carlo simulation.
+  For example, the successive structures from a Monte Carlo simulation.
+  The individual structures of the trajectories are called frames.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
