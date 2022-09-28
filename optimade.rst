@@ -2820,7 +2820,7 @@ Trajectories Entries
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
-  Next to this they can optionally have all the fields of the structures entries as well as relationships and database specific fields.
+  Next to this they can optionally have all the fields of the Structures Entries`_ as well as relationships and database specific fields.
 
   The `reference_structure`_ is an example of the kind of structures that are in the trajectory.
   It is used to query the trajectory entries in the same way as the structures entries.
@@ -2841,7 +2841,7 @@ reference_structure
   - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
   - Queries on the trajectories MUST be done on the information supplied in the :property:`reference_structure` when the queried property is in the :property:`reference_structure`.
     For example, the query : http://example.com/optimade/v1/trajectories?filter=nelements=2 would use the `nelements`_ property within the reference_structure.
-  - This reference frame has the same properties as the `structures entries`_ namely:
+  - This reference frame has the same properties as the `Structures Entries`_ namely:
 
     - `elements`_
     - `nelements`_
@@ -3023,7 +3023,7 @@ Return format for Trajectory Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The returned data is first grouped per property and then by frame.
-The property can be any of the fields described under `structures entries`_ or a database specific field.
+The property can be any of the fields described under `Structures Entries`_ or a database specific field.
 Each property has a dictionary as the value, with the following fields:
 
 - **frame_serialization_format**:
