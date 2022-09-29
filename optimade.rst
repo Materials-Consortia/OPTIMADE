@@ -2838,7 +2838,7 @@ reference_structure
 - **Requirements/Conventions**:
 
   - Each trajectory MUST have a :property:`reference_structure`.
-  - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field MUST specify which frame has been used.
+  - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field SHOULD specify which frame has been used.
   - This reference frame has the same properties as the `Structures Entries`_ namely:
 
     - `elements`_
@@ -2868,11 +2868,11 @@ reference_frame
 - **Type**: integer
 - **Requirements/Conventions**: The value MUST be larger than 0 and equal or less than nframes.
 
-  - **Support**: MUST be supported if the `reference_structure`_ is taken from the trajectory.
-    If the `reference_structure`_ is not in the trajectory, the value MUST NOT be present.
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-
+  - SHOULD NOT be :val:`null` if the `reference_structure`_ is in the trajectory. 
+  - MUST be :val:`null` or omitted if `reference_structure`_ is not in the trajectory.
 - **Examples**:
 
   - :val:`42`
@@ -2940,44 +2940,51 @@ available_properties
 
     .. code:: jsonc
 
-         "available_properties": {
-           "cartesian_site_positions": {
+         "available_properties": [
+           {
+             "property": "cartesian_site_positions", 
              "frame_serialization_format": "explicit",
              "nvalues": 1000
            },
-           "lattice_vectors":{
+           {
+             "property": "lattice_vectors",
              "frame_serialization_format": "constant",
            },
-           "species":{
+           {
+             "property": "species",
              "frame_serialization_format": "constant",
            },
-           "dimension_types":{
+           {
+             "property": "dimension_types",
              "frame_serialization_format": "constant",
            },
-           "species_at_sites":{
+           {
+             "property": "species_at_sites",
              "frame_serialization_format": "constant",
            },
-           "_exmpl_pressure":{
+           {
+             "property": "_exmpl_pressure",
              "frame_serialization_format": "explicit_custom_sparse",
              "nvalues": 20
            },
-           "_exmpl_temperature":{
+           {
+             "property": "_exmpl_temperature",
              "frame_serialization_format": "explicit_regular_sparse",
              "step_size_sparse": 10
              "nvalues": 100
            }
-         }
+         ]
 
 
 
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The preceding properties `reference_structure`_, `reference_frame`_, `nframes`_, `available_properties`_ and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
+For queries referencing the :endpoint:`trajectories` endpoint, the preceding properties `reference_structure`_, `reference_frame`_, `nframes`_, `available_properties`_ and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
 
 The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
-Next to this the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
+Furthermore, the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
 While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
 The numbering of the frames is one based, so the first frame is frame number 1.
 
