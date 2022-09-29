@@ -2940,7 +2940,7 @@ available_properties
 
          "available_properties": [
            {
-             "property": "cartesian_site_positions", 
+             "property": "cartesian_site_positions",
              "frame_serialization_format": "explicit",
              "nvalues": 1000
            },
