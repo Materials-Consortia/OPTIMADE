@@ -2812,10 +2812,8 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry point is used to share data belonging to sequences of structures.
-  Usually this data will come from molecular dynamics simulations.
-  It can however also be used to share data from structures that are related in another way.
-  For example, the successive structures from a Monte Carlo simulation.
+- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, e.g., from a molecular dynamics simulation or a Monte Carlo simulation.
+
   The individual structures of the trajectories are called frames.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
@@ -2871,7 +2869,7 @@ reference_frame
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - SHOULD NOT be :val:`null` if the `reference_structure`_ is in the trajectory. 
+  - SHOULD NOT be :val:`null` if the `reference_structure`_ is in the trajectory.
   - MUST be :val:`null` or omitted if `reference_structure`_ is not in the trajectory.
 - **Examples**:
 
