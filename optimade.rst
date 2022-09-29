@@ -1175,12 +1175,12 @@ Example (note: the description strings have been wrapped for readability only):
             "x-optimade-unit: "dimensionless",
             "x-optimade-implementation": {
               "sortable": true,
-              "query-support": "full"
+              "query-support": "all mandatory"
             },
             "x-optimade-requirements": {
               "support": "should",
               "sortable": false,
-              "query-support": "full"
+              "query-support": "all mandatory"
             }
           },
           "lattice_vectors": {
@@ -1235,7 +1235,7 @@ Example (note: the description strings have been wrapped for readability only):
                  },
                  "x-optimade-requirements": {
                    "sortable": false,
-                   "query": "none"
+                   "query-support": "none"
                  }
                }
             }
