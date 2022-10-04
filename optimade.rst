@@ -2818,14 +2818,8 @@ Trajectories Entries
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
-  Next to this they can optionally have all the fields of the Structures Entries`_ as well as relationships and database specific fields.
+  Furthermore, :entry:`trajectories` can optionally have all the fields of the Structures Entries`_ as well as relationships and database specific fields.
 
-  The `reference_structure`_ is an example of the kind of structures that are in the trajectory.
-  It is used to query the trajectory entries in the same way as the structures entries.
-  For each property in a trajectory there is a dictionary which contains the values of this property in the trajectory and information about which value belongs to which frame.
-  It is possible to request only part of a trajectory and to request only 1 out of every n frames.
-  This is described in more detail in the section `Retrieving the trajectory data`_.
-  Queries on individual frames are not supported.
 
 reference_structure
 ~~~~~~~~~~~~~~~~~~~
@@ -2878,7 +2872,9 @@ reference_frame
 nframes
 ~~~~~~~
 
-- **Description**: The number of the frames in the trajectory.
+- **Description**: The number of the frames in the trajectory as exposed by the API.
+  This value may deviate from the number steps used to calculate the trajectory.
+  E.g., for a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, nframes = 200.
 - **Type**: integer
 - **Requirements/Conventions**:
 
