@@ -2818,7 +2818,7 @@ Trajectories Entries
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
-  Next to this they can optionally have all the fields of the Structures Entries`_ as well as relationships and database specific fields.
+  Next to this they can optionally have all the fields of the `Structures Entries`_ as well as relationships and database specific fields.
 
   The `reference_structure`_ is an example of the kind of structures that are in the trajectory.
   It is used to query the trajectory entries in the same way as the structures entries.
@@ -2830,14 +2830,14 @@ Trajectories Entries
 reference_structure
 ~~~~~~~~~~~~~~~~~~~
 
-- **Description**: This is an example of the structures that can be found in the trajectory.
-  It can be used to select trajectories with queries and to give a quick visual impression of the structures in this trajectory.
+- **Description**: A representative example of the structures that make up the trajectory.
+  This structure is used when filtering trajectories according to fixed properties of the underlying frames, such as composition or dimensionality.
 - **Type**: dictionary
 - **Requirements/Conventions**:
 
   - Each trajectory MUST have a :property:`reference_structure`.
   - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field SHOULD specify which frame has been used.
-  - This reference frame has the same properties as the `Structures Entries`_ namely:
+  - This reference frame has the same properties outlined in `Structures Entries`_, namely:
 
     - `elements`_
     - `nelements`_
@@ -2856,12 +2856,12 @@ reference_structure
     - `assemblies`_
     - `structure_features`_
 
-  - The subfields of the :property:`reference_structure` MUST have the same queryability as in the :entry:`structures` entries.
+  - The subfields of the :property:`reference_structure` have the same support and queryability constraints as the corresponding :entry:`structures` entry fields.
 
 reference_frame
 ~~~~~~~~~~~~~~~
 
-- **Description**: The number of the frame at which the `reference_structure`_ was taken.
+- **Description**: The index of the frame from which the `reference_structure`_ was taken.
   The first frame is frame 1.
 - **Type**: integer
 - **Requirements/Conventions**: The value MUST be larger than 0 and equal or less than nframes.
@@ -2869,8 +2869,8 @@ reference_frame
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - SHOULD NOT be :val:`null` if the `reference_structure`_ is in the trajectory.
-  - MUST be :val:`null` or omitted if `reference_structure`_ is not in the trajectory.
+  - SHOULD NOT be :val:`null` if the `reference_structure`_ exactly matches the structure at the index `reference_frame`_ in the trajectory.
+  - MUST be :val:`null` or omitted if `reference_structure`_ is not an exact match to any structure in the trajectory.
 - **Examples**:
 
   - :val:`42`
@@ -2878,7 +2878,7 @@ reference_frame
 nframes
 ~~~~~~~
 
-- **Description**: The number of the frames in the trajectory.
+- **Description**: The number of frames in the trajectory.
 - **Type**: integer
 - **Requirements/Conventions**:
 
