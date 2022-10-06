@@ -3202,7 +3202,7 @@ This is an example of the data field of a JSON object that could be returned aft
     }
     //...
   }
-After the previous querry is an example of a JSON object that could be returned after the following query:
+Upon having performed the above query, the following query can be performed to return trajectory data:
 :query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
 
 .. code:: jsonc
