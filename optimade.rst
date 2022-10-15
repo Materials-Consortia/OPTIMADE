@@ -2979,7 +2979,7 @@ For queries referencing the :endpoint:`trajectories` endpoint, the preceding pro
 The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
 Furthermore, the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
-While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
+While these URL query parameters are OPTIONAL for clients, API implementations SHOULD accept and handle them.
 The numbering of the frames is one based, so the first frame is frame number 1.
 
 - **first_frame**:
