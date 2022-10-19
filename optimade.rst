@@ -165,7 +165,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
-    An expression used to influence the entries returned in the response to an URL query.
+    An expression used to influence the entries returned in the response to a URL query.
     The filter is specified using the URL query parameter :query-param:`filter`
     using a format described in the section `API Filtering Format Specification`_.
 
@@ -932,7 +932,7 @@ Example:
 Single Entry Endpoints
 ----------------------
 
-A client can request a specific entry by appending an URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
+A client can request a specific entry by appending a URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the :field:`id` field.
 
@@ -1463,13 +1463,13 @@ The API implementation is free to define roles of further URL path segments unde
 API Filtering Format Specification
 ==================================
 
-An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as an URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
+An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as a URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
 All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter features.
 The level of query support REQUIRED for other properties is described in `Entry list`_.
 
-When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
+When provided as a URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
 In particular, this means the client MUST escape special characters in string values as described below for `String values`_ before the URL encoding, and the API implementation MUST first URL-decode the :query-param:`filter` parameter before reversing the escaping of string tokens.
 
 Examples of syntactically correct query strings embedded in queries:
