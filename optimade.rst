@@ -512,7 +512,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
-    The field :field:`status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    The field :field:`status`, representing an HTTP response status code, MUST NOT be present for a warning resource object.
     This is an exclusive field for error resource objects.
 
     Example for a deprecation warning:
@@ -681,7 +681,7 @@ HTTP Response Status Codes
 All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
 The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
 
-See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending a HTTP GET request.
+See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending an HTTP GET request.
 
 **Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section `Index Meta-Database`_), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
 
