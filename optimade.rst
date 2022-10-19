@@ -1171,7 +1171,7 @@ Example (note: the description strings have been wrapped for readability only):
             "x-optimade-property": {
               "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
             },
-            "x-optimade-unit: "dimensionless",
+            "x-optimade-unit": "dimensionless",
             "x-optimade-implementation": {
               "sortable": true,
               "query-support": "all mandatory"
