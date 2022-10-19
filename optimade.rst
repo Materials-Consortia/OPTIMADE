@@ -1889,7 +1889,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
-    This field SHOULD only appear in a :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
