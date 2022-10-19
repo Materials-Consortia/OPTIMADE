@@ -2051,7 +2051,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`maxLength`: Integer.
     A non-negative integer.
     The defined property is a string that MUST have a length that is less than or equal to the given integer.
-    (The length of the string is the number of individual Unicode characters it is composed from.)
+    (The length of the string is the number of individual Unicode characters it is composed of.)
 
   - :field:`minLength`: Integer.
     A non-negative integer.
