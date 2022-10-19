@@ -2210,7 +2210,7 @@ type
 immutable\_id
 ~~~~~~~~~~~~~
 
-- **Description**: The entry's immutable ID (e.g., an UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
+- **Description**: The entry's immutable ID (e.g., a UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
 - **Type**: string.
 - **Requirements/Conventions**:
 
