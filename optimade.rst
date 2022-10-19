@@ -1441,7 +1441,7 @@ Index Meta-Database Links Endpoint
 
 If the provider implements an `Index Meta-Database`_, it is RECOMMENDED to adopt a structure where the index meta-database is the :val:`root` implementation of the provider.
 
-This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the Links endpoint of the `Index Meta-Database`_.
+This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the :endpoint:`links` endpoint of the `Index Meta-Database`_.
 
 Link Aggregate Options
 ~~~~~~~~~~~~~~~~~~~~~~
