@@ -1527,7 +1527,7 @@ The following tokens are used in the filter query component:
 
   String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 
-- **Numeric values** are represented as decimal integers or is scientific notation, using the usual programming language conventions.
+- **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
 
   - ERE: :ere:`[-+]?([0-9]+(\.[0-9]\*)?|\.[0-9]+)([eE][-+]?[0-9]+)?`
