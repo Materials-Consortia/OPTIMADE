@@ -2123,7 +2123,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The abbreviated name of the standard being referenced.
     One of the following:
 
-    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with GNU Units `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
     - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
     - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
