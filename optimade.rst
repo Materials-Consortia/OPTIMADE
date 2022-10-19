@@ -527,7 +527,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
          "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
        }
 
-    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field :field:`code` for this.
+    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes), use instead the field :field:`code` for this.
     Warning :field:`id`\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the :field:`type`.
 
     General OPTIMADE warning codes are specified in section `Warnings`_.
