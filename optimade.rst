@@ -3369,3 +3369,22 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
+
+The Symmetry Operator EBNF Grammar
+----------------------------------
+
+.. code:: ebnf
+
+    (* BEGIN EBNF GRAMMAR Symmetry_Operators *)
+
+    SYMMETRY_OPERATORS = SYMMETRY_OPERATOR, { [Spaces], SYMMETRY_OPERATORS };
+
+    SYMMETRY_OPERATOR = COORDINATE_EXPRESSION, ',',
+                        COORDINATE_EXPRESSION, ',',
+                        COORDINATE_EXPRESSION;
+
+    COORDINATE_EXPRESSION = COORDINATE;
+
+    COORDINATE = 'X' | 'x' | 'Y' | 'y' | 'Z' | 'z';
+
+    (* END EBNF GRAMMAR Symmetry_Operators *)
