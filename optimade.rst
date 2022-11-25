@@ -2451,6 +2451,24 @@ chemical\_formula\_anonymous
 
   - A filter that matches an exactly given formula is :filter:`chemical_formula_anonymous="A2B"`.
 
+smiles
+~~~~~~
+
+- **Description**: The SMILES (Simplified Molecular Input Line Entry System) representation of the structure.
+- **Type**: smiles
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Value MUST adhere to the `OpenSMILES specification v1.0 <http://opensmiles.org/opensmiles.html>`__.
+  - When structures or their parts cannot be unambiguously represented in SMILES according to OpenSMILES recommendations, using the guidelines from `Quirós et al. 2018 <https://doi.org/10.1186/s13321-018-0279-6>`__ is RECOMMENDED.
+  - Providers MAY canonicalize (i.e., use rules to establish stable order of atoms) produced SMILES representations, but this is not mandatory.
+    Generally, providers SHOULD NOT change the representation more frequently than the structure itself is modified.
+
+- **Examples**:
+
+  - caffeine: `CN1C=NC2=C1C(=O)N(C(=O)N2C)C`
+
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
