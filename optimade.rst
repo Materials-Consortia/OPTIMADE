@@ -1648,6 +1648,21 @@ Examples:
 - :filter:`property != FALSE`
 - :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
 
+Comparisons of SMILES values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Equality comparisons ('=' and '!=') MUST be supported for SMILES values.
+When handling equality comparisons of SMILES values, an implementation SHOULD NOT regard them as simple strings.
+Instead, an implementation SHOULD either compare the described chemical structures or canonicalize SMILES representations and then perform direct string matching.
+In addition to equality comparison operators, :val:`CONTAINS` MAY be supported optionally as an operator to check whether one structure is a substructure of another.
+Other comparison operators MUST NOT be supported.
+
+Examples:
+
+- :filter:`smiles = "c1ccccc1"`
+- :filter:`smiles != "O"`
+- :filter:`smiles CONTAINS "c1ccccc1"`
+
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
