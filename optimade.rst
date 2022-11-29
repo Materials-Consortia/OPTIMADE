@@ -165,7 +165,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
-    An expression used to influence the entries returned in the response to an URL query.
+    An expression used to influence the entries returned in the response to a URL query.
     The filter is specified using the URL query parameter :query-param:`filter`
     using a format described in the section `API Filtering Format Specification`_.
 
@@ -512,7 +512,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
-    The field :field:`status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    The field :field:`status`, representing an HTTP response status code, MUST NOT be present for a warning resource object.
     This is an exclusive field for error resource objects.
 
     Example for a deprecation warning:
@@ -527,7 +527,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
          "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
        }
 
-    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field :field:`code` for this.
+    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes), use instead the field :field:`code` for this.
     Warning :field:`id`\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the :field:`type`.
 
     General OPTIMADE warning codes are specified in section `Warnings`_.
@@ -681,7 +681,7 @@ HTTP Response Status Codes
 All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
 The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
 
-See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending a HTTP GET request.
+See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending an HTTP GET request.
 
 **Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section `Index Meta-Database`_), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
 
@@ -932,7 +932,7 @@ Example:
 Single Entry Endpoints
 ----------------------
 
-A client can request a specific entry by appending an URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
+A client can request a specific entry by appending a URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the :field:`id` field.
 
@@ -1173,7 +1173,7 @@ Example (note: the description strings have been wrapped for readability only):
             "x-optimade-property": {
               "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
             },
-            "x-optimade-unit: "dimensionless",
+            "x-optimade-unit": "dimensionless",
             "x-optimade-implementation": {
               "sortable": true,
               "query-support": "all mandatory"
@@ -1443,7 +1443,7 @@ Index Meta-Database Links Endpoint
 
 If the provider implements an `Index Meta-Database`_, it is RECOMMENDED to adopt a structure where the index meta-database is the :val:`root` implementation of the provider.
 
-This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the Links endpoint of the `Index Meta-Database`_.
+This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the :endpoint:`links` endpoint of the `Index Meta-Database`_.
 
 Link Aggregate Options
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -1465,13 +1465,13 @@ The API implementation is free to define roles of further URL path segments unde
 API Filtering Format Specification
 ==================================
 
-An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as an URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
+An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as a URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
 All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter features.
 The level of query support REQUIRED for other properties is described in `Entry list`_.
 
-When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
+When provided as a URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
 In particular, this means the client MUST escape special characters in string values as described below for `String values`_ before the URL encoding, and the API implementation MUST first URL-decode the :query-param:`filter` parameter before reversing the escaping of string tokens.
 
 Examples of syntactically correct query strings embedded in queries:
@@ -1528,7 +1528,7 @@ The following tokens are used in the filter query component:
 
   String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 
-- **Numeric values** are represented as decimal integers or is scientific notation, using the usual programming language conventions.
+- **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
 
   - ERE: :ere:`[-+]?([0-9]+(\.[0-9]\*)?|\.[0-9]+)([eE][-+]?[0-9]+)?`
@@ -1890,7 +1890,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
-    This field SHOULD only appear in a :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
@@ -2052,7 +2052,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`maxLength`: Integer.
     A non-negative integer.
     The defined property is a string that MUST have a length that is less than or equal to the given integer.
-    (The length of the string is the number of individual Unicode characters it is composed from.)
+    (The length of the string is the number of individual Unicode characters it is composed of.)
 
   - :field:`minLength`: Integer.
     A non-negative integer.
@@ -2124,7 +2124,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The abbreviated name of the standard being referenced.
     One of the following:
 
-    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with GNU Units `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
     - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
     - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
@@ -2212,7 +2212,7 @@ type
 immutable\_id
 ~~~~~~~~~~~~~
 
-- **Description**: The entry's immutable ID (e.g., an UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
+- **Description**: The entry's immutable ID (e.g., a UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
 - **Type**: string.
 - **Requirements/Conventions**:
 
@@ -2654,7 +2654,7 @@ species
       Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-          **Note**: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
+          **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
           The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
@@ -2715,7 +2715,7 @@ assemblies
 - **Notes**:
 
   - Assemblies are essential to represent, for instance, the situation where an atom can statistically occupy two different positions (sites).
-  - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it it is present in two conformations)
+  - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it is present in two conformations).
   - Considerations on virtual alloys and on vacancies: In the special case of a virtual alloy, these specifications allow two different, equivalent ways of specifying them.
     For instance, for a site at the origin with 30 % probability of being occupied by Si, 50 % probability of being occupied by Ge, and 20 % of being a vacancy, the following two representations are possible:
 
