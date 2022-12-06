@@ -2,8 +2,8 @@
   "openapi": "3.0.2",
   "info": {
     "title": "OPTIMADE API - Index meta-database",
-    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.16.0) v0.16.0.",
-    "version": "1.1.0~develop"
+    "description": "The [Open Databases Integration for Materials Design (OPTIMADE) consortium](https://www.optimade.org/) aims to make materials databases interoperational by developing a common REST API.\nThis is the \"special\" index meta-database.\n\nThis specification is generated using [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.20.1) v0.21.0~develop.",
+    "version": "1.2.0~develop"
   },
   "paths": {
     "/info": {
@@ -17,7 +17,7 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/IndexInfoResponse"
                 }
@@ -27,7 +27,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -37,7 +37,7 @@
           "403": {
             "description": "Forbidden",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -47,7 +47,7 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -57,7 +57,7 @@
           "422": {
             "description": "Unprocessable Entity",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -67,7 +67,7 @@
           "500": {
             "description": "Internal Server Error",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -77,7 +77,7 @@
           "501": {
             "description": "Not Implemented",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -87,7 +87,7 @@
           "553": {
             "description": "Version Not Supported",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -199,10 +199,8 @@
             "required": false,
             "schema": {
               "title": "Page Number",
-              "minimum": 0.0,
               "type": "integer",
-              "description": "RECOMMENDED for use with _page-based_ pagination: using `page_number` and `page_limit` is RECOMMENDED.\nIt is RECOMMENDED that the first page has number 1, i.e., that `page_number` is 1-based.\nExample: Fetch page 2 of up to 50 structures per page: `/structures?page_number=2&page_limit=50`.",
-              "default": 0
+              "description": "RECOMMENDED for use with _page-based_ pagination: using `page_number` and `page_limit` is RECOMMENDED.\nIt is RECOMMENDED that the first page has number 1, i.e., that `page_number` is 1-based.\nExample: Fetch page 2 of up to 50 structures per page: `/structures?page_number=2&page_limit=50`."
             },
             "name": "page_number",
             "in": "query"
@@ -276,7 +274,7 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/LinksResponse"
                 }
@@ -286,7 +284,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -296,7 +294,7 @@
           "403": {
             "description": "Forbidden",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -306,7 +304,7 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -316,7 +314,7 @@
           "422": {
             "description": "Unprocessable Entity",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -326,7 +324,7 @@
           "500": {
             "description": "Internal Server Error",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -336,7 +334,7 @@
           "501": {
             "description": "Not Implemented",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -346,7 +344,7 @@
           "553": {
             "description": "Version Not Supported",
             "content": {
-              "application/json": {
+              "application/vnd.api+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -418,7 +416,12 @@
             "title": "Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "A string containing the full version number of the API served at that versioned base URL.\nThe version number string MUST NOT be prefixed by, e.g., 'v'.\nExamples: `1.0.0`, `1.0.0-rc.2`."
+            "description": "A string containing the full version number of the API served at that versioned base URL.\nThe version number string MUST NOT be prefixed by, e.g., 'v'.\nExamples: `1.0.0`, `1.0.0-rc.2`.",
+            "example": [
+              "0.10.1",
+              "1.0.0-rc.2",
+              "1.2.3-rc.5+develop"
+            ]
           }
         },
         "description": "A JSON object containing information about an available API version"
@@ -433,7 +436,7 @@
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "OPTIONAL human-readable description of the relationship"
+            "description": "OPTIONAL human-readable description of the relationship."
           }
         },
         "description": "Specific meta field for base relationship resource"
@@ -505,12 +508,16 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "An entry's ID as defined in section Definition of Terms.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n\n- **Examples**:\n    - `\"db/1234567\"`\n    - `\"cod/2000000\"`\n    - `\"cod/2000000@1234567\"`\n    - `\"nomad/L1234567890\"`\n    - `\"42\"`"
+            "description": "An entry's ID as defined in section Definition of Terms.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n\n- **Examples**:\n    - `\"db/1234567\"`\n    - `\"cod/2000000\"`\n    - `\"cod/2000000@1234567\"`\n    - `\"nomad/L1234567890\"`\n    - `\"42\"`",
+            "x-optimade-support": "must",
+            "x-optimade-queryable": "must"
           },
           "type": {
             "title": "Type",
             "type": "string",
-            "description": "The name of the type of an entry.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n    - MUST be an existing entry type.\n    - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for `/<type>/<id>` under the versioned base URL.\n\n- **Example**: `\"structures\"`"
+            "description": "The name of the type of an entry.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n    - MUST be an existing entry type.\n    - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for `/<type>/<id>` under the versioned base URL.\n\n- **Example**: `\"structures\"`",
+            "x-optimade-support": "must",
+            "x-optimade-queryable": "must"
           },
           "links": {
             "title": "Links",
@@ -561,13 +568,17 @@
           "immutable_id": {
             "title": "Immutable Id",
             "type": "string",
-            "description": "The entry's immutable ID (e.g., an UUID). This is important for databases having preferred IDs that point to \"the latest version\" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: OPTIONAL support in implementations, i.e., MAY be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n\n- **Examples**:\n    - `\"8bd3e750-b477-41a0-9b11-3a799f21b44f\"`\n    - `\"fjeiwoj,54;@=%<>#32\"` (Strings that are not URL-safe are allowed.)"
+            "description": "The entry's immutable ID (e.g., an UUID). This is important for databases having preferred IDs that point to \"the latest version\" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: OPTIONAL support in implementations, i.e., MAY be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n\n- **Examples**:\n    - `\"8bd3e750-b477-41a0-9b11-3a799f21b44f\"`\n    - `\"fjeiwoj,54;@=%<>#32\"` (Strings that are not URL-safe are allowed.)",
+            "x-optimade-support": "optional",
+            "x-optimade-queryable": "must"
           },
           "last_modified": {
             "title": "Last Modified",
             "type": "string",
             "description": "Date and time representing when the entry was last modified.\n\n- **Type**: timestamp.\n\n- **Requirements/Conventions**:\n    - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response unless the query parameter `response_fields` is present and does not include this property.\n\n- **Example**:\n    - As part of JSON response format: `\"2007-04-05T14:30:20Z\"` (i.e., encoded as an [RFC 3339 Internet Date/Time Format](https://tools.ietf.org/html/rfc3339#section-5.6) string.)",
-            "format": "date-time"
+            "format": "date-time",
+            "x-optimade-support": "should",
+            "x-optimade-queryable": "must"
           }
         },
         "description": "Contains key-value pairs representing the entry's properties."
@@ -639,9 +650,9 @@
             "title": "About",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -684,7 +695,7 @@
                 "$ref": "#/components/schemas/ResponseMeta"
               }
             ],
-            "description": "A meta object containing non-standard information"
+            "description": "A meta object containing non-standard information."
           },
           "errors": {
             "title": "Errors",
@@ -760,9 +771,9 @@
             "title": "Homepage",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -775,9 +786,9 @@
             "title": "Source Url",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -799,9 +810,9 @@
             "title": "Issue Tracker",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -835,7 +846,9 @@
           "api_version",
           "available_api_versions",
           "available_endpoints",
-          "entry_types_by_format"
+          "entry_types_by_format",
+          "license",
+          "available_licenses"
         ],
         "type": "object",
         "properties": {
@@ -843,7 +856,12 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "Presently used full version of the OPTIMADE API.\nThe version number string MUST NOT be prefixed by, e.g., \"v\".\nExamples: `1.0.0`, `1.0.0-rc.2`."
+            "description": "Presently used full version of the OPTIMADE API.\nThe version number string MUST NOT be prefixed by, e.g., \"v\".\nExamples: `1.0.0`, `1.0.0-rc.2`.",
+            "example": [
+              "0.10.1",
+              "1.0.0-rc.2",
+              "1.2.3-rc.5+develop"
+            ]
           },
           "available_api_versions": {
             "title": "Available Api Versions",
@@ -883,10 +901,34 @@
             },
             "description": "Available entry endpoints as a function of output formats."
           },
+          "license": {
+            "title": "License",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              },
+              {
+                "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "description": "A [JSON API links object](http://jsonapi.org/format/1.0/#document-links) giving a URL to a web page containing a human-readable text describing the license (or licensing options if there are multiple) covering all the data and metadata provided by this database.\nClients are advised not to try automated parsing of this link or its content, but rather rely on the field `available_licenses` instead."
+          },
+          "available_licenses": {
+            "title": "Available Licenses",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of [SPDX license identifiers](https://spdx.org/licenses/) specifying a set of alternative licenses under which the client is granted access to all the data and metadata in this database.\n\nIf the data and metadata is available under multiple alternative licenses, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata can be used.\nInclusion of a license identifier in the list is a commitment of the database that the rights are in place to grant clients access to all the data and metadata according to the terms of either of these licenses (at the choice of the client).\nIf the licensing information provided via the field `license` omits licensing options specified in `available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in `available_licenses` as a full commitment from the database that the data and metadata is available, without exceptions, under the respective licenses.\nIf the database cannot make that commitment, e.g., if only part of the data is available under a license, the corresponding license identifier MUST NOT appear in `available_licenses` (but, rather, the field `license` is to be used to clarify the licensing situation.)\nAn empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field `license`."
+          },
           "is_index": {
             "title": "Is Index",
             "type": "boolean",
-            "description": "This must be `true` since this is an index meta-database (see section Index Meta-Database)."
+            "description": "This must be `true` since this is an index meta-database (see section Index Meta-Database).",
+            "default": true
           }
         },
         "description": "Attributes for Base URL Info endpoint for an Index Meta-Database"
@@ -904,12 +946,14 @@
           "id": {
             "title": "Id",
             "pattern": "^/$",
-            "type": "string"
+            "type": "string",
+            "default": "/"
           },
           "type": {
             "title": "Type",
             "pattern": "^info$",
-            "type": "string"
+            "type": "string",
+            "default": "info"
           },
           "links": {
             "title": "Links",
@@ -958,7 +1002,7 @@
                 "$ref": "#/components/schemas/IndexInfoResource"
               }
             ],
-            "description": "Index meta-database /info data"
+            "description": "Index meta-database /info data."
           },
           "meta": {
             "title": "Meta",
@@ -1098,13 +1142,16 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "An entry's ID as defined in section Definition of Terms.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n\n- **Examples**:\n    - `\"db/1234567\"`\n    - `\"cod/2000000\"`\n    - `\"cod/2000000@1234567\"`\n    - `\"nomad/L1234567890\"`\n    - `\"42\"`"
+            "description": "An entry's ID as defined in section Definition of Terms.\n\n- **Type**: string.\n\n- **Requirements/Conventions**:\n    - **Support**: MUST be supported by all implementations, MUST NOT be `null`.\n    - **Query**: MUST be a queryable property with support for all mandatory filter features.\n    - **Response**: REQUIRED in the response.\n\n- **Examples**:\n    - `\"db/1234567\"`\n    - `\"cod/2000000\"`\n    - `\"cod/2000000@1234567\"`\n    - `\"nomad/L1234567890\"`\n    - `\"42\"`",
+            "x-optimade-support": "must",
+            "x-optimade-queryable": "must"
           },
           "type": {
             "title": "Type",
             "pattern": "^links$",
             "type": "string",
-            "description": "These objects are described in detail in the section Links Endpoint"
+            "description": "These objects are described in detail in the section Links Endpoint",
+            "default": "links"
           },
           "links": {
             "title": "Links",
@@ -1170,9 +1217,9 @@
             "title": "Base Url",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1185,9 +1232,9 @@
             "title": "Homepage",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1248,7 +1295,7 @@
                 }
               }
             ],
-            "description": "List of unique OPTIMADE links resource objects"
+            "description": "List of unique OPTIMADE links resource objects."
           },
           "meta": {
             "title": "Meta",
@@ -1404,9 +1451,9 @@
             "title": "Homepage",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1457,7 +1504,7 @@
             "description": "a meta object that contains non-standard meta-information about the relationship."
           }
         },
-        "description": "Similar to normal JSON API relationship, but with addition of OPTIONAL meta field for a resource"
+        "description": "Similar to normal JSON API relationship, but with addition of OPTIONAL meta field for a resource."
       },
       "RelatedLinksResource": {
         "title": "RelatedLinksResource",
@@ -1475,7 +1522,8 @@
           "type": {
             "title": "Type",
             "pattern": "^links$",
-            "type": "string"
+            "type": "string",
+            "default": "links"
           }
         },
         "description": "A related Links resource object"
@@ -1488,9 +1536,9 @@
             "title": "Self",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1503,9 +1551,9 @@
             "title": "Related",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1588,9 +1636,9 @@
             "title": "Self",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1624,7 +1672,12 @@
             "title": "Api Version",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
             "type": "string",
-            "description": "Presently used full version of the OPTIMADE API.\nThe version number string MUST NOT be prefixed by, e.g., \"v\".\nExamples: `1.0.0`, `1.0.0-rc.2`."
+            "description": "Presently used full version of the OPTIMADE API.\nThe version number string MUST NOT be prefixed by, e.g., \"v\".\nExamples: `1.0.0`, `1.0.0-rc.2`.",
+            "example": [
+              "0.10.1",
+              "1.0.0-rc.2",
+              "1.2.3-rc.5+develop"
+            ]
           },
           "more_data_available": {
             "title": "More Data Available",
@@ -1635,9 +1688,9 @@
             "title": "Schema",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1681,6 +1734,12 @@
             "title": "Response Message",
             "type": "string",
             "description": "response string from the server"
+          },
+          "request_delay": {
+            "title": "Request Delay",
+            "minimum": 0.0,
+            "type": "number",
+            "description": "A non-negative float giving time in seconds that the client is suggested to wait before issuing a subsequent request."
           },
           "implementation": {
             "title": "Implementation",
@@ -1757,7 +1816,7 @@
             "description": "a meta object that contains non-standard meta-information about the relationship."
           }
         },
-        "description": "Similar to normal JSON API relationship, but with addition of OPTIONAL meta field for a resource"
+        "description": "Similar to normal JSON API relationship, but with addition of OPTIONAL meta field for a resource."
       },
       "ToplevelLinks": {
         "title": "ToplevelLinks",
@@ -1767,9 +1826,9 @@
             "title": "Self",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1782,9 +1841,9 @@
             "title": "Related",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1797,9 +1856,9 @@
             "title": "First",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1812,9 +1871,9 @@
             "title": "Last",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1827,9 +1886,9 @@
             "title": "Prev",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1842,9 +1901,9 @@
             "title": "Next",
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1,
                 "maxLength": 65536,
+                "minLength": 1,
+                "type": "string",
                 "format": "uri"
               },
               {
@@ -1915,7 +1974,8 @@
             "title": "Type",
             "pattern": "^warning$",
             "type": "string",
-            "description": "Warnings must be of type \"warning\""
+            "description": "Warnings must be of type \"warning\"",
+            "default": "warning"
           }
         },
         "description": "OPTIMADE-specific warning class based on OPTIMADE-specific JSON API Error.\n\nFrom the specification:\n\nA warning resource object is defined similarly to a JSON API error object, but MUST also include the field type, which MUST have the value \"warning\".\nThe field detail MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.\n\nNote: Must be named \"Warnings\", since \"Warning\" is a built-in Python class."
