@@ -1,5 +1,5 @@
 =========================================
-OPTIMADE API specification v1.1.0~develop
+OPTIMADE API specification v1.2.0~develop
 =========================================
 
 .. comment
