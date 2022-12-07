@@ -2812,13 +2812,13 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, e.g., from a molecular dynamics simulation or a Monte Carlo simulation.
+- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, e.g., from a molecular dynamics or Monte Carlo simulation.
 
   The individual structures of the trajectories are called frames.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_, `nframes`_ and `available_properties`_.
-  Furthermore, :entry:`trajectories` can optionally have all the fields of the Structures Entries`_ as well as relationships and database specific fields.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_ and `nframes`_.
+  Furthermore, :entry:`trajectories` can optionally have relationships and database specific fields as well as "ranged" properties that contain the values of that property for the frames of the trajectory.
 
 
 reference_structure
@@ -2829,7 +2829,7 @@ reference_structure
 - **Type**: dictionary
 - **Requirements/Conventions**:
 
-  - Each trajectory MUST have a :property:`reference_structure`.
+  - Each trajectory MAY have a :property:`reference_structure`.
   - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field SHOULD specify which frame has been used.
   - This reference frame has the same properties outlined in `Structures Entries`_, namely:
 
@@ -2894,87 +2894,11 @@ nframes
 
   -   :val:`42`
 
-available_properties
-~~~~~~~~~~~~~~~~~~~~
-
-- **Description**: A dictionary with an entry for each of the properties for which data is available in the trajectory.
-  The key is the name of the property.
-  The value is a dictionary containing information about which value belongs to which frame.
-  This makes it easier for a client to estimate the amount of data a query returns.
-
-  It is up to the server to decide which properties to share and there are no mandatory fields.
-  When sharing `cartesian_site_positions`_ the `lattice_vectors`_, `species`_, `dimension_types`_ and `species_at_sites`_ MUST however be shared as well.
-
-
-- **Type**: dictionary of dictionaries
-- **Requirements/Conventions**:
-
-  -   **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
-  -   **Query**: MUST be a queryable property with support for all mandatory filter features.
-
-- **Sub dictionary fields**
-
-  - **frame_serialization_format**
-
-    -   **Description**: This property describes how the frames and the returned values of a property are related.
-        For each :property:`frame_serialization_format` method there are additional fields that describe how the values belong to the frames.
-        These fields should also be present here.
-        A complete description of the :property:`frame_serialization_format` methods and the fields belonging to these methods can be found in the section: `Return Format for Trajectory Data`_
-
-  - **nvalues**:
-
-    - **Description**: This field gives the number of values for this property.
-    - **Type**: integer
-    - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to explicit, explicit_regular_sparse or explicit_custom_sparse.
-    - **Examples**:
-
-      - :val:`100`
-
-- **Examples**:
-
-    .. code:: jsonc
-
-         "available_properties": [
-           {
-             "property": "cartesian_site_positions",
-             "frame_serialization_format": "explicit",
-             "nvalues": 1000
-           },
-           {
-             "property": "lattice_vectors",
-             "frame_serialization_format": "constant",
-           },
-           {
-             "property": "species",
-             "frame_serialization_format": "constant",
-           },
-           {
-             "property": "dimension_types",
-             "frame_serialization_format": "constant",
-           },
-           {
-             "property": "species_at_sites",
-             "frame_serialization_format": "constant",
-           },
-           {
-             "property": "_exmpl_pressure",
-             "frame_serialization_format": "explicit_custom_sparse",
-             "nvalues": 20
-           },
-           {
-             "property": "_exmpl_temperature",
-             "frame_serialization_format": "explicit_regular_sparse",
-             "step_size_sparse": 10
-             "nvalues": 100
-           }
-         ]
-
-
 
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For queries referencing the :endpoint:`trajectories` endpoint, the preceding properties `reference_structure`_, `reference_frame`_, `nframes`_, `available_properties`_ and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
+For queries referencing the :endpoint:`trajectories` endpoint, the preceding properties `reference_structure`_, `reference_frame`_, `nframes`_ and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
 
 The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
