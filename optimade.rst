@@ -2825,7 +2825,7 @@ reference_structure
 ~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A representative example of the structures that make up the trajectory.
-  This structure is used when filtering trajectories according to fixed properties of the underlying frames, such as composition or dimensionality.
+  This structure can be used to give a quick visualization of the type of structures that are present in the trajectory.
 - **Type**: dictionary
 - **Requirements/Conventions**:
 
@@ -2898,9 +2898,9 @@ nframes
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For queries referencing the :endpoint:`trajectories` endpoint, the preceding properties `reference_structure`_, `reference_frame`_, `nframes`_ and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified.
+For queries referencing the :endpoint:`trajectories` endpoint, the ranged properties and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified. For the ranged properties, only the metadata fields should be returned in this case.
 
-The data from the trajectory frames SHOULD only be returned when the user specifically requests these properties in the response_fields.
+The values of the ranged properties SHOULD only be returned when the user specifically requests these properties in the response_fields.
 
 Furthermore, the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
 While these URL query parameters are OPTIONAL for clients, API implementations SHOULD accept and handle them.
