@@ -2814,7 +2814,7 @@ Trajectories Entries
 
 - **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, e.g., from a molecular dynamics or Monte Carlo simulation.
 
-  The individual structures of the trajectories are called frames.
+  The individual steps of the trajectories are called frames.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_ and `nframes`_.
@@ -2828,8 +2828,8 @@ reference_structure
   This structure can be used to give a quick visualization of the type of structures that are present in the trajectory.
 - **Type**: dictionary
 - **Requirements/Conventions**:
+- **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
 
-  - Each trajectory MAY have a :property:`reference_structure`.
   - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field SHOULD specify which frame has been used.
   - This reference frame has the same properties outlined in `Structures Entries`_, namely:
 
@@ -2898,11 +2898,10 @@ nframes
 Retrieving the trajectory data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For queries referencing the :endpoint:`trajectories` endpoint, the ranged properties and the properties described under `Properties Used by Multiple Entry Types`_ MUST be returned when no :query-param:`response_fields` property (see the section `Entry Listing URL Query Parameters`_) is specified. For the ranged properties, only the metadata fields should be returned in this case.
+By default only the metadata fields should be returned for the ranged properties.
+The values of the ranged properties SHOULD only be returned when the user specifies a range of frames with the query parameters described below.
 
-The values of the ranged properties SHOULD only be returned when the user specifically requests these properties in the response_fields.
-
-Furthermore, the client MAY specify the following parameters to customize the return from the server at the trajectory endpoint.
+The client can use these parameters to customize the return from the server at the trajectory endpoint.
 While these URL query parameters are OPTIONAL for clients, API implementations SHOULD accept and handle them.
 The numbering of the frames is one based, so the first frame is frame number 1.
 
