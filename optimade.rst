@@ -1555,7 +1555,8 @@ More examples of the number tokens and machine-readable definitions and tests ca
 - **Boolean values** are represented with the tokens :filter-op:`TRUE` and :filter-op:`FALSE`.
 
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
-  Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical), timestamp (temporal) or SMILES representation (structural) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
+  Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
+  Of these, SMILES data type supports only equality and inequality comparison operators (:filter-op:`=` and :filter-op:`!=`).
 
   In future extensions, operator tokens that are words MUST contain only upper-case letters.
   This requirement guarantees that no operator token will ever clash with a property name.
