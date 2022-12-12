@@ -1793,7 +1793,7 @@ Similarly, for `database-provider-specific properties`_, the database provider d
 In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with the exception of timestamps and SMILES representations (see below).
 Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
-As the filter language syntax does not define lexical tokens for timestamps and SMILES, values of these types are expressed using string tokens.
+As the filter language syntax does not define lexical tokens for timestamps or SMILES, values of these types are expressed using string tokens.
 For timestamps `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ representation is used and `OpenSMILES specification <http://opensmiles.org/opensmiles.html>`__ is used for SMILES.
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 In a comparison with a SMILES property, a string token represents a chemical structure that would result from parsing the string according to the OpenSMILES specification v1.0.
