@@ -1796,7 +1796,7 @@ Different types of values MUST be reported as :http-error:`501 Not Implemented` 
 As the filter language syntax does not define lexical tokens for timestamps and SMILES, values of these types are expressed using string tokens.
 For timestamps `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ representation is used and `OpenSMILES specification <http://opensmiles.org/opensmiles.html>`__ is used for SMILES.
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
-In a comparison with a SMILES property, a string token represents a chemical structure that would result from parsing the string according to the SMILES specification.
+In a comparison with a SMILES property, a string token represents a chemical structure that would result from parsing the string according to the OpenSMILES specification v1.0.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
 Optional filter features
