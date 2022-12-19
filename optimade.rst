@@ -897,6 +897,7 @@ OPTIONALLY it can also contain the following fields:
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
   The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
+  All relationships to entries of the same entry type MUST be grouped into the same JSON API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
 
 Example:
 
