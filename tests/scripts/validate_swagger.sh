@@ -13,7 +13,7 @@ fi
 echo "Validating schema at ${1}":
 
 response=$(curl -sS -H "Content-Type: application/json" -d @${1} https://validator.swagger.io/validator/debug)
-length=$(echo $response | jq 'length')
+length=$(echo $response | jq '.schemaValidationMessages | length')
 
 if [ $length -eq 0 ]; then
     echo "Success!"
