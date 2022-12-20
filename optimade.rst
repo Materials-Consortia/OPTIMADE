@@ -232,7 +232,7 @@ This standard describes a communication protocol that, when implemented by a ser
 
 Released versions of the standard are versioned using `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ in reference to changes in *that API* (i.e., not in the server-side implementation of the protocol).
 
-To clarify: semantic versioning mandates version numbers on the form MAJOR.MINOR.PATCH, where a "backwards incompatible API change" requires incrementing the MAJOR version number.
+To clarify: semantic versioning mandates version numbers of the form MAJOR.MINOR.PATCH, where a "backwards incompatible API change" requires incrementing the MAJOR version number.
 A future version of the OPTIMADE standard can mandate servers to change their behavior to be compliant with the newer version.
 However, such changes are only considered "backwards incompatible API changes" if they have the potential to break clients that correctly use the API according to the earlier version.
 
@@ -244,7 +244,7 @@ Working copies distributed as part of the development of the standard are marked
 These "versions" do not refer to a single specific instance of the text (i.e., the same "~develop" version string is retained until a release), nor is it clear to what degree they contain backwards incompatible API changes.
 Hence, the suffix is intentionally designed to make these version strings not to conform with semantic versioning to prevent incorrect comparisons to released versions using the scheme prescribed by semantic versioning.
 Version strings with a "~develop" suffix MAY be used by implementations during testing.
-However, a client that encounter them unexpectedly SHOULD NOT make any assumptions about the level of API compatibility.
+However, a client that encounters them unexpectedly SHOULD NOT make any assumptions about the level of API compatibility.
 
 In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future (non-development) version of the standard sharing the same MAJOR version number.
 
