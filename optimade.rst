@@ -230,7 +230,7 @@ Versioning of this standard
 ---------------------------
 This standard describes a communication protocol that, when implemented by a server, provides clients with an API for data access.
 
-The standard is versioned using `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ in reference to changes in *that API* (i.e., not in the server-side implementation of the protocol).
+Released versions of the standard are versioned using `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ in reference to changes in *that API* (i.e., not in the server-side implementation of the protocol).
 
 To clarify: semantic versioning mandates version numbers on the form MAJOR.MINOR.PATCH, where a "backwards incompatible API change" requires incrementing the MAJOR version number.
 A future version of the OPTIMADE standard can mandate servers to change their behavior to be compliant with the newer version.
@@ -239,6 +239,12 @@ However, such changes are only considered "backwards incompatible API changes" i
 Furthermore, the addition of new keys in key-value-formatted responses of the OPTIMADE API are not regarded as "backwards incompatible API changes."
 Hence, a client MUST disregard unrecognized keys when interpreting responses (but MAY issue warnings about them).
 On the other hand, a change of the OPTIMADE standard that fundamentally alters the interpretation of a response due to the presence of a new key will be regarded as a "backwards incompatible API change" since a client interpreting the response according to a prior version of the standard would misinterpret that response.
+
+Working copies distributed as part of the development of the standard are marked with the version number for the release they are based on with an additional "~develop" suffix.
+These "versions" do not refer to a single specific instance of the text (i.e., the same "~develop" version string is retained until a release), nor is it clear to what degree they contain backwards incompatible API changes.
+Hence, the suffix is intentionally designed to make these version strings not to conform with semantic versioning to prevent incorrect comparisons to released versions using the scheme prescribed by semantic versioning.
+Version strings with a "~develop" suffix MAY be used by implementations during testing.
+However, a client that encounter them unexpectedly SHOULD NOT make any assumptions about the level of API compatibility.
 
 In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future version of the standard sharing the same MAJOR version number.
 
