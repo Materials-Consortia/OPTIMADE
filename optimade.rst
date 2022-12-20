@@ -246,7 +246,7 @@ Hence, the suffix is intentionally designed to make these version strings not to
 Version strings with a "~develop" suffix MAY be used by implementations during testing.
 However, a client that encounter them unexpectedly SHOULD NOT make any assumptions about the level of API compatibility.
 
-In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future version of the standard sharing the same MAJOR version number.
+In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future (non-development) version of the standard sharing the same MAJOR version number.
 
 Base URL
 --------
