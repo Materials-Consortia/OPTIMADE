@@ -1814,7 +1814,7 @@ A Property Definition MUST be composed according to the combination of the requi
     Specifies the minor version of the property definition format used.
     The string MUST be on the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
     The version number string MUST NOT be prefixed by, e.g., "v".
-    The value must be at least :field-val:`1.2`.
+    The value MUST be at least :field-val:`1.2`.
     A client MUST disregard the property definition if the MAJOR version number specified in this field is unrecognized.
     This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
