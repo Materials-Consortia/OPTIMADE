@@ -226,6 +226,22 @@ The definition of a property of an entry type specifies a type. The value of tha
 General API Requirements and Conventions
 ========================================
 
+Versioning of this standard
+---------------------------
+This standard describes a communication protocol that, when implemented by a server, provides clients with an API for data access.
+
+The standard is versioned using `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ in reference to changes in *that API* (i.e., not in the server-side implementation of the protocol).
+
+To clarify: semantic versioning mandates version numbers on the form MAJOR.MINOR.PATCH, where a "backwards incompatible API change" requires incrementing the MAJOR version number.
+A future version of the OPTIMADE standard can mandate servers to change their behavior to be compliant with the newer version.
+However, such changes are only considered "backwards incompatible API changes" if they have the potential to break clients that correctly use the API according to the earlier version.
+
+Furthermore, the addition of new keys in key-value-formatted responses of the OPTIMADE API are not regarded as "backwards incompatible API changes."
+Hence, a client MUST disregard unrecognized keys when interpreting responses (but MAY issue warnings about them).
+On the other hand, a change of the OPTIMADE standard that fundamentally alters the interpretation of a response due to the presence of a new key will be regarded as a "backwards incompatible API change" since a client interpreting the response according to a prior version of the standard would misinterpret that response.
+
+In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future version of the standard sharing the same MAJOR version number.
+
 Base URL
 --------
 
