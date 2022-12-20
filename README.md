@@ -28,10 +28,10 @@ If this is a pre-release, implementations are also encouraged to support the lat
 
 The OPTIMADE standard refers to a specific version of the `definition.units` database included with the source distribution of GNU Units.
 This file is included in the OPTIMADE repository under the subdirectory [units](units).
-The file is licensed separately from other files in the repository: it available under the GNU General Public License (GPL).
-The the full license text that apply to that file is included in the file [COPYING](units/COPYING) in that directory.
+The file is licensed separately from other files in the repository: it is available under the GNU General Public License (GPL).
+The full license text that applies to that file is included in the file [COPYING](units/COPYING) in that directory.
 
-The following does not consitute legal advice, however, we believe implementations under other licenses can use this file if:
+The following does not constitute legal advice, however, we believe implementations under other licenses can use this file if:
 
 - The file is distributed separated from other source files in a way that makes it clear that it is part of the GNU Units software and is licensed under the GPL.
   (For example, as done in this repository: in a separate subdirectory with its own readme and license files.)

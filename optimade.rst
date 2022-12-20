@@ -1812,8 +1812,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`property-definition-version`: String.
     Specifies the minor version of the property definition format used.
-    The string MUST be a version string up to the minor version of an OPTIMADE standard that describe the format in which this property definition is expressed.
-    This allows future versions of this standard to allow implementations to keep definitions that adhere to older versions of the property definition format.
+    The string MUST be a version string up to the minor version of an OPTIMADE standard that describes the format in which this property definition is expressed.
+    This allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
     The version number string MUST NOT be prefixed by, e.g., "v".
     Examples: :field-val:`1.1`.
 
