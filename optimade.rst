@@ -1810,7 +1810,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
-  - :field:`property-definition-version`: String.
+  - :field:`property-format`: String.
     Specifies the minor version of the property definition format used.
     The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
     The version number string MUST NOT be prefixed by, e.g., "v".
