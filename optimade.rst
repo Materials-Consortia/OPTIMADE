@@ -1815,7 +1815,7 @@ A Property Definition MUST be composed according to the combination of the requi
     The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
     The version number string MUST NOT be prefixed by, e.g., "v".
     The value MUST be at least :field-val:`1.2`.
-    A client MUST disregard the property definition if the MAJOR version number specified in this field is unrecognized.
+    A client MUST disregard the property definition if the field is not a string on MAJOR.MINOR form or the MAJOR version number specified in the field is unrecognized.
     This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
   - :field:`property-uri`: String.
