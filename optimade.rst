@@ -1947,6 +1947,13 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
   - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
 
+  For OPTIMADE data types not covered above:
+
+  - timestamps are represented by setting the :field:`type` field to :val:`"string"` and the :field:`format` field to :val:`"date-time"`.
+    In this case it is MANDATORY to include the field :field:`format`.
+
+  Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterpret the definition accordingly.
+
 ..
 
   Implementation notes:
