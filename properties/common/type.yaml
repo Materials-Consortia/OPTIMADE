@@ -1,0 +1,20 @@
+type:
+  $id: "https://schemas.optimade.org/properties/v1.2/common/type"
+  x-optimade-property:
+    property-format: "1.2"
+  title: "Type"
+  type:
+    - "string"
+  description: |-
+    The name of the type of an entry.
+
+    Requirements/Conventions:
+    - MUST be an existing entry type.
+    - The entry of type <type> and ID <id> MUST be returned in response to a request for /<type>/<id> under the versioned or unversioned base URL serving the API.
+  examples:
+    - "structures"
+  x-optimade-unit: "inapplicable"
+  x-optimade-requirements:
+    support: "must"
+    sortable: false
+    query-support: "all mandatory"

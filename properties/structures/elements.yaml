@@ -1,0 +1,31 @@
+elements:
+  $id: "https://schemas.optimade.org/properties/v1.2/structures/elements"
+  x-optimade-property:
+    property-format: 1.2
+  title: "Elements"
+  type:
+    - "array"
+    - "null"
+  description: |-
+    The chemical symbols of the different elements present in the structure.
+
+    Requirements/Conventions:
+    - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
+    - The order MUST be alphabetical.
+    - MUST refer to the same elements in the same order, and therefore be of the same length, as elements_ratios, if the latter is provided.
+    - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field chemical_symbols for the species property).
+
+    Queryinig:
+    - A filter that matches all records of structures that contain Si, Al and O, and possibly other elements: elements HAS ALL "Si", "Al", "O".
+    - To match structures with exactly these three elements, use elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3.
+    - Note: length queries on this property can be equivalently formulated by filtering on the nelements property directly.
+  examples:
+    - ["Si"]
+    - ["Al","O","Si"]
+  x-optimade-unit: "inapplicable"
+  x-optimade-requirements:
+    support: "should"
+    sortable: false
+    query-support: "all mandatory"
+  items:
+    $ref: "/properties/v1.2/common/element"

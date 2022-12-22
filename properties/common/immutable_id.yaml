@@ -1,0 +1,25 @@
+immutable_id:
+  $id: "https://schemas.optimade.org/properties/v1.2/common/immutable_id"
+  x-optimade-property:
+    property-format: "1.2"
+  title: "Immutable ID"
+  type:
+    - "string"
+  description: |-
+    The entry's immutable ID (e.g., a UUID).
+
+    This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
+
+    Requirements/Conventions:
+    - Taken together, the ID and entry type MUST uniquely identify the entry.
+    - Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+    - IDs MAY change over time.
+    - Strings that are not URL-safe are allowed.
+  examples:
+    - "8bd3e750-b477-41a0-9b11-3a799f21b44f"
+    - "fjeiwoj,54;@=%<>#32"
+  x-optimade-unit: "inapplicable"
+  x-optimade-requirements:
+    support: "may"
+    sortable: false
+    query-support: "all mandatory"

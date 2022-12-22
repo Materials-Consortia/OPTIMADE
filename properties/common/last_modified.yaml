@@ -1,0 +1,19 @@
+last_modified:
+  $id: "https://schemas.optimade.org/properties/v1.2/common/last_modified"
+  x-optimade-property:
+    property-format: "1.2"
+  title: "Last modified"
+  x-optimade-type: "timestamp"
+  type:
+    - "string"
+    - "null"
+  format: "date-time"
+  description: |-
+    Date and time representing when the entry was last modified.
+  examples:
+    - "2007-04-05T14:30:20Z"
+  x-optimade-unit: "inapplicable"
+  x-optimade-requirements:
+    support: "must"
+    sortable: true
+    query-support: "all mandatory"

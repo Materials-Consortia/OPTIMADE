@@ -1,0 +1,25 @@
+nelements:
+  $id: "https://schemas.optimade.org/properties/v1.2/structures/nelements"
+  x-optimade-property:
+    property-format: "1.2"
+  title: "Number of elements."
+  type:
+    - "integer"
+    - "null"
+  description: |-
+    Number of different elements in the structure as an integer.
+
+    Requirements/Conventions:
+    - MUST be equal to the lengths of the list properties elements and elements_ratios, if they are provided.
+
+    Querying:
+    - Queries on this property can equivalently be formulated using `elements LENGTH`.
+    - A filter that matches structures that have exactly 4 elements: `nelements=4`.
+    - A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.
+  examples:
+    - 3
+  x-optimade-unit: "dimensionless"
+  x-optimade-requirements:
+    support: "should"
+    sortable: false
+    query-support: "all mandatory"

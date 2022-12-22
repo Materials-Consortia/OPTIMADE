@@ -1,0 +1,12 @@
+element:
+  $id: "https://schemas.optimade.org/properties/v1.2/common/element"
+  tile: Element
+  description: |-
+    The chemical symbol of an element
+
+    Requirements/Conventions:
+      - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
+
+  x-optimade-unit: inapplicable
+  type: "string"
+  maxLength: 3
