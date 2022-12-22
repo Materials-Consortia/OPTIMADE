@@ -1,4 +1,11 @@
-# OPTIMADE
+<div align="center" style="padding-bottom: 1em;">
+<img width="100px" align="center" src="https://matsci.org/uploads/default/original/2X/b/bd2f59b3bf14fb046b74538750699d7da4c19ac1.svg">
+</div>
+
+<h1 align="center">
+The OPTIMADE Specification
+</h1>
+
 
 The Open Databases Integration for Materials Design (OPTIMADE) consortium aims to make materials databases interoperational by developing a common REST API.
 
