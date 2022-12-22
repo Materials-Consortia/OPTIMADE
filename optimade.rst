@@ -1927,10 +1927,10 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   For OPTIMADE data types not covered above:
 
-  - timestamps are represented by setting the fields :field:`type` to :val:`"string"` and :field:`format` to :val:`"date-time"`.
+  - timestamps are represented by setting the :field:`type` field to :val:`"string"` and the :field:`format` field to :val:`"date-time"`.
     In this case it is MANDATORY to include the field :field:`format`.
 
-  Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterprete the definition accordingly.
+  Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterpret the definition accordingly.
 
 ..
 
