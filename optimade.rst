@@ -1832,6 +1832,14 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
+  - :field:`property-format`: String.
+    Specifies the minor version of the property definition format used.
+    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
+    A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+    This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
+
   - :field:`property-uri`: String.
     A static URI identifier that is a URN or URL representing the specific version of the property.
     It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
@@ -2104,7 +2112,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.09 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.21.
+A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
