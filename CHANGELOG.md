@@ -12,7 +12,7 @@ This minor release adds significant but optional new functionality to the specif
 ### New features
 
 - **Property definitions** ([#376](https://github.com/Materials-Consortia/OPTIMADE/pull/376)).
-A new section titled [Property Defintions](https://github.com/Materials-Consortia/OPTIMADE/blob/develop/optimade.rst#property-definitions) has been added to the specification which significantly extends the way in which implementations can define and describe the custom properties they serve, including URIs, unit definitions, API support levels (for querying and sorting) as well as full support for JSON Schema constructs for describing the JSON representation of the property.
+A new section titled [Property Definitions](https://github.com/Materials-Consortia/OPTIMADE/blob/develop/optimade.rst#property-definitions) has been added to the specification which significantly extends the way in which implementations can define and describe the custom properties they serve, including URIs, unit definitions, API support levels (for querying and sorting) as well as full support for JSON Schema constructs for describing the JSON representation of the property.
 - **Files endpoint** ([#360](https://github.com/Materials-Consortia/OPTIMADE/pull/360)).
 The `/files` endpoint and corresponding [`files` entry
 type](https://github.com/Materials-Consortia/OPTIMADE/blob/develop/optimade.rst#files-entries) has been added to provide a robust way of linking entries to arbitrary file-based data relevant to the entry, such as alternative crystal structure representation formats, input or output files from computational procedures, or experimental data files.
