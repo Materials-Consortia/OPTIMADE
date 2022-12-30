@@ -1,4 +1,11 @@
-# OPTIMADE
+<div align="center" style="padding-bottom: 1em;">
+<img width="100px" align="center" src="https://matsci.org/uploads/default/original/2X/b/bd2f59b3bf14fb046b74538750699d7da4c19ac1.svg">
+</div>
+
+<h1 align="center">
+The OPTIMADE Specification
+</h1>
+
 
 The Open Databases Integration for Materials Design (OPTIMADE) consortium aims to make materials databases interoperational by developing a common REST API.
 
@@ -23,6 +30,22 @@ The [develop branch of the repository](https://github.com/Materials-Consortia/OP
 
 API and client implementations are encouraged to support the latest release or pre-release of the specification.
 If this is a pre-release, implementations are also encouraged to support the latest stable release.
+
+## Licensing of the unit definitions database `definition.units`
+
+The OPTIMADE standard refers to a specific version of the `definition.units` database included with the source distribution of GNU Units.
+This file is included in the OPTIMADE repository under the subdirectory [units](units).
+The file is licensed separately from other files in the repository: it is available under the GNU General Public License (GPL).
+Full information on how the file is licensed is available in the [header of the file](units/definitions.units) and the license file included in that directory, [COPYING](units/COPYING).
+
+The following does not constitute legal advice; however, we believe implementations under other licenses can use this file if:
+
+- The file is distributed separated from other source files in a way that makes it clear that it is part of the GNU Units software and is licensed under the GPL.
+  (For example, as done in this repository: in a separate subdirectory with its own readme and license files.)
+
+- The software reads the file during program execution, e.g., at startup (as opposed to, e.g., having the file compiled or linked into a binary program distributed to end users).
+
+Alternatively, the software using the file could itself be licensed in a way compatible with the GNU GPL.
 
 ## How to cite
 

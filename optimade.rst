@@ -1,6 +1,6 @@
-=========================================
-OPTIMADE API specification v1.1.0~develop
-=========================================
+======================================
+OPTIMADE API specification v1.2.0-rc.1
+======================================
 
 .. comment
 
@@ -225,6 +225,28 @@ The definition of a property of an entry type specifies a type. The value of tha
 
 General API Requirements and Conventions
 ========================================
+
+Versioning of this standard
+---------------------------
+This standard describes a communication protocol that, when implemented by a server, provides clients with an API for data access.
+
+Released versions of the standard are versioned using `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ in reference to changes in *that API* (i.e., not in the server-side implementation of the protocol).
+
+To clarify: semantic versioning mandates version numbers of the form MAJOR.MINOR.PATCH, where a "backwards incompatible API change" requires incrementing the MAJOR version number.
+A future version of the OPTIMADE standard can mandate servers to change their behavior to be compliant with the newer version.
+However, such changes are only considered "backwards incompatible API changes" if they have the potential to break clients that correctly use the API according to the earlier version.
+
+Furthermore, the addition of new keys in key-value-formatted responses of the OPTIMADE API are not regarded as "backwards incompatible API changes."
+Hence, a client MUST disregard unrecognized keys when interpreting responses (but MAY issue warnings about them).
+On the other hand, a change of the OPTIMADE standard that fundamentally alters the interpretation of a response due to the presence of a new key will be regarded as a "backwards incompatible API change" since a client interpreting the response according to a prior version of the standard would misinterpret that response.
+
+Working copies distributed as part of the development of the standard are marked with the version number for the release they are based on with an additional "~develop" suffix.
+These "versions" do not refer to a single specific instance of the text (i.e., the same "~develop" version string is retained until a release), nor is it clear to what degree they contain backwards incompatible API changes.
+Hence, the suffix is intentionally designed to make these version strings not to conform with semantic versioning to prevent incorrect comparisons to released versions using the scheme prescribed by semantic versioning.
+Version strings with a "~develop" suffix MAY be used by implementations during testing.
+However, a client that encounters them unexpectedly SHOULD NOT make any assumptions about the level of API compatibility.
+
+In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future (non-development) version of the standard sharing the same MAJOR version number.
 
 Base URL
 --------
@@ -898,6 +920,7 @@ OPTIONALLY it can also contain the following fields:
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
   The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
+  All relationships to entries of the same entry type MUST be grouped into the same JSON API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
 
 Example:
 
@@ -1828,6 +1851,14 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
+  - :field:`property-format`: String.
+    Specifies the minor version of the property definition format used.
+    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
+    A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+    This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
+
   - :field:`property-uri`: String.
     A static URI identifier that is a URN or URL representing the specific version of the property.
     It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
@@ -1934,6 +1965,13 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
   - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
+
+  For OPTIMADE data types not covered above:
+
+  - timestamps are represented by setting the :field:`type` field to :val:`"string"` and the :field:`format` field to :val:`"date-time"`.
+    In this case it is MANDATORY to include the field :field:`format`.
+
+  Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterpret the definition accordingly.
 
 ..
 
@@ -2100,7 +2138,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.09 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.21.
+A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
