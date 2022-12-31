@@ -648,6 +648,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     The dictionary can contain the OPTIONAL fields:
 
     - **name**: a human-readable name for the database, e.g., for use in clients.
+    - **version**: a string describing the version of the database.
     - **description**: a human-readable description of the database, e.g., for use in clients.
     - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage for the particular database.
     - **maintainer**: a dictionary providing details about the maintainer of the database, which MUST contain the single field:
