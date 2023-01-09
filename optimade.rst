@@ -446,33 +446,29 @@ For example, the following query can be sent to API implementations `exmpl1` and
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
 
-Ranged_Properties
+Ranged Properties
 -----------------
 
-- **Description**: Ranged properties are used when the value of a property is so large that it can become unwieldy to process.
-  They also provide a method to correlate the values of two separate properties.
-  The meta data is returned by default, the values are only returned when specifically requested via the :query-param:`ranged property` as described under `Entry Listing URL Query Parameters`_.
-  Ranged properties support slicing, so the client can request that only some of the values need to be returned. Likewise, the server can use paging to return the property in multiple parts.
+- **Description**: Ranged properties support slicing, so the client can request that only some of the values need to be returned.
+  Likewise, the server can use paging to return the property in multiple parts.
+  This can be useful for properties that are so large that it can be inconvenient to return them in a single response.
   In that case a link is provided, as described in `JSON Response Schema: Common Fields`_ under the `links.next` field, from which the remainder of the requested data can be retrieved.
-
+  They also provide a method to correlate the values of two ranged properties.
+  The meta data is returned by default, the values are only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
 
 - **Type**: dictionary with keys:
 
   - :property:`serialization_format`: string (REQUIRED)
-  - :property:`values`: List of any data type (REQUIRED)
-  - :property:`nvalues`: integer (REQUIRED)
+  - :property:`values`: List of any data type (OPTIONAL)
+  - :property:`nvalues`: integer (OPTIONAL)
   - :property:`range_ids`: list of strings (OPTIONAL)
-  - :property:`n_range_dim`: integer(REQUIRED)
-  - :property:`dim_range`: list of integers (REQUIRED)
+  - :property:`n_dim`: integer(REQUIRED)
+  - :property:`dim_size`: list of integers (REQUIRED)
   - :property:`offset_linear`: list of floats (OPTIONAL)
   - :property:`step_size_linear`: list of floats (OPTIONAL)
   - :property:`offset_regular`: list of integers (OPTIONAL)
   - :property:`step_size_regular`: list of integers (OPTIONAL)
-  - :property:`indexes`: list of integers(OPTIONAL)
-  - :property:`average`: float (OPTIONAL)
-  - :property:`min`: list of float or integer (OPTIONAL)
-  - :property:`max`: list of float or integer (OPTIONAL)
-  - :property:`set`: List of Any data type (OPTIONAL)
+  - :property:`indexes`: list of list of integers(OPTIONAL)
 
 - **Requirements/Conventions**:
 
@@ -481,9 +477,7 @@ Ranged_Properties
   - If the part of the property name after the `_ranged_` prefix matches the name of a OPTIMADE field for the entry point, the values in the list of the :property:`values` MUST follow the rules of this property.
   - By default only the metadata SHOULD be returned (i.e. all the fields except :property:`values`).
     The :property:`values` SHOULD only be returned when requested via the :query-param:`ranged property` as described under `Entry Listing URL Query Parameters`_.
-  - The data from the :property:`values` is only returned when requested via the :query-param: `property_ranges`, which is described in the section
 
-    - **examples**:   :ranged-property:`_ranged_cartesian_sites_positions`,   :ranged-property:`_exmpl_ranged_field`
   - **Query**: Queries on the dictionary fields SHOULD be supported, with the exception of the values field for which querying is OPTIONAL.
   - **Keys**:
 
@@ -517,7 +511,7 @@ Ranged_Properties
       - **Type**: list of string
       - **Requirements/Conventions**: OPTIONAL.
 
-    - **dim_range**: The dimensions of the range in each dimension.
+    - **dim_size**: The dimensions of the range in each dimension.
       - **Type**: list of integers
       - **Requirements/Conventions**: REQUIRED;
 
@@ -552,14 +546,14 @@ Ranged_Properties
       - **Requirements/Conventions**: The value MUST be present when :property:`serialization_format` is set to "custom".
         Otherwise it MUST NOT be present. The order of the values must be the same as those in :property:`values`.
 
-    - **Example**:
+- **Example**:
 
          .. code:: jsonc
 
            {
              "_ranged_cartesian_site_positions": {
-               "n_range_dim": 3,
-               "dim_range": [100,3,3],
+               "n_dim": 3,
+               "dim_size": [100,3,3],
                "range_ids": ["mdsteps","particles","xyz"],
                "serialization_format": "regular",
                "offset_regular": [0,0,0],
@@ -572,8 +566,8 @@ Ranged_Properties
                          ],
              },
              "_ranged_species_at_sites": {
-               "n_range_dim": 1,
-               "dim_range": [3],
+               "n_dim": 1,
+               "dim_size": [3],
                "range_ids": ["particles"],
                "serialization_format": "regular",
                "offset_regular": [0],
@@ -582,20 +576,20 @@ Ranged_Properties
                "values": ["He", "Ne","Ar"],
              },
              "_exmpl_ranged_time":{
-               "n_range_dim": 1,
-               "dim_range": [100],
+               "n_dim": 1,
+               "dim_size": [100],
                "range_ids": ["mdsteps"],
                "serialization_format": "linear",
                "step_size_linear": 0.2,
              },
              "_exmpl_ranged_thermostat": {
-               "n_range_dim": 1,
-               "dim_range": [100],
+               "n_dim": 1,
+               "dim_size": [100],
                "range_ids": ["mdsteps"],
                "serialization_format": "custom",
                "nvalues": 3,
                "values": [20,40,60]
-               "indexes": [0,20,80]
+               "indexes": [[0],[20],[80]]
              }
 
            }
