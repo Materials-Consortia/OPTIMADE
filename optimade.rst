@@ -454,7 +454,7 @@ Ranged Properties
   This can be useful for properties that are so large that it can be inconvenient to return them in a single response.
   In that case a link is provided, as described in `JSON Response Schema: Common Fields`_ under the `links.next` field, from which the remainder of the requested data can be retrieved.
   They also provide a method to correlate the values of two ranged properties.
-  The meta data is returned by default, the values are only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
+  The metadata is returned by default, the values are only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
 
 - **Type**: dictionary with keys:
 
@@ -462,26 +462,26 @@ Ranged Properties
   - :property:`values`: List of any data type (OPTIONAL)
   - :property:`nvalues`: integer (OPTIONAL)
   - :property:`range_ids`: list of strings (OPTIONAL)
-  - :property:`n_dim`: integer(REQUIRED)
+  - :property:`n_dim`: integer (REQUIRED)
   - :property:`dim_size`: list of integers (REQUIRED)
   - :property:`offset_linear`: float (OPTIONAL)
   - :property:`step_size_linear`: list of floats (OPTIONAL)
   - :property:`offset_regular`: list of integers (OPTIONAL)
   - :property:`step_size_regular`: list of integers (OPTIONAL)
-  - :property:`indexes`: list of list of integers(OPTIONAL)
+  - :property:`indexes`: list of lists of integers (OPTIONAL)
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations.
   - Ranged properties can be identified by the prefix "_ranged_". If it is a database specific field, the prefix of the database comes first.
   - If the part of the property name after the `_ranged_` prefix matches the name of a OPTIMADE field for the entry point, the values in the list of the :property:`values` MUST follow the rules of this property.
-  - By default only the metadata SHOULD be returned (i.e. all the fields except :property:`values`).
-    The :property:`values` field SHOULD only be returned when requested via the :query-param:`ranged property` as described under `Entry Listing URL Query Parameters`_.
+  - By default, only the metadata SHOULD be returned (i.e. all the fields except :property:`values` and :property:`indexes`).
+    The :property:`values` and :property:`indexes` fields SHOULD only be returned when requested via the :query-param:`ranged property` as described under `Entry Listing URL Query Parameters`_.
 
-  - **Query**: Queries on the dictionary fields SHOULD be supported, with the exception of the values field for which querying is OPTIONAL.
+  - **Query**: Queries on the dictionary fields SHOULD be supported, except for the :property:`values` and :property:`indexes` fields for which querying is OPTIONAL.
   - **Keys**:
 
-    - **serialization_format**: To improve the compactness of the data there are several ways to show to which index a value belongs.
+    - **serialization_format**: To improve the compactness of the data, there are several ways to show to which index a value belongs.
       This is specified by the :property:`serialization_format`.
 
       - **Type**: string
@@ -506,7 +506,7 @@ Ranged Properties
       - **Requirements/Conventions**: The value MUST be present when           :property:`serialization_format` is not set to :val:`"linear"`.
 
     - **range_ids**: A list with an identifier for each dimension of the range. It shows that that dimension correlates to the same dimension of another range.
-      For example, when data of a MD trajectory is shared it could be used to indicate that the energies and the cartesian_site_positions of the index in a certain dimension are correlated. i.e. which energy belongs to which set of cartesian_site_positions.
+      For example, when data of an MD trajectory is shared, it could be used to indicate that the energies and the cartesian_site_positions of the index in a certain dimension are correlated. i.e. which energy belongs to which set of cartesian_site_positions.
 
       - **Type**: list of strings
       - **Requirements/Conventions**: OPTIONAL
@@ -528,11 +528,11 @@ Ranged Properties
         The default value is 0 in each dimension.
 
     - **step_size_linear**: If :property:`serialization_format` is set to :val:`"linear"`, this value gives the change in the value of the property per step along each of the dimensions of the range.
-      e.g. If the value :property:`offset_linear` = 0.5 and the value of :property:`step_size_linear` = [0.2,0.3] than at index[3,4] the value of the property will be 1.8 .
+      e.g. If the value :property:`offset_linear` = 0.5 and the value of :property:`step_size_linear` = [0.2,0.3] than at index[3,4] the value of the property will be 1.8.
 
       - **Type**: list of float
       - **Requirements/Conventions**: The value MUST be present when :property:`serialization_format` is set to "linear".
-        Otherwise it SHOULD NOT be present.
+        Otherwise, it SHOULD NOT be present.
 
     - **offset_regular**: If :property:`serialization_format` is set to :val:`"regular"` this property gives the indexes of the first value.
 
@@ -544,13 +544,13 @@ Ranged Properties
 
       - **Type**: list of integers
       - **Requirements/Conventions**: The value MUST be present when :property:`serialization_format` is set to :val:`"regular"`.
-        Otherwise it SHOULD NOT be present.
+        Otherwise, it SHOULD NOT be present.
 
     - **indexes**: If :property:`serialization_format` is set to :val:`"custom"`, this field holds the indexes to which the values in the value field belong.
 
       - **Type**: List of lists of integers
       - **Requirements/Conventions**: The value MUST be present when :property:`serialization_format` is set to "custom".
-        Otherwise it SHOULD NOT be present. The order of the values must be the same as those in :property:`values`.
+        Otherwise, it SHOULD NOT be present. The order of the values must be the same as those in :property:`values`.
 
 - **Example**:
 
@@ -1013,6 +1013,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
   The field :field:`sortable` is in addition to each property description and other OPTIONAL fields.
   An example is shown in section `Entry Listing Info Endpoints`_.
+
 - **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
 
   All related resource objects MUST be returned as part of an array value for the top-level :field:`included` field, see section `JSON Response Schema: Common Fields`_.
@@ -1038,19 +1039,24 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   If provided, these fields MUST be returned along with the REQUIRED fields.
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
   Example: :query-url:`http://example.com/optimade/v1/structures?response_fields=last_modified,nsites`
-- **property\_ranges**: Specifies which ranges should be returned for ranged properties.
+- **property\_ranges**: specifies which ranges should be returned for ranged properties.
+  It MUST be supported by databases having ranged properties.
   It consists of a property name directly followed by the range that should be returned.
-  Ranges can be specified for multiple properties by separating them with a comma.
-  The ranges are 1 based. i.e. The first value is value 1.
+  A range is written as a list with a list for each dimension.
+  Each dimensions list has three values.
   The first value of the range specifies the first index in that dimension for which values should be returned.
-  The second value specifies the last index for which values should be be returned.
+  The second value specifies the last index for which values should be returned.
   The third value specifies the step size.
-  Databases that use ranged properties SHOULD support this query parameter.
+  Ranges can be specified for multiple properties by separating them with a comma.
+  Databases MUST return the values belonging to properties listed and SHOULD use the ranges in this query parameter.
+  For properties with :property:`serialization_format` :val:`custom` indexes that fall in the requested range but for which there is no value defined should not be returned.
+  For properties with :property:`serialization_format` :val:`regular` indexes that fall in the requested range but for which there is no value defined should have the value :val:`null`.
+  The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for a the range :val:`[10,20,1]` the last value returned belongs to index 20.
   Example:
 
-  If there would be a structure with id: id_ property :ranged-property:`_ranged_test_field` with the values :val:`[[9.64, 7.52, 0.69, 5.69],[4.82, 8.35, 3.26, 3.25],[4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]` the query: :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=_ranged_test_field[[1, 3, 2],[2, 3, 1]]`
-  will return the value: :val:`[[7.52, 0.69],[2.78, 7.87]]`
-  Multiple ranges can be requested in one query. e.g. :query-paramproperty_ranges=_ranged_test_field[[1, 3, 2],[2, 3, 1]], _ranged_other_field[]`
+  If there would be a structure with id: id_12345 and a property :ranged-property:`_ranged_test_field` with the values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]` the query: :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]]`
+  will return the value: :val:`[[7.52, 0.69], [2.78, 7.87]]`
+  Multiple ranges can be requested in one query. e.g. :query-param:`property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]], _ranged_other_field[[1,100,1]]`
 
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
