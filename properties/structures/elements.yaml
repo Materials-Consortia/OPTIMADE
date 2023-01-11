@@ -15,7 +15,7 @@ elements:
     - MUST refer to the same elements in the same order, and therefore be of the same length, as elements_ratios, if the latter is provided.
     - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field chemical_symbols for the species property).
 
-    Queryinig:
+    Querying:
     - A filter that matches all records of structures that contain Si, Al and O, and possibly other elements: elements HAS ALL "Si", "Al", "O".
     - To match structures with exactly these three elements, use elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3.
     - Note: length queries on this property can be equivalently formulated by filtering on the nelements property directly.

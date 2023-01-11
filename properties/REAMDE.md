@@ -3,7 +3,7 @@
 The subdirectories below contain source files for property definitions for the standard OPTIMADE properties.
 They are organized with one subdirectory per OPTIMADE endpoint, and one directory `common` for common definitions used across multiple endpoints.
 
-The source files are formatted in yaml to be human-editable and uses JSON Schema pointers to to avoid duplication of information.
+The source files are formatted in YAML to be human-editable and use JSON Schema pointers to avoid duplication of information.
 
 The source files can be compiled into standard JSON-formatted property definitions by the command:
 ```
