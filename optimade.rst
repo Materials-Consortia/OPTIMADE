@@ -452,9 +452,9 @@ Ranged Properties
 - **Description**: Ranged properties support slicing, so the client can request that only some of the values need to be returned.
   Likewise, the server can use paging to return the property in multiple parts.
   This can be useful for properties that are so large that it can be inconvenient to return them in a single response.
-  In that case a link is provided, as described in `JSON Response Schema: Common Fields`_ under the `links.next` field, from which the remainder of the requested data can be retrieved.
-  They also provide a method to correlate the values of two ranged properties.
-  The metadata is returned by default, the values are only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
+  If an entry is too large to be returned in a single response a link is provided, as described in `JSON Response Schema: Common Fields`_ under the `links.next` field, from which the remainder of the requested data can be retrieved.
+  Ranged properties also provide a method to correlate the values of two ranged properties via a :property:`range_ids`.
+  The metadata is returned by default, the data is only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
 
 - **Type**: dictionary with keys:
 
@@ -474,7 +474,7 @@ Ranged Properties
 
   - **Support**: OPTIONAL support in implementations.
   - Ranged properties can be identified by the prefix "_ranged_". If it is a database specific field, the prefix of the database comes first.
-  - If the part of the property name after the `_ranged_` prefix matches the name of a OPTIMADE field for the entry point, the values in the list of the :property:`values` MUST follow the rules of this property.
+  - If the part of the property name after the "_ranged_" prefix matches the name of a OPTIMADE field for the entry point, the values in the list of the :property:`values` MUST follow the rules of this property.
   - By default, only the metadata SHOULD be returned (i.e. all the fields except :property:`values` and :property:`indexes`).
     The :property:`values` and :property:`indexes` fields SHOULD only be returned when requested via the :query-param:`ranged property` as described under `Entry Listing URL Query Parameters`_.
 
