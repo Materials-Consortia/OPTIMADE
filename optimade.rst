@@ -456,6 +456,7 @@ Ranged Properties
   Ranged properties also provide a method to correlate the values of two ranged properties via a :property:`range_ids`.
   The metadata is returned by default, the data is only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
 
+When a client does not use query parameters to select a range for the ranged property, the server returns a dictionary with meta data about the range property with the following format:
 - **Type**: dictionary with keys:
 
   - :property:`serialization_format`: string (REQUIRED)
