@@ -524,7 +524,7 @@ The metadata dictionary MAY include these fields:
 
 - :field:`range_ids`: list of strings.
   A list with an identifier for each dimension of the range. It shows that that dimension correlates to the same dimension of another range.
-  For example, when data of an MD trajectory is shared, it could be used to indicate that the energies and the cartesian_site_positions of the index in a certain dimension are correlated.                    
+  For example, when data of an MD trajectory is shared, it could be used to indicate that the energies and the cartesian_site_positions of the index in a certain dimension are correlated.
   i.e. which energy belongs to which set of cartesian_site_positions.
 
 
@@ -541,7 +541,54 @@ The following properties MUST be present or SHOULD NOT be present.
   The value MUST be present when :property:`serialization_format` is set to "custom".
   Otherwise, it SHOULD NOT be present. The order of the values must be the same as those in :property:`values`.
 
-- :field:`returned range`:
+- **Example**:
+
+         .. code:: jsonc
+
+           {
+             "_ranged_cartesian_site_positions": {
+               "n_dim": 3,
+               "dim_size": [100, 3, 3],
+               "range_ids": ["mdsteps","particles","xyz"],
+               "serialization_format": "regular",
+               "offset_regular": [1, 1, 1],
+               "step_size_regular": [1, 1, 1],
+               "nvalues": 900,
+               "values": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
+                          [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
+                          [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]],
+                            // ...
+                         ]
+             },
+             "_ranged_species_at_sites": {
+               "n_dim": 1,
+               "dim_size": [3],
+               "range_ids": ["particles"],
+               "serialization_format": "regular",
+               "offset_regular": [0],
+               "step_size_regular": [1],
+               "nvalues": 3,
+               "values": ["He", "Ne", "Ar"]
+             },
+             "_exmpl_ranged_time":{
+               "n_dim": 1,
+               "dim_size": [100],
+               "range_ids": ["mdsteps"],
+               "serialization_format": "linear",
+               "step_size_linear": 0.2
+             },
+             "_exmpl_ranged_thermostat": {
+               "n_dim": 1,
+               "dim_size": [100],
+               "range_ids": ["mdsteps"],
+               "serialization_format": "custom",
+               "nvalues": 3,
+               "values": [20, 40, 60],
+               "indexes": [[0], [20], [80]]
+             }
+           }
+
+
 
 Responses
 =========
@@ -801,50 +848,7 @@ An example of a full response:
 
 - Several examples of how ranged properties can be returned in the JSON format:
 
-         .. code:: jsonc
 
-           {
-             "_ranged_cartesian_site_positions": {
-               "n_dim": 3,
-               "dim_size": [100, 3, 3],
-               "range_ids": ["mdsteps","particles","xyz"],
-               "serialization_format": "regular",
-               "offset_regular": [1, 1, 1],
-               "step_size_regular": [1, 1, 1],
-               "nvalues": 900,
-               "values": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
-                          [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
-                          [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]],
-                            // ...
-                         ],
-             },
-             "_ranged_species_at_sites": {
-               "n_dim": 1,
-               "dim_size": [3],
-               "range_ids": ["particles"],
-               "serialization_format": "regular",
-               "offset_regular": [0],
-               "step_size_regular": [1],
-               "nvalues": 3,
-               "values": ["He", "Ne", "Ar"],
-             },
-             "_exmpl_ranged_time":{
-               "n_dim": 1,
-               "dim_size": [100],
-               "range_ids": ["mdsteps"],
-               "serialization_format": "linear",
-               "step_size_linear": 0.2,
-             },
-             "_exmpl_ranged_thermostat": {
-               "n_dim": 1,
-               "dim_size": [100],
-               "range_ids": ["mdsteps"],
-               "serialization_format": "custom",
-               "nvalues": 3,
-               "values": [20, 40, 60]
-               "indexes": [[0], [20], [80]]
-             }
-           }
 
 HTTP Response Status Codes
 --------------------------
@@ -1042,7 +1046,7 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   Databases MUST return the :property:`values` and :property:`indexes` field belonging to properties listed and SHOULD use the ranges in this query parameter.
   For properties with :property:`serialization_format` :val:`custom` indexes that fall in the requested range but for which there is no value defined should not be returned.
   For properties with :property:`serialization_format` :val:`regular` indexes that fall in the requested range but for which there is no value defined should have the value :val:`null`.
-  The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for a the range :val:`[10,20,1]` the last value returned belongs to index 20.
+  The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for the range :val:`[10,20,1]` the last value returned belongs to index 20.
   Example:
 
   If there would be a structure with id: id_12345 and a property :ranged-property:`_ranged_test_field` with the values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]` the query: :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]]`
@@ -2288,7 +2292,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
+A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database :val:`definitions.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
@@ -2302,7 +2306,7 @@ For example :val:`"km"` for kilometers.
 Furthermore:
 
 - No whitespace, parenthesis, or other symbols than specified above are permitted.
-- If multiple string representations of the same unit exist in ``definition.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
+- If multiple string representations of the same unit exist in ``definitions.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
 - The unit symbols MUST appear in alphabetical order.
 
 The string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
