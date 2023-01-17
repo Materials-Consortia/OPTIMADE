@@ -570,7 +570,7 @@ When a client does not use query parameters to select a range for the ranged pro
                           [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
                           [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]],
                             // ...
-                         ],
+                         ]
              },
              "_ranged_species_at_sites": {
                "n_dim": 1,
@@ -580,14 +580,14 @@ When a client does not use query parameters to select a range for the ranged pro
                "offset_regular": [0],
                "step_size_regular": [1],
                "nvalues": 3,
-               "values": ["He", "Ne", "Ar"],
+               "values": ["He", "Ne", "Ar"]
              },
              "_exmpl_ranged_time":{
                "n_dim": 1,
                "dim_size": [100],
                "range_ids": ["mdsteps"],
                "serialization_format": "linear",
-               "step_size_linear": 0.2,
+               "step_size_linear": 0.2
              },
              "_exmpl_ranged_thermostat": {
                "n_dim": 1,
@@ -595,7 +595,7 @@ When a client does not use query parameters to select a range for the ranged pro
                "range_ids": ["mdsteps"],
                "serialization_format": "custom",
                "nvalues": 3,
-               "values": [20, 40, 60]
+               "values": [20, 40, 60],
                "indexes": [[0], [20], [80]]
              }
            }
@@ -1052,7 +1052,7 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   Databases MUST return the values belonging to properties listed and SHOULD use the ranges in this query parameter.
   For properties with :property:`serialization_format` :val:`custom` indexes that fall in the requested range but for which there is no value defined should not be returned.
   For properties with :property:`serialization_format` :val:`regular` indexes that fall in the requested range but for which there is no value defined should have the value :val:`null`.
-  The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for a the range :val:`[10,20,1]` the last value returned belongs to index 20.
+  The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for the range :val:`[10,20,1]` the last value returned belongs to index 20.
   Example:
 
   If there would be a structure with id: id_12345 and a property :ranged-property:`_ranged_test_field` with the values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]` the query: :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]]`
