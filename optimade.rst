@@ -520,7 +520,7 @@ Depending on the value of the :property:`serialization_format`, the following fi
   The default value is 1 in every dimension.
 
 
-The metadata dictionary MAY include these fields:
+The dictionary MAY include these fields:
 
 - :field:`range_ids`: list of strings.
   A list with an identifier for each dimension of the range. It shows that that dimension correlates to the same dimension of another range.
@@ -529,7 +529,7 @@ The metadata dictionary MAY include these fields:
 
 
 If a ranged property has been included in the query parameter :query-param:`property_ranges`
-The following properties MUST be present or SHOULD NOT be present.
+The following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`.
 
 - :field:`values`: List of Any
   The values belonging to this property.
@@ -540,54 +540,6 @@ The following properties MUST be present or SHOULD NOT be present.
   If :property:`serialization_format` is set to :val:`"custom"`, this field holds the indexes to which the values in the value field belong.
   The value MUST be present when :property:`serialization_format` is set to "custom".
   Otherwise, it SHOULD NOT be present. The order of the values must be the same as those in :property:`values`.
-
-- **Example**:
-
-         .. code:: jsonc
-
-           {
-             "_ranged_cartesian_site_positions": {
-               "n_dim": 3,
-               "dim_size": [100, 3, 3],
-               "range_ids": ["mdsteps","particles","xyz"],
-               "serialization_format": "regular",
-               "offset_regular": [1, 1, 1],
-               "step_size_regular": [1, 1, 1],
-               "nvalues": 900,
-               "values": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
-                          [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
-                          [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]],
-                            // ...
-                         ]
-             },
-             "_ranged_species_at_sites": {
-               "n_dim": 1,
-               "dim_size": [3],
-               "range_ids": ["particles"],
-               "serialization_format": "regular",
-               "offset_regular": [0],
-               "step_size_regular": [1],
-               "nvalues": 3,
-               "values": ["He", "Ne", "Ar"]
-             },
-             "_exmpl_ranged_time":{
-               "n_dim": 1,
-               "dim_size": [100],
-               "range_ids": ["mdsteps"],
-               "serialization_format": "linear",
-               "step_size_linear": 0.2
-             },
-             "_exmpl_ranged_thermostat": {
-               "n_dim": 1,
-               "dim_size": [100],
-               "range_ids": ["mdsteps"],
-               "serialization_format": "custom",
-               "nvalues": 3,
-               "values": [20, 40, 60],
-               "indexes": [[0], [20], [80]]
-             }
-           }
-
 
 
 Responses
@@ -848,6 +800,50 @@ An example of a full response:
 
 - Several examples of how ranged properties can be returned in the JSON format:
 
+         .. code:: jsonc
+
+           {
+             "_ranged_cartesian_site_positions": {
+               "n_dim": 3,
+               "dim_size": [100, 3, 3],
+               "range_ids": ["mdsteps","particles","xyz"],
+               "serialization_format": "regular",
+               "offset_regular": [1, 1, 1],
+               "step_size_regular": [1, 1, 1],
+               "nvalues": 900,
+               "values": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
+                          [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
+                          [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]],
+                            // ...
+                         ]
+             },
+             "_ranged_species_at_sites": {
+               "n_dim": 1,
+               "dim_size": [3],
+               "range_ids": ["particles"],
+               "serialization_format": "regular",
+               "offset_regular": [0],
+               "step_size_regular": [1],
+               "nvalues": 3,
+               "values": ["He", "Ne", "Ar"]
+             },
+             "_exmpl_ranged_time":{
+               "n_dim": 1,
+               "dim_size": [100],
+               "range_ids": ["mdsteps"],
+               "serialization_format": "linear",
+               "step_size_linear": 0.2
+             },
+             "_exmpl_ranged_thermostat": {
+               "n_dim": 1,
+               "dim_size": [100],
+               "range_ids": ["mdsteps"],
+               "serialization_format": "custom",
+               "nvalues": 3,
+               "values": [20, 40, 60],
+               "indexes": [[0], [20], [80]]
+             }
+           }
 
 
 HTTP Response Status Codes
