@@ -1300,7 +1300,8 @@ The `x` string MUST be interpreted as a pattern where an underscore character ('
 matches any single character and a percent character ('%', ASCII DEC 37, HEX 25) matches an arbitrary
 sequence of characters (including zero characters).
 
-If operator "UNLIKE" is supported, the bahavior of this oprtator MUST be the negation of the "LIKE" operator; i.e.
+If the `UNLIKE` operator is supported, the behavior of this operator MUST be the negation of the "LIKE" operator; i.e.
+
 an expression `(property UNLIKE "value")" must behave exactly as `(NOT (property LIKE "value"))`.
 
 Examples:
