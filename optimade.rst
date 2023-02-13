@@ -2638,7 +2638,7 @@ species\_at\_sites
 - **Examples**:
 
   - :val:`["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`.
-  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicating the first two sites contains the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
+  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
 
 species
 ~~~~~~~
