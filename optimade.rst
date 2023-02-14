@@ -647,6 +647,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
     The dictionary can contain the OPTIONAL fields:
 
+    - **id**: the identifier of this database within those served by this provider, i.e., the ID under which this database is served in this provider's index meta-database.
     - **name**: a human-readable name for the database, e.g., for use in clients.
     - **version**: a string describing the version of the database.
     - **description**: a human-readable description of the database, e.g., for use in clients.
