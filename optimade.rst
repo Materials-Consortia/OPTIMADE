@@ -723,6 +723,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
              "issue_tracker": "http://tracker.example.com/exmpl-optimade"
            },
            "database": {
+               "id": "example_db",
              "name": "Example database 1 (of many)",
              "description": "The first example database in a series hosted by the Example Provider.",
              "homepage": "http://database_one.example.com",
