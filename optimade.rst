@@ -453,9 +453,8 @@ Ranged properties support slicing, so the client can request that only some of t
 Likewise, the server can also use slicing to reduce the size of the response and return the property in multiple parts.
 This can be useful for entries/properties that are so large that it can be inconvenient to return them in a single response.
 If an entry is too large to be returned in a single response a link is provided, as described in `JSON Response Schema: Common Fields`_ under the `links.next` field, from which the remainder of the requested data can be retrieved.
-Multiple ranged properties in the same entry can either be controlled by separate independent ranges or be "correlated" in the sense of having the same range.
+Ranged properties in the same entry can have separate independent ranges, or the same range so they are "correlated" e.g. if an energy and a set of particle positions have the same index this energy belongs to those particle positions.
 The metadata is returned by default, the data is only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
-When a client does not use query parameters to select a range for the ranged property, the server returns a dictionary with metadata about the ranged property with the following format:
 
 - **Requirements/Conventions**:
 
@@ -466,10 +465,6 @@ When a client does not use query parameters to select a range for the ranged pro
     The :property:`values` and :property:`indexes` fields SHOULD only be returned when requested via the :query-param:`ranged property` as described under `Entry Listing URL Query Parameters`_.
 
   - **Query**: Queries on the dictionary fields SHOULD be supported, except for the :property:`values` and :property:`indexes` fields for which querying is OPTIONAL.
-
-    - **serialization_format**: To improve the compactness of the data, there are several ways to show to which index a value belongs.
-      This is specified by the :property:`serialization_format`.
-
 
 The dictionary MUST include these fields:
 
