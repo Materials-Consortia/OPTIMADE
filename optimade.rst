@@ -454,7 +454,7 @@ Likewise, the server can also use slicing to reduce the size of the response and
 This can be useful for entries/properties that are so large that it can be inconvenient to return them in a single response.
 If an entry is too large to be returned in a single response a link is provided, as described in `JSON Response Schema: Common Fields`_ under the `links.next` field, from which the remainder of the requested data can be retrieved.
 Ranged properties in the same entry can have separate independent ranges, or the same range so they are "correlated" e.g. if an energy and a set of particle positions have the same index this energy belongs to those particle positions.
-The metadata is returned by default, the data is only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
+Only the metadata is returned by default, the data is only returned when specifically requested via the :query-param:`ranged property` query parameter as described under `Entry Listing URL Query Parameters`_.
 
 - **Requirements/Conventions**:
 
@@ -523,13 +523,13 @@ The dictionary MAY include these fields:
   i.e. which energy belongs to which set of cartesian_site_positions.
 
 
-If a ranged property has been included in the query parameter :query-param:`property_ranges`
-The following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`.
+If a ranged property has been included in the query parameter :query-param:`property_ranges`, the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`.
 
 - :field:`values`: List of Any
   The values belonging to this property.
+  The range for which these values are returned is specified by the :query-param:`property_ranges` as described in `Entry Listing URL Query Parameters`_.
   The format of this field depends on the property for which data is stored.
-  The property :property:`values` MUST be present when           :property:`serialization_format` is not set to :val:`"linear"`.
+  The property :property:`values` MUST be present when :property:`serialization_format` is not set to :val:`"linear"`.
 
 - :field:`indexes`: List of lists of integers
   If :property:`serialization_format` is set to :val:`"custom"`, this field holds the indexes to which the values in the value field belong.
@@ -539,10 +539,10 @@ The following properties MUST be present or SHOULD NOT be present, depending on 
 - :field:`returned_range`: List of list of integers
   The range belonging to the returned data. It uses the same format as the property_ranges query param.
   It consist of a list which for each dimension contains a list of three values.
-  The first value indicates the index of the first value that has been returned.
+  The first value indicates the index, in that dimension, of the first value that has been returned.
   The second value indicates the index of last returned value.
   The third value is the step size.
-  It is only returned when the `serialization_format`is not "linear".
+  It is only returned when the `serialization_format` is not "linear".
 
 
 Responses
