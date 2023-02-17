@@ -2846,6 +2846,42 @@ structure\_features
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
+structure\_origin
+~~~~~~~~~~~~~~~~~
+
+- **Description**: A string that describes key aspects of the origin of the structural information.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - SHOULD take one of the following values:
+
+    * :val:`experimental`: specifies that all the structural information (coordinates, elements, assemblies, etc.) is a direct and unmodified representation of the outcome of an experimental technique for structure determination.
+
+    * :val:`processed`: specifies that the structural information originates from experimental data, but has been further processed in such a way that the resulting structure still is recognizable as the experimental one it was based on.
+      For example, structures that have undergone relaxation using ab-inito calculations with the experimental structure as the starting point are meant to be placed in this category.
+      Structures that have substituted one or more elements (but otherwise kept the experimental coordinates the same) are not meant to be in this category.
+      Ultimately there is a level of subjectivity in this definition which is to be decided by the database provider.
+
+    * :val:`predicted`: the structural information has no direct connection to the outcome of an experimental technique on an existing material, but has undergone theoretical processing that motivates the database provider to suggest it as a candidate for a synthesizable structure.
+      This category is intended for, e.g., theoretically invented structures relaxed using ab-inito calculations and found to end up close to the convex hull of stability, or structures generated out of an AI model demonstrated to have a reasonable predictive power.
+      This category definition has a rather high level of subjectivity which has to be decided by the database provider.
+
+    * :val:`hypothetical`: the structure comes with no guarantee of having any relationship to synthesizable structures or structures that can be found in nature.
+      This category is encouraged for, e.g., randomly placed atoms used as a starting point for further processing or the outcomes of AI models for which the predictive power is not deemed sufficient for `predicted`.
+
+    * :val:`unknown`: specifies that the database provider does not have any information it can provide in relation to this aspect of the origin of the structural information.
+
+  - If the field is omitted, set to an empty string, or `null` it means the same thing as :val:`unknown`.
+
+  - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`  MAY be used but are strongly discouraged.
+
+- **Examples**:
+
+  - For a structure created directly out from experimental values: :val:`"experimental"`.
+
 Calculations Entries
 --------------------
 
