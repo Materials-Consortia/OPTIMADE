@@ -1038,21 +1038,24 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   It MUST be supported by databases having ranged properties.
   It consists of a property name directly followed by the range that should be returned.
   A range is a list containing a list for each dimension.
-  Each dimensions list has three integer values.
+  Each dimension's list has three integer values.
   The first value of the range specifies the first index in that dimension for which values should be returned.
   The second value specifies the last index for which values should be returned.
   The third value specifies the step size.
   A list consists of a pair of square brackets ("[", ASCII 91(0x5B)) and ("]", ASCII 93(0x5D)) enclosing a number of values separated by a comma (",", ASCII 91(0x5B))
   Ranges can be specified for multiple properties by separating them with a comma.
+  The field may include optional space characters, which do no alter the meaning of the expression.
   Databases MUST return the :property:`values` and :property:`indexes` field belonging to properties listed and SHOULD use the ranges in this query parameter.
   For properties with :property:`serialization_format` :val:`custom` indexes that fall in the requested range but for which there is no value defined should not be returned.
   For properties with :property:`serialization_format` :val:`regular` indexes that fall in the requested range but for which there is no value defined should have the value :val:`null`.
   The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for the range :val:`[10,20,1]` the last value returned belongs to index 20.
   Example:
 
-  If there would be a structure with id: id_12345 and a property :ranged-property:`_ranged_test_field` with the values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]]` the query: :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]]`
-  will return the value: :val:`[[7.52, 0.69], [2.78, 7.87]]`
-  Multiple ranges can be requested in one query. e.g. :query-param:`property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]], _ranged_other_field[[1,100,1]]`
+  A database has a :entry:`structure` entry with id: :val:`id_12345` and a ranged property :property:`_ranged_test_field` with the two-dimensional data values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]]`.
+  A client makes a request :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]]`.
+  The response is then a single entry response for structure `12345` where the `_ranged_test_field` property is included with the `value` key set to :val:`[[7.52, 0.69], [2.78, 7.87]]`.
+
+  Multiple ranges can be requested in one query. e.g. :query-param:`property_ranges=_ranged_test_field[[1, 3, 2], [2, 3, 1]], _ranged_other_field[[1,100,1]]`.
 
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
