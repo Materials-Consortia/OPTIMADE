@@ -435,7 +435,7 @@ Furthermore:
 * If the property has a recognized prefix, i.e., it belongs to a known database provider, the implementation SHOULD NOT issue a warning but may issue diagnostic output with a note explaining how the request was handled.
 
 The rationale for not triggering errors in the above situations is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
-Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for a provider that do not support the property.
+Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
