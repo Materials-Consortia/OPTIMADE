@@ -2862,13 +2862,16 @@ structure\_origin
     * :val:`experimental`: the structural information is based directly on the outcome of an experimental technique for structure determination which is represented without further processing.
 
     * :val:`processed`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
-      For example, experimental structures relaxed using ab-inito calculations are meant to be qualify for this category.
+      For example, experimental structures relaxed using ab-initio calculations are meant to qualify for this category.
       Substituting one or more elements in a structure (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experimental technique on an existing material, but has undergone theoretical processing to suggest it as a candidate for a synthesizable structure. This category includes theoretically invented structures that have been relaxed using ab-inito calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power. This category definition also involves a degree of subjectivity that has to be determined by the database provider.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experimental technique on an existing material, but has undergone theoretical processing to suggest it as a candidate for a synthesizable structure.
+      This category includes theoretically invented structures that have been relaxed using ab-initio calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power.
+      This category definition also involves a degree of subjectivity that has to be determined by the database provider.
 
-    * :val:`hypothetical`: the structural information is known to not have been created in a way that provides no guarantees of producing synthesizable structures or structures found in nature. This category is suitable for randomly placed atoms (e.g., meant to provide a starting point for further processing) or outcomes of AI models with predictive power deemed insufficient for the :val:`predicted` category.
+    * :val:`hypothetical`: the structural information is known to have been created in a way that provides no guarantees of producing synthesizable structures or structures found in nature.
+      This category is suitable for randomly placed atoms (e.g., meant to provide a starting point for further processing) or outcomes of AI models with predictive power deemed insufficient for the :val:`predicted` category.
 
     * :val:`other`: the origin of the structural information is not correctly described by any of the other categories.
 
@@ -2879,7 +2882,7 @@ structure\_origin
 
   - If the property is omitted, set to an empty string, or `null` it means the same thing as :val:`unknown`.
 
-  - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure` MAY be used but are strongly discouraged.
+  - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
     Clients encountering unrecognized strings SHOULD treat them to mean the same as :val:`unknown`.
 
 - **Examples**:
