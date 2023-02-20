@@ -1,0 +1,20 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Targets related to handling the schema/properties files
+
+INPUTS := $(wildcard properties/*/*.yaml)
+OUTPUTS = $(patsubst properties/%.yaml,properties/%,$(INPUTS))
+
+.PHONY: properties
+
+properties: $(OUTPUTS)
+
+properties/%: properties/%.yaml
+	tests/scripts/process_propdefs.py "$<" > $@
+
+.PHONY: clean clean_properties
+
+clean: clean_properties
+
+clean_properties:
+	rm -f $(OUTPUTS)
