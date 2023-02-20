@@ -2849,7 +2849,8 @@ structure\_features
 structure\_origin
 ~~~~~~~~~~~~~~~~~
 
-- **Description**: A string that describes key aspects of the origin of the structural information.
+- **Description**: A string that describes aspects of the origin of the structural data to indicate if is based directly or indirectly on experimental evidence or inferred from other sources, giving some information on whether the structure is believed to exist in nature or can be synthesized as a compound stable at non-extreme conditions.
+
 - **Type**: string
 - **Requirements/Conventions**:
 
@@ -2858,29 +2859,32 @@ structure\_origin
     If supported, filters MAY support only a subset of comparison operators.
   - SHOULD take one of the following values:
 
-    * :val:`experimental`: specifies that all the structural information (coordinates, elements, assemblies, etc.) is a direct and unmodified representation of the outcome of an experimental technique for structure determination.
+    * :val:`experimental`: the structural information is based directly on the outcome of an experimental technique for structure determination which is represented without further processing.
 
-    * :val:`processed`: specifies that the structural information originates from experimental data, but has been further processed in such a way that the resulting structure still is recognizable as the experimental one it was based on.
-      For example, structures that have undergone relaxation using ab-inito calculations with the experimental structure as the starting point are meant to be placed in this category.
-      Structures that have substituted one or more elements (but otherwise kept the experimental coordinates the same) are not meant to be in this category.
-      Ultimately there is a level of subjectivity in this definition which is to be decided by the database provider.
+    * :val:`processed`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
+      For example, experimental structures relaxed using ab-inito calculations are meant to be qualify for this category.
+      Substituting one or more elements in a structure (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
+      The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information has no direct connection to the outcome of an experimental technique on an existing material, but has undergone theoretical processing that motivates the database provider to suggest it as a candidate for a synthesizable structure.
-      This category is intended for, e.g., theoretically invented structures relaxed using ab-inito calculations and found to end up close to the convex hull of stability, or structures generated out of an AI model demonstrated to have a reasonable predictive power.
-      This category definition has a rather high level of subjectivity which has to be decided by the database provider.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experimental technique on an existing material, but has undergone theoretical processing to suggest it as a candidate for a synthesizable structure. This category includes theoretically invented structures that have been relaxed using ab-inito calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power. This category definition also involves a degree of subjectivity that has to be determined by the database provider.
 
-    * :val:`hypothetical`: the structure comes with no guarantee of having any relationship to synthesizable structures or structures that can be found in nature.
-      This category is encouraged for, e.g., randomly placed atoms used as a starting point for further processing or the outcomes of AI models for which the predictive power is not deemed sufficient for `predicted`.
+    * :val:`hypothetical`: the structural information is known to not have been created in a way that provides no guarantees of producing synthesizable structures or structures found in nature. This category is suitable for randomly placed atoms (e.g., meant to provide a starting point for further processing) or outcomes of AI models with predictive power deemed insufficient for the :val:`predicted` category.
 
-    * :val:`unknown`: specifies that the database provider does not have any information it can provide in relation to this aspect of the origin of the structural information.
+    * :val:`other`: the origin of the structural information is not correctly described by any of the other categories.
+
+    * :val:`unknown`: no information is available regarding these aspects of the origin of the structural information.
+
+    The experiments and predictions referred to in the above definitions of the categories refer to existence at non-extreme conditions (i.e., existence around NTP or at lower temperatures) and in a regular atmosphere.
+    Providers who want to communicate structural information about compounds that exist only at unusual or extreme conditions should categorize them as :val:`other` and, if desired, use another facility (e.g., a provider-specific field) to communicate more specific information.
 
   - If the field is omitted, set to an empty string, or `null` it means the same thing as :val:`unknown`.
 
-  - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`  MAY be used but are strongly discouraged.
+  - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure` MAY be used but are strongly discouraged.
+    Clients encountering unrecognized strings SHOULD treat them to mean the same as :val:`unknown`.
 
 - **Examples**:
 
-  - For a structure created directly out from experimental values: :val:`"experimental"`.
+  - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
 
 Calculations Entries
 --------------------
