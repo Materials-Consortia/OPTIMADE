@@ -1181,7 +1181,9 @@ Example (note: the description strings have been wrapped for readability only):
         "description": "a structures entry",
         "properties": {
           "nelements": {
+            "$id": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
             "title": "Number of elements",
+            "x-optimade-type": "integer",
             "type": ["integer", "null"],
             "description": "Number of different elements in the structure as an integer.\n
              \n
@@ -1192,7 +1194,7 @@ Example (note: the description strings have been wrapped for readability only):
               3
             ],
             "x-optimade-property": {
-              "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
+               "property-format": "1.2"
             },
             "x-optimade-unit": "dimensionless",
             "x-optimade-implementation": {
@@ -1206,7 +1208,9 @@ Example (note: the description strings have been wrapped for readability only):
             }
           },
           "lattice_vectors": {
+            "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
             "title": "Unit cell lattice vectors",
+            "x-optimade-type": "list",
             "type": ["array", "null"],
             "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
             \n
@@ -1218,7 +1222,7 @@ Example (note: the description strings have been wrapped for readability only):
             ],
             "x-optimade-unit": "inapplicable",
             "x-optimade-property": {
-              "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "property-format": "1.2",
               "unit-definitions": [
                 {
                   "symbol": "angstrom",
@@ -1244,22 +1248,24 @@ Example (note: the description strings have been wrapped for readability only):
             "maxItems": 3
             "minItems": 3
             "items": {
-               "type": "array",
-               "x-optimade-unit": "inapplicable",
-               "maxItems": 3
-               "minItems": 3
-               "items": {
-                 "type": "number",
-                 "x-optimade-unit": "angstrom",
-                 "x-optimade-implementation": {
-                   "sortable": true,
-                   "query-support": "none"
-                 },
-                 "x-optimade-requirements": {
-                   "sortable": false,
-                   "query-support": "none"
-                 }
-               }
+              "type": "array",
+              "x-optimade-type": "list",
+              "x-optimade-unit": "inapplicable",
+              "maxItems": 3
+              "minItems": 3
+              "items": {
+                "type": "number",
+                "x-optimade-type": "float",
+                "x-optimade-unit": "angstrom",
+              "x-optimade-implementation": {
+                  "sortable": true,
+                  "query-support": "none"
+                },
+                "x-optimade-requirements": {
+                  "sortable": false,
+                  "query-support": "none"
+                }
+              }
             }
           }
           // ... <other property descriptions>
@@ -1823,7 +1829,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for the outermost level of the Property Definition:**
 
-- :field:`title`: String and :field:`description`: String.
+- :field:`$id`, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
@@ -1839,11 +1845,6 @@ A Property Definition MUST be composed according to the combination of the requi
     In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
     A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
     This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
-
-  - :field:`property-uri`: String.
-    A static URI identifier that is a URN or URL representing the specific version of the property.
-    It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-    (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
   **OPTIONAL keys:**
 
@@ -1869,6 +1870,9 @@ A Property Definition MUST be composed according to the combination of the requi
       A URI of the external resource (which MAY be a resolvable URL).
 
 **REQUIRED keys for all levels of the Property Definition:**
+
+- :field:`x-optimade-type`: String
+  Specifies the OPTIMADE data type, i.e., MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
@@ -1967,6 +1971,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
       This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
 **OPTIONAL keys**
+
+- :field:`$id`: String.
+  A static URI identifier that is a URN or URL representing the specific version of the property.
+  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
