@@ -426,17 +426,16 @@ In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`
 Handling unknown property names
 -------------------------------
 
-When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
+When an implementation receives a request with a query filter that refers to an unknown property name, it MUST NOT treat this as an error.
+Instead, it should evaluate the query with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
+Furthermore:
 
-* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
+* If the property does not have a database-specific prefix, the implementation MUST issue a warning about the unrecognized property name.
+* If the property has a database-specific prefix that the implementation does not recognize, it SHOULD return a warning indicating that the property has been handled as unknown.
+* If the property has a recognized prefix, i.e., it belongs to a known database provider, the implementation SHOULD NOT issue a warning but may issue diagnostic output with a note explaining how the request was handled.
 
-* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
-
-  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
-
-  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
-
-The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.
+The rationale for not triggering errors in the above situations is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
+Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for a provider that do not support the property.
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
