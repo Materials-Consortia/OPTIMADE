@@ -1829,7 +1829,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for the outermost level of the Property Definition:**
 
-- :field:`$id`, :field:`title`: String, and :field:`description`: String.
+- :field:`$id`: String, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
@@ -1872,7 +1872,8 @@ A Property Definition MUST be composed according to the combination of the requi
 **REQUIRED keys for all levels of the Property Definition:**
 
 - :field:`x-optimade-type`: String
-  Specifies the OPTIMADE data type for this level of the defined property, i.e., MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
+  Specifies the OPTIMADE data type for this level of the defined property.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
@@ -1959,7 +1960,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
     * :val:`"float"` then :field:`type` is `"number"`.
     * :val:`"timestamp"` then :field:`type` is `"string"`.
 
-  - A list where the first item MUST be the string above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
+  - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
 
 ..
 
@@ -1967,7 +1968,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
     - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
       The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
-      Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output format (i.e., the JSON names MUST NOT be translated into the type names of that output format).
+      Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output formats (i.e., the JSON names MUST NOT be translated into the type names of that output format).
 
     - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
       Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
