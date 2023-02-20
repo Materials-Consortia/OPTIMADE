@@ -1872,7 +1872,7 @@ A Property Definition MUST be composed according to the combination of the requi
 **REQUIRED keys for all levels of the Property Definition:**
 
 - :field:`x-optimade-type`: String
-  Specifies the OPTIMADE data type, i.e., MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
+  Specifies the OPTIMADE data type for this level of the defined property, i.e., MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
@@ -1945,26 +1945,29 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 **REQUIRED keys**
 
 - :field:`type`: String or List.
-  The string or list specifies the type of the defined property.
+  Specifies the corresponding JSON type for this level of the defined property.
+  The value is directly correlated with :field:`x-optimade-type` as explained below.
+
   It MUST be one of:
 
-  - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
-  - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
+  - A string correlated with :field:`x-optimade-type` as follows.
+    If :field:`x-optimade-type` is:
 
-  For OPTIMADE data types not covered above:
+    * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
+    * :val:`"dictionary"` then :field:`type` is `"object"`.
+    * :val:`"list"` then :field:`type` is `"array"`.
+    * :val:`"float"` then :field:`type` is `"number"`.
+    * :val:`"timestamp"` then :field:`type` is `"string"`.
 
-  - timestamps are represented by setting the :field:`type` field to :val:`"string"` and the :field:`format` field to :val:`"date-time"`.
-    In this case it is MANDATORY to include the field :field:`format`.
-
-  Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterpret the definition accordingly.
+  - A list where the first item MUST be the string above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
 
 ..
 
   Implementation notes:
 
-    - The strings used in the :field:`type` field are JSON type names encoded as strings, but they refer to the corresponding OPTIMADE data types.
-      Nevertheless, for consistency across formats, the JSON type names MUST be used regardless of the standard type names of the output format.
-      The motivation for this design decision is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+    - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
+      The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+      Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output format (i.e., the JSON names MUST NOT be translated into the type names of that output format).
 
     - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
       Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
@@ -1973,7 +1976,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 **OPTIONAL keys**
 
 - :field:`$id`: String.
-  A static URI identifier that is a URN or URL representing the specific version of the property.
+  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
   It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
