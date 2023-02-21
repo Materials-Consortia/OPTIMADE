@@ -39,7 +39,6 @@ def read_file(source, input_format='auto'):
                 base = os.path.join('.',os.path.relpath(base,'/'))
             try:
                 reader = open(base+ext, 'r')
-                os.chdir(os.path.dirname(base))
             except FileNotFoundError:
                 reader = open(base, 'r')
             if input_format == 'auto':
@@ -56,8 +55,6 @@ def read_file(source, input_format='auto'):
     finally:
         if reader is not None:
             reader.close()
-
-
 
 
 def output_str(data, output_format='json'):
@@ -85,7 +82,7 @@ def output_str(data, output_format='json'):
         raise Exception("Unknown output format"+str(output_format))
 
 
-def handle_refs(data, id_uri=None, refs_mode="rewrite", input_format=None):
+def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, basedir="./"):
     """
     Recursively handles all '$ref' references in the input data.
 
@@ -93,7 +90,7 @@ def handle_refs(data, id_uri=None, refs_mode="rewrite", input_format=None):
     ----------
     data : dict
         The input data to be processed for '$ref' references.
-    id_uri : str, optional
+    id_base : str, optional
         The contents of the topmost $id field.
     refs_mode : str, optional
         The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
@@ -109,16 +106,17 @@ def handle_refs(data, id_uri=None, refs_mode="rewrite", input_format=None):
 
     """
 
-    def handle_single_ref(ref, id_uri, refs_mode, input_format):
+    def handle_single_ref(ref, id_base, refs_mode, input_format, basedir):
         if refs_mode == "rewrite":
             base, ext = os.path.splitext(ref)
             return { "$ref": base + '.' + input_format }
         elif refs_mode == "insert":
-            if os.path.isabs(ref) and id_uri is not None:
-                absref = urllib.parse.urljoin(id_uri, ref)
-                prefix = os.path.commonprefix([id_uri, absref])
-                ref = absref[len(prefix):]
-                ref = os.path.join("../"*(len(ref.split(os.sep))-1),ref)
+            if os.path.isabs(ref):
+                # Re-process root path to a sane file path
+                absref = urllib.parse.urljoin(id_base, ref)
+                prefix = os.path.commonprefix([id_base, absref])
+                relref = os.path.relpath(absref[len(prefix):],'/')
+                ref = os.path.join(basedir,relref)
                 base, ext = os.path.splitext(ref)
                 if ext == '' and not os.path.exists(ref):
                     ref += "."+input_format
@@ -130,26 +128,26 @@ def handle_refs(data, id_uri=None, refs_mode="rewrite", input_format=None):
     if '$ref' in data:
         if ('$id' in data and len(data) > 2) or ('$id' not in data and len(data) > 1):
             raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
-        output = handle_single_ref(data['$ref'], id_uri, refs_mode, input_format)
+        output = handle_single_ref(data['$ref'], id_base, refs_mode, input_format, basedir)
         if '$id' in data:
             output['$id'] = data['$id']
         return output
 
     for k, v in data.items():
         if isinstance(v, dict):
-            data[k] = handle_refs(v, id_uri, refs_mode, input_format)
+            data[k] = handle_refs(v, id_base, refs_mode, input_format, basedir)
 
     return data
 
 
-def process(f, refs_mode="rewrite", input_format="auto", output_format="json"):
+def process(source, refs_mode="rewrite", input_format="auto", output_format="json", basedir="./"):
     """
     Processes the input file according to the specified parameters.
 
     Parameters
     ----------
-    f : str
-        The name of the input file to be processed.
+    source : str
+        The filename or URL of the input file to be processed.
     refs_mode : str, optional
         The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
         to insert the referenced data, or 'retain' to leave the '$ref' field as is. Default is
@@ -166,23 +164,27 @@ def process(f, refs_mode="rewrite", input_format="auto", output_format="json"):
         A string representation of the processed output data in the specified output format.
 
     """
-    cwd = os.getcwd()
-
-    data, input_format = read_file(f)
+    data, input_format = read_file(source)
 
     if len(data) != 1:
         raise Exception("Unexpected format of property definition.")
 
     name = list(data.keys())[0]
+    if "$id" not in data[name]:
+        raise Exception("Missing top-level $id field.")
+
+    id_uri = data[name]["$id"]
+
+    prefix = os.path.commonprefix([basedir, source])
+    rel_source = source[len(prefix):]
+    if not id_uri.endswith(rel_source):
+        rel_source, ext = os.path.splitext(rel_source)
+        if not id_uri.endswith(rel_source):
+            raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
+    id_base = id_uri[:-len(rel_source)]
 
     if refs_mode != "retain":
-        if "$id" in data[name]:
-            id_uri = data[name]["$id"]
-        else:
-            id_uri = None
-        data = handle_refs(data, id_uri, refs_mode, input_format)
-
-    os.chdir(cwd)
+        data = handle_refs(data, id_base, refs_mode, input_format, basedir)
 
     return output_str(data)
 
@@ -190,14 +192,15 @@ def process(f, refs_mode="rewrite", input_format="auto", output_format="json"):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Process property definition source files into other formats", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('file', help='The property definition file to process (path or URL).')
+    parser.add_argument('source', help='The property definition file to process (path or URL).')
     parser.add_argument('--refs-mode', help='How to handle $ref references', choices=["insert", "rewrite", "retain"], default="insert")
     parser.add_argument('--input-format', help='The input format to read', default="auto", choices=["auto","yaml"])
     parser.add_argument('--output-format', help='The output format to generate', default="json", choices=["json"])
+    parser.add_argument('--basedir', help='Reference top-level directory to use to resolve $ref reference paths')
     parser.add_argument('--output', help='Write the output to a file')
     args = parser.parse_args()
 
-    output_str = process(args.file, args.refs_mode, args.input_format, args.output_format)
+    output_str = process(args.source, args.refs_mode, args.input_format, args.output_format, args.basedir)
 
     if args.output:
         with open(args.output, "w") as f:
