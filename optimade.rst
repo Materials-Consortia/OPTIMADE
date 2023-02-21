@@ -1245,14 +1245,14 @@ Example (note: the description strings have been wrapped for readability only):
               "sortable": false,
               "query-support": "none"
             }
-            "maxItems": 3
-            "minItems": 3
+            "maxItems": 3,
+            "minItems": 3,
             "items": {
               "type": "array",
               "x-optimade-type": "list",
               "x-optimade-unit": "inapplicable",
-              "maxItems": 3
-              "minItems": 3
+              "maxItems": 3,
+              "minItems": 3,
               "items": {
                 "type": "number",
                 "x-optimade-type": "float",
