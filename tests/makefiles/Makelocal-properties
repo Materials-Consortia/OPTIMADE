@@ -3,14 +3,14 @@
 # Targets related to handling the schema/properties files
 
 INPUTS := $(wildcard properties/*/*.yaml)
-OUTPUTS = $(patsubst properties/%.yaml,properties/%,$(INPUTS))
+OUTPUTS = $(patsubst properties/%.yaml,properties/%.json,$(INPUTS))
 
 .PHONY: properties
 
 properties: $(OUTPUTS)
 
-properties/%: properties/%.yaml
-	tests/scripts/process_propdefs.py "$<" > $@
+properties/%.json: properties/%.yaml
+	tests/scripts/process_propdefs.py --output "$@" "$<"
 
 .PHONY: clean clean_properties
 

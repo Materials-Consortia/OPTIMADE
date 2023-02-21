@@ -1,2 +1,3 @@
 id:
+  $id: "https://schemas.optimade.org/properties/v1.2/structures/type"
   $ref: "/properties/v1.2/common/type"

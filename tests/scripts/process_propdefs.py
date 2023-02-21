@@ -122,16 +122,18 @@ def handle_refs(data, id_uri=None, refs_mode="rewrite", input_format=None):
                 base, ext = os.path.splitext(ref)
                 if ext == '' and not os.path.exists(ref):
                     ref += "."+input_format
-                return read_file(ref,input_format)
-                #print("IM HERE",input_format,file=sys.stderr)
-            return read_file(ref)
+                return read_file(ref,input_format)[0]
+            return read_file(ref)[0]
         else:
             raise Exception("Internal error: unexpected refs_mode: "+str(refs_mode))
 
     if '$ref' in data:
-        if len(data) > 1:
-            raise Exception("Unexpected fields present alongside $ref in:"+str(data))
-        return handle_single_ref(data['$ref'], id_uri, refs_mode, input_format)
+        if ('$id' in data and len(data) > 2) or ('$id' not in data and len(data) > 1):
+            raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
+        output = handle_single_ref(data['$ref'], id_uri, refs_mode, input_format)
+        if '$id' in data:
+            output['$id'] = data['$id']
+        return output
 
     for k, v in data.items():
         if isinstance(v, dict):
@@ -164,6 +166,7 @@ def process(f, refs_mode="rewrite", input_format="auto", output_format="json"):
         A string representation of the processed output data in the specified output format.
 
     """
+    cwd = os.getcwd()
 
     data, input_format = read_file(f)
 
@@ -179,6 +182,8 @@ def process(f, refs_mode="rewrite", input_format="auto", output_format="json"):
             id_uri = None
         data = handle_refs(data, id_uri, refs_mode, input_format)
 
+    os.chdir(cwd)
+
     return output_str(data)
 
 
@@ -189,8 +194,13 @@ if __name__ == "__main__":
     parser.add_argument('--refs-mode', help='How to handle $ref references', choices=["insert", "rewrite", "retain"], default="insert")
     parser.add_argument('--input-format', help='The input format to read', default="auto", choices=["auto","yaml"])
     parser.add_argument('--output-format', help='The output format to generate', default="json", choices=["json"])
+    parser.add_argument('--output', help='Write the output to a file')
     args = parser.parse_args()
 
     output_str = process(args.file, args.refs_mode, args.input_format, args.output_format)
 
-    print(output_str)
+    if args.output:
+        with open(args.output, "w") as f:
+            f.write(output_str)
+    else:
+        print(output_str)
