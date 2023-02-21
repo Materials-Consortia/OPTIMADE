@@ -1946,7 +1946,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 **REQUIRED keys**
 
 - :field:`type`: String or List.
-  Specifies the corresponding JSON type for this level of the defined property.
+  Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
   The value is directly correlated with :field:`x-optimade-type` as explained below.
 
   It MUST be one of:
@@ -1961,6 +1961,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
     * :val:`"timestamp"` then :field:`type` is `"string"`.
 
   - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
+    This form specifies that the defined property can be :val:`null`.
 
 ..
 
