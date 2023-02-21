@@ -57,6 +57,16 @@ def read_file(source, input_format='auto'):
             reader.close()
 
 
+def data_to_str(data):
+    title = data['title']
+    description = data['description']
+    optimade_type = data['x-optimade-type']
+
+    s = title
+    s += "~"*len(title)
+
+    return s
+
 def output_str(data, output_format='json'):
     """
     Returns a string representation of the input data in the specified output format.
@@ -78,6 +88,11 @@ def output_str(data, output_format='json'):
     if output_format == "json":
         import json
         return json.dumps(data, indent=4)
+    elif output_format == "yaml":
+        import yaml
+        return yaml.dumps(data)
+    elif output_format == "rst":
+        return data_to_str(data)
     else:
         raise Exception("Unknown output format"+str(output_format))
 
@@ -120,8 +135,12 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
                 base, ext = os.path.splitext(ref)
                 if ext == '' and not os.path.exists(ref):
                     ref += "."+input_format
-                return read_file(ref,input_format)[0]
-            return read_file(ref)[0]
+            else:
+                input_format = 'auto'
+            data = read_file(ref, input_format)[0]
+            if len(data) != 1:
+                raise Exception("Reference points at multiple top-level items: "+str(data))
+            return data[list(data.keys())[0]]
         else:
             raise Exception("Internal error: unexpected refs_mode: "+str(refs_mode))
 
@@ -186,7 +205,7 @@ def process(source, refs_mode="rewrite", input_format="auto", output_format="jso
     if refs_mode != "retain":
         data = handle_refs(data, id_base, refs_mode, input_format, basedir)
 
-    return output_str(data)
+    return output_str(data, output_format)
 
 
 if __name__ == "__main__":
@@ -195,7 +214,7 @@ if __name__ == "__main__":
     parser.add_argument('source', help='The property definition file to process (path or URL).')
     parser.add_argument('--refs-mode', help='How to handle $ref references', choices=["insert", "rewrite", "retain"], default="insert")
     parser.add_argument('--input-format', help='The input format to read', default="auto", choices=["auto","yaml"])
-    parser.add_argument('--output-format', help='The output format to generate', default="json", choices=["json"])
+    parser.add_argument('--output-format', help='The output format to generate', default="json", choices=["json","yaml","rst"])
     parser.add_argument('--basedir', help='Reference top-level directory to use to resolve $ref reference paths')
     parser.add_argument('--output', help='Write the output to a file')
     args = parser.parse_args()
