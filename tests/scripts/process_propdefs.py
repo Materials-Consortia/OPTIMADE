@@ -57,13 +57,39 @@ def read_file(source, input_format='auto'):
             reader.close()
 
 
+def dict_get_one(d):
+    if len(d) != 1:
+        raise Exception("Expected only one field in dictionary: "+str(d))
+    key = list(d.keys())[0]
+    return key, d[key]
+
+
 def data_to_str(data):
+
+    field, data = dict_get_one(data)
     title = data['title']
-    description = data['description']
+    description, sep, reqs = data['description'].partition('\n\n')
+
+    #TODO: need to iterate through dicts, lists to get the full type
     optimade_type = data['x-optimade-type']
 
-    s = title
-    s += "~"*len(title)
+    reqs = reqs.replace("Requirements/Conventions:\n","")
+
+    s = field+"\n"
+    s += "~"*len(field)+"\n"
+    s += "\n"
+    s += "**Name**: "+str(title)+"\n"
+    s += "**Description**: "+str(description)+"\n"
+    s += "**Type**: "+str(optimade_type)+"\n"
+    s += "**Requirements/Conventions**:\n"
+    s += "\n"
+    s += "  - **Support**:\n"
+    s += "  - **Query**:\n"
+    s += "  - **Response**:\n"
+    s += "  "+str(reqs).replace("\n","\n  ")+"\n"
+    s += "\n"
+    s += "**Examples**:"
+    s += "\n"
 
     return s
 
