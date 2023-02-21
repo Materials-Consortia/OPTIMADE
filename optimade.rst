@@ -1235,7 +1235,7 @@ Example (note: the description strings have been wrapped for readability only):
                   }
                 }
               ]
-            }
+            },
             "x-optimade-implementation": {
               "sortable": false,
               "query-support": "none"
@@ -1244,7 +1244,7 @@ Example (note: the description strings have been wrapped for readability only):
               "support": "should",
               "sortable": false,
               "query-support": "none"
-            }
+            },
             "maxItems": 3,
             "minItems": 3,
             "items": {
@@ -1257,7 +1257,7 @@ Example (note: the description strings have been wrapped for readability only):
                 "type": "number",
                 "x-optimade-type": "float",
                 "x-optimade-unit": "angstrom",
-              "x-optimade-implementation": {
+                "x-optimade-implementation": {
                   "sortable": true,
                   "query-support": "none"
                 },
