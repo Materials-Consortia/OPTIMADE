@@ -1970,6 +1970,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   - timestamps are represented by setting the :field:`type` field to :val:`"string"` and the :field:`format` field to :val:`"date-time"`.
     In this case it is MANDATORY to include the field :field:`format`.
+  - smiles are represented by setting both fields :field:`type` and :field:`format` to :val:`"string"` and setting :field:`x-optimade-type` to :val:`"smiles"`.
 
   Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterpret the definition accordingly.
 
