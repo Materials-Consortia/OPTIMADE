@@ -2849,25 +2849,24 @@ structure\_features
 structure\_origin
 ~~~~~~~~~~~~~~~~~
 
-- **Description**: A string that describes aspects of the origin of the structural data to indicate if is based directly or indirectly on experimental evidence or inferred from other sources, giving some information on whether the structure is believed to exist in nature or can be synthesized as a compound stable at non-extreme conditions.
+- **Description**: A string that describes aspects of the origin of the structural data to indicate if it is based directly or indirectly on experimental evidence, or inferred from other sources, giving some information on whether the structure is believed to exist in nature or can be synthesized as a compound stable at non-extreme conditions.
 
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-  - **Query**: Support for queries on this property is OPTIONAL.
-    If supported, filters MAY support only a subset of comparison operators.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - SHOULD take one of the following values:
 
-    * :val:`experimental`: the structural information is based directly on the outcome of an experimental technique for structure determination which is represented without further processing.
+    * :val:`experimental`: the structural information is a faithful representation of the outcome of an experimental technique for structure determination.
 
     * :val:`processed`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
-      For example, experimental structures relaxed using ab-initio calculations are meant to qualify for this category.
+      For example, experimental structures relaxed using *ab initio* calculations are meant to qualify for this category.
       Substituting one or more elements in a structure (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experimental technique on an existing material, but has undergone theoretical processing to suggest it as a candidate for a synthesizable structure.
-      This category includes theoretically invented structures that have been relaxed using ab-initio calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experimental technique on an existing material, but has undergone theoretical processing to suggest it as a candidate for a potentially synthesizable structure.
+      This category includes theoretically invented structures that have been relaxed using *ab initio* calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power.
       This category definition also involves a degree of subjectivity that has to be determined by the database provider.
 
     * :val:`hypothetical`: the structural information is known to have been created in a way that provides no guarantees of producing synthesizable structures or structures found in nature.
