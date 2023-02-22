@@ -2856,30 +2856,38 @@ structure\_origin
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - SHOULD take one of the following values:
+
+  - If the property is :val:`null` or omitted, no information is provided regarding these aspects of the origin of the structural information.
+    This value is used if the origin of the structural data is not known, or, if it is partially known but to an insufficient degree to distinguish between the categories defined below.
+
+  - If present and not :val:`null`, the property SHOULD take the first of the following values for which the structural information qualifies:
 
     * :val:`experimental`: the structural information is a faithful representation of the outcome of an experimental technique for structure determination.
 
     * :val:`processed`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
       For example, experimental structures relaxed using *ab initio* calculations are meant to qualify for this category.
-      Substituting one or more elements in a structure (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
+      Structures where one or more elements in a structure have been substituted (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but has undergone theoretical processing to suggest it as a candidate for a potentially synthesizable structure.
-      This category includes theoretically invented structures that have been relaxed using *ab initio* calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a potentially synthesizable structure.
+      For example, theoretically invented structures found to be close to the convex hull of thermodynamical stability at reasonable conditions (see below) by relaxation using *ab initio* calculations, AI models with a demonstrated reasonable predictive power, or similar techniques qualify for this category.
+      This category definition involves a degree of subjectivity that has to be determined by the database provider.
+      The database provider MAY choose not to use theoretical methods to propose structures in the way described here, in which case this category is not used.
+
+    * :val:`hypothetical`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a local energy minimum on the potential energy surface.
+      This category accommodates potentially highly thermodynamically unstable structures, e.g., predicted to decompose into other competing phases, even with respect to the elemental solids.
+      For example, structures relaxed using *ab initio* calculations but not identified to end up close to the convex hull of thermodynamical stability qualify for this category.
+      AI models which, with a demonstrated reasonable predictive power, can generate structures in local potential energy minimums (e.g., by relaxation via predicted forces, direct generation, etc.) also qualify.
       This category definition also involves a degree of subjectivity that has to be determined by the database provider.
 
-    * :val:`hypothetical`: the structural information is known to have been created in a way that provides no guarantees of producing synthesizable structures or structures found in nature.
-      This category is suitable for configurations that have been deemed by calculation or AI predictions to be thermodynamically unstable (e.g., predicted to decompose into other competing phases) or structures that are the outcome of AI models with predictive power deemed insufficient for the :val:`predicted` category.
-      Such structures should still be the result of a local optimization (either directly or inferred by an AI model).
+    * :val:`arbitrary`: the structural information has been created in a way that does not ensure any type of stability, i.e., not even representing a local energy minimum on the potential energy surface.
+      For example, arbitrarily placed atoms that have not been locally optimized, non-equilibrium snapshots, and outcomes of AI models for which the predictive power is deemed insufficient for the earlier categories, all qualify for this category.
 
-    * :val:`other`: the origin of the structural information is not correctly described by any of the other categories.
-    This could cover the case of structures that have not been locally optimized, e.g., a non-equilibrium snapshot, or any other arbitrary configuration of atoms in <=3D space.
-
-    * :val:`unknown`: no information is available regarding these aspects of the origin of the structural information.
+    * :val:`other`: the origin of the structural information is known, but is not correctly described by any of the above categories.
+      For example, this category is suitable for structures that are a faithful representation of the outcome of experiments performed at extreme pressures.
 
     The experiments and predictions referred to in the above definitions of the categories refer to existence at non-extreme conditions (i.e., existence around NTP or at lower temperatures) and in a regular atmosphere.
-    Providers who want to communicate structural information about compounds that exist only at unusual or extreme conditions should categorize them as :val:`other` and, if desired, use another facility (e.g., a provider-specific property) to communicate more specific information.
+    Providers who want to communicate structural information about compounds that exist only at unusual or extreme conditions SHOULD use the :val:`other` category, and, if desired, use another facility (e.g., a provider-specific property) to communicate more specific information.
 
   - If the property is omitted, set to an empty string, or `null` it means the same thing as :val:`unknown`.
 
