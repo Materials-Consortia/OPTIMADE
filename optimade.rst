@@ -2889,8 +2889,6 @@ structure\_origin
     The experiments and predictions referred to in the above definitions of the categories refer to existence at non-extreme conditions (i.e., existence around NTP or at lower temperatures) and in a regular atmosphere.
     Providers who want to communicate structural information about compounds that exist only at unusual or extreme conditions SHOULD use the :val:`other` category, and, if desired, use another facility (e.g., a provider-specific property) to communicate more specific information.
 
-  - If the property is omitted, set to an empty string, or `null` it means the same thing as :val:`unknown`.
-
   - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
     Clients encountering unrecognized strings SHOULD treat them to mean the same as :val:`unknown`.
 
