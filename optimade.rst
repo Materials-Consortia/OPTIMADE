@@ -2865,14 +2865,16 @@ structure\_origin
       Substituting one or more elements in a structure (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experimental technique on an existing material, but has undergone theoretical processing to suggest it as a candidate for a potentially synthesizable structure.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but has undergone theoretical processing to suggest it as a candidate for a potentially synthesizable structure.
       This category includes theoretically invented structures that have been relaxed using *ab initio* calculations and found to be close to the convex hull of stability, or structures generated from AI models with a demonstrated reasonable predictive power.
       This category definition also involves a degree of subjectivity that has to be determined by the database provider.
 
     * :val:`hypothetical`: the structural information is known to have been created in a way that provides no guarantees of producing synthesizable structures or structures found in nature.
-      This category is suitable for randomly placed atoms (e.g., meant to provide a starting point for further processing) or outcomes of AI models with predictive power deemed insufficient for the :val:`predicted` category.
+      This category is suitable for configurations that have been deemed by calculation or AI predictions to be thermodynamically unstable (e.g., predicted to decompose into other competing phases) or structures that are the outcome of AI models with predictive power deemed insufficient for the :val:`predicted` category.
+      Such structures should still be the result of a local optimization (either directly or inferred by an AI model).
 
     * :val:`other`: the origin of the structural information is not correctly described by any of the other categories.
+    This could cover the case of structures that have not been locally optimized, e.g., a non-equilibrium snapshot, or any other arbitrary configuration of atoms in <=3D space.
 
     * :val:`unknown`: no information is available regarding these aspects of the origin of the structural information.
 
