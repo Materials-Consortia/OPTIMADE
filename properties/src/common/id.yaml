@@ -9,7 +9,8 @@ id:
   description: |-
     A unique string referencing a specific entry in the database.
 
-    Requirements/Conventions:
+    **Requirements/Conventions:**
+
     - Taken together, the ID and entry type MUST uniquely identify the entry.
     - Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
     - IDs MAY change over time.

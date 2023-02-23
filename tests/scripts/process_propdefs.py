@@ -66,29 +66,51 @@ def dict_get_one(d):
 
 def data_to_str(data):
 
+    support_descs = {
+        "must": "MUST be supported by all implementations, MUST NOT be :val:`null`.",
+        "should": "SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.",
+        "may": "OPTIONAL support in implementations, i.e., MAY be :val:`null`."
+    }
+    query_support_descs = {
+        "all mandatory" : "MUST be a queryable property with support for all mandatory filter features.",
+        "equality_only" : "MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.",
+        "partial" : "MUST be a queryable property.",
+        "none": "Support for queries on this property is OPTIONAL."
+    }
+
     field, data = dict_get_one(data)
     title = data['title']
-    description, sep, reqs = data['description'].partition('\n\n')
+    description_short, sep, description_details = [x.strip() for x in data['description'].partition('**Requirements/Conventions**:')]
+    examples = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
+
+    req_support_level, req_sort, req_query = ["Not specified"]*3
+    req_partial_info = ""
+    if 'x-optimade-requirements' in data:
+        if 'support' in data['x-optimade-requirements']:
+            req_support = data['x-optimade-requirements']['support']
+        if 'sortable' in data['x-optimade-requirements']:
+            req_sort = data['x-optimade-requirements']['sortable']
+        if 'query-support' in data['x-optimade-requirements']:
+            req_query = data['x-optimade-requirements']['query-support']
+            if req_query == "partial":
+                req_partial_info = "The following filter language features MUST be supported: "+", ".join(data['x-optimade-requirements']['query-support-operators'])
 
     #TODO: need to iterate through dicts, lists to get the full type
     optimade_type = data['x-optimade-type']
-
-    reqs = reqs.replace("Requirements/Conventions:\n","")
 
     s = field+"\n"
     s += "~"*len(field)+"\n"
     s += "\n"
     s += "**Name**: "+str(title)+"\n"
-    s += "**Description**: "+str(description)+"\n"
+    s += "**Description**: "+str(description_short)+"\n"
     s += "**Type**: "+str(optimade_type)+"\n"
     s += "**Requirements/Conventions**:\n"
+    s += "- **Support**: "+support_descs[req_support]+"\n"
+    s += "- **Query**: "+query_support_descs[req_query]+"\n"
+    s += "- **Response**:\n"
+    s += description_details+"\n"
     s += "\n"
-    s += "  - **Support**:\n"
-    s += "  - **Query**:\n"
-    s += "  - **Response**:\n"
-    s += "  "+str(reqs).replace("\n","\n  ")+"\n"
-    s += "\n"
-    s += "**Examples**:"
+    s += "**Examples**:\n\n"+examples
     s += "\n"
 
     return s

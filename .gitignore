@@ -5,3 +5,4 @@ Makeconf*
 .idea/
 .vscode/
 .DS_Store
+properties/output
