@@ -163,6 +163,7 @@ test-clean:
 	rm -f ${DIFF_FILES}
 
 test-distclean test-cleanAll: test-clean
+	rm -f ${DEPEND}
 
 clean: test-clean
 
