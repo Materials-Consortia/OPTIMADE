@@ -1,5 +1,6 @@
 chemical_formula_hill:
   $id: "https://schemas.optimade.org/properties/v1.2/structures/chemical_formula_hill"
+  x-optimade-type: "string"
   x-optimade-property:
     property-format: "1.2"
   title: "Hill chemical formula"
@@ -28,7 +29,7 @@ chemical_formula_hill:
     - A filter that matches an exactly given formula is `chemical_formula_hill="H2O2"`.
 
   examples:
-    - `"H2O2"`
+    - H2O2
   x-optimade-unit: "inapplicable"
   x-optimade-requirements:
     support: "may"

@@ -4,7 +4,21 @@ import argparse, io, codecs, os, sys
 import urllib.parse
 import urllib.request
 
-def read_file(source, input_format='auto'):
+class ExceptionWrapper(Exception):
+    debug = False
+    def __init__(self,msg,e):
+        if isinstance(e, ExceptionWrapper):
+            self.messages = [msg] + e.messages
+        elif isinstance(e, Exception):
+            self.messages = [msg, str(e)+"."]
+        else:
+            self.messages = [msg, type(e).__name__+": "+str(e)+"."]
+        full_message = msg +". Error details:\n- "+("\n- ".join(self.messages[1:]))+"\n"
+        if not self.debug:
+            full_message += "\nAdd command line argument -d for a full traceback of the error."
+        super().__init__(full_message)
+
+def read_data(source, input_format='auto'):
     """
     Reads data from a file or a URL and returns the parsed content.
 
@@ -20,6 +34,8 @@ def read_file(source, input_format='auto'):
     tuple
         A tuple containing the parsed content and its format.
     """
+
+    print("READ DATA",source)
 
     reader = None
     try:
@@ -47,10 +63,13 @@ def read_file(source, input_format='auto'):
         if input_format == "yaml":
             import yaml
             return yaml.safe_load(reader), "yaml"
+        if input_format == "json":
+            import yaml
+            return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
-    except FileNotFoundError:
-        raise Exception("File not found: "+str(source)+" relative to:"+os.getcwd())
+    except FileNotFoundError as e:
+        raise ExceptionWrapper("File not found: "+str(source)+" relative to:"+os.getcwd(),e)
 
     finally:
         if reader is not None:
@@ -59,12 +78,29 @@ def read_file(source, input_format='auto'):
 
 def dict_get_one(d):
     if len(d) != 1:
-        raise Exception("Expected only one field in dictionary: "+str(d))
+        raise Exception("Expected only one field in dictionary, but found: "+str(d.keys()))
     key = list(d.keys())[0]
     return key, d[key]
 
 
 def data_to_str(data):
+
+    if not "x-optimade-property" in data:
+        s = ""
+        for item in sorted(data.keys()):
+            s += item + "\n"
+            s += '~'*len(item)+"\n"
+
+            try:
+                if isinstance(data[item], dict):
+                    s += data_to_str(data[item])
+                else:
+                    raise Exception("Internal error, unexpected data for data_to_str: "+str(data))
+                    exit(0)
+            except Exception as e:
+                raise ExceptionWrapper("Could not process item: "+item,e)
+            s += "\n"
+        return s
 
     support_descs = {
         "must": "MUST be supported by all implementations, MUST NOT be :val:`null`.",
@@ -73,12 +109,12 @@ def data_to_str(data):
     }
     query_support_descs = {
         "all mandatory" : "MUST be a queryable property with support for all mandatory filter features.",
-        "equality_only" : "MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.",
+        "equality only" : "MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.",
         "partial" : "MUST be a queryable property.",
         "none": "Support for queries on this property is OPTIONAL."
     }
 
-    field, data = dict_get_one(data)
+    #field, data = dict_get_one(data)
     title = data['title']
     description_short, sep, description_details = [x.strip() for x in data['description'].partition('**Requirements/Conventions**:')]
     examples = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
@@ -98,10 +134,10 @@ def data_to_str(data):
     #TODO: need to iterate through dicts, lists to get the full type
     optimade_type = data['x-optimade-type']
 
-    s = field+"\n"
-    s += "~"*len(field)+"\n"
-    s += "\n"
-    s += "**Name**: "+str(title)+"\n"
+    #s = field+"\n"
+    #s += "~"*len(field)+"\n"
+    #s += "\n"
+    s = "**Name**: "+str(title)+"\n"
     s += "**Description**: "+str(description_short)+"\n"
     s += "**Type**: "+str(optimade_type)+"\n"
     s += "**Requirements/Conventions**:\n"
@@ -139,10 +175,10 @@ def output_str(data, output_format='json'):
     elif output_format == "yaml":
         import yaml
         return yaml.dumps(data)
-    elif output_format == "rst":
+    elif output_format == "md":
         return data_to_str(data)
     else:
-        raise Exception("Unknown output format"+str(output_format))
+        raise Exception("Unknown output format: "+str(output_format))
 
 
 def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, basedir="./"):
@@ -170,6 +206,7 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
     """
 
     def handle_single_ref(ref, id_base, refs_mode, input_format, basedir):
+        print("HANDLE SINGLE REF:",ref, "::", id_base, "::", basedir)
         if refs_mode == "rewrite":
             base, ext = os.path.splitext(ref)
             return { "$ref": base + '.' + input_format }
@@ -177,15 +214,22 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
             if os.path.isabs(ref):
                 # Re-process root path to a sane file path
                 absref = urllib.parse.urljoin(id_base, ref)
+                #print("ABSREF:",absref)
                 prefix = os.path.commonprefix([id_base, absref])
-                relref = os.path.relpath(absref[len(prefix):],'/')
+                #print("PREFIX:",prefix)
+                #print("PREFIX2:",absref[len(prefix):])
+                #relref = os.path.relpath(absref[len(prefix):],'/')
+                relref = absref[len(prefix):]
+                #print("RELREF:",relref)
                 ref = os.path.join(basedir,relref)
+                #print("REF:",ref)
                 base, ext = os.path.splitext(ref)
                 if ext == '' and not os.path.exists(ref):
                     ref += "."+input_format
+                #print("WHAT?!:",ref)
             else:
                 input_format = 'auto'
-            data = read_file(ref, input_format)[0]
+            data = read_data(ref, input_format)[0]
             if len(data) != 1:
                 raise Exception("Reference points at multiple top-level items: "+str(data))
             return data[list(data.keys())[0]]
@@ -207,14 +251,14 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
     return data
 
 
-def process(source, refs_mode="rewrite", input_format="auto", output_format="json", basedir="./"):
+def process(source, refs_mode="rewrite", input_format="auto", basedir="./"):
     """
     Processes the input file according to the specified parameters.
 
     Parameters
     ----------
     source : str
-        The filename or URL of the input file to be processed.
+        The path to a file or a URL to the input to be processed.
     refs_mode : str, optional
         The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
         to insert the referenced data, or 'retain' to leave the '$ref' field as is. Default is
@@ -231,7 +275,8 @@ def process(source, refs_mode="rewrite", input_format="auto", output_format="jso
         A string representation of the processed output data in the specified output format.
 
     """
-    data, input_format = read_file(source)
+    print("ASKING ME TO READ:",source)
+    data, input_format = read_data(source)
 
     if len(data) != 1:
         raise Exception("Unexpected format of property definition.")
@@ -253,24 +298,77 @@ def process(source, refs_mode="rewrite", input_format="auto", output_format="jso
     if refs_mode != "retain":
         data = handle_refs(data, id_base, refs_mode, input_format, basedir)
 
-    return output_str(data, output_format)
+    return data
+
+
+def process_dir(source_dir, refs_mode="rewrite", input_format="auto", basedir="./"):
+
+    alldata = {}
+
+    print("Processing dir:",source_dir)
+    for filename in os.listdir(source_dir):
+        f = os.path.join(source_dir,filename)
+        print("Found:",f)
+        if os.path.isdir(f):
+            print("Reading dir: ",f)
+            dirdata = process_dir(f, refs_mode, input_format, basedir)
+            alldata[os.path.basename(f)] = dirdata
+        elif os.path.isfile(f):
+            print("Reading file: ",f)
+            data = process(f, refs_mode, input_format, basedir)
+            alldata.update(data)
+
+    return alldata
 
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Process property definition source files into other formats", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('source', help='The property definition file to process (path or URL).')
-    parser.add_argument('--refs-mode', help='How to handle $ref references', choices=["insert", "rewrite", "retain"], default="insert")
-    parser.add_argument('--input-format', help='The input format to read', default="auto", choices=["auto","yaml"])
-    parser.add_argument('--output-format', help='The output format to generate', default="json", choices=["json","yaml","rst"])
-    parser.add_argument('--basedir', help='Reference top-level directory to use to resolve $ref reference paths')
-    parser.add_argument('--output', help='Write the output to a file')
-    args = parser.parse_args()
+    try:
+        parser = argparse.ArgumentParser(description="Process property definition source files into other formats", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        parser.add_argument('source', help='The property definition file, directory or URL to process.')
+        parser.add_argument('-r','--refs-mode', help='How to handle $ref references', choices=["insert", "rewrite", "retain"], default="insert")
+        parser.add_argument('-i','--input-format', help='The input format to read', default="auto", choices=["auto", "json", "yaml"])
+        parser.add_argument('-f','--output-format', help='The output format to generate', default="json", choices=["json", "yaml", "md"])
+        parser.add_argument('-b', '--basedir', help='Reference top-level directory to use to resolve $ref reference paths')
+        parser.add_argument('-o', '--output', help='Write the output to a file')
+        parser.add_argument('-d', '--debug', help='Debug output', default=False, action='store_true')
+        args = parser.parse_args()
 
-    output_str = process(args.source, args.refs_mode, args.input_format, args.output_format, args.basedir)
+    except Exception as e:
+        print("Internal error: failed to parse arguments: " +type(e).__name__+": "+str(e)+'.')
+        exit(1)
 
-    if args.output:
-        with open(args.output, "w") as f:
-            f.write(output_str)
-    else:
-        print(output_str)
+    debug = args.debug
+    ExceptionWrapper.debug = debug
+
+    try:
+        try:
+            if os.path.isdir(args.source):
+                data = process_dir(args.source, args.refs_mode, args.input_format, args.basedir)
+            else:
+                data = process(args.source, args.refs_mode, args.input_format, args.basedir)
+
+        except Exception as e:
+            raise ExceptionWrapper("Processing of input failed", e) from e
+
+        try:
+            outstr = output_str(data, args.output_format)
+        except Exception as e:
+            raise ExceptionWrapper("Serialization of data failed", e) from e
+
+        try:
+            if args.output:
+                with open(args.output, "w") as f:
+                    f.write(outstr)
+            else:
+                print(outstr)
+
+        except Exeption as e:
+            raise ExceptionWrapper("Writing output data failed", e) from e
+
+    except Exception as e:
+        if debug:
+            raise
+        else:
+            print(e)
+            exit(1)

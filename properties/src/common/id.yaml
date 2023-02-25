@@ -1,5 +1,6 @@
 id:
   $id: "https://schemas.optimade.org/properties/v1.2/common/id"
+  x-optimade-type: "string"
   x-optimade-property:
     property-format: "1.2"
     version: 1.0.0
