@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import argparse, io, codecs, os, sys
+import argparse, io, codecs, os, sys, logging
 import urllib.parse
 import urllib.request
 
@@ -35,7 +35,7 @@ def read_data(source, input_format='auto'):
         A tuple containing the parsed content and its format.
     """
 
-    print("READ DATA",source)
+    logging.debug("Read data from: %s"+str(source))
 
     reader = None
     try:
@@ -206,7 +206,7 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
     """
 
     def handle_single_ref(ref, id_base, refs_mode, input_format, basedir):
-        print("HANDLE SINGLE REF:",ref, "::", id_base, "::", basedir)
+        logging.info("Handle single $ref: %s",ref)
         if refs_mode == "rewrite":
             base, ext = os.path.splitext(ref)
             return { "$ref": base + '.' + input_format }
@@ -214,19 +214,12 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
             if os.path.isabs(ref):
                 # Re-process root path to a sane file path
                 absref = urllib.parse.urljoin(id_base, ref)
-                #print("ABSREF:",absref)
                 prefix = os.path.commonprefix([id_base, absref])
-                #print("PREFIX:",prefix)
-                #print("PREFIX2:",absref[len(prefix):])
-                #relref = os.path.relpath(absref[len(prefix):],'/')
                 relref = absref[len(prefix):]
-                #print("RELREF:",relref)
                 ref = os.path.join(basedir,relref)
-                #print("REF:",ref)
                 base, ext = os.path.splitext(ref)
                 if ext == '' and not os.path.exists(ref):
                     ref += "."+input_format
-                #print("WHAT?!:",ref)
             else:
                 input_format = 'auto'
             data = read_data(ref, input_format)[0]
@@ -275,7 +268,6 @@ def process(source, refs_mode="rewrite", input_format="auto", basedir="./"):
         A string representation of the processed output data in the specified output format.
 
     """
-    print("ASKING ME TO READ:",source)
     data, input_format = read_data(source)
 
     if len(data) != 1:
@@ -305,16 +297,14 @@ def process_dir(source_dir, refs_mode="rewrite", input_format="auto", basedir=".
 
     alldata = {}
 
-    print("Processing dir:",source_dir)
     for filename in os.listdir(source_dir):
         f = os.path.join(source_dir,filename)
-        print("Found:",f)
         if os.path.isdir(f):
-            print("Reading dir: ",f)
+            logging.info("Process dir reads directory: %s",f)
             dirdata = process_dir(f, refs_mode, input_format, basedir)
             alldata[os.path.basename(f)] = dirdata
         elif os.path.isfile(f):
-            print("Reading file: ",f)
+            logging.info("Process dir reads file: %s",f)
             data = process(f, refs_mode, input_format, basedir)
             alldata.update(data)
 
@@ -331,36 +321,49 @@ if __name__ == "__main__":
         parser.add_argument('-f','--output-format', help='The output format to generate', default="json", choices=["json", "yaml", "md"])
         parser.add_argument('-b', '--basedir', help='Reference top-level directory to use to resolve $ref reference paths')
         parser.add_argument('-o', '--output', help='Write the output to a file')
-        parser.add_argument('-d', '--debug', help='Debug output', default=False, action='store_true')
+        parser.add_argument('-d', '--debug', help='Produce full tracebacks on error', default=False, action='store_true')
+        parser.add_argument('-v', '--verbose', dest="verbosity", action="append_const", const=1)
+        parser.add_argument('-q', '--quiet', dest="verbosity", action="append_const", const=-1)
+        parser.set_defaults(verbosity=[2])
         args = parser.parse_args()
 
-    except Exception as e:
-        print("Internal error: failed to parse arguments: " +type(e).__name__+": "+str(e)+'.')
-        exit(1)
+        # Make sure verbosity is in the allowed range
+        log_levels = [logging.CRITICAL, logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG]
+        verbosity = min(len(log_levels) - 1, max(sum(args.verbosity), 0))
+        logging.basicConfig(format='%(levelname)s: %(message)s',level=log_levels[verbosity])
+        # Turn on tracebacks, etc., if verbosity is max *or* the debug flag is given
+        debug = args.debug or verbosity == len(log_levels)-1
+        ExceptionWrapper.debug = debug
 
-    debug = args.debug
-    ExceptionWrapper.debug = debug
+    except Exception as e:
+        print("Internal error when parsing command line arguments: " +type(e).__name__+": "+str(e)+'.', file=sys.stderr)
+        exit(1)
 
     try:
         try:
             if os.path.isdir(args.source):
+                logging.info("Processing directory: %s", args.source)
                 data = process_dir(args.source, args.refs_mode, args.input_format, args.basedir)
             else:
+                logging.info("Processing file: %s", args.source)
                 data = process(args.source, args.refs_mode, args.input_format, args.basedir)
 
         except Exception as e:
             raise ExceptionWrapper("Processing of input failed", e) from e
 
         try:
+            logging.info("Serializing data into format: %s", args.output_format)
             outstr = output_str(data, args.output_format)
         except Exception as e:
             raise ExceptionWrapper("Serialization of data failed", e) from e
 
         try:
             if args.output:
+                logging.info("Writing serialized output to file: %s", args.output)
                 with open(args.output, "w") as f:
                     f.write(outstr)
             else:
+                logging.info("Writing serialized output to stdout")
                 print(outstr)
 
         except Exeption as e:
