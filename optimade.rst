@@ -1977,14 +1977,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 **REQUIRED keys**
 
-- :field:`type`: String or List.
+- :field:`type`: List.
   Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
   The value is directly correlated with :field:`x-optimade-type` as explained below.
 
-  It MUST be one of:
-
-  - A string correlated with :field:`x-optimade-type` as follows.
-    If :field:`x-optimade-type` is:
+  It MUST be a one or two element list where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
     * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
     * :val:`"dictionary"` then :field:`type` is `"object"`.
@@ -1992,10 +1989,8 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
     * :val:`"float"` then :field:`type` is `"number"`.
     * :val:`"timestamp"` then :field:`type` is `"string"`.
 
-  - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
-    This form specifies that the defined property can be :val:`null`.
-
-..
+  If the second element is included, it MUST be the string :val:`"null"`.
+  This two element form specifies that the defined property can be :val:`null`.
 
   Implementation notes:
 
