@@ -1,21 +1,27 @@
 #---*- Makefile -*-------------------------------------------------------
 
 # Targets related to handling the schema/properties files
+PROPS := $(wildcard properties/src/*/*/*/*.yaml)
+PROPS_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(PROPS))
 
-INPUTS := $(wildcard properties/src/*/*.yaml)
-OUTPUTS = $(patsubst properties/src/%.yaml,properties/output/%.json,$(INPUTS))
+ENDPOINTS := $(wildcard properties/src/*/*/*.yaml)
+ENDPOINTS_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(ENDPOINTS))
+
+NAMESPACES := $(wildcard properties/src/*/*.yaml)
+NAMESPACES_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(NAMESPACES))
 
 .PHONY: properties
 
-properties: $(OUTPUTS)
+properties: $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 
 properties/output/%.json: properties/src/%.yaml
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_propdefs.py --basedir "properties/src" --output "$@" "$<"
+	tests/scripts/process_propdefs.py --refs-mode insert --basedir "properties/src" --baseid="https://schemas.optimade.org/properties/" --output "$@" "$<"
 
 .PHONY: clean clean_properties
 
 clean: clean_properties
 
 clean_properties:
-	rm -f $(OUTPUTS)
+	rm -f $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+	rm -rf properties/output

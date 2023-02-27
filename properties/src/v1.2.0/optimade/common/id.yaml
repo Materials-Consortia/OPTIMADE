@@ -1,0 +1,27 @@
+title: "ID"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/id"
+x-optimade-type: "string"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+type:
+  - "string"
+description: |-
+  A unique string referencing a specific entry in the database.
+
+  **Requirements/Conventions:**
+
+  - Taken together, the ID and entry type MUST uniquely identify the entry.
+  - Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.
+  - IDs MAY change over time.
+examples:
+  - "db/1234567"
+  - "cod/2000000"
+  - "cod/2000000@1234567"
+  - "nomad/L1234567890"
+  - "42"
+x-optimade-unit: "inapplicable"
+x-optimade-requirements:
+  support: "must"
+  sortable: true
+  query-support: "all mandatory"

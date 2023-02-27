@@ -4,18 +4,20 @@ import argparse, io, codecs, os, sys, logging
 import urllib.parse
 import urllib.request
 
+supported_input_formats = ['json', 'yaml']
+
 class ExceptionWrapper(Exception):
     debug = False
     def __init__(self,msg,e):
         if isinstance(e, ExceptionWrapper):
             self.messages = [msg] + e.messages
-        elif isinstance(e, Exception):
+        elif type(e) == Exception:
             self.messages = [msg, str(e)+"."]
         else:
             self.messages = [msg, type(e).__name__+": "+str(e)+"."]
         full_message = msg +". Error details:\n- "+("\n- ".join(self.messages[1:]))+"\n"
         if not self.debug:
-            full_message += "\nAdd command line argument -d for a full traceback of the error."
+            full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
 def read_data(source, input_format='auto'):
@@ -35,7 +37,7 @@ def read_data(source, input_format='auto'):
         A tuple containing the parsed content and its format.
     """
 
-    logging.debug("Read data from: %s"+str(source))
+    logging.debug("Read data from: %s",source)
 
     reader = None
     try:
@@ -50,15 +52,19 @@ def read_data(source, input_format='auto'):
                     if input_format.startswith('x-'):
                        input_format = input_format[2:]
         else:
-            base, ext = os.path.splitext(parsed_url.path)
+            base, orig_ext = os.path.splitext(parsed_url.path)
             if os.path.isabs(base):
                 base = os.path.join('.',os.path.relpath(base,'/'))
-            try:
-                reader = open(base+ext, 'r')
-            except FileNotFoundError:
-                reader = open(base, 'r')
-            if input_format == 'auto':
-                input_format = ext.lstrip('.')
+            for ext in [orig_ext] + ["."+x for x in supported_input_formats]:
+                logging.debug("Checking for file: %s",base+ext)
+                if os.path.isfile(base+ext):
+                    reader = open(base+ext, 'r')
+                    if input_format == 'auto':
+                        input_format = ext.lstrip(".")
+                    break
+            else:
+                # meant to raise a proper FileNotFoundError
+                reader = open(base+orig_ext, 'r')
 
         if input_format == "yaml":
             import yaml
@@ -68,8 +74,8 @@ def read_data(source, input_format='auto'):
             return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
-    except FileNotFoundError as e:
-        raise ExceptionWrapper("File not found: "+str(source)+" relative to:"+os.getcwd(),e)
+    except Exception as e:
+        raise ExceptionWrapper("Couldn't load data from: "+str(source),e)
 
     finally:
         if reader is not None:
@@ -89,7 +95,7 @@ def data_to_str(data):
         s = ""
         for item in sorted(data.keys()):
             s += item + "\n"
-            s += '~'*len(item)+"\n"
+            s += '-'*len(item)+"\n\n"
 
             try:
                 if isinstance(data[item], dict):
@@ -181,7 +187,7 @@ def output_str(data, output_format='json'):
         raise Exception("Unknown output format: "+str(output_format))
 
 
-def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, basedir="./"):
+def handle_refs(data, refs_mode="rewrite", input_format=None, bases=None):
     """
     Recursively handles all '$ref' references in the input data.
 
@@ -189,8 +195,6 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
     ----------
     data : dict
         The input data to be processed for '$ref' references.
-    id_base : str, optional
-        The contents of the topmost $id field.
     refs_mode : str, optional
         The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
         to insert the referenced data. Default is 'rewrite'.
@@ -205,46 +209,66 @@ def handle_refs(data, id_base=None, refs_mode="rewrite", input_format=None, base
 
     """
 
-    def handle_single_ref(ref, id_base, refs_mode, input_format, basedir):
+    def ref_to_source(ref, bases):
+        parsed_ref = urllib.parse.urlparse(ref)
+        if parsed_ref.scheme in ['file', '']:
+            ref = parsed_ref.path
+            if os.path.isabs(ref):
+                # Re-process absolute path to file path
+                absref = urllib.parse.urljoin(bases['id'], ref)
+                relref = absref[len(bases['id']):]
+                return os.path.join(bases['dir'],relref)
+            else:
+                return os.path.join(bases['self'],ref)
+        return ref
+
+    def handle_single_ref(ref, refs_mode, input_format, bases):
         logging.info("Handle single $ref: %s",ref)
-        if refs_mode == "rewrite":
+        if refs_mode == "retain":
+            return { "$ref": ref }
+        elif refs_mode == "rewrite":
             base, ext = os.path.splitext(ref)
             return { "$ref": base + '.' + input_format }
         elif refs_mode == "insert":
-            if os.path.isabs(ref):
-                # Re-process root path to a sane file path
-                absref = urllib.parse.urljoin(id_base, ref)
-                prefix = os.path.commonprefix([id_base, absref])
-                relref = absref[len(prefix):]
-                ref = os.path.join(basedir,relref)
-                base, ext = os.path.splitext(ref)
-                if ext == '' and not os.path.exists(ref):
-                    ref += "."+input_format
-            else:
-                input_format = 'auto'
-            data = read_data(ref, input_format)[0]
-            if len(data) != 1:
-                raise Exception("Reference points at multiple top-level items: "+str(data))
-            return data[list(data.keys())[0]]
+            source = ref_to_source(ref, bases)
+            return read_data(source, input_format)[0]
         else:
             raise Exception("Internal error: unexpected refs_mode: "+str(refs_mode))
 
+    logging.debug("Handling refs in: %s",data)
+
     if '$ref' in data:
-        if ('$id' in data and len(data) > 2) or ('$id' not in data and len(data) > 1):
+        if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
             raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
-        output = handle_single_ref(data['$ref'], id_base, refs_mode, input_format, basedir)
+
+        if 'x-propdefs-ref-mode' in data:
+            this_refs_mode = data['x-propdefs-ref-mode']
+            del data['x-propdefs-ref-mode']
+        else:
+            this_refs_mode = refs_mode
+
+        if this_refs_mode == 'retain':
+            return data
+
+        output = handle_single_ref(data['$ref'], this_refs_mode, input_format, bases)
+        if isinstance(output, dict):
+            # Handle $ref:s recursively
+            newbases = bases.copy()
+            source = ref_to_source(data['$ref'], bases)
+            newbases['self'] = os.path.dirname(source)
+            output = handle_refs(output, refs_mode, input_format, newbases)
         if '$id' in data:
             output['$id'] = data['$id']
         return output
 
     for k, v in data.items():
         if isinstance(v, dict):
-            data[k] = handle_refs(v, id_base, refs_mode, input_format, basedir)
+            data[k] = handle_refs(v, refs_mode, input_format, bases)
 
     return data
 
 
-def process(source, refs_mode="rewrite", input_format="auto", basedir="./"):
+def process(source, refs_mode="rewrite", input_format="auto", bases=None):
     """
     Processes the input file according to the specified parameters.
 
@@ -269,31 +293,28 @@ def process(source, refs_mode="rewrite", input_format="auto", basedir="./"):
 
     """
     data, input_format = read_data(source)
+    parsed_source = urllib.parse.urlparse(source)
+    bases['self'] = os.path.dirname(parsed_source.path)
 
-    if len(data) != 1:
-        raise Exception("Unexpected format of property definition.")
+    if "$id" in data:
+        id_uri = data["$id"]
 
-    name = list(data.keys())[0]
-    if "$id" not in data[name]:
-        raise Exception("Missing top-level $id field.")
-
-    id_uri = data[name]["$id"]
-
-    prefix = os.path.commonprefix([basedir, source])
-    rel_source = source[len(prefix):]
-    if not id_uri.endswith(rel_source):
-        rel_source, ext = os.path.splitext(rel_source)
-        if not id_uri.endswith(rel_source):
-            raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
-    id_base = id_uri[:-len(rel_source)]
+        if bases['id'] is None:
+            prefix = os.path.commonprefix([bases['dir'], source])
+            rel_source = source[len(prefix):]
+            if not id_uri.endswith(rel_source):
+                rel_source, ext = os.path.splitext(rel_source)
+                if not id_uri.endswith(rel_source):
+                    raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
+            bases = {'id': id_uri[:-len(rel_source)], 'dir': bases['dir'] }
 
     if refs_mode != "retain":
-        data = handle_refs(data, id_base, refs_mode, input_format, basedir)
+        data = handle_refs(data, refs_mode, input_format, bases)
 
     return data
 
 
-def process_dir(source_dir, refs_mode="rewrite", input_format="auto", basedir="./"):
+def process_dir(source_dir, refs_mode="rewrite", input_format="auto", bases=None):
 
     alldata = {}
 
@@ -301,12 +322,14 @@ def process_dir(source_dir, refs_mode="rewrite", input_format="auto", basedir=".
         f = os.path.join(source_dir,filename)
         if os.path.isdir(f):
             logging.info("Process dir reads directory: %s",f)
-            dirdata = process_dir(f, refs_mode, input_format, basedir)
+            dirdata = process_dir(f, refs_mode, input_format, bases)
             alldata[os.path.basename(f)] = dirdata
         elif os.path.isfile(f):
-            logging.info("Process dir reads file: %s",f)
-            data = process(f, refs_mode, input_format, basedir)
-            alldata.update(data)
+            base, ext = os.path.splitext(f)
+            if ext[1:] in supported_input_formats:
+                logging.info("Process dir reads file: %s",f)
+                data = process(f, refs_mode, input_format, bases)
+                alldata.update(data)
 
     return alldata
 
@@ -316,16 +339,19 @@ if __name__ == "__main__":
     try:
         parser = argparse.ArgumentParser(description="Process property definition source files into other formats", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument('source', help='The property definition file, directory or URL to process.')
-        parser.add_argument('-r','--refs-mode', help='How to handle $ref references', choices=["insert", "rewrite", "retain"], default="insert")
+        parser.add_argument('--refs-mode', help='How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref.', choices=["insert", "rewrite", "retain"], default="insert")
         parser.add_argument('-i','--input-format', help='The input format to read', default="auto", choices=["auto", "json", "yaml"])
         parser.add_argument('-f','--output-format', help='The output format to generate', default="json", choices=["json", "yaml", "md"])
-        parser.add_argument('-b', '--basedir', help='Reference top-level directory to use to resolve $ref reference paths')
+        parser.add_argument('--basedir', help='Base directory relative to which $ref referencs are resolved')
+        parser.add_argument('--baseid', help='Base id to relative to which $ref references are resolved')
         parser.add_argument('-o', '--output', help='Write the output to a file')
         parser.add_argument('-d', '--debug', help='Produce full tracebacks on error', default=False, action='store_true')
         parser.add_argument('-v', '--verbose', dest="verbosity", action="append_const", const=1)
         parser.add_argument('-q', '--quiet', dest="verbosity", action="append_const", const=-1)
         parser.set_defaults(verbosity=[2])
         args = parser.parse_args()
+
+        bases = {'id':args.baseid, 'dir':args.basedir }
 
         # Make sure verbosity is in the allowed range
         log_levels = [logging.CRITICAL, logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG]
@@ -343,10 +369,10 @@ if __name__ == "__main__":
         try:
             if os.path.isdir(args.source):
                 logging.info("Processing directory: %s", args.source)
-                data = process_dir(args.source, args.refs_mode, args.input_format, args.basedir)
+                data = process_dir(args.source, args.refs_mode, args.input_format, bases)
             else:
                 logging.info("Processing file: %s", args.source)
-                data = process(args.source, args.refs_mode, args.input_format, args.basedir)
+                data = process(args.source, args.refs_mode, args.input_format, bases)
 
         except Exception as e:
             raise ExceptionWrapper("Processing of input failed", e) from e

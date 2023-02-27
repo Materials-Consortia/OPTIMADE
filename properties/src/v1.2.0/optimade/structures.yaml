@@ -1,0 +1,23 @@
+id:
+  $ref: "structures/id"
+
+type:
+  $ref: "structures/type"
+
+elements:
+  $ref: "structures/elements"
+
+nelements:
+  $ref: "structures/nelements"
+
+elements_ratios:
+  $ref: "structures/elements_ratios"
+
+chemical_formula_descriptive:
+  $ref: "structures/chemical_formula_descriptive"
+
+chemical_formula_reduced:
+  $ref: "structures/chemical_formula_reduced"
+
+chemical_formula_hill:
+  $ref: "structures/chemical_formula_hill"
