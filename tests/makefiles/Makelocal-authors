@@ -19,3 +19,10 @@ tests/generated/AUTHORS.sorted: AUTHORS
 	| awk -F: '{print $$2}' \
 	| sed 's/Di_/Di /' \
 	>> $@
+
+.PHONY: clean clean_authors
+
+clean: clean_authors
+
+clean_authors:
+	rm -f tests/generated/AUTHORS.sorted
