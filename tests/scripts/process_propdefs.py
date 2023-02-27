@@ -1,14 +1,111 @@
 #!/usr/bin/env python3
+"""
+This script processes property definition source files into other formats. It can process individual
+files or entire directories and supports various input and output formats. The script also includes
+options for handling $ref references and specifying base directories or IDs for resolving references.
+
+Usage:
+  propdefs.py source [options]
+
+Examples:
+  # Process a single file and write the output to stdout:
+  propdefs.py file.json
+
+  # Process all files in a directory and write the output to a file:
+  propdefs.py dir -o output.json
+
+"""
 
 import argparse, io, codecs, os, sys, logging
 import urllib.parse
 import urllib.request
 
 supported_input_formats = ['json', 'yaml']
+supported_output_formats = ["json", "yaml", "md"]
+
+arguments = [
+    {
+        'names': ['source'],
+        'help': 'The property definition file, directory or URL to process.',
+        'type': str,
+    },
+    {
+        'names': ['--refs-mode'],
+        'help': 'How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref.',
+        'choices': ["insert", "rewrite", "retain"],
+        'default': "insert",
+    },
+    {
+        'names': ['-i', '--input-format'],
+        'help': 'The input format to read',
+        'choices': ["auto"] + supported_input_formats,
+        'default': "auto",
+    },
+    {
+        'names': ['-f', '--output-format'],
+        'help': 'The output format to generate',
+        'choices': supported_output_formats,
+        'default': "json",
+    },
+    {
+        'names': ['--basedir'],
+        'help': 'Base directory relative to which $ref referencs are resolved',
+    },
+    {
+        'names': ['--baseid'],
+        'help': 'Base id to relative to which $ref references are resolved',
+    },
+    {
+        'names': ['-s', '--sub'],
+        'help': 'Define a subsitution: all occurences in strings of key will be replaced by val',
+        'nargs': 2, 'metavar': ('key', 'value'), 'action': 'append',
+        'default': []
+    },
+    {
+        'names': ['-o', '--output'],
+        'help': 'Write the output to a file',
+    },
+    {
+        'names': ['-d', '--debug'],
+        'help': 'Produce full tracebacks on error',
+        'action': 'store_true',
+        'default': False
+    },
+    {
+        'names': ['-v', '--verbose'],
+        'help': 'Increase verbosity of output',
+        'dest': 'verbosity', 'action': 'append_const', 'const': 1,
+    },
+    {
+        'names': ['-q', '--quiet'],
+        'help': 'Decrease verbosity of output',
+        'dest': 'verbosity', 'action': 'append_const', 'const': -1,
+    },
+]
 
 class ExceptionWrapper(Exception):
+    """
+    A class used to wrap exceptions with additional information.
+
+    Attributes
+    ----------
+    debug : bool
+        A flag indicating whether debug mode is enabled. (If not, a helpful message
+        about how to enable a full traceback and/or more verbosity in the error
+        reporting. Default is False.
+    """
     debug = False
     def __init__(self,msg,e):
+        """
+        Initialize the ExceptionWrapper instance.
+
+        Parameters
+        ----------
+        msg : str
+            The message to include in the error.
+        e : Exception
+            The exception to wrap.
+        """
         if isinstance(e, ExceptionWrapper):
             self.messages = [msg] + e.messages
         elif type(e) == Exception:
@@ -19,6 +116,7 @@ class ExceptionWrapper(Exception):
         if not self.debug:
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
+
 
 def read_data(source, input_format='auto'):
     """
@@ -82,14 +180,20 @@ def read_data(source, input_format='auto'):
             reader.close()
 
 
-def dict_get_one(d):
-    if len(d) != 1:
-        raise Exception("Expected only one field in dictionary, but found: "+str(d.keys()))
-    key = list(d.keys())[0]
-    return key, d[key]
+def data_to_md(data):
+    """
+    Convert data representing OPTIMADE Property Definitions into a markdown string.
 
+    Parameters
+    ----------
+    data : dict
+        A dictionary containing the OPTIMADE Property Definition data.
 
-def data_to_str(data):
+    Returns
+    -------
+    str
+        A string representation of the input data.
+    """
 
     if not "x-optimade-property" in data:
         s = ""
@@ -99,9 +203,9 @@ def data_to_str(data):
 
             try:
                 if isinstance(data[item], dict):
-                    s += data_to_str(data[item])
+                    s += data_to_md(data[item])
                 else:
-                    raise Exception("Internal error, unexpected data for data_to_str: "+str(data))
+                    raise Exception("Internal error, unexpected data for data_to_md: "+str(data))
                     exit(0)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
@@ -120,7 +224,6 @@ def data_to_str(data):
         "none": "Support for queries on this property is OPTIONAL."
     }
 
-    #field, data = dict_get_one(data)
     title = data['title']
     description_short, sep, description_details = [x.strip() for x in data['description'].partition('**Requirements/Conventions**:')]
     examples = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
@@ -140,9 +243,6 @@ def data_to_str(data):
     #TODO: need to iterate through dicts, lists to get the full type
     optimade_type = data['x-optimade-type']
 
-    #s = field+"\n"
-    #s += "~"*len(field)+"\n"
-    #s += "\n"
     s = "**Name**: "+str(title)+"\n"
     s += "**Description**: "+str(description_short)+"\n"
     s += "**Type**: "+str(optimade_type)+"\n"
@@ -157,9 +257,10 @@ def data_to_str(data):
 
     return s
 
+
 def output_str(data, output_format='json'):
     """
-    Returns a string representation of the input data in the specified output format.
+    Serializes key-value data into a string using the specified output format.
 
     Parameters
     ----------
@@ -172,7 +273,6 @@ def output_str(data, output_format='json'):
     -------
     str
         A string representation of the input data in the specified output format.
-
     """
 
     if output_format == "json":
@@ -182,58 +282,146 @@ def output_str(data, output_format='json'):
         import yaml
         return yaml.dumps(data)
     elif output_format == "md":
-        return data_to_str(data)
+        return data_to_md(data)
     else:
         raise Exception("Unknown output format: "+str(output_format))
 
 
-def handle_refs(data, refs_mode="rewrite", input_format=None, bases=None):
+def ref_to_source(ref, bases):
     """
-    Recursively handles all '$ref' references in the input data.
+    Convert a JSON Schema $ref reference to a source path.
+
+    Parameters
+    ----------
+    ref : str
+        A JSON reference to be converted to a source path.
+    bases : dict
+        A dictionary containing information about the base paths to use when
+        converting the reference to a source path. Must contain the keys "id"
+        and "dir".
+
+    Returns
+    -------
+    str
+        The source path corresponding to the input reference.
+
+    """
+    parsed_ref = urllib.parse.urlparse(ref)
+    if parsed_ref.scheme in ['file', '']:
+        ref = parsed_ref.path
+        if os.path.isabs(ref):
+            # Re-process absolute path to file path
+            absref = urllib.parse.urljoin(bases['id'], ref)
+            relref = absref[len(bases['id']):]
+            return os.path.join(bases['dir'],relref)
+        else:
+            return os.path.join(bases['self'],ref)
+    return ref
+
+
+def recursive_replace(d, subs):
+    """
+    Recursively replace substrings in values of nested dictionaries that are strings.
+
+    Parameters
+    ----------
+    d : dict
+        The dictionary of strings to perform the replacements on.
+    subs : list of tuple
+        The list of key-value pairs to use for replacement. Each tuple contains
+        two elements: the substring to replace and the string to replace it with.
+
+    Returns
+    -------
+    dict
+        A dictionary with the specified replacements.
+    """
+    logging.debug("Substuting strings: %s", subs)
+
+    for key, val in d.items():
+        if isinstance(val,str):
+            for lhs,rhs in subs.items():
+                val = val.replace(lhs,rhs)
+            d[key] = val
+        if isinstance(val,dict):
+            recursive_replace(val, subs)
+    return d
+
+
+def handle_one(ref, refs_mode, input_format, bases, subs):
+    """
+    Handle a single JSON reference.
+
+    Parameters
+    ----------
+    ref : str
+        The JSON reference to be handled.
+    refs_mode : str
+        The mode to use when handling the reference. Must be one of "retain",
+        "rewrite", or "insert".
+    input_format : str
+        The format of the input data, if known. If not provided, the format
+        will be inferred from the file extension.
+    bases : dict
+        A dictionary containing information about the base paths to use when
+        converting the reference to a source path. Must contain the keys "id",
+        "self", and "dir".
+    subs: dict
+        dictionary of substitutions to make in strings.
+
+    Returns
+    -------
+    dict or str
+        If the reference mode is "retain" or "rewrite", the function returns a
+        dictionary containing the reference. If the reference mode is "insert",
+        the function returns the data from the referenced file, as a dictionary
+        or string.
+    """
+
+    logging.info("Handle single $ref: %s",ref)
+    if refs_mode == "retain":
+        return { "$ref": ref }
+    elif refs_mode == "rewrite":
+        base, ext = os.path.splitext(ref)
+        return { "$ref": base + '.' + input_format }
+    elif refs_mode == "insert":
+        source = ref_to_source(ref, bases)
+        data = read_data(source, input_format)[0]
+        if subs is not None:
+            return recursive_replace(data, subs)
+        else:
+            return data
+    else:
+        raise Exception("Internal error: unexpected refs_mode: "+str(refs_mode))
+
+
+def handle_all(data, refs_mode, input_format, bases, subs):
+    """
+    Recursively handles all '$ref' references and perform substitutions in the input data.
 
     Parameters
     ----------
     data : dict
         The input data to be processed for '$ref' references.
-    refs_mode : str, optional
-        The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
-        to insert the referenced data. Default is 'rewrite'.
-    input_format : str, optional
-        The input_format, used to look for apropriate file extensions when resolving the '$ref'
-        to a file.
+    refs_mode : str
+        The mode to use when handling the references. Must be one of "retain",
+        "rewrite", or "insert". Default is "rewrite".
+    input_format : str
+        The format of the input data, if known. If not provided, the format
+        will be inferred from the file extension.
+    bases : dict
+        A dictionary containing information about the base paths to use when
+        converting the reference to a source path. Must contain the keys "id",
+        "self", and "dir". If not provided, the current working directory will
+        be used as the base path.
+    subs: dict
+        dictionary of substitutions to make in strings.
 
     Returns
     -------
     dict
-        A new dictionary with all '$ref' references handled according to the specified mode.
-
+        The input data with '$ref' references handled according to the specified mode.
     """
-
-    def ref_to_source(ref, bases):
-        parsed_ref = urllib.parse.urlparse(ref)
-        if parsed_ref.scheme in ['file', '']:
-            ref = parsed_ref.path
-            if os.path.isabs(ref):
-                # Re-process absolute path to file path
-                absref = urllib.parse.urljoin(bases['id'], ref)
-                relref = absref[len(bases['id']):]
-                return os.path.join(bases['dir'],relref)
-            else:
-                return os.path.join(bases['self'],ref)
-        return ref
-
-    def handle_single_ref(ref, refs_mode, input_format, bases):
-        logging.info("Handle single $ref: %s",ref)
-        if refs_mode == "retain":
-            return { "$ref": ref }
-        elif refs_mode == "rewrite":
-            base, ext = os.path.splitext(ref)
-            return { "$ref": base + '.' + input_format }
-        elif refs_mode == "insert":
-            source = ref_to_source(ref, bases)
-            return read_data(source, input_format)[0]
-        else:
-            raise Exception("Internal error: unexpected refs_mode: "+str(refs_mode))
 
     logging.debug("Handling refs in: %s",data)
 
@@ -250,25 +438,25 @@ def handle_refs(data, refs_mode="rewrite", input_format=None, bases=None):
         if this_refs_mode == 'retain':
             return data
 
-        output = handle_single_ref(data['$ref'], this_refs_mode, input_format, bases)
+        output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
         if isinstance(output, dict):
             # Handle $ref:s recursively
             newbases = bases.copy()
             source = ref_to_source(data['$ref'], bases)
             newbases['self'] = os.path.dirname(source)
-            output = handle_refs(output, refs_mode, input_format, newbases)
+            output = handle_all(output, refs_mode, input_format, newbases, subs)
         if '$id' in data:
             output['$id'] = data['$id']
         return output
 
     for k, v in data.items():
         if isinstance(v, dict):
-            data[k] = handle_refs(v, refs_mode, input_format, bases)
+            data[k] = handle_all(v, refs_mode, input_format, bases, subs)
 
     return data
 
 
-def process(source, refs_mode="rewrite", input_format="auto", bases=None):
+def process(source, refs_mode, input_format, bases, subs):
     """
     Processes the input file according to the specified parameters.
 
@@ -283,8 +471,12 @@ def process(source, refs_mode="rewrite", input_format="auto", bases=None):
     input_format : str, optional
         The format of the input file, or 'auto' to automatically determine the format based on
         the file extension. Default is 'auto'.
-    output_format : str, optional
-        The format of the output file. Default is 'json'.
+    bases : dict, optional
+        A dictionary containing information about the base paths to use when converting references
+        to source paths. Must contain the keys "id" and "dir". If not provided, the current working
+        directory will be used as the base path.
+    subs: dict
+        dictionary of substitutions to make in strings.
 
     Returns
     -------
@@ -308,13 +500,39 @@ def process(source, refs_mode="rewrite", input_format="auto", bases=None):
                     raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
             bases = {'id': id_uri[:-len(rel_source)], 'dir': bases['dir'] }
 
-    if refs_mode != "retain":
-        data = handle_refs(data, refs_mode, input_format, bases)
+    data = handle_all(data, refs_mode, input_format, bases, subs)
 
     return data
 
 
-def process_dir(source_dir, refs_mode="rewrite", input_format="auto", bases=None):
+def process_dir(source_dir, refs_mode, input_format, bases, subs):
+    """
+    Processes all files in a directory and its subdirectories according to the specified parameters.
+
+    Parameters
+    ----------
+    source_dir : str
+        The path to the directory containing the files to be processed.
+    refs_mode : str
+        The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
+        to insert the referenced data, or 'retain' to leave the '$ref' field as is. Default is
+        'rewrite'.
+    input_format : str
+        The format of the input files, or 'auto' to automatically determine the format based on
+        the file extension. Default is 'auto'.
+    bases : dict
+        A dictionary containing information about the base paths to use when converting references
+        to source paths. Must contain the keys "id" and "dir". If not provided, the current working
+        directory will be used as the base path.
+    subs: dict
+        dictionary of substitutions to make in strings.
+
+    Returns
+    -------
+    dict
+        A dictionary containing the processed data from all files in the directory and its
+        subdirectories, where the keys are the file names and the values are the processed data.
+    """
 
     alldata = {}
 
@@ -322,13 +540,13 @@ def process_dir(source_dir, refs_mode="rewrite", input_format="auto", bases=None
         f = os.path.join(source_dir,filename)
         if os.path.isdir(f):
             logging.info("Process dir reads directory: %s",f)
-            dirdata = process_dir(f, refs_mode, input_format, bases)
+            dirdata = process_dir(f, refs_mode, input_format, bases, subs)
             alldata[os.path.basename(f)] = dirdata
         elif os.path.isfile(f):
             base, ext = os.path.splitext(f)
             if ext[1:] in supported_input_formats:
                 logging.info("Process dir reads file: %s",f)
-                data = process(f, refs_mode, input_format, bases)
+                data = process(f, refs_mode, input_format, bases, subs)
                 alldata.update(data)
 
     return alldata
@@ -337,21 +555,17 @@ def process_dir(source_dir, refs_mode="rewrite", input_format="auto", bases=None
 if __name__ == "__main__":
 
     try:
-        parser = argparse.ArgumentParser(description="Process property definition source files into other formats", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        parser.add_argument('source', help='The property definition file, directory or URL to process.')
-        parser.add_argument('--refs-mode', help='How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref.', choices=["insert", "rewrite", "retain"], default="insert")
-        parser.add_argument('-i','--input-format', help='The input format to read', default="auto", choices=["auto", "json", "yaml"])
-        parser.add_argument('-f','--output-format', help='The output format to generate', default="json", choices=["json", "yaml", "md"])
-        parser.add_argument('--basedir', help='Base directory relative to which $ref referencs are resolved')
-        parser.add_argument('--baseid', help='Base id to relative to which $ref references are resolved')
-        parser.add_argument('-o', '--output', help='Write the output to a file')
-        parser.add_argument('-d', '--debug', help='Produce full tracebacks on error', default=False, action='store_true')
-        parser.add_argument('-v', '--verbose', dest="verbosity", action="append_const", const=1)
-        parser.add_argument('-q', '--quiet', dest="verbosity", action="append_const", const=-1)
-        parser.set_defaults(verbosity=[2])
-        args = parser.parse_args()
 
+        parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+        for arg in arguments:
+            names = arg.pop('names')
+            parser.add_argument(*names, **arg)
+
+        parser.set_defaults(verbosity=[2])
+
+        args = parser.parse_args()
         bases = {'id':args.baseid, 'dir':args.basedir }
+        subs = dict(args.sub) if len(args.sub) > 0 else None
 
         # Make sure verbosity is in the allowed range
         log_levels = [logging.CRITICAL, logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG]
@@ -363,16 +577,18 @@ if __name__ == "__main__":
 
     except Exception as e:
         print("Internal error when parsing command line arguments: " +type(e).__name__+": "+str(e)+'.', file=sys.stderr)
+        if "-d" in sys.argv:
+            raise
         exit(1)
 
     try:
         try:
             if os.path.isdir(args.source):
                 logging.info("Processing directory: %s", args.source)
-                data = process_dir(args.source, args.refs_mode, args.input_format, bases)
+                data = process_dir(args.source, args.refs_mode, args.input_format, bases, subs)
             else:
                 logging.info("Processing file: %s", args.source)
-                data = process(args.source, args.refs_mode, args.input_format, bases)
+                data = process(args.source, args.refs_mode, args.input_format, bases, subs)
 
         except Exception as e:
             raise ExceptionWrapper("Processing of input failed", e) from e

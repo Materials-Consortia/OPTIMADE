@@ -10,13 +10,21 @@ ENDPOINTS_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(ENDP
 NAMESPACES := $(wildcard properties/src/*/*.yaml)
 NAMESPACES_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(NAMESPACES))
 
+OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
+ifeq ($(OPTIMADE_VERSION),)
+  OPTIMADE_VERSION_SUBST=
+else
+  OPTIMADE_VERSION_SUBST=--sub "{OPTIMADE_VERSION}" "$(OPTIMADE_VERSION)"
+endif
+
+
 .PHONY: properties
 
 properties: $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 
 properties/output/%.json: properties/src/%.yaml
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_propdefs.py --refs-mode insert --basedir "properties/src" --baseid="https://schemas.optimade.org/properties/" --output "$@" "$<"
+	tests/scripts/process_propdefs.py --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "properties/src" --baseid="https://schemas.optimade.org/properties/" --output "$@" "$<"
 
 .PHONY: clean clean_properties
 
@@ -25,3 +33,18 @@ clean: clean_properties
 clean_properties:
 	rm -f $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 	rm -rf properties/output
+
+.PHONY: check_property_variables
+
+check_property_variables:
+	@echo "PROPS = $(PROPS)"
+	@echo "PROPS_OUT = $(PROPS_OUT)"
+	@echo ""
+	@echo "ENDPOINTS = $(ENDPOINTS)"
+	@echo "ENDPOINTS_OUT = $(ENDPOINTS_OUT)"
+	@echo ""
+	@echo "NAMESPACES = $(NAMESPACES)"
+	@echo "NAMESPACES_OUT = $(NAMESPACES_OUT)"
+	@echo ""
+	@echo "OPTIMADE_VERSION = $(OPTIMADE_VERSION)"
+	@echo "OPTIMADE_VERSION_SUBST = $(OPTIMADE_VERSION_SUBST)"

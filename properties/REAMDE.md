@@ -114,8 +114,10 @@ If you want to integrate your Property Definitions in the OPTIMADE standard:
 
 - Edit the `$id` fields to use the corresponding locations under `https://schemas.optimade.org/properties/`.
 
-- Use the string `${{version}}` in place of the property definition version.
-  When the OPTIMADE standard is released, this will be replaced with the release version number.
+- If you know which future version of the OPTIMADE standard will contain these properties (e.g., because a new release is being readied in which they will be included), put that version in `$id` (as, e.g., `v1.2.0`) and `x-optimade-property/version` (as, e.g., `1.2.0`).
+  If you do not know, put instead the placeholder `{OPTIMADE_VERSION}` in both places; set e.g.: `$id: "https://schemas.optimade.org/properties/v{OPTIMADE_VERSION}/optimade/example/property"` and `version: "{OPTIMADE_VERSION}"` in `x-optimade-property`.
+  When running `make properties`, this placeholder is automatically replaced with the OPTIMADE version number as written at the top of the specification document, which renders Property Definition output files useful for testing.
+  When a new versions of the OPTIMADE standard is released, the OPTIMADE maintainers are meant to replace all placeholders with the version being released, which then becomes the permanent version for those property definitions.
 
 - Make a GitHub pull request from your repository to the `develop` OPTIMADE repository branch.
 
