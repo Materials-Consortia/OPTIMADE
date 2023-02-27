@@ -1885,7 +1885,7 @@ A Property Definition MUST be composed according to the combination of the requi
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
   If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
 
-  This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
+  This field should be seen as an annotation rather than an integral part of the Property Definition.
   Two Property Definitions that only differ by the value of :field:`x-optimade-implementation` are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
   The dictionary has the following format:
@@ -1926,18 +1926,15 @@ A Property Definition MUST be composed according to the combination of the requi
 
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
 
-  - :field:`response-default`: boolean
+  - :field:`response-default`: Boolean
     The value :val:`TRUE` means the implementation includes the property in responses by default, i.e., when not specifically requested.
+    The value :val:`FALSE` means that the property is only included when requested.
     Omitting the field or :val:`null` means the implementation does not declare if the property will be included in responses by default or not.
 
 - :field:`x-optimade-requirements`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality required by all implementations of this property.
   Omitting this field means the corresponding functionality is OPTIONAL.
-  The dictionary has the same format as :field:`x-optimade-implementation`, except that:
-
-  - :field:`response-default` SHOULD NOT appear.
-
-  and the following additional OPTIONAL fields are allowed:
+  The dictionary has the same format as :field:`x-optimade-implementation`, *except that* the :field:`response-default` SHOULD NOT appear, and the following additional OPTIONAL fields are allowed:
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
@@ -1955,7 +1952,7 @@ A Property Definition MUST be composed according to the combination of the requi
     If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
 
   - :field:`response-default-level`: String
-    Expresses if an implementation of this property is required or not to include or exclude it in responses when not specifically requested.
+    Expresses if an implementation of this property is required to include or exclude it in responses when not specifically requested.
     This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
     Nevertheless, it MAY appear at other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
 
@@ -1981,7 +1978,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
   The value is directly correlated with :field:`x-optimade-type` as explained below.
 
-  It MUST be a one or two element list where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
+  It MUST be a list of one or two elements where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
     * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
     * :val:`"dictionary"` then :field:`type` is `"object"`.
@@ -2018,13 +2015,13 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
-- :filed:`$comment`: String.
+- :field:`$comment`: String.
   A human-readable comment relevant in the context of the raw definition data.
-  These comments should be omitted in formatted descriptions of the property shown to end users.
-  (Comments relevant in descriptions for end users should go into :field:`description`.)
+  These comments should be omitted in formatted descriptions of the property shown to the end users.
+  (Comments in descriptions relevant to the end users should go into :field:`description`.)
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
-  This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
+  This field should be seen as an annotation rather then an integral part of the Property Definition.
   Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
 - :field:`deprecated`: Boolean.
@@ -2032,7 +2029,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   If :val:`FALSE`, the defined property is not deprecated.
   The field not being present means :val:`FALSE`.
 
-  This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
+  This field should be seen as an annotation rather than an integral part of the Property Definition.
   Two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
 - :field:`enum`: List.
