@@ -426,8 +426,9 @@ In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`
 Handling unknown property names
 -------------------------------
 
-When an implementation receives a request with a query filter that refers to an unknown property name, it MUST NOT treat this as an error.
-Instead, it should evaluate the query with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
+When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to an unknown property name, it MUST NOT treat this as an error.
+Instead, it should evaluate queries with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
+If the unknown property is requested to be included in the response, it MUST be included with `null` value.
 Furthermore:
 
 * If the property does not have a database-specific prefix, the implementation MUST issue a warning about the unrecognized property name.
