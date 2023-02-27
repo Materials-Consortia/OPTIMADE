@@ -1886,7 +1886,7 @@ A Property Definition MUST be composed according to the combination of the requi
   If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
 
   This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
-  Two Property Definitions that only differs by the value of :field:`x-optimade-implementation` are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+  Two Property Definitions that only differ by the value of :field:`x-optimade-implementation` are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
   The dictionary has the following format:
 
@@ -1927,7 +1927,7 @@ A Property Definition MUST be composed according to the combination of the requi
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
 
   - :field:`response-default`: boolean
-    Set to :val:`TRUE` if the implementation includes the property in responses by default, i.e., when not specifically requested.
+    The value :val:`TRUE` means the implementation includes the property in responses by default, i.e., when not specifically requested.
     Omitting the field or :val:`null` means the implementation does not declare if the property will be included in responses by default or not.
 
 - :field:`x-optimade-requirements`: Dictionary.
@@ -1941,7 +1941,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
-    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
+    Nevertheless, it MAY appear at other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
@@ -1955,7 +1956,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`response-default-level`: String
     Expresses if an implementation of this property is required or not to include or exclude it in responses when not specifically requested.
-    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
+    Nevertheless, it MAY appear at other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
 
     The string MUST be one of the following:
 
@@ -2028,7 +2030,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
   This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
-  Two Property Definitions that only differs by the value of any :field:`$comment` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+  Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
@@ -2036,7 +2038,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   The field not being present means :val:`FALSE`.
 
   This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
-  Two Property Definitions that only differs by :field:`deprecated` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+  Two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
