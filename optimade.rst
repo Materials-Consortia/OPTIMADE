@@ -1884,6 +1884,10 @@ A Property Definition MUST be composed according to the combination of the requi
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
   If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
+
+  This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
+  Two Property Definitions that only differs by the value of :field:`x-optimade-implementation` are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+
   The dictionary has the following format:
 
   **OPTIONAL keys:**
@@ -2006,6 +2010,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 - :field:`$id`: String.
   A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
   It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+  The Property Definition SHOULD be regarded as the same if the only changes that have been made are to the following specific fields at any level: :field:`deprecated`, :field:`$comment`, or : field:`x-optimade-implementation`.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
 - :field:`title`: String.
@@ -2022,10 +2027,16 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   (Comments relevant in descriptions for end users should go into :field:`description`.)
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
+  This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
+  Two Property Definitions that only differs by the value of any :field:`$comment` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
   If :val:`FALSE`, the defined property is not deprecated.
   The field not being present means :val:`FALSE`.
+
+  This field, along with a few others, should be seen as annotations rather then integral parts of the Property Definition.
+  Two Property Definitions that only differs by :field:`deprecated` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
