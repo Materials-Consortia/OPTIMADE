@@ -1,5 +1,5 @@
 title: "ID"
-$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/id"
+$id: "https://schemas.optimade.org/properties/v1.2.0/core/id"
 x-optimade-type: "string"
 x-optimade-property:
   version: "1.2.0"

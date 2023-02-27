@@ -1,5 +1,5 @@
 title: "Last modified"
-$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/last_modified"
+$id: "https://schemas.optimade.org/properties/v1.2.0/core/last_modified"
 x-optimade-type: "timestamp"
 x-optimade-property:
   version: "1.2.0"

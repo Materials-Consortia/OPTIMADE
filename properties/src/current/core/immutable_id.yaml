@@ -1,5 +1,5 @@
 title: "Immutable ID"
-$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/immutable_id"
+$id: "https://schemas.optimade.org/properties/v1.2.0/core/immutable_id"
 x-optimade-type: "string"
 x-optimade-property:
   version: "1.2.0"
