@@ -1958,8 +1958,8 @@ A Property Definition MUST be composed according to the combination of the requi
     - :val:`must`: the defined property MUST be included in responses unless specifically excluded.
     - :val:`should`: the defined property SHOULD be included in responses unless specifically excluded.
     - :val:`may`: it is OPTIONAL for the implementation to include the defined property in responses or not.
-    - :val:`should not`: the defined property SHOULD NOT be included in responses unless specifally requested.
-    - :val:`must not`: the defined property MUST NOT be included in responses unless specifially requested.
+    - :val:`should not`: the defined property SHOULD NOT be included in responses unless specifically requested.
+    - :val:`must not`: the defined property MUST NOT be included in responses unless specifically requested.
 
     Omitting the field is equivalent to :val:`may`.
 
