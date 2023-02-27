@@ -1902,8 +1902,12 @@ A Property Definition MUST be composed according to the combination of the requi
     - :val:`partial`: the defined property MUST be queryable with support for a subset of the filter language operators as specified by the field :field:`query-support-operators`.
     - :val:`none`: the defined property does not need to be queryable with any features of the filter language.
 
+    Omitting the field or :val:`null` is equivalent to :val:`none`.
+
   - :field:`query-support-operators`: List of Strings.
     Defines the filter language features supported on this property.
+    MUST be present and not :val:`null` if and only if :field:`query-support` is :val:`partial`.
+
     Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`:, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
 
     - :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`: indicating support for filtering this property using the respective operator.
@@ -1918,10 +1922,18 @@ A Property Definition MUST be composed according to the combination of the requi
 
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
 
+  - :field:`response-default`: boolean
+    Set to :val:`TRUE` if the implementation includes the property in responses by default, i.e., when not specifically requested.
+    Omitting the field or :val:`null` means the implementation does not declare if the property will be included in responses by default or not.
+
 - :field:`x-optimade-requirements`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality required by all implementations of this property.
   Omitting this field means the corresponding functionality is OPTIONAL.
-  The dictionary has the same format as :field:`x-optimade-implementation`, except that it also allows the following OPTIONAL field:
+  The dictionary has the same format as :field:`x-optimade-implementation`, except that:
+
+  - :field:`response-default` SHOULD NOT appear.
+
+  and the following additional OPTIONAL fields are allowed:
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
@@ -1936,6 +1948,20 @@ A Property Definition MUST be composed according to the combination of the requi
 
     Note: the specification by this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field.
     If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
+
+  - :field:`response-default-level`: String
+    Expresses if an implementation of this property is required or not to include or exclude it in responses when not specifically requested.
+    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+
+    The string MUST be one of the following:
+
+    - :val:`must`: the defined property MUST be included in responses unless specifically excluded.
+    - :val:`should`: the defined property SHOULD be included in responses unless specifically excluded.
+    - :val:`may`: it is OPTIONAL for the implementation to include the defined property in responses or not.
+    - :val:`should not`: the defined property SHOULD NOT be included in responses unless specifally requested.
+    - :val:`must not`: the defined property MUST NOT be included in responses unless specifially requested.
+
+    Omitting the field is equivalent to :val:`may`.
 
 Property Definition keys from JSON Schema
 -----------------------------------------
@@ -1988,6 +2014,12 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 - :field:`description`: String.
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
   The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
+  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
+
+- :filed:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should be omitted in formatted descriptions of the property shown to end users.
+  (Comments relevant in descriptions for end users should go into :field:`description`.)
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
 - :field:`deprecated`: Boolean.
