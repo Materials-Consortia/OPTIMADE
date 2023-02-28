@@ -31,7 +31,7 @@ arguments = [
     },
     {
         'names': ['--refs-mode'],
-        'help': 'How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref.',
+        'help': 'How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref. Also, the x-propdefs-inherit-ref key does a deep merge on the referenced definition.',
         'choices': ["insert", "rewrite", "retain"],
         'default': "insert",
     },
@@ -395,6 +395,27 @@ def handle_one(ref, refs_mode, input_format, bases, subs):
         raise Exception("Internal error: unexpected refs_mode: "+str(refs_mode))
 
 
+def merge_deep(d, other, replace=True):
+    """
+    Make a deep merge of the other dictionary into the first (modifying the first)
+
+    Parameters
+    ----------
+    d : dict
+        The dictionary to be merged into.
+    other : dict
+        The dictionary to merge from.
+    replace : bool
+        Replace items already in d
+    """
+    for other_key, other_val in other.items():
+        val = d.get(other_key)
+        if isinstance(val, dict) and isinstance(other_val, dict):
+            merge_deep(val, other_val)
+        elif replace or (other_key not in d):
+            d[other_key] = other_val
+
+
 def handle_all(data, refs_mode, input_format, bases, subs):
     """
     Recursively handles all '$ref' references and perform substitutions in the input data.
@@ -423,9 +444,27 @@ def handle_all(data, refs_mode, input_format, bases, subs):
         The input data with '$ref' references handled according to the specified mode.
     """
 
-    logging.debug("Handling refs in: %s",data)
+    logging.debug("Handling: %s",data)
+
+    if 'x-propdefs-inherit-ref' in data:
+
+        ref = data['x-propdefs-inherit-ref']
+        logging.debug("Handling x-propdefs-inherit-ref %s",ref)
+
+        output = handle_one(ref, "insert", input_format, bases, subs)
+        if isinstance(output, dict):
+            # Handle $ref:s recursively
+            newbases = bases.copy()
+            source = ref_to_source(ref, bases)
+            newbases['self'] = os.path.dirname(source)
+            output = handle_all(output, refs_mode, input_format, newbases, subs)
+        merge_deep(data, output, replace=False)
+        del data['x-propdefs-inherit-ref']
 
     if '$ref' in data:
+
+        logging.debug("Handling $ref %s",data['$ref'])
+
         if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
             raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
 

@@ -1,0 +1,30 @@
+title: "Features"
+$id: "https://schemas.optimade.org/properties/v1.2.0/core/features"
+x-optimade-type: "list"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of strings that flag which special features are used by the entry.
+
+  **Requirements/Conventions:**
+
+  - MUST be an empty list if no special features are used.
+  - MUST be sorted alphabetically.
+  - If a feature is used, the list MUST contain the corresponding string.
+  - If a feature is not used, the list MUST NOT contain the corresponding string.
+  - This is an abstract definition, meant to be inherited by more specific definitions that define specific strings.
+examples:
+  - ["feature1", "feature2"]
+x-optimade-unit: "inapplicable"
+items:
+  type: "string"
+  x-optimade-type: "string"
+  x-optimade-unit: "inapplicable"
+x-optimade-requirements:
+  support: "must"
+  sortable: true
+  query-support: "all mandatory"
