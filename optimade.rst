@@ -2021,7 +2021,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   (Comments in descriptions relevant to the end users should go into :field:`description`.)
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
-  This field should be seen as an annotation rather then an integral part of the Property Definition.
+  This field should be seen as an annotation rather than an integral part of the Property Definition.
   Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
 
 - :field:`deprecated`: Boolean.
