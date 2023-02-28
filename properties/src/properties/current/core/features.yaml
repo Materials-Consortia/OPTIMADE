@@ -6,7 +6,6 @@ x-optimade-property:
   property-format: "1.2"
 type:
   - "array"
-  - "null"
 description: |-
   A list of strings that flag which special features are used by the entry.
 
@@ -21,7 +20,8 @@ examples:
   - ["feature1", "feature2"]
 x-optimade-unit: "inapplicable"
 items:
-  type: "string"
+  type:
+    - "string"
   x-optimade-type: "string"
   x-optimade-unit: "inapplicable"
 x-optimade-requirements:

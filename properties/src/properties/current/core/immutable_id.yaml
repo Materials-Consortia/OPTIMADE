@@ -6,6 +6,7 @@ x-optimade-property:
   property-format: "1.2"
 type:
   - "string"
+  - "null"
 description: |-
   The entry's immutable ID (e.g., a UUID).
 

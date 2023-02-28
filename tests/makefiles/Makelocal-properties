@@ -1,13 +1,13 @@
 #---*- Makefile -*-------------------------------------------------------
 
 # Targets related to handling the schema/properties files
-PROPS := $(wildcard properties/src/*/*/*/*.yaml)
+PROPS := $(wildcard properties/src/*/*/*/*/*.yaml)
 PROPS_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(PROPS))
 
-ENDPOINTS := $(wildcard properties/src/*/*/*.yaml)
+ENDPOINTS := $(wildcard properties/src/*/*/*/*.yaml)
 ENDPOINTS_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(ENDPOINTS))
 
-NAMESPACES := $(wildcard properties/src/*/*.yaml)
+NAMESPACES := $(wildcard properties/src/*/*/*.yaml)
 NAMESPACES_OUT = $(patsubst properties/src/%.yaml,properties/output/%.json,$(NAMESPACES))
 
 OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
@@ -17,23 +17,34 @@ else
   OPTIMADE_VERSION_SUBST=--sub "{OPTIMADE_VERSION}" "$(OPTIMADE_VERSION)"
 endif
 
+.PHONY: properties properties_symlinks units_symlinks
 
-.PHONY: properties properties_symlinks
-
-properties: properties_symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+properties: properties_symlinks units_symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 
 properties_symlinks:
-	mkdir -p properties/output
-	cd properties/src/ ;\
+	mkdir -p properties/output/properties
+	cd properties/src/properties ;\
 	for dir in *; do \
-	  if [ -h "$$dir" ]; then \
-	    ln -s "$$(readlink "$$dir")" "../output/$$dir" ;\
+	  if [ ! -e "../../output/properties/$$dir" -a -h "$$dir" ]; then \
+	    ln -s "$$(readlink "$$dir")" "../../output/properties/$$dir" ;\
 	  fi ;\
 	done
 
-properties/output/%.json: properties/src/%.yaml
+units_symlinks:
+	mkdir -p properties/output/units
+	cd properties/src/units ;\
+	for dir in *; do \
+	  if [ ! -e "../../output/units/$$dir" -a -h "$$dir" ]; then \
+	    ln -s "$$(readlink "$$dir")" "../../output/units/$$dir" ;\
+	  fi ;\
+	done
+
+$(ENDPOINTS_OUT): $(PROPS_OUT)
+$(NAMESPACES_OUT): $(ENDPOINTS_OUT)
+
+properties/output/%.json: properties/src/%.yaml | properties_symlinks units_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_propdefs.py --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "properties/src" --baseid="https://schemas.optimade.org/properties/" --output "$@" "$<"
+	tests/scripts/process_propdefs.py --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "properties/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
 .PHONY: clean clean_properties
 
@@ -56,3 +67,4 @@ check_property_variables:
 	@echo ""
 	@echo "OPTIMADE_VERSION = $(OPTIMADE_VERSION)"
 	@echo "OPTIMADE_VERSION_SUBST = $(OPTIMADE_VERSION_SUBST)"
+

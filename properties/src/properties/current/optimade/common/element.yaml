@@ -11,5 +11,6 @@ description: |-
 
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
 x-optimade-unit: inapplicable
-type: "string"
+type:
+  - "string"
 maxLength: 3

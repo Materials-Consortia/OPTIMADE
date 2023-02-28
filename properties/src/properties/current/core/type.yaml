@@ -4,7 +4,8 @@ x-optimade-type: "string"
 x-optimade-property:
   version: "1.2.0"
   property-format: "1.2"
-type: "string"
+type:
+  - "string"
 description: |-
   The name of the type of an entry.
 

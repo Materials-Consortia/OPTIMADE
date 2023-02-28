@@ -1,0 +1,40 @@
+title: "Dimension types"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types"
+x-optimade-type: "list"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+type:
+  - "array"
+  - "null"
+description: |-
+  List of three integers describing the periodicity of the boundaries of the unit cell. For each direction indicated by the three lattice_vectors, this list indicates if the direction is periodic (value 1) or non-periodic (value 0). Note: the elements in this list each refer to the direction of the corresponding entry in lattice_vectors and not the Cartesian x, y, z directions.
+
+  **Requirements/Conventions**:
+
+  - MUST be a list of length 3.
+  - Each integer element MUST assume only the value 0 or 1.
+
+  **Explained examples**:
+
+  - A nonperiodic structure, for example, for a single molecule : `[0, 0, 0]`
+  - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: `[0, 0, 1]`
+  - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: `[1, 0, 1]`
+  - For a bulk 3D system with a unit cell that is periodic in all directions: `[1, 1, 1]`
+examples:
+  - [0, 0, 0]
+  - [0, 0, 1]
+  - [1, 0, 1]
+x-optimade-unit: "inapplicable"
+x-optimade-requirements:
+  support: "should"
+  sortable: false
+  query-support: "none"
+items:
+  x-optimade-type: integer
+  type: integer
+  x-optimade-unit: "inapplicable"
+  description: "The integers 0 and 1 are used to mean false/true in a boolean flag indicating a periodic direction."
+  enum:
+    - 0
+    - 1

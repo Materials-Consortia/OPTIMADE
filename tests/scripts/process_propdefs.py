@@ -446,53 +446,64 @@ def handle_all(data, refs_mode, input_format, bases, subs):
 
     logging.debug("Handling: %s",data)
 
-    if 'x-propdefs-inherit-ref' in data:
+    if isinstance(data, list):
+        for i in range(len(data)):
+            if isinstance(data[i], dict) or isinstance(data[i], list):
+                data[i] = handle_all(data[i], refs_mode, input_format, bases, subs)
+        return data
 
-        ref = data['x-propdefs-inherit-ref']
-        logging.debug("Handling x-propdefs-inherit-ref %s",ref)
+    elif isinstance(data, dict):
 
-        output = handle_one(ref, "insert", input_format, bases, subs)
-        if isinstance(output, dict):
-            # Handle $ref:s recursively
-            newbases = bases.copy()
-            source = ref_to_source(ref, bases)
-            newbases['self'] = os.path.dirname(source)
-            output = handle_all(output, refs_mode, input_format, newbases, subs)
-        merge_deep(data, output, replace=False)
-        del data['x-propdefs-inherit-ref']
+        if 'x-propdefs-inherit-ref' in data:
 
-    if '$ref' in data:
+            ref = data['x-propdefs-inherit-ref']
+            logging.debug("Handling x-propdefs-inherit-ref %s",ref)
 
-        logging.debug("Handling $ref %s",data['$ref'])
+            output = handle_one(ref, "insert", input_format, bases, subs)
+            if isinstance(output, dict):
+                # Handle $ref:s recursively
+                newbases = bases.copy()
+                source = ref_to_source(ref, bases)
+                newbases['self'] = os.path.dirname(source)
+                output = handle_all(output, refs_mode, input_format, newbases, subs)
+            merge_deep(data, output, replace=False)
+            del data['x-propdefs-inherit-ref']
 
-        if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
-            raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
+        if '$ref' in data:
 
-        if 'x-propdefs-ref-mode' in data:
-            this_refs_mode = data['x-propdefs-ref-mode']
-            del data['x-propdefs-ref-mode']
-        else:
-            this_refs_mode = refs_mode
+            logging.debug("Handling $ref %s",data['$ref'])
 
-        if this_refs_mode == 'retain':
-            return data
+            if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
+                raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
 
-        output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
-        if isinstance(output, dict):
-            # Handle $ref:s recursively
-            newbases = bases.copy()
-            source = ref_to_source(data['$ref'], bases)
-            newbases['self'] = os.path.dirname(source)
-            output = handle_all(output, refs_mode, input_format, newbases, subs)
-        if '$id' in data:
-            output['$id'] = data['$id']
-        return output
+            if 'x-propdefs-ref-mode' in data:
+                this_refs_mode = data['x-propdefs-ref-mode']
+                del data['x-propdefs-ref-mode']
+            else:
+                this_refs_mode = refs_mode
 
-    for k, v in data.items():
-        if isinstance(v, dict):
-            data[k] = handle_all(v, refs_mode, input_format, bases, subs)
+            if this_refs_mode == 'retain':
+                return data
 
-    return data
+            output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
+            if isinstance(output, dict):
+                # Handle $ref:s recursively
+                newbases = bases.copy()
+                source = ref_to_source(data['$ref'], bases)
+                newbases['self'] = os.path.dirname(source)
+                output = handle_all(output, refs_mode, input_format, newbases, subs)
+            if '$id' in data:
+                output['$id'] = data['$id']
+            return output
+
+        for k, v in data.items():
+            if isinstance(v, dict) or isinstance(v, list):
+                data[k] = handle_all(v, refs_mode, input_format, bases, subs)
+
+        return data
+
+    else:
+        raise Exception("handle: unknown data type, not dict or list: %s",type(data))
 
 
 def process(source, refs_mode, input_format, bases, subs):

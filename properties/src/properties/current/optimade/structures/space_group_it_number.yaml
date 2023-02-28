@@ -1,0 +1,23 @@
+title: "Hall space group"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall"
+x-optimade-type: "integer"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+type:
+  - "integer"
+  - "null"
+description: |-
+  Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+
+  **Requirements/Conventions**:
+
+  - The integer value MUST be between 1 and 230.
+  - MUST be null if `nperiodic_dimensions` is not equal to 3.
+examples:
+  - 42
+x-optimade-unit: "unapplicable"
+x-optimade-requirements:
+  support: "may"
+  sortable: false
+  query-support: "none"

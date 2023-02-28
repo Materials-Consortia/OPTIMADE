@@ -1,0 +1,19 @@
+title: "Anonymous chemical formula"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_anonymous"
+x-optimade-type: "string"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+type:
+  - "string"
+  - "null"
+description: |-
+  The anonymous formula is the chemical_formula_reduced, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+examples:
+  - "A2B"
+  - "A42B42C16D12E10F9G5"
+x-optimade-unit: "inapplicable"
+x-optimade-requirements:
+  support: "should"
+  sortable: false
+  query-support: "all mandatory"

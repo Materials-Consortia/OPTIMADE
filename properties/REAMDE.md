@@ -2,7 +2,7 @@
 
 ## What is an OPTIMADE property definition?
 
-The OPTIMADE standard specifies an output format-agnostic way to declare data properties, with particular support for describing physical quantities and related data.
+The section `Property Definitions` of the OPTIMADE specification defines an output format-agnostic way to declare data properties, with particular support for describing physical quantities and related data.
 The format uses a subset of JSON Schema extended with additional OPTIMADE-specific identifiers, as allowed by the JSON Schema standard with identifiers prefixed with `x-optimade`.
 Hence, they can be used as schemas to validate data items using standard tools for JSON Schema.
 Property Definitions are used in the OPTIMADE API to describe precisely what data a database makes available.
@@ -22,15 +22,16 @@ The OPTIMADE repository:
 
 - https://github.com/Materials-Consortia/OPTIMADE
 
-contains a subdirectory `properties/src` that contains source files from which to generate Property Definitions for the standard OPTIMADE properties.
-They are organized with one subdirectory per namespace, of which we currently only use:
+contains a subdirectory `properties/src/properties` with source files from which to generate Property Definitions for the standard OPTIMADE properties.
+They are organized with one subdirectory per category, of which we currently use:
 - `core` for the most core Property Definitions of the OPTIMADE API protocol.
+- `physical` for general definitions of physical properties to be referenced in the other property definitions.
 - `optimade` for property definitions that are integral to the OPTIMADE standard.
 
-Each namespace, except `core`, has "endpoint" subdirectories to sort the Property Definitions into the endpoints in the OPTIMADE protocol to which they belong.
-In addition, common definition references from other definition source files may be sorted in a special subdirectory, `common`.
+The `optimade` category is further partitioned using subdirectories according to OPTIMADE endpoints.
+In addition, common definitions reused by other optimade definition source files are sorted in a special subdirectory, `common`.
 
-The endpoint subdirectories contain human-readable YAML-formatted property definition source files.
+These directories contain human-readable YAML-formatted property definition source files with `.yaml` extensions.
 The source files use JSON Schema pointers to reference other source files to avoid duplication of information.
 They are processed with the tool `tests/scripts/process_propdefs.py` into standards-conformant JSON files where JSON Schema pointers are replaced by inline copies of the corresponding definitions to adhere to the OPTIMADE standard format for Property Definitions.
 
@@ -122,3 +123,17 @@ If you want to integrate your Property Definitions in the OPTIMADE standard:
 - Make a GitHub pull request from your repository to the `develop` OPTIMADE repository branch.
 
 When the pull request is merged, the properties will become part of the next release of the OPTIMADE standard and published under `https://schemas.optimade.org/properties/`
+
+
+## Units
+
+OPTIMADE also provides a set of unit definitions in direct analog to the property definitions above.
+The format for unit definitions is defined in the subsection `Physical Units in Property Definitions` of the section `Property Definition` of the OPTIMADE specification.
+
+These are primarily intended for inclusion by reference from the Property Definition source files to be provided inline in the JSON formatted files.
+However, OPTIMADE also makes them available at stable URLs that can be used as URIs in the same way as the Property Definitions.
+They are published under `https://schemas.optimade.org/units/<version>`.
+For example, the following references the `v1.2.0` version of the angstrom unit:
+```
+  https://schemas.optimade.org/units/v1.2.0/angstrom
+```

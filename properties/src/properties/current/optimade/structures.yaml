@@ -25,3 +25,6 @@ chemical_formula_reduced:
 chemical_formula_hill:
   $ref: "structures/chemical_formula_hill"
 
+lattice_vectors:
+  $ref: "structures/lattice_vectors"
+  
