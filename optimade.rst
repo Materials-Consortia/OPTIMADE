@@ -423,20 +423,17 @@ OPTIONAL properties with an unknown value, if requested explicitly via the :quer
 The interaction of properties with an unknown value with query filters is described in the section `Filtering on Properties with an unknown value`_.
 In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
 
-Handling unknown property names
--------------------------------
+Handling unrecognized property names
+------------------------------------
 
-When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to an unknown property name, it MUST NOT treat this as an error.
-Instead, it should evaluate queries with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
+When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to a property name that is not recognized, it MUST NOT treat this as an error but rather MUST issue a warning with `code` set to `unrecognized_property`.
+Queries MUST be evaluated with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
 If the unknown property is requested to be included in the response, it MUST be included with `null` value.
-Furthermore:
 
-* If the property does not have a database-specific prefix, the implementation MUST issue a warning about the unrecognized property name.
-* If the property has a database-specific prefix that the implementation does not recognize, it SHOULD return a warning indicating that the property has been handled as unknown.
-* If the property has a recognized prefix, i.e., it belongs to a known database provider, the implementation SHOULD NOT issue a warning but may issue diagnostic output with a note explaining how the request was handled.
-
-The rationale for not triggering errors in the above situations is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
+The rationale for not triggering errors for unrecognized properties is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
 Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
+If this is not possible, and if the endpoint defines a :property:`<endpoint>_features` property (e.g., :property:`structure_features` for the `structures` endpoint), the implementation MUST define a database-specific identifier and place it in this list for those entries where the distinction between implementations that do and do not support the property is important.
+Filters can then be formulated as, e.g., :filter-fragment:`_exmpl_strange_property IS UNKNOWN and structure_features HAS "strangeness"` to suppress results from implementations that do not support :property:`_exmpl_strange_property`.
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
@@ -719,7 +716,14 @@ Warnings
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
-Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes (currently, none are specified).
+Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes.
+The following are defined:
+
+- `unrecognized_property`: the request refers to an unrecognized property in the query parameters `filter`, `response_fields`, or in some other way.
+  Implementations SHOULD indicate in the warning field `details` which properties are unrecognized.
+  For future compatability, unrecognized properties are handled as having value :val:`null`.
+  For more information, see `Handling unrecognized property names`_.
+
 For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see section `Database-Provider-Specific Namespace Prefixes`_).
 
 API Endpoints
@@ -2848,6 +2852,8 @@ structure\_features
   - MUST be sorted alphabetically.
   - If a special feature listed below is used, the list MUST contain the corresponding string.
   - If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
+  - Clients SHOULD NOT assume they can represent the structure correctly if the :field:`structure_features` field indicates a feature not supported by the client or contains any unrecognized items.
+  - Implementations that use database-specific properties that must be supported by the client to correctly interpret the structural information MUST define a string with a database-provider-specific prefix and place it in this list for those entries that would be incorrectly interpreted by ignoring the property.
   - **List of strings used to indicate special structure features**:
 
     - :val:`disorder`: this flag MUST be present if any one entry in the `species`_ list has a :field:`chemical_symbols` list that is longer than 1 element.
