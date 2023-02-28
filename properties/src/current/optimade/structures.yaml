@@ -4,6 +4,9 @@ id:
 type:
   $ref: "structures/type"
 
+structure_features:
+  $ref: "structures/structure_features"
+
 elements:
   $ref: "structures/elements"
 
@@ -21,3 +24,4 @@ chemical_formula_reduced:
 
 chemical_formula_hill:
   $ref: "structures/chemical_formula_hill"
+

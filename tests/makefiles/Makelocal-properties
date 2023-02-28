@@ -18,9 +18,18 @@ else
 endif
 
 
-.PHONY: properties
+.PHONY: properties properties_symlinks
 
-properties: $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+properties: properties_symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+
+properties_symlinks:
+	mkdir -p properties/output
+	cd properties/src/ ;\
+	for dir in *; do \
+	  if [ -h "$$dir" ]; then \
+	    ln -s "$$(readlink "$$dir")" "../output/$$dir" ;\
+	  fi ;\
+	done
 
 properties/output/%.json: properties/src/%.yaml
 	mkdir -p "$(dir $@)"
@@ -31,7 +40,6 @@ properties/output/%.json: properties/src/%.yaml
 clean: clean_properties
 
 clean_properties:
-	rm -f $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 	rm -rf properties/output
 
 .PHONY: check_property_variables
