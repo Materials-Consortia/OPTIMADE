@@ -1871,6 +1871,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for all levels of the Property Definition:**
 
+.. _definition of the x-optimade-type field:
+
 - :field:`x-optimade-type`: String
   Specifies the OPTIMADE data type for this level of the defined property.
   MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
@@ -1886,7 +1888,7 @@ A Property Definition MUST be composed according to the combination of the requi
   If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
 
   This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Two Property Definitions that only differ by the value of :field:`x-optimade-implementation` are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+  Two Property Definitions that only differ by the value of :field:`x-optimade-implementation` are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
   The dictionary has the following format:
 
@@ -1976,7 +1978,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`type`: List.
   Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
-  The value is directly correlated with :field:`x-optimade-type` as explained below.
+  The value is directly correlated with :field:`x-optimade-type` (cf. the `definition of the x-optimade-type field`_).
 
   It MUST be a list of one or two elements where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
@@ -2001,6 +2003,8 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 **OPTIONAL keys**
 
+.. _definition of the $id field:
+
 - :field:`$id`: String.
   A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
   It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
@@ -2022,7 +2026,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
 
   This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+  Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
@@ -2030,7 +2034,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   The field not being present means :val:`FALSE`.
 
   This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in relation to the :field:`$id` field below, they SHOULD share the same :field:`$id`.
+  Two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
