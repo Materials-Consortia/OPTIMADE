@@ -428,7 +428,7 @@ Handling unrecognized property names
 
 When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to a property name that is not recognized, it MUST NOT treat this as an error but rather MUST issue a warning with `code` set to `unrecognized_property`.
 Queries MUST be evaluated with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
-If the unrecognized property is requested to be included in the response, it MUST be included with `null` value.
+If the unrecognized property is requested to be included in the response, it MUST be included with :val:`null` value.
 
 The rationale for not triggering errors for unrecognized properties is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
 Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
@@ -721,7 +721,7 @@ The following are defined:
 
 - `unrecognized_property`: the request refers to an unrecognized property in the query parameters `filter`, `response_fields`, or in some other way.
   Implementations SHOULD indicate in the warning field `details` which properties are unrecognized.
-  For future compatability, unrecognized properties are handled as having value :val:`null`.
+  For future compatibility, unrecognized properties are handled as having value :val:`null`.
   For more information, see `Handling unrecognized property names`_.
 
 For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see section `Database-Provider-Specific Namespace Prefixes`_).
