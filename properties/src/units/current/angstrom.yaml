@@ -1,13 +1,16 @@
 title: "Ångström"
 symbol: "angstrom"
 $id: "https://schemas.optimade.org/units/v1.2.0/angstrom"
-description: "The Ångström is a non-SI unit of length equal to 0.1 nanometers (nm)."
+description: "The Ångström non-SI unit of length equal to $1 \cdot 10^{-10}$ meter, where meter is defined according to the 2019 redefinition of the SI base units."
 version: 1.2.0
 property-format: 1.2
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "angstrom"
-  resource-uris:
-    - relation: "Wikipedia article describing the unit"
-      uri: "https://en.wikipedia.org/wiki/Angstrom"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Angstrom"
+defining-relation:
+  base-uri: "https://schemas.optimade.org/units/v1.2.0/meter"
+  multiplicative: 1e-10
