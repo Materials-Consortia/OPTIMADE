@@ -1873,7 +1873,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 .. _definition of the x-optimade-type field:
 
-- :field:`x-optimade-type`: String
+- :field:`x-optimade-type`: String.
   Specifies the OPTIMADE data type for this level of the defined property.
   MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
@@ -1953,7 +1953,7 @@ A Property Definition MUST be composed according to the combination of the requi
     Note: the specification by this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field.
     If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
 
-  - :field:`response-default-level`: String
+  - :field:`response-default-level`: String.
     Expresses if an implementation of this property is required to include or exclude it in responses when not specifically requested.
     This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
     Nevertheless, it MAY appear at other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
