@@ -1,0 +1,34 @@
+title: "Species at sites"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites"
+x-optimade-type: "list"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+type:
+  - "array"
+  - "null"
+description: |-
+  Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_). The properties of the species are found in the property `species`_.
+
+  **Requirements/Conventions**:
+
+  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
+  - Each species name mentioned in the `species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the `species_at_sites` list there MUST exist exactly one dictionary in the `species` list with the `name` attribute equal to the corresponding `species_at_sites` value).
+  - Each site MUST be associated only to a single species.
+    **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
+    This latter case is useful when different atoms of the same type need to be grouped or distinguished, for instance in simulation codes to assign different initial spin states.
+
+  **Explained examples**:
+
+  - `["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`
+  - `["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
+examples:
+  - ["Ti","O2"]
+  - ["Ac", "Ac", "Ag", "Ir"]
+x-optimade-unit: "inapplicable"
+x-optimade-requirements:
+  support: "should"
+  sortable: false
+  query-support: "none"
+items:
+  $ref: "/properties/v1.2.0/optimade/common/species_name"

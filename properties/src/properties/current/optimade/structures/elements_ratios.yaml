@@ -30,8 +30,9 @@ x-optimade-requirements:
   sortable: false
   query-support: "all mandatory"
 items:
-  x-optimade-type: float
-  type: number
+  x-optimade-type: "float"
+  type:
+    - "number"
   x-optimade-unit: "dimensionless"
   minimum: 0.0
   maximum: 1.0

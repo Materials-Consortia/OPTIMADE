@@ -1,0 +1,14 @@
+tile: "Chemical symbol or vacancy"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
+x-propdef-inherit-ref: "properties/v1.2.0/optimade/common/chemical_symbol"
+description: |-
+  A chemical symbol refering to an element, a non-chemical element, or a vacancy.
+
+  **Requirements/Conventions:**
+
+  - Must be one of the following:
+
+    - a valid chemical-element symbol, or
+    - the special value :val:`"X"` to represent a non-chemical element, or
+    - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
+enum: ["X", "vacancy", "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Uut", "Uuq", "Uup", "Uuh", "Uus", "Uuo"]

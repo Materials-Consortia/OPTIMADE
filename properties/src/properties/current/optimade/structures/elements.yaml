@@ -1,9 +1,6 @@
 title: "Elements"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements"
-x-optimade-type: "list"
-x-optimade-property:
-  version: "1.2.0"
-  property-format: "1.2"
+x-propdefs-inherit-ref: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/element_list"
 type:
   - "array"
   - "null"
@@ -22,13 +19,8 @@ description: |-
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: `elements HAS ALL "Si", "Al", "O"`.
   - To match structures with exactly these three elements, use `elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
   - Note: length queries on this property can be equivalently formulated by filtering on the `nelements`_ property directly.
-examples:
-  - ["Si"]
-  - ["Al","O","Si"]
 x-optimade-unit: "inapplicable"
 x-optimade-requirements:
   support: "should"
   sortable: false
   query-support: "all mandatory"
-items:
-  $ref: "/properties/v1.2.0/optimade/common/element"
