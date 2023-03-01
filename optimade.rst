@@ -1838,6 +1838,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
+.. _definition of the property-format field:
+
   - :field:`property-format`: String.
     Specifies the minor version of the property definition format used.
     The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
@@ -2193,7 +2195,12 @@ Furthermore:
 
 The string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
 
-If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST be a list of dictionaries, all adhering to the following format:
+If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in the next subsection.
+
+Physical Unit Definitions
+-------------------------
+
+An OPTIMADE Physical Unit Definition is a dictionary adhering to the following format:
 
 **REQUIRED keys:**
 
@@ -2232,6 +2239,21 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
 
 **OPTIONAL keys:**
 
+- :field:`$id`: String.
+  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
+  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when it changes.
+  The Physical Unit Definition SHOULD be regarded as the same if the only changes that have been made are to the following specific fields at any level: :field:`deprecated`, :field:`$comment`.
+  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+
+- :field:`property-format`: String.
+  Specifies the minor version of the Property Definitions format that describes the Physical Units Definitions (i.e., these formats share version numbers).
+  The format is the same as described above for the `definition of the property-format field`_ in Property Definitions.
+  This field MUST be included when Unit Definitions are used standalone, i.e., when they are not embedded inside a Property Definition that already declare a :field:`property-format` at the top level.
+
+- :field:`version`: String.
+  This string indicates the version of the Physical Unit Definition.
+  The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
+
 - :field:`resource-uris`: List.
   A list of dictionaries that reference remote resources that describe the unit.
   The format of each dictionary is:
@@ -2243,6 +2265,30 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
 
   - :field:`uri`: String.
     A URI of the external resource (which MAY be a resolvable URL).
+
+- :field:`defining-relation`: Dictionary.
+  A dictionary that encodes a defining relation to another unit.
+  The primary use is to relate the unit to SI units, if possible.
+  The dictionary MUST adhere to the following format:
+
+  **REQUIRED keys:**
+  - :field:`unit-uris`: List of String.
+    Each string is a reference to another unit and its symbol from which to express the unit being defined.
+
+  - :field:`dimension`: String.
+    A compound unit expression on the form described in `Physical Units in Property Definitions`_ that expresses the dimension of the unit being defined using the symbols of the units in :field:`unit-uris`.
+
+  - :field:`scale-nominator`: Integer.
+  - :field:`scale-denominator`: Integer.
+  - :field:`offset-nominator`: Integer.
+  - :field:`offset-denominator`: Integer.
+
+    These four fields describe the relationship between the unit being defined and the compound unit expression in :field:`dimension`.
+    They express that a value multiplied by the unit being defined is equal to:
+
+    1. The value is multiplied by the fraction :field:`scale-nominator` / :field:`scale-denominator`.
+    2. The fraction :field:`offset-nominator` / :field:`offset-denominator` is added to the resulting value.
+    3. The resulting value is multiplied by the compound unit expression in :field:`dimension`.
 
 Unrecognized keys in property definitions
 -----------------------------------------
