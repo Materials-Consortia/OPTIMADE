@@ -135,5 +135,5 @@ However, OPTIMADE also makes them available at stable URLs that can be used as U
 They are published under `https://schemas.optimade.org/units/<version>`.
 For example, the following references the `v1.2.0` version of the angstrom unit:
 ```
-  https://schemas.optimade.org/units/v1.2.0/angstrom
+  https://schemas.optimade.org/units/v1.2.0/atomistic/angstrom
 ```
