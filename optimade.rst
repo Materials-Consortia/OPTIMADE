@@ -1061,6 +1061,7 @@ The single resource object's response dictionary MUST include the following fiel
     If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database that the data and metadata is available, without exceptions, under the respective licenses.
     If the database cannot make that commitment, e.g., if only part of the data is available under a license, the corresponding license identifier MUST NOT appear in :field:`available_licenses` (but, rather, the field :field:`license` is to be used to clarify the licensing situation.)
     An empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field :field:`license`.
+
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
 - **relationships**: Dictionary that MAY contain a single `JSON API relationships object <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__:
@@ -2292,11 +2293,13 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   The dictionary MUST adhere to the following format:
 
   **REQUIRED keys:**
+
   - :field:`base-units`: List of Dictionaries.
     A list specifying the base URIs and unit symbols for the units in which the dimensional formula for the defining relation is expressed.
     Each item MUST be a dictionary that adheres to the following format:
 
     **REQUIRED keys:**
+
     - :field:`symbol`: String.
       The symbol used to reference this unit in the dimensional formula.
     - :field:`uri`: String.
@@ -2310,6 +2313,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     A dictionary specifying the scale in the defining relation, adhering to the following format:
 
     **OPTIONAL keys:**
+
     - :field:`numerator`: Integer.
     - :field:`denominator`: Integer.
     - :field:`exponent`: Integer.
