@@ -2167,6 +2167,8 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
     - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
 
+A complete example of a Property Definition is found in the appendix `Property Definition Example`_.
+
 Physical Units in Property Definitions
 --------------------------------------
 
@@ -2310,7 +2312,9 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     A string expressing the base units part of the defining relation for the unit being defined.
     It MUST adhere to the format for compound unit expression described in `Physical Units in Property Definitions`_.
 
-  - :field:`scale`: Dictionary. Optional.
+  **OPTIONAL keys:**
+
+  - :field:`scale`: Dictionary.
     A dictionary specifying the scale in the defining relation, adhering to the following format:
 
     **OPTIONAL keys:**
@@ -2322,7 +2326,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     These three fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by 10 to the power of :field:`exponent`.
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 1, 1, and 0.
 
-  - :field:`offset`: Dictionary. Optional.
+  - :field:`offset`: Dictionary.
     A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
 
@@ -2348,6 +2352,8 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
         "denominator": 9
       }
     }
+
+An example of a Physical Unit Definition, including a defining relation that involves more than one other unit, is embedded in the example of a Property Definition in the appendix `Property Definition Example`_.
 
 Unrecognized keys in property definitions
 -----------------------------------------
@@ -3567,3 +3573,104 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
+
+Property Definition Example
+---------------------------
+
+This appendix provides a more complete example of a Property Definition on the format defined in `Property Definitions`_.
+(Note: the description strings have been wrapped for readability only)
+
+.. code:: jsonc
+
+  {
+    "title": "Forces and atomic masses list",
+    "$id": "https://properties.example.com/v1.2.0/forces_and_masses",
+    "x-optimade-type": "list",
+    "x-optimade-property": {
+      "version": "1.2.0",
+      "property-format": "1.2",
+      "unit-definitions": [
+        {
+          "title": "Newton",
+          "symbol": "N",
+          "$id": "https://units.example.com/v1.2.0/N",
+          "description": "The Newton SI unit of force, defined as 1 kg m/s^2
+                          equal to $10^{-10}$ meter using the 2019
+                          redefinition of the SI base units.",
+          "standard": {
+            "name": "gnu units",
+            "version": "3.15",
+            "symbol": "newton"
+          },
+          "defining-relation": {
+            "base-units": [
+              {
+                "symbol": "kg",
+                "uri": "https://units.example.com/v1.2.0/kg"
+              },
+              {
+                "symbol": "m",
+                "uri": "https://units.example.com/v1.2.0/m"
+              },
+              {
+                "symbol": "s",
+                "uri": "https://units.example.com/v1.2.0/s"
+              }
+            ],
+            "base-units-expression": "kg*m*s^-2"
+          }
+        },
+        {
+          "title": "Dalton mass unit",
+          "symbol": "u",
+          "$id": "https://units.example.com/v1.2.0/u",
+          "description": "The Dalton mass unit defined as 1/12 of the mass of an
+                          unbound neutral atom of carbon-12 in its nuclear and
+                          electronic ground state and at rest. Approximately
+                          equal to $1.66053906660(50)*10^{-27}$ kg",
+          "standard": {
+            "name": "gnu units",
+            "version": "3.15",
+            "symbol": "atomicmassunit"
+          }
+        }
+      ]
+    },
+    "type": ["array", "null"],
+    "description": "A list of forces and atomic masses",
+    "examples": [
+      [{"force": 42.0, "mass": 28.0855}, {"force": 44.2, "mass": 15.9994}],
+      [{"force": 12.0, "mass": 24.3050}]
+    ],
+    "x-optimade-unit": "inapplicable",
+    "x-optimade-requirements": {
+      "support": "should",
+      "sortable": false,
+      "query-support": "none"
+    },
+    "items": {
+      "title": "Force and atomic mass pair",
+      "x-optimade-type": "dictionary",
+      "description": "A dictionary containing a force and mass value",
+      "x-optimade-unit": "inapplicable",
+      "type": ["object"],
+      "properties": {
+        "force": {
+          "title": "Force",
+          "description": "A force value",
+          "x-optimade-type": "float",
+          "x-optimade-unit": "N",
+          "type": ["number"],
+          "examples": [42.0]
+        },
+        "mass": {
+          "title": "Mass",
+          "description": "An atomic mass",
+          "x-optimade-type": "float",
+          "x-optimade-unit": "u",
+          "type": ["number"],
+          "examples": [15.9994]
+        }
+      }
+    }
+  }
