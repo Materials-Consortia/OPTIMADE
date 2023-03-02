@@ -3578,7 +3578,7 @@ Property Definition Example
 ---------------------------
 
 This appendix provides a more complete example of a Property Definition on the format defined in `Property Definitions`_.
-(Note: the description strings have been wrapped for readability only)
+(Note: the description strings have been wrapped for readability only.)
 
 .. code:: jsonc
 
@@ -3594,7 +3594,7 @@ This appendix provides a more complete example of a Property Definition on the f
           "title": "Newton",
           "symbol": "N",
           "$id": "https://units.example.com/v1.2.0/N",
-          "description": "The Newton SI unit of force, defined as 1 kg m/s^2
+          "description": "The newton SI unit of force, defined as 1 kg m/s^2
                           equal to $10^{-10}$ meter using the 2019
                           redefinition of the SI base units.",
           "standard": {
@@ -3624,7 +3624,7 @@ This appendix provides a more complete example of a Property Definition on the f
           "title": "Dalton mass unit",
           "symbol": "u",
           "$id": "https://units.example.com/v1.2.0/u",
-          "description": "The Dalton mass unit defined as 1/12 of the mass of an
+          "description": "The dalton mass unit defined as 1/12 of the mass of an
                           unbound neutral atom of carbon-12 in its nuclear and
                           electronic ground state and at rest. Approximately
                           equal to $1.66053906660(50)*10^{-27}$ kg",
