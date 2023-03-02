@@ -2289,7 +2289,8 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   Two Physical Unit Definitions that only differ by the value of any :field:`$comment` fields are considered the same.
 
 - :field:`defining-relation`: Dictionary.
-  A dictionary that encodes a defining relation to another unit or set of units, with the primary intended use of relating a unit being defined to SI units, if possible.
+  A dictionary that encodes a defining relation to another unit or set of units, with the primary intended use of relating a unit to its definition in SI units, if such a relationship exists.
+  Some units, e.g., the atomic mass unit (also known as dalton, commonly denoted ``u``), only has an approximate relationship to SI units, in which case the :field:`defining-relation` MUST be omitted or :val:`null`.
   The dictionary MUST adhere to the following format:
 
   **REQUIRED keys:**
