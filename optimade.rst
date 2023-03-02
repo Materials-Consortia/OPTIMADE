@@ -2325,7 +2325,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
 
   If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (se/sd) * 10**se + (oe/od) * 10**oe)*u``, where ``*`` designates multiplication and ``**`` designates exponentiation.
-  For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``1 F = (1 - 32) * (5/9) C`` could be expressed as follows:
+  For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``x F = (x - 32) * (5/9) C`` could be expressed as follows:
 
   .. code:: jsonc
 
