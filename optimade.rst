@@ -2016,16 +2016,19 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
 
+.. _definition of the description field:
+
 - :field:`description`: String.
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
   The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
-  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
+  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`.
+  When possible, it is preferable for mathematical expressions to use an as straightforward notation as possible to make them readable also when not rendered.
 
 - :field:`$comment`: String.
   A human-readable comment relevant in the context of the raw definition data.
   These comments should be omitted in formatted descriptions of the property shown to the end users.
   (Comments in descriptions relevant to the end users should go into :field:`description`.)
-  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
 
   This field should be seen as an annotation rather than an integral part of the Property Definition.
   Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
@@ -2240,21 +2243,22 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 **OPTIONAL keys:**
 
 - :field:`$id`: String.
-  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
-  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when it changes.
+  A static URI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
+  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
   The Physical Unit Definition SHOULD be regarded as the same if the only changes that have been made are to the following specific fields at any level: :field:`deprecated`, :field:`$comment`.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
 - :field:`property-format`: String.
-  Specifies the minor version of the Property Definitions format that describes the Physical Units Definitions (i.e., these formats share version numbers).
+  Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
+  (The Physical Units Definition format is not versioned independently.)
   The format is the same as described above for the `definition of the property-format field`_ in Property Definitions.
-  This field MUST be included when Unit Definitions are used standalone, i.e., when they are not embedded inside a Property Definition that already declare a :field:`property-format` at the top level.
+  This field MUST be included when Physical Unit Definitions are used standalone, i.e., when they are not embedded inside a Property Definition that already declares a :field:`property-format` at the top level.
 
 - :field:`version`: String.
   This string indicates the version of the Physical Unit Definition.
   The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
 
-- :field:`resource-uris`: List.
+- :field:`resource-uris`: List of Dictionaries.
   A list of dictionaries that reference remote resources that describe the unit.
   The format of each dictionary is:
 
@@ -2266,29 +2270,78 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - :field:`uri`: String.
     A URI of the external resource (which MAY be a resolvable URL).
 
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the unit defined in this Physical Unit Definition.
+  If :val:`FALSE`, the unit defined in this Physical Unit Definition is not deprecated.
+  The field not being present means :val:`FALSE`.
+
+  This field should be seen as an annotation rather than an integral part of the Physical Unit Definition.
+  Two Physical Unit Definitions that only differ by :field:`deprecated` fields are considered the same.
+
+- :field:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should be omitted in formatted descriptions of the Physical Unit definition shown to the end users.
+  (Comments in descriptions relevant to the end users should go into :field:`description`.)
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_ of Property Definitions.
+
+  This field should be seen as an annotation rather than an integral part of the Physical Unit Definition.
+  Two Physical Unit Definitions that only differ by the value of any :field:`$comment` fields are considered the same.
+
 - :field:`defining-relation`: Dictionary.
-  A dictionary that encodes a defining relation to another unit.
-  The primary use is to relate the unit to SI units, if possible.
+  A dictionary that encodes a defining relation to another unit or set of units, with the primary intended use of relating a unit being defined to SI units, if possible.
   The dictionary MUST adhere to the following format:
 
   **REQUIRED keys:**
-  - :field:`unit-uris`: List of String.
-    Each string is a reference to another unit and its symbol from which to express the unit being defined.
+  - :field:`base-units`: List of Dictionaries.
+    A list specifying the base URIs and unit symbols for the units in which the dimensional formula for the defining relation is expressed.
+    Each item MUST be a dictionary that adheres to the following format:
 
-  - :field:`dimension`: String.
-    A compound unit expression on the form described in `Physical Units in Property Definitions`_ that expresses the dimension of the unit being defined using the symbols of the units in :field:`unit-uris`.
+    **REQUIRED keys:**
+    - :field:`symbol`: String.
+      The symbol used to reference this unit in the dimensional formula.
+    - :field:`uri`: String.
+      The URI of one of the units referenced in the dimensional formula for the defining relation.
 
-  - :field:`scale-nominator`: Integer.
-  - :field:`scale-denominator`: Integer.
-  - :field:`offset-nominator`: Integer.
-  - :field:`offset-denominator`: Integer.
+  - :field:`base-units-expression`: String.
+    A string expressing the base units part of the defining relation for the unit being defined.
+    It MUST adhere to the format for compound unit expression described in `Physical Units in Property Definitions`_.
 
-    These four fields describe the relationship between the unit being defined and the compound unit expression in :field:`dimension`.
-    They express that a value multiplied by the unit being defined is equal to:
+  - :field:`scale`: Dictionary. Optional.
+    A dictionary specifying the scale in the defining relation, adhering to the following format:
 
-    1. The value is multiplied by the fraction :field:`scale-nominator` / :field:`scale-denominator`.
-    2. The fraction :field:`offset-nominator` / :field:`offset-denominator` is added to the resulting value.
-    3. The resulting value is multiplied by the compound unit expression in :field:`dimension`.
+    **OPTIONAL keys:**
+    - :field:`numerator`: Integer.
+    - :field:`denominator`: Integer.
+    - :field:`exponent`: Integer.
+
+    These three fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by 10 to the power of :field:`exponent`. If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 1, 1, and 0.
+
+  - :field:`offset`: Dictionary. Optional.
+    A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
+    If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
+
+  If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as `on`, `od`, and `oe`; and :field:`base-units-expression` is designated as `b`, these fields state the following defining relation: a value `v` multiplied by the unit being defined is equal to the following expression `(v * (se/sd) * 10**se + (oe/od) * 10**oe)*u`, where `*` designates multiplication and `**` designates exponentiation.
+  For example, the defining relation of the temperature unit Fahrenheit `F` in Celsius `C`, that says that `1 F = (1 - 32) * (5/9) C` could be expressed as follows:
+
+  .. code:: jsonc
+
+    "defining-relation": {
+      "base-units": [
+        {
+          "symbol": "C",
+          "uri": "https://units.example.com/celsius"
+        }
+      ],
+      "base-units-expression": "C",
+      "scale": {
+        "numerator": 5,
+        "denominator": 9
+      },
+      "offset": {
+        "numerator": 160,
+        "denominator": 9
+      }
+    }
 
 Unrecognized keys in property definitions
 -----------------------------------------
