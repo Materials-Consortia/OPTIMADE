@@ -3595,8 +3595,7 @@ This appendix provides a more complete example of a Property Definition on the f
           "symbol": "N",
           "$id": "https://units.example.com/v1.2.0/N",
           "description": "The newton SI unit of force, defined as 1 kg m/s^2
-                          equal to $10^{-10}$ meter using the 2019
-                          redefinition of the SI base units.",
+                          using the 2019 redefinition of the SI base units.",
           "standard": {
             "name": "gnu units",
             "version": "3.15",
