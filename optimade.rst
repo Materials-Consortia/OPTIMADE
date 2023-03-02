@@ -2023,7 +2023,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
   The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`.
-  When possible, it is preferable for mathematical expressions to use an as straightforward notation as possible to make them readable also when not rendered.
+  When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
 
 - :field:`$comment`: String.
   A human-readable comment relevant in the context of the raw definition data.
