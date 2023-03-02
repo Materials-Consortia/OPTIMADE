@@ -1939,12 +1939,12 @@ A Property Definition MUST be composed according to the combination of the requi
 - :field:`x-optimade-requirements`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality required by all implementations of this property.
   Omitting this field means the corresponding functionality is OPTIONAL.
-  The dictionary has the same format as :field:`x-optimade-implementation`, *except that* the :field:`response-default` SHOULD NOT appear, and the following additional OPTIONAL fields are allowed:
+  The dictionary has the same format as :field:`x-optimade-implementation`, *except that* the :field:`response-default` field SHOULD NOT appear, and the following additional OPTIONAL fields are allowed:
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
     This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
-    Nevertheless, it MAY appear at other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
+    Nevertheless, it MAY appear in other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
@@ -1959,13 +1959,13 @@ A Property Definition MUST be composed according to the combination of the requi
   - :field:`response-default-level`: String.
     Expresses if an implementation of this property is required to include or exclude it in responses when not specifically requested.
     This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
-    Nevertheless, it MAY appear at other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
+    Nevertheless, it MAY appear in other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
 
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be included in responses unless specifically excluded.
     - :val:`should`: the defined property SHOULD be included in responses unless specifically excluded.
-    - :val:`may`: it is OPTIONAL for the implementation to include the defined property in responses or not.
+    - :val:`may`: it is OPTIONAL for the implementation to include the defined property in responses.
     - :val:`should not`: the defined property SHOULD NOT be included in responses unless specifically requested.
     - :val:`must not`: the defined property MUST NOT be included in responses unless specifically requested.
 
@@ -2319,14 +2319,15 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     - :field:`denominator`: Integer.
     - :field:`exponent`: Integer.
 
-    These three fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by 10 to the power of :field:`exponent`. If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 1, 1, and 0.
+    These three fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by 10 to the power of :field:`exponent`.
+    If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 1, 1, and 0.
 
   - :field:`offset`: Dictionary. Optional.
     A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
 
-  If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (se/sd) * 10**se + (oe/od) * 10**oe)*u``, where ``*`` designates multiplication and ``**`` designates exponentiation.
-  For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``x F = (x - 32) * (5/9) C`` could be expressed as follows:
+  If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (se/sd) * 10**se + (oe/od) * 10**oe)*b``, where ``*`` designates multiplication and ``**`` designates exponentiation.
+  For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``x F = (x - 32) * (5/9) C = 5/9 x + (-160/9) C`` could be expressed as follows:
 
   .. code:: jsonc
 
@@ -2343,7 +2344,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
         "denominator": 9
       },
       "offset": {
-        "numerator": 160,
+        "numerator": -160,
         "denominator": 9
       }
     }
