@@ -1358,7 +1358,9 @@ Example (note: the description strings have been wrapped for readability only):
         "description": "a structures entry",
         "properties": {
           "nelements": {
+            "$id": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
             "title": "Number of elements",
+            "x-optimade-type": "integer",
             "type": ["integer", "null"],
             "description": "Number of different elements in the structure as an integer.\n
              \n
@@ -1369,7 +1371,7 @@ Example (note: the description strings have been wrapped for readability only):
               3
             ],
             "x-optimade-property": {
-              "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
+               "property-format": "1.2"
             },
             "x-optimade-unit": "dimensionless",
             "x-optimade-implementation": {
@@ -1383,7 +1385,9 @@ Example (note: the description strings have been wrapped for readability only):
             }
           },
           "lattice_vectors": {
+            "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
             "title": "Unit cell lattice vectors",
+            "x-optimade-type": "list",
             "type": ["array", "null"],
             "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
             \n
@@ -1395,7 +1399,7 @@ Example (note: the description strings have been wrapped for readability only):
             ],
             "x-optimade-unit": "inapplicable",
             "x-optimade-property": {
-              "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "property-format": "1.2",
               "unit-definitions": [
                 {
                   "symbol": "angstrom",
@@ -1408,7 +1412,7 @@ Example (note: the description strings have been wrapped for readability only):
                   }
                 }
               ]
-            }
+            },
             "x-optimade-implementation": {
               "sortable": false,
               "query-support": "none"
@@ -1417,26 +1421,28 @@ Example (note: the description strings have been wrapped for readability only):
               "support": "should",
               "sortable": false,
               "query-support": "none"
-            }
-            "maxItems": 3
-            "minItems": 3
+            },
+            "maxItems": 3,
+            "minItems": 3,
             "items": {
-               "type": "array",
-               "x-optimade-unit": "inapplicable",
-               "maxItems": 3
-               "minItems": 3
-               "items": {
-                 "type": "number",
-                 "x-optimade-unit": "angstrom",
-                 "x-optimade-implementation": {
-                   "sortable": true,
-                   "query-support": "none"
-                 },
-                 "x-optimade-requirements": {
-                   "sortable": false,
-                   "query-support": "none"
-                 }
-               }
+              "type": "array",
+              "x-optimade-type": "list",
+              "x-optimade-unit": "inapplicable",
+              "maxItems": 3,
+              "minItems": 3,
+              "items": {
+                "type": "number",
+                "x-optimade-type": "float",
+                "x-optimade-unit": "angstrom",
+                "x-optimade-implementation": {
+                  "sortable": true,
+                  "query-support": "none"
+                },
+                "x-optimade-requirements": {
+                  "sortable": false,
+                  "query-support": "none"
+                }
+              }
             }
           }
           // ... <other property descriptions>
@@ -2000,7 +2006,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for the outermost level of the Property Definition:**
 
-- :field:`title`: String and :field:`description`: String.
+- :field:`$id`: String, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
@@ -2016,11 +2022,6 @@ A Property Definition MUST be composed according to the combination of the requi
     In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
     A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
     This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
-
-  - :field:`property-uri`: String.
-    A static URI identifier that is a URN or URL representing the specific version of the property.
-    It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-    (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
   **OPTIONAL keys:**
 
@@ -2046,6 +2047,10 @@ A Property Definition MUST be composed according to the combination of the requi
       A URI of the external resource (which MAY be a resolvable URL).
 
 **REQUIRED keys for all levels of the Property Definition:**
+
+- :field:`x-optimade-type`: String
+  Specifies the OPTIMADE data type for this level of the defined property.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
@@ -2118,32 +2123,41 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 **REQUIRED keys**
 
 - :field:`type`: String or List.
-  The string or list specifies the type of the defined property.
+  Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
+  The value is directly correlated with :field:`x-optimade-type` as explained below.
+
   It MUST be one of:
 
-  - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
-  - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
+  - A string correlated with :field:`x-optimade-type` as follows.
+    If :field:`x-optimade-type` is:
 
-  For OPTIMADE data types not covered above:
+    * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
+    * :val:`"dictionary"` then :field:`type` is `"object"`.
+    * :val:`"list"` then :field:`type` is `"array"`.
+    * :val:`"float"` then :field:`type` is `"number"`.
+    * :val:`"timestamp"` then :field:`type` is `"string"`.
 
-  - timestamps are represented by setting the :field:`type` field to :val:`"string"` and the :field:`format` field to :val:`"date-time"`.
-    In this case it is MANDATORY to include the field :field:`format`.
-
-  Output formats that represent these OPTIMADE data types in other ways have to recognize them and reinterpret the definition accordingly.
+  - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
+    This form specifies that the defined property can be :val:`null`.
 
 ..
 
   Implementation notes:
 
-    - The strings used in the :field:`type` field are JSON type names encoded as strings, but they refer to the corresponding OPTIMADE data types.
-      Nevertheless, for consistency across formats, the JSON type names MUST be used regardless of the standard type names of the output format.
-      The motivation for this design decision is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+    - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
+      The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+      Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output formats (i.e., the JSON names MUST NOT be translated into the type names of that output format).
 
     - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
       Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
       This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
 **OPTIONAL keys**
+
+- :field:`$id`: String.
+  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
+  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2815,7 +2829,7 @@ species\_at\_sites
 - **Examples**:
 
   - :val:`["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`.
-  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicating the first two sites contains the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
+  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
 
 species
 ~~~~~~~
@@ -2921,7 +2935,7 @@ assemblies
 
   - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
     Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.
-  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
+  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third sites are either present together or not present; they form the first group of atoms for this assembly.
     The second group is formed by the fourth site.
     Sites of the first group (the second and the third) are never present at the same time as the fourth site.
     30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).
