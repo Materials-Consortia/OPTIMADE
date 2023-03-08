@@ -2290,6 +2290,8 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   This field should be seen as an annotation rather than an integral part of the Physical Unit Definition.
   Two Physical Unit Definitions that only differ by the value of any :field:`$comment` fields are considered the same.
 
+.. _definition of defining-relation:
+
 - :field:`defining-relation`: Dictionary.
   A dictionary that encodes a defining relation to another unit or set of units, with the primary intended use of relating a unit to its definition in SI units, if such a relationship exists.
   Some units, e.g., the atomic mass unit (also known as dalton, commonly denoted ``u``), only has an approximate relationship to SI units, in which case the :field:`defining-relation` MUST be omitted or :val:`null`.
@@ -2352,6 +2354,45 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
         "denominator": 9
       }
     }
+
+- :field:`approximate-relations`: List of Dictionary.
+  A list of dictionaries that encode approximate relations to another unit or set of units.
+  The intended use is to express one or a few approximate relationships from the unit being defined to other unit systems (primarily intended to be SI).
+  This field is useful for units not defined by such a relationship, in which case the :field:`defining-relation` field would be used.
+  For example, the atomic mass unit (also known as dalton, commonly denoted ``u``) is defined as one twelfth of the mass of a free carbon-12 atom at rest and only has an approximate relationship to the SI kilogram.
+  While this field allows expressing multiple relationships, the intent is only to provide the most relevant relationships (e.g., to an SI base unit) from which other relationships can be derived.
+
+  Each element in the list MUST be a dictionary adhering to the following format:
+
+  **REQUIRED keys:**
+
+  - :field:`base-units`: List of Dictionaries, and :field:`base-units-expression`: String.
+    These fields take the same format and roles as in the `definition of defining-relation`_
+
+  **OPTIONAL keys:**
+
+  - :field:`scale`: Dictionary.
+    A dictionary specifying the scale in the approximate relation.
+    It MUST adhere to the following format:
+
+    **REQUIRED keys:**
+
+    - :field:`value`: Float.
+      The value of the scale in the approximate relation.
+
+    **OPTIONAL keys:**
+
+    - :field:`standard_uncertainty`: Float.
+      The standard uncertainty of the value in the approximate relation.
+
+    - :field:`relative_standard_uncertainty`: Float.
+      The relative standard uncertainty of the value in the approximate relation.
+
+  - :field:`offset`: Dictionary.
+    A dictionary specifying the offset in the approximate relation.
+    It MUST adhere to the same format as the :field:`scale` field above.
+
+  The values for :field:`scale` and :field:`offset` take the same meaning as in the `definition of defining-relation`_ to express a relationship between the unit being defined and the compound unit expression in :field:`base-units-expression`.
 
 An example of a Physical Unit Definition, including a defining relation that involves more than one other unit, is embedded in the example of a Property Definition in the appendix `Property Definition Example`_.
 
