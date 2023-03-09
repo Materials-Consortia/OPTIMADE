@@ -1,0 +1,22 @@
+title: "coulomb"
+symbol: "coulomb"
+alternate-symbols:
+  - "C"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/derived/coulomb"
+description: "The coulomb is a derived SI unit for electric charge, defined as s·A in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "coulomb"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Coulomb"
+defining-relation:
+  base-units:
+    - symbol: "s"
+      uri: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+    - symbol: "ampere"
+      uri: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
+  base-units-expression: "ampere*s"

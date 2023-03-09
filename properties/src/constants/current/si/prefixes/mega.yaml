@@ -1,0 +1,20 @@
+title: "mega"
+symbol: "mega"
+alternate-symbols:
+  - "M"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/mega"
+description: "The mega SI prefix defined as a dimensionless multiple of 10⁶, defined in 1960."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "mega"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Mega-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 6

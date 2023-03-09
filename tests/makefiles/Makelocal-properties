@@ -19,30 +19,24 @@ endif
 
 .PHONY: properties properties_symlinks units_symlinks
 
-properties: properties_symlinks units_symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+properties: symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 
-properties_symlinks:
+symlinks:
 	mkdir -p properties/output/properties
-	cd properties/src/properties ;\
-	for dir in *; do \
-	  if [ ! -e "../../output/properties/$$dir" -a -h "$$dir" ]; then \
-	    ln -s "$$(readlink "$$dir")" "../../output/properties/$$dir" ;\
-	  fi ;\
-	done
-
-units_symlinks:
 	mkdir -p properties/output/units
-	cd properties/src/units ;\
-	for dir in *; do \
-	  if [ ! -e "../../output/units/$$dir" -a -h "$$dir" ]; then \
-	    ln -s "$$(readlink "$$dir")" "../../output/units/$$dir" ;\
-	  fi ;\
+	for KIND in properties units constants; do \
+	  cd properties/src/properties ;\
+	  for dir in *; do \
+	    if [ ! -e "../../output/properties/$$dir" -a -h "$$dir" ]; then \
+	      ln -s "$$(readlink "$$dir")" "../../output/properties/$$dir" ;\
+	    fi ;\
+	  done
 	done
 
 $(ENDPOINTS_OUT): $(PROPS_OUT)
 $(NAMESPACES_OUT): $(ENDPOINTS_OUT)
 
-properties/output/%.json: properties/src/%.yaml | properties_symlinks units_symlinks
+properties/output/%.json: properties/src/%.yaml | symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_propdefs.py --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "properties/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 

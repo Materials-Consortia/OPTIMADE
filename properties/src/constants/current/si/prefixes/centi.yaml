@@ -1,0 +1,20 @@
+title: "centi"
+symbol: "centi"
+alternate-symbols:
+  - "c"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/2019/prefix/centi"
+description: "The centi SI prefix defined as a dimensionless multiple of 10⁻², defined in 1795."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "centi"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Centi-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -2

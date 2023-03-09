@@ -1,0 +1,20 @@
+title: "deci"
+symbol: "deci"
+alternate-symbols:
+  - "d"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/2019/prefix/deci"
+description: "The deci SI prefix defined as a dimensionless multiple of 10⁻¹, defined in 1795."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "deci"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Deci-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -1

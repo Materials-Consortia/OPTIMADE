@@ -1,0 +1,20 @@
+title: "atto"
+symbol: "atto"
+alternate-symbols:
+  - "a"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/2019/prefix/atto"
+description: "The atto SI prefix defined as a dimensionless multiple of 10⁻¹⁸, defined in 1964."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "atto"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Atto-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -18

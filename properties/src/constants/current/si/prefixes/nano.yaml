@@ -1,0 +1,20 @@
+title: "nano"
+symbol: "nano"
+alternate-symbols:
+  - "n"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/nano"
+description: "The nano SI prefix defined as a dimensionless multiple of 10⁻⁹, defined in 1960."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "nano"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Nano-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -9

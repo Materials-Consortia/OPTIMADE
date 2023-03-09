@@ -1,0 +1,20 @@
+title: "quecto"
+symbol: "quecto"
+alternate-symbols:
+  - "q"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/quecto"
+description: "The quecto SI prefix defined as a dimensionless multiple of 10⁻³⁰, defined in 2022."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "quecto"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Quecto-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -30

@@ -1,0 +1,20 @@
+title: "giga"
+symbol: "giga"
+alternate-symbols:
+  - "G"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/giga"
+description: "The giga SI prefix defined as a dimensionless multiple of 10⁹, defined in 1960."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "giga"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Giga-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 9

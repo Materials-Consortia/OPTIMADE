@@ -1,0 +1,23 @@
+title: "electron volt"
+symbol: "electronvolt"
+alternate-symbols:
+  - "eV"
+$id: "https://schemas.optimade.org/units/v1.2.0/atomistic/electronvolt"
+description: "The electronvolt is defined as exactly 1.602176634·10⁻¹⁹ J conforming with the 2019 redefinition of the SI base units."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "angstrom"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Electronvolt"
+defining-relation:
+  base-units:
+    - symbol: "joule"
+      uri: "https://schema.optimade.org/units/v1.2.0/si/2019/derived/joule"
+  base-units-expression: "joule"
+  scale:
+    numerator: 1602176634
+    exponent: -28

@@ -1,0 +1,20 @@
+title: "pico"
+symbol: "pico"
+alternate-symbols:
+  - "p"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/pico"
+description: "The pico SI prefix defined as a dimensionless multiple of 10⁻¹², defined in 1960."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "pico"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Pico-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -12

@@ -1,0 +1,20 @@
+title: "yotta"
+symbol: "yotta"
+alternate-symbols:
+  - "Y"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/yotta"
+description: "The yotta SI prefix defined as a dimensionless multiple of 10²⁴, defined in 1991."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "yotta"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Yotta-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 24

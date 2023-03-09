@@ -1,0 +1,13 @@
+title: "candela"
+symbol: "cd"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/cd"
+description: "The candela is the SI base unit of luminous intensity defined according to the 2019 redefinition of the SI base units."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "cd"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Candela"

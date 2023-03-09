@@ -1,0 +1,20 @@
+title: "femto"
+symbol: "femto"
+alternate-symbols:
+  - "f"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/femto"
+description: "The femto SI prefix defined as a dimensionless multiple of 10⁻¹⁵, defined in 1964."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "femto"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Femto-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -15

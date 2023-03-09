@@ -1,0 +1,20 @@
+title: "micro"
+symbol: "micro"
+alternate-symbols:
+  - "μ"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/micro"
+description: "The micro SI prefix defined as a dimensionless multiple of 10⁻⁶, first used in 1873."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "micro"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Micro-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: -6

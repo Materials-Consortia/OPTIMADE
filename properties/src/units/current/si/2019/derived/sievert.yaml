@@ -1,0 +1,24 @@
+title: "sievert"
+symbol: "sievert"
+alternate-symbols:
+  - "Sv"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/derived/sievert"
+description: "The sievert is a derived SI unit for equivalent dose of ionizing radiation, defined as m²·s⁻² in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "sievert"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Sievert"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      uri: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+    - symbol: "m"
+      uri: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+    - symbol: "s"
+      uri: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+  base-units-expression: "kg*m^2*s^-2"

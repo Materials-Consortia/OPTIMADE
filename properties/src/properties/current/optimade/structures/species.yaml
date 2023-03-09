@@ -206,7 +206,7 @@ items:
           - Elements denoting vacancies MUST have masses equal to 0.
         examples:
           - [58.933195, 28.0855]
-        x-optimade-unit: "inapplicable"
+        x-optimade-unit: "u"
         items:
           x-optimade-type: "float"
           type:

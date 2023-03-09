@@ -1,0 +1,20 @@
+title: "deca"
+symbol: "deca"
+alternate-symbols:
+  - "da"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefix/deca"
+description: "The deca SI prefix defined as a dimensionless multiple of 10, defined in 1795."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "deca"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Deca-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 1

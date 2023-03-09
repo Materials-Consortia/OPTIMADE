@@ -1,0 +1,20 @@
+title: "hecto"
+symbol: "hecto"
+alternate-symbols:
+  - "h"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/hecto"
+description: "The hecto SI prefix defined as a dimensionless multiple of 10², defined in 1795."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "hecto"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Hecto-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 2

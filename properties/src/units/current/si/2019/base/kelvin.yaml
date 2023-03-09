@@ -1,0 +1,15 @@
+title: "kelvin"
+symbol: "kelvin"
+alternate-symbols:
+  - "K"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/K"
+description: "The kelvin is the SI base unit of temperature defined according to the 2019 redefinition of the SI base units."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "kelvin"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Candela"

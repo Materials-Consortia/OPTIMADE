@@ -1,7 +1,7 @@
-title: "Ångström"
+title: "ångström"
 symbol: "angstrom"
 $id: "https://schemas.optimade.org/units/v1.2.0/atomistic/angstrom"
-description: "The ångström non-SI unit of length equal to $10^{-10}$ meter, where meter is defined according to the 2019 redefinition of the SI base units."
+description: "The ångström non-SI unit of length equal to 10⁻¹⁰ meter conforming to the 2019 redefinition of the SI base units."
 version: "1.2.0"
 property-format: "1.2"
 standard:
@@ -12,5 +12,9 @@ resource-uris:
   - relation: "Wikipedia article describing the unit"
     uri: "https://en.wikipedia.org/wiki/Angstrom"
 defining-relation:
-  base-uri: "https://schemas.optimade.org/units/v1.2.0/si/m"
-  multiplicative: 1e-10
+  base-units:
+    - symbol: "m"
+      uri: "https://schema.optimade.org/units/v1.2.0/si/base/m"
+  base-units-expression: "m"
+  scale:
+    exponent: -10

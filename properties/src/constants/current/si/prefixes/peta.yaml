@@ -1,0 +1,20 @@
+title: "peta"
+symbol: "peta"
+alternate-symbols:
+  - "P"
+$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/peta"
+description: "The peta SI prefix defined as a dimensionless multiple of 10¹⁵, defined in 1975."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "peta"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Peta-"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 15

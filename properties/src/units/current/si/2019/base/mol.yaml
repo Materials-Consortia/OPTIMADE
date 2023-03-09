@@ -1,0 +1,13 @@
+title: "mole"
+symbol: "mol"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/mol"
+description: "The mole is the SI base unit of amount of substance defined according to the 2019 redefinition of the SI base units."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "mol"
+resource-uris:
+  - relation: "Wikipedia article describing the unit"
+    uri: "https://en.wikipedia.org/wiki/Mole_(unit)"
