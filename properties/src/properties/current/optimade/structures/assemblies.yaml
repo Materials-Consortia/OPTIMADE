@@ -112,8 +112,8 @@ description: |-
       These two sites are correlated (either site 2 or 3 is present).
       However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2*0.3 = 6 % probability; the pair (0, 3) with 0.2*0.7 = 14 % probability; the pair (1, 2) with 0.8*0.3 = 24 % probability; and the pair (1, 3) with 0.8*0.7 = 56 % probability).
 examples:
-  - `{"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}`
-  - `{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`
+  - {"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}
+  - {"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}
 x-optimade-unit: "inapplicable"
 x-optimade-requirements:
   support: "should"

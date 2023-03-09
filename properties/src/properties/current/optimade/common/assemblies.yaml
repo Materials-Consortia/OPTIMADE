@@ -42,7 +42,7 @@ properties:
         - ["Si", "Mn", "X", "vacancy"]
       x-optimade-unit: "inapplicable"
       items:
-        $ref: "/properties/v1.2.0/common/chemical_symbol_or_vacancy"
+        $ref: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
   - "concentration":
       title: "Concentration"
       x-optimade-type: "list"
@@ -94,7 +94,7 @@ properties:
         - ["Si", "Mn", "X"]
       x-optimade-unit: "inapplicable"
       items:
-        $ref: "/properties/v1.2.0/common/chemical_symbol"
+        $ref: "/properties/v1.2.0/optimade/common/chemical_symbol"
   - "nattached":
       title: "Number of attached entities"
       x-optimade-type: "list"

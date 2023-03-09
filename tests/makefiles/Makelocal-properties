@@ -24,13 +24,16 @@ properties: symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 symlinks:
 	mkdir -p properties/output/properties
 	mkdir -p properties/output/units
+	mkdir -p properties/output/constants
 	for KIND in properties units constants; do \
-	  cd properties/src/properties ;\
+	  pwd -P ;\
+	  ( cd "properties/src/$$KIND";\
 	  for dir in *; do \
 	    if [ ! -e "../../output/properties/$$dir" -a -h "$$dir" ]; then \
-	      ln -s "$$(readlink "$$dir")" "../../output/properties/$$dir" ;\
+	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
 	    fi ;\
-	  done
+	  done \
+	  ) \
 	done
 
 $(ENDPOINTS_OUT): $(PROPS_OUT)

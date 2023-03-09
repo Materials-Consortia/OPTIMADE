@@ -1,6 +1,6 @@
 title: "Elements"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements"
-x-propdefs-inherit-ref: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/element_list"
+x-optimade-type: "list"
 type:
   - "array"
   - "null"
@@ -24,3 +24,5 @@ x-optimade-requirements:
   support: "should"
   sortable: false
   query-support: "all mandatory"
+items:
+  $ref: "/properties/v1.2.0/optimade/common/element"

@@ -81,21 +81,7 @@ items:
     - "object"
   properties:
     - "name":
-        title: "Name of the species"
-        x-optimade-type: "string"
-        type:
-          - "string"
-        description: |-
-          The name of the species.
-
-          **Requirements/Conventions**:
-
-          - the **name** value MUST be unique in the `species` list."
-        examples:
-          - "Na"
-          - "Si[32982]"
-          - "quop"
-        x-optimade-unit: "inapplicable"
+        $ref: "/properties/v1.2.0/optimade/common/species_name"
     - "chemical_symbols":
         title: "Chemical symbols"
         x-optimade-type: "list"
@@ -119,7 +105,7 @@ items:
           - ["Si", "Mn", "X", "vacancy"]
         x-optimade-unit: "inapplicable"
         items:
-          $ref: "/properties/v1.2.0/common/chemical_symbol_or_vacancy"
+          $ref: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
     - "concentration":
         title: "Concentration"
         x-optimade-type: "list"
@@ -171,7 +157,7 @@ items:
           - ["Si", "Mn", "X"]
         x-optimade-unit: "inapplicable"
         items:
-          $ref: "/properties/v1.2.0/common/chemical_symbol"
+          $ref: "/properties/v1.2.0/optimade/common/chemical_symbol"
     - "nattached":
         title: "Number of attached entities"
         x-optimade-type: "list"
