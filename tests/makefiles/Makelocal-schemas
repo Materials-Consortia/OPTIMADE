@@ -1,6 +1,6 @@
 #---*- Makefile -*-------------------------------------------------------
 
-# Targets related to handling the schema/properties files
+# Targets related to handling the schema files
 PROPS := $(wildcard schemas/src/*/*/*/*/*.yaml)
 PROPS_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(PROPS))
 
@@ -17,11 +17,11 @@ else
   OPTIMADE_VERSION_SUBST=--sub "{OPTIMADE_VERSION}" "$(OPTIMADE_VERSION)"
 endif
 
-.PHONY: properties properties_symlinks units_symlinks
+.PHONY: schemas schemas_symlinks
 
-properties: symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+schemas: schemas_symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
 
-symlinks:
+schemas_symlinks:
 	mkdir -p schemas/output/properties
 	mkdir -p schemas/output/units
 	mkdir -p schemas/output/constants
@@ -39,20 +39,20 @@ symlinks:
 $(ENDPOINTS_OUT): $(PROPS_OUT)
 $(NAMESPACES_OUT): $(ENDPOINTS_OUT)
 
-schemas/output/%.json: schemas/src/%.yaml | symlinks
+schemas/output/%.json: schemas/src/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_propdefs.py --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
-.PHONY: clean clean_properties
+.PHONY: clean clean_schemas
 
-clean: clean_properties
+clean: clean_schemas
 
-clean_properties:
+clean_schemas:
 	rm -rf schemas/output
 
-.PHONY: check_property_variables
+.PHONY: check_schemas_variables
 
-check_property_variables:
+check_schemas_variables:
 	@echo "PROPS = $(PROPS)"
 	@echo "PROPS_OUT = $(PROPS_OUT)"
 	@echo ""
