@@ -27,4 +27,3 @@ chemical_formula_hill:
 
 lattice_vectors:
   $ref: "structures/lattice_vectors"
-  
