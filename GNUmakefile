@@ -19,13 +19,13 @@
 # - spell: runs an interactive spellchecker
 #
 #
-# Targets for generating property definitions
-#############################################
+# Targets for generating schemas
+################################
 #
-# - properties: compile YAML-formatted source files for property
-#     definitions in the properties directory into JSON.
-#     The output files are placed alongside the source files without
-#     filename extensions.
+# - schemas: compile YAML-formatted source files for schemas,
+#     including property definitions, units, and constants
+#     in the schemas/src directory into JSON schema format
+#     placed in the output directory: schemas/output
 #
 #
 # Extracting machine-readable parts of the specification

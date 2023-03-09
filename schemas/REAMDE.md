@@ -22,7 +22,7 @@ The OPTIMADE repository:
 
 - https://github.com/Materials-Consortia/OPTIMADE
 
-contains a subdirectory `properties/src/properties` with source files from which to generate Property Definitions for the standard OPTIMADE properties.
+contains a subdirectory `schemas/src/properties` with source files from which to generate Property Definitions for the standard OPTIMADE properties.
 They are organized with one subdirectory per category, of which we currently use:
 - `core` for the most core Property Definitions of the OPTIMADE API protocol.
 - `physical` for general definitions of physical properties to be referenced in the other property definitions.
@@ -35,7 +35,7 @@ These directories contain human-readable YAML-formatted property definition sour
 The source files use JSON Schema pointers to reference other source files to avoid duplication of information.
 They are processed with the tool `tests/scripts/process_propdefs.py` into standards-conformant JSON files where JSON Schema pointers are replaced by inline copies of the corresponding definitions to adhere to the OPTIMADE standard format for Property Definitions.
 
-All Property Definitions can be processed in one go into the output directory `properties/output` by using the following makefile target:
+All Property Definitions can be processed in one go into the output directory `schemas/output` by using the following makefile target:
 ```
 make properties
 ```
