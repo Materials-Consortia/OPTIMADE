@@ -449,21 +449,23 @@ For example, the following query can be sent to API implementations `exmpl1` and
 Ranged Properties
 -----------------
 
-Ranged properties are used for properties that are too large to be returned by default for every entry in a response. They can also support slicing, so the client can request that only some of the values need to be returned. The server can limit the size of the response and offer the values of the property in multiple parts.
+Ranged properties are used for properties that are too large to be returned by default for every entry in a response.
+They can also support slicing, so the client can request that only some of the values need to be returned.
+The server can limit the size of the response and offer the values of the property in multiple parts.
 
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations.
   - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>_meta`.
-  - The server may return null or only a part of the values of the property under the the field :field:`<property_name>`. In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
+  - The server may return null or only a part of the values of the property under the field :field:`<property_name>`. In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
 
 The dictionary under :field:`<property_name>_meta.range` MUST include these fields.
 All fields in this section SHOULD be queryable with support for all mandatory filter features.
 
 - :field:`serialization_format`: string.
 
-  To improve the compactness of the data there are several ways to show to which index a value belongs.
+  To improve the compactness of the data, there are several ways to show to which index a value belongs.
   The string MUST take one of the following values:
 
   - `linear`: The value is a linear function of the indexes.
@@ -491,7 +493,7 @@ All fields in this section SHOULD be queryable with support for all mandatory fi
 
   If :property:`serialization_format` is set to :val:`"linear"`, this value gives the change in the value of the property per step along each of the dimensions of the range.
   For example, if the value :property:`offset_linear` = 0.5 and the value of :property:`step_size_linear` = [0.2,0.3] than at index[3,4] the value of the property will be 1.8.
-  The value MUST be present when :property:`serialization_format` is set to "linear".
+  The value MUST be present when :property:`serialization_format` is set to :val:`"linear"`.
   Otherwise, it SHOULD NOT be present.
 
 - :field:`step_size_regular`: list of integers.
@@ -520,11 +522,12 @@ The dictionary MAY include these fields.
 
 - :field:`range_ids`: list of strings.
 
-  A list with an identifier for each dimension of the property. If two properties have the same range_id for a dimension it means that the values at an index along this dimension belong to each other.
-  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a trajectory have the same :field:`range_ids` it indicates that the energy at an index x(in the dimension labeled by this range_ids) belongs to the cartesian_site_positions at the same index x.
+  A list with an identifier for each dimension of the property.
+  If two properties have the same range_id for a dimension, it means that the values at an index along this dimension belong to each other.
+  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a trajectory have the same :field:`range_ids` it indicates that the energy at an index x(in the dimension labelled by this range_ids) belongs to the cartesian_site_positions at the same index x.
   SHOULD be a queryable property with support for all mandatory filter features.
 
-If the :field:`<property_name>` contains data the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`. Querying is not relevant for these properties and SHOULD NOT be supported.
+If the :field:`<property_name>` contains data, the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`. Querying is not relevant for these properties and SHOULD NOT be supported.
 
 - :field:`indexes`: List of lists of integers.
 
@@ -540,20 +543,20 @@ If the :field:`<property_name>` contains data the following properties MUST be p
 - :field:`returned_range`: List of list of integers.
 
   The range belonging to the returned data. It uses the same format as the :query-param:`property_ranges` query parameter.
-  It consist of a list which for each dimension contains a list of three values.
+  It consists of a list which for each dimension contains a list of three values.
   The first value indicates the index, in that dimension, of the first value that has been returned.
   The second value indicates the index of last returned value.
   The third value is the step size.
-  It MUST be returned when the `serialization_format` is "regular" or "custom". Otherwise it should not be returned.
+  It MUST be returned when the `serialization_format` is :val:`"regular"` or :val:`"custom"`. Otherwise, it should not be returned.
 
 - :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
 
   If the field is too large to be returned in a single response, this field will contain a URL pointing to the entry, to which this property belongs, which contains the next set of values for this property.
-  If all the data for this property has been returned its value should be :val:¨`null`
+  If all the data for this property has been returned, its value should be :val:¨`null`
 
 - :field:`more_data_available`: boolean.
 
-  :field-val:`false` if all the values in the requested range have been returned and :field-val:`true` if the returned values are incomplete.
+  :field-val:`false` if all the values in the requested range have been returned, and :field-val:`true` if the returned values are incomplete.
 
 
 Responses
@@ -1078,7 +1081,7 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   The third value specifies the step size.
 
   Ranges can be specified for multiple properties by separating them with a comma.
-  The field may include optional space characters, which do no alter the meaning of the expression.
+  The field may include optional space characters, which do not alter the meaning of the expression.
   Databases SHOULD return the values falling within this range and the :property:`indexes` or :property:`returned_range` field belonging to the returned values.
   For properties with :property:`serialization_format` :val:`custom` indexes that fall in the requested range but for which there is no value defined should not be returned.
   For properties with :property:`serialization_format` :val:`regular` indexes that fall in the requested range but for which there is no value defined should have the value :val:`null`.
