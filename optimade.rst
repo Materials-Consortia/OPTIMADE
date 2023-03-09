@@ -455,15 +455,14 @@ Ranged properties are used for properties that are too large to be returned by d
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations.
-  - A ranged property can be recognized by the presence of the :field:`range` in the metadata of the property, i.e. in the field: <property_name>_meta.
-  - The server may return null or only part of the values of the property under the the field :field:`<property_name>`. In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
-
-  - **Query**: Support for querying on the values of a ranged field is OPTIONAL, even when the non-ranged version of this field has stricter requirements on the query-ability. This is because the ranged version of a property can be much larger, making queries on the value very slow.
+  - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>_meta`.
+  - The server may return null or only a part of the values of the property under the the field :field:`<property_name>`. In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
 
 The dictionary under :field:`<property_name>_meta.range` MUST include these fields.
 All fields in this section SHOULD be queryable with support for all mandatory filter features.
 
 - :field:`serialization_format`: string.
+
   To improve the compactness of the data there are several ways to show to which index a value belongs.
   The string MUST take one of the following values:
 
@@ -474,26 +473,29 @@ All fields in this section SHOULD be queryable with support for all mandatory fi
 
 
 - :field:`n_indexable_dim`: integer.
+
   The number of dimensions that can be indexed. The values themselves can also be lists, so a property may have more dimensions than listed here, but it may not be practical for the server to support indexing at that level.
 
-
 - :field:`dim_size`: list of integers.
+
   The size of the range in each indexable dimension.
 
-Depending on the value of the :field:`serialization_format`, the following fields MUST be present or SHOULD NOT be present in the dictionary.
+Depending on the value of the :field:`serialization_format`, the following fields SHOULD/MUST be present or SHOULD NOT be present in the dictionary.
 All fields in this section SHOULD be queryable with support for all mandatory filter features.
 
-- :field:`nvalues`: integer.
-  The number of values in the field :property:`values`.
-  This field MUST be present when :property:`serialization_format` is not set to :val:`"linear"` else it SHOULD NOT be present.
+- :field:`n_values`: integer.
+
+  The total number of values in the property. This may be larger than the number of values that are returned. This field SHOULD be present when :property:`serialization_format` is not set to :val:`"linear"` else it SHOULD NOT be present.
 
 - :field:`step_size_linear`: list of floats.
+
   If :property:`serialization_format` is set to :val:`"linear"`, this value gives the change in the value of the property per step along each of the dimensions of the range.
   For example, if the value :property:`offset_linear` = 0.5 and the value of :property:`step_size_linear` = [0.2,0.3] than at index[3,4] the value of the property will be 1.8.
   The value MUST be present when :property:`serialization_format` is set to "linear".
   Otherwise, it SHOULD NOT be present.
 
 - :field:`step_size_regular`: list of integers.
+
   If :property:`serialization_format` is set to :val:`"regular"`, this value indicates that a value is defined one out of every :property:`step_size_regular` steps in each dimension.
   The value MUST be present when :property:`serialization_format` is set to :val:`"regular"`.
   Otherwise, it SHOULD NOT be present.
@@ -503,11 +505,13 @@ Depending on the value of the :property:`serialization_format`, the following fi
 All fields in this section SHOULD be queryable with support for all mandatory filter features.
 
 - :field:`offset_linear`: float.
+
   If :property:`serialization_format` is set to :val:`"linear"` this property gives the value at the origin, i.e. where the index in all dimensions is 1.
   The value MAY be present when :property:`serialization_format` is set to :val:`"linear"`, otherwise the value SHOULD NOT be present.
   The default value is 0.
 
 - :field:`offset_regular`: list of integers.
+
   If :property:`serialization_format` is set to :val:`"regular"` this property gives the indexes of the first value.
   The value MAY be present when :property:`serialization_format` is set to :val:`"regular"`, otherwise the value SHOULD NOT be present.
   The default value is 1 in every dimension.
@@ -515,33 +519,41 @@ All fields in this section SHOULD be queryable with support for all mandatory fi
 The dictionary MAY include these fields.
 
 - :field:`range_ids`: list of strings.
-  A list with an identifier for each dimension of the range. It shows that that dimension correlates to the same dimension of another range.
-  For example, when data of an MD trajectory is shared, it could be used to indicate that the energies and the cartesian_site_positions of the index in a certain dimension are correlated.
-  i.e. which energy belongs to which set of cartesian_site_positions.
+
+  A list with an identifier for each dimension of the property. If two properties have the same range_id for a dimension it means that the values at an index along this dimension belong to each other.
+  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a trajectory have the same :field:`range_ids` it indicates that the energy at an index x(in the dimension labeled by this range_ids) belongs to the cartesian_site_positions at the same index x.
   SHOULD be a queryable property with support for all mandatory filter features.
 
 If the :field:`<property_name>` contains data the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`. Querying is not relevant for these properties and SHOULD NOT be supported.
 
-- :field:`indexes`: List of lists of integers
-  If :property:`serialization_format` is set to :val:`"custom"`, this field holds the indexes to which the values in the field :field:`<property_name>` belong.
-  The value MUST be present when :property:`serialization_format` is set to "custom".
-  Otherwise, it SHOULD NOT be present. The order of the values must be the same as those in :property:`values`.
+- :field:`indexes`: List of lists of integers.
 
-- :field:`returned_range`: List of list of integers
-  The range belonging to the returned data. It uses the same format as the :query-param:`property_ranges` query paramameter.
+  If :property:`serialization_format` is set to :val:`"custom"`, this field holds the indexes to which the values in the field :field:`<property_name>` belong.
+  The value MUST be present when :property:`serialization_format` is set to :val:`"custom"`.
+  Otherwise, it SHOULD NOT be present.
+
+- :field:`n_returned_values`: integer
+
+  The number of values that have been returned.
+  This value SHOULD be present when `serialization_format` is set to :val:`"custom"` or :val:`"regular"`. Otherwise it SHOULD NOT be present.
+
+- :field:`returned_range`: List of list of integers.
+
+  The range belonging to the returned data. It uses the same format as the :query-param:`property_ranges` query parameter.
   It consist of a list which for each dimension contains a list of three values.
   The first value indicates the index, in that dimension, of the first value that has been returned.
   The second value indicates the index of last returned value.
   The third value is the step size.
-  It MUST be returned when the `serialization_format` is "regular". Otherwise it should not be returned.
+  It MUST be returned when the `serialization_format` is "regular" or "custom". Otherwise it should not be returned.
 
-- :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__
+- :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
+
   If the field is too large to be returned in a single response, this field will contain a URL pointing to the entry, to which this property belongs, which contains the next set of values for this property.
-  If all the data for this property has been returned its value should be `null`
+  If all the data for this property has been returned its value should be :val:¨`null`
 
-- :field:`more_data_available`: :field-val:`false` if all the values in the requested range have been returned and :field-val:`true` if the returned values are incomplete.
+- :field:`more_data_available`: boolean.
 
-
+  :field-val:`false` if all the values in the requested range have been returned and :field-val:`true` if the returned values are incomplete.
 
 
 Responses
@@ -804,55 +816,72 @@ An example of a full response:
 
 .. code:: jsonc
 
-     {
-             "cartesian_site_positions": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
-               [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
-               [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]]
-               // ...
-               ],
-             "cartesian_site_positions_meta": {
-               "range {
-                 "n_indexable_dim": 3,
-                 "dim_size": [100, 3, 3],
-                 "range_ids": ["mdsteps","particles","xyz"],
-                 "serialization_format": "regular",
-                 "offset_regular": [1, 1, 1],
-                 "step_size_regular": [1, 1, 1],
-                 "nvalues": 900,
-                 "returned¨_range": [[1,100,2],[1,3,1],[1,3,1]]
-                 "more_data_available": true
-                 "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=cartesian_site positions[[101,900,2],[1,3,1],[1,3,1]]
-               }
-             },
-             "species_at_sites": ["He", "Ne", "Ar"],
-
-               "n_indexable_dim": 1,
-               "dim_size": [3],
-               "range_ids": ["particles"],
-               "serialization_format": "regular",
-               "offset_regular": [0],
-               "step_size_regular": [1],
-               "nvalues": 3,
-               "values": ["He", "Ne", "Ar"]
-               "returned_range":[[1,3,1]]
-             },
-             "_exmpl_ranged_time":{
-               "n_indexable_dim": 1,
-               "dim_size": [100],
-               "range_ids": ["mdsteps"],
-               "serialization_format": "linear",
-               "step_size_linear": 0.2
-             },
-             "_exmpl_ranged_thermostat": {
-               "n_indexable_dim": 1,
-               "dim_size": [100],
-               "range_ids": ["mdsteps"],
-               "serialization_format": "custom",
-               "nvalues": 3,
-               "values": [20, 40, 60],
-               "indexes": [[0], [20], [80]]
-             }
-           }
+   {
+     "cartesian_site_positions": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
+       [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
+       [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]]
+       // ...
+       ],
+     "cartesian_site_positions_meta": {
+       "range": {
+         "n_indexable_dim": 3,
+         "dim_size": [100, 3, 3],
+         "range_ids": ["mdsteps","particles","xyz"],
+         "serialization_format": "regular",
+         "offset_regular": [1, 1, 1],
+         "step_size_regular": [1, 1, 1],
+         "n_values": 900,
+         "n_returned_values": 50,
+         "returned¨_range": [[1,100,2],[1,3,1],[1,3,1]],
+         "more_data_available": true,
+         "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=cartesian_site positions[[101,900,2],[1,3,1],[1,3,1]]"
+       },
+       // ...
+     },
+     "species_at_sites": ["He", "Ne", "Ar"],
+     "species_at_sites_meta": {
+       "range": {
+         "n_indexable_dim": 1,
+         "dim_size": [3],
+         "range_ids": ["particles"],
+         "serialization_format": "regular",
+         "offset_regular": [1],
+         "step_size_regular": [1],
+         "n_returned_values": 3,
+         "n_values": 3,
+         "returned_range":[[1,3,1]],
+         "more_data_available": false,
+         "next": null
+       },
+       // ...
+     },
+     "_exmpl_ranged_time": null,
+     "_exmpl_ranged_time_meta":{
+       "range":{
+         "n_indexable_dim": 1,
+         "dim_size": [100],
+         "range_ids": ["mdsteps"],
+         "serialization_format": "linear",
+         "step_size_linear": 0.2
+       },
+       // ...
+     },
+     "_exmpl_ranged_thermostat": [20, 40, 60],
+     "_exmpl_ranged_thermostat_meta": {
+       "range": {
+         "n_indexable_dim": 1,
+         "dim_size": [100],
+         "range_ids": ["mdsteps"],
+         "serialization_format": "custom",
+         "n_values": 3,
+         "n_returned_values": 3,
+         "indexes": [[0], [20], [80]],
+         "more_data_available": false,
+         "next": null
+       },
+       // ...
+     }
+   }
 
 
 HTTP Response Status Codes
@@ -1050,15 +1079,15 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 
   Ranges can be specified for multiple properties by separating them with a comma.
   The field may include optional space characters, which do no alter the meaning of the expression.
-  Databases SHOULD return the values falling within this range and the :property:`indexes` or :property:`returned_range` field belonging to properties listed.
+  Databases SHOULD return the values falling within this range and the :property:`indexes` or :property:`returned_range` field belonging to the returned values.
   For properties with :property:`serialization_format` :val:`custom` indexes that fall in the requested range but for which there is no value defined should not be returned.
   For properties with :property:`serialization_format` :val:`regular` indexes that fall in the requested range but for which there is no value defined should have the value :val:`null`.
   The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for the range :val:`[10,20,1]` the last value returned belongs to index 20.
   Example:
 
-  A database has a :entry:`structure` entry with id: :val:`id_12345` and a ranged property :property:`_ranged_test_field` with the two-dimensional data values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]]`.
+  A database has a :entry:`structure` entry with id: :val:`id_12345` and a ranged property :property:`test_field` with the two-dimensional data values :val:`[[9.64, 7.52, 0.69, 5.69], [4.82, 8.35, 3.26, 3.25], [4.82, 2.78, 7.87, 7.42], [5.49, 3.48, 1.65, 0.75]]`.
   A client makes a request :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=test_field[[1, 3, 2], [2, 3, 1]]`.
-  The response is then a single entry response for structure `12345` where the `test_field` property is included with the `value` key set to :val:`[[7.52, 0.69], [2.78, 7.87]]`.
+  The response is then a single entry response for structure `12345` where the `test_field` property is included with the values :val:`[[7.52, 0.69], [2.78, 7.87]]`.
 
   Multiple ranges can be requested in one query. e.g. :query-param:`property_ranges=test_field[[1, 3, 2], [2, 3, 1]], other_field[[1,100,1]]`.
 
