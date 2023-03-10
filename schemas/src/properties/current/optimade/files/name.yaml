@@ -1,0 +1,18 @@
+title: "Name"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/name"
+x-optimade-type: "string"
+type:
+  - "string"
+description: |-
+  Base name of a file.
+
+  **Requirements/Conventions:**
+
+  - File name extension is an integral part of a file name and, if available, MUST be included.
+examples:
+  - "1000000.cif"
+x-optimade-unit: "inapplicable"
+x-optimade-requirements:
+  support: "must"
+  sortable: false
+  query-support: "none"

@@ -8,6 +8,7 @@ structures:
       support: "must"
       sortable: true
       query-support: "all mandatory"
+      response-default-level: "must"
 
   type:
     x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/type"
@@ -15,6 +16,7 @@ structures:
       support: "must"
       sortable: true
       query-support: "all mandatory"
+      response-default-level: "must"
 
   immutable_id:
     x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/immutable_id"
@@ -29,6 +31,7 @@ structures:
       support: "must"
       sortable: true
       query-support: "all mandatory"
+      response-default-level: "must"
 
   elements:
     x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/elements"
@@ -156,3 +159,54 @@ structures:
       sortable: true
       query-support: "all mandatory"
 
+files:
+
+  url:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/url"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "none"
+      response-default-level: "must"
+
+  url_stable_until:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/url_stable_until"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  name:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/name"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  size:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/size"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  media_type:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/media_type"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  version:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/version"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  modification_timestamp:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/modification_timestamp"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"

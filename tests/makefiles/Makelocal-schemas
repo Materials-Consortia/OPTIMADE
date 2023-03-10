@@ -27,10 +27,9 @@ schemas_symlinks:
 	mkdir -p schemas/output/constants
 	mkdir -p schemas/output/standards
 	for KIND in properties units constants standards; do \
-	  pwd -P ;\
 	  ( cd "schemas/src/$$KIND";\
 	  for dir in *; do \
-	    if [ ! -e "../../output/schemas/$$dir" -a -h "$$dir" ]; then \
+	    if [ ! -e "../../output/$$KIND/$$dir" -a -h "$$dir" ]; then \
 	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
 	    fi ;\
 	  done \

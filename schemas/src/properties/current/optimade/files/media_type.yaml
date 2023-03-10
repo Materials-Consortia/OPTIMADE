@@ -1,0 +1,11 @@
+title: "Media type"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type"
+x-optimade-type: "string"
+type:
+  - "string"
+  - "null"
+description: |-
+  Media type identifier (also known as MIME type), for a file as per [RFC 6838 Media Type Specifications and Registration Procedures](https://datatracker.ietf.org/doc/html/rfc6838).
+examples:
+  - "chemical/x-cif"
+x-optimade-unit: "inapplicable"
