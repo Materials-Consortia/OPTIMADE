@@ -31,7 +31,3 @@ examples:
   - "CCaO3"
   - "(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "all mandatory"

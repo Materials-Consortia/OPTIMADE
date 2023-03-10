@@ -24,7 +24,3 @@ items:
     - "string"
   x-optimade-type: "string"
   x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "must"
-  sortable: true
-  query-support: "all mandatory"

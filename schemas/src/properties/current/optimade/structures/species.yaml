@@ -66,10 +66,6 @@ examples:
   - [ {"name": "C13", "chemical_symbols": ["C"], "concentration": [1.0], "mass": [13.0]} ]
   - [ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "none"
 items:
   tile: "Species declaration"
   x-optimade-type: "dictionary"

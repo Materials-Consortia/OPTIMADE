@@ -30,7 +30,3 @@ description: |-
 examples:
   - H2O2
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "may"
-  sortable: false
-  query-support: "none"

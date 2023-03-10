@@ -13,7 +13,3 @@ examples:
   - "A2B"
   - "A42B42C16D12E10F9G5"
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "all mandatory"

@@ -27,7 +27,3 @@ examples:
   - "ClNa"
   - "CCaO3"
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "equality only"

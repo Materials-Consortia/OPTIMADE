@@ -1,0 +1,158 @@
+$id: "https://schemas.optimade.org/standards/v1.2.0/optimade"
+
+structures:
+
+  id:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: true
+      query-support: "all mandatory"
+
+  type:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: true
+      query-support: "all mandatory"
+
+  immutable_id:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+
+  last_modified:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/last_modified"
+    x-optimade-requirements:
+      support: "must"
+      sortable: true
+      query-support: "all mandatory"
+
+  elements:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/elements"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  nelements:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/nelements"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  elements_ratios:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/elements_ratios"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  chemical_formula_descriptive:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_descriptive"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  chemical_formula_reduced:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_reduced"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "equality only"
+
+  chemical_formula_hill:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_hill"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  chemical_formula_anonymous:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_anonymous"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  dimension_types:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/dimension_types"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+
+  nperiodic_dimensions:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/nperiodic_dimensions"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  lattice_vectors:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/lattice_vectors"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+
+  space_group_hall:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/space_group_hall"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  space_group_it_number:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/space_group_it_number"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+
+  cartesian_site_positions:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/cartesian_site_positions"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+
+  nsites:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/nsites"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+
+  species_at_sites:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/species_at_sites"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+
+  species:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/species"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+
+  assemblies:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/assemblies"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+
+  structure_features:
+    x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/structure_features"
+    x-optimade-requirements:
+      support: "must"
+      sortable: true
+      query-support: "all mandatory"
+

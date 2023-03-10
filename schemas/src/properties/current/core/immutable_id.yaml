@@ -18,7 +18,3 @@ examples:
   - "8bd3e750-b477-41a0-9b11-3a799f21b44f"
   - "fjeiwoj,54;@=%<>#32"
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "may"
-  sortable: false
-  query-support: "all mandatory"

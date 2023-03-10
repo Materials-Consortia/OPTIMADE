@@ -16,7 +16,3 @@ description: |-
 examples:
   - "structures"
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "must"
-  sortable: false
-  query-support: "all mandatory"

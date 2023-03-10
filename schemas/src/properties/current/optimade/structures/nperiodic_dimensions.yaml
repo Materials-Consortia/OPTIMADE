@@ -27,7 +27,3 @@ description: |-
 examples:
   - 2
 x-optimade-unit: "dimensionless"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "all mandatory"

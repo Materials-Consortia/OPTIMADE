@@ -20,9 +20,5 @@ description: |-
   - To match structures with exactly these three elements, use `elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
   - Note: length queries on this property can be equivalently formulated by filtering on the `nelements`_ property directly.
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "all mandatory"
 items:
   $ref: "/properties/v1.2.0/optimade/common/element"

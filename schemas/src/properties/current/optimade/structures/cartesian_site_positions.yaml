@@ -23,10 +23,6 @@ description: |-
 examples:
   - [[0,0,0],[0,0,2]]
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "none"
 items:
   x-optimade-type: "list"
   type:

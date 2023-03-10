@@ -19,7 +19,3 @@ examples:
   - "P 2c -2ac"
   - "-I 4db 2ab 3"
 x-optimade-unit: "unapplicable"
-x-optimade-requirements:
-  support: "may"
-  sortable: false
-  query-support: "none"

@@ -25,10 +25,6 @@ examples:
   - [1.0]
   - [0.3333333333333333, 0.2222222222222222, 0.4444444444444444]
 x-optimade-unit: "inapplicable"
-x-optimade-requirements:
-  support: "should"
-  sortable: false
-  query-support: "all mandatory"
 items:
   x-optimade-type: "float"
   type:
