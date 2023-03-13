@@ -523,8 +523,8 @@ The dictionary MAY include these fields.
 - :field:`range_ids`: list of strings.
 
   A list with an identifier for each dimension of the property.
-  If two properties have the same range_id for a dimension, it means that the values at an index along this dimension belong to each other.
-  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a trajectory have the same :field:`range_ids` it indicates that the energy at an index x(in the dimension labelled by this range_ids) belongs to the cartesian_site_positions at the same index x.
+  If dimensions in two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
+  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a :field:`range_id` of :val:`frame`, it means that that the energy at an index x(in the dimension labelled by this range_ids) belongs to the cartesian_site_positions at the same index x.
   SHOULD be a queryable property with support for all mandatory filter features.
 
 If the :field:`<property_name>` contains data, the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`. Querying is not relevant for these properties and SHOULD NOT be supported.
