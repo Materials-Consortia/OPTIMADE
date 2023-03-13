@@ -474,7 +474,7 @@ All fields in this section SHOULD be queryable with support for all mandatory fi
   - `custom`: A separate list with indexes is defined in the field :property:`indexes` to indicate to which index each value belongs.
 
 
-- :field:`n_indexable_dim`: integer.
+- :field:`nindexable_dim`: integer.
 
   The number of dimensions that can be indexed. The values themselves can also be lists, so a property may have more dimensions than listed here, but it may not be practical for the server to support indexing at that level.
 
@@ -485,7 +485,7 @@ All fields in this section SHOULD be queryable with support for all mandatory fi
 Depending on the value of the :field:`serialization_format`, the following fields SHOULD/MUST be present or SHOULD NOT be present in the dictionary.
 All fields in this section SHOULD be queryable with support for all mandatory filter features.
 
-- :field:`n_values`: integer.
+- :field:`nvalues`: integer.
 
   The total number of values in the property. This may be larger than the number of values that are returned. This field SHOULD be present when :property:`serialization_format` is not set to :val:`"linear"` else it SHOULD NOT be present.
 
@@ -535,7 +535,7 @@ If the :field:`<property_name>` contains data, the following properties MUST be 
   The value MUST be present when :property:`serialization_format` is set to :val:`"custom"`.
   Otherwise, it SHOULD NOT be present.
 
-- :field:`n_returned_values`: integer
+- :field:`nreturned_values`: integer
 
   The number of values that have been returned.
   This value SHOULD be present when `serialization_format` is set to :val:`"custom"` or :val:`"regular"`. Otherwise it SHOULD NOT be present.
@@ -827,14 +827,14 @@ An example of a full response:
        ],
      "cartesian_site_positions_meta": {
        "range": {
-         "n_indexable_dim": 3,
+         "nindexable_dim": 3,
          "dim_size": [100, 3, 3],
          "range_ids": ["mdsteps","particles","xyz"],
          "serialization_format": "regular",
          "offset_regular": [1, 1, 1],
          "step_size_regular": [1, 1, 1],
-         "n_values": 900,
-         "n_returned_values": 50,
+         "nvalues": 900,
+         "nreturned_values": 50,
          "returned¨_range": [[1,100,2],[1,3,1],[1,3,1]],
          "more_data_available": true,
          "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=cartesian_site positions[[101,900,2],[1,3,1],[1,3,1]]"
@@ -844,14 +844,14 @@ An example of a full response:
      "species_at_sites": ["He", "Ne", "Ar"],
      "species_at_sites_meta": {
        "range": {
-         "n_indexable_dim": 1,
+         "nindexable_dim": 1,
          "dim_size": [3],
          "range_ids": ["particles"],
          "serialization_format": "regular",
          "offset_regular": [1],
          "step_size_regular": [1],
-         "n_returned_values": 3,
-         "n_values": 3,
+         "nreturned_values": 3,
+         "nvalues": 3,
          "returned_range":[[1,3,1]],
          "more_data_available": false,
          "next": null
@@ -861,7 +861,7 @@ An example of a full response:
      "_exmpl_ranged_time": null,
      "_exmpl_ranged_time_meta":{
        "range":{
-         "n_indexable_dim": 1,
+         "nindexable_dim": 1,
          "dim_size": [100],
          "range_ids": ["mdsteps"],
          "serialization_format": "linear",
@@ -872,12 +872,12 @@ An example of a full response:
      "_exmpl_ranged_thermostat": [20, 40, 60],
      "_exmpl_ranged_thermostat_meta": {
        "range": {
-         "n_indexable_dim": 1,
+         "nindexable_dim": 1,
          "dim_size": [100],
          "range_ids": ["mdsteps"],
          "serialization_format": "custom",
-         "n_values": 3,
-         "n_returned_values": 3,
+         "nvalues": 3,
+         "nreturned_values": 3,
          "indexes": [[0], [20], [80]],
          "more_data_available": false,
          "next": null
