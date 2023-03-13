@@ -1865,7 +1865,7 @@ A Property Definition MUST be composed according to the combination of the requi
     This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`.
     See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
 
-  - :field:`resource-uris`: List.
+  - :field:`resources`: List.
     A list of dictionaries that references remote resources that describe the property.
     The format of each dictionary is:
 
@@ -1874,8 +1874,8 @@ A Property Definition MUST be composed according to the combination of the requi
     - :field:`relation`: String.
       A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
 
-    - :field:`uri`: String.
-      A URI of the external resource (which MAY be a resolvable URL).
+    - :field:`resource-id`: String.
+      A IRI of the external resource, which MAY be a resolvable URL.
 
 **REQUIRED keys for all levels of the Property Definition:**
 
@@ -2019,7 +2019,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 .. _definition of the $id field:
 
 - :field:`$id`: String.
-  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
+  A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
   It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
   The Property Definition SHOULD be regarded as the same if the only changes that have been made are the inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition and to the following specific fields at any level: :field:`deprecated`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
@@ -2175,7 +2175,8 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     - :val:`"time"`: the full-time production in :RFC:`3339` section 5.6.
     - :val:`"duration"`: the duration production in :RFC:`3339` Appendix A.
     - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
-    - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
+    - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI according to :RFC:`3986`.
+    - :val:`"iri"`: a string instance is valid against this attribute if it is a valid IRI according to :RFC:`3987`.
 
 A complete example of a Property Definition is found in the appendix `Property Definition Example`_.
 
@@ -2256,7 +2257,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 **OPTIONAL keys:**
 
 - :field:`$id`: String.
-  A static URI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
+  A static IRI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
   It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
   The Physical Unit Definition SHOULD be regarded as the same if the only changes that have been made are to the following specific fields at any level: :field:`deprecated`, :field:`$comment`.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
@@ -2271,7 +2272,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   This string indicates the version of the Physical Unit Definition.
   The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
 
-- :field:`resource-uris`: List of Dictionaries.
+- :field:`resources`: List of Dictionaries.
   A list of dictionaries that reference remote resources that describe the unit.
   The format of each dictionary is:
 
@@ -2280,8 +2281,8 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - :field:`relation`: String.
     A human-readable description of the relationship between the unit and the remote resource, e.g., a "natural language description".
 
-  - :field:`uri`: String.
-    A URI of the external resource (which MAY be a resolvable URL).
+  - :field:`resource-id`: String.
+    A IRI of the external resource (which MAY be a resolvable URL).
 
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the unit defined in this Physical Unit Definition.
@@ -2310,15 +2311,15 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   **REQUIRED keys:**
 
   - :field:`base-units`: List of Dictionaries.
-    A list specifying the base URIs and unit symbols for the units in which the dimensional formula for the defining relation is expressed.
+    A list specifying the base IRIs and unit symbols for the units in which the dimensional formula for the defining relation is expressed.
     Each item MUST be a dictionary that adheres to the following format:
 
     **REQUIRED keys:**
 
     - :field:`symbol`: String.
       The symbol used to reference this unit in the dimensional formula.
-    - :field:`uri`: String.
-      The URI of one of the units referenced in the dimensional formula for the defining relation.
+    - :field:`id`: String.
+      The IRI of one of the units referenced in the dimensional formula for the defining relation.
 
   - :field:`base-units-expression`: String.
     A string expressing the base units part of the defining relation for the unit being defined.
@@ -2351,7 +2352,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
       "base-units": [
         {
           "symbol": "C",
-          "uri": "https://units.example.com/celsius"
+          "id": "https://units.example.com/celsius"
         }
       ],
       "base-units-expression": "C",
@@ -3656,15 +3657,15 @@ This appendix provides a more complete example of a Property Definition on the f
             "base-units": [
               {
                 "symbol": "kg",
-                "uri": "https://units.example.com/v1.2.0/kg"
+                "id": "https://units.example.com/v1.2.0/kg"
               },
               {
                 "symbol": "m",
-                "uri": "https://units.example.com/v1.2.0/m"
+                "id": "https://units.example.com/v1.2.0/m"
               },
               {
                 "symbol": "s",
-                "uri": "https://units.example.com/v1.2.0/s"
+                "id": "https://units.example.com/v1.2.0/s"
               }
             ],
             "base-units-expression": "kg*m*s^-2"
