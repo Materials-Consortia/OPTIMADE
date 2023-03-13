@@ -1826,6 +1826,11 @@ The format of Property Definitions defined below allows nesting inner Property D
 To make a property definition expressible in any output format, the fields of the property definition below are specified using OPTIMADE data types.
 When a property definition is communicated using a specific data format (e.g., JSON), the property definition is implemented in that data format by mapping the OPTIMADE data types into the corresponding data types for that output format.
 
+Two Property Definitions are regarded as equal and MAY share the same value of the :field:`$id` field if, and only if, all the fields are the same except for the fields described as "annotations" to the definition.
+In this context, the nullability of a property as a whole is *not* meant to be dictated by the Property Definition itself, but rather the layer above it, e.g., a Property Definition that embeds it.
+Hence, the appearance of :val:`"null"` in the `type` field is also regarded as an annotation in the above sense.
+For more information, see the `definition of the type field`_.
+
 A Property Definition MUST be composed according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
 
 **REQUIRED keys for the outermost level of the Property Definition:**
@@ -1884,14 +1889,14 @@ A Property Definition MUST be composed according to the combination of the requi
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
   See subsection `Physical Units in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
 
-**OPTIONAL keys at all nested levels of the Property Definition:**
+**OPTIONAL keys at all nested levels of the Property Definition and which are regarded as annotations to a Property Definition**
+
+The following fields should be seen as annotations to a Property Definition rather than an integral part of it.
+Hence, two Property Definitions that only differ by the value of these fields are considered to be the same, and, as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
   If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
-
-  This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Two Property Definitions that only differ by the value of :field:`x-optimade-implementation` are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
   The dictionary has the following format:
 
@@ -1979,6 +1984,8 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 **REQUIRED keys**
 
+.. _definition of the type field:
+
 - :field:`type`: List.
   Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
   The value is directly correlated with :field:`x-optimade-type` (cf. the `definition of the x-optimade-type field`_).
@@ -1993,6 +2000,9 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   If the second element is included, it MUST be the string :val:`"null"`.
   This two element form specifies that the defined property can be :val:`null`.
+
+  Specifically for the *outermost appearance* of this field in a Property Definition the inclusion or ommision of :val:`"null"` is regarded as an annotation rather than an integral part of the Property Definition.
+  Hence, two Property Definitions that differ by the inclusion of the :val:`"null"` value are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
   Implementation notes:
 
@@ -2010,9 +2020,9 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`$id`: String.
   A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
-  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-  The Property Definition SHOULD be regarded as the same if the only changes that have been made are to the following specific fields at any level: :field:`deprecated`, :field:`$comment`, or : field:`x-optimade-implementation`.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+  The Property Definition SHOULD be regarded as the same if the only changes that have been made are the inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition and to the following specific fields at any level: :field:`deprecated`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2032,7 +2042,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
 
   This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
+  Hence, two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
@@ -2040,7 +2050,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   The field not being present means :val:`FALSE`.
 
   This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
+  Hence, two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
