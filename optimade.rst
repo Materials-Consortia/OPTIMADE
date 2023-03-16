@@ -458,7 +458,8 @@ The server can limit the size of the response and offer the values of the proper
 
   - **Support**: OPTIONAL support in implementations.
   - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>_meta`.
-  - The server may return null or only a part of the values of the property under the field :field:`<property_name>`. In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
+  - The server may return null or only a part of the values of the property under the field :field:`<property_name>`.
+    In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
 
 The dictionary under :field:`<property_name>_meta.range` MUST include these fields.
 All fields in this section SHOULD be queryable with support for all mandatory filter features.
@@ -487,7 +488,10 @@ All fields in this section SHOULD be queryable with support for all mandatory fi
 
 - :field:`nvalues`: integer.
 
-  The total number of values in the property. This may be larger than the number of values that are returned. This field SHOULD be present when :property:`serialization_format` is not set to :val:`"linear"` else it SHOULD NOT be present.
+  The total number of values in the property.
+  This may be larger than the number of values that are returned.
+  This field SHOULD be present when :property:`serialization_format` is not set to :val:`"linear"` else it SHOULD NOT be present.
+
 
 - :field:`step_size_linear`: list of floats.
 
@@ -527,7 +531,8 @@ The dictionary MAY include these fields.
   For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a :field:`range_id` of :val:`frame`, it means that that the energy at an index x(in the dimension labelled by this range_ids) belongs to the cartesian_site_positions at the same index x.
   SHOULD be a queryable property with support for all mandatory filter features.
 
-If the :field:`<property_name>` contains data, the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`. Querying is not relevant for these properties and SHOULD NOT be supported.
+If the :field:`<property_name>` contains data, the following properties MUST be present or SHOULD NOT be present, depending on the value of the :property:`serialization_format`.
+Querying is not relevant for these properties and SHOULD NOT be supported.
 
 - :field:`indexes`: List of lists of integers.
 
@@ -538,16 +543,19 @@ If the :field:`<property_name>` contains data, the following properties MUST be 
 - :field:`nreturned_values`: integer
 
   The number of values that have been returned.
-  This value SHOULD be present when `serialization_format` is set to :val:`"custom"` or :val:`"regular"`. Otherwise it SHOULD NOT be present.
+  This value SHOULD be present when `serialization_format` is set to :val:`"custom"` or :val:`"regular"`.
+  Otherwise it SHOULD NOT be present.
 
 - :field:`returned_range`: List of list of integers.
 
-  The range belonging to the returned data. It uses the same format as the :query-param:`property_ranges` query parameter.
+  The range belonging to the returned data.
+  It uses the same format as the :query-param:`property_ranges` query parameter.
   It consists of a list which for each dimension contains a list of three values.
   The first value indicates the index, in that dimension, of the first value that has been returned.
   The second value indicates the index of last returned value.
   The third value is the step size.
-  It MUST be returned when the `serialization_format` is :val:`"regular"` or :val:`"custom"`. Otherwise, it should not be returned.
+  It MUST be returned when the `serialization_format` is :val:`"regular"` or :val:`"custom"`.
+  Otherwise, it should not be returned.
 
 - :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
 
