@@ -1844,7 +1844,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
-.. _definition of the property-format field:
+  .. _definition of the property-format field:
 
   - :field:`property-format`: String.
     Specifies the minor version of the property definition format used.
