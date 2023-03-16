@@ -25,8 +25,9 @@ schemas_symlinks:
 	mkdir -p schemas/output/properties
 	mkdir -p schemas/output/units
 	mkdir -p schemas/output/constants
+	mkdir -p schemas/output/types
 	mkdir -p schemas/output/standards
-	for KIND in properties units constants standards; do \
+	for KIND in properties units constants types standards; do \
 	  ( cd "schemas/src/$$KIND";\
 	  for dir in *; do \
 	    if [ ! -e "../../output/$$KIND/$$dir" -a -h "$$dir" ]; then \

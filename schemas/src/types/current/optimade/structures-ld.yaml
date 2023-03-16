@@ -1,0 +1,41 @@
+'@context':
+
+  immutable_id: "/properties/v1.2.0/optimade/structures/immutable_id"
+
+  last_modified: "/properties/v1.2.0/optimade/structures/last_modified"
+
+  elements: "/properties/v1.2.0/optimade/structures/elements"
+
+  nelements: "/properties/v1.2.0/optimade/structures/nelements"
+
+  elements_ratios: "/properties/v1.2.0/optimade/structures/elements_ratios"
+
+  chemical_formula_descriptive: "/properties/v1.2.0/optimade/structures/chemical_formula_descriptive"
+
+  chemical_formula_reduced: "/properties/v1.2.0/optimade/structures/chemical_formula_reduced"
+
+  chemical_formula_hill: "/properties/v1.2.0/optimade/structures/chemical_formula_hill"
+
+  chemical_formula_anonymous: "/properties/v1.2.0/optimade/structures/chemical_formula_anonymous"
+
+  dimension_types: "/properties/v1.2.0/optimade/structures/dimension_types"
+
+  nperiodic_dimensions: "/properties/v1.2.0/optimade/structures/nperiodic_dimensions"
+
+  lattice_vectors: "/properties/v1.2.0/optimade/structures/lattice_vectors"
+
+  space_group_hall: "/properties/v1.2.0/optimade/structures/space_group_hall"
+
+  space_group_it_number: "/properties/v1.2.0/optimade/structures/space_group_it_number"
+
+  cartesian_site_positions: "/properties/v1.2.0/optimade/structures/cartesian_site_positions"
+
+  nsites: "/properties/v1.2.0/optimade/structures/nsites"
+
+  species_at_sites: "/properties/v1.2.0/optimade/structures/species_at_sites"
+
+  species: "/properties/v1.2.0/optimade/structures/species"
+
+  assemblies: "/properties/v1.2.0/optimade/structures/assemblies"
+
+  structure_features: "/properties/v1.2.0/optimade/structures/structure_features"

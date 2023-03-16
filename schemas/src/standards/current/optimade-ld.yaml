@@ -1,0 +1,15 @@
+'@context':
+
+  id: "@id"
+  type: "@type"
+
+  data: "@graph"
+  attributes: "@nest"
+
+  structures:
+    '@id': "/types/v1.2.0/optimade/structures"
+    '@context': "/types/v1.2.0/optimade/structures-ld"
+
+  files:
+    '@id': "/types/v1.2.0/optimade/files"
+    '@context': "/types/v1.2.0/optimade/files-ld"

@@ -1,0 +1,67 @@
+$id: "https://schemas.optimade.org/types/v1.2.0/structures"
+
+id:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/id"
+
+type:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/type"
+
+immutable_id:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/immutable_id"
+
+last_modified:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/last_modified"
+
+elements:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/elements"
+
+nelements:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/nelements"
+
+elements_ratios:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/elements_ratios"
+
+chemical_formula_descriptive:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_descriptive"
+
+chemical_formula_reduced:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_reduced"
+
+chemical_formula_hill:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_hill"
+
+chemical_formula_anonymous:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/chemical_formula_anonymous"
+
+dimension_types:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/dimension_types"
+
+nperiodic_dimensions:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/nperiodic_dimensions"
+
+lattice_vectors:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/lattice_vectors"
+
+space_group_hall:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/space_group_hall"
+
+space_group_it_number:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/space_group_it_number"
+
+cartesian_site_positions:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/cartesian_site_positions"
+
+nsites:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/nsites"
+
+species_at_sites:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/species_at_sites"
+
+species:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/species"
+
+assemblies:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/assemblies"
+
+structure_features:
+  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/structure_features"
