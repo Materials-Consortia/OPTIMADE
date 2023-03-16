@@ -33,7 +33,7 @@ arguments = [
         'names': ['--refs-mode'],
         'help': 'How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref. Also, the x-propdefs-inherit-ref key does a deep merge on the referenced definition.',
         'choices': ["insert", "rewrite", "retain"],
-        'default': "insert",
+        'default': "retain",
     },
     {
         'names': ['-i', '--input-format'],
@@ -44,8 +44,8 @@ arguments = [
     {
         'names': ['-f', '--output-format'],
         'help': 'The output format to generate',
-        'choices': supported_output_formats,
-        'default': "json",
+        'choices': ["auto"] + supported_output_formats,
+        'default': "auto",
     },
     {
         'names': ['--basedir'],
@@ -64,6 +64,12 @@ arguments = [
     {
         'names': ['-o', '--output'],
         'help': 'Write the output to a file',
+    },
+    {
+        'names': ['--remove-null'],
+        'help': 'Remove keys if the value is null',
+        'action': 'store_true',
+        'default': False
     },
     {
         'names': ['-d', '--debug'],
@@ -168,7 +174,7 @@ def read_data(source, input_format='auto'):
             import yaml
             return yaml.safe_load(reader), "yaml"
         if input_format == "json":
-            import yaml
+            import json
             return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
@@ -280,7 +286,7 @@ def output_str(data, output_format='json'):
         return json.dumps(data, indent=4)
     elif output_format == "yaml":
         import yaml
-        return yaml.dumps(data)
+        return yaml.dump(data)
     elif output_format == "md":
         return data_to_md(data)
     else:
@@ -416,7 +422,7 @@ def merge_deep(d, other, replace=True):
             d[other_key] = other_val
 
 
-def handle_all(data, refs_mode, input_format, bases, subs):
+def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
     """
     Recursively handles all '$ref' references and perform substitutions in the input data.
 
@@ -437,6 +443,8 @@ def handle_all(data, refs_mode, input_format, bases, subs):
         be used as the base path.
     subs: dict
         dictionary of substitutions to make in strings.
+    remove_null: bool
+        remove keys if the value is null.
 
     Returns
     -------
@@ -449,7 +457,7 @@ def handle_all(data, refs_mode, input_format, bases, subs):
     if isinstance(data, list):
         for i in range(len(data)):
             if isinstance(data[i], dict) or isinstance(data[i], list):
-                data[i] = handle_all(data[i], refs_mode, input_format, bases, subs)
+                data[i] = handle_all(data[i], refs_mode, input_format, bases, subs, remove_null)
         return data
 
     elif isinstance(data, dict):
@@ -465,7 +473,7 @@ def handle_all(data, refs_mode, input_format, bases, subs):
                 newbases = bases.copy()
                 source = ref_to_source(ref, bases)
                 newbases['self'] = os.path.dirname(source)
-                output = handle_all(output, refs_mode, input_format, newbases, subs)
+                output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
             merge_deep(data, output, replace=False)
             del data['x-propdefs-inherit-ref']
 
@@ -473,17 +481,17 @@ def handle_all(data, refs_mode, input_format, bases, subs):
 
             logging.debug("Handling $ref %s",data['$ref'])
 
-            if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
-                raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
-
             if 'x-propdefs-ref-mode' in data:
                 this_refs_mode = data['x-propdefs-ref-mode']
                 del data['x-propdefs-ref-mode']
             else:
                 this_refs_mode = refs_mode
 
-            if this_refs_mode == 'retain':
+            if this_refs_mode == 'retain' or len(data['$ref']) <= 0 or data['$ref'][0] == '#':
                 return data
+
+            if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
+                raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
 
             output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
             if isinstance(output, dict):
@@ -491,14 +499,16 @@ def handle_all(data, refs_mode, input_format, bases, subs):
                 newbases = bases.copy()
                 source = ref_to_source(data['$ref'], bases)
                 newbases['self'] = os.path.dirname(source)
-                output = handle_all(output, refs_mode, input_format, newbases, subs)
+                output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
             if '$id' in data:
                 output['$id'] = data['$id']
             return output
 
-        for k, v in data.items():
+        for k, v in list(data.items()):
             if isinstance(v, dict) or isinstance(v, list):
-                data[k] = handle_all(v, refs_mode, input_format, bases, subs)
+                data[k] = handle_all(v, refs_mode, input_format, bases, subs, remove_null)
+            if remove_null and v is None:
+                del data[k]
 
         return data
 
@@ -506,7 +516,7 @@ def handle_all(data, refs_mode, input_format, bases, subs):
         raise Exception("handle: unknown data type, not dict or list: %s",type(data))
 
 
-def process(source, refs_mode, input_format, bases, subs):
+def process(source, refs_mode, input_format, bases, subs, remove_null):
     """
     Processes the input file according to the specified parameters.
 
@@ -527,6 +537,8 @@ def process(source, refs_mode, input_format, bases, subs):
         directory will be used as the base path.
     subs: dict
         dictionary of substitutions to make in strings.
+    remove_null: bool
+        remove keys if the value is null.
 
     Returns
     -------
@@ -550,12 +562,12 @@ def process(source, refs_mode, input_format, bases, subs):
                     raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
             bases = {'id': id_uri[:-len(rel_source)], 'dir': bases['dir'] }
 
-    data = handle_all(data, refs_mode, input_format, bases, subs)
+    data = handle_all(data, refs_mode, input_format, bases, subs, remove_null)
 
     return data
 
 
-def process_dir(source_dir, refs_mode, input_format, bases, subs):
+def process_dir(source_dir, refs_mode, input_format, bases, subs, remove_null):
     """
     Processes all files in a directory and its subdirectories according to the specified parameters.
 
@@ -576,6 +588,8 @@ def process_dir(source_dir, refs_mode, input_format, bases, subs):
         directory will be used as the base path.
     subs: dict
         dictionary of substitutions to make in strings.
+    remove_null: bool
+        remove keys if the value is null.
 
     Returns
     -------
@@ -635,17 +649,30 @@ if __name__ == "__main__":
         try:
             if os.path.isdir(args.source):
                 logging.info("Processing directory: %s", args.source)
-                data = process_dir(args.source, args.refs_mode, args.input_format, bases, subs)
+                data = process_dir(args.source, args.refs_mode, args.input_format, bases, subs, args.remove_null)
             else:
                 logging.info("Processing file: %s", args.source)
-                data = process(args.source, args.refs_mode, args.input_format, bases, subs)
+                data = process(args.source, args.refs_mode, args.input_format, bases, subs, args.remove_null)
 
         except Exception as e:
             raise ExceptionWrapper("Processing of input failed", e) from e
 
         try:
-            logging.info("Serializing data into format: %s", args.output_format)
-            outstr = output_str(data, args.output_format)
+            # Figure out output format
+            if args.output_format == "auto":
+                if args.output:
+                    base, ext = os.path.splitext(args.output)
+                    if ext in ["."+x for x in supported_input_formats]:
+                        output_format = ext[1:]
+                    else:
+                        raise Exception("Output format cannot be determined, use -f. Output file extension: "+str(ext))
+                else:
+                    output_format = "json"
+            else:
+                output_format = args.output_format
+
+            logging.info("Serializing data into format: %s", output_format)
+            outstr = output_str(data, output_format)
         except Exception as e:
             raise ExceptionWrapper("Serialization of data failed", e) from e
 

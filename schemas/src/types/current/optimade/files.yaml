@@ -1,11 +1,5 @@
 $id: "https://schemas.optimade.org/types/v1.2.0/files"
 
-id:
-  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/id"
-
-type:
-  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/type"
-
 url:
   x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/files/url"
 

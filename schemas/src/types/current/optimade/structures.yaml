@@ -1,11 +1,5 @@
 $id: "https://schemas.optimade.org/types/v1.2.0/structures"
 
-id:
-  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/id"
-
-type:
-  x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/type"
-
 immutable_id:
   x-propdefs-inherit-ref: "/properties/v1.2.0/optimade/structures/immutable_id"
 

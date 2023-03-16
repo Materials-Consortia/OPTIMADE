@@ -1,0 +1,82 @@
+x-propdefs-inherit-ref: "jsonapi-schema.json"
+title: "OPTIMADE Schema"
+description: "This is a schema for responses in the JSON output format from the OPTIMADE API. It is directly based on the schema for JSON:API."
+definitions:
+  resource:
+    oneOf:
+      - type: "object"
+        properties:
+          type:
+            type: "string"
+            enum: ["structures"]
+          attributes:
+            type: "object"
+            properties:
+              immutable_id:
+                $ref: "#endpoints/structures/immutable_id"
+              last_modified:
+                $ref: "#endpoints/structures/last_modified"
+              elements:
+                $ref: "#endpoints/structures/elements"
+              nelements:
+                $ref: "#endpoints/structures/nelements"
+              elements_ratios:
+                $ref: "#endpoints/structures/elements_ratios"
+              chemical_formula_descriptive:
+                $ref: "#endpoints/structures/chemical_formula_descriptive"
+              chemical_formula_reduced:
+                $ref: "#endpoints/structures/chemical_formula_reduced"
+              chemical_formula_hill:
+                $ref: "#endpoints/structures/chemical_formula_hill"
+              chemical_formula_anonymous:
+                $ref: "#endpoints/structures/chemical_formula_anonymous"
+              dimension_types:
+                $ref: "#endpoints/structures/dimension_types"
+              nperiodic_dimensions:
+                $ref: "#endpoints/structures/nperiodic_dimensions"
+              lattice_vectors:
+                $ref: "#endpoints/structures/lattice_vectors"
+              space_group_hall:
+                $ref: "#endpoints/structures/space_group_hall"
+              space_group_it_number:
+                $ref: "#endpoints/structures/space_group_it_number"
+              cartesian_site_positions:
+                $ref: "#endpoints/structures/cartesian_site_positions"
+              nsites:
+                $ref: "#endpoints/structures/nsites"
+              species_at_sites:
+                $ref: "#endpoints/structures/species_at_sites"
+              species:
+                $ref: "#endpoints/structures/species"
+              assemblies:
+                $ref: "#endpoints/structures/assemblies"
+              structure_features:
+                $ref: "#endpoints/structures/structure_features"
+            additionalProperties: false
+      - type: "object"
+        properties:
+          type:
+            type: "string"
+            enum: ["files"]
+          attributes:
+            type: "object"
+            properties:
+              immutable_id:
+                $ref: "#endpoints/files/immutable_id"
+              url:
+                $ref: "#endpoints/files/url"
+              url_stable_until:
+                $ref: "#endpoints/files/url_stable_until"
+              name:
+                $ref: "#endpoints/files/name"
+              size:
+                $ref: "#endpoints/files/size"
+              media_type:
+                $ref: "#endpoints/files/media_type"
+              version:
+                $ref: "#endpoints/files/version"
+              modification_timestamp:
+                $ref: "#endpoints/files/modification_timestamp"
+            additionalProperties: false
+endpoints:
+  x-propdefs-inherit-ref: "/standards/current/optimade"

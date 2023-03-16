@@ -27,10 +27,11 @@ schemas_symlinks:
 	mkdir -p schemas/output/constants
 	mkdir -p schemas/output/types
 	mkdir -p schemas/output/standards
-	for KIND in properties units constants types standards; do \
+	mkdir -p schemas/output/schemas
+	for KIND in properties units constants types standards schemas; do \
 	  ( cd "schemas/src/$$KIND";\
 	  for dir in *; do \
-	    if [ ! -e "../../output/$$KIND/$$dir" -a -h "$$dir" ]; then \
+	    if [ -h "$$dir" -a ! -h "../../output/$$KIND/$$dir" ]; then \
 	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
 	    fi ;\
 	  done \
@@ -39,10 +40,11 @@ schemas_symlinks:
 
 $(ENDPOINTS_OUT): $(PROPS_OUT)
 $(NAMESPACES_OUT): $(ENDPOINTS_OUT)
+$(FULL_SCHEMAS_OUT): $(NAMESPACES_OUT)
 
 schemas/output/%.json: schemas/src/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_propdefs.py --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+	tests/scripts/process_propdefs.py --remove-null --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
 .PHONY: clean clean_schemas
 
@@ -66,3 +68,8 @@ check_schemas_variables:
 	@echo "OPTIMADE_VERSION = $(OPTIMADE_VERSION)"
 	@echo "OPTIMADE_VERSION_SUBST = $(OPTIMADE_VERSION_SUBST)"
 
+
+.PHONY: validate_schemas
+
+validate_schemas: schemas
+	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/schemas/current/json-schema/optimade.json
