@@ -2903,7 +2903,7 @@ structure\_origin
     Providers who want to communicate structural information about compounds that exist only at unusual or extreme conditions SHOULD use the :val:`other` category, and, if desired, use another facility (e.g., a provider-specific property) to communicate more specific information.
 
   - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
-    Clients encountering unrecognized strings SHOULD treat them to mean the same as :val:`unknown`.
+    Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`null`.
 
 - **Examples**:
 
