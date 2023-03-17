@@ -8,8 +8,8 @@
 
   structures:
     '@id': "/types/v1.2.0/optimade/structures"
-    '@context': "/types/v1.2.0/optimade/structures-ld"
+    '@context': "/json-ld/v1.2.0/types/optimade/structures"
 
   files:
     '@id': "/types/v1.2.0/optimade/files"
-    '@context': "/types/v1.2.0/optimade/files-ld"
+    '@context': "/json-ld/v1.2.0/types/optimade/files"

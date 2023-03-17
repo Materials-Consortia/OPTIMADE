@@ -1,14 +1,17 @@
 #---*- Makefile -*-------------------------------------------------------
 
 # Targets related to handling the schema files
-PROPS := $(wildcard schemas/src/*/*/*/*/*.yaml)
-PROPS_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(PROPS))
+SCHEMAS_LVL3 := $(wildcard schemas/src/*/*/*.yaml)
+SCHEMAS_LVL3_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS_LVL3))
 
-ENDPOINTS := $(wildcard schemas/src/*/*/*/*.yaml)
-ENDPOINTS_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(ENDPOINTS))
+SCHEMAS_LVL2 := $(wildcard schemas/src/*/*/*/*.yaml)
+SCHEMAS_LVL2_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS_LVL2))
 
-NAMESPACES := $(wildcard schemas/src/*/*/*.yaml)
-NAMESPACES_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(NAMESPACES))
+SCHEMAS_LVL1 := $(wildcard schemas/src/*/*/*/*/*.yaml)
+SCHEMAS_LVL1_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS_LVL1))
+
+STANDARDS := $(wildcard schemas/src/standards/*/*.yaml)
+STANDARDS_MD_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(STANDARDS))
 
 OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
 ifeq ($(OPTIMADE_VERSION),)
@@ -17,19 +20,16 @@ else
   OPTIMADE_VERSION_SUBST=--sub "{OPTIMADE_VERSION}" "$(OPTIMADE_VERSION)"
 endif
 
-.PHONY: schemas schemas_symlinks
+.PHONY: schemas schemas_vers_symlinks
 
-schemas: schemas_symlinks $(PROPS_OUT) $(ENDPOINTS_OUT) $(NAMESPACES_OUT)
+schemas: schemas_vers_symlinks $(SCHEMAS_LVL1_OUT) $(SCHEMAS_LVL2_OUT) $(SCHEMAS_LVL3_OUT)
+# $(STANDARDS_MD_OUT)
 
-schemas_symlinks:
-	mkdir -p schemas/output/properties
-	mkdir -p schemas/output/units
-	mkdir -p schemas/output/constants
-	mkdir -p schemas/output/types
-	mkdir -p schemas/output/standards
-	mkdir -p schemas/output/schemas
-	for KIND in properties units constants types standards schemas; do \
-	  ( cd "schemas/src/$$KIND";\
+schemas_vers_symlinks:
+	cd schemas/src; \
+	for KIND in *; do \
+          mkdir -p ../output/$$KIND; \
+	  ( cd "$$KIND";\
 	  for dir in *; do \
 	    if [ -h "$$dir" -a ! -h "../../output/$$KIND/$$dir" ]; then \
 	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
@@ -38,13 +38,13 @@ schemas_symlinks:
 	  ) \
 	done
 
-$(ENDPOINTS_OUT): $(PROPS_OUT)
-$(NAMESPACES_OUT): $(ENDPOINTS_OUT)
-$(FULL_SCHEMAS_OUT): $(NAMESPACES_OUT)
-
-schemas/output/%.json: schemas/src/%.yaml | schemas_symlinks
+schemas/output/%.json: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_propdefs.py --remove-null --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+
+schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_propdefs.py -f md --remove-null --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
 .PHONY: clean clean_schemas
 
@@ -56,14 +56,17 @@ clean_schemas:
 .PHONY: check_schemas_variables
 
 check_schemas_variables:
-	@echo "PROPS = $(PROPS)"
-	@echo "PROPS_OUT = $(PROPS_OUT)"
+	@echo "SCHEMAS_LVL1 = $(SCHEMAS_LVL1)"
+	@echo "SCHEMAS_LVL1_OUT = $(SCHEMAS_LVL1_OUT)"
 	@echo ""
-	@echo "ENDPOINTS = $(ENDPOINTS)"
-	@echo "ENDPOINTS_OUT = $(ENDPOINTS_OUT)"
+	@echo "SCHEMAS_LVL2 = $(SCHEMAS_LVL2)"
+	@echo "SCHEMAS_LVL2_OUT = $(SCHEMAS_LVL2_OUT)"
 	@echo ""
-	@echo "NAMESPACES = $(NAMESPACES)"
-	@echo "NAMESPACES_OUT = $(NAMESPACES_OUT)"
+	@echo "SCHEMAS_LVL3 = $(SCHEMAS_LVL3)"
+	@echo "SCHEMAS_LVL3_OUT = $(SCHEMAS_LVL3_OUT)"
+	@echo ""
+	@echo "STANDARDS = $(STANDARDS)"
+	@echo "STANDARDS_MD_OUT = $(STANDARDS_MD_OUT)"
 	@echo ""
 	@echo "OPTIMADE_VERSION = $(OPTIMADE_VERSION)"
 	@echo "OPTIMADE_VERSION_SUBST = $(OPTIMADE_VERSION_SUBST)"
