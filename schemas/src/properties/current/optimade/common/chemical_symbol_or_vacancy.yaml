@@ -1,6 +1,6 @@
 tile: "Chemical symbol or vacancy"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
-x-propdef-inherit-ref: "properties/v1.2.0/optimade/common/chemical_symbol"
+$$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
 description: |-
   A chemical symbol refering to an element, a non-chemical element, or a vacancy.
 

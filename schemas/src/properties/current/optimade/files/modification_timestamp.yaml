@@ -1,6 +1,9 @@
 title: "Modification timestamp"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp"
 x-optimade-type: "timestamp"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
 type:
   - "string"
   - "null"

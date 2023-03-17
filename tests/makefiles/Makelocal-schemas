@@ -22,7 +22,7 @@ endif
 
 .PHONY: schemas schemas_vers_symlinks
 
-schemas: schemas_vers_symlinks $(SCHEMAS_LVL1_OUT) $(SCHEMAS_LVL2_OUT) $(SCHEMAS_LVL3_OUT)
+schemas: schemas_vers_symlinks $(SCHEMAS_LVL1_OUT) $(SCHEMAS_LVL2_OUT) $(SCHEMAS_LVL3_OUT) $(STANDARDS_MD_OUT)
 # $(STANDARDS_MD_OUT)
 
 schemas_vers_symlinks:
@@ -40,11 +40,11 @@ schemas_vers_symlinks:
 
 schemas/output/%.json: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_propdefs.py --remove-null --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
 schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_propdefs.py -f md --remove-null --refs-mode insert $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+	tests/scripts/process_schemas.py -f md --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
 .PHONY: clean clean_schemas
 
@@ -75,4 +75,4 @@ check_schemas_variables:
 .PHONY: validate_schemas
 
 validate_schemas: schemas
-	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/schemas/current/json-schema/optimade.json
+	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/json-schema/current/optimade.json

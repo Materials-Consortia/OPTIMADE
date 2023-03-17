@@ -27,4 +27,4 @@ examples:
   - ["Ac", "Ac", "Ag", "Ir"]
 x-optimade-unit: "inapplicable"
 items:
-  $ref: "/properties/v1.2.0/optimade/common/species_name"
+  $$inherit: "/properties/v1.2.0/optimade/common/species_name"

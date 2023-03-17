@@ -77,7 +77,7 @@ items:
     - "object"
   properties:
     - "name":
-        $ref: "/properties/v1.2.0/optimade/common/species_name"
+        $$inherit: "/properties/v1.2.0/optimade/common/species_name"
     - "chemical_symbols":
         title: "Chemical symbols"
         x-optimade-type: "list"
@@ -101,7 +101,7 @@ items:
           - ["Si", "Mn", "X", "vacancy"]
         x-optimade-unit: "inapplicable"
         items:
-          $ref: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
+          $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
     - "concentration":
         title: "Concentration"
         x-optimade-type: "list"
@@ -153,7 +153,7 @@ items:
           - ["Si", "Mn", "X"]
         x-optimade-unit: "inapplicable"
         items:
-          $ref: "/properties/v1.2.0/optimade/common/chemical_symbol"
+          $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
     - "nattached":
         title: "Number of attached entities"
         x-optimade-type: "list"

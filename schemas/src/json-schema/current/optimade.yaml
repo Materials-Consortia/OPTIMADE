@@ -1,4 +1,4 @@
-x-propdefs-inherit-ref: "jsonapi.json"
+$$inherit: "jsonapi.json"
 title: "OPTIMADE Schema"
 description: "This is a schema for responses in the JSON output format from the OPTIMADE API. It is directly based on the schema for JSON:API."
 definitions:
@@ -79,4 +79,4 @@ definitions:
                 $ref: "#endpoints/files/modification_timestamp"
             additionalProperties: false
 endpoints:
-  x-propdefs-inherit-ref: "/standards/current/optimade"
+  $$inherit: "/standards/current/optimade"

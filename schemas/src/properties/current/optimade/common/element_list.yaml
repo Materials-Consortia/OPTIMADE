@@ -13,4 +13,4 @@ examples:
   - ["Al","O","Si"]
 x-optimade-unit: "inapplicable"
 items:
-  $ref: "/properties/v1.2.0/optimade/common/element"
+  $$inherit: "/properties/v1.2.0/optimade/common/element"

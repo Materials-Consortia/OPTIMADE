@@ -1,6 +1,6 @@
 title: "Structure features"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structure/structure_features"
-x-propdefs-inherit-ref: "/properties/v1.2.0/core/features"
+$$inherit: "/properties/v1.2.0/core/features"
 x-optimade-property:
   version: "1.2.0"
   property-format: "1.2"

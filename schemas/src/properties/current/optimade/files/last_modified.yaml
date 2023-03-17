@@ -1,1 +1,1 @@
-$ref: "/properties/v1.2.0/core/last_modified"
+$$inherit: "/properties/v1.2.0/core/last_modified"

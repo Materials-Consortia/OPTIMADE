@@ -1,22 +1,31 @@
 #!/usr/bin/env python3
 """
-This script processes property definition source files into other formats. It can process individual
-files or entire directories and supports various input and output formats. The script also includes
-options for handling $ref references and specifying base directories or IDs for resolving references.
+This is a preprocessor and format conversion tool for OPTIMADE schema files. It can process individual
+files or entire directories and supports various input and output formats. In particular, it adds
+two preprocessor directives:
+
+- $$inherit: reference another schema to inline into the schema being processed, with further
+  dictionary members being deep merged into the inherited schema. Non-dictionary members are
+  replaced.
+
+- $$exclude: can be used alongside $$inherit to not import some members via inheritance.
+  It is in particular useful when one wants to replace a dictionary member instead of deep merge
+  members into it.
 
 Usage:
-  propdefs.py source [options]
+  process_schemas.py source [options]
 
 Examples:
   # Process a single file and write the output to stdout:
-  propdefs.py file.json
+  process_schemas.py file.json
 
   # Process all files in a directory and write the output to a file:
-  propdefs.py dir -o output.json
+  process_schemas.py dir -o output.json
 
 """
 
 import argparse, io, codecs, os, sys, logging
+from collections import OrderedDict
 import urllib.parse
 import urllib.request
 
@@ -31,7 +40,8 @@ arguments = [
     },
     {
         'names': ['--refs-mode'],
-        'help': 'How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref. Also, the x-propdefs-inherit-ref key does a deep merge on the referenced definition.',
+        #'help': 'How to handle $ref references. Can also be set by a x-propdefs-ref-mode key alongside $ref. Also, the x-propdefs-inherit-ref key does a deep merge on the referenced definition.',
+        'help': argparse.SUPPRESS,
         'choices': ["insert", "rewrite", "retain"],
         'default': "retain",
     },
@@ -49,11 +59,11 @@ arguments = [
     },
     {
         'names': ['--basedir'],
-        'help': 'Base directory relative to which $ref referencs are resolved',
+        'help': 'Base directory relative to which $$inherit referencs are resolved',
     },
     {
         'names': ['--baseid'],
-        'help': 'Base id to relative to which $ref references are resolved',
+        'help': 'Base id to relative to which $$inherit references are resolved',
     },
     {
         'names': ['-s', '--sub'],
@@ -124,7 +134,7 @@ class ExceptionWrapper(Exception):
         super().__init__(full_message)
 
 
-def read_data(source, input_format='auto'):
+def read_data(source, input_format='auto', preserve_order=True):
     """
     Reads data from a file or a URL and returns the parsed content.
 
@@ -175,7 +185,10 @@ def read_data(source, input_format='auto'):
             return yaml.safe_load(reader), "yaml"
         if input_format == "json":
             import json
-            return json.load(reader), "json"
+            if preserve_order:
+                return json.load(reader, object_pairs_hook=OrderedDict)
+            else:
+                return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
     except Exception as e:
@@ -186,7 +199,7 @@ def read_data(source, input_format='auto'):
             reader.close()
 
 
-def data_to_md(data):
+def data_to_md(data, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -201,15 +214,21 @@ def data_to_md(data):
         A string representation of the input data.
     """
 
+    headers=["-", "=", "###", "####", "#####", "######"]
+
     if not "x-optimade-property" in data:
         s = ""
         for item in sorted(data.keys()):
-            s += item + "\n"
-            s += '-'*len(item)+"\n\n"
-
             try:
                 if isinstance(data[item], dict):
-                    s += data_to_md(data[item])
+                    if level <= 2:
+                        s += item + "\n"
+                        s += headers[level]*len(item)+"\n\n"
+                    else:
+                        s += headers[level] + " " + item + "\n"
+                    s += data_to_md(data[item], level=level+1)
+                elif item == "$id":
+                    continue
                 else:
                     raise Exception("Internal error, unexpected data for data_to_md: "+str(data))
                     exit(0)
@@ -231,7 +250,7 @@ def data_to_md(data):
     }
 
     title = data['title']
-    description_short, sep, description_details = [x.strip() for x in data['description'].partition('**Requirements/Conventions**:')]
+    description_short, sep, description_details = [x.strip() for x in data['description'].partition('**Requirements/Conventions:**')]
     examples = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
 
     req_support_level, req_sort, req_query = ["Not specified"]*3
@@ -257,7 +276,6 @@ def data_to_md(data):
     s += "- **Query**: "+query_support_descs[req_query]+"\n"
     s += "- **Response**:\n"
     s += description_details+"\n"
-    s += "\n"
     s += "**Examples**:\n\n"+examples
     s += "\n"
 
@@ -295,7 +313,7 @@ def output_str(data, output_format='json'):
 
 def ref_to_source(ref, bases):
     """
-    Convert a JSON Schema $ref reference to a source path.
+    Convert a JSON Schema $$inherit reference to a source path.
 
     Parameters
     ----------
@@ -384,7 +402,7 @@ def handle_one(ref, refs_mode, input_format, bases, subs):
         or string.
     """
 
-    logging.info("Handle single $ref: %s",ref)
+    logging.info("Handle single $$inherit: %s",ref)
     if refs_mode == "retain":
         return { "$ref": ref }
     elif refs_mode == "rewrite":
@@ -424,12 +442,12 @@ def merge_deep(d, other, replace=True):
 
 def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
     """
-    Recursively handles all '$ref' references and perform substitutions in the input data.
+    Recursively handles all '$$inherit' references and perform substitutions in the input data.
 
     Parameters
     ----------
     data : dict
-        The input data to be processed for '$ref' references.
+        The input data to be processed for '$$inherit' references.
     refs_mode : str
         The mode to use when handling the references. Must be one of "retain",
         "rewrite", or "insert". Default is "rewrite".
@@ -449,7 +467,7 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
     Returns
     -------
     dict
-        The input data with '$ref' references handled according to the specified mode.
+        The input data with '$$inherit' references handled according to the specified mode.
     """
 
     logging.debug("Handling: %s",data)
@@ -462,47 +480,52 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
 
     elif isinstance(data, dict):
 
-        if 'x-propdefs-inherit-ref' in data:
+        if '$$inherit' in data:
 
-            ref = data['x-propdefs-inherit-ref']
-            logging.debug("Handling x-propdefs-inherit-ref %s",ref)
+            ref = data['$$inherit']
+            logging.debug("Handling $$inherit preprocessor directive: %s",ref)
 
             output = handle_one(ref, "insert", input_format, bases, subs)
             if isinstance(output, dict):
-                # Handle $ref:s recursively
+                # Handle $$inherit recursively
                 newbases = bases.copy()
                 source = ref_to_source(ref, bases)
                 newbases['self'] = os.path.dirname(source)
                 output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
             merge_deep(data, output, replace=False)
-            del data['x-propdefs-inherit-ref']
+            del data['$$inherit']
 
-        if '$ref' in data:
+            if '$$exclude' in data:
+                logging.debug("Handling $$exclude preprocessor directive: %s",data['$$exclude'])
+                for item in data['$$exclude']:
+                    del data[item]
 
-            logging.debug("Handling $ref %s",data['$ref'])
-
-            if 'x-propdefs-ref-mode' in data:
-                this_refs_mode = data['x-propdefs-ref-mode']
-                del data['x-propdefs-ref-mode']
-            else:
-                this_refs_mode = refs_mode
-
-            if this_refs_mode == 'retain' or len(data['$ref']) <= 0 or data['$ref'][0] == '#':
-                return data
-
-            if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
-                raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
-
-            output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
-            if isinstance(output, dict):
-                # Handle $ref:s recursively
-                newbases = bases.copy()
-                source = ref_to_source(data['$ref'], bases)
-                newbases['self'] = os.path.dirname(source)
-                output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
-            if '$id' in data:
-                output['$id'] = data['$id']
-            return output
+#        if '$ref' in data:
+#
+#            logging.debug("Handling $ref %s",data['$ref'])
+#
+#            if 'x-propdefs-ref-mode' in data:
+#                this_refs_mode = data['x-propdefs-ref-mode']
+#                del data['x-propdefs-ref-mode']
+#            else:
+#                this_refs_mode = refs_mode
+#
+#            if this_refs_mode == 'retain' or len(data['$ref']) <= 0 or data['$ref'][0] == '#':
+#                return data
+#
+#            if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
+#                raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
+#
+#            output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
+#            if isinstance(output, dict):
+#                # Handle $ref:s recursively
+#                newbases = bases.copy()
+#                source = ref_to_source(data['$ref'], bases)
+#                newbases['self'] = os.path.dirname(source)
+#                output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
+#            if '$id' in data:
+#                output['$id'] = data['$id']
+#            return output
 
         for k, v in list(data.items()):
             if isinstance(v, dict) or isinstance(v, list):
@@ -546,7 +569,7 @@ def process(source, refs_mode, input_format, bases, subs, remove_null):
         A string representation of the processed output data in the specified output format.
 
     """
-    data, input_format = read_data(source)
+    data, input_format = read_data(source, input_format)
     parsed_source = urllib.parse.urlparse(source)
     bases['self'] = os.path.dirname(parsed_source.path)
 

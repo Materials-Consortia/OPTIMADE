@@ -1,6 +1,9 @@
 title: "Size"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/size"
 x-optimade-type: "integer"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
 type:
   - "integer"
   - "null"

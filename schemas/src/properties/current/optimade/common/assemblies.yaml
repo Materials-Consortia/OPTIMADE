@@ -11,14 +11,21 @@ type:
   - "object"
 properties:
   - "name":
-      x-profdefs-inherit-ref: "/properties/v1.2.0/core/identifier"
       title: "Name of the species"
+      x-optimade-type: "string"
+      type:
+        - "string"
       description: |-
         The name of the species.
 
         **Requirements/Conventions**:
 
         - the **name** value MUST be unique in the `species` list."
+      examples:
+        - "Na"
+        - "CuAg"
+      x-optimade-unit: "inapplicable"
+
   - "chemical_symbols":
       title: "Chemical symbols"
       x-optimade-type: "list"
@@ -42,7 +49,7 @@ properties:
         - ["Si", "Mn", "X", "vacancy"]
       x-optimade-unit: "inapplicable"
       items:
-        $ref: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
+        $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
   - "concentration":
       title: "Concentration"
       x-optimade-type: "list"
@@ -94,7 +101,7 @@ properties:
         - ["Si", "Mn", "X"]
       x-optimade-unit: "inapplicable"
       items:
-        $ref: "/properties/v1.2.0/optimade/common/chemical_symbol"
+        $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
   - "nattached":
       title: "Number of attached entities"
       x-optimade-type: "list"
