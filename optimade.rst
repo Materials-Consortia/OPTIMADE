@@ -2883,8 +2883,9 @@ structure\_origin
       Structures where one or more elements in a structure have been substituted (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a potentially synthesizable structure.
-      For example, theoretically invented structures found to be close to the convex hull of thermodynamical stability at reasonable conditions (see below) by relaxation using *ab initio* calculations, AI models with a demonstrated reasonable predictive power, or similar techniques qualify for this category.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a potentially synthesizable structure at non-extreme conditions (i.e., existence around NTP or at lower temperatures) and in a regular atmosphere.
+      For example, theoretically invented structures found to be close to the convex hull of thermodynamical stability at reasonable conditions by relaxation using *ab initio* calculations, AI models with a demonstrated reasonable predictive power, or similar techniques qualify for this category.
+      Structures that are the outcome of theoretical methods that specifically target conditions far from normal conditions are not meant to qualify for this category.
       This category definition involves a degree of subjectivity that has to be determined by the database provider.
       The database provider MAY choose not to use theoretical methods to propose structures in the way described here, in which case this category is not used.
 
@@ -2898,9 +2899,7 @@ structure\_origin
       For example, arbitrarily placed atoms that have not been locally optimized, non-equilibrium snapshots, and outcomes of AI models for which the predictive power is deemed insufficient for the earlier categories, all qualify for this category.
 
     * :val:`other`: the origin of the structural information is known, but is not correctly described by any of the above categories.
-      For example, this category is suitable for structures that are a faithful representation of the outcome of experiments performed at extreme pressures.
 
-    The experiments and predictions referred to in the above definitions of the categories refer to existence at non-extreme conditions (i.e., existence around NTP or at lower temperatures) and in a regular atmosphere.
     Providers who want to communicate structural information about compounds that exist only at unusual or extreme conditions SHOULD use the :val:`other` category, and, if desired, use another facility (e.g., a provider-specific property) to communicate more specific information.
 
   - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
