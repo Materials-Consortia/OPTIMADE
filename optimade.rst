@@ -1968,6 +1968,8 @@ Property Defintions that only differ by fields that are considered annotations a
 
     The string MUST be one of the following:
 
+    - :val:`always`: the defined property MUST always be included in responses and cannot be excluded even by request via, e.g., the :query-param:`response_fields` query parameter.
+      This is primarily intended for the :field:`id` and :field:`type` fields, which are required for the JSON:API response format to be valid.
     - :val:`must`: the defined property MUST be included in responses unless specifically excluded.
     - :val:`should`: the defined property SHOULD be included in responses unless specifically excluded.
     - :val:`may`: it is OPTIONAL for the implementation to include the defined property in responses.
