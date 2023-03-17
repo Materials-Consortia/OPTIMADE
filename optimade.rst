@@ -2878,7 +2878,7 @@ structure\_origin
 
     * :val:`experimental`: the structural information is a faithful representation of the outcome of an experimental technique for structure determination.
 
-    * :val:`processed`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
+    * :val:`derived`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
       For example, experimental structures relaxed using *ab initio* calculations are meant to qualify for this category.
       Structures where one or more elements in a structure have been substituted (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
