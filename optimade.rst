@@ -1826,14 +1826,14 @@ The format of Property Definitions defined below allows nesting inner Property D
 To make a property definition expressible in any output format, the fields of the property definition below are specified using OPTIMADE data types.
 When a property definition is communicated using a specific data format (e.g., JSON), the property definition is implemented in that data format by mapping the OPTIMADE data types into the corresponding data types for that output format.
 
-Two Property Definitions are regarded as equal and MAY share the same value of the :field:`$id` field if, and only if, all the fields are the same except for the fields described as "annotations" to the definition.
+Property Definitions are regarded as equal and SHOULD share the same value of the :field:`$id` field if, and only if, all the fields are the same except for the fields described below as "annotations" to the definition.
 In this context, the nullability of a property as a whole is *not* meant to be dictated by the Property Definition itself, but rather the layer above it, e.g., a Property Definition that embeds it.
 Hence, the appearance of :val:`"null"` in the `type` field is also regarded as an annotation in the above sense.
-For more information, see the `definition of the type field`_.
+For more information, see the `definition of the $id field`_ and the `definition of the type field`_.
 
 A Property Definition MUST be composed according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
 
-**REQUIRED keys for the outermost level of the Property Definition:**
+**REQUIRED keys for the outermost level of the Property Definition and OPTIONAL for other levels:**
 
 - :field:`$id`: String, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
@@ -1889,10 +1889,10 @@ A Property Definition MUST be composed according to the combination of the requi
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
   See subsection `Physical Units in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
 
-**OPTIONAL keys at all nested levels of the Property Definition and which are regarded as annotations to a Property Definition**
+**OPTIONAL keys at all nested levels of the Property Definition which are regarded as annotations to the Property Definition**
 
 The following fields should be seen as annotations to a Property Definition rather than an integral part of it.
-Hence, two Property Definitions that only differ by the value of these fields are considered to be the same, and, as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
+Property Defintions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
 
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
@@ -2002,7 +2002,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   This two element form specifies that the defined property can be :val:`null`.
 
   Specifically for the *outermost appearance* of this field in a Property Definition the inclusion or ommision of :val:`"null"` is regarded as an annotation rather than an integral part of the Property Definition.
-  Hence, two Property Definitions that differ by the inclusion of the :val:`"null"` value are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
+  Hence, Property Definitions that only differ by the inclusion of the :val:`"null"` value and other fields marked as annotations are considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
 
   Implementation notes:
 
@@ -2022,7 +2022,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
   It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-  The Property Definition SHOULD be regarded as the same if the only changes that have been made are the inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition and to the following specific fields at any level: :field:`deprecated`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
+  Property Definitions SHOULD be regarded as the same if they only differ by:
+
+  - The inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition.
+  - Additions of annotating notes to end of the :field:`description` field.
+  - Changes to the following specific fields at any level: :field:`deprecated`, :field:`examples`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2035,31 +2039,15 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`.
   When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
 
-- :field:`$comment`: String.
-  A human-readable comment relevant in the context of the raw definition data.
-  These comments should be omitted in formatted descriptions of the property shown to the end users.
-  (Comments in descriptions relevant to the end users should go into :field:`description`.)
-  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
-
-  This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Hence, two Property Definitions that only differ by the value of any :field:`$comment` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
-
-- :field:`deprecated`: Boolean.
-  If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
-  If :val:`FALSE`, the defined property is not deprecated.
-  The field not being present means :val:`FALSE`.
-
-  This field should be seen as an annotation rather than an integral part of the Property Definition.
-  Hence, two Property Definitions that only differ by :field:`deprecated` fields are considered the same, and as explained in the `definition of the $id field`_, they SHOULD share the same :field:`$id`.
+  Additions appended to the end of the :field:`description` field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Property Definition rather than an integral part of it.
+  Such annotations SHOULD only be added to the end of an otherwise unmodified :field:`description` and MUST NOT change the meaning or interpretation of the text above them.
+  The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
+  For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
   The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
   If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
-
-- :field:`examples`: List.
-  A list of example values that the defined property can have.
-  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
 
 Depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
 
@@ -2178,6 +2166,26 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI according to :RFC:`3986`.
     - :val:`"iri"`: a string instance is valid against this attribute if it is a valid IRI according to :RFC:`3987`.
 
+**OPTIONAL keys which are regarded as annotations to a Property Definition**
+
+These fields are annotations rather than an integral parts of the Property Definition.
+Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
+
+- :field:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should normally not be shown to the end users.
+  Comments pertaining to the Property Definition that are relevant to end users should go into the field :field:`description`.
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
+
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
+  If :val:`FALSE`, the defined property is not deprecated.
+  The field not being present means :val:`FALSE`.
+
+- :field:`examples`: List.
+  A list of example values that the defined property can have.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+
 A complete example of a Property Definition is found in the appendix `Property Definition Example`_.
 
 Physical Units in Property Definitions
@@ -2230,6 +2238,11 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 - :field:`description`: String.
   A human-readable multiple-line detailed description of the unit.
 
+  Additions appended to the end of the :field:`description` field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Physical Unit Definition rather than an integral part of it.
+  Such annotations SHOULD only be added to the end of an otherwise unmodified :field:`description` and MUST NOT change the meaning or interpretation of the text above them.
+  The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
+  For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
+
 - :field:`standard`: Dictionary.
   This field is used to define the unit symbol using a preexisting standard.
   The dictionary has the following format:
@@ -2256,11 +2269,16 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
 **OPTIONAL keys:**
 
+.. _definition of the $id field in Physical Unit Definitions:
+
 - :field:`$id`: String.
   A static IRI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
-  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
-  The Physical Unit Definition SHOULD be regarded as the same if the only changes that have been made are to the following specific fields at any level: :field:`deprecated`, :field:`$comment`.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
+  Physical Unit Definitions SHOULD be regarded as the same if they only differ by:
+
+  - Additions of annotating notes to end of the :field:`description` field.
+  - Changes to the following specific fields at any level: :field:`deprecated` and :field:`$comment`.
 
 - :field:`property-format`: String.
   Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
@@ -2283,23 +2301,6 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
   - :field:`resource-id`: String.
     A IRI of the external resource (which MAY be a resolvable URL).
-
-- :field:`deprecated`: Boolean.
-  If :val:`TRUE`, implementations SHOULD not use the unit defined in this Physical Unit Definition.
-  If :val:`FALSE`, the unit defined in this Physical Unit Definition is not deprecated.
-  The field not being present means :val:`FALSE`.
-
-  This field should be seen as an annotation rather than an integral part of the Physical Unit Definition.
-  Two Physical Unit Definitions that only differ by :field:`deprecated` fields are considered the same.
-
-- :field:`$comment`: String.
-  A human-readable comment relevant in the context of the raw definition data.
-  These comments should be omitted in formatted descriptions of the Physical Unit definition shown to the end users.
-  (Comments in descriptions relevant to the end users should go into :field:`description`.)
-  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_ of Property Definitions.
-
-  This field should be seen as an annotation rather than an integral part of the Physical Unit Definition.
-  Two Physical Unit Definitions that only differ by the value of any :field:`$comment` fields are considered the same.
 
 .. _definition of defining-relation:
 
@@ -2404,6 +2405,22 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     It MUST adhere to the same format as the :field:`scale` field above.
 
   The values for :field:`scale` and :field:`offset` take the same meaning as in the `definition of defining-relation`_ to express a relationship between the unit being defined and the compound unit expression in :field:`base-units-expression`.
+
+**OPTIONAL keys which are regarded as annotations to a Physical Unit Definition**
+
+These field are annotations rather than integral parts of the Physical Unit Definition.
+Physical Unit Defintions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field in Physical Unit Definitions`_ SHOULD share the same :field:`$id`.
+
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the unit defined in this Physical Unit Definition.
+  If :val:`FALSE`, the unit defined in this Physical Unit Definition is not deprecated.
+  The field not being present means :val:`FALSE`.
+
+- :field:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should normally not be shown to the end users.
+  Comments pertaining to the Property Definition that are relevant to end users should go into the field :field:`description`.
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_ of Property Definitions.
 
 An example of a Physical Unit Definition, including a defining relation that involves more than one other unit, is embedded in the example of a Property Definition in the appendix `Property Definition Example`_.
 
