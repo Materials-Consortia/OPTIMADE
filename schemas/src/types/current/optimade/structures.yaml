@@ -14,7 +14,7 @@ type:
     support: "must"
     sortable: true
     query-support: "all mandatory"
-    response-default-level: "alway"
+    response-default-level: "always"
 
 immutable_id:
   $$inherit: "/properties/v1.2.0/optimade/structures/immutable_id"
