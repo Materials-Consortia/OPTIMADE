@@ -637,7 +637,7 @@ The response MAY also return resources related to the primary data in the field:
     The URL SHOULD resolve into a JSON formatted response returning a JSON object with top level :field:`$schema` and/or :field:`$id` fields that can be used by the client to identify the schema format.
 
     Note: this field is the standard facility in JSON:API to communicate a response schema.
-    It overlaps to a degree with the field :field:`schema` in the top level :field:`meta` field.
+    It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
     Hence, the latter is deprecated.
 
   The following fields are REQUIRED for implementing pagination:
