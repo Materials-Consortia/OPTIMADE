@@ -2282,6 +2282,9 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - Additions of annotating notes to end of the :field:`description` field.
   - Changes to the following specific fields at any level: :field:`deprecated` and :field:`$comment`.
 
+- :field:`alternate-symbols`: List of String.
+  A list of other symbols that are commonly associated with the unit.
+
 - :field:`property-format`: String.
   Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
   (The Physical Units Definition format is not versioned independently.)
