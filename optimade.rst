@@ -1835,7 +1835,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for the outermost level of the Property Definition and OPTIONAL for other levels:**
 
-- :field:`$id`: String, :field:`title`: String, and :field:`description`: String.
+- :field:`$id`: String, :field:`$schema`, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
@@ -1994,11 +1994,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   It MUST be a list of one or two elements where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
-* :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
-* :val:`"dictionary"` then :field:`type` is `"object"`.
-* :val:`"list"` then :field:`type` is `"array"`.
-* :val:`"float"` then :field:`type` is `"number"`.
-* :val:`"timestamp"` then :field:`type` is `"string"`.
+  * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
+  * :val:`"dictionary"` then :field:`type` is `"object"`.
+  * :val:`"list"` then :field:`type` is `"array"`.
+  * :val:`"float"` then :field:`type` is `"number"`.
+  * :val:`"timestamp"` then :field:`type` is `"string"`.
 
   If the second element is included, it MUST be the string :val:`"null"`.
   This two element form specifies that the defined property can be :val:`null`.
@@ -2006,7 +2006,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Specifically for the *outermost appearance* of this field in a Property Definition the inclusion or ommision of :val:`"null"` is regarded as an annotation rather than an integral part of the Property Definition.
   Hence, Property Definitions that only differ by the inclusion of the :val:`"null"` value and other fields marked as annotations are considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
 
-  Implementation notes:
+    Implementation notes:
 
     - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
       The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
@@ -2016,7 +2016,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
       Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
       This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
-**Keys that are OPTIONAL for embedded Property Definitions (e.g., in an info endpoint response), but REQUIRED on the top level when distributed separately:**
+**Keys that are REQUIRED on the outermost level of a Property Definition, but otherwise OPTIONAL:**
 
 .. _definition of the $id field:
 
@@ -2032,9 +2032,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`$schema`: String.
   A URL for a meta schema that describes the Property Definitions format.
-  This MUST be the value "https://schema.optimade.org/meta/v1.2.0/optimade/property_definitions.yaml".
-
-**OPTIONAL keys**
+  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/property_definitions.yaml".
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2051,6 +2049,8 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Such annotations SHOULD only be added to the end of an otherwise unmodified :field:`description` and MUST NOT change the meaning or interpretation of the text above them.
   The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
   For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
+
+**OPTIONAL keys**
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
@@ -2284,7 +2284,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
     However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
 
-**Keys that are OPTIONAL for embedded Physical Unit Definitions (e.g., in a Property Definition), but REQUIRED on the top level when distributed separately:**
+**Keys that are REQUIRED on the outermost level of a Physical Unit Definition, but otherwise OPTIONAL:**
 
 .. _definition of the $id field in Physical Unit Definitions:
 
@@ -2299,7 +2299,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
 - :field:`$schema`: String.
   A URL for a meta schema that describes the Physical Unit Definitions format.
-  This MUST be the value "https://schema.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.yaml".
+  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.yaml".
 
 **OPTIONAL keys:**
 
