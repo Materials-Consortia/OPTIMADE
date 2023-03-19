@@ -1835,7 +1835,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for the outermost level of the Property Definition and OPTIONAL for other levels:**
 
-- :field:`$id`: String, :field:`$schema`, :field:`title`: String, and :field:`description`: String.
+- :field:`$id`: String, :field:`$schema`: String, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
@@ -2018,6 +2018,10 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 **Keys that are REQUIRED on the outermost level of a Property Definition, but otherwise OPTIONAL:**
 
+- :field:`$schema`: String.
+  A URL for a meta schema that describes the Property Definitions format.
+  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/property_definitions.yaml".
+
 .. _definition of the $id field:
 
 - :field:`$id`: String.
@@ -2029,10 +2033,6 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   - The inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition.
   - Additions of annotating notes to end of the :field:`description` field.
   - Changes to the following specific fields at any level: :field:`deprecated`, :field:`examples`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
-
-- :field:`$schema`: String.
-  A URL for a meta schema that describes the Property Definitions format.
-  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/property_definitions.yaml".
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2247,6 +2247,21 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
 **REQUIRED keys:**
 
+- :field:`$schema`: String.
+  A URL for a meta schema that describes the Physical Unit Definitions format.
+  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.yaml".
+
+.. _definition of the $id field in Physical Unit Definitions:
+
+- :field:`$id`: String.
+  A static IRI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
+  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
+  Physical Unit Definitions SHOULD be regarded as the same if they only differ by:
+
+  - Additions of annotating notes to end of the :field:`description` field.
+  - Changes to the following specific fields at any level: :field:`deprecated` and :field:`$comment`.
+
 - :field:`symbol`: String.
   Specifies the symbol to be used in :field:`x-optimade-unit` to reference this unit.
 
@@ -2283,23 +2298,6 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     The symbol to use from the referenced standard, expressed according to that standard.
     This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
     However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
-
-**Keys that are REQUIRED on the outermost level of a Physical Unit Definition, but otherwise OPTIONAL:**
-
-.. _definition of the $id field in Physical Unit Definitions:
-
-- :field:`$id`: String.
-  A static IRI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
-  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
-  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
-  Physical Unit Definitions SHOULD be regarded as the same if they only differ by:
-
-  - Additions of annotating notes to end of the :field:`description` field.
-  - Changes to the following specific fields at any level: :field:`deprecated` and :field:`$comment`.
-
-- :field:`$schema`: String.
-  A URL for a meta schema that describes the Physical Unit Definitions format.
-  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.yaml".
 
 **OPTIONAL keys:**
 
