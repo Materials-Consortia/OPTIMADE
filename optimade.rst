@@ -2016,7 +2016,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
       Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
       This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
-**OPTIONAL keys**
+**Keys that are OPTIONAL for embedded Property Definitions (e.g., in an info endpoint response), but REQUIRED on the top level when distributed separately:**
 
 .. _definition of the $id field:
 
@@ -2029,6 +2029,12 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   - The inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition.
   - Additions of annotating notes to end of the :field:`description` field.
   - Changes to the following specific fields at any level: :field:`deprecated`, :field:`examples`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
+
+- :field:`$schema`: String.
+  A URL for a meta schema that describes the Property Definitions format.
+  This MUST be the value "https://schema.optimade.org/meta/v1.2.0/optimade/property_definitions.yaml".
+
+**OPTIONAL keys**
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2278,8 +2284,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
     However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
 
-
-**OPTIONAL keys:**
+**Keys that are OPTIONAL for embedded Physical Unit Definitions (e.g., in a Property Definition), but REQUIRED on the top level when distributed separately:**
 
 .. _definition of the $id field in Physical Unit Definitions:
 
@@ -2291,6 +2296,12 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
   - Additions of annotating notes to end of the :field:`description` field.
   - Changes to the following specific fields at any level: :field:`deprecated` and :field:`$comment`.
+
+- :field:`$schema`: String.
+  A URL for a meta schema that describes the Physical Unit Definitions format.
+  This MUST be the value "https://schema.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.yaml".
+
+**OPTIONAL keys:**
 
 - :field:`alternate-symbols`: List of String.
   A list of other symbols that are commonly associated with the unit.
