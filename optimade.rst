@@ -1875,7 +1875,7 @@ A Property Definition MUST be composed according to the combination of the requi
       A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
 
     - :field:`resource-id`: String.
-      A IRI of the external resource, which MAY be a resolvable URL.
+      An IRI of the external resource, which MAY be a resolvable URL.
 
 **REQUIRED keys for all levels of the Property Definition:**
 
@@ -1889,7 +1889,7 @@ A Property Definition MUST be composed according to the combination of the requi
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
   See subsection `Physical Units in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
 
-**OPTIONAL keys at all nested levels of the Property Definition which are regarded as annotations to the Property Definition**
+**OPTIONAL keys at all nested levels of the Property Definition which are regarded as annotations to the Property Definition:**
 
 The following fields should be seen as annotations to a Property Definition rather than an integral part of it.
 Property Defintions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
@@ -1922,7 +1922,7 @@ Property Defintions that only differ by fields that are considered annotations a
     Defines the filter language features supported on this property.
     MUST be present and not :val:`null` if and only if :field:`query-support` is :val:`partial`.
 
-    Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`:, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
+    Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
 
     - :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`: indicating support for filtering this property using the respective operator.
       If the property is of Boolean type, support for :val:`=` also designates support for boolean comparisons with the property being true that omit ":filter-fragment:`= TRUE`", e.g., specifying that filtering for ":filter:`is_yellow = TRUE`" is supported also implies support for ":filter:`is_yellow`" (which means the same thing).
@@ -1936,7 +1936,7 @@ Property Defintions that only differ by fields that are considered annotations a
 
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
 
-  - :field:`response-default`: Boolean
+  - :field:`response-default`: Boolean.
     The value :val:`TRUE` means the implementation includes the property in responses by default, i.e., when not specifically requested.
     The value :val:`FALSE` means that the property is only included when requested.
     Omitting the field or :val:`null` means the implementation does not declare if the property will be included in responses by default or not.
@@ -1994,11 +1994,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   It MUST be a list of one or two elements where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
-    * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
-    * :val:`"dictionary"` then :field:`type` is `"object"`.
-    * :val:`"list"` then :field:`type` is `"array"`.
-    * :val:`"float"` then :field:`type` is `"number"`.
-    * :val:`"timestamp"` then :field:`type` is `"string"`.
+* :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
+* :val:`"dictionary"` then :field:`type` is `"object"`.
+* :val:`"list"` then :field:`type` is `"array"`.
+* :val:`"float"` then :field:`type` is `"number"`.
+* :val:`"timestamp"` then :field:`type` is `"string"`.
 
   If the second element is included, it MUST be the string :val:`"null"`.
   This two element form specifies that the defined property can be :val:`null`.
@@ -2044,7 +2044,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 - :field:`description`: String.
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
   The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
-  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`.
+  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`__.
   When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
 
   Additions appended to the end of the :field:`description` field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Property Definition rather than an integral part of it.
@@ -2326,7 +2326,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     A human-readable description of the relationship between the unit and the remote resource, e.g., a "natural language description".
 
   - :field:`resource-id`: String.
-    A IRI of the external resource (which MAY be a resolvable URL).
+    An IRI of the external resource (which MAY be a resolvable URL).
 
 .. _definition of defining-relation:
 
