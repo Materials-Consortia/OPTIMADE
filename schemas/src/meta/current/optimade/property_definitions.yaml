@@ -1,0 +1,428 @@
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definitions.json"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "OPTIMADE Property Definition schema"
+type: object
+required: ["$id", "title", "description", "x-optimade-property"]
+$ref: "#/$defs/propdef"
+$defs:
+  propdef:
+    anyOf:
+    #
+    # type: object
+    #
+    - type: object
+      required: ["type", "properties", "x-optimade-type", "x-optimade-unit"]
+      properties:
+        type:
+          enum: [["object"],["object", "null"]]
+        properties:
+          description: |-
+            Gives key-value pairs where each value is an inner Property Definition.
+            The defined property is a dictionary that can only contain keys present in this dictionary, and, if so, the corresponding value is described by the respective inner Property Definition.
+            (Or, if the type field is the list "object" and "null", it can also be null.)
+          type: object
+          additionalProperties:
+            $ref: '#/$defs/propdef'
+        required:
+          description: |-
+            The defined property MUST have keys that match all the strings in this list.
+            Other keys present in the properties field are OPTIONAL in the defined property.
+            If not present or empty, all keys in properties are regarded as OPTIONAL.
+          type: "array"
+          items:
+            type: string
+          uniqueItems: true
+        maxProperties:
+          description: |-
+            The defined property is a dictionary where the number of keys MUST be less than or equal to the number given.
+          type: "integer"
+          minimum: 0
+        minProperties:
+          description: |-
+            The defined property is a dictionary where the number of keys MUST be greater than or equal to the number given.
+          type: "integer"
+          minimum: 0
+        dependentRequired:
+          description: |-
+            The dictionary keys are strings and the values are lists of unique strings.
+            If the defined property has a key that is equal to a key in the given dictionary, the defined property MUST also have keys that match each of the corresponding values.
+            No restriction is inferred from this field for keys in the defined property that do not match any key in the given dictionary.
+          type: "object"
+          additionalProperties:
+            type": "array"
+            items:
+              type: "string"
+            uniqueItems: true
+        enum:
+          description: "The defined property MUST take one of the values given in the provided list."
+          type: "array"
+          items:
+            type: "object"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+        examples:
+          description: "A list of example values that the defined property can have."
+          type: "array"
+          items:
+            type: "object"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+    #
+    # type: array
+    #
+    - type: object
+      required: ["type", "items"]
+      properties:
+        type:
+          enum: [["array"],["array", "null"]]
+        items:
+          description: |-
+            The defined property is a list where each item MUST match this inner Property Definition.
+          $ref: '#/$defs/propdef'
+        maxItems:
+          description: "The defined property is an array that MUST contain a number of items that is less than or equal to the given integer."
+          type: "integer"
+          minimum: 0
+        minItems:
+          description: "A non-negative integer. The defined property is an array that MUST contain a number of items that is greater than or equal to the given integer."
+          type: "integer"
+          minimum: 0
+        uniqueItems:
+          description: "If TRUE, the defined property is an array that MUST only contain unique items. If FALSE, this field sets no limitation on the defined property."
+          type: "boolean"
+        enum:
+          description: "The defined property MUST take one of the values given in the provided list."
+          type: "array"
+          items:
+            type: "array"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+        examples:
+          description: "A list of example values that the defined property can have."
+          type: "array"
+          items:
+            type: "array"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+    #
+    # type: integer
+    #
+    - type: object
+      required: ["type"]
+      properties:
+        type:
+          enum: [["integer"],["integer", "null"]]
+        multipleOf:
+          description: |-
+            An integer is strictly greater than 0.
+            The defined property MUST have an integer value that when divided by the given integer results in an integer (i.e., it must be even divisible by this integer without a fractional part).
+          type: "integer"
+          exclusiveMinimum: 0
+        maximum:
+          description: "The defined property is an integer that MUST be less than or equal to this number."
+          type: "integer"
+        exclusiveMaximum:
+          description: "The defined property is an integer that MUST be strictly less than this number; it cannot be equal to the number."
+          type: "integer"
+        minimum:
+          description: "The defined property is an integer that MUST be greater than or equal to this number."
+          type: "integer"
+        exclusiveMinimum:
+          description: "The defined property is an integer that MUST be strictly greater than this number; it cannot be equal to the number."
+          type: "integer"
+        enum:
+          description: "The defined property MUST take one of the values given in the provided list."
+          type: "array"
+          items:
+            type: "integer"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+        examples:
+          description: "A list of example values that the defined property can have."
+          type: "array"
+          items:
+            type: "integer"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+    #
+    # type: number
+    #
+    - type: object
+      required: ["type"]
+      properties:
+        type:
+          enum: [["number"],["number", "null"]]
+        multipleOf:
+          description: "An integer is strictly greater than 0. The defined property MUST have an integer value that when divided by the given integer results in an integer (i.e., it must be even divisible by this integer without a fractional part)."
+          type: "number"
+          exclusiveMinimum: 0
+        maximum:
+          description: "The defined property is a float that MUST be less than or equal to this number."
+          type: "number"
+        exclusiveMaximum:
+          description: "The defined property is a float that MUST be strictly less than this number; it cannot be equal to the number."
+          type: "number"
+        minimum:
+          description: "The defined property is a float that MUST be greater than or equal to this number."
+          type: "number"
+        exclusiveMinimum:
+          description: "The defined property is a float that MUST be strictly greater than this number; it cannot be equal to the number."
+          type: "number"
+        enum:
+          description: "The defined property MUST take one of the values given in the provided list."
+          type: "array"
+          items:
+            type: "number"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+        examples:
+          description: "A list of example values that the defined property can have."
+          type: "array"
+          items:
+            type: "number"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+    #
+    # type: string
+    #
+    - type: object
+      required: ["type"]
+      properties:
+        type:
+          enum: [["string"],["string", "null"]]
+        maxLength:
+          description: |-
+            The defined property is a string that MUST have a length that is less than or equal to the given integer.
+            (The length of the string is the number of individual Unicode characters it is composed of.)
+          type: "integer"
+          minimum: 0
+        minLength:
+          description: |-
+            The defined property is a string that MUST have a length that is less than or equal to the given integer.
+            (The length of the string is the number of individual Unicode characters it is composed of.)
+          type: "integer"
+          minimum: 0
+        format:
+          description: |-
+            Choose one of the following values to indicate that the defined property is a string that MUST adhere to the specified format:
+            - "date-time": the date-time production in RFC 3339 section 5.6.
+            - "date": the full-date production in RFC 3339 section 5.6.
+            - "time": the full-time production in RFC 3339 section 5.6.
+            - "duration": the duration production in RFC 3339 Appendix A.
+            - "email": the "Mailbox" ABNF rule in RFC 5321 section 4.1.2.
+            - "uri": a string instance is valid against this attribute if it is a valid URI according to RFC 3986.
+            - "iri": a string instance is valid against this attribute if it is a valid IRI according to RFC 3987.
+          type: "string"
+          enum: ["date-time", "date", "time", "duration", "email", "uri", "iri"]
+        enum:
+          description: "The defined property MUST take one of the values given in the provided list."
+          type: "array"
+          items:
+            type: "string"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+        examples:
+          description: "A list of example values that the defined property can have."
+          type: "array"
+          items:
+            type: "string"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+    #
+    # type: boolean
+    #
+    - type: object
+      required: ["type"]
+      properties:
+        type:
+          enum: [["boolean"],["boolean", "null"]]
+        enum:
+          description: "The defined property MUST take one of the values given in the provided list."
+          type: "array"
+          items:
+            type: "boolean"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+        examples:
+          description: "A list of example values that the defined property can have."
+          type: "array"
+          items:
+            type: "boolean"
+            $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
+    #
+    # Non-type-specific properties
+    #
+    patternProperties:
+      "^_": {}
+    properties:
+      $id:
+        description: |-
+          A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
+          (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+          It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+          Property Definitions SHOULD be regarded as the same if they only differ by:
+          - The inclusion or omission of "null" in the type in the outermost layer of the definition.
+          - Additions of annotating notes to end of the description field.
+          - Changes to the following specific fields at any level: deprecated, examples, $comment, x-optimade-implementation, and x-optimade-requirements.
+        type: string
+      $schema:
+        description: |-
+          A normalized URI for a meta-schema that validates the Property Definition.
+          This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/physical_unit_definitions.json
+      title:
+        description: |-
+          A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
+        type: string
+      description:
+        description: |-
+          A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
+          The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
+          Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>.
+          When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
+
+          Additions appended to the end of the description field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Property Definition rather than an integral part of it.
+          Such annotations SHOULD only be added to the end of an otherwise unmodified description and MUST NOT change the meaning or interpretation of the text above them.
+          The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
+          For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
+        type: string
+      x-optimade-property:
+        patternProperties:
+          "^_": {}
+        properties:
+          property-format:
+            pattern: ^[0-9]+\.[0-9]+$
+            type: string
+          version:
+            pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+            $comment: "This pattern is the suggested regular expression from: https://semver.org/spec/v2.0.0.html"
+            type: string
+          unit-definitions:
+            type: array
+            items:
+              $$inherit: "physical_unit_definitions.yaml"
+          resources:
+            items:
+              patternProperties:
+                "^_": {}
+              properties:
+                relation:
+                  type: string
+                resource-id:
+                  format: iri
+                  type: string
+              required:
+              - relation
+              - resource-id
+              type: object
+            type: array
+        required:
+        - property-format
+        type: object
+      x-optimade-type:
+        type: string
+        enum:
+        - string
+        - integer
+        - float
+        - boolean
+        - timestamp
+        - list
+        - dictionary
+      x-optimade-unit:
+        type: string
+      x-optimade-implementation:
+        patternProperties:
+          "^_": {}
+        properties:
+          query-support:
+            enum:
+            - all mandatory
+            - equality only
+            - partial
+            - none
+            type: string
+          query-support-operators:
+            items:
+              enum:
+              - '<'
+              - '<='
+              - '>'
+              - '>='
+              - '='
+              - '!='
+              - 'CONTAINS'
+              - 'STARTS WITH'
+              - 'ENDS WITH'
+              - 'HAS'
+              - 'HAS ALL'
+              - 'HAS ANY'
+              - 'HAS ONLY'
+              - 'IS KNOWN'
+              - 'IS UNKNOWN'
+              type: string
+            type: array
+          response-default:
+            type: boolean
+          sortable:
+            type: boolean
+        type: object
+      x-optimade-requirements:
+        additionalProperties: false
+        properties:
+          patternProperties:
+            "^_": {}
+          query-support:
+            enum:
+            - all mandatory
+            - equality only
+            - partial
+            - none
+            type: string
+          query-support-operators:
+            items:
+              enum:
+              - '<'
+              - '<='
+              - '>'
+              - '>='
+              - '='
+              - '!='
+              - 'CONTAINS'
+              - 'STARTS WITH'
+              - 'ENDS WITH'
+              - 'HAS'
+              - 'HAS ALL'
+              - 'HAS ANY'
+              - 'HAS ONLY'
+              - 'IS KNOWN'
+              - 'IS UNKNOWN'
+              type: string
+            type: array
+          response-default:
+            type: boolean
+          response-default-level:
+            enum:
+            - always
+            - must
+            - should
+            - may
+            - should not
+            - must not
+            type: string
+          sortable:
+            type: boolean
+          support:
+            enum:
+            - must
+            - should
+            - may
+            type: string
+        type: object
+      $comment:
+        description: |-
+          A human-readable comment relevant in the context of the raw definition data.
+          These comments should normally not be shown to the end users.
+          Comments pertaining to the Property Definition that are relevant to end users should go into the field description.
+          Formatting in the text SHOULD use Markdown using the format described in the definition of the description field.
+
+          This fields is an annotation rather than an integral part of the Property Definition.
+          Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the definition of the $id field SHOULD share the same $id.
+        type: string
+      deprecated:
+        description: |-
+           If TRUE, implementations SHOULD not use the defined property, and it MAY be removed in the future.
+           If FALSE, the defined property is not deprecated. The field not being present means FALSE.
+
+           This fields is an annotation rather than an integral part of the Property Definition.
+           Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the definition of the $id field SHOULD share the same $id.
+        type: boolean
+    unevaluatedProperties: false

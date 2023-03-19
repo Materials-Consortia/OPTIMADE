@@ -97,6 +97,17 @@ arguments = [
         'help': 'Decrease verbosity of output',
         'dest': 'verbosity', 'action': 'append_const', 'const': -1,
     },
+    {
+        'names': ['--schema'],
+        'help': 'Add a schema to use for validation if its $id is referenced by $schema in the instance (can be given multiple times)',
+        'action': 'append', 'nargs': 1
+    },
+    {
+        'names': ['--force-schema'],
+        'help': 'Force validation against the given schema regardless of precense of $schema or not in instance',
+        'nargs': 1
+    },
+
 ]
 
 class ExceptionWrapper(Exception):
@@ -122,17 +133,32 @@ class ExceptionWrapper(Exception):
         e : Exception
             The exception to wrap.
         """
+        edata = " ("+str(os.path.split(e.__traceback__.tb_frame.f_code.co_filename)[-1])+" line "+str(e.__traceback__.tb_lineno)+")."
         if isinstance(e, ExceptionWrapper):
-            self.messages = [msg] + e.messages
+            self.messages = [msg + edata] + e.messages
         elif type(e) == Exception:
-            self.messages = [msg, str(e)+"."]
+            self.messages = [msg, str(e) + edata]
         else:
-            self.messages = [msg, type(e).__name__+": "+str(e)+"."]
+            self.messages = [msg, type(e).__name__+": "+str(e) + edata]
         full_message = msg +". Error details:\n- "+("\n- ".join(self.messages[1:]))+"\n"
         if not self.debug:
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
+
+def validate(instance, schemas={}, schema=None):
+    import jsonschema
+    if schema is None:
+        if '$schema' in instance:
+            schema_id = instance['$schema']
+            if schema_id in schemas:
+                schema = schemas[schema_id]
+            else:
+                raise Exception("Validation: reference to unknown schema id: "+str(schema_id))
+        else:
+            raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
+
+    jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker())
 
 def read_data(source, input_format='auto', preserve_order=True):
     """
@@ -185,10 +211,10 @@ def read_data(source, input_format='auto', preserve_order=True):
             return yaml.safe_load(reader), "yaml"
         if input_format == "json":
             import json
-            if preserve_order:
-                return json.load(reader, object_pairs_hook=OrderedDict)
-            else:
-                return json.load(reader), "json"
+            #if preserve_order:
+            #    return json.load(reader, object_pairs_hook=OrderedDict), "json"
+            #else:
+            return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
     except Exception as e:
@@ -577,7 +603,10 @@ def process(source, refs_mode, input_format, bases, subs, remove_null):
         id_uri = data["$id"]
 
         if bases['id'] is None:
-            prefix = os.path.commonprefix([bases['dir'], source])
+            if 'dir' in bases and bases['dir'] is not None:
+                prefix = os.path.commonprefix([bases['dir'], source])
+            else:
+                prefix = ""
             rel_source = source[len(prefix):]
             if not id_uri.endswith(rel_source):
                 rel_source, ext = os.path.splitext(rel_source)
@@ -679,6 +708,25 @@ if __name__ == "__main__":
 
         except Exception as e:
             raise ExceptionWrapper("Processing of input failed", e) from e
+
+        try:
+
+            if args.force_schema:
+                schema_data, ext = read_data(args.force_schema, "json")
+                validate(data, schema=args.force_schema)
+
+            if args.schema is not None and '$schema' in data:
+                schemas = {}
+                for schema in args.schema:
+                    schema_data, ext = read_data(schema[0], "json")
+                    if '$id' in schema_data:
+                        schemas[schema_data['$id']] = schema_data
+                    else:
+                        raise Exception("Schema provided without $id field: "+str(schema_data))
+                validate(data, schemas=schemas)
+
+        except Exception as e:
+            raise ExceptionWrapper("Validation of data failed", e) from e
 
         try:
             # Figure out output format
