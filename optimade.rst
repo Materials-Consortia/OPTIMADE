@@ -2333,7 +2333,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   Some units, e.g., the atomic mass unit (also known as dalton, commonly denoted ``u``), only has an approximate relationship to SI units, in which case the :field:`defining-relation` MUST be omitted or :val:`null`.
   The dictionary MUST adhere to the following format:
 
-  **REQUIRED keys:**
+  **OPTIONAL keys:**
 
   - :field:`base-units`: List of Dictionaries.
     A list specifying the base IRIs and unit symbols for the units in which the dimensional formula for the defining relation is expressed.
@@ -2349,8 +2349,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - :field:`base-units-expression`: String.
     A string expressing the base units part of the defining relation for the unit being defined.
     It MUST adhere to the format for compound unit expression described in `Physical Units in Property Definitions`_.
-
-  **OPTIONAL keys:**
+    if the field is missing or :val:`null` the base-units-expression is taken to be equal to 1, i.e., the defining relation defines a constant.
 
   - :field:`scale`: Dictionary.
     A dictionary specifying the scale in the defining relation, adhering to the following format:
@@ -2400,12 +2399,10 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
   Each element in the list MUST be a dictionary adhering to the following format:
 
-  **REQUIRED keys:**
+  **OPTIONAL keys:**
 
   - :field:`base-units`: List of Dictionaries, and :field:`base-units-expression`: String.
     These fields take the same format and roles as in the `definition of defining-relation`_
-
-  **OPTIONAL keys:**
 
   - :field:`scale`: Dictionary.
     A dictionary specifying the scale in the approximate relation.
