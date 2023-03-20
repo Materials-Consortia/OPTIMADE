@@ -2887,7 +2887,8 @@ structure\_origin
       For example, theoretically invented structures found to be close to the convex hull of thermodynamical stability at reasonable conditions by relaxation using *ab initio* calculations, AI models with a demonstrated reasonable predictive power, or similar techniques qualify for this category.
       Structures that are the outcome of theoretical methods that specifically target conditions far from normal conditions are not meant to qualify for this category.
       This category definition involves a degree of subjectivity that has to be determined by the database provider.
-      The database provider MAY choose not to use theoretical methods to propose structures in the way described here, in which case this category is not used.
+      It is OPTIONAL for database providers to predict theoretical structures as potentially synthesizable or not. 
+      If this functionality is not provided, any structures that possibly could fit this category are meant to be assigned the next qualifying category below instead.
 
     * :val:`hypothetical`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a local energy minimum on the potential energy surface.
       This category accommodates potentially highly thermodynamically unstable structures, e.g., predicted to decompose into other competing phases, even with respect to the elemental solids.
