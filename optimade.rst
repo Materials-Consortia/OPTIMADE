@@ -2907,7 +2907,7 @@ structure\_origin
 - **Examples**:
 
   - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
-  - For a structure entry that encodes the structural information from a theoretical relaxation of an "experimental" entry using computational software that implements density functional theory: val`"derived"`.
+  - For a structure entry that encodes the structural information from a theoretical relaxation of an "experimental" entry using computational software that implements density functional theory: :val:`"derived"`.
 
 Calculations Entries
 --------------------
