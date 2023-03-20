@@ -72,9 +72,6 @@ properties:
           required:
           - value
           type: object
-      required:
-      - base-units
-      - base-units-expression
       type: object
     type: array
   defining-relation:

@@ -4,6 +4,8 @@ x-optimade-type: "integer"
 x-optimade-property:
   version: "1.2.0"
   property-format: "1.2"
+  unit-definitions:
+    - $$inherit: "/units/v1.2.0/information/byte"
 type:
   - "integer"
   - "null"
@@ -17,4 +19,4 @@ description: |-
     Such provision is included to allow the providers to serve on-the-fly compressed files.
 examples:
   - 4711
-x-optimade-unit: "inapplicable"
+x-optimade-unit: "byte"

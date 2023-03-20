@@ -1,0 +1,27 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "volt"
+symbol: "V"
+alternate-symbols:
+  - "volt"
+$id: "https://schemas.optimade.org/units/v1.2.0/si-2019/named/volt"
+description: "The volt is a derived SI unit for electric potential, voltage, and electromotive force, defined as kg·m²·s⁻³·A⁻¹ in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "V"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Volt"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+    - symbol: "m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+    - symbol: "ampere"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
+  base-units-expression: "ampere^-1*kg*m^2*s^-3"

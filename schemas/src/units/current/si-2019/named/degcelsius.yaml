@@ -1,0 +1,24 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "Degree Celsius"
+symbol: "degcelsius"
+alternate-symbols:
+  - "°C"
+$id: "https://schemas.optimade.org/units/v1.2.0/si-2019/named/degcelsius"
+description: "The degree Celsius is a derived SI unit of temperature, defined as kelvin offset with +273.15 in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "degcelsius"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Celsius"
+defining-relation:
+  base-units:
+    - symbol: "kelvin"
+      id: "https://schemas.optimade.org/units/v1.2.0/si-2019/base/kelvin"
+  base-units-expression: "kelvin"
+  offset:
+    numerator: 27315
+    denominator: 100

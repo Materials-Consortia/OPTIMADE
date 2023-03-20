@@ -1,0 +1,13 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "bit"
+symbol: "bit"
+$id: "https://units.example.com/v1.2.0/information/bit"
+description: |-
+  A basic unit of digital information representing a single logical state with one of two possible values.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "bit"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Bit"

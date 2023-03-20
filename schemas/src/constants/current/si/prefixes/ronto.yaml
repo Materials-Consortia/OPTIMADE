@@ -1,3 +1,4 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
 title: "ronto"
 symbol: "ronto"
 alternate-symbols:
@@ -10,9 +11,9 @@ standard:
   name: "gnu units"
   version: "3.15"
   symbol: "ronto"
-resource-uris:
+resources:
   - relation: "Wikipedia article describing the unit"
-    uri: "https://en.wikipedia.org/wiki/Ronto-"
+    resource-id: "https://en.wikipedia.org/wiki/Ronto-"
 defining-relation:
   base-units: []
   base-units-expression: ""

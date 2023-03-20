@@ -1,3 +1,4 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
 title: "nano"
 symbol: "nano"
 alternate-symbols:
@@ -10,9 +11,9 @@ standard:
   name: "gnu units"
   version: "3.15"
   symbol: "nano"
-resource-uris:
+resources:
   - relation: "Wikipedia article describing the unit"
-    uri: "https://en.wikipedia.org/wiki/Nano-"
+    resource-id: "https://en.wikipedia.org/wiki/Nano-"
 defining-relation:
   base-units: []
   base-units-expression: ""

@@ -1,0 +1,23 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "katal"
+symbol: "katal"
+alternate-symbols:
+  - "kat"
+$id: "https://schemas.optimade.org/units/v1.2.0/si-2019/named/katal"
+description: "The katal is a derived SI unit for catalytic activity, defined as mol·s⁻¹ in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "katal"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Katal"
+defining-relation:
+  base-units:
+    - symbol: "mol"
+      id: "https://schemas.optimade.org/units/v1.2.0/si-2019/base/mol"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si-2019/base/s"
+  base-units-expression: "mol*s^-1"

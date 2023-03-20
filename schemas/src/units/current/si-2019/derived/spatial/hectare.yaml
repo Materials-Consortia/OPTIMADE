@@ -1,0 +1,23 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "hectare"
+symbol: "hectare"
+alternate-symbols:
+  - "he"
+$id: "https://schemas.optimade.org/units/v1.2.0/si-2019/derived/spatial/hectare"
+description: "The hectare is a non-SI unit of area defined to be 10000 square meters (1 hm²) conforming with the 2019 redefinition of the SI base units."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "hectare"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Hectare"
+defining-relation:
+  base-units:
+    - symbol: "m"
+      id: "https://schema.optimade.org/units/v1.2.0/si-2019/base/m"
+  base-units-expression: "m^2"
+  scale:
+    exponent: 4

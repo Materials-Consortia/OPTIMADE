@@ -1,0 +1,20 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "byte"
+symbol: "byte"
+$id: "https://units.example.com/v1.2.0/information/byte"
+description: |-
+  A unit of digital information representing eight bits.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "bit"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Byte"
+defining-relation:
+  base-units:
+    - symbol: "bit"
+      id: "https://schemas.optimade.org/units/v1.2.0/information/bit"
+  base-units-expression: "bit"
+  scale:
+    numerator: 8

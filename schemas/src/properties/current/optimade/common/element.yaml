@@ -1,4 +1,5 @@
-tile: "Element"
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definitions.json"
+title: "Element"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/element"
 x-optimade-type: "string"
 x-optimade-property:

@@ -158,7 +158,15 @@ def validate(instance, schemas={}, schema=None):
         else:
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
-    jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker())
+    try:
+        jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker())
+    except jsonschema.ValidationError as e:
+        logging.debug("Schema validation failed, full output: "+str(e))
+        raise Exception("Schema validation failed: "+str(e.message)+". Error at JSON path: /"+("/".join([str(x) for x in e.path]))+".")
+
+    except jsonschema.SchemaError as e:
+        logging.debug("Invalid schema: "+str(e))
+        raise Exception("Invalid schema: "+e.message)
 
 def read_data(source, input_format='auto', preserve_order=True):
     """

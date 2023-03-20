@@ -1,0 +1,26 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "atomic mass unit"
+symbol: "atomicmassunit"
+$id: "https://units.example.com/v1.2.0/atomic/atomicmassunit"
+description: |-
+  The atomic mass unit, also known as the dalton or u, is defined as 1/12 of the mass of an unbound neutral atom of carbon-12 in its nuclear and electronic ground state and at rest. Approximately equal to $1.66053906660(50)*10^{-27}$ kg
+
+  While this unit is mentioned in the SI Brochure as accepted to use alongside SI units, it is the only one of those which does not have an exact definition in SI base units.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "atomicmassunit"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Dalton_(unit)"
+  - relation: "CODATA unified atomic mass unit fundamental physical constant: source for relationship to kg"
+    resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?ukg"
+approximate-relations:
+  - base-units:
+    - symbol: "kg"
+      id: "https://schema.optimade.org/units/v1.2.0/si-2019/base/kg"
+    base-units-expression: "kg"
+    scale:
+      value: 1.66053906660E-27
+      standard_uncertainty: 0.00000000050E-27
+      relative_standard_uncertainty: 3.0E-10

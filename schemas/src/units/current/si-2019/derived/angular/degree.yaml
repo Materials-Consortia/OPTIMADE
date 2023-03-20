@@ -1,0 +1,25 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "degree"
+symbol: "degree"
+alternate-symbols:
+  - "°"
+$id: "https://schemas.optimade.org/units/v1.2.0/si-2019/derived/angular/degree"
+description: "The degree is a non-SI unit of angle defined such that a full circle is 360 degrees, which is equivalent to pi/180 rad."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "degree"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Degree_(angle)"
+defining-relation:
+  base-units:
+    - symbol: "pi"
+      id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
+    - symbol: "rad"
+      id: "https://schema.optimade.org/units/v1.2.0/si-2019/named/radian"
+  base-units-expression: "pi*rad"
+  scale:
+    denomenator: 180

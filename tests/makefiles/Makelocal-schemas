@@ -1,14 +1,8 @@
 #---*- Makefile -*-------------------------------------------------------
 
 # Targets related to handling the schema files
-SCHEMAS_LVL3 := $(wildcard schemas/src/*/*/*.yaml)
-SCHEMAS_LVL3_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS_LVL3))
-
-SCHEMAS_LVL2 := $(wildcard schemas/src/*/*/*/*.yaml)
-SCHEMAS_LVL2_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS_LVL2))
-
-SCHEMAS_LVL1 := $(wildcard schemas/src/*/*/*/*/*.yaml)
-SCHEMAS_LVL1_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS_LVL1))
+SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
+SCHEMAS_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS))
 
 STANDARDS := $(wildcard schemas/src/standards/*/*.yaml)
 STANDARDS_MD_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(STANDARDS))
@@ -22,8 +16,7 @@ endif
 
 .PHONY: schemas schemas_vers_symlinks
 
-schemas: schemas_vers_symlinks $(SCHEMAS_LVL1_OUT) $(SCHEMAS_LVL2_OUT) $(SCHEMAS_LVL3_OUT) $(STANDARDS_MD_OUT)
-# $(STANDARDS_MD_OUT)
+schemas: schemas_vers_symlinks $(SCHEMAS_OUT) $(STANDARDS_MD_OUT)
 
 schemas_vers_symlinks:
 	cd schemas/src; \
@@ -60,14 +53,8 @@ clean_schemas:
 .PHONY: check_schemas_variables
 
 check_schemas_variables:
-	@echo "SCHEMAS_LVL1 = $(SCHEMAS_LVL1)"
-	@echo "SCHEMAS_LVL1_OUT = $(SCHEMAS_LVL1_OUT)"
-	@echo ""
-	@echo "SCHEMAS_LVL2 = $(SCHEMAS_LVL2)"
-	@echo "SCHEMAS_LVL2_OUT = $(SCHEMAS_LVL2_OUT)"
-	@echo ""
-	@echo "SCHEMAS_LVL3 = $(SCHEMAS_LVL3)"
-	@echo "SCHEMAS_LVL3_OUT = $(SCHEMAS_LVL3_OUT)"
+	@echo "SCHEMAS = $(SCHEMAS)"
+	@echo "SCHEMAS_OUT = $(SCHEMAS_OUT)"
 	@echo ""
 	@echo "STANDARDS = $(STANDARDS)"
 	@echo "STANDARDS_MD_OUT = $(STANDARDS_MD_OUT)"

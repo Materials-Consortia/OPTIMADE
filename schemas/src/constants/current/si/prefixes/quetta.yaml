@@ -1,3 +1,4 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
 title: "quetta"
 symbol: "quetta"
 alternate-symbols:
@@ -10,9 +11,9 @@ standard:
   name: "gnu units"
   version: "3.15"
   symbol: "quetta"
-resource-uris:
+resources:
   - relation: "Wiktionary article describing the unit"
-    uri: "https://en.wiktionary.org/wiki/quetta-"
+    resource-id: "https://en.wiktionary.org/wiki/quetta-"
 defining-relation:
   base-units: []
   base-units-expression: ""

@@ -1,0 +1,14 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "kilogram"
+symbol: "kg"
+$id: "https://schemas.optimade.org/units/v1.2.0/si-2019/base/kg"
+description: "The kilogram is the SI base unit of mass defined according to the 2019 redefinition of the SI base units."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "kg"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Kilogram"
