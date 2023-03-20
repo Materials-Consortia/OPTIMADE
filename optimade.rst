@@ -2888,7 +2888,7 @@ structure\_origin
       Structures that are the outcome of theoretical methods that specifically target conditions far outside normal conditions are not meant to qualify for this category.
       This category definition involves a degree of subjectivity that has to be determined by the database provider.
       It is OPTIONAL for database providers to predict theoretical structures as potentially synthesizable or not. 
-      If this functionality is not provided, any structures that possibly could fit this category are meant to be assigned the next qualifying category below instead.
+      If this functionality is not provided, any structures that could fit this category are meant to be assigned the next qualifying category below instead.
 
     * :val:`hypothetical`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a local energy minimum on the potential energy surface.
       This category accommodates potentially highly thermodynamically unstable structures, e.g., predicted to decompose into other competing phases, even with respect to the elemental solids.
