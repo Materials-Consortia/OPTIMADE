@@ -2212,33 +2212,29 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
 - The :field:`unit-definitions` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in `Physical Unit Definitions`_.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
+A standard set of symbols for units, constants and prefixes for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
 If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and the corresponding definitions of the symbols used SHOULD be given in the field :field:`standard`.
 
 Furthermore, the following principles SHOULD be adhered to when using symbols from ``defintions.units``:
 
-- If multiple symbols referencing the same unit appear in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
-
 - A prefix is indicated in the file by a trailing ``-``.
   The prefix without the trailing ``-`` character defines a prefix symbol.
-  For the purpose of forming Compound Unit Expressions, prefixes are regarded as unit symbols that reference a dimensionless unit, which is the same thing as a constant.
+  For the purpose of forming Compound Unit Expressions, prefixes are regarded as symbols that reference a numerical constant.
 
-- If there are multiple prefix symbols in the file with the same meaning, an implementation SHOULD use the shortest one consisting of only lowercase letters a-z and underscores, but no other symbols.
-
-- If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
+- If multiple symbols referencing the same unit, constant, or prefix appear in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
 
 Compound Unit Expressions
 -------------------------
 
-A Compound Unit Expression based on a list of symbols is formed by a sequence of unit symbols separated by a single multiplication ``*`` symbol.
-Each unit symbol can also be suffixed by a single ``^`` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., ``m^3`` for cubic meter, ``m^-3`` for inverse cubic meter.
+A Compound Unit Expression is formed by a sequence of symbols for units and constants separated by a single multiplication ``*`` character.
+Each symbol can also be suffixed by a single ``^`` character followed by a positive or negative integer to indicate the power of the preceding symbol, e.g., ``m^3`` for cubic meter, ``m^-3`` for inverse cubic meter.
 (Positive integers MUST NOT be preceded by a plus sign.)
 No whitespace, parentheses, or other symbols than specified above are permitted.
 
 The sequence of unit symbols MUST follow this order:
 
-1. First, all dimensionless symbols (often also referred to as having the dimension 1), i.e., constants and prefixes, in alphabetical order.
-2. Next, all symbols with dimension in alphabetical order.
+1. First, all constants and prefixes, i.e., symbols defined to have a numerical value without a unit, in alphabetical order.
+2. Second, all unit symbols in alphabetical order.
 
 Physical Unit Definitions
 -------------------------
@@ -2349,7 +2345,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - :field:`base-units-expression`: String.
     A string expressing the base units part of the defining relation for the unit being defined.
     It MUST adhere to the format for compound unit expression described in `Physical Units in Property Definitions`_.
-    if the field is missing or :val:`null` the base-units-expression is taken to be equal to 1, i.e., the defining relation defines a constant.
+    if the field is missing or :val:`null` the base-units-expression is taken to be equal to 1, i.e., the defining relation is dimensionless.
 
   - :field:`scale`: Dictionary.
     A dictionary specifying the scale in the defining relation, adhering to the following format:
