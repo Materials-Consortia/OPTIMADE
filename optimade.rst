@@ -433,7 +433,7 @@ If the unrecognized property is requested to be included in the response, it MUS
 The rationale for not triggering errors for unrecognized properties is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
 Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
 If this is not possible, and if the endpoint defines a :property:`<endpoint>_features` property (e.g., :property:`structure_features` for the `structures` endpoint), the implementation MUST define a database-specific identifier and place it in this list for those entries where the distinction between implementations that do and do not support the property is important.
-Filters can then be formulated as, e.g., :filter-fragment:`_exmpl_strange_property IS UNKNOWN and structure_features HAS "strangeness"` to suppress results from implementations that do not support :property:`_exmpl_strange_property`.
+Filters can then be formulated as, e.g., :filter-fragment:`_exmpl_strange_property IS UNKNOWN and structure_features HAS "_exmpl_strangeness"` to suppress results from implementations that do not support :property:`_exmpl_strange_property`.
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
 
