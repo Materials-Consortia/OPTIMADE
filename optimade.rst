@@ -2883,7 +2883,7 @@ structure\_origin
       Structures where one or more elements in a structure have been substituted (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
       The category definition involves a degree of subjectivity that has to be decided by the database provider.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a potentially synthesizable structure at non-extreme conditions (i.e., existence around NTP or at lower temperatures) and in a regular atmosphere.
+    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a potentially synthesizable structure.
       For example, theoretically invented structures found to be close to the convex hull of thermodynamical stability at reasonable conditions by relaxation using *ab initio* calculations, AI models with a demonstrated reasonable predictive power, or similar techniques qualify for this category.
       Structures that are the outcome of theoretical methods that specifically target conditions far from normal conditions are not meant to qualify for this category.
       This category definition involves a degree of subjectivity that has to be determined by the database provider.
@@ -2908,6 +2908,7 @@ structure\_origin
 - **Examples**:
 
   - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
+  - For a structure entry that encodes the structural information from a theoretical relaxation of an "experimental" entry using computational software that implements density functional theory: val`"derived"`.
 
 Calculations Entries
 --------------------
