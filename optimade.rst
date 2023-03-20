@@ -2902,12 +2902,12 @@ structure\_origin
     * :val:`other`: the origin of the structural information is known, but is not correctly described by any of the above categories.
 
   - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
-    Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`null`.
+    Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
 
 - **Examples**:
 
   - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
-  - For a structure entry that encodes the structural information from a theoretical relaxation of an "experimental" entry using computational software that implements density functional theory: :val:`"derived"`.
+  - For a structure entry that encodes the structural information from a theoretical relaxation of an :val:`"experimental"` entry using computational software that implements density functional theory: :val:`"derived"`.
 
 Calculations Entries
 --------------------
