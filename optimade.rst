@@ -2869,54 +2869,24 @@ Trajectories Entries
   The individual steps of the trajectories are called frames.
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the following properties: `reference_structure`_, `reference_frame`_ and `nframes`_.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
   Furthermore, :entry:`trajectories` can optionally have relationships and database specific fields as well as "ranged" properties that contain the values of that property for the frames of the trajectory.
-
-
-reference_structure
-~~~~~~~~~~~~~~~~~~~
-
-- **Description**: A representative example of the structures that make up the trajectory.
-  This structure can be used to give a quick visualization of the type of structures that are present in the trajectory.
-- **Type**: dictionary
-- **Requirements/Conventions**:
-- **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-
-  - This :property:`reference_structure` MAY be one of the frames from the trajectory, in that case the `reference_frame`_ field SHOULD specify which frame has been used.
-  - This reference frame has the same properties outlined in `Structures Entries`_, namely:
-
-    - `elements`_
-    - `nelements`_
-    - `elements_ratios`_
-    - `chemical_formula_descriptive`_
-    - `chemical_formula_reduced`_
-    - `chemical_formula_hill`_
-    - `chemical_formula_anonymous`_
-    - `dimension_types`_
-    - `nperiodic_dimensions`_
-    - `lattice_vectors`_
-    - `cartesian_site_positions`_
-    - `nsites`_
-    - `species_at_sites`_
-    - `species`_
-    - `assemblies`_
-    - `structure_features`_
-
-  - The subfields of the :property:`reference_structure` have the same support and queryability constraints as the corresponding :entry:`structures` entry fields.
+  In addition they can have all the properties defined for the structures endpoint.
+  If one of these properties does not have a constant value it should be shared as a ranged property.
+  As described in #TODO insert reference.
+  The dimension that corresponds to the steps of the trajectory MUST be have the :field:`range_id`=:val:`frames`.
 
 reference_frame
 ~~~~~~~~~~~~~~~
 
-- **Description**: The index of the frame from which the `reference_structure`_ was taken.
-  The first frame is frame 1.
+- **Description**: The index of a frame that, according the server, would be a good example of the structures in the trajectory.
 - **Type**: integer
 - **Requirements/Conventions**: The value MUST be larger than 0 and equal or less than nframes.
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - SHOULD NOT be :val:`null` if the `reference_structure`_ exactly matches the structure at the index `reference_frame`_ in the trajectory.
-  - MUST be :val:`null` or omitted if `reference_structure`_ is not an exact match to any structure in the trajectory.
+
 - **Examples**:
 
   - :val:`42`
@@ -2947,139 +2917,6 @@ nframes
   -   :val:`42`
 
 
-Retrieving the trajectory data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-By default only the metadata fields should be returned for the ranged properties.
-The values of the ranged properties SHOULD only be returned when the user specifies a range of frames with the query parameters described below.
-
-The client can use these parameters to customize the return from the server at the trajectory endpoint.
-While these URL query parameters are OPTIONAL for clients, API implementations SHOULD accept and handle them.
-The numbering of the frames is one based, so the first frame is frame number 1.
-
-- **first_frame**:
-
-  - **Description**: **first_frame** specifies the first frame that should be returned.
-  - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger than 0 and MUST be less or equal to  nframes.(The total number of frames in the trajectory)
-    If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
-    The default value is 1.
-  - **Examples**:
-
-    - :query-url:`/trajectories/traj00000001?first_frame=1000`
-
-- **last_frame**:
-
-  - **Description**: **last_frame** specifies the last frame that should be returned.
-  - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to :property:`first_frame` and MUST not be larger than `nframes`_ (the total number of frames in the trajectory).
-    If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
-    The default value is `nframes`.
-  - **Examples**:
-
-    - :query-url:`/trajectories/traj00000001?last_frame=2000`
-
-- **frame_step**:
-
-  - **Description**:  Specifies that data should only be returned for one out of every :property:`frame_step` frames.
-  - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be larger or equal to 1 and MUST be less than or equal to `nframes`_.
-    If this is not the case :http-error:`400 Bad Request` MUST be returned with a message indicating that the value for this field is incorrect.
-    The default value is 1.
-  - **Examples**:
-
-    - :query-url:`/trajectories/traj00000001?frame_step=10`.
-
-The server can decide how many frames are returned for each request.
-If the number of frames returned is less than the total number of frames requested by a client the server has to supply a link in the :field:`next` field of the :field:`links` section of the JSON response, which the client can use to download the rest of the trajectory.
-
-Return format for Trajectory Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The returned data is first grouped per property and then by frame.
-The property can be any of the fields described under `Structures Entries`_ or a database specific field.
-Each property has a dictionary as the value, with the following fields:
-
-- **frame_serialization_format**:
-
-  - **Description**: To improve the compactness of the data there are several ways to show to which frame a value belongs.
-    This is specified by the :property:`frame_serialization_format`.
-  - **Type**: string
-  - **Requirements/Conventions**: This field MUST be present.
-  - **Values**:
-
-    - **constant**: The value of the property is constant and thus has the same value for each frame in the trajectory.
-    - **explicit**: A value is given for each frame.
-      The number of values MUST thus be equal to the number of frames and MUST be in the same order as the frames.
-      If there is no value for a particular frame the value MUST be :val:`null`.
-    - **linear**: The value is a linear function of the frame number.
-      This function is defined by :property:`offset_linear` and :property:`step_size_linear`.
-    - **explicit_regular_sparse**: The value is set every one per :property:`step_size_sparse` frames, with :property:`offset_sparse` as the first frame.
-    - **explicit_custom_sparse**: A separate list with frame numbers is defined in the field :property:`sparse_frames` to indicate to which frame a value belongs.
-
-- **offset_linear**:
-
-  - **Description**: If :property:`frame_serialization_format` is set to :val:`"linear"` this property gives the value at frame 1.
-  - **Type**: float
-  - **Requirements/Conventions**: The value MAY be present when :property:`frame_serialization_format` is set to :val:`"linear"`, otherwise the value MUST NOT be present.
-    The default value is 0.
-  - **Examples**:
-
-    - :val:`1.5`
-
-- **step_size_linear**:
-
-  - **Description**: If :property:`frame_serialization_format` is set to :val:`"linear"`, this value gives the change in the value of the property per unit of frame number.
-    e.g. If at frame 3 the value of the property is 0.6 and :property:`step_size_linear` = 0.2 than at frame 4 the value of the property will be 0.8.
-  - **Type**: float
-  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to "linear".
-    Otherwise it MUST NOT be present.
-  - **Examples**:
-
-    - :val:`0.0005`
-
-- **offset_sparse**:
-
-  - **Description**: If :property:`frame_serialization_format` is set to :val:` "explicit_regular_sparse"` this property gives the frame number to which the first value belongs.
-  - **Type**: integer
-  - **Requirements/Conventions**: The value MAY be present when :property:`frame_serialization_format` is set to :val:`"explicit_regular_sparse"`, otherwise the value MUST NOT be present.
-    The default value is 0.
-  - **Examples**:
-
-    - :val:`100`
-
-- **step_size_sparse**:
-
-  - **Description**: If :property:`frame_serialization_format` is set to :val:` "explicit_regular_sparse"`, this value indicates that every step_size_sparse frames a value is defined.
-  - **Type**: integer
-  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to :val:`"explicit_regular_sparse"`.
-    Otherwise it MUST NOT be present.
-  - **Examples**:
-
-    - :val:`100`
-
-- **sparse_frames**:
-
-  - **Description**: If :property:`frame_serialization_format` is set to :val:`"explicit_custom_sparse"`, this field holds the frames to which the values in the value field belong.
-  - **Type**: List of integers
-  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is set to "explicit_custom_sparse".
-    Otherwise it MUST NOT be present.
-    The frame numbers in :property:`sparse_frames` MUST be in the same order as the values.
-  - **Examples**:
-
-    - :val:`[0,20,78,345]`
-
-
-- **values**:
-
-  - **Description**: The values belonging to this property.
-    The format of this field depends on the property and on the :property:`frame_serialization_format` parameter.
-  - **Type**: List of Any
-  - **Requirements/Conventions**: The value MUST be present when :property:`frame_serialization_format` is not set to :val:`"linear"`.
-    If a value has not been sampled for a particular frame the value should be set to :val:`null` at the highest possible nesting level.
-    In case of `cartesian_site_positions`_, a site that has the value :val:`null` for the x,y and z coordinates means that the site is not in the simulation volume.
-    This may be useful for grand canonical simulations where the number of particles in the simulation volume is not constant.
-
 Examples of a returned trajectory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -3094,37 +2931,46 @@ This is an example of the data field of a JSON object that could be returned aft
       "type": "trajectories",
       "attributes": {
         "last_modified":"2021-07-16T18:02:03Z",
-        "reference_structure":{
-          "elements": ["H","O"],
-          "nelements": 2,
-          "elements_ratios": [0.666667,0.333333],
-          "chemical_formula_descriptive": "H2O",
-          "chemical_formula_reduced": "H2O",
-          "chemical_formula_anonymous": "A2B",
-          "dimension_types":[0,0,0],
-          "nperiodic_dimensions": 0,
-          "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
-          "cartesian_site_positions" : [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
-          "nsites":3,
-          "species_at_sites":["O1","H1","H2"],
-          "species":[
-            {
-              "name":"O1",
-              "chemical_symbols":["O"],
-              "concentration":[1.0]
-            },
-            {
-              "name":"H1",
-              "chemical_symbols":["H"],
-              "concentration":[1.0]
-            },
-            {
-              "name":"H2",
-              "chemical_symbols":["H"],
-              "concentration":[1.0]
-            }
-          ]
-        },
+        "elements": ["H","O"],
+        "nelements": 2,
+        "elements_ratios": [0.666667,0.333333],
+        "chemical_formula_descriptive": "H2O",
+        "chemical_formula_reduced": "H2O",
+        "chemical_formula_anonymous": "A2B",
+        "dimension_types":[0,0,0],
+        "nperiodic_dimensions": 0,
+        "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
+        "cartesian_site_positions" : None,
+        "cartesian_site_positions_meta" : {
+          "range": {
+            "serialization_format" : "regular",
+            "nindexable_dim": 3,`
+            "dim_size": [360, 3, 3],
+            "nvalues": 3240,
+            "step_size_regular" : 1,
+            "offset_regular": 1,
+            "range_ids": ["frames", "particles", "xyz"]
+          }
+        }
+        "nsites":3,
+        "species_at_sites":["O1","H1","H2"],
+        "species":[
+          {
+            "name":"O1",
+            "chemical_symbols":["O"],
+            "concentration":[1.0]
+          },
+          {
+            "name":"H1",
+            "chemical_symbols":["H"],
+            "concentration":[1.0]
+          },
+          {
+            "name":"H2",
+            "chemical_symbols":["H"],
+            "concentration":[1.0]
+          }
+        ],
         "reference_frame": 1,
         "nframes": 360,
         "available_properties":{
@@ -3144,22 +2990,39 @@ This is an example of the data field of a JSON object that could be returned aft
           "species_at_sites":{
             "frame_serialization_format": "constant"
           },
-          "_exmpl_temperature_set":{
-            "frame_serialization_format": "explicit_custom_sparse",
-            "nvalues":144
-          },
-          "_exmpl_time":{
-            "frame_serialization_format": "linear",
-            "offset_linear": 0,
-            "step_size_linear": 1.5
-          },
-          "_exmpl_ekin":{
-            "frame_serialization_format": "explicit_regular_sparse",
-            "step_size_sparse": 2,
-            "nvalues":180
+        "_exmpl_temperature_set": null,
+        "_exmpl_temperature_set_meta":{
+          "range": {
+            "serialization_format": "custom",
+            "nindexable_dim": 1,`
+            "dim_size": [360],
+            "nvalues": 144,
+            "range_ids": ["frames"]
           }
         },
-        "relationships": {
+        "_exmpl_time": null,
+        "_exmpl_time_meta":{
+          "range": {
+            "serialization_format": "linear",
+            "offset_linear": [0],
+            "step_size_linear": [1.5],
+            "range_ids": ["frames"]
+          }
+        },
+        "_exmpl_ekin": null
+        "_exmpl_ekin_meta":{
+          "range": {
+            "serialization_format" : "regular",
+            "nindexable_dim": 1,`
+            "dim_size": [180],
+            "nvalues": 180,
+            "step_size_regular" : 2,
+            "offset_regular": 1,
+            "range_ids": ["frames"]
+          }
+        }
+      },
+      "relationships": {
           "references": {
             "data": [
               {
@@ -3174,7 +3037,7 @@ This is an example of the data field of a JSON object that could be returned aft
     //...
   }
 Upon having performed the above query, the following query can be performed to return trajectory data:
-:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,_exmpl_temperature_set&first_frame=0`
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions,cartesian_site_positions_meta,_exmpl_time,_exmpl_ekin,_exmpl_temperature_set&property_ranges=cartesian_site_positions`
 
 .. code:: jsonc
 
@@ -3184,9 +3047,7 @@ Upon having performed the above query, the following query can be performed to r
       "type": "trajectories",
       "attributes":{
         "last_modified":"2021-07-16T18:02:03Z",
-        "cartesian_site_positions":{
-          "frame_serialization_format": "explicit",
-          "values":[
+        "cartesian_site_positions":[
             [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
             [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
             [[2,2,2],[1.238,2.027,1.416],[2.762,1.973,1.416]],
@@ -3198,64 +3059,69 @@ Upon having performed the above query, the following query can be performed to r
             [[2,2,2],[1.245,2.106,1.416],[2.755,1.894,1.416]],
             [[2,2,2],[1.247,2.119,1.416],[2.753,1.881,1.416]],
             [[2,2,2],[1.250,2.132,1.416],[2.750,1.868,1.416]]
+            //...
           ]
+        "cartesian_site_positions_meta":{
+          "range": {
+            "serialization_format" : "regular",
+            "nindexable_dim": 3,`
+            "dim_size": [360, 3, 3],
+            "nvalues": 3240,
+            "step_size_regular" : 1,
+            "offset_regular": 1,
+            "range_ids": ["frames", "particles", "xyz"],
+            "nreturned_values": 900,
+            "returned_range": [[1,200,1],[1,3,1],[1,3,1]],
+            "more_data_available": true,
+            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions,cartesian_site_positions_meta&property_ranges=cartesian_site_positions[[201,900,1],[1,3,1],[1,3,1]]"
+          }
         },
-        "lattice_vectors":{
-          "frame_serialization_format": "constant",
-          "values":[[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]]
+        "_exmpl_temperature_set": [293.0,293.1,293.2,293.3,293.4,293.5
+          //...
+        ],
+        "_exmpl_temperature_set_meta":{
+          "range":{
+            "serialization_format": "custom",
+            "nindexable_dim": 1,`
+            "dim_size": [360],
+            "nvalues": 144,
+            "range_ids": ["frames"]
+            "indexes": [1,3,6,8,11,13,16,18,21,23,26,28,31,33,36,38,41
+              //...
+            ],
+            "nreturned_values": 144,
+            "more_data_available": false,
+            "next": null
+          }
         },
-        "dimension_types":{
-          "frame_serialization_format": "constant",
-          "values":[[0,0,0]]
+        "_exmpl_time": null,
+        "_exmpl_time_meta":{
+          "range": {
+            "serialization_format": "linear",
+            "offset_linear": [0],
+            "step_size_linear": [1.5],
+            "range_ids": ["frames"]
+          }
         },
-        "_exmpl_time":{
-          "frame_serialization_format": "linear",
-          "offset_linear": 0,
-          "step_size_linear": 1.5
-        },
-        "_exmpl_ekin":{
-           "frame_serialization_format": "explicit_regular_sparse",
-           "step_size_sparse": 2,
-           "values":[4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21]
-        },
-        "species":{
-          "frame_serialization_format": "constant",
-          "values":[[
-            {
-              "name":"O1",
-              "chemical_symbols":["O"],
-              "concentration":[1.0]
-            },{
-              "name":"H1",
-              "chemical_symbols":["H"],
-              "concentration":[1.0]
-            },{
-              "name":"H2",
-              "chemical_symbols":["H"],
-              "concentration":[1.0]
-            }
-          ]]
-        },
-        "species_at_sites":{
-          "frame_serialization_format": "constant",
-          "values":[["O1","H1","H2"]]
-        },
-        "_exmpl_temperature_set":{
-          "frame_serialization_format": "explicit_custom_sparse",
-          "sparse_frames":[0,4,5,9],
-          "values":[273,273,293,293]
+        "_exmpl_ekin": [4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21
+          //...
+        ],
+        "_exmpl_ekin_meta":{
+          "range": {
+            "serialization_format" : "regular",
+            "nindexable_dim": 1,`
+            "dim_size": [180],
+            "nvalues": 180,
+            "step_size_regular" : 2,
+            "offset_regular": 1,
+            "range_ids": ["frames"],
+            "returned_range": [[1,360,2]],
+            "more_data_available": false,
+            "next": null
+          }
         }
       }
     },
-    "links":{
-      "next":"http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, lattice_vectors,dimension_types,_exmpl_time,_exmpl_ekin,species,species_at_sites,relationships&first_frame=10",
-      "base_url": {
-        "href": "http://example.com/optimade",
-        "meta": {
-          "_exmpl_db_version": "3.2.1"
-        }
-      }
-    }
     //...
   }
 
