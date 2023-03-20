@@ -2863,7 +2863,7 @@ structure\_features
 structure\_origin
 ~~~~~~~~~~~~~~~~~
 
-- **Description**: A string that describes aspects of the origin of the structural data to indicate if it is based directly or indirectly on experimental evidence, or inferred from other sources, giving some information on whether the structure is believed to exist in nature or can be synthesized as a compound stable at non-extreme conditions.
+- **Description**: A string that describes aspects of the origin of the structural data to indicate if it is based directly or indirectly on experimental evidence, or inferred from other sources, giving some information on whether the structural data was obtained with the intent of representing a structure that can exist in nature or be synthesized as a stable compound.
 
 - **Type**: string
 - **Requirements/Conventions**:
