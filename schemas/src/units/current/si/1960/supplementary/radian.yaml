@@ -1,0 +1,18 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "radian"
+symbol: "radian"
+alternate-symbols:
+  - "rad"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/radian"
+description: |-
+  The radian is a supplementary SI unit of (plane) angle defined at the 9th CGPM Meeting in 1948, resolution 6 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  The radian is the angle with its vertex at the center of a circle that intercepts an arc of equal length to the radius on the circumference of this circle.
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "radian"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Radian"

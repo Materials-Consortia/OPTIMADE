@@ -1,0 +1,16 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "metre"
+symbol: "m"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/m"
+description: |-
+  The metre (or meter) is the SI base unit of length as redefined at the 17th CGPM Meeting in 1983, resolution 1.
+  The metre is the length of the path travelled by light in vacuum during a time interval of 1/299792458 of a second.
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "m"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Metre"

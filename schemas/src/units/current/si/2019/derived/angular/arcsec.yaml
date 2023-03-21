@@ -1,0 +1,25 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "arcsecond"
+symbol: "arcsec"
+alternate-symbols:
+  - "\""
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/derived/angular/arcsec"
+description: "The arcsecond is a non-SI unit of angle defined to be equal to 1/60 of an arcminute, which is 1/1296000 of a circle and equivalent to pi/648000 rad."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "degree"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Minute_and_second_of_arc"
+defining-relation:
+  base-units:
+    - symbol: "pi"
+      id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
+    - symbol: "rad"
+      id: "https://schema.optimade.org/units/v1.2.0/si/2019/named/radian"
+  base-units-expression: "pi*rad"
+  scale:
+    denomenator: 648000

@@ -1,0 +1,23 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "lumen"
+symbol: "lumen"
+alternate-symbols:
+  - "lm"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/lumen"
+description: "The lumen is a derived SI unit for luminous flux, defined as cd·sr in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "lumen"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Lumen_(unit)"
+defining-relation:
+  base-units:
+    - symbol: "cd"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/cd"
+    - symbol: "sr"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/sr"
+  base-units-expression: "cd*sr"

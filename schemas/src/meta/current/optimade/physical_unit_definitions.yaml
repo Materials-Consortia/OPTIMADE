@@ -142,9 +142,6 @@ properties:
           numerator:
             type: integer
         type: object
-    required:
-    - base-units
-    - base-units-expression
     type: object
   description:
     description: |-

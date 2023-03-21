@@ -1,0 +1,19 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "kelvin"
+symbol: "kelvin"
+alternate-symbols:
+  - "K"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2007/base/kelvin"
+description: |-
+  The kelvin is the SI base unit of thermodynamic temperature as defined at the 13th CGPM Meeting in 1967, resolution 3 and 4, and clarified at the 23rd CGPM Meeting in 2007, resolution 10.
+  The kelvin, unit of thermodynamic temperature, is the fraction 1/273.16 of the thermodynamic temperature of the triple point of water.
+  This definition refers to water having the isotopic composition defined by the following amount-of-substance ratios: 0.000 155 76 mole of ²H per mole of ¹H, 0.000 379 9 mole of ¹⁷O per mole of ¹⁶O and 0.002 005 2 mole of ¹⁸O per mole of ¹⁶O.
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "kelvin"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Kelvin"

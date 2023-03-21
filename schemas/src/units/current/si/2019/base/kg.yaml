@@ -1,0 +1,16 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "kilogram"
+symbol: "kg"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+description: |-
+  The kilogram is the SI base unit of mass defined according to the 2019 redefinition of the SI base units.
+  It is defined by taking the fixed numerical value of the Planck constant $h$ to be 6.62607015×10⁻³⁴ when expressed in the unit J⋅s, which is equal to kg⋅m²⋅s⁻¹, where the metre and the second are defined in terms of $c$ and $\Delta \nu_\textrm{Cs}$ [The International System of Units (SI), 9th Edition].
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "kg"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Kilogram"

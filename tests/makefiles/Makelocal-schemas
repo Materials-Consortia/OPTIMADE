@@ -1,7 +1,7 @@
 #---*- Makefile -*-------------------------------------------------------
 
 # Targets related to handling the schema files
-SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
+SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
 SCHEMAS_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS))
 
 STANDARDS := $(wildcard schemas/src/standards/*/*.yaml)

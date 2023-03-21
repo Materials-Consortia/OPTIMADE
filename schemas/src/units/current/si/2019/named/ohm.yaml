@@ -1,0 +1,27 @@
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+title: "ohm"
+symbol: "ohm"
+alternate-symbols:
+  - "Ω"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/ohm"
+description: "The ohm is a derived SI unit for electrical resistance, defined as kg·m²·s⁻³·A⁻² in SI base units according to the 2019 redefinition."
+version: "1.2.0"
+property-format: "1.2"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "ohm"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Ohm"
+defining-relation:
+  base-units:
+    - symbol: "ampere"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+    - symbol: "m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+  base-units-expression: "ampere^-2*kg*m^2*s^-3"
