@@ -20,12 +20,6 @@ properties:
     description: |-
       A normalized URI for a meta-schema that validates the Physical Unit Definition.
       This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/physical_unit_definitions.json
-  alternate-symbols:
-    description: |-
-      A list of other symbols often used for the unit.
-    type: array
-    items:
-      type: string
   approximate-relations:
     items:
       patternProperties:
@@ -207,8 +201,20 @@ properties:
   symbol:
     description: "Specifies the symbol to be used in `x-optimade-unit` to reference this unit."
     type: string
+  display-symbol:
+    description: |-
+      The suggested standard typographical symbolic representation of the unit.
+      Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2.
+    type: string
+  alternate-symbols:
+    description: |-
+      A list of other symbols often used for the unit.
+      Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2.
+    type: array
+    items:
+      type: string
   title:
-    description: "A human-readable single-line string name for the unit."
+    description: "The standard human-readable name of the unit."
     type: string
   version:
     description: "This string indicates the version of the Physical Unit Definition."

@@ -4,6 +4,8 @@ x-optimade-type: "list"
 x-optimade-property:
   version: "1.2.0"
   property-format: "1.2"
+  unit-definitions:
+    - $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
 type:
   - "array"
   - "null"
@@ -188,12 +190,12 @@ items:
           - Elements denoting vacancies MUST have masses equal to 0.
         examples:
           - [58.933195, 28.0855]
-        x-optimade-unit: "u"
+        x-optimade-unit: "inapplicable"
         items:
           x-optimade-type: "float"
           type:
             - "number"
-          x-optimade-unit: "dimensionless"
+          x-optimade-unit: "dalton"
           minimum: 0.0
     - "original_name":
         title: "Original name"
