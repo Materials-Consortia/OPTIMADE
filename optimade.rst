@@ -1175,7 +1175,7 @@ The response for these endpoints MUST include the following information in the :
 
 The response for these endpoints MAY include the following information in the :field:`data` field:
 
-- **unit_definitions**: A list of dictionaries providing global definitions of units that can be used in the property definitions in :field:`properties`.
+- **units**: A list of dictionaries providing global definitions of units that can be used in the property definitions in :field:`properties`.
   See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
 
 Example (note: the description strings have been wrapped for readability only):
@@ -1229,7 +1229,7 @@ Example (note: the description strings have been wrapped for readability only):
             "x-optimade-unit": "inapplicable",
             "x-optimade-property": {
               "property-format": "1.2",
-              "unit-definitions": [
+              "units": [
                 {
                   "symbol": "angstrom",
                   "title": "ångström",
@@ -1865,7 +1865,7 @@ A Property Definition MUST be composed according to the combination of the requi
     This string indicates the version of the property definition.
     The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
 
-  - :field:`unit-definitions`: List.
+  - :field:`units`: List.
     A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
     This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`.
     See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
@@ -2215,8 +2215,8 @@ The physical unit of a property, the embedded items of a list, or values of a di
   However, quantities that uses counting units, e.g., the mole, or quantities that use dimensionless units, e.g., the radian MUST NOT set the field to :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 - If the field does not take the value :val:`dimensionless` or :val:`inapplicable`, it MUST be set to a single unit symbol or a Compound Unit Expressions from a set of unit symbols using the format described in `Compound Unit Expressions`_.
-- All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition, or in the :field:`unit_definitions` field in the Entry info endpoint (the latter only applies to Property Definitions that are embedded in such a response).
-- The :field:`unit-definitions` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in `Physical Unit Definitions`_.
+- All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`units` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition, or in the :field:`units` field in the Entry info endpoint (the latter is only possible for Property Definitions embedded in such a response).
+- The :field:`units` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in `Physical Unit Definitions`_.
 
 A standard set of symbols for units, constants and prefixes for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
 If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units (with or without prefixes, see below), the value of :field:`x-optimade-unit` SHOULD use the (compound) string symbol and the corresponding definitions of the (prefixed) symbols used SHOULD be given in the field :field:`standard`.
@@ -2300,7 +2300,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
   - :field:`symbol`: String.
     The symbol to use from the referenced standard, expressed according to that standard.
-    This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
+    This field MAY be different from :field:`symbol` directly under :field:`units`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
     However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
 
 **OPTIONAL keys:**
@@ -3683,7 +3683,7 @@ This appendix provides a more complete example of a Property Definition on the f
     "x-optimade-property": {
       "version": "1.2.0",
       "property-format": "1.2",
-      "unit-definitions": [
+      "units": [
         {
           "title": "Newton",
           "symbol": "N",
