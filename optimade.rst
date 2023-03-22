@@ -2899,6 +2899,10 @@ structure\_origin
     * :val:`arbitrary`: the structural information has been created in a way that does not ensure any type of stability, i.e., not even representing a local energy minimum on the potential energy surface.
       For example, arbitrarily placed atoms that have not been locally optimized, non-equilibrium snapshots, and outcomes of AI models for which the predictive power is deemed insufficient for the earlier categories, all qualify for this category.
 
+* :val:`indeterminate`: the database provider has determined that it is unable to classify the origin of the structural data in these categories, e.g., because the source of the data provides no such information.
+      There is a subtle, but relevant, distinction between this value and and not assigning the property any value (i.e, the field is missing or have value :val:`null`, making the property unknown in the sense discussed in the section `Properties with an unknown value`_).
+      The value "indeterminate" communicates that the database provider has intentionally classified the structures into this category, i.e., it states that it is known that the origin is not known, in contrast to the database not providing any data value for classifying the structure.
+
     * :val:`other`: the origin of the structural information is known, but is not correctly described by any of the above categories.
 
   - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
