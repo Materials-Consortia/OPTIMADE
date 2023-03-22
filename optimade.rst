@@ -2872,7 +2872,6 @@ structure\_origin
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
 
   - If the property is :val:`null` or omitted, no information is provided regarding these aspects of the origin of the structural information.
-    This value is used if the origin of the structural data is not known, or, if it is partially known but to an insufficient degree to distinguish between the categories defined below.
 
   - If present and not :val:`null`, the property SHOULD take the first of the following values for which the structural information qualifies:
 
