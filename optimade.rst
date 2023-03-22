@@ -1173,6 +1173,11 @@ The response for these endpoints MUST include the following information in the :
 - **formats**: List of output formats available for this type of entry.
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
+The response for these endpoints MAY include the following information in the :field:`data` field:
+
+- **unit_definitions**: A list of dictionaries providing global definitions of units that can be used in the property definitions in :field:`properties`.
+  See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
+
 Example (note: the description strings have been wrapped for readability only):
 
 .. code:: jsonc
@@ -2206,22 +2211,26 @@ Clients and servers that use other units internally thus have to do unit convers
 The physical unit of a property, the embedded items of a list, or values of a dictionary, are defined with the field :field:`x-optimade-unit` with the following requirements:
 
 - The field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and all inner Property Definitions.
-- If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+- If the property refers to a physical quantity that is dimension and unitless (often also referred to as having the dimension 1) or refers to a dimension and unitless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+  However, quantities that uses counting units, e.g., the mole, or quantities that use dimensionless units, e.g., the radian MUST NOT set the field to :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
-- If the property is not dimensionless, the field MUST be set to a single unit symbol or a Compound Unit Expressions from a set of unit symbols using the format described in `Compound Unit Expressions`_.
-- All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
+- If the field does not take the value :val:`dimensionless` or :val:`inapplicable`, it MUST be set to a single unit symbol or a Compound Unit Expressions from a set of unit symbols using the format described in `Compound Unit Expressions`_.
+- All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition, or in the :field:`unit_definitions` field in the Entry info endpoint (the latter only applies to Property Definitions that are embedded in such a response).
 - The :field:`unit-definitions` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in `Physical Unit Definitions`_.
 
 A standard set of symbols for units, constants and prefixes for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
-If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and the corresponding definitions of the symbols used SHOULD be given in the field :field:`standard`.
+If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units (with or without prefixes, see below), the value of :field:`x-optimade-unit` SHOULD use the (compound) string symbol and the corresponding definitions of the (prefixed) symbols used SHOULD be given in the field :field:`standard`.
 
-Furthermore, the following principles SHOULD be adhered to when using symbols from ``defintions.units``:
+The unit symbols used from the GNU Units MAY be prefixed by one (but not more than one) of the prefixes defined in the ``definitions.units`` file.
+A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
+If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
+If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
+For example, the GNU Units database defines the symbol :val:`"km"` for kilometers by a combination of the ``k-`` SI kilo prefix and the ``m`` symbol for the SI meter unit.
+The prefixed unit symbol, e.g., :val:`"km"` is viewed as a single symbol for the purpose of forming a Compound Unit Expression and when defining the symbol in the field :field:`standard`.
 
-- A prefix is indicated in the file by a trailing ``-``.
-  The prefix without the trailing ``-`` character defines a prefix symbol.
-  For the purpose of forming Compound Unit Expressions, prefixes are regarded as symbols that reference a numerical constant.
+Furthermore:
 
-- If multiple symbols referencing the same unit, constant, or prefix appear in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
+- If multiple symbols referencing the same unit or constant in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
 
 Compound Unit Expressions
 -------------------------
@@ -2229,12 +2238,11 @@ Compound Unit Expressions
 A Compound Unit Expression is formed by a sequence of symbols for units and constants separated by a single multiplication ``*`` character.
 Each symbol can also be suffixed by a single ``^`` character followed by a positive or negative integer to indicate the power of the preceding symbol, e.g., ``m^3`` for cubic meter, ``m^-3`` for inverse cubic meter.
 (Positive integers MUST NOT be preceded by a plus sign.)
-No whitespace, parentheses, or other symbols than specified above are permitted.
 
-The sequence of unit symbols MUST follow this order:
+Furthermore:
 
-1. First, all constants and prefixes, i.e., symbols defined to have a numerical value without a unit, in alphabetical order.
-2. Second, all unit symbols in alphabetical order.
+- No whitespace, parentheses, or other symbols than specified above are permitted.
+- The unit and constant symbols MUST appear in alphabetical order.
 
 Physical Unit Definitions
 -------------------------
