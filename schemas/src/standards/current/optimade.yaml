@@ -1,7 +1,0 @@
-$id: "https://schemas.optimade.org/standards/v1.2.0/optimade"
-
-structures:
-  $$inherit: "/types/v1.2.0/optimade/structures"
-
-files:
-  $$inherit: "/types/v1.2.0/optimade/files"

@@ -4,17 +4,17 @@ id:
   $$inherit: "/properties/v1.2.0/optimade/structures/immutable_id"
   x-optimade-requirements:
     support: "must"
-    sortable: true
+    sortable: false
     query-support: "all mandatory"
-    response-default-level: "always"
+    response-level: "always"
 
 type:
-  $$inherit: "/properties/v1.2.0/optimade/structures/immutable_id"
+  $$inherit: "/properties/v1.2.0/optimade/structures/type"
   x-optimade-requirements:
     support: "must"
-    sortable: true
+    sortable: false
     query-support: "all mandatory"
-    response-default-level: "always"
+    response-level: "always"
 
 immutable_id:
   $$inherit: "/properties/v1.2.0/optimade/structures/immutable_id"
@@ -22,14 +22,15 @@ immutable_id:
     support: "may"
     sortable: false
     query-support: "all mandatory"
+    response-level: "may"
 
 last_modified:
   $$inherit: "/properties/v1.2.0/optimade/structures/last_modified"
   x-optimade-requirements:
-    support: "must"
-    sortable: true
+    support: "should"
+    sortable: false
     query-support: "all mandatory"
-    response-default-level: "must"
+    response-level: "must"
 
 elements:
   $$inherit: "/properties/v1.2.0/optimade/structures/elements"
@@ -37,6 +38,7 @@ elements:
     support: "should"
     sortable: false
     query-support: "all mandatory"
+    response-level: "may"
 
 nelements:
   $$inherit: "/properties/v1.2.0/optimade/structures/nelements"
@@ -44,6 +46,7 @@ nelements:
     support: "should"
     sortable: false
     query-support: "all mandatory"
+    response-level: "may"
 
 elements_ratios:
   $$inherit: "/properties/v1.2.0/optimade/structures/elements_ratios"
@@ -51,6 +54,7 @@ elements_ratios:
     support: "should"
     sortable: false
     query-support: "all mandatory"
+    response-level: "may"
 
 chemical_formula_descriptive:
   $$inherit: "/properties/v1.2.0/optimade/structures/chemical_formula_descriptive"
@@ -58,6 +62,7 @@ chemical_formula_descriptive:
     support: "should"
     sortable: false
     query-support: "all mandatory"
+    response-level: "may"
 
 chemical_formula_reduced:
   $$inherit: "/properties/v1.2.0/optimade/structures/chemical_formula_reduced"
@@ -65,12 +70,15 @@ chemical_formula_reduced:
     support: "should"
     sortable: false
     query-support: "equality only"
+    response-level: "may"
+    $comment: "If the database store chemical formulas on another format, it may not be possible to search efficiently for anything except equality."
 
 chemical_formula_hill:
   $$inherit: "/properties/v1.2.0/optimade/structures/chemical_formula_hill"
   x-optimade-requirements:
     support: "may"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 chemical_formula_anonymous:
@@ -78,13 +86,16 @@ chemical_formula_anonymous:
   x-optimade-requirements:
     support: "should"
     sortable: false
-    query-support: "all mandatory"
+    query-support: "equality only"
+    response-level: "may"
+    $comment: "If the database store chemical formulas on another format, it may not be possible to search efficiently for anything except equality."
 
 dimension_types:
   $$inherit: "/properties/v1.2.0/optimade/structures/dimension_types"
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 nperiodic_dimensions:
@@ -92,6 +103,7 @@ nperiodic_dimensions:
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "all mandatory"
 
 lattice_vectors:
@@ -99,6 +111,7 @@ lattice_vectors:
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 space_group_hall:
@@ -106,6 +119,7 @@ space_group_hall:
   x-optimade-requirements:
     support: "may"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 space_group_it_number:
@@ -113,6 +127,7 @@ space_group_it_number:
   x-optimade-requirements:
     support: "may"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 cartesian_site_positions:
@@ -120,6 +135,7 @@ cartesian_site_positions:
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 nsites:
@@ -127,6 +143,7 @@ nsites:
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "all mandatory"
 
 species_at_sites:
@@ -134,6 +151,7 @@ species_at_sites:
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 species:
@@ -141,18 +159,21 @@ species:
   x-optimade-requirements:
     support: "should"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 assemblies:
   $$inherit: "/properties/v1.2.0/optimade/structures/assemblies"
   x-optimade-requirements:
-    support: "should"
+    support: "may"
     sortable: false
+    response-level: "may"
     query-support: "none"
 
 structure_features:
   $$inherit: "/properties/v1.2.0/optimade/structures/structure_features"
   x-optimade-requirements:
     support: "must"
-    sortable: true
+    sortable: false
+    response-level: "may"
     query-support: "all mandatory"

@@ -1,0 +1,18 @@
+title: "Cell volume"
+$comment: "This is an example of a database provider-specific property defnition."
+$id: "https://schemas.example.com/properties/v1.0.0/structures/_exml_cell_volume"
+x-optimade-type: "float"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+  unit-definitions:
+    - $$inherit: "/units/v1.2.0/si/2019/derived/atomic/angstrom"
+type:
+  - "array"
+  - "null"
+description: |-
+  The volume of the unit cell in in ångström cubed ($\AA^3$).
+examples:
+  - 42.0
+x-optimade-unit: "angstrom^3"
+minimum: 0.0
