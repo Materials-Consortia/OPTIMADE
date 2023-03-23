@@ -4,6 +4,9 @@
 SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
 SCHEMAS_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS))
 
+META_SCHEMAS := $(wildcard schemas/src/meta/current/optimade/*.yaml)
+META_SCHEMAS_OUT := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(META_SCHEMAS))
+
 STANDARDS := $(wildcard schemas/src/standards/*/*.yaml)
 STANDARDS_MD_OUT = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(STANDARDS))
 
@@ -35,9 +38,9 @@ schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" --schema external/json-schema/schema
 
-schemas/output/%.json: schemas/src/%.yaml schemas/output/meta/current/optimade/physical_unit_definitions.json schemas/output/meta/current/optimade/property_definitions.json | schemas_vers_symlinks
+schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_OUT) | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" --schema schemas/output/meta/current/optimade/physical_unit_definitions.json --schema schemas/output/meta/current/optimade/property_definitions.json --schema external/json-schema/schema
+	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" --schema schemas/output/meta/current/optimade/physical_unit_definition.json --schema schemas/output/meta/current/optimade/property_definition.json --schema schemas/output/meta/current/optimade/endpoint_definition.json --schema schemas/output/meta/current/optimade/type_definition.json --schema external/json-schema/schema
 
 schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"

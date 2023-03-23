@@ -1,86 +1,80 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint_definition.json"
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint_definition.json"
 $$inherit: "/properties/v1.2.0/types/optimade/files"
+type: object
+properties:
+  id:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "always"
 
-id:
-  x-optimade-implementation:
-    support: "yes"
-    sortable: true
-    query-support: "all mandatory"
-    response-level: "always"
+  type:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "always"
 
-type:
-  x-optimade-implementation:
-    support: "yes"
-    sortable: true
-    query-support: "all mandatory"
-    response-level: "always"
+  immutable_id:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "no"
 
-immutable_id:
-  x-optimade-implementation:
-    support: "no"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "no"
+  last_modified:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
 
-last_modified:
-  x-optimade-implementation:
-    support: "yes"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "yes"
+  url:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
 
-url:
-  $$inherit: "/properties/v1.2.0/optimade/files/url"
-  x-optimade-implementation:
-    support: "yes"
-    sortable: false
-    query-support: "none"
-    response-level: "yes"
+  url_stable_until:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
 
-url_stable_until:
-  $$inherit: "/properties/v1.2.0/optimade/files/url_stable_until"
-  x-optimade-implementation:
-    support: "no"
-    sortable: false
-    query-support: "none"
-    response-level: "no"
+  name:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
 
-name:
-  $$inherit: "/properties/v1.2.0/optimade/files/name"
-  x-optimade-implementation:
-    support: "yes"
-    sortable: false
-    query-support: "none"
-    response-level: "yes"
+  size:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
 
-size:
-  $$inherit: "/properties/v1.2.0/optimade/files/size"
-  x-optimade-implementation:
-    support: "no"
-    sortable: false
-    query-support: "none"
-    response-level: "no"
+  media_type:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
 
-media_type:
-  $$inherit: "/properties/v1.2.0/optimade/files/media_type"
-  x-optimade-implementation:
-    support: "no"
-    sortable: false
-    query-support: "none"
-    response-level: "no"
+  version:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
 
-version:
-  $$inherit: "/properties/v1.2.0/optimade/files/version"
-  x-optimade-implementation:
-    support: "no"
-    sortable: false
-    query-support: "none"
-    response-level: "no"
-
-modification_timestamp:
-  $$inherit: "/properties/v1.2.0/optimade/files/modification_timestamp"
-  x-optimade-implementation:
-    support: "no"
-    sortable: false
-    query-support: "none"
-    response-level: "no"
+  modification_timestamp:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"

@@ -1,8 +1,8 @@
-$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definitions.json"
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition.json"
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: "OPTIMADE Property Definition schema"
 type: object
-required: ["$id", "$shema", "title", "description", "x-optimade-property"]
+required: ["$id", "$schema", "title", "description", "x-optimade-property"]
 $ref: "#/$defs/propdef"
 $defs:
   propdef:
@@ -239,7 +239,7 @@ $defs:
       $schema:
         description: |-
           A normalized URI for a meta-schema that validates the Property Definition.
-          This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/physical_unit_definitions.json
+          This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/physical_unit_definition.json
       title:
         description: |-
           A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -270,7 +270,7 @@ $defs:
           unit-definitions:
             type: array
             items:
-              $$inherit: "physical_unit_definitions.yaml"
+              $$inherit: "physical_unit_definition.yaml"
           resources:
             items:
               patternProperties:

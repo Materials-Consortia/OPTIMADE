@@ -1,98 +1,93 @@
 $id: "https://schemas.optimade.org/types/v1.2.0/files"
+title: "Files"
+description: "Files"
+type: object
+properties:
+  id:
+    $$inherit: "/properties/v1.2.0/optimade/files/immutable_id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
 
-id:
-  $$inherit: "/properties/v1.2.0/optimade/files/immutable_id"
-  x-optimade-requirements:
-    support: "must"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "always"
+  type:
+    $$inherit: "/properties/v1.2.0/optimade/files/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
 
-type:
-  $$inherit: "/properties/v1.2.0/optimade/files/type"
-  x-optimade-requirements:
-    support: "must"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "always"
+  immutable_id:
+    $$inherit: "/properties/v1.2.0/optimade/files/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
 
-immutable_id:
-  $$inherit: "/properties/v1.2.0/optimade/files/immutable_id"
-  x-optimade-requirements:
-    support: "may"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "may"
+  last_modified:
+    $$inherit: "/properties/v1.2.0/optimade/files/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
 
-last_modified:
-  $$inherit: "/properties/v1.2.0/optimade/files/last_modified"
-  x-optimade-requirements:
-    support: "should"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "must"
+  url:
+    $$inherit: "/properties/v1.2.0/optimade/files/url"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "none"
+      response-level: "must"
 
-elements:
-  $$inherit: "/properties/v1.2.0/optimade/files/elements"
-  x-optimade-requirements:
-    support: "should"
-    sortable: false
-    query-support: "all mandatory"
-    response-level: "may"
+  url_stable_until:
+    $$inherit: "/properties/v1.2.0/optimade/files/url_stable_until"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
 
-url:
-  $$inherit: "/properties/v1.2.0/optimade/files/url"
-  x-optimade-requirements:
-    support: "must"
-    sortable: false
-    query-support: "none"
-    response-level: "must"
+  name:
+    $$inherit: "/properties/v1.2.0/optimade/files/name"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
 
-url_stable_until:
-  $$inherit: "/properties/v1.2.0/optimade/files/url_stable_until"
-  x-optimade-requirements:
-    support: "may"
-    sortable: false
-    query-support: "none"
-    response-level: "may"
+  size:
+    $$inherit: "/properties/v1.2.0/optimade/files/size"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
 
-name:
-  $$inherit: "/properties/v1.2.0/optimade/files/name"
-  x-optimade-requirements:
-    support: "should"
-    sortable: false
-    query-support: "none"
-    response-level: "may"
+  media_type:
+    $$inherit: "/properties/v1.2.0/optimade/files/media_type"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
 
-size:
-  $$inherit: "/properties/v1.2.0/optimade/files/size"
-  x-optimade-requirements:
-    support: "may"
-    sortable: false
-    query-support: "none"
-    response-level: "may"
+  version:
+    $$inherit: "/properties/v1.2.0/optimade/files/version"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
 
-media_type:
-  $$inherit: "/properties/v1.2.0/optimade/files/media_type"
-  x-optimade-requirements:
-    support: "may"
-    sortable: false
-    query-support: "none"
-    response-level: "may"
-
-version:
-  $$inherit: "/properties/v1.2.0/optimade/files/version"
-  x-optimade-requirements:
-    support: "may"
-    sortable: false
-    query-support: "none"
-    response-level: "may"
-
-modification_timestamp:
-  $$inherit: "/properties/v1.2.0/optimade/files/modification_timestamp"
-  x-optimade-requirements:
-    support: "may"
-    sortable: false
-    query-support: "none"
-    response-level: "may"
+  modification_timestamp:
+    $$inherit: "/properties/v1.2.0/optimade/files/modification_timestamp"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
 

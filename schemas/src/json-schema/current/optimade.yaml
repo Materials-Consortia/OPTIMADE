@@ -80,4 +80,4 @@ definitions:
                 $ref: "#endpoints/files/modification_timestamp"
             additionalProperties: false
 endpoints:
-  $$inherit: "/standards/current/optimade"
+  $$inherit: "/properties/current/standards/optimade"

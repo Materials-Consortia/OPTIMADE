@@ -1,4 +1,4 @@
-$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.json"
+$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition.json"
 title: "pi"
 symbol: "pi"
 alternate-symbols:
