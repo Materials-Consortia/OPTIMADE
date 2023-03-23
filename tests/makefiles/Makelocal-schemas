@@ -40,7 +40,7 @@ schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_vers_symlinks
 
 schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_OUT) | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" --schema schemas/output/meta/current/optimade/physical_unit_definition.json --schema schemas/output/meta/current/optimade/property_definition.json --schema schemas/output/meta/current/optimade/endpoint_definition.json --schema schemas/output/meta/current/optimade/type_definition.json --schema external/json-schema/schema
+	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" --schema schemas/output/meta/current/optimade/physical_unit_definition.json --schema schemas/output/meta/current/optimade/property_definition.json --schema schemas/output/meta/current/optimade/endpoint_definition.json --schema schemas/output/meta/current/optimade/type_definition.json --schema external/json-schema/schema --clean-inner-schemas
 
 schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
@@ -69,8 +69,8 @@ check_schemas_variables:
 .PHONY: validate_schemas
 
 validate_meta_schemas: schemas
-	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/property_definitions.json external/json-schema/schema
-	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/physical_unit_definitions.json external/json-schema/schema
+	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/property_definition.json external/json-schema/schema
+	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/physical_unit_definition.json external/json-schema/schema
 
 validate_schemas: schemas validate_meta_schemas
 	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/json-schema/current/optimade.json

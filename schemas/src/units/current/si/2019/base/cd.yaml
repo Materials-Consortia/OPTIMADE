@@ -1,4 +1,4 @@
-$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition.json"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "candela"
 symbol: "cd"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/cd"

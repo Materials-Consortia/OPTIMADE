@@ -1,4 +1,4 @@
-$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint_definition.json"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint_definition"
 $$inherit: "/properties/v1.2.0/types/optimade/files"
 type: object
 properties:

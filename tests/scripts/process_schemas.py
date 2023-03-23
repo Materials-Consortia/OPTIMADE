@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 """
-This is a preprocessor and format conversion tool for OPTIMADE schema files. It can process individual
-files or entire directories and supports various input and output formats. In particular, it adds
-two preprocessor directives:
+This is a preprocessor and format conversion tool for OPTIMADE schema files.
+It can process individual files or entire directories and supports various
+input and output formats. In particular, it adds a few preprocessor directives:
 
-- $$inherit: reference another schema to inline into the schema being processed, with further
-  dictionary members being deep merged into the inherited schema. Non-dictionary members are
-  replaced.
+- $$inherit: reference another schema to inline into the schema being processed,
+  with further dictionary members being deep merged into the inherited schema.
+  Non-dictionary members are replaced.
 
-- $$exclude: can be used alongside $$inherit to not import some members via inheritance.
-  It is in particular useful when one wants to replace a dictionary member instead of deep merge
-  members into it.
+- $$exclude: a list of keys to use alongside $$inherit to not import some members
+  via inheritance. It is in particular useful when one wants to replace a
+  dictionary member instead of deep merge members into it. If "/" is in the
+  value, it is used as a pointer specification to descend into members.
+
+- $$keep: a list of keys to use alongside $$inherit, which means to import
+  only those members and discard all others.
+
+- $$schema: is replaced by $shema with an extension added for the output format.
 
 Usage:
   process_schemas.py source [options]
@@ -24,7 +30,7 @@ Examples:
 
 """
 
-import argparse, io, codecs, os, sys, logging
+import argparse, io, codecs, os, sys, logging, traceback
 from collections import OrderedDict
 import urllib.parse
 import urllib.request
@@ -98,6 +104,12 @@ arguments = [
         'dest': 'verbosity', 'action': 'append_const', 'const': -1,
     },
     {
+        'names': ['-c', '--clean-inner-schemas'],
+        'help': 'Clean out inner $schema occurences',
+        'action': 'store_true',
+        'default': False
+    },
+    {
         'names': ['--schema'],
         'help': 'Add a schema to use for validation if its $id is referenced by $schema in the instance (can be given multiple times)',
         'action': 'append', 'nargs': 1
@@ -133,13 +145,27 @@ class ExceptionWrapper(Exception):
         e : Exception
             The exception to wrap.
         """
-        edata = " ("+str(os.path.split(e.__traceback__.tb_frame.f_code.co_filename)[-1])+" line "+str(e.__traceback__.tb_lineno)+")."
+        cause = e
+        #while cause.__cause__:
+        #    print("DECENDING CAUSE",cause)
+        #    cause = cause.__cause__
+        #print("FINAL CAUSE",cause,cause.__cause__)
+        tb = cause.__traceback__
+        tbdump = traceback.extract_tb(tb)
+        #edata = " ("+str(os.path.split(tb.tb_frame.f_code.co_filename)[-1])+" line "+str(tb.tb_lineno)+")."
+        if len(tbdump) > 1:
+            if tbdump[0].filename == tbdump[-1].filename:
+                edata = " ("+str(tbdump[0].filename)+" line:"+str(tbdump[0].lineno)+" triggered at line: "+str(tbdump[-1].lineno)+")."
+            else:
+                edata = " ("+str(tbdump[0].filename)+" line "+str(tbdump[0].lineno)+" triggered in: "+str(tbdump[-1].filename)+" at line "+str(tbdump[-1].lineno)+")."
+        else:
+            edata = " ("+str(tbdump[0].filename)+" line "+str(tbdump[0].lineno)+")."
         if isinstance(e, ExceptionWrapper):
             self.messages = [msg + edata] + e.messages
         elif type(e) == Exception:
-            self.messages = [msg, str(e) + edata]
+            self.messages = [msg, str(cause) + edata]
         else:
-            self.messages = [msg, type(e).__name__+": "+str(e) + edata]
+            self.messages = [msg, type(cause).__name__+": "+str(cause) + edata]
         full_message = msg +". Error details:\n- "+("\n- ".join(self.messages[1:]))+"\n"
         if not self.debug:
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
@@ -154,7 +180,11 @@ def validate(instance, schemas={}, schema=None):
             if schema_id in schemas:
                 schema = schemas[schema_id]
             else:
-                raise Exception("Validation: reference to unknown schema id: "+str(schema_id))
+                base_schema_id, ext = os.path.splitext(schema_id)
+                if base_schema_id in schemas:
+                    schema = schemas[base_schema_id]
+                else:
+                    raise Exception("Validation: reference to unknown schema id: "+str(schema_id))
         else:
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
@@ -406,20 +436,17 @@ def recursive_replace(d, subs):
     return d
 
 
-def handle_one(ref, refs_mode, input_format, bases, subs):
+def handle_inherit(ref, mode, bases, subs, args):
     """
-    Handle a single JSON reference.
+    Handle a single inheritance.
 
     Parameters
     ----------
     ref : str
         The JSON reference to be handled.
-    refs_mode : str
+    mode : str
         The mode to use when handling the reference. Must be one of "retain",
         "rewrite", or "insert".
-    input_format : str
-        The format of the input data, if known. If not provided, the format
-        will be inferred from the file extension.
     bases : dict
         A dictionary containing information about the base paths to use when
         converting the reference to a source path. Must contain the keys "id",
@@ -430,21 +457,21 @@ def handle_one(ref, refs_mode, input_format, bases, subs):
     Returns
     -------
     dict or str
-        If the reference mode is "retain" or "rewrite", the function returns a
+        If mode is "retain" or "rewrite", the function returns a
         dictionary containing the reference. If the reference mode is "insert",
         the function returns the data from the referenced file, as a dictionary
         or string.
     """
 
     logging.info("Handle single $$inherit: %s",ref)
-    if refs_mode == "retain":
+    if mode == "retain":
         return { "$ref": ref }
-    elif refs_mode == "rewrite":
+    elif mode == "rewrite":
         base, ext = os.path.splitext(ref)
-        return { "$ref": base + '.' + input_format }
-    elif refs_mode == "insert":
+        return { "$ref": base + '.' + args.input_format }
+    elif mode == "insert":
         source = ref_to_source(ref, bases)
-        data = read_data(source, input_format)[0]
+        data = read_data(source, args.input_format)[0]
         if subs is not None:
             return recursive_replace(data, subs)
         else:
@@ -474,7 +501,7 @@ def merge_deep(d, other, replace=True):
             d[other_key] = other_val
 
 
-def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
+def handle_all(data, bases, subs, args, level=0):
     """
     Recursively handles all '$$inherit' references and perform substitutions in the input data.
 
@@ -482,12 +509,6 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
     ----------
     data : dict
         The input data to be processed for '$$inherit' references.
-    refs_mode : str
-        The mode to use when handling the references. Must be one of "retain",
-        "rewrite", or "insert". Default is "rewrite".
-    input_format : str
-        The format of the input data, if known. If not provided, the format
-        will be inferred from the file extension.
     bases : dict
         A dictionary containing information about the base paths to use when
         converting the reference to a source path. Must contain the keys "id",
@@ -495,8 +516,10 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
         be used as the base path.
     subs: dict
         dictionary of substitutions to make in strings.
-    remove_null: bool
-        remove keys if the value is null.
+    args: dict or dict-like (e.g., argument parse object)
+        additional settings affecting processing
+    level: int, optional
+        count recursion level. Default is 0.
 
     Returns
     -------
@@ -509,7 +532,7 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
     if isinstance(data, list):
         for i in range(len(data)):
             if isinstance(data[i], dict) or isinstance(data[i], list):
-                data[i] = handle_all(data[i], refs_mode, input_format, bases, subs, remove_null)
+                data[i] = handle_all(data[i], bases, subs, args)
         return data
 
     elif isinstance(data, dict):
@@ -519,52 +542,47 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
             ref = data['$$inherit']
             logging.debug("Handling $$inherit preprocessor directive: %s",ref)
 
-            output = handle_one(ref, "insert", input_format, bases, subs)
+            output = handle_inherit(ref, "insert", bases, subs, args)
             if isinstance(output, dict):
                 # Handle $$inherit recursively
                 newbases = bases.copy()
                 source = ref_to_source(ref, bases)
                 newbases['self'] = os.path.dirname(source)
-                output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
+                output = handle_all(output, newbases, subs, args)
+
+            if '$$keep' in output:
+                logging.debug("Handling $$keep preprocessor directive: %s",output['$$exclude'])
+                for key in list(output.keys()):
+                    if key not in output['$$keep']:
+                        del output[key]
+                del output['$$keep']
+
+            if '$$exclude' in output:
+                logging.debug("Handling $$exclude preprocessor directive: %s",output['$$exclude'])
+                for item in output['$$exclude']:
+                    pointer = re.split(r'(?<!\\)/', item)
+                    loc = output
+                    while len(pointer) > 1:
+                        key = pointer.pop(0)
+                        if key in loc:
+                            loc = loc[key]
+                        else:
+                            raise Exception("$$exclude path pointer invalid:",item)
+                    del loc[pointer[0]]
             merge_deep(data, output, replace=False)
             del data['$$inherit']
 
-            if '$$exclude' in data:
-                logging.debug("Handling $$exclude preprocessor directive: %s",data['$$exclude'])
-                for item in data['$$exclude']:
-                    del data[item]
+        if '$$schema' in data:
+            data['$schema'] = data['$$schema']+"."+args.output_format
+            del data['$$schema']
 
-#        if '$ref' in data:
-#
-#            logging.debug("Handling $ref %s",data['$ref'])
-#
-#            if 'x-propdefs-ref-mode' in data:
-#                this_refs_mode = data['x-propdefs-ref-mode']
-#                del data['x-propdefs-ref-mode']
-#            else:
-#                this_refs_mode = refs_mode
-#
-#            if this_refs_mode == 'retain' or len(data['$ref']) <= 0 or data['$ref'][0] == '#':
-#                return data
-#
-#            if not set(data.keys()).issubset({'$id', '$comment', '$ref', 'x-propdefs-ref-mode'}):
-#                raise Exception("Unexpected fields present alongside $ref in:"+str(data)+"::"+str(len(data)))
-#
-#            output = handle_one(data['$ref'], this_refs_mode, input_format, bases, subs)
-#            if isinstance(output, dict):
-#                # Handle $ref:s recursively
-#                newbases = bases.copy()
-#                source = ref_to_source(data['$ref'], bases)
-#                newbases['self'] = os.path.dirname(source)
-#                output = handle_all(output, refs_mode, input_format, newbases, subs, remove_null)
-#            if '$id' in data:
-#                output['$id'] = data['$id']
-#            return output
+        if '$schema' in data and level > 0 and args.clean_inner_schemas:
+            del data['$schema']
 
         for k, v in list(data.items()):
             if isinstance(v, dict) or isinstance(v, list):
-                data[k] = handle_all(v, refs_mode, input_format, bases, subs, remove_null)
-            if remove_null and v is None:
+                data[k] = handle_all(v, bases, subs, args)
+            if args.remove_null and v is None:
                 del data[k]
 
         return data
@@ -573,7 +591,7 @@ def handle_all(data, refs_mode, input_format, bases, subs, remove_null):
         raise Exception("handle: unknown data type, not dict or list: %s",type(data))
 
 
-def process(source, refs_mode, input_format, bases, subs, remove_null):
+def process(source, bases, subs, args):
     """
     Processes the input file according to the specified parameters.
 
@@ -581,21 +599,14 @@ def process(source, refs_mode, input_format, bases, subs, remove_null):
     ----------
     source : str
         The path to a file or a URL to the input to be processed.
-    refs_mode : str, optional
-        The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
-        to insert the referenced data, or 'retain' to leave the '$ref' field as is. Default is
-        'rewrite'.
-    input_format : str, optional
-        The format of the input file, or 'auto' to automatically determine the format based on
-        the file extension. Default is 'auto'.
     bases : dict, optional
         A dictionary containing information about the base paths to use when converting references
         to source paths. Must contain the keys "id" and "dir". If not provided, the current working
         directory will be used as the base path.
     subs: dict
         dictionary of substitutions to make in strings.
-    remove_null: bool
-        remove keys if the value is null.
+    args: dict or dict-like (e.g., argument parse object)
+        additional settings affecting processing
 
     Returns
     -------
@@ -603,7 +614,7 @@ def process(source, refs_mode, input_format, bases, subs, remove_null):
         A string representation of the processed output data in the specified output format.
 
     """
-    data, input_format = read_data(source, input_format)
+    data, input_format = read_data(source, args.input_format)
     parsed_source = urllib.parse.urlparse(source)
     bases['self'] = os.path.dirname(parsed_source.path)
 
@@ -622,12 +633,12 @@ def process(source, refs_mode, input_format, bases, subs, remove_null):
                     raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
             bases = {'id': id_uri[:-len(rel_source)], 'dir': bases['dir'] }
 
-    data = handle_all(data, refs_mode, input_format, bases, subs, remove_null)
+    data = handle_all(data, bases, subs, args)
 
     return data
 
 
-def process_dir(source_dir, refs_mode, input_format, bases, subs, remove_null):
+def process_dir(source_dir, bases, subs, args):
     """
     Processes all files in a directory and its subdirectories according to the specified parameters.
 
@@ -635,21 +646,14 @@ def process_dir(source_dir, refs_mode, input_format, bases, subs, remove_null):
     ----------
     source_dir : str
         The path to the directory containing the files to be processed.
-    refs_mode : str
-        The mode for handling '$ref' references: 'rewrite' to rewrite the '$ref' field, 'insert'
-        to insert the referenced data, or 'retain' to leave the '$ref' field as is. Default is
-        'rewrite'.
-    input_format : str
-        The format of the input files, or 'auto' to automatically determine the format based on
-        the file extension. Default is 'auto'.
     bases : dict
         A dictionary containing information about the base paths to use when converting references
         to source paths. Must contain the keys "id" and "dir". If not provided, the current working
         directory will be used as the base path.
     subs: dict
         dictionary of substitutions to make in strings.
-    remove_null: bool
-        remove keys if the value is null.
+    args: dict or dict-like (e.g., argument parse object)
+        additional settings affecting processing
 
     Returns
     -------
@@ -664,13 +668,13 @@ def process_dir(source_dir, refs_mode, input_format, bases, subs, remove_null):
         f = os.path.join(source_dir,filename)
         if os.path.isdir(f):
             logging.info("Process dir reads directory: %s",f)
-            dirdata = process_dir(f, refs_mode, input_format, bases, subs)
+            dirdata = process_dir(f, bases, subs, args)
             alldata[os.path.basename(f)] = dirdata
         elif os.path.isfile(f):
             base, ext = os.path.splitext(f)
             if ext[1:] in supported_input_formats:
                 logging.info("Process dir reads file: %s",f)
-                data = process(f, refs_mode, input_format, bases, subs)
+                data = process(f, bases, subs, args)
                 alldata.update(data)
 
     return alldata
@@ -699,6 +703,17 @@ if __name__ == "__main__":
         debug = args.debug or verbosity == len(log_levels)-1
         ExceptionWrapper.debug = debug
 
+        # Figure out output format
+        if args.output_format == "auto":
+            if args.output:
+                base, ext = os.path.splitext(args.output)
+                if ext in ["."+x for x in supported_input_formats]:
+                    args.output_format = ext[1:]
+                else:
+                    raise Exception("Output format cannot be determined, use -f. Output file extension: "+str(ext))
+            else:
+                args.output_format = "json"
+
     except Exception as e:
         print("Internal error when parsing command line arguments: " +type(e).__name__+": "+str(e)+'.', file=sys.stderr)
         if "-d" in sys.argv:
@@ -709,16 +724,15 @@ if __name__ == "__main__":
         try:
             if os.path.isdir(args.source):
                 logging.info("Processing directory: %s", args.source)
-                data = process_dir(args.source, args.refs_mode, args.input_format, bases, subs, args.remove_null)
+                data = process_dir(args.source, bases, subs, args)
             else:
                 logging.info("Processing file: %s", args.source)
-                data = process(args.source, args.refs_mode, args.input_format, bases, subs, args.remove_null)
+                data = process(args.source, bases, subs, args)
 
         except Exception as e:
             raise ExceptionWrapper("Processing of input failed", e) from e
 
         try:
-
             if args.force_schema:
                 schema_data, ext = read_data(args.force_schema, "json")
                 validate(data, schema=args.force_schema)
@@ -737,21 +751,8 @@ if __name__ == "__main__":
             raise ExceptionWrapper("Validation of data failed", e) from e
 
         try:
-            # Figure out output format
-            if args.output_format == "auto":
-                if args.output:
-                    base, ext = os.path.splitext(args.output)
-                    if ext in ["."+x for x in supported_input_formats]:
-                        output_format = ext[1:]
-                    else:
-                        raise Exception("Output format cannot be determined, use -f. Output file extension: "+str(ext))
-                else:
-                    output_format = "json"
-            else:
-                output_format = args.output_format
-
-            logging.info("Serializing data into format: %s", output_format)
-            outstr = output_str(data, output_format)
+            logging.info("Serializing data into format: %s", args.output_format)
+            outstr = output_str(data, args.output_format)
         except Exception as e:
             raise ExceptionWrapper("Serialization of data failed", e) from e
 
