@@ -4,17 +4,19 @@ This is a preprocessor and format conversion tool for OPTIMADE schema files.
 It can process individual files or entire directories and supports various
 input and output formats. In particular, it adds a few preprocessor directives:
 
-- $$inherit: reference another schema to inline into the schema being processed,
-  with further dictionary members being deep merged into the inherited schema.
-  Non-dictionary members are replaced.
+- $$inherit: reference another schema or a list of schemas to inline into the
+  schema being processed, with further dictionary members being deep merged
+  into the inherited schema. Non-dictionary members are replaced.
+
+- $$keep: used alongside $$inherit to specify a list of keys to import.
+  If specified, only the members specified are merged and all others discarded.
+  $keep is always evaluated before $exclude, i.e., $exclude can be used to
+  exclude keys inside those members that are kept.
 
 - $$exclude: a list of keys to use alongside $$inherit to not import some members
   via inheritance. It is in particular useful when one wants to replace a
   dictionary member instead of deep merge members into it. If "/" is in the
   value, it is used as a pointer specification to descend into members.
-
-- $$keep: a list of keys to use alongside $$inherit, which means to import
-  only those members and discard all others.
 
 - $$schema: is replaced by $shema with an extension added for the output format.
 
@@ -375,7 +377,7 @@ def output_str(data, output_format='json'):
         raise Exception("Unknown output format: "+str(output_format))
 
 
-def ref_to_source(ref, bases):
+def inherit_to_source(ref, bases):
     """
     Convert a JSON Schema $$inherit reference to a source path.
 
@@ -470,7 +472,7 @@ def handle_inherit(ref, mode, bases, subs, args):
         base, ext = os.path.splitext(ref)
         return { "$ref": base + '.' + args.input_format }
     elif mode == "insert":
-        source = ref_to_source(ref, bases)
+        source = inherit_to_source(ref, bases)
         data = read_data(source, args.input_format)[0]
         if subs is not None:
             return recursive_replace(data, subs)
@@ -539,37 +541,46 @@ def handle_all(data, bases, subs, args, level=0):
 
         if '$$inherit' in data:
 
-            ref = data['$$inherit']
-            logging.debug("Handling $$inherit preprocessor directive: %s",ref)
+            if not isinstance(data['$$inherit'], list):
+                inherits = [data['$$inherit']]
+            else:
+                inherits = data['$$inherit']
 
-            output = handle_inherit(ref, "insert", bases, subs, args)
-            if isinstance(output, dict):
-                # Handle $$inherit recursively
-                newbases = bases.copy()
-                source = ref_to_source(ref, bases)
-                newbases['self'] = os.path.dirname(source)
-                output = handle_all(output, newbases, subs, args)
+            for inherit in inherits:
 
-            if '$$keep' in output:
-                logging.debug("Handling $$keep preprocessor directive: %s",output['$$exclude'])
-                for key in list(output.keys()):
-                    if key not in output['$$keep']:
-                        del output[key]
-                del output['$$keep']
+                inherit = data['$$inherit']
+                logging.debug("Handling $$inherit preprocessor directive: %s",inherit)
 
-            if '$$exclude' in output:
-                logging.debug("Handling $$exclude preprocessor directive: %s",output['$$exclude'])
-                for item in output['$$exclude']:
-                    pointer = re.split(r'(?<!\\)/', item)
-                    loc = output
-                    while len(pointer) > 1:
-                        key = pointer.pop(0)
-                        if key in loc:
-                            loc = loc[key]
-                        else:
-                            raise Exception("$$exclude path pointer invalid:",item)
-                    del loc[pointer[0]]
-            merge_deep(data, output, replace=False)
+                output = handle_inherit(inherit, "insert", bases, subs, args)
+                if isinstance(output, dict):
+                    # Handle the inherit recursively
+                    newbases = bases.copy()
+                    source = inherit_to_source(inherit, bases)
+                    newbases['self'] = os.path.dirname(source)
+                    output = handle_all(output, newbases, subs, args)
+
+                if '$$keep' in output:
+                    logging.debug("Handling $$keep preprocessor directive: %s",output['$$exclude'])
+                    for key in list(output.keys()):
+                        if key not in output['$$keep']:
+                            del output[key]
+                    del output['$$keep']
+
+                if '$$exclude' in output:
+                    logging.debug("Handling $$exclude preprocessor directive: %s",output['$$exclude'])
+                    for item in output['$$exclude']:
+                        pointer = re.split(r'(?<!\\)/', item)
+                        loc = output
+                        while len(pointer) > 1:
+                            key = pointer.pop(0)
+                            if key in loc:
+                                loc = loc[key]
+                            else:
+                                raise Exception("$$exclude path pointer invalid:",item)
+                        del loc[pointer[0]]
+
+                merge_deep(data, output, replace=False)
+
             del data['$$inherit']
 
         if '$$schema' in data:
