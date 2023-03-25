@@ -21,3 +21,8 @@ defining-relation:
     - symbol: "sr"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/sr"
   base-units-expression: "cd*sr"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

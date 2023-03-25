@@ -17,3 +17,8 @@ resources:
 defining-relation:
   base-units: []
   base-units-expression: ""
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

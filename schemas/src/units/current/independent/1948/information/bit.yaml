@@ -14,3 +14,8 @@ resources:
     resource-id: "https://doi.org/10.1002/j.1538-7305.1948.tb01338.x"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Bit"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

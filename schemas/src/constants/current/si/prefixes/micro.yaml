@@ -5,8 +5,6 @@ alternate-symbols:
   - "μ"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/micro"
 description: "The micro SI prefix defined as a dimensionless multiple of 10⁻⁶, first used in 1873."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -19,3 +17,8 @@ defining-relation:
   base-units-expression: ""
   scale:
     exponent: -6
+x-optimade-definition:
+  kind: "constant"
+  format: "1.2"
+  version: "1.2.0"
+

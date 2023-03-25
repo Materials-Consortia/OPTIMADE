@@ -219,3 +219,5 @@ properties:
   version:
     description: "This string indicates the version of the Physical Unit Definition."
     type: string
+  x-optimade-definition:
+    $$inherit: "x-optimade-definition-field"

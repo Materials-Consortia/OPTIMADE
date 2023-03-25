@@ -19,3 +19,8 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
   base-units-expression: "s^-1"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

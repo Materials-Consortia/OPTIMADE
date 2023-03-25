@@ -2,7 +2,7 @@ $id: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: "OPTIMADE Property Definition schema"
 type: object
-required: ["$id", "$schema", "title", "description", "x-optimade-property"]
+required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
 $ref: "#/$defs/propdef"
 $defs:
   propdef:
@@ -37,6 +37,8 @@ $defs:
     - type: object
       required: ["type"]
       properties:
+        type:
+          enum: [["integer"],["integer", "null"]]
         multipleOf:
           type: "integer"
         maximum:
@@ -81,6 +83,8 @@ $defs:
     - type: object
       required: ["type"]
       properties:
+        type:
+          enum: [["string"],["string", "null"]]
         enum:
           type: "array"
           items:
@@ -256,39 +260,12 @@ $defs:
           The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
           For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
         type: string
-      x-optimade-property:
-        patternProperties:
-          "^x-": {}
-        properties:
-          property-format:
-            pattern: ^[0-9]+\.[0-9]+$
-            type: string
-          version:
-            pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-            $comment: "This pattern is the suggested regular expression from: https://semver.org/spec/v2.0.0.html"
-            type: string
-          unit-definitions:
-            type: array
-            items:
-              $$inherit: "physical_unit_definition.yaml"
-          resources:
-            items:
-              patternProperties:
-                "^x-": {}
-              properties:
-                relation:
-                  type: string
-                resource-id:
-                  format: iri
-                  type: string
-              required:
-              - relation
-              - resource-id
-              type: object
-            type: array
-        required:
-        - property-format
-        type: object
+      x-optimade-definition:
+        $$inherit: "x-optimade-definition-field"
+      x-optimade-unit-definitions:
+        type: array
+        items:
+          $$inherit: "physical_unit_definition.yaml"
       x-optimade-type:
         type: string
         enum:
@@ -332,10 +309,15 @@ $defs:
               - 'IS UNKNOWN'
               type: string
             type: array
-          response-default:
-            type: boolean
+          response-level:
+            enum:
+              - "always"
+              - "yes"
+              - "no"
           sortable:
             type: boolean
+          $comment:
+            type: string
         type: object
       x-optimade-requirements:
         additionalProperties: false
@@ -369,9 +351,7 @@ $defs:
               - 'IS UNKNOWN'
               type: string
             type: array
-          response-default:
-            type: boolean
-          response-default-level:
+          response-level:
             enum:
             - always
             - must
@@ -387,6 +367,8 @@ $defs:
             - must
             - should
             - may
+            type: string
+          $comment:
             type: string
         type: object
       $comment:

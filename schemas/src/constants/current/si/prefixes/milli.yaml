@@ -5,8 +5,6 @@ alternate-symbols:
   - "m"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/milli"
 description: "The milli SI prefix defined as a dimensionless multiple of 10⁻³, defined in 1795."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -19,3 +17,8 @@ defining-relation:
   base-units-expression: ""
   scale:
     exponent: -3
+x-optimade-definition:
+  kind: "constant"
+  format: "1.2"
+  version: "1.2.0"
+

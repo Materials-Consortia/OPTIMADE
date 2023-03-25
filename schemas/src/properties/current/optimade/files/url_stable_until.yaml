@@ -1,9 +1,10 @@
 title: "URL stable until"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/file/url_stable_until"
 x-optimade-type: "timestamp"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
+  format: "1.2"
 type:
   - "string"
   - "null"

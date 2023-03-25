@@ -1,0 +1,20 @@
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/standard_definition"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "OPTIMADE Endpoint Definition schema"
+type: object
+required: ["$id", "$schema", "x-optimade-definition", "title"]
+properties:
+  "$id":
+    type: string
+  "$schema":
+    type: string
+  title:
+    type: string
+  description:
+    type: string
+  x-optimade-definition:
+    $$inherit: "x-optimade-definition-field"
+  type:
+    type: string
+#additionalProperties:
+#  $$inherit: "/meta/v1.2.0/optimade/nodetype_definition"

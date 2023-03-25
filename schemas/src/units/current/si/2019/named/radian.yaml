@@ -16,3 +16,8 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Radian"
 defining-relation:
   $comment: "Radians are dimensionless"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

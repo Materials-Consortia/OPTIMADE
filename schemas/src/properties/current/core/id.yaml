@@ -1,9 +1,10 @@
 title: "ID"
 $id: "https://schemas.optimade.org/properties/v1.2.0/core/id"
 x-optimade-type: "string"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
+  format: "1.2"
 type:
   - "string"
 description: |-

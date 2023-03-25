@@ -5,8 +5,6 @@ alternate-symbols:
   - "n"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/nano"
 description: "The nano SI prefix defined as a dimensionless multiple of 10⁻⁹, defined in 1960."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -19,3 +17,8 @@ defining-relation:
   base-units-expression: ""
   scale:
     exponent: -9
+x-optimade-definition:
+  kind: "constant"
+  format: "1.2"
+  version: "1.2.0"
+

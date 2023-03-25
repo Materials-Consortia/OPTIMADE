@@ -1,0 +1,24 @@
+$$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/nodetype_definition"
+title: "OPTIMADE Node type definition schema"
+type: object
+required: ["$id", "$schema", "x-optimade-definition", "title", "type", "description", "properties"]
+properties:
+  "$id":
+    type: string
+  "$schema":
+    type: string
+  type:
+    type: string
+    const: "object"
+  x-optimade-definition:
+    $$inherit: "x-optimade-definition-field"
+  title:
+    type: string
+  description:
+    type: string
+  properties:
+    type: object
+    additionalProperties:
+      $$inherit: "property_definition"
+additionalProperties: false

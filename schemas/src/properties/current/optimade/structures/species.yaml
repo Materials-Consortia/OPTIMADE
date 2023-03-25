@@ -1,11 +1,12 @@
 title: "Species"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species"
 x-optimade-type: "list"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
-  unit-definitions:
-    - $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
+  format: "1.2"
+x-optimade-unit-definitions:
+  - $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
 type:
   - "array"
   - "null"
@@ -69,151 +70,150 @@ examples:
   - [ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]
 x-optimade-unit: "inapplicable"
 items:
-  tile: "Species declaration"
+  title: "Species declaration"
   x-optimade-type: "dictionary"
   description: |-
     A declaration of a species of the sites of this structure. Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
-
   x-optimade-unit: inapplicable
   type:
     - "object"
   properties:
-    - "name":
-        $$inherit: "/properties/v1.2.0/optimade/common/species_name"
-    - "chemical_symbols":
-        title: "Chemical symbols"
-        x-optimade-type: "list"
+    name:
+      $$inherit: "/properties/v1.2.0/optimade/common/species_name"
+    chemical_symbols:
+      title: "Chemical symbols"
+      x-optimade-type: "list"
+      type:
+        - "array"
+      description: |-
+        The chemical symbols for the elements composing this species.
+
+        **Requirements/Conventions**:
+
+        - MUST be a list of strings of all chemical elements composing this species.
+          Each item of the list MUST be one of the following:
+
+          - a valid chemical-element symbol, or
+          - the special value :val:`"X"` to represent a non-chemical element, or
+          - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
+
+        If any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
+      examples:
+        - ["Na", "Cl"]
+        - ["Si", "Mn", "X", "vacancy"]
+      x-optimade-unit: "inapplicable"
+      items:
+        $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
+    concentration:
+      title: "Concentration"
+      x-optimade-type: "list"
+      type:
+        - "array"
+      description: |-
+        A list of the relative concentrations of the elements composing this species.
+
+        **Requirements/Conventions**:
+
+        - MUST be a list of floats, with same length as `chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
+        - The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
+
+          - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations :val:`1/3` and :val:`2/3`, the concentration might look something like :val:`[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.
+          - Experimental errors in the data present in the database. In this case, it is the responsibility of the client to decide how to process the data.
+
+        Note that concentrations are uncorrelated between different sites (even of the same species).
+      examples:
+        - [1.0]
+        - [0.3333333333333333, 0.2222222222222222, 0.4444444444444444]
+      x-optimade-unit: "inapplicable"
+      items:
+        x-optimade-type: "float"
         type:
-          - "array"
-        description: |-
-          The chemical symbols for the elements composing this species.
+          - "number"
+        x-optimade-unit: "dimensionless"
+        minimum: 0.0
+        maximum: 1.0
+    attached:
+      title: "Attached chemical symbols"
+      x-optimade-type: "list"
+      type:
+        - "array"
+      description: |-
+        The chemical symbols of the elements or non-chemical elements attached to a site that has been assinged this species.
 
-          **Requirements/Conventions**:
+        **Requirements/Conventions**:
 
-          - MUST be a list of strings of all chemical elements composing this species.
-            Each item of the list MUST be one of the following:
+        - MUST be a list of strings of all chemical elements composing this species.
+          Each item of the list MUST be one of the following:
 
-            - a valid chemical-element symbol, or
-            - the special value :val:`"X"` to represent a non-chemical element, or
-            - the special value :val:`"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the :property:`concentration` list, see below).
+          - a valid chemical-element symbol, or
+          - the special value `"X"` to represent a non-chemical element, or
+          - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the `concentration` list, see below).
 
-          If any one entry in the :property:`species` list has a :property:`chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list :property:`structure_features` (see property `structure_features`_).
-        examples:
-          - ["Na", "Cl"]
-          - ["Si", "Mn", "X", "vacancy"]
-        x-optimade-unit: "inapplicable"
-        items:
-          $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
-    - "concentration":
-        title: "Concentration"
-        x-optimade-type: "list"
+        If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`_).
+      examples:
+        - ["Na", "Cl"]
+        - ["Si", "Mn", "X"]
+      x-optimade-unit: "inapplicable"
+      items:
+        $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
+    nattached:
+      title: "Number of attached entities"
+      x-optimade-type: "list"
+      type:
+        - "array"
+      description: |-
+        MUST be a list of length 1 or more of integers indicating the number of attached atoms of the kind specified in the value of the `attached` key.
+
+        **Requirements/Conventions**:
+
+        - The implementation MUST include either both or none of the `attached` and `nattached` keys, and if they are provided, they MUST be of the same length.
+          Furthermore, if they are provided, the `structure_features`_ property MUST include the string `site_attachments`.
+      examples:
+        - [1, 2, 5, 7]
+      x-optimade-unit: "inapplicable"
+      items:
+        x-optimade-type: "integer"
         type:
-          - "array"
-        description: |-
-          A list of the relative concentrations of the elements composing this species.
+          - "integer"
+        x-optimade-unit: "dimensionless"
+        minimum: 0
+    mass:
+      title: "Number of attached entities"
+      x-optimade-type: "list"
+      type:
+        - "array"
+      description: |-
+        MUST be a list of floats, with the same length as `chemical_symbols`, providing element masses expressed in a.m.u.
 
-          **Requirements/Conventions**:
+        **Requirements/Conventions**:
 
-          - MUST be a list of floats, with same length as `chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
-          - The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
-
-            - Numerical errors when representing float numbers in fixed precision, e.g. for two chemical symbols with concentrations :val:`1/3` and :val:`2/3`, the concentration might look something like :val:`[0.33333333333, 0.66666666666]`. If the client is aware that the sum is not one because of numerical precision, it can renormalize the values so that the sum is exactly one.
-            - Experimental errors in the data present in the database. In this case, it is the responsibility of the client to decide how to process the data.
-
-          Note that concentrations are uncorrelated between different sites (even of the same species).
-        examples:
-          - [1.0]
-          - [0.3333333333333333, 0.2222222222222222, 0.4444444444444444]
-        x-optimade-unit: "inapplicable"
-        items:
-          x-optimade-type: "float"
-          type:
-            - "number"
-          x-optimade-unit: "dimensionless"
-          minimum: 0.0
-          maximum: 1.0
-    - "attached":
-        title: "Attached chemical symbols"
-        x-optimade-type: "list"
+        - Elements denoting vacancies MUST have masses equal to 0.
+      examples:
+        - [58.933195, 28.0855]
+      x-optimade-unit: "inapplicable"
+      items:
+        x-optimade-type: "float"
         type:
-          - "array"
-        description: |-
-          The chemical symbols of the elements or non-chemical elements attached to a site that has been assinged this species.
+          - "number"
+        x-optimade-unit: "dalton"
+        minimum: 0.0
+    original_name:
+      title: "Original name"
+      x-optimade-type: "string"
+      type:
+        - "string"
+      description: |-
+        A name for the species that derives from the source database.
 
-          **Requirements/Conventions**:
+        **Requirements/Conventions**:
 
-          - MUST be a list of strings of all chemical elements composing this species.
-            Each item of the list MUST be one of the following:
+        - Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-            - a valid chemical-element symbol, or
-            - the special value `"X"` to represent a non-chemical element, or
-            - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the `concentration` list, see below).
-
-          If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`_).
-        examples:
-          - ["Na", "Cl"]
-          - ["Si", "Mn", "X"]
-        x-optimade-unit: "inapplicable"
-        items:
-          $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
-    - "nattached":
-        title: "Number of attached entities"
-        x-optimade-type: "list"
-        type:
-          - "array"
-        description: |-
-          MUST be a list of length 1 or more of integers indicating the number of attached atoms of the kind specified in the value of the `attached` key.
-
-          **Requirements/Conventions**:
-
-          - The implementation MUST include either both or none of the `attached` and `nattached` keys, and if they are provided, they MUST be of the same length.
-            Furthermore, if they are provided, the `structure_features`_ property MUST include the string `site_attachments`.
-        examples:
-          - [1, 2, 5, 7]
-        x-optimade-unit: "inapplicable"
-        items:
-          x-optimade-type: "integer"
-          type:
-            - "integer"
-          x-optimade-unit: "dimensionless"
-          minimum: 0
-    - "mass":
-        title: "Number of attached entities"
-        x-optimade-type: "list"
-        type:
-          - "array"
-        description: |-
-          MUST be a list of floats, with the same length as `chemical_symbols`, providing element masses expressed in a.m.u.
-
-          **Requirements/Conventions**:
-
-          - Elements denoting vacancies MUST have masses equal to 0.
-        examples:
-          - [58.933195, 28.0855]
-        x-optimade-unit: "inapplicable"
-        items:
-          x-optimade-type: "float"
-          type:
-            - "number"
-          x-optimade-unit: "dalton"
-          minimum: 0.0
-    - "original_name":
-        title: "Original name"
-        x-optimade-type: "string"
-        type:
-          - "string"
-        description: |-
-          A name for the species that derives from the source database.
-
-          **Requirements/Conventions**:
-
-          - Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
-
-            **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
-            The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
-        examples:
-          - "Na[49385]"
-        x-optimade-unit: "inapplicable"
+          **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
+          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+      examples:
+        - "Na[49385]"
+      x-optimade-unit: "inapplicable"
   required:
     - "name"
     - "chemical_symbols"

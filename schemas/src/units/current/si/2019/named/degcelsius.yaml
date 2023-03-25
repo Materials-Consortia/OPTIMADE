@@ -22,3 +22,8 @@ defining-relation:
   offset:
     numerator: 27315
     denominator: 100
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

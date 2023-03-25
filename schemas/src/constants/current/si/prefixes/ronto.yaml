@@ -5,8 +5,6 @@ alternate-symbols:
   - "r"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/ronto"
 description: "The ronto SI prefix defined as a dimensionless multiple of 10^⁻²⁷, defined in 2022."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -19,3 +17,8 @@ defining-relation:
   base-units-expression: ""
   scale:
     exponent: -27
+x-optimade-definition:
+  kind: "constant"
+  format: "1.2"
+  version: "1.2.0"
+

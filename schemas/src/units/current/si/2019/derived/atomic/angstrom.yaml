@@ -20,3 +20,8 @@ defining-relation:
   base-units-expression: "m"
   scale:
     exponent: -10
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

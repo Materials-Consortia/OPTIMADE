@@ -25,3 +25,8 @@ defining-relation:
   base-units-expression: "bit"
   scale:
     numerator: 8
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

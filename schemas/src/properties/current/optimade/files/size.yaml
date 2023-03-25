@@ -1,11 +1,12 @@
 title: "Size"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/size"
 x-optimade-type: "integer"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
-  unit-definitions:
-    - $$inherit: "/units/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte"
+  format: "1.2"
+x-optimade-unit-definitions:
+  - $$inherit: "/units/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte"
 type:
   - "integer"
   - "null"

@@ -1,11 +1,12 @@
 title: "Lattice vectors"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/lattice_vectors"
 x-optimade-type: "list"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
-  unit-definitions:
-    - $$inherit: "/units/v1.2.0/si/2019/derived/atomic/angstrom"
+  format: "1.2"
+x-optimade-unit-definitions:
+  - $$inherit: "/units/v1.2.0/si/2019/derived/atomic/angstrom"
 type:
   - "array"
   - "null"

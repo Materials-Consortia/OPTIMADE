@@ -1,4 +1,4 @@
-tile: "Chemical symbol or vacancy"
+title: "Chemical symbol or vacancy"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
 $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
 description: |-

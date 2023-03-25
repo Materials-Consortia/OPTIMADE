@@ -24,3 +24,8 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/s"
   base-units-expression: "kg*m^2*s^-3"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

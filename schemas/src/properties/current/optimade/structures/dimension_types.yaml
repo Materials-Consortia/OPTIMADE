@@ -1,9 +1,10 @@
 title: "Dimension types"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types"
 x-optimade-type: "list"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
+  format: "1.2"
 type:
   - "array"
   - "null"
@@ -28,7 +29,8 @@ examples:
 x-optimade-unit: "inapplicable"
 items:
   x-optimade-type: integer
-  type: integer
+  type:
+    - "integer"
   x-optimade-unit: "inapplicable"
   description: "The integers 0 and 1 are used to mean false/true in a boolean flag indicating a periodic direction."
   enum:

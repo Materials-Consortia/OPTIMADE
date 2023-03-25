@@ -5,8 +5,6 @@ alternate-symbols:
   - "d"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/2019/prefix/deci"
 description: "The deci SI prefix defined as a dimensionless multiple of 10⁻¹, defined in 1795."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -19,3 +17,8 @@ defining-relation:
   base-units-expression: ""
   scale:
     exponent: -1
+x-optimade-definition:
+  kind: "constant"
+  format: "1.2"
+  version: "1.2.0"
+

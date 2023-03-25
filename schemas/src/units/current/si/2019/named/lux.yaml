@@ -21,3 +21,8 @@ defining-relation:
     - symbol: "m"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
   base-units-expression: "cd*m^-2*sr"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

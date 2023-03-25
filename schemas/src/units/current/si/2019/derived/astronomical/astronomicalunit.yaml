@@ -21,3 +21,8 @@ defining-relation:
   base-units-expression: "m"
   scale:
     numerator: 149597870700
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

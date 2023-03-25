@@ -22,3 +22,8 @@ defining-relation:
   scale:
     numerator: 1602176634
     exponent: -28
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

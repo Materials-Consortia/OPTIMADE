@@ -21,3 +21,8 @@ defining-relation:
   base-units-expression: "s"
   scale:
     numerator: 3600
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

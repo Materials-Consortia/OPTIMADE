@@ -23,3 +23,8 @@ defining-relation:
   base-units-expression: "pi*rad"
   scale:
     denomenator: 648000
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

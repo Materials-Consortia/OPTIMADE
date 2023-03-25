@@ -1,0 +1,44 @@
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/x-optimade-definition-field"
+type: object
+required: ["kind", "format"]
+properties:
+  kind:
+    type: string
+    description: |-
+      Specifies the kind of Property Definition.
+    enum: ["property", "unit", "constant", "nodetype", "standard"]
+  format:
+    description: |-
+      Specifies the minor version of the Property Definitions format that the definition is expressed in.
+      This field MUST be included in standalone definitions, i.e., when they are not embedded inside other definitions or contexts that already declares a Property Definitions format.
+    pattern: ^[0-9]+\.[0-9]+$
+  version:
+    description: |-
+      The version string of the referenced standard.
+      The string SHOULD be in the format described by the [semantic versioning v2](https://semver.org/spec/v2.0.0.html) standard.
+    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+    $comment: "This pattern is the suggested regular expression from: https://semver.org/spec/v2.0.0.html"
+    type: string
+  resources:
+    type: array
+    description: |-
+      A list of dictionaries that reference remote resources that describe the unit.
+    items:
+      type: object
+      properties:
+        relation:
+          description: |-
+            A human-readable description of the relationship between the unit and the remote resource, e.g., a "natural language description".
+          type: string
+        resource-id:
+          description: |-
+            An IRI of the external resource (which MAY be a resolvable URL).
+          format: iri
+          type: string
+      required: ["relation","resource-id"]
+      patternProperties:
+        "^x-": {}
+      additionalProperties: false
+patternProperties:
+  "^x-": {}
+additionalProperties: false

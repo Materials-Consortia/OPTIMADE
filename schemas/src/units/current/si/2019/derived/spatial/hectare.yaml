@@ -21,3 +21,8 @@ defining-relation:
   base-units-expression: "m^2"
   scale:
     exponent: 4
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

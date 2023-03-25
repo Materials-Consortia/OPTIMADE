@@ -32,7 +32,7 @@ Examples:
 
 """
 
-import argparse, io, codecs, os, sys, logging, traceback
+import argparse, io, codecs, os, sys, logging, traceback, pprint
 from collections import OrderedDict
 import urllib.parse
 import urllib.request
@@ -176,9 +176,27 @@ class ExceptionWrapper(Exception):
 
 def validate(instance, schemas={}, schema=None):
     import jsonschema
+    from jsonschema import RefResolver
+
+    def retrieve_from_filesystem(uri: str):
+        if not uri.startswith("http://localhost/"):
+            raise NoSuchResource(ref=uri)
+        path = Path("/tmp/schemas") / Path(uri.removeprefix("http://localhost/"))
+        contents = json.loads(path.read_text())
+        return Resource.from_contents(contents)
+
+    if '$schema' in instance:
+        schema_id = instance['$schema']
+    else:
+        schema_id = None
+
+    if '$id' in instance:
+        iid = instance['$id']
+    else:
+        iid = None
+
     if schema is None:
-        if '$schema' in instance:
-            schema_id = instance['$schema']
+        if schema_id is not None:
             if schema_id in schemas:
                 schema = schemas[schema_id]
             else:
@@ -191,10 +209,33 @@ def validate(instance, schemas={}, schema=None):
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
     try:
-        jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker())
+        logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
+
+        resolver = RefResolver.from_schema(schema=schema, store=schemas)
+
+        #schema = Resource.from_contents(
+        #    {
+        #        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        #        "type": "integer",
+        #        "minimum": 0,
+        #    },
+        #)
+        #registry = Registry(retrieve=retrieve_from_filesystem).with_resources(
+        #    [
+        #        ("http://example.com/nonneg-int-schema", schema),
+        #        ("urn:nonneg-integer-schema", schema),
+        #    ],
+        #)
+        jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
     except jsonschema.ValidationError as e:
-        logging.debug("Schema validation failed, full output: "+str(e))
-        raise Exception("Schema validation failed: "+str(e.message)+". Error at JSON path: /"+("/".join([str(x) for x in e.path]))+".")
+        logging.debug("Schema validation failed, full output:\n"+str(e))
+        logging.debug("Data being validated:\n"+str(instance))
+        raise Exception("Schema validation failed:\n"+
+                        "  - Instance id: "+str(iid)+"\n"+
+                        "  - Schema: "+str(schema_id)+"\n"+
+                        "  - Instance path: "+("/".join([str(x) for x in e.absolute_path]))+"\n"+
+                        "  - Schema path: "+("/".join([str(x) for x in e.absolute_schema_path]))+"\n"+
+                        "  - Error: "+str(e.message)+"\n")
 
     except jsonschema.SchemaError as e:
         logging.debug("Invalid schema: "+str(e))
@@ -503,7 +544,7 @@ def merge_deep(d, other, replace=True):
             d[other_key] = other_val
 
 
-def handle_all(data, bases, subs, args, level=0):
+def handle_all(data, bases, subs, args, level):
     """
     Recursively handles all '$$inherit' references and perform substitutions in the input data.
 
@@ -534,7 +575,7 @@ def handle_all(data, bases, subs, args, level=0):
     if isinstance(data, list):
         for i in range(len(data)):
             if isinstance(data[i], dict) or isinstance(data[i], list):
-                data[i] = handle_all(data[i], bases, subs, args)
+                data[i] = handle_all(data[i], bases, subs, args, level=level+1)
         return data
 
     elif isinstance(data, dict):
@@ -557,30 +598,30 @@ def handle_all(data, bases, subs, args, level=0):
                     newbases = bases.copy()
                     source = inherit_to_source(inherit, bases)
                     newbases['self'] = os.path.dirname(source)
-                    output = handle_all(output, newbases, subs, args)
+                    output = handle_all(output, newbases, subs, args, level=level+1)
 
-                if '$$keep' in output:
-                    logging.debug("Handling $$keep preprocessor directive: %s",output['$$exclude'])
-                    for key in list(output.keys()):
-                        if key not in output['$$keep']:
-                            del output[key]
-                    del output['$$keep']
+            if '$$keep' in data:
+                logging.debug("Handling $$keep preprocessor directive: %s",data['$$keep'])
+                for key in list(output.keys()):
+                    if key not in data['$$keep']:
+                        del output[key]
+                del data['$$keep']
 
-                if '$$exclude' in output:
-                    logging.debug("Handling $$exclude preprocessor directive: %s",output['$$exclude'])
-                    for item in output['$$exclude']:
-                        pointer = re.split(r'(?<!\\)/', item)
-                        loc = output
-                        while len(pointer) > 1:
-                            key = pointer.pop(0)
-                            if key in loc:
-                                loc = loc[key]
-                            else:
-                                raise Exception("$$exclude path pointer invalid:",item)
-                        del loc[pointer[0]]
+            if '$$exclude' in data:
+                logging.debug("Handling $$exclude preprocessor directive: %s",data['$$exclude'])
+                for item in data['$$exclude']:
+                    pointer = re.split(r'(?<!\\)/', item)
+                    loc = output
+                    while len(pointer) > 1:
+                        key = pointer.pop(0)
+                        if key in loc:
+                            loc = loc[key]
+                        else:
+                            raise Exception("$$exclude path pointer invalid:",item)
+                    del loc[pointer[0]]
+                del data['$$exclude']
 
-                merge_deep(data, output, replace=False)
-
+            merge_deep(data, output, replace=False)
             del data['$$inherit']
 
         if '$$schema' in data:
@@ -592,7 +633,7 @@ def handle_all(data, bases, subs, args, level=0):
 
         for k, v in list(data.items()):
             if isinstance(v, dict) or isinstance(v, list):
-                data[k] = handle_all(v, bases, subs, args)
+                data[k] = handle_all(v, bases, subs, args, level=level+1)
             if args.remove_null and v is None:
                 del data[k]
 
@@ -644,7 +685,7 @@ def process(source, bases, subs, args):
                     raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
             bases = {'id': id_uri[:-len(rel_source)], 'dir': bases['dir'] }
 
-    data = handle_all(data, bases, subs, args)
+    data = handle_all(data, bases, subs, args, level=0)
 
     return data
 

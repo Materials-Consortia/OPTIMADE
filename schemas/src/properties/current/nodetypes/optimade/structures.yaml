@@ -1,6 +1,10 @@
-$id: "https://schemas.optimade.org/types/v1.2.0/structures"
+$id: "https://schemas.optimade.org/properties/v1.2.0/nodetypes/structures"
 title: "Structures"
 description: "Structures"
+x-optimade-definition:
+  kind: "nodetype"
+  format: "1.2"
+  version: "1.2.0"
 type: object
 properties:
   id:

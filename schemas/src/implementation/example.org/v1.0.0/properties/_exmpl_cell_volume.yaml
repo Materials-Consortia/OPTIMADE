@@ -9,7 +9,7 @@ x-optimade-property:
   unit-definitions:
     - $$inherit: "/units/v1.2.0/si/2019/derived/atomic/angstrom"
 type:
-  - "array"
+  - "number"
   - "null"
 description: |-
   The volume of the unit cell in in ångström cubed ($\AA^3$).

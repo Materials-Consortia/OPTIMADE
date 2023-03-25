@@ -25,3 +25,8 @@ defining-relation:
     - symbol: "ampere"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
   base-units-expression: "ampere^-1*kg*m^2*s^-3"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+

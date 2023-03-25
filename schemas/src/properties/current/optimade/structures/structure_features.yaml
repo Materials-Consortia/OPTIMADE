@@ -1,9 +1,10 @@
 title: "Structure features"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structure/structure_features"
 $$inherit: "/properties/v1.2.0/core/features"
-x-optimade-property:
+x-optimade-definition:
+  kind: "property"
   version: "1.2.0"
-  property-format: "1.2"
+  format: "1.2"
 description: |-
   A list of strings that flag which special features are used by the structure.
 

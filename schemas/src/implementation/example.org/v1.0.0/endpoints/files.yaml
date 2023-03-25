@@ -1,6 +1,9 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint_definition"
-$$inherit: "/properties/v1.2.0/types/optimade/files"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint"
+$id: "https://example.com/schemas/v1.0.0/endpoints/files"
 type: object
+title: "example.com files endpoint"
+$$inherit: "/properties/v1.2.0/nodetypes/optimade/files"
+$$keep: ["properties"]
 properties:
   id:
     x-optimade-implementation:

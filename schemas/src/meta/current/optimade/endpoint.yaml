@@ -1,8 +1,8 @@
-$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/type_definition"
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint"
 $schema: "https://json-schema.org/draft/2020-12/schema"
-title: "OPTIMADE Type Definition schema"
+title: "OPTIMADE Endpoint Definition schema"
 type: object
-required: ["$id", "$schema", "title", "type", "description", "properties"]
+required: ["$id", "$schema", "title", "type", "properties"]
 properties:
   "$id":
     type: string
@@ -14,6 +14,8 @@ properties:
     type: string
   properties:
     type: object
+    additionalProperties:
+      $$inherit: "property_definition"
   type:
     type: string
 additionalProperties: false

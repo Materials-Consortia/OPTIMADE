@@ -5,8 +5,6 @@ alternate-symbols:
   - "Q"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/quetta"
 description: "The quetta prefix defined as a dimensionless multiple of 10³⁰, although it is not an official SI prefix, defined in 2022."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -19,3 +17,8 @@ defining-relation:
   base-units-expression: ""
   scale:
     exponent: 30
+x-optimade-definition:
+  kind: "constant"
+  format: "1.2"
+  version: "1.2.0"
+
