@@ -6,9 +6,11 @@ x-optimade-definition:
   kind: "standard"
   format: "1.2"
   version: "1.2.0"
+type:
+  - object
+properties:
+  structures:
+    $$inherit: "/properties/v1.2.0/nodetypes/optimade/structures"
 
-structures:
-  $$inherit: "/properties/v1.2.0/nodetypes/optimade/structures"
-
-files:
-  $$inherit: "/properties/v1.2.0/nodetypes/optimade/files"
+  files:
+    $$inherit: "/properties/v1.2.0/nodetypes/optimade/files"

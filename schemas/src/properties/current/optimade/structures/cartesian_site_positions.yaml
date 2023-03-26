@@ -20,7 +20,7 @@ description: |-
 
   **Explained examples**:
 
-  - :val:`[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
+  - `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 examples:
   - [[0,0,0],[0,0,2]]
 x-optimade-unit: "inapplicable"

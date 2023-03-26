@@ -30,15 +30,19 @@ Examples:
   # Process all files in a directory and write the output to a file:
   process_schemas.py dir -o output.json
 
+Dependencies:
+  - apt install python3-yaml python3-jsonschema python3-markdown python3-mdx-math python3-pygments
+  - pip install PyYAML jsonschema python-markdown python-markdown-math pygments
+
 """
 
-import argparse, io, codecs, os, sys, logging, traceback, pprint
+import argparse, io, codecs, os, sys, logging, traceback, pprint, posixpath
 from collections import OrderedDict
 import urllib.parse
 import urllib.request
 
 supported_input_formats = ['json', 'yaml']
-supported_output_formats = ["json", "yaml", "md"]
+supported_output_formats = ["json", "yaml", "md", "html"]
 
 arguments = [
     {
@@ -123,6 +127,84 @@ arguments = [
     },
 
 ]
+
+codehilite_css = """
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #FF0000 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #0044DD } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #880000 } /* Name.Constant */
+.codehilite .nd { color: #AA22FF } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #0000FF } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+.codehilite .mb { color: #666666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #0000FF } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+"""
+
 
 class ExceptionWrapper(Exception):
     """
@@ -306,7 +388,32 @@ def read_data(source, input_format='auto', preserve_order=True):
             reader.close()
 
 
-def data_to_md(data, level=0):
+def md_header(s, level, style="display"):
+    """
+    Format string as markdown header
+    """
+    md_display_headers=["-", "="]
+    md_headers=["#", "##", "###", "####", "#####", "######"]
+    if level <= 1 and style=="display":
+        out = s + "\n"
+        out += md_display_headers[level]*len(s)+"\n\n"
+    else:
+        out = md_headers[level] + " " + s + "\n"
+    return out
+
+def data_get_basics(data):
+    basics = {'title':"*[untitled]*", 'description_short':"", 'description_details':"", 'examples':"", 'kind':"*[unknown]*", 'Kind':"*[Unknown]*"}
+    if 'x-optimade-definition' in data and 'kind' in data['x-optimade-definition']:
+        basics['kind'] = data['x-optimade-definition']['kind']
+    if 'title' in data:
+        basics['title'] = str(data['title'])
+    if 'description' in data:
+        basics['description_short'], sep, basics['description_details'] = [x.strip() for x in data['description'].partition('\n\n')]
+    if 'examples' in data:
+        basics['examples'] = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
+    return basics
+
+def aggregate_definition_to_md(data, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -320,74 +427,266 @@ def data_to_md(data, level=0):
     str
         A string representation of the input data.
     """
+    basics = data_get_basics(data)
 
-    headers=["-", "=", "###", "####", "#####", "######"]
+    s = ""
+    title = (basics['title'] + " ("+basics['kind']+")") if basics['kind'] != "" else basics['title']
+    s += md_header(title, level, style="normal")
 
-    if not "x-optimade-property" in data:
-        s = ""
-        for item in sorted(data.keys()):
-            try:
-                if isinstance(data[item], dict):
-                    if level <= 2:
-                        s += item + "\n"
-                        s += headers[level]*len(item)+"\n\n"
-                    else:
-                        s += headers[level] + " " + item + "\n"
-                    s += data_to_md(data[item], level=level+1)
-                elif item == "$id":
-                    continue
-                else:
-                    raise Exception("Internal error, unexpected data for data_to_md: "+str(data))
-                    exit(0)
-            except Exception as e:
-                raise ExceptionWrapper("Could not process item: "+item,e)
+    s += "This page documents an [OPTIMADE](https://www.optimade.org/) ["+(basics['kind'].capitalize())+" Definition](https://schemas.optimade.org/#definitions). "
+    s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
+
+    if '$id' in data:
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**\n\n"
+
+    s += "**"+(basics['kind'].capitalize())+" name:** "+basics['title']+"  \n"
+    if basics['description_short'] != "":
+        s += "**Description:** "+str(basics['description_short'])+"  \n"
+    if basics['description_details'] != "":
+        s += basics['description_details']+"\n"
+    if '$id' in data:
+        basename = os.path.basename(data['$id'])
+        s += "\n**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
+
+    if 'properties' in data and isinstance(data['properties'],dict):
+        s += "\n"
+        s += "This "+basics['kind'] + " defines:\n\n"
+        for prop in data['properties'].keys():
+            inner = data['properties'][prop]
+            inner_basics = data_get_basics(inner)
+            kind = inner_basics['kind']
+
+            if '$id' in inner:
+                url = inner['$id']
+                if '$id' in data:
+                    base=urllib.parse.urlparse(data['$id'])
+                    target=urllib.parse.urlparse(inner['$id'])
+                    if base.netloc == target.netloc:
+                        base_dir='.'+posixpath.dirname(base.path)
+                        target='.'+target.path
+                        url = posixpath.relpath(target,start=base_dir)
+                s += "* **["+prop+"]("+url+")** ("+kind+") - `"+inner['$id']+"` \n"
             s += "\n"
-        return s
+
+    s += "\n"
+    s += "**JSON definition:**\n"
+    s += general_to_md(data)
+
+    return s
+
+def single_definition_to_md(data, level=0):
+    """
+    Convert data representing OPTIMADE Property Definitions into a markdown string.
+
+    Parameters
+    ----------
+    data : dict
+        A dictionary containing the OPTIMADE Property Definition data.
+
+    Returns
+    -------
+    str
+        A string representation of the input data.
+    """
+    basics = data_get_basics(data)
+
+    s = ""
+    title = (basics['title'] + " ("+basics['kind']+")") if basics['kind'] != "" else basics['title']
+    s += md_header(title, level, style="normal")
+
+    s += "This page documents an [OPTIMADE](https://www.optimade.org/) ["+(basics['kind'].capitalize())+" Definition](https://schemas.optimade.org/#definitions). "
+    s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
+
+    if '$id' in data:
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**\n\n"
+
+    s += "**"+(basics['kind'].capitalize())+" name:** "+basics['title']+"  \n"
+    s += "**Description:** "+str(basics['description_short'])+"  \n"
+    s += basics['description_details']+"\n\n"
+    s += "**Examples:**\n\n"+basics['examples']+"\n"
+    if '$id' in data:
+        s += "\n**Formats:** [JSON] [MD]\n"
+
+    s += "\n"
+    s += "**JSON definition:**\n"
+    s += general_to_md(data)
+
+    return s
+
+def general_to_md(data, level=0):
+    """
+    Convert data representing OPTIMADE Property Definitions into a markdown string.
+
+    Parameters
+    ----------
+    data : dict
+        A dictionary containing the OPTIMADE Property Definition data.
+
+    Returns
+    -------
+    str
+        A string representation of the input data.
+    """
+    import json
+
+    s = "\n``` json\n"
+    s += json.dumps(data, indent=4)
+    s += "\n```"
+    return s
+
+def property_definition_to_md(data, level=0):
+    """
+    Convert data representing OPTIMADE Property Definitions into a markdown string.
+
+    Parameters
+    ----------
+    data : dict
+        A dictionary containing the OPTIMADE Property Definition data.
+
+    Returns
+    -------
+    str
+        A string representation of the input data.
+    """
+    s = ""
 
     support_descs = {
+        None: "Not specified.",
         "must": "MUST be supported by all implementations, MUST NOT be :val:`null`.",
         "should": "SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.",
         "may": "OPTIONAL support in implementations, i.e., MAY be :val:`null`."
     }
     query_support_descs = {
+        None: "Not specified.",
         "all mandatory" : "MUST be a queryable property with support for all mandatory filter features.",
         "equality only" : "MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.",
         "partial" : "MUST be a queryable property.",
         "none": "Support for queries on this property is OPTIONAL."
     }
 
-    title = data['title']
-    description_short, sep, description_details = [x.strip() for x in data['description'].partition('**Requirements/Conventions:**')]
-    examples = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
+    basics = data_get_basics(data)
 
-    req_support_level, req_sort, req_query = ["Not specified"]*3
+    req_support, req_sort, req_query, req_response = [None]*4
     req_partial_info = ""
     if 'x-optimade-requirements' in data:
-        if 'support' in data['x-optimade-requirements']:
-            req_support = data['x-optimade-requirements']['support']
-        if 'sortable' in data['x-optimade-requirements']:
-            req_sort = data['x-optimade-requirements']['sortable']
-        if 'query-support' in data['x-optimade-requirements']:
-            req_query = data['x-optimade-requirements']['query-support']
-            if req_query == "partial":
-                req_partial_info = "The following filter language features MUST be supported: "+", ".join(data['x-optimade-requirements']['query-support-operators'])
+        reqs = data['x-optimade-requirements']
+        req_support = reqs['support'] if 'support' in reqs else None
+        req_sort = reqs['sortable'] if 'sortable' in reqs else None
+        req_query = reqs['query-support'] if 'query-support' in reqs else None
+        req_response = reqs['response-level'] if 'response-level' in reqs else None
+        if req_query == "partial":
+            req_partial_info = "The following filter language features MUST be supported: "+", ".join(data['x-optimade-requirements']['query-support-operators'])
 
     #TODO: need to iterate through dicts, lists to get the full type
     optimade_type = data['x-optimade-type']
 
-    s = "**Name**: "+str(title)+"\n"
-    s += "**Description**: "+str(description_short)+"\n"
-    s += "**Type**: "+str(optimade_type)+"\n"
-    s += "**Requirements/Conventions**:\n"
-    s += "- **Support**: "+support_descs[req_support]+"\n"
-    s += "- **Query**: "+query_support_descs[req_query]+"\n"
-    s += "- **Response**:\n"
-    s += description_details+"\n"
-    s += "**Examples**:\n\n"+examples
+    s = ""
+
+    title = (basics['title'] + " ("+basics['kind']+")") if basics['kind'] != "" else basics['title']
+    s += md_header(title, level, style="normal")
+
+    s += "This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definition](https://schemas.optimade.org/#definitions). "
+    s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
+
+    if '$id' in data:
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n\n"
+
+    s += "**Property name:** "+basics['title']+"  \n"
+    s += "**Description:** "+basics['description_short']+"  \n"
+    s += "**Type:** "+str(optimade_type)+"  \n"
+    if 'x-optimade-requirements' in data:
+        s += "**Implementation requirements:**  \n"
+        s += "- **Support:** "+support_descs[req_support]+"  \n\n"
+        s += "- **Query:** "+query_support_descs[req_query]+"  \n"
+        if req_response is not None:
+            s += "- **Response:**  \n"
     s += "\n"
+    s += basics['description_details']+"\n\n"
+    s += "**Examples:**\n\n"
+    s += basics['examples']+"\n"
+    s += "\n"
+    s += "**JSON definition:**\n"
+    s += general_to_md(data)
 
     return s
 
+def data_to_md(data, level=0):
+    """
+    Convert data representing OPTIMADE Definitions of different kinds into a markdown string.
+
+    Parameters
+    ----------
+    data : dict
+        A dictionary containing the OPTIMADE Property Definition data.
+
+    Returns
+    -------
+    str
+        A string representation of the input data.
+    """
+
+    s = ""
+    if not "x-optimade-definition" in data:
+        if 'title' in data:
+            basics = data_get_basics(data)
+            s += md_header(basics['title'], level, style="display")
+            s += general_to_md(data)
+            return s
+        for item in sorted(data.keys()):
+            try:
+                if isinstance(data[item], dict):
+                    s += md_header(item, level, style="display")
+                    s += data_to_md(data[item], level=level+1)
+                #elif item == "$id":
+                #    continue
+                #else:
+                #    raise Exception("Internal error, unexpected data for data_to_md: "+str(data))
+                #    exit(0)
+            except Exception as e:
+                raise ExceptionWrapper("Could not process item: "+item,e)
+            s += "\n"
+        return s
+
+    if not "kind" in data['x-optimade-definition']:
+        raise Exception("x-optimade-definition encountered without a 'kind' field.")
+    kind = data['x-optimade-definition']['kind']
+
+    if kind == 'property':
+        s += property_definition_to_md(data, level)
+    elif kind in ['unit', 'constant']:
+        s += single_definition_to_md(data, level)
+    elif kind in ['standard', 'nodetype']:
+        s += aggregate_definition_to_md(data, level)
+    else:
+        raise Exception("Unknown kind in x-optimade-definition: "+str(data['x-optimade-definition']['kind']))
+
+    return s
+
+def data_to_html(data):
+
+    import markdown
+
+    htmldoc = """<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js">
+    </script>
+    <title>%(title)s</title>
+    <style>%(style)s</style>
+  </head>
+<body>
+%(body)s
+</body>
+</html>
+"""
+    title = str(data['title']) if 'title' in data else "?"
+    s = data_to_md(data)
+    md = markdown.Markdown(output_format="html5",
+                           extensions = ['mdx_math', 'codehilite', 'fenced_code'],
+                           extension_configs={'mdx_math': {"enable_dollar_delimiter": True}})
+    body = md.convert(s)
+    return htmldoc % { 'title':title, 'body':body, 'style': codehilite_css}
 
 def output_str(data, output_format='json'):
     """
@@ -414,6 +713,8 @@ def output_str(data, output_format='json'):
         return yaml.dump(data)
     elif output_format == "md":
         return data_to_md(data)
+    elif output_format == "html":
+        return data_to_html(data)
     else:
         raise Exception("Unknown output format: "+str(output_format))
 

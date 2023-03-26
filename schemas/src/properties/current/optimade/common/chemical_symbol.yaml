@@ -13,7 +13,7 @@ description: |-
   - Must be one of the following:
 
     - a valid chemical-element symbol, or
-    - the special value :val:`"X"` to represent a non-chemical element, or
+    - the special value `"X"` to represent a non-chemical element, or
 x-optimade-unit: inapplicable
 examples:
   - "He"

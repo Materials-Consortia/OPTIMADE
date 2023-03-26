@@ -1,4 +1,5 @@
-$id: "https://schemas.optimade.org/properties/v1.2.0/nodetypes/structures"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/nodetype_definition"
+$id: "https://schemas.optimade.org/properties/v1.2.0/nodetypes/optimade/structures"
 title: "Structures"
 description: "Structures"
 x-optimade-definition:

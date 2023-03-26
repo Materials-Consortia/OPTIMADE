@@ -13,8 +13,8 @@ description: |-
 
   **Requirements/Conventions**:
 
-  - Intricate queries on formula components are suggested to be formulated using set-type filter operators on the multi valued :property:`elements` and :property:`elements_ratios` properties.
-  - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
+  - Intricate queries on formula components are suggested to be formulated using set-type filter operators on the multi valued `elements` and `elements_ratios` properties.
+  - Element symbols MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
   - Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
   - For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
   - For structures with partial occupation, the chemical proportion numbers are integers that within reasonable approximation indicate the correct chemical proportions. The precise details of how to perform the rounding is chosen by the API implementation.

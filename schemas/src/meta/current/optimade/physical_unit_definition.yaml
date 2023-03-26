@@ -111,7 +111,7 @@ properties:
           A dictionary specifying the scale in the defining relation.
 
           The three fields `numerator`, `denominator`, and `exponent` specify the value as the rational number `numerator` / `denominator`, multiplied by 10 to the power of `exponent`.
-          If omitted or :val:`null`, the defaults for the `numerator`, `denominator`, and `exponent` are respectively 1, 1, and 0.
+          If omitted or `null`, the defaults for the `numerator`, `denominator`, and `exponent` are respectively 1, 1, and 0.
         patternProperties:
           "^_": {}
         properties:

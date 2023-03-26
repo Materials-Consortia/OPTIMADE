@@ -23,8 +23,8 @@ description: |-
   **Query examples**:
 
   - Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
-  - A filter that matches an exactly given formula: :filter:`chemical_formula_descriptive="(H2O)2 Na"`.
-  - A filter that does a partial match: :filter:`chemical_formula_descriptive CONTAINS "H2O"`.
+  - A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
+  - A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
 examples:
   - "(H2O)2 Na"
   - "NaCl"

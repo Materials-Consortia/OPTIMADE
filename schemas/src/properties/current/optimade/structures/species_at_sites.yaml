@@ -21,8 +21,8 @@ description: |-
 
   **Explained examples**:
 
-  - `["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`
-  - `["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
+  - `["Ti","O2"]` indicates that the first site is hosting a species labeled `"Ti"` and the second a species labeled `"O2"`
+  - `["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the `"Ac"` species, while the third and fourth sites contain the `"Ag"` and `"Ir"` species, respectively.
 examples:
   - ["Ti","O2"]
   - ["Ac", "Ac", "Ag", "Ir"]
