@@ -9,12 +9,12 @@ type:
   - "array"
   - "null"
 description: |-
-  Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_). The properties of the species are found in the property `species`_.
+  Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`). The properties of the species are found in the property `species`.
 
   **Requirements/Conventions**:
 
-  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
-  - Each species name mentioned in the `species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the `species_at_sites` list there MUST exist exactly one dictionary in the `species` list with the `name` attribute equal to the corresponding `species_at_sites` value).
+  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`).
+  - Each species name mentioned in the `species_at_sites` list MUST be described in the list property `species` (i.e. for each value in the `species_at_sites` list there MUST exist exactly one dictionary in the `species` list with the `name` attribute equal to the corresponding `species_at_sites` value).
   - Each site MUST be associated only to a single species.
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
     This latter case is useful when different atoms of the same type need to be grouped or distinguished, for instance in simulation codes to assign different initial spin states.

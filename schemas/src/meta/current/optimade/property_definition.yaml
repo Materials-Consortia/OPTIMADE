@@ -110,7 +110,7 @@ $defs:
       type:
         description: |-
             Specifies the corresponding JSON type for this level of the defined property and whether the property can be `null` or not.
-            The value is directly correlated with `x-optimade-type` (cf. the `definition of the x-optimade-type field`_).
+            The value is directly correlated with `x-optimade-type` (cf. the `definition of the x-optimade-type field`).
 
             It MUST be a list of one or two elements where the first element is a string correlated with `x-optimade-type` as follows; if `x-optimade-type` is:
             * `"boolean"`, `"string"`, or `"integer"` then `type` is the same string.

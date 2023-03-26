@@ -25,7 +25,7 @@ description: |-
       - the special value `"X"` to represent a non-chemical element, or
       - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the `concentration` list, see below).
 
-      If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`_).
+      If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`).
 
     - **concentration**: REQUIRED; MUST be a list of floats, with same length as `chemical_symbols`. The numbers represent the relative concentration of the corresponding chemical symbol in this species.
       The numbers SHOULD sum to one. Cases in which the numbers do not sum to one typically fall only in the following two categories:
@@ -39,14 +39,14 @@ description: |-
     - **nattached**: OPTIONAL; if provided MUST be a list of length 1 or more of integers indicating the number of attached atoms of the kind specified in the value of the `attached` key.
 
       The implementation MUST include either both or none of the `attached` and `nattached` keys, and if they are provided, they MUST be of the same length.
-      Furthermore, if they are provided, the `structure_features`_ property MUST include the string `site_attachments`.
+      Furthermore, if they are provided, the `structure_features` property MUST include the string `site_attachments`.
 
     - **mass**: OPTIONAL. If present MUST be a list of floats, with the same length as `chemical_symbols`, providing element masses expressed in a.m.u.
       Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
           **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
-          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., `"Ti"` for titanium, `"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
@@ -97,7 +97,7 @@ items:
           - the special value `"X"` to represent a non-chemical element, or
           - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the `concentration` list, see below).
 
-        If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`_).
+        If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`).
       examples:
         - ["Na", "Cl"]
         - ["Si", "Mn", "X", "vacancy"]
@@ -149,7 +149,7 @@ items:
           - the special value `"X"` to represent a non-chemical element, or
           - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the `concentration` list, see below).
 
-        If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`_).
+        If any one entry in the `species` list has a `chemical_symbols` list that is longer than 1 element, the correct flag MUST be set in the list `structure_features` (see property `structure_features`).
       examples:
         - ["Na", "Cl"]
         - ["Si", "Mn", "X"]
@@ -167,7 +167,7 @@ items:
         **Requirements/Conventions**:
 
         - The implementation MUST include either both or none of the `attached` and `nattached` keys, and if they are provided, they MUST be of the same length.
-          Furthermore, if they are provided, the `structure_features`_ property MUST include the string `site_attachments`.
+          Furthermore, if they are provided, the `structure_features` property MUST include the string `site_attachments`.
       examples:
         - [1, 2, 5, 7]
       x-optimade-unit: "inapplicable"
@@ -210,7 +210,7 @@ items:
         - Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
           **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
-          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`).
       examples:
         - "Na[49385]"
       x-optimade-unit: "inapplicable"

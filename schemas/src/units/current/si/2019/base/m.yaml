@@ -4,7 +4,7 @@ symbol: "m"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
 description: |-
   The metre (or meter) is the SI base unit of length defined according to the 2019 redefinition of the SI base units.
-  It is defined by taking the fixed numerical value of the speed of light in vacuum $c$ to be 299792458 when expressed in the unit m⋅s⁻¹, where the second is defined in terms of the caesium frequency $\Delta \nu_\textrm{Cs}$ [The International System of Units (SI), 9th Edition].
+  It is defined by taking the fixed numerical value of the speed of light in vacuum \(c\) to be 299792458 when expressed in the unit m⋅s⁻¹, where the second is defined in terms of the caesium frequency \(\Delta \nu_\textrm{Cs}\) [The International System of Units (SI), 9th Edition].
 version: "1.2.0"
 property-format: "1.2"
 standard:

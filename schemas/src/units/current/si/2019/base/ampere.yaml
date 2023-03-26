@@ -6,7 +6,7 @@ alternate-symbols:
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
 description: |-
   The ampere is the SI base unit of electric current defined according to the 2019 redefinition of the SI base units.
-  It is defined by taking the fixed numerical value of the elementary charge $e$ to be 1.602176634×10⁻¹⁹ when expressed in the unit C, which is equal to A⋅s, where the second is defined in terms of $\Delta \nu_\textrm{Cs}$ [The International System of Units (SI), 9th Edition].
+  It is defined by taking the fixed numerical value of the elementary charge \(e\) to be 1.602176634×10⁻¹⁹ when expressed in the unit C, which is equal to A⋅s, where the second is defined in terms of \(\Delta \nu_\textrm{Cs}\) [The International System of Units (SI), 9th Edition].
 version: "1.2.0"
 property-format: "1.2"
 standard:

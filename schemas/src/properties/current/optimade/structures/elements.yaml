@@ -23,7 +23,7 @@ description: |-
 
   - A filter that matches all records of structures that contain Si, Al **and** O, and possibly other elements: `elements HAS ALL "Si", "Al", "O"`.
   - To match structures with exactly these three elements, use `elements HAS ALL "Si", "Al", "O" AND elements LENGTH 3`.
-  - Note: length queries on this property can be equivalently formulated by filtering on the `nelements`_ property directly.
+  - Note: length queries on this property can be equivalently formulated by filtering on the `nelements` property directly.
 examples:
   - ['Al', 'Si', 'O']
   - ['He']

@@ -1,8 +1,0 @@
-$$inherit: "/json-schema/current/optimade"
-title: "Schema for example.com"
-description: "This is a schema for example.com OPTIMADE responses."
-endpoints:
-  structures:
-    $$inherit: "/implementation/example.org/v1.0.0/endpoints/structures"
-  files:
-    $$inherit: "/implementation/example.org/v1.0.0/endpoints/files"

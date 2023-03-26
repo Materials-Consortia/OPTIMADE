@@ -18,10 +18,10 @@ description: |-
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension\_types`_.
+  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`.
     The vectors SHOULD by convention be chosen so the determinant of the `lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension\_types`_ is `0`) MAY be given as a list of all `null` values.
+  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types` is `0`) MAY be given as a list of all `null` values.
     If a lattice vector contains the value `null`, all coordinates of that lattice vector MUST be `null`.
 
   **Explained examples**:

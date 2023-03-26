@@ -150,7 +150,7 @@ properties:
     description: |-
       Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
       (The Physical Units Definition format is not versioned independently.)
-      The format is the same as described above for the `definition of the property-format field`_ in Property Definitions.
+      The format is the same as described above for the `definition of the property-format field` in Property Definitions.
       This field MUST be included when Physical Unit Definitions are used standalone, i.e., when they are not embedded inside a Property Definition that already declares a `property-format` at the top level.
     type: string
   resources:

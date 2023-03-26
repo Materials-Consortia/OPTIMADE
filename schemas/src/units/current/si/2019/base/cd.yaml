@@ -4,7 +4,7 @@ symbol: "cd"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/cd"
 description: |-
   The candela is the SI base unit of luminous intensity in a given direction defined according to the 2019 redefinition of the SI base units.
-  It is defined by taking the fixed numerical value of the luminous efficacy of monochromatic radiation of frequency 540×10¹² Hz, $K_\mathrm{cd}$, to be 683 when expressed in the unit lm⋅W⁻¹, which is equal to cd⋅sr⋅W⁻¹, or cd⋅sr⋅kg⁻¹⋅m⁻²⋅s³, where the kilogram, metre and second are defined in terms of $h$, $c$ and $\Delta \nu_\textrm{Cs}$ [The International System of Units (SI), 9th Edition].
+  It is defined by taking the fixed numerical value of the luminous efficacy of monochromatic radiation of frequency 540×10¹² Hz, \(K_\mathrm{cd}\), to be 683 when expressed in the unit lm⋅W⁻¹, which is equal to cd⋅sr⋅W⁻¹, or cd⋅sr⋅kg⁻¹⋅m⁻²⋅s³, where the kilogram, metre and second are defined in terms of \(h\), \(c\) and \(\Delta \nu_\textrm{Cs}\) [The International System of Units (SI), 9th Edition].
 version: "1.2.0"
 property-format: "1.2"
 standard:

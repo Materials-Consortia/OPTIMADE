@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
+$id: "https://example.org/properties/v1.0.0/structures/_exml_cell_volume"
 title: "Cell volume"
-$comment: "This is an example of a database provider-specific property defnition."
-$id: "https://schemas.example.com/properties/v1.0.0/structures/_exml_cell_volume"
+$comment: "This is an example of a database provider-specific property definition."
 x-optimade-type: "float"
 x-optimade-property:
   version: "1.2.0"

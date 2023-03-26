@@ -15,7 +15,7 @@ description: |-
 
   - Composed by the proportions of elements in the structure as a list of floating point numbers.
   - The sum of the numbers MUST be 1.0 (within floating point accuracy)
-  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements`_, if the latter is provided.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements`, if the latter is provided.
 
   **Query examples**:
 

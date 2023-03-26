@@ -505,8 +505,8 @@ def single_definition_to_md(data, level=0):
     s += basics['description_details']+"\n\n"
     s += "**Examples:**\n\n"+basics['examples']+"\n"
     if '$id' in data:
-        s += "\n**Formats:** [JSON] [MD]\n"
-
+        basename = os.path.basename(data['$id'])
+        s += "\n**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
     s += "\n"
     s += "**JSON definition:**\n"
     s += general_to_md(data)
@@ -666,12 +666,24 @@ def data_to_html(data):
 
     import markdown
 
+    # Couldn't get the standard MathJaxv2 config to work
+    #<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js">
+    #</script>
+    #<script type="text/x-mathjax-config">
+    #MathJax.Hub.Config({
+    #  config: ["MMLorHTML.js"],
+    #  jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+    #  extensions: ["MathMenu.js", "MathZoom.js"]
+    #});
+    #</script>
+
     htmldoc = """<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js">
-    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/mathtex-script-type.min.js" defer></script>
     <title>%(title)s</title>
     <style>%(style)s</style>
   </head>
@@ -684,7 +696,7 @@ def data_to_html(data):
     s = data_to_md(data)
     md = markdown.Markdown(output_format="html5",
                            extensions = ['mdx_math', 'codehilite', 'fenced_code'],
-                           extension_configs={'mdx_math': {"enable_dollar_delimiter": True}})
+                           extension_configs={'mdx_math': {"enable_dollar_delimiter": False}})
     body = md.convert(s)
     return htmldoc % { 'title':title, 'body':body, 'style': codehilite_css}
 
