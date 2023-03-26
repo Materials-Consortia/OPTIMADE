@@ -100,6 +100,12 @@ arguments = [
         'default': False
     },
     {
+        'names': ['--index'],
+        'help': 'Create an index over files',
+        'action': 'store_true',
+        'default': False
+    },
+    {
         'names': ['-v', '--verbose'],
         'help': 'Increase verbosity of output',
         'dest': 'verbosity', 'action': 'append_const', 'const': 1,
@@ -127,6 +133,20 @@ arguments = [
     },
 
 ]
+
+support_descs = {
+    None: "Not specified.",
+    "must": "MUST be supported by all implementations, MUST NOT be `null`.",
+    "should": "SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.",
+    "may": "OPTIONAL support in implementations, i.e., MAY be `null`."
+}
+query_support_descs = {
+    None: "Not specified.",
+    "all mandatory" : "MUST be a queryable property with support for all mandatory filter features.",
+    "equality only" : "MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.",
+    "partial" : "MUST be a queryable property.",
+    "none": "Support for queries on this property is OPTIONAL."
+}
 
 codehilite_css = """
 pre { line-height: 125%; }
@@ -393,7 +413,7 @@ def md_header(s, level, style="display"):
     Format string as markdown header
     """
     md_display_headers=["-", "="]
-    md_headers=["#", "##", "###", "####", "#####", "######"]
+    md_headers=["#", "##", "###", "####", "#####", "######", "#######", "########"]
     if level <= 1 and style=="display":
         out = s + "\n"
         out += md_display_headers[level]*len(s)+"\n\n"
@@ -412,6 +432,41 @@ def data_get_basics(data):
     if 'examples' in data:
         basics['examples'] = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
     return basics
+
+def aggregate_definition_to_md_inner(prop, inner, indent):
+    inner_basics = data_get_basics(inner)
+    kind = inner_basics['kind']
+
+    s = ""
+    if '$id' in inner:
+        url = inner['$id']
+        if '$id' in data:
+            base=urllib.parse.urlparse(data['$id'])
+            target=urllib.parse.urlparse(inner['$id'])
+            if base.netloc == target.netloc:
+                base_dir='.'+posixpath.dirname(base.path)
+                target='.'+target.path
+                url = posixpath.relpath(target,start=base_dir)
+        s += indent + "* **["+prop+"]("+url+")** ("+kind+") - [`"+inner['$id']+"`]("+data['$id']+")  \n"
+        s += indent + "  "+inner_basics['description_short']
+        if 'x-optimade-requirements' in inner:
+            req_support, req_sort, req_query, req_response = [None]*4
+            req_partial_info = ""
+            reqs = inner['x-optimade-requirements']
+            req_support = reqs['support'] if 'support' in reqs else None
+            req_sort = reqs['sortable'] if 'sortable' in reqs else None
+            req_query = reqs['query-support'] if 'query-support' in reqs else None
+            req_response = reqs['response-level'] if 'response-level' in reqs else None
+            if req_query == "partial":
+                req_partial_info = "The following filter language features MUST be supported: "+", ".join(inner['x-optimade-requirements']['query-support-operators'])
+            s += "\n\n"
+            s += indent + "    Implementation requirements:  \n\n"
+            s += indent + "    - **Support:** "+support_descs[req_support]+"  \n"
+            s += indent + "    - **Query:** "+query_support_descs[req_query]+"  \n"
+            if req_response is not None:
+                s += indent + "    - **Response:** "+str(req_response)+"  \n"
+    s += "\n"
+    return s
 
 def aggregate_definition_to_md(data, level=0):
     """
@@ -453,20 +508,13 @@ def aggregate_definition_to_md(data, level=0):
         s += "This "+basics['kind'] + " defines:\n\n"
         for prop in data['properties'].keys():
             inner = data['properties'][prop]
-            inner_basics = data_get_basics(inner)
-            kind = inner_basics['kind']
-
-            if '$id' in inner:
-                url = inner['$id']
-                if '$id' in data:
-                    base=urllib.parse.urlparse(data['$id'])
-                    target=urllib.parse.urlparse(inner['$id'])
-                    if base.netloc == target.netloc:
-                        base_dir='.'+posixpath.dirname(base.path)
-                        target='.'+target.path
-                        url = posixpath.relpath(target,start=base_dir)
-                s += "* **["+prop+"]("+url+")** ("+kind+") - `"+inner['$id']+"` \n"
-            s += "\n"
+            s += aggregate_definition_to_md_inner(prop, inner, indent="")
+            if 'properties' in inner:
+                s += "\n\n"
+                s += "    Which defines:\n\n"
+                for prop2 in inner['properties'].keys():
+                    inner2 = inner['properties'][prop2]
+                    s += aggregate_definition_to_md_inner(prop2, inner2, indent="    ")
 
     s += "\n"
     s += "**JSON definition:**\n"
@@ -550,20 +598,6 @@ def property_definition_to_md(data, level=0):
     """
     s = ""
 
-    support_descs = {
-        None: "Not specified.",
-        "must": "MUST be supported by all implementations, MUST NOT be :val:`null`.",
-        "should": "SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.",
-        "may": "OPTIONAL support in implementations, i.e., MAY be :val:`null`."
-    }
-    query_support_descs = {
-        None: "Not specified.",
-        "all mandatory" : "MUST be a queryable property with support for all mandatory filter features.",
-        "equality only" : "MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.",
-        "partial" : "MUST be a queryable property.",
-        "none": "Support for queries on this property is OPTIONAL."
-    }
-
     basics = data_get_basics(data)
 
     req_support, req_sort, req_query, req_response = [None]*4
@@ -610,7 +644,7 @@ def property_definition_to_md(data, level=0):
 
     return s
 
-def data_to_md(data, level=0):
+def data_to_md(data, level=0, index=False):
     """
     Convert data representing OPTIMADE Definitions of different kinds into a markdown string.
 
@@ -624,6 +658,8 @@ def data_to_md(data, level=0):
     str
         A string representation of the input data.
     """
+    if index:
+        return data_to_md_index(data, level=level)
 
     s = ""
     if not "x-optimade-definition" in data:
@@ -662,7 +698,42 @@ def data_to_md(data, level=0):
 
     return s
 
-def data_to_html(data):
+def data_to_md_index(data, path=[], level=0):
+    s = ""
+    if 'title' in data:
+        title = data['title']
+        basics = data_get_basics(data)
+        kind = basics['kind']
+        if '$id' in data:
+            s += "* **["+title+"]("+("/".join(path))+")** ("+kind+") - [`"+data['$id']+"`]("+data['$id']+")  \n"
+            s += "  "+basics['description_short']
+        else:
+            s += "* **["+title+"]("+("/".join(path))+")** ("+kind+")  \n"
+            s += "  "+basics['description_short']
+        s += "\n"
+    else:
+        if len(path) > 0:
+            s += md_header(path[-1], level, style="display")
+        else:
+            s += md_header("Index", level, style="display")
+        for item in sorted(data.keys()):
+            try:
+                if isinstance(data[item], dict) and 'title' in data[item]:
+                    s += data_to_md_index(data[item], path=path+[str(item)], level=level+1)
+            except Exception as e:
+                raise ExceptionWrapper("Could not process item: "+item,e)
+            s += "\n"
+        for item in sorted(data.keys()):
+            try:
+                if isinstance(data[item], dict) and 'title' not in data[item]:
+                    s += data_to_md_index(data[item], path=path+[str(item)], level=level+1)
+            except Exception as e:
+                raise ExceptionWrapper("Could not process item: "+item,e)
+            s += "\n"
+    return s
+
+
+def data_to_html(data, index=False):
 
     import markdown
 
@@ -693,14 +764,14 @@ def data_to_html(data):
 </html>
 """
     title = str(data['title']) if 'title' in data else "?"
-    s = data_to_md(data)
+    s = data_to_md(data, index=index)
     md = markdown.Markdown(output_format="html5",
                            extensions = ['mdx_math', 'codehilite', 'fenced_code'],
                            extension_configs={'mdx_math': {"enable_dollar_delimiter": False}})
     body = md.convert(s)
     return htmldoc % { 'title':title, 'body':body, 'style': codehilite_css}
 
-def output_str(data, output_format='json'):
+def output_str(data, output_format='json', index=False):
     """
     Serializes key-value data into a string using the specified output format.
 
@@ -724,9 +795,9 @@ def output_str(data, output_format='json'):
         import yaml
         return yaml.dump(data)
     elif output_format == "md":
-        return data_to_md(data)
+        return data_to_md(data, index=index)
     elif output_format == "html":
-        return data_to_html(data)
+        return data_to_html(data, index=index)
     else:
         raise Exception("Unknown output format: "+str(output_format))
 
@@ -1027,20 +1098,23 @@ def process_dir(source_dir, bases, subs, args):
         subdirectories, where the keys are the file names and the values are the processed data.
     """
 
-    alldata = {}
+    alldata = OrderedDict()
 
+    for filename in os.listdir(source_dir):
+        f = os.path.join(source_dir,filename)
+        if os.path.isfile(f):
+            base, ext = os.path.splitext(f)
+            if ext[1:] in supported_input_formats:
+                logging.info("Process dir reads file: %s",f)
+                data = process(f, bases, subs, args)
+                #alldata.update(data)
+                alldata[os.path.basename(base)] = data
     for filename in os.listdir(source_dir):
         f = os.path.join(source_dir,filename)
         if os.path.isdir(f):
             logging.info("Process dir reads directory: %s",f)
             dirdata = process_dir(f, bases, subs, args)
             alldata[os.path.basename(f)] = dirdata
-        elif os.path.isfile(f):
-            base, ext = os.path.splitext(f)
-            if ext[1:] in supported_input_formats:
-                logging.info("Process dir reads file: %s",f)
-                data = process(f, bases, subs, args)
-                alldata.update(data)
 
     return alldata
 
@@ -1117,7 +1191,7 @@ if __name__ == "__main__":
 
         try:
             logging.info("Serializing data into format: %s", args.output_format)
-            outstr = output_str(data, args.output_format)
+            outstr = output_str(data, args.output_format, args.index)
         except Exception as e:
             raise ExceptionWrapper("Serialization of data failed", e) from e
 

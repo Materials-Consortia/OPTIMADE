@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/nodetype_definition"
-$id: "https://schemas.optimade.org/properties/v1.2.0/nodetypes/optimade/files"
+$id: "https://schemas.optimade.org/standards/v1.2.0/nodetypes/optimade/files"
 title: "Files"
 description: "Files"
 x-optimade-definition:

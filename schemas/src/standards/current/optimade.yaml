@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/standard_definition"
-$id: "https://schemas.optimade.org/properties/v1.2.0/standards/optimade"
+$id: "https://schemas.optimade.org/standards/v1.2.0/optimade"
 title: "OPTIMADE standard"
 description: "The OPTIMADE standard of node types and their properties"
 x-optimade-definition:
@@ -10,7 +10,7 @@ type:
   - object
 properties:
   structures:
-    $$inherit: "/properties/v1.2.0/nodetypes/optimade/structures"
+    $$inherit: "/standards/v1.2.0/nodetypes/optimade/structures"
 
   files:
-    $$inherit: "/properties/v1.2.0/nodetypes/optimade/files"
+    $$inherit: "/standards/v1.2.0/nodetypes/optimade/files"

@@ -1,5 +1,5 @@
-title: "Hall space group"
-$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall"
+title: "Space group IT number"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_it_number"
 x-optimade-type: "integer"
 x-optimade-definition:
   kind: "property"
