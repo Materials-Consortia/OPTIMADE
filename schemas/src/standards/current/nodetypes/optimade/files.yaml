@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/nodetype_definition"
 $id: "https://schemas.optimade.org/standards/v1.2.0/nodetypes/optimade/files"
 title: "Files"
-description: "Files"
+description: "The files node type describes a file with metadata and an URL to retrive it"
 x-optimade-definition:
   kind: "nodetype"
   format: "1.2"

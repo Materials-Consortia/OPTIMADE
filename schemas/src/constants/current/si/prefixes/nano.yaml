@@ -1,16 +1,17 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "nano"
 symbol: "nano"
-alternate-symbols:
-  - "n"
+display-symbol: "n"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/nano"
-description: "The nano SI prefix defined as a dimensionless multiple of 10⁻⁹, defined in 1960."
+description: "The nano SI prefix defined as a dimensionless multiple of 10⁻⁹, adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "nano"
 resources:
-  - relation: "Wikipedia article describing the unit"
+  - relation: "Definition in the 11:th CGPM Meeting in 1960, resolution 12"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
+  - relation: "Wikipedia article describing the prefix"
     resource-id: "https://en.wikipedia.org/wiki/Nano-"
 defining-relation:
   base-units: []

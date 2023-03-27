@@ -1,17 +1,18 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "tera"
 symbol: "tera"
-alternate-symbols:
-  - "T"
+display-symbol: "T"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/tera"
-description: "The tera SI prefix defined as a dimensionless multiple of 10¹², defined in 1960."
+description: "The tera SI prefix defined as a dimensionless multiple of 10¹², adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "tera"
 resources:
-  - relation: "Wikipedia article describing the unit"
-    resource-id: "https://en.wikipedia.org/wiki/Tera-"
+  - relation: "Definition in the 11:th CGPM Meeting in 1960, resolution 12"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
+  - relation: "Wikipedia article describing the SI prefixes"
+    resource-id: "https://en.wikipedia.org/wiki/Metric_prefix"
 defining-relation:
   base-units: []
   base-units-expression: ""

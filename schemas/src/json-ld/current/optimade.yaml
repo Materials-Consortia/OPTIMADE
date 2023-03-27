@@ -8,8 +8,8 @@
 
   structures:
     '@id': "https://schemas.optimade.org/nodetypes/v1.2.0/optimade/structures"
-    '@context': "https://schemas.optimade.org/json-ld/v1.2.0/types/optimade/structures.json"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2.0/nodetypes/optimade/structures.json"
 
   files:
     '@id': "https://schemas.optimade.org/nodetypes/v1.2.0/optimade/files"
-    '@context': "https://schemas.optimade.org/json-ld/v1.2.0/types/optimade/files.json"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2.0/nodetypes/optimade/files.json"

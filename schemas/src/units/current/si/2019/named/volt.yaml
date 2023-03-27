@@ -4,7 +4,8 @@ symbol: "V"
 alternate-symbols:
   - "volt"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/volt"
-description: "The volt is a derived SI unit for electric potential, voltage, and electromotive force, defined as kg·m²·s⁻³·A⁻¹ in SI base units according to the 2019 redefinition."
+description: |-
+  The volt is a derived SI unit for electric potential, voltage, and electromotive force, defined as kg·m²·s⁻³·A⁻¹ in SI base units according to the 2019 redefinition.
 version: "1.2.0"
 property-format: "1.2"
 standard:

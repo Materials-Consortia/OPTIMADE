@@ -1,17 +1,18 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "quetta"
 symbol: "quetta"
-alternate-symbols:
-  - "Q"
+display-symbol: "Q"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/quetta"
-description: "The quetta prefix defined as a dimensionless multiple of 10³⁰, although it is not an official SI prefix, defined in 2022."
+description: "The quetta SI prefix defined as a dimensionless multiple of 10³⁰, defined at the 27:th CGPM Meeting in 2022, resolution 3."
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "quetta"
 resources:
-  - relation: "Wiktionary article describing the unit"
-    resource-id: "https://en.wiktionary.org/wiki/quetta-"
+  - relation: "Definition in the 27:th CGPM Meeting in 2022, resolution 3"
+    resource-id: "https://www.bipm.org/en/cgpm-2022/resolution-3"
+  - relation: "Wikipedia article describing SI prefixes"
+    resource-id: "https://en.wikipedia.org/wiki/Metric_prefix"
 defining-relation:
   base-units: []
   base-units-expression: ""

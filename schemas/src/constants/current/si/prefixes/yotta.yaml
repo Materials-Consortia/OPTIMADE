@@ -1,17 +1,18 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "yotta"
 symbol: "yotta"
-alternate-symbols:
-  - "Y"
+display-symbol: "Y"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/yotta"
-description: "The yotta SI prefix defined as a dimensionless multiple of 10²⁴, defined in 1991."
+description: "The yotta SI prefix defined as a dimensionless multiple of 10²⁴, defined at the 19:th CGPM Meeting in 1991, resolution 4."
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "yotta"
 resources:
-  - relation: "Wikipedia article describing the unit"
-    resource-id: "https://en.wikipedia.org/wiki/Yotta-"
+  - relation: "Definition in the 19:th CGPM Meeting in 1991, resolution 4"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/19-1991/resolution-4"
+  - relation: "Wikipedia article describing SI prefixes"
+    resource-id: "https://en.wikipedia.org/wiki/Metric_prefix"
 defining-relation:
   base-units: []
   base-units-expression: ""
