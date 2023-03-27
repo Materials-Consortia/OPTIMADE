@@ -923,7 +923,7 @@ def merge_deep(d, other, replace=True):
     for other_key, other_val in other.items():
         val = d.get(other_key)
         if isinstance(val, dict) and isinstance(other_val, dict):
-            merge_deep(val, other_val)
+            merge_deep(val, other_val, replace)
         elif replace or (other_key not in d):
             d[other_key] = other_val
 
@@ -973,7 +973,6 @@ def handle_all(data, bases, subs, args, level):
 
             for inherit in inherits:
 
-                inherit = data['$$inherit']
                 logging.debug("Handling $$inherit preprocessor directive: %s",inherit)
 
                 output = handle_inherit(inherit, "insert", bases, subs, args)

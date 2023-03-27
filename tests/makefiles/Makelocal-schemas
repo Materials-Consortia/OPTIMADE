@@ -14,7 +14,7 @@ META_SCHEMAS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(META_
 META_SCHEMAS_ARGS := $(foreach schema,$(META_SCHEMAS_JSON),--schema $(schema))
 
 INDEXES := $(wildcard schemas/src/*/current)
-INDEXES_HTML := $(patsubst schemas/src/%,schemas/output/%/index,$(INDEXES))
+INDEXES_HTML := $(patsubst schemas/src/%,schemas/output/%/index.html,$(INDEXES))
 
 OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
 ifeq ($(OPTIMADE_VERSION),)
@@ -41,7 +41,7 @@ schemas_vers_symlinks:
 	  ) \
 	done
 
-schemas/output/%/current/index: schemas/src/%/current $(SCHEMAS)
+schemas/output/%/current/index.html: schemas/src/%/current $(SCHEMAS)
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_schemas.py --index --basedir "schemas/src" --baseid="https://schemas.optimade.org/" -f html --output "$@" "$<" $(EXT_SCHEMAS_ARGS)
 
