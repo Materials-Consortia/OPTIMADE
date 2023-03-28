@@ -451,25 +451,24 @@ Ranged Properties
 
 Ranged properties are used for properties that are too large to be returned by default for every entry in a response.
 The server can limit the size of the response and require that the client performs another query to retrieve the rest of the data.
-They can also be used by the server to support slicing, so the client can request that only a subsection of the values need to be returned.
+They can also be used by the server to support slicing, so the client can request that only a subsection of the values needs to be returned.
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations.
   - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>_meta`.
-  - For a ranged property the server can return null or only a part of the values of the property under the field :field:`<property_name>`, so the size of the entries remains limited and many entries can be returned in a single response.
-    In that case a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
+  - For a ranged property, the server MAY return :val:`null` or only a part of the values of the property under the field :field:`<property_name>`, so the size of the entries remains limited, and many entries can be returned in a single response.
+    In that case, a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
 
 The dictionary under :field:`<property_name>_meta.range` MUST include these fields.
 
 - :field:`range_ids`: list of strings.
-  SHOULD be a queryable property with support for all mandatory filter features.
   A list with an identifier for each dimension of the property.
   If dimensions in two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
-  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`, it means that that the energy at an index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
+  For example, both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`. This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
 
 - :field:`indexable_dim`: list of strings.
-  The list of dimensions for which the client can request a subrange via the property_ranges query parameter.
+  The list of dimensions for which the client can request a subrange via the :query-param:`property_ranges` query parameter.
 
 - :field:`data_range`: list of dictionaries.
   This field describes how the values are distributed in the different dimensions.
@@ -484,7 +483,7 @@ The dictionary under :field:`<property_name>_meta.range` MUST include these fiel
     The indexing is 1 based, so the lowest value an index can have is 1.
 
   - :field:`step`: integer.
-    If the values are regularly spaced in this dimension this value indicates the difference in index between subsequent values.
+    If the values are regularly spaced in this dimension, this value indicates the difference in index between subsequent values.
     If there is no regular spacing between the values, the value of this property MUST be :val:`null`.
 
   - :field:`stop`: integer.
@@ -492,7 +491,7 @@ The dictionary under :field:`<property_name>_meta.range` MUST include these fiel
 
 - :field:`contains_null`: boolean
   This value indicates whether some of the values of the property are :val:`null`.
-  This may be the case when values are missing or if the data is sparse but the server still wants to present the data as a regular array to enable slicing.
+  This may be the case when values are missing or if the data is sparse, but the server still wants to present the data as a regular array to enable slicing.
   SHOULD be a queryable property with support for all mandatory filter features.
 
 - :field:`dim_size`: list of integers.
@@ -515,7 +514,7 @@ The dictionary under :field:`<property_name>_meta.range` MUST include these fiel
   :field-val:`false` if all the values in the requested range have been returned, and :field-val:`true` if the returned values are incomplete.
 
 
-If the :field:`<property_name>` contains data (i.e. it is not(null or an empty list)), the following additional properties can be present.
+If the :field:`<property_name>` contains data (i.e. it is not (null or an empty list)), the following additional properties can be present.
 Querying is not relevant for these properties and SHOULD NOT be supported.
 
 - :field:`nreturned_values`: integer
@@ -528,15 +527,27 @@ Querying is not relevant for these properties and SHOULD NOT be supported.
   The order of the indexes must match the order in the field :field:`range_ids`.
   MUST be present if any of the dimensions in the field :field:`data_ranges.step` has the value null.
   i.e. when the values are not regularly distributed over the grid.
-  Otherwise it SHOULD NOT be present.
+  Otherwise, it SHOULD NOT be present.
 
 - :field:`returned_range`: list of dictionaries.
 
   The range covering the returned data.
   It contains the same fields as the :field:`data_range` field.
-  However in this case these fields only apply to the returned values and not all the values of the property.
-  It MUST be present.
-  For dimensions where the field :field:`data_range.step` is not defined ,the value of the field :field:`returned_range.step` MUST match the stepsize as used in the query parameter :query_param:`property_ranges`.
+  In this case these fields, however, only apply to the returned values and not all the values of the property.
+  This field MUST be present.
+  For dimensions where the field :field:`data_range.step` is not defined, the value of the field :field:`returned_range.step` MUST match the stepsize as used in the query parameter :query_param:`property_ranges`.
+
+In addition to these fields in the metadata, entries which support accessing data via the :query-param:`property\_ranges` query parameter SHOULD support per entry :field:`next` and :field:`more_data_availble` field to enable returning all the
+
+- :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
+  If data is requested for multiple properties at the same time, but the total amount of data is too large to be returned in one response, this field contains a link from which the remainder of the data can be obtained.
+  Responses supplied via this next link MUST contain all the values for all the requested properties that lie within the returned range. The server May choose to return a range that is smaller than the requested range. In that case another next link SHOULD be provided.
+  If all the data for this property has been returned, the value SHOULD be :val:`null`
+
+- :field:`more_data_available`: boolean.
+
+  :field-val:`false` if all the values in the requested range have been returned, and :field-val:`true` if the returned values are incomplete.
+
 
 Responses
 =========
@@ -1096,17 +1107,16 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   The second integer specifies the last index for which values should be returned.
   The third integer specifies the step size in that dimension.
   Ranges can be specified for multiple dimensions by separating them with a comma.
-  The field may include optional space characters, which do not alter the meaning of the expression.
   Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the Database MAY return more data than was specified in the range.
   The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for the range :val:`(10,20,1)` the last value returned belongs to index 20.
-  If a dimension is not specified it is assumed that the whole range in that dimension is requested.
+  If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
   If a value is not present at a set of the indexes, no value SHOULD be returned.
   However, when a value is explicitly set to :val:`null` and :val:`null` has a meaning beyond indicating that no value has been defined  :val:`null` MUST be returned.
 
   Example:
 
   A database has a :entry:`structure` entry with id: :val:`id_12345` and a ranged property :property:`test_field` with the two-dimensional data values :val:`[[9.64, 7.52, 0.69], [4.82, 8.35, 3.26], [4.82, 2.78, 7.87], [5.49, 3.48, 1.65]]`.
-  In addition the field :field:`range_ids` has the value :val:"["frames", "xyz"]
+  In addition, the field :field:`range_ids` has the value :val:"["frames", "xyz"]
   A client can then make the request :query-url:`http://example.com/optimade/v1/structures/id_12345?property_ranges=frames(1, 4, 2),xyz(2, 3, 1)&response_fields=test_field`.
   The response is then a single entry response for structure `12345` where the `test_field` property is included with the values :val:`[[7.52, 0.69], [2.78, 7.87]]`.
 
