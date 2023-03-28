@@ -18,4 +18,4 @@ definitions:
           attributes:
             $ref: "#endpoints/properties/files"
 endpoints:
-  $$inherit: "/standards/current/optimade"
+  $$inherit: "/collections/current/optimade"

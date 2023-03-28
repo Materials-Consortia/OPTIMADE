@@ -6,7 +6,7 @@ properties:
     type: string
     description: |-
       Specifies the kind of Property Definition.
-    enum: ["property", "unit", "constant", "nodetype", "standard"]
+    enum: ["property", "unit", "constant", "entrytype", "unitset", "standard"]
   format:
     description: |-
       Specifies the minor version of the Property Definitions format that the definition is expressed in.

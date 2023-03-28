@@ -14,7 +14,7 @@ standard:
   version: "3.15"
   symbol: "byte"
 resources:
-  - relation: "Defining standards document"
+  - relation: "Defining collections document"
     resource-id: "https://www.iso.org/standard/31898.html"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Byte"

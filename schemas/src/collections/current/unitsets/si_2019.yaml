@@ -1,0 +1,17 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitset_definition"
+$id: "https://schemas.optimade.org/collections/v1.2.0/unitsets/si_2019"
+title: "Unit set for SI 2019 units"
+description: "This unit set provides all units associated with SI in the 2019 redefinition of the SI units."
+x-optimade-definition:
+  kind: "unitset"
+  format: "1.2"
+  version: "1.2.0"
+type: object
+properties:
+  m:
+    $$inherit: "/units/v1.2.0/si/2019/base/m"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"

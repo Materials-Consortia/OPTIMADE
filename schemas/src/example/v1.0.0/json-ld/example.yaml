@@ -8,5 +8,5 @@ $$inherit: "/json-ld/current/optimade"
   attributes: "@nest"
 
   structures:
-    '@id': "https://example.org/properties/v1.0.0/nodetypes/optimade/structures"
-    '@context': "https://example.org/json-ld/v1.0.0/nodetypes/optimade/structures.json"
+    '@id': "https://example.org/properties/v1.0.0/entrytypes/optimade/structures"
+    '@context': "https://example.org/json-ld/v1.0.0/entrytypes/optimade/structures.json"

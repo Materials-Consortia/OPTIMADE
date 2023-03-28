@@ -23,6 +23,6 @@ properties:
   properties:
     type: object
     additionalProperties:
-      $$inherit: "/meta/v1.2.0/optimade/nodetype_definition"
+      $$inherit: "/meta/v1.2.0/optimade/entrytype_definition"
       required: ["title", "type", "x-optimade-definition", "properties"]
 additionalProperties: false
