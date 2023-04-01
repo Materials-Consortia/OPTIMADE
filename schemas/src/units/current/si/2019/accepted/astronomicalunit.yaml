@@ -1,16 +1,13 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "astronomical unit"
 symbol: "astronomicalunit"
-alternate-symbols:
-  - "au"
+display-symbol: "au"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/astronomicalunit"
 description: |-
   A unit defined as exactly 149597870700 meters which is meant to represent the mean distance between the Earth and the Sun, with meter defined according to the 2019 redefinition of SI unit.
 
   The International System of Units (SI), 9th ed. (2019) categorizes the astronomical unit as a "non-SI unit accepted for use with the SI units" and defines it as "1 au = 149 597 870 700 m."
   This definition is referenced in a footnote as: "As decided at the XXVIII General Assembly of the International Astronomical Union (Resolution B2, 2012)."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -22,9 +19,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Astronomical_unit"
 defining-relation:
   base-units:
-    - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
-  base-units-expression: "m"
+    - symbol: "metre"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
+  base-units-expression: "metre"
   scale:
     numerator: 149597870700
 x-optimade-definition:

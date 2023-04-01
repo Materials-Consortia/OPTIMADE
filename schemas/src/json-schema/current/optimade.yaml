@@ -10,12 +10,12 @@ definitions:
           type:
             const: "structures"
           attributes:
-            $ref: "#endpoints/properties/structures"
+            $ref: "#endpoints/entrytypes/structures"
       - type: "object"
         properties:
           type:
             const: "files"
           attributes:
-            $ref: "#endpoints/properties/files"
+            $ref: "#endpoints/entrytypes/files"
 endpoints:
-  $$inherit: "/collections/current/optimade"
+  $$inherit: "/collections/current/standards/optimade"

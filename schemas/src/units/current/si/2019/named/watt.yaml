@@ -1,12 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/watt"
 title: "watt"
 symbol: "watt"
-alternate-symbols:
-  - "W"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/watt"
+display-symbol: "W"
 description: "The watt is a derived SI unit for power and radiant flux, defined as kg·m²·s⁻³ in SI base units according to the 2019 redefinition."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

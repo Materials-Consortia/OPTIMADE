@@ -7,8 +7,6 @@ description: |-
   A unit of time equal to 60 minutes, or 3600 seconds, with second defined according to the 2019 redefinition of SI unit.
 
   The International System of Units (SI), 9th ed. (2019) categorizes the hour as a "non-SI unit accepted for use with the SI units" and defines it as "1 h = 60 min = 3600 s."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -18,9 +16,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Hour"
 defining-relation:
   base-units:
-    - symbol: "s"
-      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/s"
-  base-units-expression: "s"
+    - symbol: "second"
+      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/second"
+  base-units-expression: "second"
   scale:
     numerator: 3600
 x-optimade-definition:

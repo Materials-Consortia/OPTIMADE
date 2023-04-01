@@ -1,16 +1,12 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/cd"
 title: "candela"
 symbol: "cd"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/cd"
+display-symbol: "cd"
 description: |-
-  The candela is the SI base unit of luminous intensity in a given direction defined at the 9th CGPM Meeting in 1946, resolution 3 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  The SI base unit of luminous intensity in a given direction defined at the 9th CGPM Meeting in 1946, resolution 3 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
+
   The candela is the sixtieth of the luminous intensity emitted perpendicularly by one square centimeter of a perfect radiator (black body) at the solidification temperature of platinum.
-version: "1.2.0"
-property-format: "1.2"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "cd"
 resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Candela"

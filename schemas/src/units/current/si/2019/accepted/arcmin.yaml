@@ -14,8 +14,6 @@ description: |-
   The International System of Units (SI), 9th ed. (2019) categorizes the "minute" of phase and plane angle as a "non-SI unit accepted for use with the SI units" and defines it as "1′ = (1/60)° = (π/10 800) rad".
   It is noted in a footnote that "arcsecond is an alternative name for second of plane angle" but "arcminute" and "arcmin" are not mentioned.
   The names "arcmin" and "arcminute" are defined in the GNU Units 3.15 unit database, defined as 1/60 degree.
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -29,13 +27,12 @@ defining-relation:
   base-units:
     - symbol: "pi"
       id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
-    - symbol: "rad"
+    - symbol: "radian"
       id: "https://schema.optimade.org/units/v1.2.0/si-2019/named/radian"
-  base-units-expression: "pi*rad"
+  base-units-expression: "pi*radian"
   scale:
     denomenator: 10800
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-

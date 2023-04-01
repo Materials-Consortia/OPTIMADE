@@ -25,8 +25,8 @@ resources:
     resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?ukg"
 approximate-relations:
   - base-units:
-    - symbol: "kg"
-      id: "https://schema.optimade.org/units/v1.2.0/si-2019/base/kg"
+    - symbol: "kilogram"
+      id: "https://schema.optimade.org/units/v1.2.0/si-2019/base/kilogram"
     base-units-expression: "kg"
     scale:
       value: 1.66053906660E-27

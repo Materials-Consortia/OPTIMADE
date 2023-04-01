@@ -1,12 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "ohm"
 symbol: "ohm"
-alternate-symbols:
-  - "Ω"
+display-symbol: "Ω"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/ohm"
 description: "The ohm is a derived SI unit for electrical resistance, defined as kg·m²·s⁻³·A⁻² in SI base units according to the 2019 redefinition."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

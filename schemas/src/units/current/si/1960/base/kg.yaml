@@ -1,16 +1,11 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kg"
 title: "kilogram"
 symbol: "kg"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1901/base/kg"
+display-symbol: "kg"
 description: |-
   The kilogram is the SI base unit of mass as defined at the 3rd CGPM Meeting in 1901, resolution 2 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
   The kilogram is the unit of mass; it is equal to the mass of the international prototype of the kilogram.
-version: "1.2.0"
-property-format: "1.2"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "kg"
 resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Kilogram"

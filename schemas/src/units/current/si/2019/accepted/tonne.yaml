@@ -10,8 +10,6 @@ description: |-
 
   The International System of Units (SI), 9th ed. (2019) categorizes the tonne as a "non-SI unit accepted for use with the SI units" and defines it as "1 t = 10³ kg".
   It is noted in a footnote that: "The tonne and its symbol, t, were adopted by the CIPM in 1879 (PV, 1879, 41). This unit is sometimes referred to as 'metric ton' in some English-speaking countries."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -23,9 +21,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Tonne"
 defining-relation:
   base-units:
-    - symbol: "kg"
-      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/kg"
-  base-units-expression: "kg"
+    - symbol: "kilogram"
+      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/kilogram"
+  base-units-expression: "kilogram"
   scale:
     exponent: 3
 x-optimade-definition:

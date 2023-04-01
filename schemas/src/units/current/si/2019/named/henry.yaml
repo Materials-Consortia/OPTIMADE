@@ -1,12 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "henry"
 symbol: "henry"
-alternate-symbols:
-  - "H"
+display-symbol: "H"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/henry"
 description: "The henry is a derived SI unit for inductance, defined as kg·m²·s⁻²·A⁻² in SI base units according to the 2019 redefinition."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -29,4 +26,3 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-

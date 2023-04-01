@@ -7,8 +7,6 @@ description: |-
   The minute is a unit of time that is equal to 60 seconds, with second defined according to the 2019 redefinition of SI units.
 
   The International System of Units (SI), 9th ed. (2019) categorizes the minute as a "non-SI unit accepted for use with the SI units" and defines it as "1 min = 60 s."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -20,9 +18,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Minute"
 defining-relation:
   base-units:
-    - symbol: "s"
-      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/s"
-  base-units-expression: "s"
+    - symbol: "second"
+      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/second"
+  base-units-expression: "second"
   scale:
     numerator: 60
 x-optimade-definition:

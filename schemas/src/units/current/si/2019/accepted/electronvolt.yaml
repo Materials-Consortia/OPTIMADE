@@ -9,8 +9,6 @@ description: |-
   The International System of Units (SI), 9th ed. (2019) categorizes the "electronvolt" as a "non-SI unit accepted for use with the SI units" and notes the exact relationship "1 eV = 1.602176634·10⁻¹⁹ J".
   It then defines the unit in a footnote: "The electron volt is the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum."
   This definition makes the unit equal to 1 volt times the elementary charge which, using the 2019 redefinition of the SI base units, is exactly 1.602176634·10⁻¹⁹ C, making the electron volt exactly equal to 1.602176634·10⁻¹⁹ J.
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

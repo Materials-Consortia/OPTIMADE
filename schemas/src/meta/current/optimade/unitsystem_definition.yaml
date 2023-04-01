@@ -1,8 +1,8 @@
 $$schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitset_definition"
-title: "OPTIMADE Unitset definition schema"
+$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
+title: "OPTIMADE Unit system definition schema"
 type: object
-required: ["$id", "$schema", "x-optimade-definition", "title", "type", "properties"]
+required: ["$id", "$schema", "x-optimade-definition", "title", "units"]
 properties:
   "$id":
     type: string
@@ -15,12 +15,12 @@ properties:
     $$inherit: "x-optimade-definition-field"
     properties:
       kind:
-        const: "unitset"
+        const: "unitsystem"
   title:
     type: string
   description:
     type: string
-  properties:
+  units:
     type: object
     additionalProperties:
       $$inherit: "physical_unit_definition"

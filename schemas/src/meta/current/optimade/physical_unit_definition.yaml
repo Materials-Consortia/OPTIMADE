@@ -3,6 +3,7 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 title: OPTIMADE Physical Unit Definition
 type: object
 additionalProperties: False
+required: ['$id', '$schema', 'title', 'symbol', 'x-optimade-definition','display-symbol','description']
 patternProperties:
   "^_": {}
 properties:
@@ -146,13 +147,6 @@ properties:
       The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
       For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
     type: string
-  property-format:
-    description: |-
-      Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
-      (The Physical Units Definition format is not versioned independently.)
-      The format is the same as described above for the `definition of the property-format field` in Property Definitions.
-      This field MUST be included when Physical Unit Definitions are used standalone, i.e., when they are not embedded inside a Property Definition that already declares a `property-format` at the top level.
-    type: string
   resources:
     description: "A list of dictionaries that reference remote resources that describe the unit."
     items:
@@ -215,9 +209,6 @@ properties:
       type: string
   title:
     description: "The standard human-readable name of the unit."
-    type: string
-  version:
-    description: "This string indicates the version of the Physical Unit Definition."
     type: string
   x-optimade-definition:
     $$inherit: "x-optimade-definition-field"

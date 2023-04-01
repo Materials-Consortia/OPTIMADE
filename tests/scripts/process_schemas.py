@@ -343,7 +343,7 @@ def validate(instance, schemas={}, schema=None):
         logging.debug("Invalid schema: "+str(e))
         raise Exception("Invalid schema: "+e.message)
 
-def read_data(source, input_format='auto', preserve_order=True):
+def read_data(source, input_format='auto', preserve_order=True, origin=None):
     """
     Reads data from a file or a URL and returns the parsed content.
 
@@ -401,7 +401,10 @@ def read_data(source, input_format='auto', preserve_order=True):
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
     except Exception as e:
-        raise ExceptionWrapper("Couldn't load data from: "+str(source),e)
+        if origin is None:
+            raise ExceptionWrapper("Couldn't load data from: "+str(source),e)
+        else:
+            raise ExceptionWrapper("When processing source: " +str(origin)+ " couldn't load data from: "+str(source),e)
 
     finally:
         if reader is not None:
@@ -691,7 +694,7 @@ def data_to_md(data, level=0, index=False):
         s += property_definition_to_md(data, level)
     elif kind in ['unit', 'constant']:
         s += single_definition_to_md(data, level)
-    elif kind in ['standard', 'nodetype']:
+    elif kind in ['standard', 'entrytype', 'unitsystem']:
         s += aggregate_definition_to_md(data, level)
     else:
         raise Exception("Unknown kind in x-optimade-definition: "+str(data['x-optimade-definition']['kind']))
@@ -863,7 +866,7 @@ def recursive_replace(d, subs):
     return d
 
 
-def handle_inherit(ref, mode, bases, subs, args):
+def handle_inherit(ref, mode, bases, subs, args, origin=None):
     """
     Handle a single inheritance.
 
@@ -898,7 +901,7 @@ def handle_inherit(ref, mode, bases, subs, args):
         return { "$ref": base + '.' + args.input_format }
     elif mode == "insert":
         source = inherit_to_source(ref, bases)
-        data = read_data(source, args.input_format)[0]
+        data = read_data(source, args.input_format, origin=origin)[0]
         if subs is not None:
             return recursive_replace(data, subs)
         else:
@@ -928,7 +931,7 @@ def merge_deep(d, other, replace=True):
             d[other_key] = other_val
 
 
-def handle_all(data, bases, subs, args, level):
+def handle_all(data, bases, subs, args, level, origin=None):
     """
     Recursively handles all '$$inherit' references and perform substitutions in the input data.
 
@@ -959,7 +962,7 @@ def handle_all(data, bases, subs, args, level):
     if isinstance(data, list):
         for i in range(len(data)):
             if isinstance(data[i], dict) or isinstance(data[i], list):
-                data[i] = handle_all(data[i], bases, subs, args, level=level+1)
+                data[i] = handle_all(data[i], bases, subs, args, level=level+1, origin=origin)
         return data
 
     elif isinstance(data, dict):
@@ -975,13 +978,13 @@ def handle_all(data, bases, subs, args, level):
 
                 logging.debug("Handling $$inherit preprocessor directive: %s",inherit)
 
-                output = handle_inherit(inherit, "insert", bases, subs, args)
+                output = handle_inherit(inherit, "insert", bases, subs, args, origin=origin)
                 if isinstance(output, dict):
                     # Handle the inherit recursively
                     newbases = bases.copy()
                     source = inherit_to_source(inherit, bases)
                     newbases['self'] = os.path.dirname(source)
-                    output = handle_all(output, newbases, subs, args, level=level+1)
+                    output = handle_all(output, newbases, subs, args, level=level+1, origin=source)
 
             if '$$keep' in data:
                 logging.debug("Handling $$keep preprocessor directive: %s",data['$$keep'])
@@ -1016,7 +1019,7 @@ def handle_all(data, bases, subs, args, level):
 
         for k, v in list(data.items()):
             if isinstance(v, dict) or isinstance(v, list):
-                data[k] = handle_all(v, bases, subs, args, level=level+1)
+                data[k] = handle_all(v, bases, subs, args, level=level+1, origin=origin)
             if args.remove_null and v is None:
                 del data[k]
 
@@ -1068,7 +1071,7 @@ def process(source, bases, subs, args):
                     raise Exception("The $id field needs to end with: "+str(rel_source)+" but it does not: "+str(id_uri))
             bases = {'id': id_uri[:-len(rel_source)], 'dir': bases['dir'] }
 
-    data = handle_all(data, bases, subs, args, level=0)
+    data = handle_all(data, bases, subs, args, level=0, origin=source)
 
     return data
 

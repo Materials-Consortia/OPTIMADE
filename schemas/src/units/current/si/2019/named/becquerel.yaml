@@ -1,12 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "becquerel"
 symbol: "becquerel"
-alternate-symbols:
-  - "Bq"
+display-symbol: "Bq"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/becquerel"
 description: "The becquerel is a derived SI unit for radioactivity, defined as s⁻¹ in SI base units according to the 2019 redefinition."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

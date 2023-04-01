@@ -14,8 +14,6 @@ description: |-
   It is noted in a footnote that: "For some applications such as in astronomy, small angles are measured in arcseconds (i.e. seconds of plane angle), denoted as or ″, or milliarcseconds, microarcseconds and picoarcseconds, denoted mas, μas and pas, respectively, where arcsecond is an alternative name for second of plane angle."
   The formulation "denoted as or ″" is reproduced here faithfully from the source and suggests an alternate symbol is omitted due to a typographical error.
   It is not clear what alternate symbol was intended to be referenced.
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -29,9 +27,9 @@ defining-relation:
   base-units:
     - symbol: "pi"
       id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
-    - symbol: "rad"
+    - symbol: "radian"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/named/radian"
-  base-units-expression: "pi*rad"
+  base-units-expression: "pi*radian"
   scale:
     denomenator: 648000
 x-optimade-definition:

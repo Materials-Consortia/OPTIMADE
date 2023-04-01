@@ -2,14 +2,13 @@ $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_defin
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/day"
 title: "day"
 symbol: "day"
+display-symbol: "day"
 alternate-symbols:
   - "d"
 description: |-
   A unit of time equal to 86 400 s, with s defined according to the 2019 redefinition of SI units.
 
   The International System of Units (SI), 9th ed. (2019) categorizes the day as a "non-SI unit accepted for use with the SI units" and defines it as "1 d = 24 h = 86 400 s".
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -21,9 +20,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Day"
 defining-relation:
   base-units:
-    - symbol: "s"
-      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/s"
-  base-units-expression: "s"
+    - symbol: "second"
+      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/second"
+  base-units-expression: "second"
   scale:
     numerator: 86400
 x-optimade-definition:

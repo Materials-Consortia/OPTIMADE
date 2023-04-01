@@ -7,8 +7,6 @@ description: |-
   A unit of plane and phase angle where a full circle is 360 degrees, which is equivalent to pi/180 rad, with rad defined according to the 2019 redefinition of SI unit.
 
   The International System of Units (SI), 9th ed. (2019) categorizes the degree as a "non-SI unit accepted for use with the SI units" and defines it as "1° = (π/180) rad."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -22,9 +20,9 @@ defining-relation:
   base-units:
     - symbol: "pi"
       id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
-    - symbol: "rad"
+    - symbol: "radian"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/named/radian"
-  base-units-expression: "pi*rad"
+  base-units-expression: "pi*radian"
   scale:
     denomenator: 180
 x-optimade-definition:

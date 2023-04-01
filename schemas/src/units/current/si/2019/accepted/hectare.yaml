@@ -8,8 +8,6 @@ description: |-
 
   The International System of Units (SI), 9th ed. (2019) categorizes the hectare as a "non-SI unit accepted for use with the SI units" and defines it as "1 ha = 1 hm² = 10⁴ m²".
   This definition is referenced in a footnote as: "The unit hectare and its symbol, ha, were adopted by the CIPM in 1879 (PV, 1879, 41). The hectare is used to express land area."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

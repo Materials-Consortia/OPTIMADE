@@ -1,12 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "joule"
 symbol: "joule"
-alternate-symbols:
-  - "J"
+display-symbol: "J"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/joule"
 description: "The joule is a derived SI unit for energy, work, and heat, defined as kg·m²·s⁻² in SI base units according to the 2019 redefinition."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

@@ -1,10 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "hertz"
-symbol: "Hz"
+symbol: "hertz"
+display-symbol: "Hz"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/hertz"
 description: "The hertz is a derived SI unit for frequency, defined as s⁻¹ in SI base units according to the 2019 redefinition."
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

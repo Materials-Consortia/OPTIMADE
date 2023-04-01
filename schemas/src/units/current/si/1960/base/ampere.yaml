@@ -1,18 +1,11 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/ampere"
 title: "ampere"
 symbol: "ampere"
-alternate-symbols:
-  - "A"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1948/base/ampere"
+display-symbol: "A"
 description: |-
   The ampere is the SI base unit of electric current defined at the 9th CGPM Meeting in 1948, resolution 6 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
   The ampere is that constant current which, if maintained in two straight parallel conductors of infinite length, of negligible circular cross-section, and placed 1 metre apart in vacuum, would produce between these conductors a force equal to 2×10⁻⁷ newton per metre of length.
-version: "1.2.0"
-property-format: "1.2"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "ampere"
 resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Ampere"

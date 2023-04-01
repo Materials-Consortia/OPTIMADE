@@ -1,0 +1,92 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/collections/v1.2.0/unitsystems/si-2019"
+title: "The SI unit system as redefined in 2019"
+description: |-
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM). In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units. The si-2019 unit system includes the units designated in The International System of Units (SI), 9th ed. (2019) as "non-SI unit accepted for use with the SI units."
+x-optimade-definition:
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+units:
+  s:
+    $$inherit: "/units/v1.2.0/si/2019/base/s"
+  m:
+    $$inherit: "/units/v1.2.0/si/2019/base/m"
+  kg:
+    $$inherit: "/units/v1.2.0/si/2019/base/kg"
+  ampere:
+    $$inherit: "/units/v1.2.0/si/2019/base/ampere"
+  kelvin:
+    $$inherit: "/units/v1.2.0/si/2019/base/kelvin"
+  mol:
+    $$inherit: "/units/v1.2.0/si/2019/base/mol"
+  cd:
+    $$inherit: "/units/v1.2.0/si/2019/base/cd"
+  minute:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/minute"
+  hour:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/hour"
+  day:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/day"
+  astronomicalunit:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/astronomicalunit"
+  degree:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/degree"
+  arcmin:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/arcmin"
+  arcsec:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/arcsec"
+  hectare:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/hectare"
+  litre:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/litre"
+  tonne:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/tonne"
+  dalton:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
+  electronvolt:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/electronvolt"
+  radian:
+    $$inherit: "/units/v1.2.0/si/2019/named/radian"
+  sr:
+    $$inherit: "/units/v1.2.0/si/2019/named/sr"
+  hertz:
+    $$inherit: "/units/v1.2.0/si/2019/named/hertz"
+  newton:
+    $$inherit: "/units/v1.2.0/si/2019/named/newton"
+  pascal:
+    $$inherit: "/units/v1.2.0/si/2019/named/pascal"
+  joule:
+    $$inherit: "/units/v1.2.0/si/2019/named/joule"
+  watt:
+    $$inherit: "/units/v1.2.0/si/2019/named/watt"
+  coulomb:
+    $$inherit: "/units/v1.2.0/si/2019/named/coulomb"
+  volt:
+    $$inherit: "/units/v1.2.0/si/2019/named/volt"
+  farad:
+    $$inherit: "/units/v1.2.0/si/2019/named/farad"
+  ohm:
+    $$inherit: "/units/v1.2.0/si/2019/named/ohm"
+  siemens:
+    $$inherit: "/units/v1.2.0/si/2019/named/siemens"
+  weber:
+    $$inherit: "/units/v1.2.0/si/2019/named/weber"
+  tesla:
+    $$inherit: "/units/v1.2.0/si/2019/named/tesla"
+  henry:
+    $$inherit: "/units/v1.2.0/si/2019/named/henry"
+  degcelsius:
+    $$inherit: "/units/v1.2.0/si/2019/named/degcelsius"
+  lumen:
+    $$inherit: "/units/v1.2.0/si/2019/named/lumen"
+  lux:
+    $$inherit: "/units/v1.2.0/si/2019/named/lux"
+  becquerel:
+    $$inherit: "/units/v1.2.0/si/2019/named/becquerel"
+  gray:
+    $$inherit: "/units/v1.2.0/si/2019/named/gray"
+  sievert:
+    $$inherit: "/units/v1.2.0/si/2019/named/sievert"
+  katal:
+    $$inherit: "/units/v1.2.0/si/2019/named/katal"

@@ -6,11 +6,8 @@ x-optimade-definition:
   kind: "standard"
   format: "1.2"
   version: "1.2.0"
-type:
-  - object
-properties:
+entrytypes:
   structures:
     $$inherit: "/collections/v1.2.0/entrytypes/optimade/structures"
-
   files:
     $$inherit: "/collections/v1.2.0/entrytypes/optimade/files"

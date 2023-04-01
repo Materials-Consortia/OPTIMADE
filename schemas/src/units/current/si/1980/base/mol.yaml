@@ -1,15 +1,14 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1980/base/mol"
 title: "mole"
 symbol: "mol"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1980/base/mol"
+display-symbol: "mol"
 description: |-
   The mole is the SI base unit of amount of substance defined at the 14th CGPM Meeting in 1971 and clarified at the CIPM meeting in 1980.
 
   1. The mole is the amount of substance of a system which contains as many elementary entities as there are atoms in 0.012 kilogram of carbon 12; its symbol is 'mol'.
   2. When the mole is used, the elementary entities must be specified and may be atoms, molecules, ions, electrons, other particles, or specified groups of such particles.
   In this definition, it is understood that unbound atoms of carbon 12, at rest and in their ground state, are referred to.
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -21,4 +20,3 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-

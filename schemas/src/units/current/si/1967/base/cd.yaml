@@ -1,16 +1,11 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/cd"
 title: "candela"
 symbol: "cd"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/cd"
+display-symbol: "cd"
 description: |-
   The candela is the SI base unit of luminous intensity in a given direction redefined at the 13th CGPM Meeting in 1967, resolution 5.
   The candela is the luminous intensity, in the perpendicular direction, of a surface of 1/600 000 square metre of a black body at the temperature of freezing platinum under a pressure of 101 325 newtons per square metre.
-version: "1.2.0"
-property-format: "1.2"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "cd"
 resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Candela"
@@ -18,4 +13,3 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-

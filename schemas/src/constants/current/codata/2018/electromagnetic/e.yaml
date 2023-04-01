@@ -7,8 +7,6 @@ description: |-
   "Absolute value of the charge of the electron and one of the seven defining constants of the SI" [Rev. Mod. Phys. 93, 025010 (2021)]
 
   The elementary charge \(e\) is exactly 1.602176634·10⁻¹⁹ C following the 2019 redefinition of the SI base units.
-version: "1.2.0"
-property-format: "1.2"
 standard:
   name: "gnu units"
   version: "3.15"

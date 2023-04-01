@@ -7,7 +7,7 @@ x-optimade-property:
   version: "1.2.0"
   property-format: "1.2"
   unit-definitions:
-    - $$inherit: "/units/v1.2.0/si/2019/derived/atomic/angstrom"
+    - $$inherit: "/units/v1.2.0/si/2019/dependent/atomic/angstrom"
 type:
   - "number"
   - "null"
