@@ -1,14 +1,12 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "byte"
 symbol: "byte"
-alternate-symbols:
-  - "B"
 display-symbol: "B"
 $id: "https://schemas.optimade.orig/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte"
 description: |-
-  A unit of digital information representing eight bits defined in the International System of Quantities in ISO/IEC 80000-13 (2008).
+  A unit of digital information representing eight bits, defined in the International System of Quantities in ISO/IEC 80000-13 (2008).
 
-  "In English, the name byte, symbol B, is used as a synonym for octet. Here byte means an eight-bit byte."
+  "In English, the name byte, symbol B, is used as a synonym for octet. Here byte means an eight-bit byte." [ISO/IEC 80000-13 (2008)]
 standard:
   name: "gnu units"
   version: "3.15"

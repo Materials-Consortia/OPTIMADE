@@ -8,10 +8,87 @@ x-optimade-definition:
   version: "1.2.0"
 type: object
 properties:
+  mol:
+    $$inherit: "/units/1.2.0/si/2019/base/mol"
+  ampere:
+    $$inherit: "/units/1.2.0/si/2019/base/ampere"
+  kelvin:
+    $$inherit: "/units/1.2.0/si/2019/base/kelvin"
   m:
-    $$inherit: "/units/v1.2.0/si/2019/base/m"
-    x-optimade-requirements:
-      support: "must"
-      sortable: false
-      query-support: "all mandatory"
-      response-level: "always"
+    $$inherit: "/units/1.2.0/si/2019/base/m"
+  kg:
+    $$inherit: "/units/1.2.0/si/2019/base/kg"
+  cd:
+    $$inherit: "/units/1.2.0/si/2019/base/cd"
+  s:
+    $$inherit: "/units/1.2.0/si/2019/base/s"
+  tonne:
+    $$inherit: "/units/1.2.0/si/2019/derived/mass/tonne"
+  degree:
+    $$inherit: "/units/1.2.0/si/2019/derived/angular/degree"
+  arcmin:
+    $$inherit: "/units/1.2.0/si/2019/derived/angular/arcmin"
+  arcsec:
+    $$inherit: "/units/1.2.0/si/2019/derived/angular/arcsec"
+  hectare:
+    $$inherit: "/units/1.2.0/si/2019/derived/spatial/hectare"
+  litre:
+    $$inherit: "/units/1.2.0/si/2019/derived/spatial/litre"
+  minute:
+    $$inherit: "/units/1.2.0/si/2019/derived/time/minute"
+  day:
+    $$inherit: "/units/1.2.0/si/2019/derived/time/day"
+  hour:
+    $$inherit: "/units/1.2.0/si/2019/derived/time/hour"
+  astronomicalunit:
+    $$inherit: "/units/1.2.0/si/2019/derived/astronomical/astronomicalunit"
+  coulomb:
+    $$inherit: "/units/1.2.0/si/2019/named/coulomb"
+  tesla:
+    $$inherit: "/units/1.2.0/si/2019/named/tesla"
+  weber:
+    $$inherit: "/units/1.2.0/si/2019/named/weber"
+  lux:
+    $$inherit: "/units/1.2.0/si/2019/named/lux"
+  siemens:
+    $$inherit: "/units/1.2.0/si/2019/named/siemens"
+  newton:
+    $$inherit: "/units/1.2.0/si/2019/named/newton"
+  katal:
+    $$inherit: "/units/1.2.0/si/2019/named/katal"
+  joule:
+    $$inherit: "/units/1.2.0/si/2019/named/joule"
+  watt:
+    $$inherit: "/units/1.2.0/si/2019/named/watt"
+  degcelsius:
+    $$inherit: "/units/1.2.0/si/2019/named/degcelsius"
+  lumen:
+    $$inherit: "/units/1.2.0/si/2019/named/lumen"
+  farad:
+    $$inherit: "/units/1.2.0/si/2019/named/farad"
+  hertz:
+    $$inherit: "/units/1.2.0/si/2019/named/hertz"
+  radian:
+    $$inherit: "/units/1.2.0/si/2019/named/radian"
+  henry:
+    $$inherit: "/units/1.2.0/si/2019/named/henry"
+  sievert:
+    $$inherit: "/units/1.2.0/si/2019/named/sievert"
+  pascal:
+    $$inherit: "/units/1.2.0/si/2019/named/pascal"
+  sr:
+    $$inherit: "/units/1.2.0/si/2019/named/sr"
+  volt:
+    $$inherit: "/units/1.2.0/si/2019/named/volt"
+  gray:
+    $$inherit: "/units/1.2.0/si/2019/named/gray"
+  becquerel:
+    $$inherit: "/units/1.2.0/si/2019/named/becquerel"
+  ohm:
+    $$inherit: "/units/1.2.0/si/2019/named/ohm"
+  dalton:
+    $$inherit: "/units/1.2.0/si/2019/accepted/dalton"
+  electronvolt:
+    $$inherit: "/units/1.2.0/si/2019/accepted/electronvolt"
+  angstrom:
+    $$inherit: "/units/1.2.0/si/2019/accepted/angstrom"

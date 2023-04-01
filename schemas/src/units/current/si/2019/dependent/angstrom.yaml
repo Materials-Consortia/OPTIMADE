@@ -1,9 +1,11 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/dependent/angstrom"
 title: "ångström"
 symbol: "angstrom"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/atomic/angstrom"
 description: |-
   The ångström non-SI unit of length equal to 10⁻¹⁰ meter conforming to the 2019 redefinition of the SI base units.
+
+  While the ångström is not endorsed by SI, it is defined by direct relation to the SI meter.
 version: "1.2.0"
 property-format: "1.2"
 standard:
@@ -24,4 +26,3 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-

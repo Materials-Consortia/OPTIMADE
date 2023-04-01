@@ -1,12 +1,13 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/kelvin"
 title: "kelvin"
 symbol: "kelvin"
 alternate-symbols:
   - "K"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kelvin"
 description: |-
-  The kelvin is the SI base unit of thermodynamic temperature defined according to the 2019 redefinition of the SI base units.
-  It is defined by taking the fixed numerical value of the Boltzmann constant k to be 1.380649×10⁻²³ when expressed in the unit J⋅K⁻¹, which is equal to kg⋅m²⋅s⁻²⋅K⁻¹, where the kilogram, metre and second are defined in terms of \(h\), \(c\) and \(\Delta \nu_\textrm{Cs}\) [The International System of Units (SI), 9th Edition].
+  The kelvin is the SI base unit of thermodynamic temperature defined according to the 2019 redefinition of the SI base units via the value of the Boltzmann constant.
+
+  "The kelvin, symbol K, is the SI unit of thermodynamic temperature. It is defined by taking the fixed numerical value of the Boltzmann constant k to be 1.380649×10⁻²³ when expressed in the unit J⋅K⁻¹, which is equal to kg⋅m²⋅s⁻²⋅K⁻¹, where the kilogram, metre and second are defined in terms of \(h\), \(c\) and \(\Delta \nu_\textrm{Cs}\)." [26th CGPM Meeting (2018), resolution 1].
 version: "1.2.0"
 property-format: "1.2"
 standard:
@@ -14,6 +15,10 @@ standard:
   version: "3.15"
   symbol: "kelvin"
 resources:
+  - relation: "Definition in the 26th CGPM Meeting in 2018, resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Kelvin"
 x-optimade-definition:
