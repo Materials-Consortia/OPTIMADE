@@ -692,7 +692,7 @@ def data_to_md(data, level=0, index=False):
 
     if kind == 'property':
         s += property_definition_to_md(data, level)
-    elif kind in ['unit', 'constant']:
+    elif kind in ['unit', 'constant', 'prefix']:
         s += single_definition_to_md(data, level)
     elif kind in ['standard', 'entrytype', 'unitsystem']:
         s += aggregate_definition_to_md(data, level)

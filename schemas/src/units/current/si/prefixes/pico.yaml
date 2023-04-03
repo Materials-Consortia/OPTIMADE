@@ -1,13 +1,13 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-title: "tera"
-symbol: "T"
-display-symbol: "T"
-$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/tera"
-description: "The tera SI prefix defined as a dimensionless multiple of 10¹², adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
+title: "pico"
+symbol: "p"
+display-symbol: "p"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/pico"
+description: "The pico SI prefix defined as a dimensionless multiple of 10⁻¹², adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 standard:
   name: "gnu units"
   version: "3.15"
-  symbol: "tera"
+  symbol: "pico"
 resources:
   - relation: "Definition in the 11:th CGPM Meeting in 1960, resolution 12"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
@@ -17,9 +17,9 @@ defining-relation:
   base-units: []
   base-units-expression: ""
   scale:
-    exponent: 12
+    exponent: -12
 x-optimade-definition:
-  kind: "constant"
+  kind: "prefix"
   format: "1.2"
   version: "1.2.0"
-  name: "tera"
+  name: "pico"

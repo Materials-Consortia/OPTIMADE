@@ -1,0 +1,12 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/optimade"
+title: "CODATA 2018 constants"
+description: "Constants defined in the CODATA 2018"
+x-optimade-definition:
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "codata_2018"
+constants:
+  e:
+    $$inherit: "/constants/v1.2.0/codata/2018/electromagnetic/elementarycharge"

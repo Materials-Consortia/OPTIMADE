@@ -91,43 +91,44 @@ units:
     $$inherit: "/units/v1.2.0/si/2019/named/sievert"
   kat:
     $$inherit: "/units/v1.2.0/si/2019/named/katal"
-  yotta:
-    $$inherit: "/constants/v1.2.0/si/prefixes/yotta"
-  zetta:
-    $$inherit: "/constants/v1.2.0/si/prefixes/zetta"
-  exa:
-    $$inherit: "/constants/v1.2.0/si/prefixes/exa"
-  peta:
-    $$inherit: "/constants/v1.2.0/si/prefixes/peta"
-  tera:
-    $$inherit: "/constants/v1.2.0/si/prefixes/tera"
-  giga:
-    $$inherit: "/constants/v1.2.0/si/prefixes/giga"
-  mega:
-    $$inherit: "/constants/v1.2.0/si/prefixes/mega"
-  kilo:
-    $$inherit: "/constants/v1.2.0/si/prefixes/kilo"
-  hecto:
-    $$inherit: "/constants/v1.2.0/si/prefixes/hecto"
-  deca:
-    $$inherit: "/constants/v1.2.0/si/prefixes/deca"
-  deci:
-    $$inherit: "/constants/v1.2.0/si/prefixes/deci"
-  centi:
-    $$inherit: "/constants/v1.2.0/si/prefixes/centi"
-  milli:
-    $$inherit: "/constants/v1.2.0/si/prefixes/milli"
-  micro:
-    $$inherit: "/constants/v1.2.0/si/prefixes/micro"
-  nano:
-    $$inherit: "/constants/v1.2.0/si/prefixes/nano"
-  pico:
-    $$inherit: "/constants/v1.2.0/si/prefixes/pico"
-  femto:
-    $$inherit: "/constants/v1.2.0/si/prefixes/femto"
-  atto:
-    $$inherit: "/constants/v1.2.0/si/prefixes/atto"
-  zepto:
-    $$inherit: "/constants/v1.2.0/si/prefixes/zepto"
-  yocto:
-    $$inherit: "/constants/v1.2.0/si/prefixes/yocto"
+prefixes:
+  Y:
+    $$inherit: "/units/v1.2.0/si/prefixes/yotta"
+  Z:
+    $$inherit: "/units/v1.2.0/si/prefixes/zetta"
+  E:
+    $$inherit: "/units/v1.2.0/si/prefixes/exa"
+  P:
+    $$inherit: "/units/v1.2.0/si/prefixes/peta"
+  T:
+    $$inherit: "/units/v1.2.0/si/prefixes/tera"
+  G:
+    $$inherit: "/units/v1.2.0/si/prefixes/giga"
+  M:
+    $$inherit: "/units/v1.2.0/si/prefixes/mega"
+  k:
+    $$inherit: "/units/v1.2.0/si/prefixes/kilo"
+  h:
+    $$inherit: "/units/v1.2.0/si/prefixes/hecto"
+  da:
+    $$inherit: "/units/v1.2.0/si/prefixes/deca"
+  d:
+    $$inherit: "/units/v1.2.0/si/prefixes/deci"
+  c:
+    $$inherit: "/units/v1.2.0/si/prefixes/centi"
+  m:
+    $$inherit: "/units/v1.2.0/si/prefixes/milli"
+  mc:
+    $$inherit: "/units/v1.2.0/si/prefixes/micro"
+  n:
+    $$inherit: "/units/v1.2.0/si/prefixes/nano"
+  p:
+    $$inherit: "/units/v1.2.0/si/prefixes/pico"
+  f:
+    $$inherit: "/units/v1.2.0/si/prefixes/femto"
+  a:
+    $$inherit: "/units/v1.2.0/si/prefixes/atto"
+  z:
+    $$inherit: "/units/v1.2.0/si/prefixes/zepto"
+  y:
+    $$inherit: "/units/v1.2.0/si/prefixes/yocto"

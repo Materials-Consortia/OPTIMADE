@@ -99,7 +99,7 @@ properties:
         description: |-
           A string expressing the base units part of the defining relation for the unit being defined.
 
-          A compound unit expression is created by a sequence of constants (e.g., prefixes) or unit symbols separated by a single multiplication `*` symbol.
+          A compound unit expression is created by a sequence of constants, prefixes, and unit symbols separated by a single multiplication `*` symbol.
           Each unit symbol can also be suffixed by a single `^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., `m^3` for cubic meter, `m^-3` for inverse cubic meter.
           (Positive integers MUST NOT be preceded by a plus sign.)
           Furthermore:
@@ -111,22 +111,24 @@ properties:
         description: |-
           A dictionary specifying the scale in the defining relation.
 
-          The three fields `numerator`, `denominator`, and `exponent` specify the value as the rational number `numerator` / `denominator`, multiplied by 10 to the power of `exponent`.
-          If omitted or `null`, the defaults for the `numerator`, `denominator`, and `exponent` are respectively 1, 1, and 0.
+          The four fields `numerator`, `denominator`, `base`, and `exponent` specify the value as the rational number `numerator` / `denominator`, multiplied by `base` to the power of `exponent`.
+          If omitted or `null`, the defaults for the `numerator`, `denominator`, `base` and `exponent` are respectively 1, 1, 10, and 0.
         patternProperties:
           "^_": {}
         properties:
           denominator:
             type: integer
+          numerator:
+            type: integer
           exponent:
             type: integer
-          numerator:
+          base:
             type: integer
         type: object
       offset:
         description: |-
-          A dictionary specifying the offset value, adhering to the same format as `scale`.
-          If omitted or `null`, the defaults for the `numerator`, `denominator`, and `exponent` are respectively 0, 1, and 0.
+          The four fields `numerator`, `denominator`, `base`, and `exponent` specify the value as the rational number `numerator` / `denominator`, multiplied by `base` to the power of `exponent`.
+          If omitted or `null`, the defaults for the `numerator`, `denominator`, `base` and `exponent` are respectively 0, 1, 10, and 0.
         patternProperties:
           "^_": {}
         properties:
@@ -135,6 +137,8 @@ properties:
           exponent:
             type: integer
           numerator:
+            type: integer
+          base:
             type: integer
         type: object
     type: object
@@ -195,6 +199,7 @@ properties:
   symbol:
     description: "Specifies the symbol to be used in `x-optimade-unit` to reference this unit."
     type: string
+    pattern: ^[a-zA-Z_][a-zA-Z_0-9]*$
   display-symbol:
     description: |-
       The suggested standard typographical symbolic representation of the unit.

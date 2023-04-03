@@ -2,7 +2,7 @@ $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_defin
 title: "zepto"
 symbol: "z"
 display-symbol: "z"
-$id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/zepto"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/zepto"
 description: "The zepto SI prefix defined as a dimensionless multiple of 10⁻²¹, defined at the 19:th CGPM Meeting in 1991, resolution 4."
 standard:
   name: "gnu units"
@@ -19,7 +19,7 @@ defining-relation:
   scale:
     exponent: -21
 x-optimade-definition:
-  kind: "constant"
+  kind: "prefix"
   format: "1.2"
   version: "1.2.0"
   name: "zepto"
