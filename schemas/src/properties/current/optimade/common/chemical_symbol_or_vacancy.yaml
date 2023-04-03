@@ -1,6 +1,11 @@
 title: "Chemical symbol or vacancy"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy"
 $$inherit: "/properties/v1.2.0/optimade/common/chemical_symbol"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "chemical_symbol_or_vacancy"
 description: |-
   A chemical symbol refering to an element, a non-chemical element, or a vacancy.
 

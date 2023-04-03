@@ -1,9 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-title: "pascal"
-symbol: "pascal"
-display-symbol: "Pa"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/pascal"
-description: "The pascal is a derived SI unit for pressure and stress, defined as kg·m⁻¹·s⁻² in SI base units according to the 2019 redefinition."
+title: "pascal"
+symbol: "Pa"
+display-symbol: "Pa"
+description: |-
+  A derived SI unit for pressure and stress, defined as kg·m⁻¹·s⁻² in SI base units according to the 2019 redefinition.
 standard:
   name: "gnu units"
   version: "3.15"
@@ -14,14 +15,14 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
   base-units-expression: "kg*m^-1*s^-2"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "pascal"

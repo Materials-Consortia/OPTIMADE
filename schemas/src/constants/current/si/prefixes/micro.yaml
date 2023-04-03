@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "micro"

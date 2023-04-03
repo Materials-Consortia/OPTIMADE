@@ -1,9 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/lux"
 title: "lux"
 symbol: "lx"
 display-symbol: "lx"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/lux"
-description: "The lux is a derived SI unit for illuminance, defined as cd⋅sr⋅m⁻² in SI base units according to the 2019 redefinition."
+description: |-
+  A derived SI unit for illuminance, defined as cd⋅sr⋅m⁻² in SI base units according to the 2019 redefinition.
 standard:
   name: "gnu units"
   version: "3.15"
@@ -14,14 +15,14 @@ resources:
 defining-relation:
   base-units:
     - symbol: "cd"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/cd"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/candela"
     - symbol: "sr"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/steradian"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
   base-units-expression: "cd*m^-2*sr"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "lux"

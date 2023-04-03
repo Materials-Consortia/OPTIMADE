@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "exa"
-symbol: "exa"
+symbol: "E"
 display-symbol: "E"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/exa"
 description: "The exa SI prefix defined as a dimensionless multiple of 10¹⁸, defined at the 15th CGPM Meeting in 1975, resolution 10."
@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "exa"

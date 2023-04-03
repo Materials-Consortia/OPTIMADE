@@ -5,6 +5,7 @@ x-optimade-definition:
   kind: "property"
   version: "1.2.0"
   format: "1.2"
+  name: "structure_features"
 description: |-
   A list of strings that flag which special features are used by the structure.
 

@@ -17,16 +17,16 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
-    - symbol: "ampere"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
+    - symbol: "A"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
-  base-units-expression: "ampere^-1*kg*m^2*s^-3"
+  base-units-expression: "A^-1*kg*m^2*s^-3"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "volt"

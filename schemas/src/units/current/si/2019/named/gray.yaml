@@ -1,9 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-title: "gray"
-symbol: "gray"
-display-symbol: "Gy"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/gray"
-description: "The gray is a derived SI unit for absorbed dose of ionizing radiation, defined as m²·s⁻² in SI base units according to the 2019 redefinition."
+title: "gray"
+symbol: "Gy"
+display-symbol: "Gy"
+description: |-
+  A derived SI unit for absorbed dose of ionizing radiation, defined as m²·s⁻² in SI base units according to the 2019 redefinition.
 standard:
   name: "gnu units"
   version: "3.15"
@@ -14,14 +15,14 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
   base-units-expression: "m^2*s^-2"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "gray"

@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/minute"
 title: "minute"
-symbol: "minute"
+symbol: "min"
 display-symbol: "min"
 description: |-
   The minute is a unit of time that is equal to 60 seconds, with second defined according to the 2019 redefinition of SI units.
@@ -18,13 +18,13 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Minute"
 defining-relation:
   base-units:
-    - symbol: "second"
+    - symbol: "s"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/second"
-  base-units-expression: "second"
+  base-units-expression: "s"
   scale:
     numerator: 60
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "minute"

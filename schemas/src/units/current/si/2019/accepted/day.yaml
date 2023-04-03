@@ -20,13 +20,13 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Day"
 defining-relation:
   base-units:
-    - symbol: "second"
+    - symbol: "s"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/second"
-  base-units-expression: "second"
+  base-units-expression: "s"
   scale:
     numerator: 86400
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "day"

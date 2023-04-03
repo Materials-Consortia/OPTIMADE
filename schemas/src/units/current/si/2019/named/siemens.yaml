@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/siemens"
 title: "siemens"
-symbol: "siemens"
+symbol: "S"
 display-symbol: "S"
 description: "The siemens is a derived SI unit for electrical conductance, defined as kg⁻¹·m⁻²·s³·A² in SI base units according to the 2019 redefinition."
 standard:
@@ -13,17 +13,17 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Siemens_(unit)"
 defining-relation:
   base-units:
-    - symbol: "ampere"
+    - symbol: "A"
       id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/ampere"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
-  base-units-expression: "ampere^2*kg^-1*m^-2*s^3"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
+  base-units-expression: "A^2*kg^-1*m^-2*s^3"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "siemens"

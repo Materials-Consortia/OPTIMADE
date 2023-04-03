@@ -1,0 +1,28 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/named/newton"
+title: "newton"
+symbol: "newton"
+display-symbol: "N"
+description: |-
+  The newton is a derived SI unit for force and weight, defined as kg·m·s⁻² implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1 and the metre at the 17th CGPM Meeting in 1983, resolution 1 and the metre at the 17th CGPM Meeting in 1983, resolution 1.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "newton"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Newton_(unit)"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+    - symbol: "m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/metre"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+  base-units-expression: "kg*m*s^-2"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "newton"

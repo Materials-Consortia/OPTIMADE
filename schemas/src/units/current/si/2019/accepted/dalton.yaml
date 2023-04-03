@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/dalton"
 title: "dalton"
-symbol: "dalton"
+symbol: "da"
 display-symbol: "da"
 alternate-symbols:
   - "Da"
@@ -25,7 +25,7 @@ resources:
     resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?ukg"
 approximate-relations:
   - base-units:
-    - symbol: "kilogram"
+    - symbol: "kg"
       id: "https://schema.optimade.org/units/v1.2.0/si-2019/base/kilogram"
     base-units-expression: "kg"
     scale:
@@ -36,4 +36,4 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "dalton"

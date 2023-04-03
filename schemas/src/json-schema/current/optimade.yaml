@@ -18,4 +18,4 @@ definitions:
           attributes:
             $ref: "#endpoints/entrytypes/files"
 endpoints:
-  $$inherit: "/collections/current/standards/optimade"
+  $$inherit: "/sets/current/standards/optimade"

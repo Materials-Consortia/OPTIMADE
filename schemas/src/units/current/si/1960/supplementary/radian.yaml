@@ -1,21 +1,21 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/1960/supplementary/radian"
 title: "radian"
-symbol: "radian"
+symbol: "rad"
 display-symbol: "rad"
 description: |-
-  A supplementary SI unit of plane angle defined from the relation of the arc length on a circle intercepted at a given radius so that the full circule has an angle of 4π radians. It was defined at the 9th CGPM Meeting in 1948, resolution 6 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  A supplementary SI unit of plane angle defined from the relation of the arc length on a circle intercepted at a given radius so that the full circle has an angle of 4π radians, defined at the 9th CGPM Meeting in 1948 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
 
-  "The radian is the angle with its vertex at the center of a circle that intercepts an arc of length equal to the radius on the circumference of that circle." [9th CGPM Meeting in 1948, resolution 6].
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "radian"
+  "The radian is the angle with its vertex at the center of a circle that intercepts an arc of length equal to the radius on the circumference of that circle." [9th CGPM Meeting in 1948].
 resources:
+  - relation: "Definition at the 9st CGPM meeting (1948)"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
+  - relation: "Establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Radian"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "radian"

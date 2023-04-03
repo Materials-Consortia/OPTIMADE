@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "atto"
-symbol: "atto"
+symbol: "a"
 display-symbol: "a"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/atto"
 description: "The atto SI prefix defined as a dimensionless multiple of 10⁻¹⁸, defined at the 12:th CGPM Meeting in 1964, resolution 8."
@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "atto"

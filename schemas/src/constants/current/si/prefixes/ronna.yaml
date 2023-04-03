@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "ronna"
-symbol: "ronna"
+symbol: "R"
 display-symbol: "R"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/ronna"
 description: "The ronna SI prefix defined as a dimensionless multiple of 10²⁷, defined at the 27:th CGPM Meeting in 2022, resolution 3."
@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "ronna"

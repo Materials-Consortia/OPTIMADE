@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "yocto"
-symbol: "yocto"
+symbol: "y"
 display-symbol: "y"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/yocto"
 description: "The yocto SI prefix defined as a dimensionless multiple of 10⁻²⁴, defined at the 19:th CGPM Meeting in 1991, resolution 4."
@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "yocto"

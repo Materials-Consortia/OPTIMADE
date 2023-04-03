@@ -18,12 +18,14 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Angstrom"
 defining-relation:
   base-units:
-    - symbol: "metre"
+    - symbol: "m"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/metre"
-  base-units-expression: "metre"
+  base-units-expression: "m"
   scale:
     exponent: -10
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
+  name: "angstrom"
+

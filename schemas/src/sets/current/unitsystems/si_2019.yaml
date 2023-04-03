@@ -1,0 +1,133 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_2019"
+title: "The SI unit system as redefined in 2019"
+description: |-
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM). In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units. The si_2019 unit system includes the prefixes and the units designated in The International System of Units (SI), 9th ed. (2019) as "non-SI unit accepted for use with the SI units."
+x-optimade-definition:
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "si_2019"
+units:
+  s:
+    $$inherit: "/units/v1.2.0/si/2019/base/second"
+  m:
+    $$inherit: "/units/v1.2.0/si/2019/base/metre"
+  kg:
+    $$inherit: "/units/v1.2.0/si/2019/base/kilogram"
+  A:
+    $$inherit: "/units/v1.2.0/si/2019/base/ampere"
+  K:
+    $$inherit: "/units/v1.2.0/si/2019/base/kelvin"
+  mol:
+    $$inherit: "/units/v1.2.0/si/2019/base/mole"
+  cd:
+    $$inherit: "/units/v1.2.0/si/2019/base/candela"
+  min:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/minute"
+  h:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/hour"
+  day:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/day"
+  au:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/astronomicalunit"
+  deg:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/degree"
+  arcmin:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/arcminute"
+  arcsec:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/arcsecond"
+  ha:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/hectare"
+  l:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/litre"
+  t:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/tonne"
+  da:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
+  eV:
+    $$inherit: "/units/v1.2.0/si/2019/accepted/electronvolt"
+  rad:
+    $$inherit: "/units/v1.2.0/si/2019/named/radian"
+  sr:
+    $$inherit: "/units/v1.2.0/si/2019/named/steradian"
+  Hz:
+    $$inherit: "/units/v1.2.0/si/2019/named/hertz"
+  N:
+    $$inherit: "/units/v1.2.0/si/2019/named/newton"
+  Pa:
+    $$inherit: "/units/v1.2.0/si/2019/named/pascal"
+  J:
+    $$inherit: "/units/v1.2.0/si/2019/named/joule"
+  W:
+    $$inherit: "/units/v1.2.0/si/2019/named/watt"
+  C:
+    $$inherit: "/units/v1.2.0/si/2019/named/coulomb"
+  V:
+    $$inherit: "/units/v1.2.0/si/2019/named/volt"
+  F:
+    $$inherit: "/units/v1.2.0/si/2019/named/farad"
+  ohm:
+    $$inherit: "/units/v1.2.0/si/2019/named/ohm"
+  S:
+    $$inherit: "/units/v1.2.0/si/2019/named/siemens"
+  Wb:
+    $$inherit: "/units/v1.2.0/si/2019/named/weber"
+  T:
+    $$inherit: "/units/v1.2.0/si/2019/named/tesla"
+  H:
+    $$inherit: "/units/v1.2.0/si/2019/named/henry"
+  degC:
+    $$inherit: "/units/v1.2.0/si/2019/named/degreecelsius"
+  lm:
+    $$inherit: "/units/v1.2.0/si/2019/named/lumen"
+  lx:
+    $$inherit: "/units/v1.2.0/si/2019/named/lux"
+  Bq:
+    $$inherit: "/units/v1.2.0/si/2019/named/becquerel"
+  Gy:
+    $$inherit: "/units/v1.2.0/si/2019/named/gray"
+  Sv:
+    $$inherit: "/units/v1.2.0/si/2019/named/sievert"
+  kat:
+    $$inherit: "/units/v1.2.0/si/2019/named/katal"
+  yotta:
+    $$inherit: "/constants/v1.2.0/si/prefixes/yotta"
+  zetta:
+    $$inherit: "/constants/v1.2.0/si/prefixes/zetta"
+  exa:
+    $$inherit: "/constants/v1.2.0/si/prefixes/exa"
+  peta:
+    $$inherit: "/constants/v1.2.0/si/prefixes/peta"
+  tera:
+    $$inherit: "/constants/v1.2.0/si/prefixes/tera"
+  giga:
+    $$inherit: "/constants/v1.2.0/si/prefixes/giga"
+  mega:
+    $$inherit: "/constants/v1.2.0/si/prefixes/mega"
+  kilo:
+    $$inherit: "/constants/v1.2.0/si/prefixes/kilo"
+  hecto:
+    $$inherit: "/constants/v1.2.0/si/prefixes/hecto"
+  deca:
+    $$inherit: "/constants/v1.2.0/si/prefixes/deca"
+  deci:
+    $$inherit: "/constants/v1.2.0/si/prefixes/deci"
+  centi:
+    $$inherit: "/constants/v1.2.0/si/prefixes/centi"
+  milli:
+    $$inherit: "/constants/v1.2.0/si/prefixes/milli"
+  micro:
+    $$inherit: "/constants/v1.2.0/si/prefixes/micro"
+  nano:
+    $$inherit: "/constants/v1.2.0/si/prefixes/nano"
+  pico:
+    $$inherit: "/constants/v1.2.0/si/prefixes/pico"
+  femto:
+    $$inherit: "/constants/v1.2.0/si/prefixes/femto"
+  atto:
+    $$inherit: "/constants/v1.2.0/si/prefixes/atto"
+  zepto:
+    $$inherit: "/constants/v1.2.0/si/prefixes/zepto"
+  yocto:
+    $$inherit: "/constants/v1.2.0/si/prefixes/yocto"

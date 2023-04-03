@@ -1,9 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-title: "newton"
-symbol: "newton"
-display-symbol: "N"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/newton"
-description: "The newton is a derived SI unit for force and weight, defined as kg·m·s⁻² in SI base units according to the 2019 redefinition."
+title: "newton"
+symbol: "N"
+display-symbol: "N"
+description: |-
+  A derived SI unit for force and weight, defined as kg·m·s⁻² in SI base units according to the 2019 redefinition.
 standard:
   name: "gnu units"
   version: "3.15"
@@ -14,14 +15,15 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
   base-units-expression: "kg*m*s^-2"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
+  name: "newton"
 

@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "giga"
-symbol: "giga"
+symbol: "G"
 display-symbol: "G"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/giga"
 description: "The giga SI prefix defined as a dimensionless multiple of 10⁹, adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "giga"

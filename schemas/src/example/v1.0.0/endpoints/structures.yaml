@@ -2,7 +2,7 @@ $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint"
 $id: "https://example.org/schemas/v1.0.0/endpoints/files"
 type: object
 title: "Example provider structures endpoint"
-$$inherit: "/collections/v1.2.0/entrytypes/optimade/structures"
+$$inherit: "/sets/v1.2.0/entrytypes/optimade/structures"
 $$keep: ["properties"]
 properties:
   id:

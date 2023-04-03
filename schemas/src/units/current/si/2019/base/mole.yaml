@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/mole"
+title: "mole"
+symbol: "mol"
+display-symbol: "mol"
+description: |-
+  The mole is the SI base unit of amount of substance defined according to the 2019 redefinition of the SI base units via the value of the Avogadro constant.
+
+  "The mole, symbol mol, is the SI unit of amount of substance. One mole contains exactly 6.02214076×10²³ elementary entities. This number is the fixed numerical value of the Avogadro constant, \(N_A\), when expressed in the unit mol⁻¹ and is called the Avogadro number. The amount of substance, symbol \(n\), of a system is a measure of the number of specified elementary entities. An elementary entity may be an atom, a molecule, an ion, an electron, any other particle or specified group of particles." [26th CGPM Meeting (2018), resolution 1].
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "mol"
+resources:
+  - relation: "Definition in the 26th CGPM Meeting in 2018, resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Mole_(unit)"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "mole"

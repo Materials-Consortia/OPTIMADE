@@ -20,13 +20,13 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Litre"
 defining-relation:
   base-units:
-    - symbol: "metre"
+    - symbol: "m"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/metre"
-  base-units-expression: "metre^3"
+  base-units-expression: "m^3"
   scale:
     exponent: -3
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "litre"

@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 title: "zetta"
-symbol: "zetta"
+symbol: "Z"
 display-symbol: "Z"
 $id: "https://schemas.optimade.org/constants/v1.2.0/si/prefixes/zetta"
 description: "The zetta SI prefix defined as a dimensionless multiple of 10²¹, defined at the 19:th CGPM Meeting in 1991, resolution 4."
@@ -22,4 +22,4 @@ x-optimade-definition:
   kind: "constant"
   format: "1.2"
   version: "1.2.0"
-
+  name: "zetta"

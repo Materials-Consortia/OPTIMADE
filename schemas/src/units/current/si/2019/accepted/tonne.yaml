@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/tonne"
 title: "tonne"
-symbol: "tonne"
+symbol: "t"
 display-symbol: "t"
 alternate-symbols:
   - "t"
@@ -21,13 +21,13 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Tonne"
 defining-relation:
   base-units:
-    - symbol: "kilogram"
+    - symbol: "kg"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/kilogram"
-  base-units-expression: "kilogram"
+  base-units-expression: "kg"
   scale:
     exponent: 3
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "tonne"

@@ -1,0 +1,28 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/named/gray"
+title: "gray"
+symbol: "Gy"
+display-symbol: "Gy"
+description: |-
+  A derived SI unit for absorbed dose of ionizing radiation, defined as m²·s⁻² at the 15th CGPM Meeting in 1975 and implicitly redefined via the redefinition of the meter at the 17th CGPM Meeting in 1983, resolution 1.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "gray"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Gray_(unit)"
+defining-relation:
+  base-units:
+    - symbol: "m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/metre"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+  base-units-expression: "m^2*s^-2"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "gray"

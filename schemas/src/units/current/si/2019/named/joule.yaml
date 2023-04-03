@@ -1,9 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-title: "joule"
-symbol: "joule"
-display-symbol: "J"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/joule"
-description: "The joule is a derived SI unit for energy, work, and heat, defined as kg·m²·s⁻² in SI base units according to the 2019 redefinition."
+title: "joule"
+symbol: "J"
+display-symbol: "J"
+description: |-
+  A derived SI unit for energy, work, and heat, defined as kg·m²·s⁻² in SI base units according to the 2019 redefinition.
 standard:
   name: "gnu units"
   version: "3.15"
@@ -14,14 +15,14 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
   base-units-expression: "kg*m^2*s^-2"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "joule"

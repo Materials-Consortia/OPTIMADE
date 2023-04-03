@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/hour"
 title: "hour"
-symbol: "hour"
+symbol: "h"
 display-symbol: "h"
 description: |-
   A unit of time equal to 60 minutes, or 3600 seconds, with second defined according to the 2019 redefinition of SI unit.
@@ -16,13 +16,13 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Hour"
 defining-relation:
   base-units:
-    - symbol: "second"
+    - symbol: "s"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/second"
-  base-units-expression: "second"
+  base-units-expression: "s"
   scale:
     numerator: 3600
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "hour"

@@ -20,13 +20,13 @@ defining-relation:
   base-units:
     - symbol: "pi"
       id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
-    - symbol: "radian"
+    - symbol: "rad"
       id: "https://schema.optimade.org/units/v1.2.0/si/2019/named/radian"
-  base-units-expression: "pi*radian"
+  base-units-expression: "pi*rad"
   scale:
     denomenator: 180
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-
+  name: "degree"

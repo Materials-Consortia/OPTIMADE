@@ -1,0 +1,14 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/standard_definition"
+$id: "https://schemas.optimade.org/sets/v1.2.0/optimade"
+title: "OPTIMADE standard"
+description: "The OPTIMADE standard node types and properties"
+x-optimade-definition:
+  kind: "standard"
+  format: "1.2"
+  version: "1.2.0"
+  name: "optimade"
+entrytypes:
+  structures:
+    $$inherit: "/sets/v1.2.0/entrytypes/optimade/structures"
+  files:
+    $$inherit: "/sets/v1.2.0/entrytypes/optimade/files"
