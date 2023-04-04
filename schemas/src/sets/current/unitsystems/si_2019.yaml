@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_2019"
-title: "The SI unit system as redefined in 2019"
+title: "The SI unit system as redefined in 2019 and represented in the 9th edition of The International System of Units"
 description: |-
-  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM). In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units. The si_2019 unit system includes the prefixes and the units designated in The International System of Units (SI), 9th ed. (2019) as "non-SI unit accepted for use with the SI units."
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM). In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
@@ -23,30 +23,6 @@ units:
     $$inherit: "/units/v1.2.0/si/2019/base/mole"
   cd:
     $$inherit: "/units/v1.2.0/si/2019/base/candela"
-  min:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/minute"
-  h:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/hour"
-  day:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/day"
-  au:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/astronomicalunit"
-  deg:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/degree"
-  arcmin:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/arcminute"
-  arcsec:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/arcsecond"
-  ha:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/hectare"
-  l:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/litre"
-  t:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/tonne"
-  da:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
-  eV:
-    $$inherit: "/units/v1.2.0/si/2019/accepted/electronvolt"
   rad:
     $$inherit: "/units/v1.2.0/si/2019/named/radian"
   sr:

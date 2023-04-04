@@ -1,0 +1,31 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1964/accepted/litre"
+title: "litre"
+symbol: "litre"
+display-symbol: "l"
+alternate-symbols:
+  - "L"
+  - "liter"
+description: |-
+  The litre, or liter is equal to a cubic decimetre (1 dm³) implicitly redefined via the redefinition of the meter at the 17th CGPM Meeting in 1983, resolution 1.
+
+  "The 12th Conférence Générale des Poids et Mesures (CGPM) [...] declares that the word 'litre' may be employed as a special name for the cubic decimetre" [12th CGPM meeting (1964)].
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "litre"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Litre"
+defining-relation:
+  base-units:
+    - symbol: "m"
+      id: "https://schema.optimade.org/units/v1.2.0/si/1983/base/metre"
+  base-units-expression: "m^3"
+  scale:
+    exponent: -3
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "litre"

@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/degkelvin"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/degreekelvin"
 title: "degree Kelvin"
 symbol: "degK"
 display-symbol: "°K"
@@ -18,4 +18,4 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-  name: "degkelvin"
+  name: "degreekelvin"
