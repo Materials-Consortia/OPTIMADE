@@ -134,6 +134,12 @@ arguments = [
 
 ]
 
+general_support_descs = {
+    None: "Not specified.",
+    "must": "MUST be implemented.",
+    "should": "SHOULD be implemented.",
+    "may": "OPTIONAL."
+}
 support_descs = {
     None: "Not specified.",
     "must": "MUST be supported by all implementations, MUST NOT be `null`.",
@@ -223,6 +229,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
 .codehilite .vm { color: #19177C } /* Name.Variable.Magic */
 .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+.codehilite code, .codehilite pre{
+overflow: auto;
+overflow-wrap: break-word;
+}
 """
 
 
@@ -428,6 +439,7 @@ def data_get_basics(data):
     basics = {'title':"*[untitled]*", 'description_short':"", 'description_details':"", 'examples':"", 'kind':"*[unknown]*", 'Kind':"*[Unknown]*"}
     if 'x-optimade-definition' in data and 'kind' in data['x-optimade-definition']:
         basics['kind'] = data['x-optimade-definition']['kind']
+        basics['name'] = data['x-optimade-definition']['name']
     if 'title' in data:
         basics['title'] = str(data['title'])
     if 'description' in data:
@@ -436,7 +448,7 @@ def data_get_basics(data):
         basics['examples'] = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
     return basics
 
-def aggregate_definition_to_md_inner(prop, inner, indent):
+def set_definition_to_md_inner(prop, inner, indent):
     inner_basics = data_get_basics(inner)
     kind = inner_basics['kind']
 
@@ -464,14 +476,20 @@ def aggregate_definition_to_md_inner(prop, inner, indent):
                 req_partial_info = "The following filter language features MUST be supported: "+", ".join(inner['x-optimade-requirements']['query-support-operators'])
             s += "\n\n"
             s += indent + "    Implementation requirements:  \n\n"
-            s += indent + "    - **Support:** "+support_descs[req_support]+"  \n"
-            s += indent + "    - **Query:** "+query_support_descs[req_query]+"  \n"
-            if req_response is not None:
-                s += indent + "    - **Response:** "+str(req_response)+"  \n"
+            if inner_basics['kind'] == 'property':
+                s += indent + "    - **Support:** "+support_descs[req_support]+"  \n"
+                s += indent + "    - **Query:** "+query_support_descs[req_query]+"  \n"
+
+                if req_response is not None:
+                    s += indent + "    - **Response:** "+str(req_response)+"  \n"
+
+            else:
+                s += indent + "    - **Support:** "+general_support_descs[req_support]+"  \n\n"
+
     s += "\n"
     return s
 
-def aggregate_definition_to_md(data, level=0):
+def set_definition_to_md(data, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -495,29 +513,36 @@ def aggregate_definition_to_md(data, level=0):
     s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
 
     if '$id' in data:
-        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**\n\n"
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n"
+    if 'name' in basics:
+        s += "**Definition name:** `"+basics['name']+"`\n"
+    s += "\n"
 
     s += "**"+(basics['kind'].capitalize())+" name:** "+basics['title']+"  \n"
+
     if basics['description_short'] != "":
-        s += "**Description:** "+str(basics['description_short'])+"  \n"
+        s += "**Description:** "+str(basics['description_short'])
     if basics['description_details'] != "":
-        s += basics['description_details']+"\n"
+        s += "\n\n" + basics['description_details']+"\n"
+    else:
+        s += "  \n"
     if '$id' in data:
         basename = os.path.basename(data['$id'])
         s += "\n**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
 
-    if 'properties' in data and isinstance(data['properties'],dict):
-        s += "\n"
-        s += "This "+basics['kind'] + " defines:\n\n"
-        for prop in data['properties'].keys():
-            inner = data['properties'][prop]
-            s += aggregate_definition_to_md_inner(prop, inner, indent="")
-            if 'properties' in inner:
-                s += "\n\n"
-                s += "    Which defines:\n\n"
-                for prop2 in inner['properties'].keys():
-                    inner2 = inner['properties'][prop2]
-                    s += aggregate_definition_to_md_inner(prop2, inner2, indent="    ")
+    for itemtype in ['units', 'prefixes', 'constants', 'entrytypes', 'properties']:
+        if itemtype in data and isinstance(data[itemtype],dict):
+            s += "\n"
+            s += "This "+basics['kind'] + " defines the following "+itemtype+":\n\n"
+            for prop in data[itemtype].keys():
+                inner = data[itemtype][prop]
+                s += set_definition_to_md_inner(prop, inner, indent="")
+                if itemtype in inner:
+                    s += "\n\n"
+                    s += "    Which defines:\n\n"
+                    for prop2 in inner[itemtype].keys():
+                        inner2 = inner[itemtype][prop2]
+                        s += set_definition_to_md_inner(prop2, inner2, indent="    ")
 
     s += "\n"
     s += "**JSON definition:**\n"
@@ -542,22 +567,33 @@ def single_definition_to_md(data, level=0):
     basics = data_get_basics(data)
 
     s = ""
-    title = (basics['title'] + " ("+basics['kind']+")") if basics['kind'] != "" else basics['title']
+    title = (basics['title'] + ", " + data['display-symbol'] + " ("+basics['kind']+")") if basics['kind'] != "" else basics['title']
     s += md_header(title, level, style="normal")
 
     s += "This page documents an [OPTIMADE](https://www.optimade.org/) ["+(basics['kind'].capitalize())+" Definition](https://schemas.optimade.org/#definitions). "
     s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
 
     if '$id' in data:
-        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**\n\n"
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n"
+    if 'name' in basics:
+        s += "**Definition name:** `"+basics['name']+"`\n"
+    s += "\n"
 
     s += "**"+(basics['kind'].capitalize())+" name:** "+basics['title']+"  \n"
-    s += "**Description:** "+str(basics['description_short'])+"  \n"
-    s += basics['description_details']+"\n\n"
-    s += "**Examples:**\n\n"+basics['examples']+"\n"
+    s += "**Latin symbol:** "+data['symbol']+"  \n"
+    s += "**Display symbol:** "+data['display-symbol']+"  \n"
+    if 'alternate-symbol' in data:
+        s += "**Alternate:**"+(", ".join(data["alternate-symbols"]))+"  \n"
+    else:
+        s += "  \n"
+
+    s += "**Description:** "+str(basics['description_short'])
+    s += "\n\n" + basics['description_details']+"\n\n"
+    if basics['examples'] != '':
+        s += "**Examples:**\n\n"+basics['examples']+"\n\n"
     if '$id' in data:
         basename = os.path.basename(data['$id'])
-        s += "\n**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
+        s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
     s += "\n"
     s += "**JSON definition:**\n"
     s += general_to_md(data)
@@ -626,7 +662,10 @@ def property_definition_to_md(data, level=0):
     s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
 
     if '$id' in data:
-        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n\n"
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n"
+    if 'name' in basics:
+        s += "**Definition name:** `"+basics['name']+"`\n"
+    s += "\n"
 
     s += "**Property name:** "+basics['title']+"  \n"
     s += "**Description:** "+basics['description_short']+"  \n"
@@ -695,7 +734,7 @@ def data_to_md(data, level=0, index=False):
     elif kind in ['unit', 'constant', 'prefix']:
         s += single_definition_to_md(data, level)
     elif kind in ['standard', 'entrytype', 'unitsystem']:
-        s += aggregate_definition_to_md(data, level)
+        s += set_definition_to_md(data, level)
     else:
         raise Exception("Unknown kind in x-optimade-definition: "+str(data['x-optimade-definition']['kind']))
 

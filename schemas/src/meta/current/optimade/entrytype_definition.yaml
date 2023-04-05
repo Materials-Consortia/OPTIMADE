@@ -16,6 +16,10 @@ properties:
     properties:
       kind:
         const: "entrytype"
+  x-optimade-requirements:
+    properties:
+      support:
+        type: string
   title:
     type: string
   description:
