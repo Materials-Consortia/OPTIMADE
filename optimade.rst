@@ -442,6 +442,28 @@ For example, the following query can be sent to API implementations `exmpl1` and
 
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
+Per property metadata fields
+----------------------------
+
+Implementations are allowed to specify an OPTIONAL field containing per entry metadata for a property.
+The name of the metadata field consists of the name of the property for which it contains the metadata, suffixed with "_meta".
+For example, when the field is :property:`cartesian_site_positions` the metadata field would be :field:`cartesian_site_positions_meta`.
+
+This metadata field consists of a dictionary which MAY contain database specific fields.
+If an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
+
+Example:
+
+    .. code:: jsonc
+
+       {
+         "element_ratios":[0.3333333333333333, 0.2222222222222222, 0.4444444444444444],
+         "element_ratios_meta": {
+           "_exmpl_95_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44356,0.44458],
+         //...
+       }
+
+
 Responses
 =========
 
