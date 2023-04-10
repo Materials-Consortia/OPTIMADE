@@ -1,0 +1,31 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/tonne"
+title: "tonne"
+symbol: "t"
+display-symbol: "t"
+alternate-symbols:
+  - "t"
+description: |-
+  A unit of mass defined as exactly 1000 kg, using the SI base units defined in 1970.
+
+  The International System of Units (SI), 1st ed. (1970) defines the tonne in the section "Units used with the International System" (known as "Non-SI units accepted for use with the SI units" in later editions) as "1 t = 10³ kg".
+  Later editions clarify that: "The tonne and its symbol, t, were adopted by the CIPM in 1879 (PV, 1879, 41). This unit is sometimes referred to as 'metric ton' in some English-speaking countries." [The International System of Units (SI), 9th ed. (2019)]
+
+  The kilogram referenced is the SI 1960 base unit kilogram (https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram).
+resources:
+  - relation: "Definition in the International System of Units (SI), 1th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Tonne"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      id: "https://schema.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+  base-units-expression: "kg"
+  scale:
+    exponent: 3
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "tonne"

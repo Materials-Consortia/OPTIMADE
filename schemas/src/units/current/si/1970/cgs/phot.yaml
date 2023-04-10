@@ -1,0 +1,33 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/electronvolt"
+title: "electron volt"
+symbol: "eV"
+display-symbol: "eV"
+description: |-
+  A unit of energy equal to the amount of kinetic energy acquired by an electron as it accelerates through a 1 volt potential difference in a vacuum, with volt defined according to the 2019 redefinition of the SI base units.
+
+  The International System of Units (SI), 9th ed. (2019) categorizes the "electronvolt" as a "non-SI unit accepted for use with the SI units" and notes the exact relationship "1 eV = 1.602176634·10⁻¹⁹ J".
+  It then defines the unit in a footnote: "The electron volt is the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum."
+  This definition makes the unit equal to 1 volt times the elementary charge which, using the 2019 redefinition of the SI base units, is exactly 1.602176634·10⁻¹⁹ C, making the electron volt exactly equal to 1.602176634·10⁻¹⁹ J.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "angstrom"
+resources:
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Electronvolt"
+defining-relation:
+  base-units:
+    - symbol: "V"
+      id: "https://schema.optimade.org/units/v1.2.0/si/2019/named/volt"
+    - symbol: "e"
+      id: "https://schema.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/elementarycharge"
+  base-units-expression: "e*V"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "electronvolt"
+
