@@ -450,7 +450,9 @@ The name of the metadata field consists of the name of the property for which it
 For example, when the field is :property:`cartesian_site_positions` the metadata field would be :field:`cartesian_site_positions_meta`.
 
 This metadata field consists of a dictionary which MAY contain database specific fields.
+Fields in this metadata MAY also have a metadata field.
 If an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
+
 
 Example:
 
@@ -459,7 +461,10 @@ Example:
        {
          "element_ratios":[0.33336, 0.22229, 0.44425],
          "element_ratios_meta": {
-           "_exmpl_95_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458],
+           "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
+           "_exmpl_confidence_interval_meta":{
+              "_exmpl_confidence_level": 0.95
+           }
          //...
        }
 
