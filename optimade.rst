@@ -382,7 +382,7 @@ API implementations SHOULD NOT make up and use new prefixes without first gettin
 Database-Provider-Specific fields
 ---------------------------------
 
-Database-Provider-Specific fields MUST be prefixed with (one of) the prefix(es) registered by the database provider enclosed by underscores("\_", ASCII 95 dec (0x5F)).
+Database-Provider-Specific fields MUST be prefixed with one of the prefixes registered by the database provider enclosed by underscores ("\_", ASCII 95 dec (0x5F)).
 
 **Examples**:
 
@@ -391,7 +391,7 @@ Database-Provider-Specific fields MUST be prefixed with (one of) the prefix(es) 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
 
-The suffix _meta is reserved for properties that contain the metadata, as described in the section `Per property metadata fields`_ and MUST not be used for fields that do not follow the guidelines described there.
+The suffix ``_meta`` is reserved for properties that contain the metadata, as described in the section `Per property metadata fields`_ and MUST not be used for fields that do not follow the guidelines described there.
 
 URL Encoding
 ------------
