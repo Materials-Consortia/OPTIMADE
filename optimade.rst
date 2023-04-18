@@ -379,10 +379,10 @@ Visiting this URL in a web browser gives a human-readable description of how to 
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
-Database-specific fields
-~~~~~~~~~~~~~~~~~~~~~~~~
+Database-Provider-Specific fields
+---------------------------------
 
-Database-specific fields MUST be prefixed with (one of) the prefix(es) registered by the database provider enclosed by underscores("\_", ASCII 95 dec (0x5F)).
+Database-Provider-Specific fields MUST be prefixed with (one of) the prefix(es) registered by the database provider enclosed by underscores("\_", ASCII 95 dec (0x5F)).
 
 **Examples**:
 
