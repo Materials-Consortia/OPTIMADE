@@ -460,17 +460,25 @@ This metadata field consists of a dictionary which MAY contain database specific
 Fields in this metadata MAY also have a metadata field.
 If an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
 
+The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_.
+If two metadata fields have a sub field, that is present in both meta data fields, both these sub fields SHOULD have the same $id.
 
-Example:
+It SHOULD contain the field :
+
+- **metadata_for**: which contains a string with the name of the property for which this meta data property contains the meta data,
+
+Example of a returned metadata field:
 
     .. code:: jsonc
 
        {
          "element_ratios":[0.33336, 0.22229, 0.44425],
          "element_ratios_meta": {
+           "metadata_for": "element_ratios",
            "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
            "_exmpl_confidence_interval_meta":{
-              "_exmpl_confidence_level": 0.95
+              "_exmpl_confidence_level": 0.95,
+              "metadata_for": "_exmpl_confidence_interval",
            }
          //...
        }
