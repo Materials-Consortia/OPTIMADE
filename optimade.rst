@@ -379,19 +379,12 @@ Visiting this URL in a web browser gives a human-readable description of how to 
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
-Database-specific fields
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Database-specific fields MUST be prefixed with (one of) the prefix(es) registered by the database provider enclosed by underscores("\_", ASCII 95 dec (0x5F)).
-
 **Examples**:
 
-- A database-provider-specific prefix: ``exmpl``. Used in a field name in a response: :field:`_exmpl_custom_field`.
+- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
-
-The suffix _meta is reserved for properties that contain the metadata, as described in the section `Per property metadata fields`_ and MUST not be used for fields that do not follow the guidelines described there.
 
 URL Encoding
 ------------
