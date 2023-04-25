@@ -381,7 +381,7 @@ API implementations SHOULD NOT make up and use new prefixes without first gettin
 
 **Examples**:
 
-- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+- A database-provider-specific prefix: ``exmpl``. Used in a field name in a response: :field:`_exmpl_custom_field`.
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
