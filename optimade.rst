@@ -2342,7 +2342,7 @@ database-provider-specific properties
     Implementations are thus allowed to decide that some of these properties are part of what can be seen as the default value of :query-param:`response_fields` when that query parameter is omitted.
     Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
-  - The suffix `_meta` is reserved for properties that contain metadata, as described in the section `Per property metadata fields`_ and MUST not be used for fields that do not follow the guidelines described there.
+  - The suffix ``_meta`` is reserved for properties that contain metadata, as described in the section `Per property metadata fields`_ and MUST not be used for fields that do not follow the guidelines described there.
   - Implementations MUST add the properties to the list of :property:`properties` under the respective entry listing :endpoint:`info` endpoint (see `Entry Listing Info Endpoints`_).
 
 - **Examples**: A few examples of valid database-provided-specific property names follows:
