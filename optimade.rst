@@ -453,8 +453,9 @@ This metadata field consists of a dictionary which MAY contain database specific
 Fields in this metadata MAY also have a metadata field.
 If an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
 
-The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_.
-If two metadata fields have a sub field, that is present in both meta data fields, both these sub fields SHOULD have the same $id.
+The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_ just as regular fields.
+If a subfield is present in multiple metadata fields these subfields should have a separate entry under each of these metadata fields.
+The subfields SHOULD have the same value for the $id field if the $id field is present and the subfields are otherwise identical.
 
 It SHOULD contain the field :
 
@@ -469,13 +470,80 @@ Example of a returned metadata field:
          "element_ratios_meta": {
            "metadata_for": "element_ratios",
            "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
-           "_exmpl_confidence_interval_meta":{
+           "_exmpl_confidence_interval_meta": {
               "_exmpl_confidence_level": 0.95,
               "metadata_for": "_exmpl_confidence_interval",
            }
          //...
        }
 
+Example of the property definition of a metadata field:
+
+    .. code:: jsonc
+       {
+         "element_ratios_meta": {
+           "$id": "https://properties.example.com/v1.2.0/element_ratios_meta",
+           "title": "Metadata for the element_ratios field",
+           "description": "This field contains the metadata for the element_ratios field that is specific to each individual entry.",
+           "x-optimade-property": {
+             "property-format": "1.2"
+           },
+           "x-optimade-type": "dictionary",
+           "x-optimade-unit": "inapplicable",
+           "type": ["object", "null"],
+           "properties" : {
+             "metadata_for": {
+               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/metadata_for",
+               "description" : "Defines the property for which this metadata field contains metadata.",
+               "x-optimade-type": "string",
+               "x-optimade-unit" : "inapplicable",
+               "type": "string"
+             },
+             "_exmpl_confidence_interval": {
+               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_confidence_interval",
+               "description" : "This field consists of a list with a list that contains the lower and upper bounds of the confidence interval.",
+               "x-optimade-type": "list",
+               "x-optimade-unit" : "inapplicable",
+               "type": "array",
+               "items": {
+                 "x-optimade-type": "list",
+                 "description" : "The first value in this list is the lower bound for the confidence interval the second value is the upper bound.",
+                 "x-optimade-unit" : "inapplicable",
+                 "type": "array",
+                 "items": {
+                   "x-optimade-type": "float",
+                   "x-optimade-unit" : "dimensionless",
+                   "type": "number"
+                 }
+               }
+             },
+             "_exmpl_confidence_interval_meta": {
+               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_confidence_interval_meta",
+               "title": "Metadata for the _exmpl_confidence_interval field",
+               "x-optimade-type": "dictionary",
+               "x-optimade-unit": "inapplicable",
+               "type": ["object", "null"],
+               "properties" : {
+                 "metadata_for": {
+                   "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/metadata_for",
+                   "description" : "Defines the property for which this metadata field contains metadata.",
+                   "x-optimade-type": "string",
+                   "x-optimade-unit" : "inapplicable",
+                   "type": "string"
+                 },
+                 "_exmpl_confidence_level": {
+                   "x-optimade-type": "float",
+                   "description" : "The confidence level for this interval e.g. 0.95",
+                   "maximum": 1.0,
+                   "minimum": 0.0,
+                   "x-optimade-unit" : "dimensionless",
+                   "type": "number"
+                 }
+               }
+             }
+           }
+         }
+       }
 
 Responses
 =========
