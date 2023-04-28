@@ -137,3 +137,15 @@ For example, the following references the `v1.2.0` version of the angstrom unit:
 ```
   https://schemas.optimade.org/units/v1.2.0/atomistic/angstrom
 ```
+
+## Notes
+
+Sometimes one encounter units defined in the literature that are, essentialy, doubly defined with a physical definition and a strict relationship to, e.g., SI units.
+For example, in the International System of Units (SI), 9th ed. (2019) the electronvolt is categorized as a non-SI unit accepted for use with the SI units
+and both expressed in a table as exactly equal to 1.602176634·10⁻¹⁹ J and simultaneously described in a footnote as "The electron volt is the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum."
+Strictly speaking, this provides two different definitions of the electronvolt that happen to be identical in the 2019 edition of the SI unit system.
+
+In OPTIMADE we prefer unit definitions that remain as static as possible to promote interoperability.
+Hence, in situations like this, it is recommended to take the physical definition as the primary definition, and specify the relationship to other units not as a defining relationship but as a (possibly approximate) non-defining relationship.
+
+Hence, it is preferable here to define the electronvolt as, e.g., the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum, with the 2019 SI definition of volt, rather than being exactly 1.602176634·10⁻¹⁹ J, since the former definition arguably has a higher logetivity.

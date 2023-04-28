@@ -4,9 +4,10 @@ title: "Elementary charge"
 symbol: "e"
 display-symbol: '\(e\)'
 description: |-
-  "Absolute value of the charge of the electron and one of the seven defining constants of the SI" [Rev. Mod. Phys. 93, 025010 (2021)]
+  The CODATA 2018 value for the absolute value of the charge of the electron.
 
-  The elementary charge \(e\) is exactly 1.602176634·10⁻¹⁹ C following the 2019 redefinition of the SI base units.
+  This constant is described in Rev. Mod. Phys. 93, 025010 (2021) as "Absolute value of the charge of the electron and one of the seven defining constants of the SI".
+  It is exactly 1.602176634·10⁻¹⁹ C following the 2019 redefinition of the SI base units.
 standard:
   name: "gnu units"
   version: "3.15"
