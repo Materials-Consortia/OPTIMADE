@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/general/watt"
+title: "watt"
+symbol: "W"
+display-symbol: "W"
+description: |-
+  A derived SI unit for power and radiant flux, defined as kg·m²·s⁻³, which are defined according to the current or one of the historical SI definitions of the SI base units.
+
+  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
+generalizes-units:
+  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/watt"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "watt"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Watt"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/kilogram"
+    - symbol: "m"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/metre"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/second"
+  base-units-expression: "kg*m^2*s^-3"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "watt"

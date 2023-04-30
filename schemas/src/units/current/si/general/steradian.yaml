@@ -1,0 +1,29 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/supplementary/steradian"
+title: "steradian"
+symbol: "sr"
+display-symbol: "sr"
+alternate-symbols:
+  - "steradian"
+description: |-
+  A dimensionless derived SI unit of solid angle defined as the ratio between an area of the surface of a sphere and the square radius so that the entire sphere has a solid angle of 4π steradians.
+
+  The definition of the steradian as part of the SI units (originally classified as a supplementary unit) has remained functionally the same since the introduction of the SI in 1960.
+
+  "The solid angle, expressed in steradian, corresponds to the ratio between an area \(A\) of the surface of a sphere of radius \(r\) and the squared radius, \(\Omega = A/r^2\) sr. One steradian corresponds to the solid angle for which \(A = r^2\), thus 1 sr = 1." [the International System of Units (SI), 9th Edition]
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "radian"
+resources:
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Radian"
+defining-relation:
+  $comment: "steradians are dimensionless"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "steradian"

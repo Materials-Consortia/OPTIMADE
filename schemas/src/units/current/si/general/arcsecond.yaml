@@ -1,0 +1,39 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/general/arcsecond"
+title: "arcsecond"
+symbol: "arcsec"
+display-symbol: "″"
+alternate-symbols:
+  - "second of plane angle"
+  - "second of arc"
+  - "\""
+description: |-
+  A unit of plane and phase angle equal to 1/60 of an arcminute, which is 1/1296000 of a circle and equivalent to pi/648000 rad, with rad defined according to the SI definitions of the radian which has remained functionally the same since the SI system was established.
+
+  The International System of Units (SI), 9th ed. (2019) categorizes the "second" of plane or phase angle, as a "non-SI unit accepted for use with the SI units" and defines it as "1″ = (1/60)′ = (π/648 000) rad."
+  It is noted in a footnote that: "For some applications such as in astronomy, small angles are measured in arcseconds (i.e. seconds of plane angle), denoted as or ″, or milliarcseconds, microarcseconds and picoarcseconds, denoted mas, μas and pas, respectively, where arcsecond is an alternative name for second of plane angle."
+  The formulation "denoted as or ″" is reproduced here faithfully from the source and suggests an alternate symbol is omitted due to a typographical error.
+  It is not clear what alternate symbol is intended to be referenced.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "degree"
+resources:
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Minute_and_second_of_arc"
+defining-relation:
+  base-units:
+    - symbol: "pi"
+      id: "https://schema.optimade.org/units/v1.2.0/constants/math/pi"
+    - symbol: "rad"
+      id: "https://schema.optimade.org/units/v1.2.0/si/1960/supplementary/radian"
+  base-units-expression: "pi*rad"
+  scale:
+    denomenator: 648000
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "arcsecond"

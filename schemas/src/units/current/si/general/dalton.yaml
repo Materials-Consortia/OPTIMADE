@@ -1,0 +1,44 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/general/dalton"
+title: "dalton"
+symbol: "da"
+display-symbol: "da"
+alternate-symbols:
+  - "Da"
+  - "u"
+description: |-
+  A unit of mass defined as 1/12 of the mass of a free carbon 12 atom, at rest and in its ground state.
+
+  The definition of the dalton has remained functionally the same since its introduction as a unit accepted for use with the SI units in 1998.
+  In its introduction it is noted that dalton is an alternate name for the unified atomic mass unit (u), which has been listed as accepted for use with the SI units since 1970 with functionally the same definition.
+  However, alternative definitions have been in use before 1961, e.g., 1/16 of the mass of an atom of Oxygen-16.
+  (The unit definition given here does not cover that, or other, definitions.)
+
+  The International System of Units (SI), 9th ed. (2019) categorizes the dalton as a "non-SI unit accepted for use with the SI units" and notes the (inexact) relationship "1 Da = 1.660 539 066 60(50)×10⁻²⁷ kg".
+  It then defines the unit in a footnote: "The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 of the mass of a free carbon 12 atom, at rest and in its ground state. This value of the dalton is the value recommended in the CODATA 2018 adjustment."
+  Note: in the 2019 redefinition of the SI units, the dalton is the only unit listed as accepted for use with SI that does not have an exact relation to the base SI units.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "atomicmassunit"
+resources:
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Dalton_(unit)"
+  - relation: "CODATA unified atomic mass unit fundamental physical constant: source for relationship to kg"
+    resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?ukg"
+approximate-relations:
+  - base-units:
+    - symbol: "kg"
+      id: "https://schema.optimade.org/units/v1.2.0/si-2019/base/kilogram"
+    base-units-expression: "kg"
+    scale:
+      value: 1.66053906660E-27
+      standard_uncertainty: 0.00000000050E-27
+      relative_standard_uncertainty: 3.0E-10
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "dalton"

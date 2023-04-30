@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/general/tesla"
+title: "tesla"
+symbol: "tesla"
+display-symbol: "T"
+description: |-
+  A derived SI unit for magnetic flux density, defined as kg·s⁻²·A⁻¹, which are defined according to the current or one of the historical SI definitions of the SI base units.
+
+  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
+generalizes-units:
+  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/tesla"
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "tesla"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Tesla_(unit)"
+defining-relation:
+  base-units:
+    - symbol: "A"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/ampere"
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/kilogram"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/second"
+  base-units-expression: "A^-1*kg*s^-2"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "tesla"

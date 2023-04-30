@@ -69,6 +69,10 @@ properties:
           type: object
       type: object
     type: array
+  generalizes-units:
+    type: array
+    items:
+      type: string
   defining-relation:
     description: |-
        A dictionary that encodes a defining relation to another unit or set of units, with the primary intended use of relating a unit to its definition in SI units, if such a relationship exists.

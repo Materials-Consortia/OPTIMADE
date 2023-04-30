@@ -1,0 +1,26 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/becquerel"
+title: "becquerel"
+symbol: "Bq"
+display-symbol: "Bq"
+description: |-
+  A derived SI unit for radioactivity, defined as s⁻¹, which is defined according to the current or one of the historical SI definitions of the SI base units.
+
+  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "becquerel"
+resources:
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Becquerel"
+defining-relation:
+  base-units:
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/general/second"
+  base-units-expression: "s^-1"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "becquerel"
