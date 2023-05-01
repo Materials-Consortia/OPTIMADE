@@ -450,7 +450,7 @@ The name of the metadata field consists of the name of the property for which it
 For example, when the field is :property:`cartesian_site_positions` the metadata field would be :field:`cartesian_site_positions_meta`.
 
 This metadata field consists of a dictionary which MAY contain database specific fields.
-Fields in this metadata MAY also have a metadata field.
+Fields in this metadata dictionary MAY also have their own metadata field.
 If an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
 
 The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_ just as regular fields.
