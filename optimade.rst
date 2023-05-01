@@ -456,10 +456,10 @@ If an implementation supports the metadata field, it SHOULD return the metadata 
 The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_ just as regular fields.
 If a subfield is present in multiple metadata fields these subfields should have a separate entry under each of these metadata fields.
 The subfields SHOULD have the same value for the :field:`$id` field if the :field:`$id` field is present and the subfields are otherwise identical.
+In addition to the fields described in the section `property definitions`_ the property definition of a metadata field SHOULD have the key:
 
-It SHOULD contain the field :
-
-- **metadata_for**: which contains a string with the name of the property for which this meta data property contains the meta data,
+- **x-optimade-metadata-for**: This key contains a string with the name of the property for which this metadata property contains the metadata.
+  It MUST be located at the top level of the property definition.
 
 Example of a returned metadata field:
 
@@ -468,11 +468,9 @@ Example of a returned metadata field:
        {
          "element_ratios":[0.33336, 0.22229, 0.44425],
          "element_ratios_meta": {
-           "metadata_for": "element_ratios",
            "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
            "_exmpl_confidence_interval_meta": {
               "_exmpl_confidence_level": 0.95,
-              "metadata_for": "_exmpl_confidence_interval",
            }
          //...
        }
@@ -484,6 +482,7 @@ Example of the property definition of a metadata field:
          "element_ratios_meta": {
            "$id": "https://properties.example.com/v1.2.0/element_ratios_meta",
            "title": "Metadata for the element_ratios field",
+           "x-optimade-metadata-for": "element_ratios",
            "description": "This field contains the metadata for the element_ratios field that is specific to each individual entry.",
            "x-optimade-property": {
              "property-format": "1.2"
@@ -520,6 +519,7 @@ Example of the property definition of a metadata field:
              "_exmpl_confidence_interval_meta": {
                "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_confidence_interval_meta",
                "title": "Metadata for the _exmpl_confidence_interval field",
+               "x-optimade-metadata-for": "_exmpl_confidence_interval",
                "x-optimade-type": "dictionary",
                "x-optimade-unit": "inapplicable",
                "type": ["object", "null"],
