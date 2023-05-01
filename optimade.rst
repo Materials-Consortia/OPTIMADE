@@ -455,7 +455,7 @@ If an implementation supports the metadata field, it SHOULD return the metadata 
 
 The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_ just as regular fields.
 If a subfield is present in multiple metadata fields these subfields should have a separate entry under each of these metadata fields.
-The subfields SHOULD have the same value for the $id field if the $id field is present and the subfields are otherwise identical.
+The subfields SHOULD have the same value for the :field:`$id` field if the :field:`$id` field is present and the subfields are otherwise identical.
 
 It SHOULD contain the field :
 
