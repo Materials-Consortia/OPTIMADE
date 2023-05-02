@@ -21,7 +21,6 @@ OPTIMADE API specification v1.2.0~develop
 
      entry : names of type of resources, served via OPTIMADE, pertaining to data in a database.
      property : data item that belongs to an entry.
-     ranged_property : A property that can be returned in pieces and that supports slicing.
      val : value examples that properties can be.
            :val: is ONLY used when referencing values of actual properties, i.e., information that belongs to the database.
      type : data type of values.
@@ -460,7 +459,7 @@ They can also be used by the server to support slicing, so the client can reques
   - For a ranged property, the server MAY return :val:`null` or only a part of the values of the property under the field :field:`<property_name>`, so the size of the entries remains limited, and many entries can be returned in a single response.
     In that case, a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
 
-The dictionary under :field:`<property_name>_meta.range` MUST include these fields.
+The metadata field of the ranged property, :field:`<property_name>_meta.range`, MUST include these fields:
 
 - :field:`range_ids`: list of strings.
   A list with an identifier for each dimension of the property.
@@ -514,7 +513,7 @@ The dictionary under :field:`<property_name>_meta.range` MUST include these fiel
   :field-val:`false` if all the values in the requested range have been returned, and :field-val:`true` if the returned values are incomplete.
 
 
-If the :field:`<property_name>` contains data (i.e. it is not (null or an empty list)), the following additional properties can be present.
+If the :field:`<property_name>` contains data, i.e., it is neither :val:`null`, nor the empty list, the following additional properties can be present:
 Querying is not relevant for these properties and SHOULD NOT be supported.
 
 - :field:`nreturned_values`: integer
