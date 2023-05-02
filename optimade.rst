@@ -67,8 +67,6 @@ OPTIMADE API specification v1.2.0~develop
 
 .. role:: property(literal)
 
-.. role:: ranged-property(literal)
-
 .. role:: val(literal)
 
 .. role:: type(literal)
@@ -503,9 +501,14 @@ The metadata field of the ranged property, :field:`<property_name>_meta.range`, 
   The total number of values in the property.
   SHOULD be a queryable property with support for all mandatory filter features.
 
-- :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
+- :field:`next`: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`_
 
-  If there is still more data available for the property, this field will contain a URL pointing to the entry, to which this property belongs, which contains the next set of values for this property.
+  If there is still more data available for the property, this field MUST contain a URL from which the next set of values for this property can be obtained.
+  The `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, containing the URL, is either a string, or a links object, which can contain the following fields:
+
+  - **href**: a string containing the URL.
+  - **meta**: a meta object containing non-standard meta-information about the next link.
+
   If all the data for this property has been returned, the value SHOULD be :val:`null`
 
 - :field:`more_data_available`: boolean.
@@ -536,12 +539,18 @@ Querying is not relevant for these properties and SHOULD NOT be supported.
   This field MUST be present.
   For dimensions where the field :field:`data_range.step` is not defined, the value of the field :field:`returned_range.step` MUST match the stepsize as used in the query parameter :query_param:`property_ranges`.
 
-In addition to these fields in the metadata, entries which support accessing data via the :query-param:`property\_ranges` query parameter SHOULD support per entry :field:`next` and :field:`more_data_availble` field to enable returning all the
+In addition to these fields in the metadata, entries which support accessing data via the :query-param:`property\_ranges` query parameter SHOULD support per entry :field:`next` and :field:`more_data_available` field to enable returning the remainder of the data for all the properties for the rest of the range.
 
-- :field:`next`: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
+- :field:`next`: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
+
   If data is requested for multiple properties at the same time, but the total amount of data is too large to be returned in one response, this field contains a link from which the remainder of the data can be obtained.
   Responses supplied via this next link MUST contain all the values for all the requested properties that lie within the returned range. The server May choose to return a range that is smaller than the requested range. In that case another next link SHOULD be provided.
   If all the data for this property has been returned, the value SHOULD be :val:`null`
+
+  The `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, containing the URL, is either a string, or a links object, which can contain the following fields:
+
+    - **href**: a string containing the URL.
+    - **meta**: a meta object containing non-standard meta-information about the next link.
 
 - :field:`more_data_available`: boolean.
 
@@ -855,7 +864,7 @@ An example of a full response:
          }],
          "contains_null": false,
          "more_data_available": true,
-         "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=mdstep[101,200,2],particles[1,3,1],xyz[1,3,1]]"
+         "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=mdstep(101,200,2),particles(1,3,1),xyz(1,3,1)"
        },
        // ...
      },
