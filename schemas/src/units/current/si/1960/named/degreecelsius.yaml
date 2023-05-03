@@ -4,7 +4,7 @@ title: "Degree Celsius"
 symbol: "degC"
 display-symbol: "°C"
 description: |-
-  A derived SI unit of temperature, defined as degree kelvin offset with +273.15 in SI base units using the 1960 definition of degree kelvin.
+  A derived SI unit of temperature, defined as degree kelvin offset with +273.15 in the SI base units adopted at the 11th CGPM Meeting in 1960.
 
   "If we add to the practical international Celsius temperatures defined above T₀ = 273.15 degrees, we obtain the practical international Kelvin temperatures. By subtracting T₀ from the thermodynamic temperatures, we obtain the thermodynamic Celsius temperatures." [11th CGPM meeting (1960)]
 

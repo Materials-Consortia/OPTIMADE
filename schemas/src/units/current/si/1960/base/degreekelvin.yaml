@@ -4,9 +4,10 @@ title: "degree Kelvin"
 symbol: "degK"
 display-symbol: "°K"
 description: |-
-  The base SI unit of thermodynamic temperature defined from the triple point of water at the 10th CGPM Meeting in 1954, resolution 3 and adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  The base SI unit of thermodynamic temperature defined from the triple point of water, which was adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
 
   "The 10th Conférence Générale des Poids et Mesures decides to define the thermodynamic temperature scale by choosing the triple point of water as the fundamental fixed point, and assigning to it the temperature 273.16 degrees Kelvin, exactly." [10th CGPM Meeting (1954), resolution 3]
+  The degree Kelvin was adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
 resources:
   - relation: "Definition at the 10th CGPM meeting (1954), resolution 3"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/10-1954/resolution-3"

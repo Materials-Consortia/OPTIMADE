@@ -6,7 +6,7 @@ display-symbol: "sr"
 alternate-symbols:
   - "sterad"
 description: |-
-  A supplementary SI unit of solid angle defined from the relation of the area cut out on a sphere at a given radius so that the entire sphere has a solid angle of 4π steradians, defined at the 9th CGPM Meeting in 1948 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  A supplementary SI unit of solid angle defined from the relation of the area cut out on a sphere at a given radius so that the entire sphere has a solid angle of 4π steradians, defined at the 9th CGPM Meeting in 1948 and included into SI at the 11th CGPM Meeting in 1960.
 
   "The unit of solid angle is the steradian. The steradian is the solid angle with its vertex at the center of a sphere with a radius of one meter, which cuts out an area of one square meter on the surface of that sphere." [9th CGPM Meeting in 1948].
 standard:

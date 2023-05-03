@@ -4,12 +4,16 @@ symbol: "H"
 display-symbol: "H"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/henry"
 description: |-
-  A derived SI unit for inductance, defined as kg·m²·s⁻²·A⁻² in SI 1960 base units at the 11th CGPM Meeting in 1960, resolution 12.
+  A derived SI unit for inductance equal to kg·m²·s⁻²·A⁻² in the SI base units adopted at the 11th CGPM Meeting in 1960.
+
+  "The henry is the inductance of a closed circuit in which an electromotive force of one volt is produced when the electric current passing through the circuit varies uniformly at a rate of one ampere per second." [9th CGPM meeting in 1946]
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "henry"
 resources:
+  - relation: "Definition at the 9st CGPM meeting (1948)"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
   - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
   - relation: "Wikipedia article describing the unit"

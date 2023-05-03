@@ -4,7 +4,7 @@ title: "radian"
 symbol: "rad"
 display-symbol: "rad"
 description: |-
-  A supplementary SI unit of plane angle defined from the relation of the arc length on a circle intercepted at a given radius so that the full circle has an angle of 4π radians, defined at the 9th CGPM Meeting in 1948 and included into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  A supplementary SI unit of plane angle defined from the relation of the arc length on a circle intercepted at a given radius so that the full circle has an angle of 4π radians, defined at the 9th CGPM Meeting in 1948 and included into SI at the 11th CGPM Meeting in 1960.
 
   "The radian is the angle with its vertex at the center of a circle that intercepts an arc of length equal to the radius on the circumference of that circle." [9th CGPM Meeting in 1948].
 resources:

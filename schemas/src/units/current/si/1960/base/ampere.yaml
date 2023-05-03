@@ -4,9 +4,10 @@ title: "ampere"
 symbol: "A"
 display-symbol: "A"
 description: |-
-  The SI base unit of electric current defined from the force between parallel wires carrying an electric current at the 41st CIPM meeting (1946), resolution 2 and adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
+  The SI base unit of electric current defined from the force between parallel wires carrying an electric current, which was included in the SI at the 11th CGPM Meeting in 1960.
 
   "The ampere is that constant current which, if maintained in two straight parallel conductors of infinite length, of negligible circular cross-section, and placed 1 metre apart in vacuum, would produce between these conductors a force equal to 2×10⁻⁷ MKS unit of force per metre of length." [41st CIPM meeting (1946), Resolution 2].
+  The ampere was adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
 
   Furthermore, the SI 1960 definition of the ampere depend on:
 
