@@ -4,7 +4,9 @@ title: "newton"
 symbol: "newton"
 display-symbol: "N"
 description: |-
-  The newton is a derived SI unit for force and weight, defined as kg·m·s⁻² defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
+  The newton is a derived SI unit for force and weight equal to kg·m·s⁻² in 1967 SI units.
+
+  The newton was defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"

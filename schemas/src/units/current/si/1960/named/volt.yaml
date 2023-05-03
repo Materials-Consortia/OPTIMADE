@@ -6,7 +6,7 @@ display-symbol: "V"
 alternate-symbols:
   - "volt"
 description: |-
-  The volt is a derived SI unit for electric potential, voltage, and electromotive force equal to kg·m²·s⁻³·A⁻¹ in the SI base units adopted at the 11th CGPM Meeting in 1960.
+  The volt is a derived SI unit for electric potential, voltage, and electromotive force equal to kg·m²·s⁻³·A⁻¹ in the 1960 SI base units.
 
   "The volt is the electric potential difference that exists between two points of a conducting wire carrying a constant current of one ampere when the power dissipated between these points is equal to one watt." [9th CGPM meeting in 1946]
 standard:

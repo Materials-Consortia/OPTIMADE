@@ -4,7 +4,7 @@ title: "coulomb"
 symbol: "coulomb"
 display-symbol: "C"
 description: |-
-  A derived SI unit for electric charge, equal to s·A in the SI base units adopted at the 11th CGPM Meeting in 1960.
+  A derived SI unit for electric charge, equal to s·A in the 1960 SI base units.
 
   "The coulomb is the amount of electricity transported in one second by a current of one ampere." [9th CGPM meeting in 1946]
 standard:

@@ -4,7 +4,9 @@ title: "ohm"
 symbol: "ohm"
 display-symbol: "Ω"
 description: |-
-  A derived SI unit for electrical resistance, defined as kg·m²·s⁻³·A⁻² defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
+  A derived SI unit for electrical resistance equal to kg·m²·s⁻³·A⁻² in the 1967 SI units.
+
+  The ohm was defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"

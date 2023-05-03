@@ -4,7 +4,7 @@ title: "weber"
 symbol: "weber"
 display-symbol: "Wb"
 description: |-
-  A derived SI unit for magnetic flux, defined as kg·m²·s⁻³·A⁻¹ in the SI base units adopted at the 11th CGPM Meeting in 1960.
+  A derived SI unit for magnetic flux equal to kg·m²·s⁻³·A⁻¹ in the 1960 SI base units.
 
   "The weber is the magnetic induction flux that, passing through a single-turn circuit, produces an electromotive force of one volt if it is reduced to zero in one second by uniform decay." [9th CGPM meeting in 1946]
 standard:
