@@ -491,13 +491,6 @@ Example of the property definition of a metadata field:
            "x-optimade-unit": "inapplicable",
            "type": ["object", "null"],
            "properties" : {
-             "metadata_for": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/metadata_for",
-               "description" : "Defines the property for which this metadata field contains metadata.",
-               "x-optimade-type": "string",
-               "x-optimade-unit" : "inapplicable",
-               "type": "string"
-             },
              "_exmpl_confidence_interval": {
                "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_confidence_interval",
                "description" : "This field consists of a list with a list that contains the lower and upper bounds of the confidence interval.",
@@ -524,13 +517,6 @@ Example of the property definition of a metadata field:
                "x-optimade-unit": "inapplicable",
                "type": ["object", "null"],
                "properties" : {
-                 "metadata_for": {
-                   "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/metadata_for",
-                   "description" : "Defines the property for which this metadata field contains metadata.",
-                   "x-optimade-type": "string",
-                   "x-optimade-unit" : "inapplicable",
-                   "type": "string"
-                 },
                  "_exmpl_confidence_level": {
                    "x-optimade-type": "float",
                    "description" : "The confidence level for this interval e.g. 0.95",
