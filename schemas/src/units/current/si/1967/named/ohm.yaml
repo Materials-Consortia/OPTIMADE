@@ -1,17 +1,21 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/ohm"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/ohm"
 title: "ohm"
 symbol: "ohm"
 display-symbol: "Ω"
 description: |-
   A derived SI unit for electrical resistance equal to kg·m²·s⁻³·A⁻² in the 1967 SI units.
 
-  The ohm was defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
+  "The ohm is the electrical resistance that exists between two points of a conductor when a constant potential difference of one volt, applied between these two points, produces a current of one ampere in the conductor, provided that the conductor is not the seat of any electromotive force." [9th CGPM meeting in 1946]
+
+  The ohm was defined at the 9th CGPM Meeting in 1946, included in SI at the 11th CGPM meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "ohm"
 resources:
+  - relation: "Definition at the 9st CGPM meeting (1948)"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
   - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
   - relation: "Redefinition of the second in the 13th CGPM Meeting (1967), resolution 1"

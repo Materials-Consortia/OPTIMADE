@@ -1,12 +1,14 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/farad"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/farad"
 title: "farad"
 symbol: "farad"
 display-symbol: "F"
 description: |-
   A derived SI unit for electrical capacitance equal to kg⁻¹·m⁻²·s⁴·A² in the 1967 base units.
 
-  The farad was defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
+  "The farad is the capacitance of an electric capacitor between whose plates an electric potential difference of one volt appears when it is charged with an amount of electricity equal to one coulomb." [9th CGPM meeting in 1946]
+
+  The farad was defined at the 9th CGPM Meeting in 1946, included in SI at the 11th CGPM meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"

@@ -1,12 +1,14 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/lumen"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/lumen"
 title: "lumen"
 symbol: "lm"
 display-symbol: "lm"
 description: |-
   A derived SI unit for luminous flux equal to cd·sr in the 1967 SI units.
 
-  The lumen was defined at the 11th CGPM meeting, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
+  "The lumen is the luminous flux emitted in a steradian by a uniform point source with a luminous intensity of one candela." [9th CGPM meeting in 1946]
+
+  The lumen was defined at the 9th CGPM Meeting in 1946, included in SI at the 11th CGPM meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"
