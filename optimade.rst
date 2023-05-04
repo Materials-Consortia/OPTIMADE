@@ -456,7 +456,7 @@ If an implementation supports the metadata field, it SHOULD return the metadata 
 The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_ just as regular fields.
 If a subfield is present in multiple metadata fields these subfields should have a separate entry under each of these metadata fields.
 The subfields SHOULD have the same value for the :field:`$id` field if the :field:`$id` field is present and the subfields are otherwise identical.
-In addition to the fields described in the section `property definitions`_ the property definition of a metadata field SHOULD have the key:
+In addition to the fields described in the section `property definitions`_, the property definition of a metadata field SHOULD have the key:
 
 - **x-optimade-metadata-for**: This key contains a string with the name of the property for which this metadata property contains the metadata.
   It MUST be located at the top level of the property definition.
