@@ -6,7 +6,7 @@ display-symbol: "t"
 alternate-symbols:
   - "t"
 description: |-
-  A unit of mass defined as exactly 1000 kg, using the SI base units defined in 1970.
+  A unit of mass defined as exactly 1000 kg, using the SI base units defined in 1967.
 
   The International System of Units (SI), 1st ed. (1970) defines the tonne in the section "Units used with the International System" (known as "Non-SI units accepted for use with the SI units" in later editions) as "1 t = 10³ kg".
   Later editions clarify that: "The tonne and its symbol, t, were adopted by the CIPM in 1879 (PV, 1879, 41). This unit is sometimes referred to as 'metric ton' in some English-speaking countries." [The International System of Units (SI), 9th ed. (2019)]
