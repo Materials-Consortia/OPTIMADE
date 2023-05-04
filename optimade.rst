@@ -450,7 +450,6 @@ The name of the metadata field consists of the name of the property for which it
 For example, when the field is :property:`cartesian_site_positions` the metadata field would be :field:`cartesian_site_positions_meta`.
 
 This metadata field consists of a dictionary which MAY contain database specific fields.
-Fields in this metadata dictionary MAY also have their own metadata field.
 If an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
 
 The metadata fields and their subfields should be described in the property definitions as described in the section `property definitions`_ just as regular fields.
@@ -469,16 +468,15 @@ Example of a returned metadata field:
          "element_ratios":[0.33336, 0.22229, 0.44425],
          "element_ratios_meta": {
            "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
-           "_exmpl_confidence_interval_meta": {
-              "_exmpl_confidence_level": 0.95,
-           }
+           "_exmpl_confidence_level": 0.95,
+         }
          //...
        }
 
 Example of the property definition of a metadata field:
 
     .. code:: jsonc
-       {
+        {
          "element_ratios_meta": {
            "$id": "https://properties.example.com/v1.2.0/element_ratios_meta",
            "title": "Metadata for the element_ratios field",
@@ -509,23 +507,13 @@ Example of the property definition of a metadata field:
                  }
                }
              },
-             "_exmpl_confidence_interval_meta": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_confidence_interval_meta",
-               "title": "Metadata for the _exmpl_confidence_interval field",
-               "x-optimade-metadata-for": "_exmpl_confidence_interval",
-               "x-optimade-type": "dictionary",
-               "x-optimade-unit": "inapplicable",
-               "type": ["object", "null"],
-               "properties" : {
-                 "_exmpl_confidence_level": {
-                   "x-optimade-type": "float",
-                   "description" : "The confidence level for this interval e.g. 0.95",
-                   "maximum": 1.0,
-                   "minimum": 0.0,
-                   "x-optimade-unit" : "dimensionless",
-                   "type": "number"
-                 }
-               }
+             "_exmpl_confidence_level": {
+               "x-optimade-type": "float",
+               "description" : "The confidence level for this interval e.g. 0.95",
+               "maximum": 1.0,
+               "minimum": 0.0,
+               "x-optimade-unit" : "dimensionless",
+               "type": "number"
              }
            }
          }
