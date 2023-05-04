@@ -11,7 +11,7 @@ description: |-
   The ångström is defined in the SI meter defined at the 17th meeting of the CGPM in 1983 (which is equal to the meter defined in the 2019 redefinition of the SI base units) in the International System of Units (SI), 8th Edition (2006) as: "1 Å = 0.1 nm = 100 pm = 10⁻¹⁰ m".
   It is noted in a footnote that "The ångström is widely used by x-ray crystallographers and structural chemists because all chemical bonds lie in the range 1 to 3 ångströms. However it has no official sanction from the CIPM or the CGPM."
   The ångström is not mentioned in the International System of Units (SI), 9th Edition (2019).
-generalizes-units:
+compatibility:
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/dependent/atomic/angstrom"
 standard:
   name: "gnu units"

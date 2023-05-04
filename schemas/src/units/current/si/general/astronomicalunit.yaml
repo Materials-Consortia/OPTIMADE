@@ -10,7 +10,7 @@ description: |-
 
   The International System of Units (SI), 9th ed. (2019) categorizes the astronomical unit as a "non-SI unit accepted for use with the SI units" and defines it as "1 au = 149 597 870 700 m."
   This definition is referenced in a footnote as: "As decided at the XXVIII General Assembly of the International Astronomical Union (Resolution B2, 2012)."
-generalizes-units:
+compatibility:
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/astronomicalunit"
 standard:
   name: "gnu units"

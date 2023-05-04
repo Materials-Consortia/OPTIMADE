@@ -69,7 +69,7 @@ properties:
           type: object
       type: object
     type: array
-  generalizes-units:
+  compatibility:
     type: array
     items:
       type: string

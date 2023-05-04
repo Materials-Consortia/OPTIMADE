@@ -9,7 +9,7 @@ description: |-
   This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
 
   The International System of Units (SI), 9th ed. (2019) categorizes the minute as a "non-SI unit accepted for use with the SI units" and defines it as "1 min = 60 s."
-generalizes-units:
+compatibility:
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/minute"
 standard:
   name: "gnu units"

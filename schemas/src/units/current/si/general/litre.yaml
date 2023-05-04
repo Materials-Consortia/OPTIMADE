@@ -13,7 +13,7 @@ description: |-
 
   The International System of Units (SI), 9th ed. (2019) categorizes the litre as a "non-SI unit accepted for use with the SI units" and defines it as "1 l = 1 L = 1 dm³ = 10³ cm³ = 10⁻³ m³."
   This definition is referenced in a footnote as: "The litre and the symbol, lower-case l, were adopted by the CIPM in 1879 (PV, 1879, 41). The alternative symbol, capital L, was adopted by the 16th CGPM (1979, Resolution 6; CR, 101 and Metrologia, 1980, 16, 56-57) in order to avoid the risk of confusion between the letter l (el) and the numeral 1 (one)."
-generalizes-units:
+compatibility:
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/litre"
 standard:
   name: "gnu units"

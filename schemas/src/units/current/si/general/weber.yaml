@@ -7,7 +7,7 @@ description: |-
   A derived SI unit for magnetic flux, defined as kg·m²·s⁻³·A⁻¹, which are defined according to the current or one of the historical SI definitions of the SI base units.
 
   This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
-generalizes-units:
+compatibility:
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/weber"
 standard:
   name: "gnu units"

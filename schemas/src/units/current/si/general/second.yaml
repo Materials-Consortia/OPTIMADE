@@ -11,7 +11,7 @@ description: |-
   In the 2019 redefinition of the SI base units the second is defined via the unperturbed ground-state hyperfine transition frequency of the caesium 133 atom.
 
   "The second, symbol s, is the SI unit of time. It is defined by taking the fixed numerical value of the caesium frequency, \(\Delta \nu_\textrm{Cs}\), the unperturbed ground-state hyperfine transition frequency of the caesium 133 atom, to be 9192631770 when expressed in the unit Hz, which is equal to s⁻¹." [26th CGPM Meeting (2018), resolution 1].
-generalizes-units:
+compatibility:
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/base/second"
 standard:
   name: "gnu units"
