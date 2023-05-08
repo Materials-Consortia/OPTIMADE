@@ -33,8 +33,8 @@ approximate-relations:
       id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre"
     base-units-expression: "m"
     scale:
-      value: 1.49597870691E11
-      standard_uncertainty: 0.00000000006E11
+      value: 1.49597870691E+11
+      standard_uncertainty: 0.00000000006E+11
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
