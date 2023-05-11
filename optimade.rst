@@ -720,7 +720,7 @@ Warning codes starting with an alphanumeric character are reserved for general O
 The following are defined:
 
 - `unrecognized_property`: the request refers to an unrecognized property in the query parameters `filter`, `response_fields`, or in some other way.
-  Implementations SHOULD indicate in the warning field `details` which properties are unrecognized.
+  Implementations SHOULD indicate in the warning field `detail` which properties are unrecognized.
   For future compatibility, unrecognized properties are handled as having value :val:`null`.
   For more information, see `Handling unrecognized property names`_.
 
