@@ -1,0 +1,28 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
+$id: "https://example.org/properties/v1.0.0/structures/_exmpl_magnetic_moment"
+title: "Magnetic moment"
+x-optimade-type: "list"
+x-optimade-property:
+  version: "1.2.0"
+  property-format: "1.2"
+  name: "magnetic_moment"
+  unit-definitions:
+    - $$inherit: "/units/v1.2.0/codata/1969/electromagnetic/bohrmagneton"
+type:
+  - "array"
+  - "null"
+description: |-
+  The magnetic moment of each atom in the structure in Bohr magnetons (\(\mu_B\)).
+examples:
+  - [[0,0,2.0],[-1.2,0.5,1.8]]
+x-optimade-unit: "inapplicable"
+items:
+  x-optimade-type: "list"
+  type:
+    - "array"
+  x-optimade-unit: "inapplicable"
+  items:
+    x-optimade-type: "float"
+    type:
+      - "number"
+    x-optimade-unit: "bohrmagneton"
