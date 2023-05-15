@@ -7,11 +7,11 @@ description: |-
   A unit of area equal to 100 square meters (10² m²), with meter defined according to the 1960 SI base units.
 
   The are appear in the International System of Units (SI), 1th ed. (1970) defined as "1 a = 1 dam² = 10² m²" with the footnote "This unit and its symbol were adopted by the International Committee in 1879 (Proces-Verbaux C.I.P.M., 1879, p. 41).
-  The International System of Units (SI), 5th ed. (1985) adds the clarification that the unit is "used to express agricultural areas."
-  The International System of Units (SI), 8th ed. (2006) completely removes the unit (but still defines the hectare).
 
   The International System of Units (SI), 1th ed. (1970) categorizes the unit as "units in use temporarily".
-  The International System of Units (SI), 7th ed. (1998) changes the categorisation to "Other non-SI units currently accepted for use with the International System."
+  The International System of Units (SI), 5th ed. (1985) adds the clarification that the unit is "used to express agricultural areas."
+  The International System of Units (SI), 8th ed. (2006) completely removes the unit (but still defines the hectare).
+  The International System of Units (SI), 7th ed. (1998) reintroduces the unit in the category "Other non-SI units currently accepted for use with the International System."
 standard:
   name: "gnu units"
   version: "3.15"

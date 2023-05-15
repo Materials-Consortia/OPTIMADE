@@ -1,22 +1,26 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/hectare"
-title: "hectare"
-symbol: "he"
-display-symbol: "he"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/gal"
+title: "gal"
+symbol: "Gal"
+display-symbol: "Gal"
 description: |-
-  A unit of area equal to 1000 square meters (1 hm²), with meter defined according to the 2019 redefinition of SI units.
+  A unit of acceleration equal to 1 centimeter per second squared (1 cm/s²), defined according to the 1967 SI units.
 
-  The International System of Units (SI), 9th ed. (2019) categorizes the hectare as a "non-SI unit accepted for use with the SI units" and defines it as "1 ha = 1 hm² = 10⁴ m²".
-  This definition is referenced in a footnote as: "The unit hectare and its symbol, ha, were adopted by the CIPM in 1879 (PV, 1879, 41). The hectare is used to express land area."
+  The gal appear in the International System of Units (SI), 1th ed. (1970) defined as "1 Gal = 1 cm/s² = 10⁻² m/s²" with the footnote "The gal is a special unit of acceleration employed in geodesy and geophysics to express acceleration due to gravity."
+
+  The International System of Units (SI), 1th ed. (1970) categorizes the unit as "units in use temporarily".
+  The International System of Units (SI), 7th ed. (1998) changes the categorisation to "derived CGS units with special names".
+  The International System of Units (SI), 9th ed. (2019) moves the unit definition to the margin aside the table for Non-SI units accepted for use with the SI units.
+  It is not clear how to interprete the categorization intended with this placement of the unit.
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "hectare"
 resources:
-  - relation: "Definition in the International System of Units (SI), 9th Edition"
+  - relation: "Definition in the International System of Units (SI), 1st Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
   - relation: "Wikipedia article describing the unit"
-    resource-id: "https://en.wikipedia.org/wiki/Hectare"
+    resource-id: "https://en.wikipedia.org/wiki/Gal_(unit)"
 defining-relation:
   base-units:
     - symbol: "m"
