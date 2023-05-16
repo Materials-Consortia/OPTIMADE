@@ -426,13 +426,13 @@ In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`
 Handling unrecognized property names
 ------------------------------------
 
-When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to a property name that is not recognized, it MUST NOT treat this as an error but rather MUST issue a warning with `code` set to `unrecognized_property`.
+When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to a property name that is not recognized, it MUST NOT treat this as an error but rather MUST issue a warning with :field:`code` set to :field-val:`unrecognized_property`.
 Queries MUST be evaluated with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
 If the unrecognized property is requested to be included in the response, it MUST be included with :val:`null` value.
 
 The rationale for not triggering errors for unrecognized properties is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
 Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
-If this is not possible, and if the endpoint defines a :property:`<endpoint>_features` property (e.g., :property:`structure_features` for the `structures` endpoint), the implementation MUST define a database-specific identifier and place it in this list for those entries where the distinction between implementations that do and do not support the property is important.
+If this is not possible, and if the endpoint defines a :property:`<endpoint>_features` property (e.g., :property:`structure_features` for the :endpoint:`structures` endpoint), the implementation MUST define a database-specific identifier and place it in this list for those entries where the distinction between implementations that do and do not support the property is important.
 Filters can then be formulated as, e.g., :filter-fragment:`_exmpl_strange_property IS UNKNOWN and structure_features HAS "_exmpl_strangeness"` to suppress results from implementations that do not support :property:`_exmpl_strange_property`.
 
 For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
@@ -719,8 +719,8 @@ Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with 
 Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes.
 The following are defined:
 
-- `unrecognized_property`: the request refers to an unrecognized property in the query parameters `filter`, `response_fields`, or in some other way.
-  Implementations SHOULD indicate in the warning field `detail` which properties are unrecognized.
+- :field-val:`unrecognized_property`: the request refers to an unrecognized property in the query parameters :query-parameter:`filter`, :query_parameter:`response_fields`, or in some other way.
+  Implementations SHOULD indicate in the warning field :field:`detail` which properties are unrecognized.
   For future compatibility, unrecognized properties are handled as having value :val:`null`.
   For more information, see `Handling unrecognized property names`_.
 
