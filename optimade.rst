@@ -632,7 +632,6 @@ The response MAY also return resources related to the primary data in the field:
 
   The :field:`links` field SHOULD include the following links objects:
 
-  - **self**: a links object giving the URL from which the response was obtained.
   - **describedby**: a links object giving the URL for a schema that describes the response.
     The URL SHOULD resolve into a JSON formatted response returning a JSON object with top level :field:`$schema` and/or :field:`$id` fields that can be used by the client to identify the schema format.
 
@@ -651,6 +650,10 @@ The response MAY also return resources related to the primary data in the field:
   - **prev**: the previous page of data. :field-val:`null` or omitted when the current response is the first page of data.
   - **last**: the last page of data.
   - **first**: the first page of data.
+
+  Finally, the :field:`links` field MAY also include the following links object:
+
+  - **self**: a links object giving the URL from which the response was obtained.
 
 - **included**: a list of `JSON:API resource objects <http://jsonapi.org/format/1.1/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
   Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.1/#document-compound-documents>`__ in the JSON:API.
