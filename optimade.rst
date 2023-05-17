@@ -431,7 +431,7 @@ Queries MUST be evaluated with the property treated as unknown, meaning comparis
 If the unrecognized property is requested to be included in the response, it MUST be included with :val:`null` value.
 
 The rationale for not triggering errors for unrecognized properties is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
-Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
+Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that returning them with the value :val:`null` and treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
 If this is not possible, and if the endpoint defines a :property:`<endpoint>_features` property (e.g., :property:`structure_features` for the :endpoint:`structures` endpoint), the implementation MUST define a database-specific identifier and place it in this list for those entries where the distinction between implementations that do and do not support the property is important.
 Filters can then be formulated as, e.g., :filter-fragment:`_exmpl_strange_property IS UNKNOWN and structure_features HAS "_exmpl_strangeness"` to suppress results from implementations that do not support :property:`_exmpl_strange_property`.
 
@@ -2299,6 +2299,9 @@ database-provider-specific properties
 - **Description**: Database providers are allowed to add database-provider-specific properties in the output of both standard entry types and database-provider-specific entry types.
   Similarly, an implementation MAY add keys with a database-provider-specific prefix to dictionary properties and their sub-dictionaries.
   For example, the database-provider-specific property :property:`_exmpl_oxidation_state`, can be placed within the OPTIMADE property :property:`species`.
+
+  Database-specific properties SHOULD be defined in such a way that returning them with the value :val:`null` and treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
+  See `Handling unrecognized property names`_ for more information.
 
 - **Type**: Decided by the API implementation.
   MUST be one of the OPTIMADE `Data types`_.
