@@ -900,7 +900,7 @@ An example of a full response:
          "indexable_dim":["frames"],
          "dim_size": [200],
          "data_range": [{
-           "name": "particles",
+           "name": "frames",
            "start": 1,
            "step": null,
            "stop": 80,
@@ -911,9 +911,9 @@ An example of a full response:
          "indexes": [[1], [20], [80]],
          "contains_null": false,
          "returned_range":[{
-           "name": "particles",
+           "name": "frames",
            "start": 1,
-           "step": 1,
+           "step": null,
            "stop": 80,
          }],
          "more_data_available": false,
