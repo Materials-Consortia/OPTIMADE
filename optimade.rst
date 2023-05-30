@@ -456,16 +456,18 @@ They can also be used by the server to support slicing, so the client can reques
   - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>_meta`.
   - For a ranged property, the server MAY return :val:`null` or only a part of the values of the property under the field :field:`<property_name>`, so the size of the entries remains limited, and many entries can be returned in a single response.
     In that case, a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
+  - Support for queries on the fields under :field:`range` is OPTIONAL.
 
 The metadata field of the ranged property, :field:`<property_name>_meta.range`, MUST include these fields:
 
 - :field:`range_ids`: list of strings.
   A list with an identifier for each dimension of the property.
-  If dimensions in two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
-  For example, both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`. This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
+  If, within one entry, dimensions for two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
+  For example, both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`.
+  This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
 
 - :field:`indexable_dim`: list of strings.
-  The list of dimensions for which the client can request a subrange via the :query-param:`property_ranges` query parameter.
+  The list of range_ids of the dimensions for which the client can request a subrange via the :query-param:`property_ranges` query parameter.
 
 - :field:`data_range`: list of dictionaries.
   This field describes how the values are distributed in the different dimensions.
