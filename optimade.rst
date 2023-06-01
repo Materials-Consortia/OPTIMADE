@@ -502,7 +502,6 @@ Example of the corresponding metadata property definition contained in the field
          "x-optimade-metadata-definition": {
            "$id": "https://properties.example.com/v1.2.0/element_ratios_meta",
            "title": "Metadata for the element_ratios field",
-           "x-optimade-metadata-for": "element_ratios",
            "description": "This field contains the metadata for the element_ratios field that is specific to each individual entry.",
            "x-optimade-property": {
              "property-format": "1.2"
