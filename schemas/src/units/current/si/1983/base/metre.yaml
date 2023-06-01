@@ -7,11 +7,11 @@ alternate-symbols:
   - "metre"
   - "meter"
 description: |-
-  The metre, or meter, is the SI base unit of length as redefined at the 17th CGPM Meeting in 1983, resolution 1.
+  The metre, or meter, is the SI base unit of length defined via the distance light travels in vaccum during a fixed time interval after the redefinition at the 17th CGPM Meeting in 1983.
 
   "The metre is the length of the path travelled by light in vacuum during a time interval of 1/299792458 of a second." [17th CGPM Meeting (1983), resolution 1].
 
-  Furthermore, in the definition SI 1983 definition of the meter the second in the definition references the SI 1967 second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
+  This definition references the SI 1967 second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
 standard:
   name: "gnu units"
   version: "3.15"

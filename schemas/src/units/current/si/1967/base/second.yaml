@@ -4,7 +4,7 @@ title: "second"
 symbol: "s"
 display-symbol: "s"
 description: |-
-  The SI base unit of time defined via the periods of transitions between levels in the caesium 133 atom as redefined at the 13th CGPM Meeting in 1967, resolution 1.
+  The SI base unit of time defined via the periods of transitions between levels in the caesium 133 atom after redefinition at the 13th CGPM Meeting in 1967.
 
   "The second is the duration of 9192631770 periods of the radiation corresponding to the transition between the two hyperfine levels of the ground state of the caesium 133 atom" [13th CGPM Meeting (1967), resolution 1]
 resources:

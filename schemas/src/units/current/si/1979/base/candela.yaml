@@ -8,9 +8,8 @@ description: |-
 
   "The candela is the luminous intensity, in a given direction, of a source that emits monochromatic radiation of frequency 540×10¹² hertz and that has a radiant intensity in that direction of 1/683 watt per steradian." [16th CGPM Meeting (1979), resolution 3].
 
-  Furthermore, the SI 1979 redefinition of the candela references:
+  The hertz, watt and steradian units referenced in this definition are:
 
-  - the SI 1960 base unit metre (https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre).
   - the SI 1967 derived hertz unit (https://schemas.optimade.org/units/v1.2.0/si/1967/named/hertz) equal to second⁻¹, referencing the SI 1967 base unit second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
   - the SI 1967 derived watt unit (https://schemas.optimade.org/units/v1.2.0/si/1967/named/watt) equal to kilogram·meter²·second⁻³, referencing the SI 1960 base unit kilogram (https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram) and metre (https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre); and the 1967 base unit second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
   - the SI 1960 supplementary unit steradian (https://schemas.optimade.org/units/v1.2.0/si/1960/supplementary/steradian).
