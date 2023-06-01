@@ -455,7 +455,7 @@ For example, the metadata property definition of the field :field:`_exmpl_exampl
 The reason for this limitation is to avoid name collisions with standard metadata fields defined by the OPTIMADE standard that apply also to database-specific data fields.
 
 Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the metadata field, it SHOULD return the metadata field whenever the property to which the metadata field belongs is returned.
+However, when an implementation supports the :field:`meta` field, it SHOULD return the metadata for any of the fields that are in the returned entries as well as metadata that applies to the entries as a whole.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database specific per entry metadata field :field:_exmpl_uploader` :
 
