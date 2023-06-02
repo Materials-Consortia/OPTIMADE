@@ -3112,6 +3112,22 @@ Upon having performed the above query, the following query can be performed to r
             "contains_null": false,
             "more_data_available": true,
             "nreturned_values": 900,
+            "returned_range":[{
+               "name": "frames",
+                "start": 1,
+                "stop": 100,
+                "step": 1
+              },{
+                "name": "particles",
+                "start": 1,
+                "stop": 3,
+                "step": 1
+              },{
+                "name": "xyz",
+                "start": 1,
+                "stop": 3,
+                "step": 1}
+            ],
             "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions&property_ranges=frames(101,360,1)"
           }
         },
@@ -3134,6 +3150,14 @@ Upon having performed the above query, the following query can be performed to r
               //...
             ],
             "nreturned_values": 40,
+            "returned_range": [
+              {
+                "name": "frames",
+                "start": 1,
+                "stop": 100,
+                "step": 1
+              }
+            ],
             "more_data_available": true,
             "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=_exmpl_temperature_set&property_ranges=frames(101,360,1)
           }
@@ -3154,7 +3178,14 @@ Upon having performed the above query, the following query can be performed to r
             ],
             "contains_null": false,
             "nreturned_values": 50,
-            "returned_range": [[1,99,2]],
+            "returned_range": [
+              {
+                "name": "frames",
+                "start": 1,
+                "stop": 100,
+                "step": 2
+              }
+            ],
             "more_data_available": true,
             "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=_exmpl_ekin&property_ranges=frames(101,360,1)"
           }
