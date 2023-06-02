@@ -3144,7 +3144,7 @@ Upon having performed the above query, the following query can be performed to r
               }
             ],
             "contains_null": false,
-            "indexes": [1,3,6,8,11,13,16,18,21,23,26,28,31,33,36,38,41
+            "indexes": [[1],[3],[6],[8],[11],[13],[16],[18],[21],[23],[26],[28],[31],[33],[36],[38],[41]
               //...
             ],
             "nreturned_values": 40,
