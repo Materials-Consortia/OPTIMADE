@@ -2870,17 +2870,15 @@ Trajectories Entries
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
-  Furthermore, :entry:`trajectories` can optionally have relationships and database specific fields as well as "ranged" properties that contain the values of that property for the frames of the trajectory.
-  In addition they can have all the properties defined for the structures endpoint.
-  If one of these properties does not have a constant value it should be shared as a ranged property.
-  As described in #TODO insert reference to ranged properties section.
+  Furthermore, :entry:`trajectories` can optionally have relationships, database specific fields and all the properties defined for the structures endpoint.
+  If one of these properties does not have a constant value it should be shared as a ranged property, as described in #TODO insert reference to ranged properties section.
   The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"`.
 
 reference_frame
 ~~~~~~~~~~~~~~~
 
 - **Description**: The indexes of a set of frames that give a good but brief overview of the trajectory.
-  The first frame could for example be a starting configuration the second a transition state and the third the final state.
+  The first frame could for example be a starting configuration, the second a transition state and the third the final state.
 - **Type**: list of integers
 - **Requirements/Conventions**: The values MUST be larger than 0 and equal or less than nframes.
 
@@ -2895,8 +2893,8 @@ reference_frame
 nframes
 ~~~~~~~
 
-- **Description**: The number of the frames in the trajectory as exposed by the API.
-  This value may deviate from the number steps used to calculate the trajectory.
+- **Description**: The number of frames in the trajectory as exposed by the API.
+  This value may deviate from the number of steps used to calculate the trajectory.
   E.g., for a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, nframes = 200.
 - **Type**: integer
 - **Requirements/Conventions**:
