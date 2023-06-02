@@ -1019,7 +1019,7 @@ OPTIONALLY it can also contain the following fields:
 
 - **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that is used to communicate `Metadata properties`_.
   The keys of the :field:`meta` field are the names of the fields in :field:`attributes` for which metadata is available.
-  The values belonging to these keys are dictionaries containing the relevant metadata fields..
+  The values belonging to these keys are dictionaries containing the relevant metadata fields.
   In addition the :field:`meta` can also hold metadata fields that apply to the entry as a whole.
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
