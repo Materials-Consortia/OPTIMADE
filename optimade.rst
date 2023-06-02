@@ -536,12 +536,12 @@ Querying is not relevant for these properties and SHOULD NOT be supported.
 - :field:`returned_range`: list of dictionaries.
 
   The range covering the returned data.
-  It contains the same fields as the :field:`data_range` field.
+  The dictionaries contain the same fields as those of the :field:`data_range` field.
   In this case these fields, however, only apply to the returned values and not all the values of the property.
   This field MUST be present.
   For dimensions where the field :field:`data_range.step` is not defined, the value of the field :field:`returned_range.step` MUST match the stepsize as used in the query parameter :query_param:`property_ranges`.
 
-In addition to these fields in the metadata, entries which support accessing data via the :query-param:`property\_ranges` query parameter SHOULD support per entry :field:`next` and :field:`more_data_available` field to enable returning the remainder of the data for all the properties for the rest of the range.
+In addition to these fields in the metadata, entries which support accessing data via the :query-param:`property\_ranges` query parameter SHOULD support per entry :field:`next` and :field:`more_data_available` fields to enable returning the remainder of the data for all properties for the rest of the range.
 
 - :field:`next`: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
 
