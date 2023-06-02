@@ -4,7 +4,11 @@ title: "sievert"
 symbol: "Sv"
 display-symbol: "Sv"
 description: |-
-  The sievert is a derived SI unit for equivalent dose of ionizing radiation, defined as m²·s⁻² at the 16th CGPM meeting in 1979 and implicitly redefined via the redefinition of the meter at the 17th CGPM Meeting in 1983, resolution 1.
+  A derived SI unit for equivalent dose of ionizing radiation equal to m²·s⁻² using the 1983 SI base units.
+
+  "The 16th Conférence Générale des Poids et Mesures, [...] adopts the special name sievert, symbol Sv, for the SI unit of dose equivalent in the field of radioprotection. The sievert is equal to the joule per kilogram." [16th CGPM meeting (1979), resolution 5]
+
+  The sievert was defined at the 16th CGPM meeting in 1979 and implicitly redefined via the redefinition of the meter at the 17th CGPM Meeting in 1983, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"

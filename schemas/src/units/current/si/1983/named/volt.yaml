@@ -1,12 +1,16 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/volt"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/named/volt"
 title: "volt"
 symbol: "volt"
 display-symbol: "V"
 alternate-symbols:
   - "volt"
 description: |-
-  The volt is a derived SI unit for electric potential, voltage, and electromotive force, defined as kg·m²·s⁻³·A⁻¹ defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1 and the metre at the 17th CGPM Meeting in 1983, resolution 1.
+  A derived SI unit for electric potential, voltage, and electromotive force equal to kg·m²·s⁻³·A⁻¹ in the 1983 SI units.
+
+  "The volt is the electric potential difference that exists between two points of a conducting wire carrying a constant current of one ampere when the power dissipated between these points is equal to one watt." [9th CGPM meeting in 1946]
+
+  The volt was defined at the 9th CGPM Meeting in 1946, included in SI at the 11th CGPM meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1, and again redefined via the redefinition of the metre at the 17th CGPM Meeting in 1983, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"

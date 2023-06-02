@@ -11,6 +11,8 @@ description: |-
 
   "The metre is the length of the path travelled by light in vacuum during a time interval of 1/299792458 of a second." [17th CGPM Meeting (1983), resolution 1].
 
+  At the 26th CGPM Meeting (2018), resolution 1 the definition was rephrased to: "The metre, symbol m, is the SI unit of length. It is defined by taking the fixed numerical value of the speed of light in vacuum \(c\) to be 299792458 when expressed in the unit m⋅s⁻¹, where the second is defined in terms of the caesium frequency \(\Delta \nu_\textrm{Cs}\)."
+
   This definition references the SI 1967 second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
 standard:
   name: "gnu units"

@@ -4,9 +4,14 @@ title: "kilogram"
 symbol: "kg"
 display-symbol: "kg"
 description: |-
-  The kilogram is the SI base unit of mass defined according to the 2019 redefinition of the SI base units via the value of the Planck constant.
+  The SI base unit of mass defined by fixing the value of the Planck constant as defined at the 26th CGPM Meeting (2018) and adopted into SI in 2019.
 
   "The kilogram, symbol kg, is the SI unit of mass. It is defined by taking the fixed numerical value of the Planck constant \(h\) to be 6.62607015×10⁻³⁴ when expressed in the unit J⋅s, which is equal to kg⋅m²⋅s⁻¹, where the metre and the second are defined in terms of \(c\) and \(\Delta \nu_\textrm{Cs}\)." [26th CGPM Meeting (2018), resolution 1].
+
+  This definition references:
+
+  - The 2019 SI derived joule unit (https://schemas.optimade.org/units/v1.2.0/si/2019/named/joule).
+  - The 1967 SI base second unit (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
 standard:
   name: "gnu units"
   version: "3.15"

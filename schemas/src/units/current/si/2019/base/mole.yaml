@@ -4,7 +4,7 @@ title: "mole"
 symbol: "mol"
 display-symbol: "mol"
 description: |-
-  The mole is the SI base unit of amount of substance defined according to the 2019 redefinition of the SI base units via the value of the Avogadro constant.
+  The SI base unit of amount of substance defined by fixing the value of Avogadro constant as defined at the 26th CGPM Meeting (2018) and adopted into SI in 2019.
 
   "The mole, symbol mol, is the SI unit of amount of substance. One mole contains exactly 6.02214076×10²³ elementary entities. This number is the fixed numerical value of the Avogadro constant, \(N_A\), when expressed in the unit mol⁻¹ and is called the Avogadro number. The amount of substance, symbol \(n\), of a system is a measure of the number of specified elementary entities. An elementary entity may be an atom, a molecule, an ion, an electron, any other particle or specified group of particles." [26th CGPM Meeting (2018), resolution 1].
 standard:

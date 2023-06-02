@@ -4,7 +4,7 @@ title: "pascal"
 symbol: "Pa"
 display-symbol: "Pa"
 description: |-
-  A derived SI unit for pressure and stress, defined as kg·m⁻¹·s⁻²  using the 1967 SI base units, defined at the 14th CGPM Meeting (1971).
+  A derived SI unit for pressure and stress equal to kg·m⁻¹·s⁻² using the 1967 SI base units, defined at the 14th CGPM Meeting (1971).
 
   "The International Committee will ask the General Conference to approve two special names: pascal (symbol Pa) for the SI unit of pressure (N/m²), [...]" [14th CGPM Meeting (1971)].
 standard:

@@ -4,7 +4,7 @@ title: "siemens"
 symbol: "S"
 display-symbol: "S"
 description: |-
-  The siemens is a derived SI unit for electrical conductance, defined as kg⁻¹·m⁻²·s³·A² using the 1967 SI base units, defined at the 14th CGPM Meeting (1971).
+  A derived SI unit for electrical conductance equal to kg⁻¹·m⁻²·s³·A² using the 1967 SI base units, defined at the 14th CGPM Meeting (1971).
 
   "The International Committee will ask the General Conference to approve two special names: [...] siemens (symbol S) for the SI unit of conductance (Ω⁻¹)." [14th CGPM Meeting (1971)].
 standard:

@@ -4,10 +4,11 @@ title: "astronomical unit"
 symbol: "astronomicalunit"
 display-symbol: "au"
 description: |-
-  A unit defined as exactly 149597870700 meters which is meant to represent the mean distance between the Earth and the Sun, with meter defined according to the 2019 redefinition of SI unit.
+  A unit defined as exactly 149597870700 meters which is meant to represent the mean distance between the Earth and the Sun, with meter defined according to the 1983 SI units.
 
-  The International System of Units (SI), 9th ed. (2019) categorizes the astronomical unit as a "non-SI unit accepted for use with the SI units" and defines it as "1 au = 149 597 870 700 m."
-  This definition is referenced in a footnote as: "As decided at the XXVIII General Assembly of the International Astronomical Union (Resolution B2, 2012)."
+  The International System of Units (SI), 9th ed. (2019) changed the definition of the astronomical unit given in prior editions into: "1 au = 149 597 870 700 m" with the footnote "As decided at the XXVIII General Assembly of the International Astronomical Union (Resolution B2, 2012)."
+
+  The International System of Units (SI), 9th ed. (2019) categorizes the astronomical unit as a "non-SI unit accepted for use with the SI units".
 standard:
   name: "gnu units"
   version: "3.15"

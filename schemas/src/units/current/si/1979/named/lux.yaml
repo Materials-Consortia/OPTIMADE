@@ -1,10 +1,14 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/lux"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1979/named/lux"
 title: "lux"
 symbol: "lx"
 display-symbol: "lx"
 description: |-
-  A derived SI unit for illuminance, defined as cd⋅sr⋅m⁻² defined at the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1 and the redefinition of the candela at the 16th CGPM Meeting in 1979, resolution 3.
+  A derived SI unit for illuminance equal to cd⋅sr⋅m⁻² in the 1979 SI units.
+
+  "The lux is the illuminance of a surface that receives a uniformly distributed luminous flux of one lumen per square meter." [9th CGPM meeting in 1946]
+
+  The lux was defined at the 9th CGPM meeting in 1946, and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1 and the redefinition of the candela at the 16th CGPM Meeting in 1979, resolution 3.
 standard:
   name: "gnu units"
   version: "3.15"

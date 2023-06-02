@@ -4,7 +4,7 @@ title: "gray"
 symbol: "Gy"
 display-symbol: "Gy"
 description: |-
-  A derived SI unit for absorbed dose of ionizing radiation, defined as m²·s⁻² using the 1967 base SI units at the 15th CGPM Meeting in 1975.
+  A derived SI unit for absorbed dose of ionizing radiation equal to m²·s⁻² using the 1967 base SI units at the 15th CGPM Meeting in 1975.
 
   "The 15th Conférence Générale des Poids et Mesures, [...] adopts the following special name for the SI unit of ionizing radiation: gray, symbol Gy, equal to one joule per kilogram." [15th CGPM Meeting (1975)]
 standard:
