@@ -447,19 +447,20 @@ Ranged Properties
 -----------------
 
 Ranged properties are used for properties that are too large to be returned by default for every entry in a response.
-The server can limit the size of the response and require that the client performs another query to retrieve the rest of the data.
-They can also be used by the server to support slicing, so the client can request that only a subsection of the values needs to be returned.
+The server can therefore choose to limit the size of the response by not returning (all) the values.
+The client is then has to perform another query to retrieve the rest of the data.
+Ranged Properties can also be used by the server to support slicing, so the client can request that only a subsection of the values needs to be returned.
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations.
-  - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>_meta`.
+  - A ranged property can be recognized by the presence of the field :field:`range` in the metadata of the property, i.e. in the field: :field:`<property_name>` under the per entry :field: ̀meta` field.
   - For a ranged property, the server MAY return :val:`null` or only a part of the values of the property under the field :field:`<property_name>`, so the size of the entries remains limited, and many entries can be returned in a single response.
-    In that case, a links object MUST be provided in the field :field:`<property_name>_meta.range.next` from which the next part of the property is returned.
+    In that case, a links object MUST be provided in the field :field:`meta.<property_name>.range.next` from which the next part of the property is returned.
   - Support for queries on the fields under :field:`range` is OPTIONAL.
   - As ranged properties can have many values, support for queries on theses values is OPTIONAL.
 
-The metadata field of the ranged property, :field:`<property_name>_meta.range`, MUST include these fields:
+The metadata field of the ranged property, :field:`meta.<property_name>.range`, MUST include these fields:
 
 - :field:`range_ids`: list of strings.
   A list with an identifier for each dimension of the property.
@@ -518,7 +519,7 @@ The metadata field of the ranged property, :field:`<property_name>_meta.range`, 
   :field-val:`false` if all the values in the requested range have been returned, and :field-val:`true` if the returned values are incomplete.
 
 
-If the :field:`<property_name>` contains data, i.e., it is neither :val:`null`, nor the empty list, the following additional properties can be present:
+If the :field:`<property_name>` contains data, i.e., it is neither :val:`null`, nor an empty list, the following additional properties can be present:
 Querying is not relevant for these properties and SHOULD NOT be supported.
 
 - :field:`nreturned_values`: integer
@@ -527,6 +528,7 @@ Querying is not relevant for these properties and SHOULD NOT be supported.
   This value SHOULD be present.
 
 - :field:`indexes`: list of lists of integers.
+
   If the values are not regularly spaced along the dimensions, this list holds the indexes for each value.
   The order of the indexes must match the order in the field :field:`range_ids`.
   MUST be present if any of the dimensions in the field :field:`data_ranges.step` has the value null.
@@ -538,7 +540,7 @@ Querying is not relevant for these properties and SHOULD NOT be supported.
   The range covering the returned data.
   The dictionaries contain the same fields as those of the :field:`data_range` field.
   In this case these fields, however, only apply to the returned values and not all the values of the property.
-  This field MUST be present.
+  This field MUST be present when values are returned.
   For dimensions where the field :field:`data_range.step` is not defined, the value of the field :field:`returned_range.step` MUST match the stepsize as used in the query parameter :query_param:`property_ranges`.
 
 In addition to these fields in the metadata, entries which support accessing data via the :query-param:`property\_ranges` query parameter SHOULD support per entry :field:`next` and :field:`more_data_available` fields to enable returning the remainder of the data for all properties for the rest of the range.
@@ -546,8 +548,8 @@ In addition to these fields in the metadata, entries which support accessing dat
 - :field:`next`: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__.
 
   If data is requested for multiple properties at the same time, but the total amount of data is too large to be returned in one response, this field contains a link from which the remainder of the data can be obtained.
-  Responses supplied via this next link MUST contain all the values for all the requested properties that lie within the returned range. The server May choose to return a range that is smaller than the requested range. In that case another next link SHOULD be provided.
-  If all the data for this property has been returned, the value SHOULD be :val:`null`
+  Responses supplied via this next link MUST contain all the values for all the requested properties that lie within the requested range and have not yet been returned. The server MAY again choose to return only a part of the values. In that case another next link SHOULD be provided for the remaining values.
+  If all the data for this entryy has been returned, the value SHOULD be :val:`null`
 
   The `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, containing the URL, is either a string, or a links object, which can contain the following fields:
 
@@ -1128,7 +1130,6 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   Incase the requested property_range covers more data than the server wants to return the server may choose to return only a part of the data.
   For each combination of indexes for which data is returned all the values for all requested properties however need to be returned.
   If the server does not return all the requested data, a link MUST be provided in the :field:`next` field, that applies to an entry as a whole, from which the remainder of the data can be retrieved.
-
 
 
   Example:
