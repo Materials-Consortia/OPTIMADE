@@ -492,7 +492,6 @@ The metadata field of the ranged property, :field:`<property_name>_meta.range`, 
 - :field:`contains_null`: boolean
   This value indicates whether some of the values of the property are :val:`null`.
   This may be the case when values are missing or if the data is sparse, but the server still wants to present the data as a regular array to enable slicing.
-  SHOULD be a queryable property with support for all mandatory filter features.
 
 - :field:`dim_size`: list of integers.
 
@@ -820,13 +819,19 @@ An example of a full response:
 
 .. code:: jsonc
 
-   {
+ {
+   "attributes":{
      "cartesian_site_positions": [[[2.36, 5.36, 9.56],[7.24, 3.58, 0.56],[8.12, 6.95, 4.56]],
        [[2.38, 5.37, 9.56],[7.24, 3.57, 0.58],[8.11, 6.93, 4.58]],
        [[2.39, 5.38, 9.55],[7.23, 3.57, 0.59],[8.10, 6.93, 4.57]]
        // ...
        ],
-     "cartesian_site_positions_meta": {
+     "species_at_sites": ["He", "Ne", "Ar"],
+     "_exmpl_ranged_thermostat": [20, 40, 60],
+     // ...
+   },
+   "meta":{
+     "cartesian_site_positions": {
        "range": {
          "range_ids": ["frames","particles","xyz"],
          "indexable_dim": ["frames","particles","xyz"],
@@ -848,7 +853,7 @@ An example of a full response:
          }],
          "dim_size": [200, 3, 3],
          "nvalues": 1800,
-         "nreturned_values": 450,
+         "nreturned_values": 900,
          "returned_range": [{
            "name": "frames",
            "start": 1,
@@ -867,12 +872,10 @@ An example of a full response:
          }],
          "contains_null": false,
          "more_data_available": true,
-         "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=mdstep(101,200,2),particles(1,3,1),xyz(1,3,1)"
-       },
-       // ...
+         "next": "https://example.com/optimade/v1/structures/id123456?response_fields=cartesian_site_positions&property_ranges=frames(101,200,2),particles(1,3,1),xyz(1,3,1)"
+       }
      },
-     "species_at_sites": ["He", "Ne", "Ar"],
-     "species_at_sites_meta": {
+     "species_at_sites": {
        "range": {
          "indexable_dim": ["particles"],
          "dim_size": [3],
@@ -894,11 +897,9 @@ An example of a full response:
          "contains_null": false,
          "more_data_available": false,
          "next": null
-       },
-       // ...
+       }
      },
-     "_exmpl_ranged_thermostat": [20, 40, 60],
-     "_exmpl_ranged_thermostat_meta": {
+     "_exmpl_ranged_thermostat": {
        "range": {
          "indexable_dim":["frames"],
          "dim_size": [200],
@@ -921,10 +922,11 @@ An example of a full response:
          }],
          "more_data_available": false,
          "next": null
-       },
-       // ...
+       }
      }
-   }
+   },
+   // ...
+}
 
 
 HTTP Response Status Codes
@@ -1118,11 +1120,16 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
   The second integer specifies the last index for which values should be returned.
   The third integer specifies the step size in that dimension.
   Ranges can be specified for multiple dimensions by separating them with a comma.
-  Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the Database MAY return more data than was specified in the range.
+  Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
   The ranges are 1 based, i.e. the first value has index 1, and inclusive i.e. for the range :val:`(10,20,1)` the last value returned belongs to index 20.
   If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
   If a value is not present at a set of the indexes, no value SHOULD be returned.
   However, when a value is explicitly set to :val:`null` and :val:`null` has a meaning beyond indicating that no value has been defined  :val:`null` MUST be returned.
+  Incase the requested property_range covers more data than the server wants to return the server may choose to return only a part of the data.
+  For each combination of indexes for which data is returned all the values for all requested properties however need to be returned.
+  If the server does not return all the requested data, a link MUST be provided in the :field:`next` field, that applies to an entry as a whole, from which the remainder of the data can be retrieved.
+
+
 
   Example:
 
