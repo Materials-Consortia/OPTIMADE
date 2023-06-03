@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
-title: "Elements"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements"
+title: "Elements"
 x-optimade-type: "list"
 x-optimade-definition:
   kind: "property"

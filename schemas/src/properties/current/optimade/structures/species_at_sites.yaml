@@ -1,5 +1,6 @@
-title: "Species at sites"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites"
+title: "Species at sites"
 x-optimade-type: "list"
 x-optimade-definition:
   kind: "property"

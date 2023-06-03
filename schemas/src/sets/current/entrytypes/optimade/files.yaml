@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/entrytypes/optimade/files"
 title: "Files"
-description: "The files node type describes a file with metadata and an URL to retrive it"
+description: "The files entry type describes a file with metadata and an URL to retrive it"
 x-optimade-definition:
   kind: "entrytype"
   format: "1.2"
@@ -10,7 +10,7 @@ x-optimade-definition:
 type: object
 properties:
   id:
-    $$inherit: "/properties/v1.2.0/optimade/files/immutable_id"
+    $$inherit: "/properties/v1.2.0/optimade/files/id"
     x-optimade-requirements:
       support: "must"
       sortable: false
@@ -97,3 +97,42 @@ properties:
       query-support: "none"
       response-level: "may"
 
+  description:
+    $$inherit: "/properties/v1.2.0/optimade/files/description"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  checksums:
+    $$inherit: "/properties/v1.2.0/optimade/files/checksums"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  atime:
+    $$inherit: "/properties/v1.2.0/optimade/files/atime"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  ctime:
+    $$inherit: "/properties/v1.2.0/optimade/files/ctime"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  mtime:
+    $$inherit: "/properties/v1.2.0/optimade/files/mtime"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"

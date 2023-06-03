@@ -1,5 +1,6 @@
-title: "Chemical symbol"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol"
+title: "Chemical symbol"
 x-optimade-type: "string"
 x-optimade-definition:
   kind: "property"
@@ -14,7 +15,7 @@ description: |-
   - Must be one of the following:
 
     - a valid chemical-element symbol, or
-    - the special value `"X"` to represent a non-chemical element, or
+    - the special value `"X"` to represent a non-chemical element.
 x-optimade-unit: inapplicable
 examples:
   - "He"

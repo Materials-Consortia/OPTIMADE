@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/independent/1948/information/bit"
 title: "bit"
 symbol: "bit"
 display-symbol: "bit"
-$id: "https://schemas.optimade.orig/v1.2.0/independent/1948/information/bit"
 description: |-
   A basic unit of digital information representing a single logical state with one of two possible values, defined by Shannon in 1948.
 

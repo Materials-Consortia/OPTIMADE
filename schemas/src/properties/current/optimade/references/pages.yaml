@@ -1,0 +1,17 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/references/pages"
+title: "pages"
+x-optimade-type: "string"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "pages"
+type:
+  - "string"
+  - "null"
+description: |-
+  The page number(s) of the reference (the pages field in the BibTeX specification).
+examples:
+  - "147--154"
+x-optimade-unit: "inapplicable"

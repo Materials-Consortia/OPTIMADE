@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte"
 title: "byte"
 symbol: "B"
 display-symbol: "B"
-$id: "https://schemas.optimade.orig/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte"
 description: |-
   A unit of digital information representing eight bits, defined in the International System of Quantities in ISO/IEC 80000-13 (2008).
 

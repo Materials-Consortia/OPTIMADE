@@ -261,13 +261,8 @@ class ExceptionWrapper(Exception):
             The exception to wrap.
         """
         cause = e
-        #while cause.__cause__:
-        #    print("DECENDING CAUSE",cause)
-        #    cause = cause.__cause__
-        #print("FINAL CAUSE",cause,cause.__cause__)
         tb = cause.__traceback__
         tbdump = traceback.extract_tb(tb)
-        #edata = " ("+str(os.path.split(tb.tb_frame.f_code.co_filename)[-1])+" line "+str(tb.tb_lineno)+")."
         if len(tbdump) > 1:
             if tbdump[0].filename == tbdump[-1].filename:
                 edata = " ("+str(tbdump[0].filename)+" line:"+str(tbdump[0].lineno)+" triggered at line: "+str(tbdump[-1].lineno)+")."
@@ -526,6 +521,7 @@ def set_definition_to_md(data, level=0):
         s += "\n\n" + basics['description_details']+"\n"
     else:
         s += "  \n"
+
     if '$id' in data:
         basename = os.path.basename(data['$id'])
         s += "\n**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
@@ -537,12 +533,6 @@ def set_definition_to_md(data, level=0):
             for prop in data[itemtype].keys():
                 inner = data[itemtype][prop]
                 s += set_definition_to_md_inner(prop, inner, indent="")
-                if itemtype in inner:
-                    s += "\n\n"
-                    s += "    Which defines:\n\n"
-                    for prop2 in inner[itemtype].keys():
-                        inner2 = inner[itemtype][prop2]
-                        s += set_definition_to_md_inner(prop2, inner2, indent="    ")
 
     s += "\n"
     s += "**JSON definition:**\n"
@@ -591,10 +581,16 @@ def single_definition_to_md(data, level=0):
     s += "\n\n" + basics['description_details']+"\n\n"
     if basics['examples'] != '':
         s += "**Examples:**\n\n"+basics['examples']+"\n\n"
+
+    if 'resources' in data:
+        s += "**Resources:**\n\n"
+        for resource in data['resources']:
+            s += "- ["+resource["relation"]+"]("+resource["resource-id"]+")\n"
+        s += "\n\n"
+
     if '$id' in data:
         basename = os.path.basename(data['$id'])
-        s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n"
-    s += "\n"
+        s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n\n"
     s += "**JSON definition:**\n"
     s += general_to_md(data)
 
@@ -679,8 +675,17 @@ def property_definition_to_md(data, level=0):
     s += "\n"
     s += basics['description_details']+"\n\n"
     s += "**Examples:**\n\n"
-    s += basics['examples']+"\n"
-    s += "\n"
+    s += basics['examples']+"\n\n"
+
+    if 'resources' in data:
+        s += "**Resources:**\n\n"
+        for resource in data['resources']:
+            s += "- ["+resource["relation"]+"]("+resource["resource-id"]+")\n"
+        s += "\n\n"
+
+    if '$id' in data:
+        basename = os.path.basename(data['$id'])
+        s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n\n"
     s += "**JSON definition:**\n"
     s += general_to_md(data)
 
@@ -742,7 +747,10 @@ def data_to_md(data, level=0, index=False):
 
 def data_to_md_index(data, path=[], level=0):
     s = ""
-    if 'title' in data:
+    # The heuristic of lookoing for a 'title' field that is a string
+    # to determine how to print things is not foolproof,
+    # but seems to work for now. This may need revisiting later.
+    if 'title' in data and isinstance(data['title'],str):
         title = data['title']
         basics = data_get_basics(data)
         kind = basics['kind']
@@ -760,14 +768,14 @@ def data_to_md_index(data, path=[], level=0):
             s += md_header("Index", level, style="display")
         for item in sorted(data.keys()):
             try:
-                if isinstance(data[item], dict) and 'title' in data[item]:
+                if isinstance(data[item], dict) and ('title' in data[item] and isinstance(data[item]['title'],str)):
                     s += data_to_md_index(data[item], path=path+[str(item)], level=level+1)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
             s += "\n"
         for item in sorted(data.keys()):
             try:
-                if isinstance(data[item], dict) and 'title' not in data[item]:
+                if isinstance(data[item], dict) and not ('title' in data[item] and isinstance(data[item]['title'],str)):
                     s += data_to_md_index(data[item], path=path+[str(item)], level=level+1)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)

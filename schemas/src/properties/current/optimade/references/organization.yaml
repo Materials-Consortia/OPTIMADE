@@ -1,0 +1,17 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/references/organization"
+title: "organization"
+x-optimade-type: "string"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "organization"
+type:
+  - "string"
+  - "null"
+description: |-
+  The organization sponsoring a conference or publishing a manual (the organization field in the BibTeX specification)
+examples:
+  - "International Association of Engineers"
+x-optimade-unit: "inapplicable"

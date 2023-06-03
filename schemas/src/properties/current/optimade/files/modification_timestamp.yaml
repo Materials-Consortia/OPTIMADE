@@ -1,5 +1,6 @@
-title: "Modification timestamp"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
 $id: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp"
+title: "Modification timestamp"
 x-optimade-type: "timestamp"
 x-optimade-definition:
   kind: "property"

@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/entrytypes/optimade/structures"
 title: "Structures"
-description: "The structures node type describes a crystal structure via its unit cell"
+description: "The structures entry type describes a crystal structure via its unit cell"
 x-optimade-definition:
   kind: "entrytype"
   format: "1.2"
@@ -10,7 +10,7 @@ x-optimade-definition:
 type: object
 properties:
   id:
-    $$inherit: "/properties/v1.2.0/optimade/structures/immutable_id"
+    $$inherit: "/properties/v1.2.0/optimade/structures/id"
     x-optimade-requirements:
       support: "must"
       sortable: false
