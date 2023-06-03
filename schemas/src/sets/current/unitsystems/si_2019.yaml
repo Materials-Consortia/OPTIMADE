@@ -1,8 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_2019"
-title: "The SI unit system as redefined in 2019 and represented in the 9th edition of The International System of Units"
+title: "The SI 2019 unit system as represented in the 9th edition of The International System of Units"
 description: |-
-  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM). In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
+  In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
@@ -10,9 +11,9 @@ x-optimade-definition:
   name: "si_2019"
 units:
   s:
-    $$inherit: "/units/v1.2.0/si/2019/base/second"
+    $$inherit: "/units/v1.2.0/si/1967/base/second"
   m:
-    $$inherit: "/units/v1.2.0/si/2019/base/metre"
+    $$inherit: "/units/v1.2.0/si/1983/base/metre"
   kg:
     $$inherit: "/units/v1.2.0/si/2019/base/kilogram"
   A:
@@ -24,49 +25,49 @@ units:
   cd:
     $$inherit: "/units/v1.2.0/si/2019/base/candela"
   rad:
-    $$inherit: "/units/v1.2.0/si/2019/named/radian"
+    $$inherit: "/units/v1.2.0/si/1960/supplementary/radian"
   sr:
-    $$inherit: "/units/v1.2.0/si/2019/named/steradian"
-  Hz:
-    $$inherit: "/units/v1.2.0/si/2019/named/hertz"
-  N:
-    $$inherit: "/units/v1.2.0/si/2019/named/newton"
-  Pa:
-    $$inherit: "/units/v1.2.0/si/2019/named/pascal"
-  J:
-    $$inherit: "/units/v1.2.0/si/2019/named/joule"
-  W:
-    $$inherit: "/units/v1.2.0/si/2019/named/watt"
+    $$inherit: "/units/v1.2.0/si/1960/supplementary/steradian"
+  Bq:
+    $$inherit: "/units/v1.2.0/si/1975/named/becquerel"
   C:
     $$inherit: "/units/v1.2.0/si/2019/named/coulomb"
-  V:
-    $$inherit: "/units/v1.2.0/si/2019/named/volt"
+  degC:
+    $$inherit: "/units/v1.2.0/si/2019/named/degcelsius"
   F:
     $$inherit: "/units/v1.2.0/si/2019/named/farad"
-  ohm:
-    $$inherit: "/units/v1.2.0/si/2019/named/ohm"
-  S:
-    $$inherit: "/units/v1.2.0/si/2019/named/siemens"
-  Wb:
-    $$inherit: "/units/v1.2.0/si/2019/named/weber"
-  T:
-    $$inherit: "/units/v1.2.0/si/2019/named/tesla"
+  Gy:
+    $$inherit: "/units/v1.2.0/si/1983/named/gray"
   H:
     $$inherit: "/units/v1.2.0/si/2019/named/henry"
-  degC:
-    $$inherit: "/units/v1.2.0/si/2019/named/degreecelsius"
+  Hz:
+    $$inherit: "/units/v1.2.0/si/1967/named/hertz"
+  J:
+    $$inherit: "/units/v1.2.0/si/2019/named/joule"
+  kat:
+    $$inherit: "/units/v1.2.0/si/2019/named/katal"
   lm:
     $$inherit: "/units/v1.2.0/si/2019/named/lumen"
   lx:
     $$inherit: "/units/v1.2.0/si/2019/named/lux"
-  Bq:
-    $$inherit: "/units/v1.2.0/si/2019/named/becquerel"
-  Gy:
-    $$inherit: "/units/v1.2.0/si/2019/named/gray"
+  N:
+    $$inherit: "/units/v1.2.0/si/2019/named/newton"
+  ohm:
+    $$inherit: "/units/v1.2.0/si/2019/named/ohm"
+  Pa:
+    $$inherit: "/units/v1.2.0/si/2019/named/pascal"
+  S:
+    $$inherit: "/units/v1.2.0/si/2019/named/siemens"
   Sv:
-    $$inherit: "/units/v1.2.0/si/2019/named/sievert"
-  kat:
-    $$inherit: "/units/v1.2.0/si/2019/named/katal"
+    $$inherit: "/units/v1.2.0/si/1983/named/sievert"
+  T:
+    $$inherit: "/units/v1.2.0/si/2019/named/tesla"
+  V:
+    $$inherit: "/units/v1.2.0/si/2019/named/volt"
+  W:
+    $$inherit: "/units/v1.2.0/si/2019/named/watt"
+  Wb:
+    $$inherit: "/units/v1.2.0/si/2019/named/weber"
 prefixes:
   Y:
     $$inherit: "/units/v1.2.0/si/prefixes/yotta"

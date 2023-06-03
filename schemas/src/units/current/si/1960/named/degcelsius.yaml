@@ -1,10 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/degcelsius"
 title: "Degree Celsius"
-symbol: "degcelsius"
+symbol: "degC"
 display-symbol: "°C"
 alternate-symbols:
-  - "degC"
+  - "degreecelsius"
 description: |-
   A derived SI unit of temperature, defined as degree kelvin offset with +273.15 in the SI base units adopted at the 11th CGPM Meeting in 1960.
 

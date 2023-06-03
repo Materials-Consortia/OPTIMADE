@@ -17,6 +17,8 @@ properties:
       - Additions of annotating notes to end of the `description` field.
       - Changes to the following specific fields at any level: `deprecated` and `$comment`.
     type: string
+  $comment:
+    type: string
   $schema:
     description: |-
       A normalized URI for a meta-schema that validates the Physical Unit Definition.

@@ -25,7 +25,7 @@ approximate-relations:
     - symbol: "m"
       id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre"
     scale:
-      30857E12
+      value: 3.0857e+16
 x-optimade-definition:
   kind: "unit"
   format: "1.2"

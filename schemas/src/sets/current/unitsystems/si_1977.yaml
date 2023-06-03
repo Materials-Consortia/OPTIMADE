@@ -55,7 +55,7 @@ units:
   H:
     $$inherit: "/units/v1.2.0/si/1967/named/henry"
   degC:
-    $$inherit: "/units/v1.2.0/si/1967/named/degreecelsius"
+    $$inherit: "/units/v1.2.0/si/1967/named/degcelsius"
   lm:
     $$inherit: "/units/v1.2.0/si/1967/named/lumen"
   lx:

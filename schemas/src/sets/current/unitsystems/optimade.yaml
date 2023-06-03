@@ -2,28 +2,17 @@ $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definiti
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/optimade"
 title: "A combination of SI and non-SI units in common use suitable for use with OPTIMADE."
 description: "This unit set combines all units associated with SI in the 2019 redefinition of the SI units with the ångstrom, the bit, and the byte unit."
-$$inherit: ["/sets/v1.2.0/unitsystems/si_extra_2019", "/sets/v1.2.0/unitsystems/codata_2018"]
+$$inherit: ["/sets/v1.2.0/unitsystems/si_general"]
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
   name: "optimade"
 units:
-  angstrom:
-    $$inherit: "/units/v1.2.0/si/2019/dependent/atomic/angstrom"
   bit:
     $$inherit: "/units/v1.2.0/independent/1948/information/bit"
   byte:
     $$inherit: "/units/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte"
-prefixes:
-  Q:
-    $$inherit: "/units/v1.2.0/si/prefixes/quetta"
-  R:
-    $$inherit: "/units/v1.2.0/si/prefixes/ronna"
-  r:
-    $$inherit: "/units/v1.2.0/si/prefixes/ronto"
-  q:
-    $$inherit: "/units/v1.2.0/si/prefixes/quecto"
 constants:
   pi:
     $$inherit: "/constants/v1.2.0/math/pi"

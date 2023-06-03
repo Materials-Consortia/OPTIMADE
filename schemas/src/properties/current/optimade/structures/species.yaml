@@ -7,7 +7,7 @@ x-optimade-definition:
   format: "1.2"
   name: "species"
 x-optimade-unit-definitions:
-  - $$inherit: "/units/v1.2.0/si/2019/accepted/dalton"
+  - $$inherit: "/units/v1.2.0/si/general/atomicmassunit"
 type:
   - "array"
   - "null"

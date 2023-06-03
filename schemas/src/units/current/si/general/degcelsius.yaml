@@ -1,10 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/general/degcelsius"
 title: "Degree Celsius"
-symbol: "degcelsius"
+symbol: "degC"
 display-symbol: "°C"
 alternate-symbols:
-  - "degC"
+  - "degreecelsius"
 description: |-
   A unit of temperature, defined as kelvin offset with +273.15 using the current, or one of the historical, definitions of the SI units.
 
