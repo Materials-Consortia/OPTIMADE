@@ -30,11 +30,8 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Dalton_(unit)"
   - relation: "CODATA unified atomic mass unit fundamental physical constant: source for relationship to kg"
     resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?ukg"
-defining-relation:
-  base-units:
-  - symbol: "u"
-    id: "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/atomicmassunit"
-  base-units-expression: "u"
+compatibility:
+  - "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/atomicmassunit"
 approximate-relations:
   - base-units:
     - symbol: "kg"

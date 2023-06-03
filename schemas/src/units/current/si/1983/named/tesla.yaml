@@ -6,7 +6,7 @@ display-symbol: "T"
 description: |-
   The tesla is a derived SI unit for magnetic flux density equal to kg·s⁻²·A⁻¹ in the 1983 SI base units.
 
-  The tesla was defined as 1 Wb/m in the introduction of the SI unit system the 11th CGPM Meeting in 1960, resolution 12, implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1, and again implicitly redefined with the redefinition of the metre at the 17th CGPM Meeting in 1983, resolution 1.
+  The tesla was defined as 1 Wb/m in the introduction of the SI unit system the 11th CGPM Meeting in 1960, resolution 12, implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1, and again implicitly redefined with the redefinition of the ampere (implcitly via the redefinition of the metre) at the 17th CGPM Meeting in 1983, resolution 1.
 standard:
   name: "gnu units"
   version: "3.15"

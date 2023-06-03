@@ -16,6 +16,8 @@ standard:
 resources:
   - relation: "Definition at the 14th CGPM Meeting (1971)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/14-1971"
+  - relation: "Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Pascal_(unit)"
 defining-relation:
