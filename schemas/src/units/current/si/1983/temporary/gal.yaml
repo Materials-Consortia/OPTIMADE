@@ -17,7 +17,7 @@ description: |-
 standard:
   name: "gnu units"
   version: "3.15"
-  symbol: "hectare"
+  symbol: "galileo"
 resources:
   - relation: "Definition in the International System of Units (SI), 1st Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
@@ -36,4 +36,4 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-  name: "hectare"
+  name: "gal"

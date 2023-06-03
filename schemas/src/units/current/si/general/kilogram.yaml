@@ -4,14 +4,16 @@ title: "kilogram"
 symbol: "kg"
 display-symbol: "kg"
 description: |-
-  The SI base unit of mass, using the current or one of the historical SI definitions of the kilogram.
+  A unit of mass using the current, or one of the historical, definitions of the SI units.
 
-  This generalized definition of the kilogram is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data is available across multiple historical definitions.
+  The current definition at the 26th CGPM Meeting in 2018, resolution 1 is: "The kilogram, symbol kg, is the SI unit of mass. It is defined by taking the fixed numerical value of the Planck constant \(h\) to be 6.62607015×10⁻³⁴ when expressed in the unit J⋅s, which is equal to kg⋅m²⋅s⁻¹, where the metre and the second are defined in terms of \(c\) and \(\Delta \nu_\textrm{Cs}\)."
 
-  In the 2019 redefinition of the SI base units the kilogram is defined via the value of the Planck constant.
+  The prior definition at the 1st CGPM Meeting (1889) was: "The prototype of the kilogram adopted by the International Committee; This prototype will henceforth be considered as the unit of mass;", referring to the international prototype of the kilogram made of platinum-iridium.
 
-  "The kilogram, symbol kg, is the SI unit of mass. It is defined by taking the fixed numerical value of the Planck constant \(h\) to be 6.62607015×10⁻³⁴ when expressed in the unit J⋅s, which is equal to kg⋅m²⋅s⁻¹, where the metre and the second are defined in terms of \(c\) and \(\Delta \nu_\textrm{Cs}\)." [26th CGPM Meeting (2018), resolution 1].
+  This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
+  This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
+  - "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
 standard:
   name: "gnu units"

@@ -1,7 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/degreecelsius"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/degcelsius"
 title: "Degree Celsius"
-symbol: "degC"
+symbol: "degcelsius"
+alternate-symbols:
+  - "degC"
 display-symbol: "°C"
 description: |-
   A derived SI unit of temperature, defined as kelvin offset with +273.15 in the 2019 SI units.
@@ -34,4 +36,4 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-  name: "degreecelsius"
+  name: "degcelsius"

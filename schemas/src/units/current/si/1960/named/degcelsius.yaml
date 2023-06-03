@@ -1,29 +1,25 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/degreecelsius"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/degcelsius"
 title: "Degree Celsius"
-symbol: "degC"
+symbol: "degcelsius"
 display-symbol: "°C"
+alternate-symbols:
+  - "degC"
 description: |-
-  A derived SI unit of temperature, defined as degree kelvin offset with +273.15 in 1967 SI units.
+  A derived SI unit of temperature, defined as degree kelvin offset with +273.15 in the SI base units adopted at the 11th CGPM Meeting in 1960.
 
   "If we add to the practical international Celsius temperatures defined above T₀ = 273.15 degrees, we obtain the practical international Kelvin temperatures. By subtracting T₀ from the thermodynamic temperatures, we obtain the thermodynamic Celsius temperatures." [11th CGPM meeting (1960)]
-
-  The degree Celsius was defined and included in SI at the 11th CGPM meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the kelvin at the 13th CGPM Meeting in 1967, resolution 4.
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "degcelsius"
 resources:
-  - relation: "Redefinition of the kelvin at the 13th CGPM meeting (1967), resolution 4"
-    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/13-1967/resolution-4"
-  - relation: "Definition of the kelvin at the 11th CGPM meeting (1960)"
-    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Celsius"
 defining-relation:
   base-units:
     - symbol: "degK"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/kelvin"
+      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kelvin"
   base-units-expression: "degK"
   offset:
     numerator: 27315
@@ -32,4 +28,4 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-  name: "degreecelsius"
+  name: "degcelsius"

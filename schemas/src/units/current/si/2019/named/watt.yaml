@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/watt"
 title: "watt"
 symbol: "W"
 display-symbol: "W"
+description: |-
   A derived SI unit for power and radiant flux equal to kg·m²·s⁻³ in the 1983 SI units.
 
   "The watt is the power that produces one joule per second." [9th CGPM meeting in 1946]

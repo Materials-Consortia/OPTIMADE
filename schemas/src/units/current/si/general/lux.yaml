@@ -4,16 +4,37 @@ title: "lux"
 symbol: "lx"
 display-symbol: "lx"
 description: |-
-  A derived SI unit for illuminance, defined as cd⋅sr⋅m⁻², which are defined according to the current or one of the historical SI definitions of the SI base units.
+  A derived SI unit for illuminance equal to cd⋅sr⋅m⁻² using the current, or one of the historical, definitions of the SI units.
 
-  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
+  "The lux is the illuminance of a surface that receives a uniformly distributed luminous flux of one lumen per square meter." [9th CGPM meeting in 1946]
+
+  The lux was defined at the 9th CGPM meeting in 1946, and implicitly redefined via the redefinitions of the second at the 13th CGPM Meeting in 1967, resolution 1, the candela at the 16th CGPM Meeting in 1979, resolution 3, the metre at the 17th CGPM meeting (1983), resolution 1, and the candela (implicitly redefined via the kilogram) at the 26th CGPM Meeting (2018), resolution 1.
+
+  This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
+  This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
+  - "https://schemas.optimade.org/units/v1.2.0/si/1960/named/lux"
+  - "https://schemas.optimade.org/units/v1.2.0/si/1967/named/lux"
+  - "https://schemas.optimade.org/units/v1.2.0/si/1979/named/lux"
+  - "https://schemas.optimade.org/units/v1.2.0/si/1983/named/lux"
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/lux"
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "lux"
 resources:
+  - relation: "Definition at the 9st CGPM meeting (1948)"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
+  - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
+  - relation: "Redefinition of the candela at the 16th CGPM Meeting in 1979, resolution 3."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/16-1979/resolution-3"
+  - relation: "Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1"
+  - relation: "Redefinition of the second in the 13th CGPM Meeting (1967), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/13-1967/resolution-1"
+  - relation: "Redefinition of the kilogram at the 26th CGPM Meeting (2018), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Lux"
 defining-relation:

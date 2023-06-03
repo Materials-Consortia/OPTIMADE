@@ -6,18 +6,25 @@ display-symbol: "t"
 alternate-symbols:
   - "t"
 description: |-
-  A unit of mass defined as exactly 1000 kg, with kg defined according to the current or one of the historical SI definitions of the kilogram.
+  A unit of mass equal to 1000 kg using the current, or one of the historical, definitions of the SI units.
 
-  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
+  The International System of Units (SI), 1st ed. (1970) defines the tonne as "1 t = 10³ kg" with the footnote "The symbol and the unit was defined in resolution 7 at the 9:th meeting of the C.G.P.M. (1948)."
 
-  The International System of Units (SI), 9th ed. (2019) categorizes the tonne as a "non-SI unit accepted for use with the SI units" and defines it as "1 t = 10³ kg".
-  It is noted in a footnote that: "The tonne and its symbol, t, were adopted by the CIPM in 1879 (PV, 1879, 41). This unit is sometimes referred to as 'metric ton' in some English-speaking countries."
+  In the 2019 implicit redefinition of the tonne, the kilogram in the definition refers to the 2019 kilogram SI base unit (https://schema.optimade.org/units/v1.2.0/si/2019/named/kilogram).
+
+  The International System of Units (SI), 1th ed. (1970) categorizes the unit as "Units used with the International System"
+  The International System of Units (SI), 3rd ed. (19) changes the reference of the definition to the 1879 meeting of the CIPM page 41.
+  The International System of Units (SI), 6st ed. (1991) further adds "In some English-speaking countries this unit is called ≪metric ton≫."
+
+  This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
+  This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
+  - "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/tonne"
   - "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/tonne"
 standard:
   name: "gnu units"
   version: "3.15"
-  symbol: "litre"
+  symbol: "tonne"
 resources:
   - relation: "Definition in the International System of Units (SI), 9th Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"

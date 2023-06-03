@@ -4,18 +4,31 @@ title: "pascal"
 symbol: "Pa"
 display-symbol: "Pa"
 description: |-
-  A derived SI unit for pressure and stress, defined as kg·m⁻¹·s⁻², which are defined according to the current or one of the historical SI definitions of the SI base units.
+  A unit for pressure and stress equal to kg·m⁻¹·s⁻² using the current, or one of the historical, definitions of the SI units.
 
-  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
-compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/pascal"
+  "The International Committee will ask the General Conference to approve two special names: pascal (symbol Pa) for the SI unit of pressure (N/m²), [...]" [14th CGPM Meeting (1971)].
+
+  The pascal was defined at the 14th CGPM Meeting in 1971 and implicitly redefined via the redefinitions of the metre at the 17th CGPM Meeting in 1983, resolution 1, and the kilogram at the 26th CGPM Meeting (2018), resolution 1.
+
+  This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
+  This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "pascal"
+compatibility:
+  - "https://schemas.optimade.org/units/v1.2.0/si/1971/named/pascal"
+  - "https://schemas.optimade.org/units/v1.2.0/si/1983/named/pascal"
+  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/pascal"
 resources:
+  - relation: "Definition at the 14th CGPM Meeting (1971)"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/14-1971"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Pascal_(unit)"
+  - relation: "Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1"
+  - relation: "Redefinition of the kilogram at the 26th CGPM Meeting (2018), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
 defining-relation:
   base-units:
     - symbol: "kg"

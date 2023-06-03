@@ -1,14 +1,14 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/rad"
-title: "rad
-symbol: "rd"
-display-symbol: "rd"
-alternate-symbols:
-  - "rad"
+$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/radiationunit"
+title: "radiation unit"
+symbol: "radiationunit"
+display-symbol: "rad"
 description: |-
   A unit used to express the absorbed dose of ionizing radiation defined as 10⁻² J/kg using the 1983 SI units.
 
-  The rad appear in the International System of Units (SI), 1th ed. (1970) defined as "1 rad = 10⁻² J/kg" with the footnote: "The rad is a special unit employed to express absorbed dose of ionizing radiation. When there is risk of confusion with the symbol for radian, rd may be used as the symbol for rad."
+  This unit definition uses "radiationunit" as the symbol for this unit despite "rad" being in common use to distiguish it from the radian, which is an SI unit with rad as its symbol.
+
+  The radiation unit appear in the International System of Units (SI), 1th ed. (1970) defined as "1 rad = 10⁻² J/kg" with the footnote: "The rad is a special unit employed to express absorbed dose of ionizing radiation. When there is risk of confusion with the symbol for radian, rd may be used as the symbol for rad."
 
   The International System of Units (SI), 1th ed. (1970) categorizes the unit as "Units in use temporarily with the International Sytem."
   The International System of Units (SI), 3rd ed. (1977) changes the definition to use the unit gray: "1 rad = cGy = 10⁻² Gy."
@@ -40,4 +40,4 @@ x-optimade-definition:
   kind: "unit"
   format: "1.2"
   version: "1.2.0"
-  name: "rad"
+  name: "radiationunit"

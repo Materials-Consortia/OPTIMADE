@@ -7,25 +7,32 @@ alternate-symbols:
   - "L"
   - "liter"
 description: |-
-  The litre, or liter, is equal to 1/1000 cubic meters (1000 cm³), with meter defined according to the current or one of the historical SI definitions of the meter.
+  The litre, or liter is a unit of volume equal to a cubic decimetre (1 dm³) using the current, or one of the historical, definitions of the SI units.
 
-  This definition in general SI base units is meant to be used when it is not possible to be more precise, e.g., when defining the unit of a property for which data may use different historical definitions.
+  "The 12th Conférence Générale des Poids et Mesures (CGPM) [...] declares that the word 'litre' may be employed as a special name for the cubic decimetre" [12th CGPM meeting (1964), resolution 6].
 
-  The International System of Units (SI), 9th ed. (2019) categorizes the litre as a "non-SI unit accepted for use with the SI units" and defines it as "1 l = 1 L = 1 dm³ = 10³ cm³ = 10⁻³ m³."
-  This definition is referenced in a footnote as: "The litre and the symbol, lower-case l, were adopted by the CIPM in 1879 (PV, 1879, 41). The alternative symbol, capital L, was adopted by the 16th CGPM (1979, Resolution 6; CR, 101 and Metrologia, 1980, 16, 56-57) in order to avoid the risk of confusion between the letter l (el) and the numeral 1 (one)."
+  The litre was defined at the 12th CGPM meeting in 1964, resolution 6, and implicitly redefined with the redefinition of the metre at the 17th CGPM Meeting in 1983, resolution 1.
+
+  This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
+  This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/2019/accepted/litre"
+  - "https://schemas.optimade.org/units/v1.2.0/si/1964/accepted/litre"
+  - "https://schemas.optimade.org/units/v1.2.0/si/1983/accepted/litre"
 standard:
   name: "gnu units"
   version: "3.15"
   symbol: "litre"
 resources:
+  - relation: "Definition at the 12th CGPM meeting (1964), resolution 6"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/12-1964/resolution-6"
+  - relation: "Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Litre"
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schema.optimade.org/units/v1.2.0/si/2019/base/metre"
+      id: "https://schema.optimade.org/units/v1.2.0/si/general/metre"
   base-units-expression: "m^3"
   scale:
     exponent: -3

@@ -3,8 +3,6 @@ $id: "https://schemas.optimade.org/units/v1.2.0/si/1983/named/volt"
 title: "volt"
 symbol: "volt"
 display-symbol: "V"
-alternate-symbols:
-  - "volt"
 description: |-
   A derived SI unit for electric potential, voltage, and electromotive force equal to kg·m²·s⁻³·A⁻¹ in the 1983 SI units.
 
