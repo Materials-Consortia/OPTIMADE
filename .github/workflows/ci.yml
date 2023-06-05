@@ -60,5 +60,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: pip install markdown mdx_math
+      run: pip install markdown python-markdown-math
     - run: make audit_schemas
