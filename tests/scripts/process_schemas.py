@@ -465,6 +465,9 @@ def set_definition_to_md_inner(prop, inner, indent):
     s = ""
     if '$id' in inner:
         url = inner['$id']
+        title = inner['title'] if 'title' in inner else prop
+        if title.lower() != prop.lower():
+            title = title + " ("+prop+")"
         if '$id' in data:
             base=urllib.parse.urlparse(data['$id'])
             target=urllib.parse.urlparse(inner['$id'])
@@ -472,7 +475,7 @@ def set_definition_to_md_inner(prop, inner, indent):
                 base_dir='.'+posixpath.dirname(base.path)
                 target='.'+target.path
                 url = posixpath.relpath(target,start=base_dir)
-        s += indent + "* **["+prop+"]("+url+")** ("+kind+") - [`"+inner['$id']+"`]("+data['$id']+")  \n"
+        s += indent + "* **["+title+"]("+url+")** ("+kind+") - [`"+inner['$id']+"`]("+data['$id']+")  \n"
         s += indent + "  "+inner_basics['description_short']
         if 'x-optimade-requirements' in inner:
             req_support, req_sort, req_query, req_response = [None]*4

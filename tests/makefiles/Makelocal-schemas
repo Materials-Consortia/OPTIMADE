@@ -26,8 +26,8 @@ endif
 
 .PHONY: schemas schemas_vers_symlinks
 
-schemas: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML_NOEXT) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
-schemas_without_noext: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
+schemas: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML_NOEXT) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
+schemas_htmlext: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
 schema_docs: schemas_vers_symlinks $(SCHEMAS_MD)
 
 schemas_vers_symlinks:
