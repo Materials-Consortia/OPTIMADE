@@ -1,7 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_2019"
-title: "The SI 2019 unit system as represented in the 9th edition of The International System of Units"
+title: "SI 2019"
 description: |-
+  The SI 2019 unit system as represented in the 9th edition of The International System of Units.
+
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
   In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
 x-optimade-definition:

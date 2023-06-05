@@ -17,5 +17,11 @@ definitions:
             const: "files"
           attributes:
             $ref: "#endpoints/entrytypes/files"
+      - type: "object"
+        properties:
+          type:
+            const: "references"
+          attributes:
+            $ref: "#endpoints/entrytypes/references"
 endpoints:
   $$inherit: "/sets/current/standards/optimade"

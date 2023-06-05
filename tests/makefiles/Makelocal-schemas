@@ -4,7 +4,8 @@
 SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
 SCHEMAS_JSON = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS))
 SCHEMAS_MD = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(SCHEMAS))
-SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%,$(SCHEMAS))
+SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%.html,$(SCHEMAS))
+SCHEMAS_HTML_NOEXT = $(patsubst schemas/src/%.yaml,schemas/output/%,$(SCHEMAS))
 
 EXT_SCHEMAS := $(filter-out external/json-schema/LICENSE, $(wildcard external/json-schema/*))
 EXT_SCHEMAS_ARGS := $(foreach schema,$(EXT_SCHEMAS),--schema $(schema))
@@ -25,7 +26,8 @@ endif
 
 .PHONY: schemas schemas_vers_symlinks
 
-schemas: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
+schemas: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML_NOEXT) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
+schemas_without_noext: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
 schema_docs: schemas_vers_symlinks $(SCHEMAS_MD)
 
 schemas_vers_symlinks:
@@ -57,7 +59,11 @@ schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 
-$(SCHEMAS_HTML) : schemas/output/%: schemas/src/%.yaml | schemas_vers_symlinks
+$(SCHEMAS_HTML) : schemas/output/%.html: schemas/src/%.yaml | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+
+$(SCHEMAS_HTML_NOEXT) : schemas/output/%: schemas/src/%.yaml | schemas_vers_symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
 

@@ -1,7 +1,10 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/optimade"
-title: "A combination of SI and non-SI units in common use suitable for use with OPTIMADE."
-description: "This unit set combines all units associated with SI in the 2019 redefinition of the SI units with the ångstrom, the bit, and the byte unit."
+title: "OPTIMADE"
+description: |-
+  A combination of SI and non-SI units in common use suitable for use with OPTIMADE.
+
+  This unit set combines all units associated with SI in the 2019 redefinition of the SI units with the ångstrom, the bit, and the byte unit."
 $$inherit: ["/sets/v1.2.0/unitsystems/si_general"]
 x-optimade-definition:
   kind: "unitsystem"

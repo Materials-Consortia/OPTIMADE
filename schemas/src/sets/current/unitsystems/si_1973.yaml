@@ -1,7 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_1970"
-title: "The SI unit system as represented in the 1st edition of The International System of Units"
+title: "SI 1973"
 description: |-
+  The SI unit system as represented in the 1st edition of The International System of Units.
+
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
   This represents the SI unit system described in the 1st edition of The International System of Units in 1970.
 x-optimade-definition:

@@ -146,6 +146,21 @@ support_descs = {
     "should": "SHOULD be supported by all implementations, i.e., SHOULD NOT be `null`.",
     "may": "OPTIONAL support in implementations, i.e., MAY be `null`."
 }
+general_response_descs = {
+    None: "Not specified.",
+    "always": "MUST always be included in the response.",
+    "must": "MUST be included by default in the response.",
+    "should": "SHOULD be included by default in the response.",
+    "may": "MAY be included by default in the response.",
+    "should not": "SHOULD NOT be included by default in the response.",
+    "must not": "MUST NOT be included by default in the response."
+}
+response_descs = {
+    None: "Not specified.",
+    "always": "Is always be included in the response.",
+    "yes": "Is included by default in the response.",
+    "no": "Is not included by default in the response."
+}
 query_support_descs = {
     None: "Not specified.",
     "all mandatory" : "MUST be a queryable property with support for all mandatory filter features.",
@@ -470,13 +485,21 @@ def set_definition_to_md_inner(prop, inner, indent):
             if req_query == "partial":
                 req_partial_info = "The following filter language features MUST be supported: "+", ".join(inner['x-optimade-requirements']['query-support-operators'])
             s += "\n\n"
-            s += indent + "    Implementation requirements:  \n\n"
+            s += indent + "    **Requirements/Conventions:**  \n\n"
             if inner_basics['kind'] == 'property':
-                s += indent + "    - **Support:** "+support_descs[req_support]+"  \n"
-                s += indent + "    - **Query:** "+query_support_descs[req_query]+"  \n"
+                s += indent + "    - **Support:** "+support_descs[req_support]+"\n"
+                s += indent + "    - **Query:** "+query_support_descs[req_query]+"\n"
 
                 if req_response is not None:
-                    s += indent + "    - **Response:** "+str(req_response)+"  \n"
+                    s += indent + "    - **Response:** "+str(general_response_descs[req_response])+"\n"
+
+                if inner_basics['description_details'] != "":
+                    desc = inner_basics['description_details'].split('\n')
+                    if "Requirements/Conventions" in desc[0]:
+                        del desc[0]
+                        while len(desc)>0 and desc[0].strip() == "":
+                            del desc[0]
+                    s += indent + "    "+("\n    ".join(desc))+"\n\n"
 
             else:
                 s += indent + "    - **Support:** "+general_support_descs[req_support]+"  \n\n"
@@ -813,7 +836,10 @@ def data_to_html(data, index=False):
 </body>
 </html>
 """
-    title = str(data['title']) if 'title' in data else "?"
+    if index:
+        title = "Index"
+    else:
+        title = str(data['title']) if 'title' in data else "?"
     s = data_to_md(data, index=index)
     md = markdown.Markdown(output_format="html5",
                            extensions = ['mdx_math', 'codehilite', 'fenced_code'],

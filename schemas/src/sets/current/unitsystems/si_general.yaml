@@ -1,7 +1,9 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
 $id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_extra_2019"
-title: "The SI unit system, using of current or historical definitions of the SI units"
+title: "SI general"
 description: |-
+  The SI unit system, using of current or historical definitions of the SI units.
+
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
   The si_general unit system includes all SI prefixes, and all units that have either been part of the SI unit system or categorized as accepted for use with the SI.
 x-optimade-definition:
