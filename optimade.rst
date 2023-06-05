@@ -2669,6 +2669,7 @@ species
   - :property:`nattached`: list of integers (OPTIONAL)
   - :property:`mass`: list of floats (OPTIONAL)
   - :property:`original_name`: string (OPTIONAL).
+  - :property:`_biomol_atom_name`: string (OPTIONAL).
 
 - **Requirements/Conventions**:
 
@@ -2707,6 +2708,8 @@ species
 
           **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
           The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+	  
+  - **\_biomol\_atom\_name**: OPTIONAL. Name of the atom according to the biomolecular field standards.
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
@@ -3199,6 +3202,133 @@ Relationships with files may be used to relate an entry with any number of :entr
 
 Appendices
 ==========
+
+Domain Specific Fields
+----------------------
+
+The fields below are all optional and are only used within specific research fields.
+
+Every field has a standard domain-specific prefix.
+
+_biomol_residues
+~~~~~~~~~~~~~~~~
+
+- **Description**: For each residue in the system there is a dictionary that describes this residue. Residues are groups of related atoms (e.g. an aminoacid).
+  Databases are allowed to add more properties as long as the properties are prefixed with the database specific prefix.
+- **Type**: list of dictionaries with the properties:
+   - :property:`name`: string (REQUIRED)
+   - :property:`number`: integer (REQUIRED)
+   - :property:`icode`: string or null (REQUIRED)
+   - :property:`chain`: string (OPTIONAL)
+- **Requirements/Conventions**:
+   - **Query**:  Support for queries on this property is OPTIONAL.
+     If supported, only a subset of the filter features MAY be supported.
+   - **name**: The residue name
+   - **number**: The residue number according to source notation.
+   - **icode**: The residue insertion code. It MUST NOT be longer than 1 character. It MAY be null.
+   - **chain**: The chain number this residue belongs to.
+   - Values in :property:`chain` SHOULD be in capital letters.
+   - Values in :property:`chain` SHOULD NOT be longer than 1 character when the number of chains is not greater than the number of letters in English alphabet (26).
+   - All :property:`name` and :property:`icode` values SHOULD be in capital letters.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "_biomol_residues":[
+      {
+        "name": "PHE",
+	"number": 17,
+	"icode": null,
+        "chain": "A"
+      },
+      {
+        "name": "ASP",
+	"number": 18,
+	"icode": null,
+        "chain": "A"
+      },
+      {
+        "name": "LEU",
+	"number": 18,
+        "icode": "A",
+        "chain": "A"
+      },
+    ]
+  }
+  
+_biomol_residues_at_sites
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Index of the residues at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+  The properties of the residues are found in the property `_biomol_residues`_.
+- **Type**: list of integers.
+- **Requirements/Conventions**:
+  - **Support**: MUST be supported when `_biomol_residues`_ is present as well, i.e., MUST NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - The number of values MUST be equal to :property: `nsites`, i.e. the number of sites in the structure.
+  - Each value in the `_biomol_residues_at_sites`_ list MUST correspond to  the index of one the dictionaries in the `_biomol_residues`_ list.
+
+- **Examples**:
+
+  - :val:`[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1, ... ]` indicates that the first 8 sites belong to the first residue in the the `residues`_ list, while the 9 following atoms belong to the second residue.
+
+_biomol_site_sequences
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides having atoms with coordinates in sites. 
+  The elements in the `_biomol_site_sequences`_ list are unordered.
+  Each dictionary in the list holds two keys: sequence and type. The sequence is a string of one-letter codes identifying each amino acid or nucleotide as defined by the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_entity_poly.pdbx_seq_one_letter_code.html>`__.
+  The type is a string defining what kind of monomers are in the sequence.
+    Accepted values are "polypeptide" for amino acids, "polydeoxyribonucleotide"  for deoxyribonucleotides and "polyribonucleotide" for ribonucleotides, according to the `mmCIF standard <https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_pdbx_reference_linked_entity.link_to_entity_type.html>`__.
+- **Type**: list of dictionaries with the properties:
+   - :property:`sequence`: string (REQUIRED)
+   - :property:`type`: string (REQUIRED)
+- **Requirements/Conventions**:
+   - **Query**:  Queries on this property SHOULD be supported.
+   - **sequence**: A string with a letter for each residue in the sequence. Letters SHOULD be capital letters.
+   - **type**: The type of a sequence is defined by the type of its residues (e.g. "polypeptide").
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "_biomol_site_sequences":[
+      {
+        sequence: 'MSHHWGYG',
+        type: 'polypeptide'
+      },
+      {
+        sequence: '(DG)(DA)(DT)(DT)(DA)(DC)(DA)',
+        type: 'polydeoxyribonucleotide'
+      }
+    ]
+  }
+  
+_biomol_full_sequences
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A list of dictionaries, each representing a linear segment of covalently-linked standard or modified amino acids or nucleotides including residues without coordinates in sites.
+  The elements in the `_biomol_full_sequences`_ list are unordered.
+  Each element in the list is a dictionary, with the same schema defined for `_biomol_site_sequences`_.
+
+- **Examples**:
+
+.. code:: jsonc
+  {
+    "_biomol_full_sequences":[
+      {
+        sequence: 'MSHHWGYG',
+        type: 'polypeptide'
+      },
+      {
+        sequence: 'GATTACA',
+        type: 'polydeoxyribonucleotide'
+      }
+    ]
+  }
+
 
 The Filter Language EBNF Grammar
 --------------------------------
