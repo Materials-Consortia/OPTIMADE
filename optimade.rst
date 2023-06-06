@@ -3425,18 +3425,26 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operator EBNF Grammar
 ----------------------------------
 
-.. code:: ebnf
+.. code:: PCRE
 
-    (* BEGIN EBNF GRAMMAR Symmetry_Operators *)
+    #BEGIN PCER symops
 
-    SYMMETRY_OPERATORS = SYMMETRY_OPERATOR, { [Spaces], SYMMETRY_OPERATORS };
+    $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
-    SYMMETRY_OPERATOR = COORDINATE_EXPRESSION, ',',
-                        COORDINATE_EXPRESSION, ',',
-                        COORDINATE_EXPRESSION;
+    /^
+     (
+       [-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?
+       |   # ^-- matches coords ^--- matches a rational number, such as 1\/2
+       [-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?
+     )
+     (,
+       (
+         [-+]? [xyz] ([-+][xyz])? ($translations)? )?
+         |   # ^-- same pattern as above
+         [-+]? ($translations)? | \.[0-9]+) ([-+][xyz] ([-+][xyz])? )?
+       )
+     ){2}
+     $
+    /x
 
-    COORDINATE_EXPRESSION = COORDINATE;
-
-    COORDINATE = 'X' | 'x' | 'Y' | 'y' | 'Z' | 'z';
-
-    (* END EBNF GRAMMAR Symmetry_Operators *)
+    #END PCER symops
