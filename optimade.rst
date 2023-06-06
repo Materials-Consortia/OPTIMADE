@@ -3431,6 +3431,11 @@ The Symmetry Operator Regular Expressions
 
     $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
+    $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
+    $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
+
+    $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
+
     #END PCRE symop_definitions
 
 .. code:: PCRE
@@ -3438,18 +3443,7 @@ The Symmetry Operator Regular Expressions
     #BEGIN PCRE symops
 
     ^ # From the beginning of the string...
-    (
-      [-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?
-      |   # ^-- matches coords ^--- matches a rational number, such as 1/2
-      [-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?
-    )
-    (,
-      (
-        [-+]? [xyz] ([-+][xyz])? ([-+]($translations)? )?
-        |   # ^-- same pattern as above
-        [-+]? ($translations) ([-+][xyz] ([-+][xyz])? )?
-      )
-    ){2}
+    ($symop_re)(,$symop_re){2}
     $ # ... match to the very end of the string
 
     #END PCRE symops
