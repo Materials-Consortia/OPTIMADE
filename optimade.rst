@@ -3435,7 +3435,7 @@ The Symmetry Operator Regular Expressions
 
 .. code:: PCRE
 
-    #BEGIN PCER symops
+    #BEGIN PCRE symops
 
     ^ # From the beginning of the string...
     (
@@ -3452,4 +3452,4 @@ The Symmetry Operator Regular Expressions
     ){2}
     $ # ... match to the very end of the string
 
-    #END PCER symops
+    #END PCRE symops
