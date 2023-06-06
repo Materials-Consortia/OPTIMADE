@@ -12,6 +12,6 @@ INPUT_GRAMMAR=tests/generated/symops.pcre
 
 perl -I. -w -ne "
      require '${INPUT_DEFS}';
-     print if m:$(grep -v '^ *#' ${INPUT_GRAMMAR} | perl -pe 's/ #.*//'):x
+     print if /$(grep -v '^ *#' ${INPUT_GRAMMAR} | perl -pe 's/ #.*//')/x
 " \
      tests/inputs/symops.lst
