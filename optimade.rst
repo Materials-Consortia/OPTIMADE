@@ -3427,24 +3427,29 @@ The Symmetry Operator EBNF Grammar
 
 .. code:: PCRE
 
-    #BEGIN PCER symops
+    #BEGIN PCER symop_definitions
 
     $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
-    /^
-     (
-       [-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?
-       |   # ^-- matches coords ^--- matches a rational number, such as 1/2
-       [-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?
-     )
-     (,
-       (
-         [-+]? [xyz] ([-+][xyz])? ($translations)? )?
-         |   # ^-- same pattern as above
-         [-+]? ($translations)? | \.[0-9]+) ([-+][xyz] ([-+][xyz])? )?
-       )
-     ){2}
-     $
-    /x
+    #END PCER symop_definitions
+
+.. code:: PCRE
+
+    #BEGIN PCER symops
+
+    ^ # From the beginning of the string...
+    (
+      [-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?
+      |   # ^-- matches coords ^--- matches a rational number, such as 1/2
+      [-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?
+    )
+    (,
+      (
+        [-+]? [xyz] ([-+][xyz])? ($translations)? )?
+        |   # ^-- same pattern as above
+        [-+]? ($translations)? | \.[0-9]+) ([-+][xyz] ([-+][xyz])? )?
+      )
+    ){2}
+    $ # ... match to the very end of the string
 
     #END PCER symops
