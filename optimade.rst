@@ -3427,11 +3427,11 @@ The Symmetry Operator Regular Expressions
 
 .. code:: PCRE
 
-    #BEGIN PCER symop_definitions
+    #BEGIN PCRE symop_definitions
 
     $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
-    #END PCER symop_definitions
+    #END PCRE symop_definitions
 
 .. code:: PCRE
 
