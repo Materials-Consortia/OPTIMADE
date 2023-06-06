@@ -3422,8 +3422,8 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     "([^\"]|\\.)*"
     #END ERE strings
 
-The Symmetry Operator EBNF Grammar
-----------------------------------
+The Symmetry Operator Regular Expressions
+-----------------------------------------
 
 .. code:: PCRE
 
