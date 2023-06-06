@@ -2833,6 +2833,26 @@ assemblies
     These two sites are correlated (either site 2 or 3 is present).
     However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 % probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with 0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
+bonds
+~~~~~
+
+- **Description**: A list describing the chemical connectivity in the structure.
+- **Type**: list of dictionary with keys:
+
+  - :property:`sites`: a list of integers (REQUIRED)
+
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - The property SHOULD be :val:`null` for structures for which the bond perception has not been carried out by the implementation.
+  - :property:`sites` inside each dictionary contains two integers refering to different sites which are deemed chemically connected.
+
+- **Examples**:
+
+  - :val:`[ {"sites": [1, 2]} ]`: a structure with a bond between sites 1 and 2.
+
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
 
