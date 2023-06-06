@@ -3434,7 +3434,7 @@ The Symmetry Operator EBNF Grammar
     /^
      (
        [-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?
-       |   # ^-- matches coords ^--- matches a rational number, such as 1\/2
+       |   # ^-- matches coords ^--- matches a rational number, such as 1/2
        [-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?
      )
      (,
