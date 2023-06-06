@@ -3445,9 +3445,9 @@ The Symmetry Operator Regular Expressions
     )
     (,
       (
-        [-+]? [xyz] ([-+][xyz])? ($translations)? )?
+        [-+]? [xyz] ([-+][xyz])? ([-+]($translations)? )?
         |   # ^-- same pattern as above
-        [-+]? ($translations)? | \.[0-9]+) ([-+][xyz] ([-+][xyz])? )?
+        [-+]? ($translations) ([-+][xyz] ([-+][xyz])? )?
       )
     ){2}
     $ # ... match to the very end of the string
