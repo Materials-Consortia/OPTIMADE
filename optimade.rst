@@ -2500,6 +2500,20 @@ chemical\_formula\_anonymous
 
   - A filter that matches an exactly given formula is :filter:`chemical_formula_anonymous="A2B"`.
 
+inchikey
+~~~~~~~~
+
+- **Description**: The standard InChIKey representation of the structure.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**:
+
+  - Morphine: :val:`BQJCRHHNABKAKU-KBQPJGBKSA-N`
+
 dimension\_types
 ~~~~~~~~~~~~~~~~
 
