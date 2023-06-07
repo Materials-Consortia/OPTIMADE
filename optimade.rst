@@ -2840,6 +2840,7 @@ bonds
 - **Type**: list of dictionary with keys:
 
   - :property:`sites`: a list of integers (REQUIRED)
+  - :property:`translations`: a list of list of integers (OPTIONAL)
 
 - **Requirements/Conventions**:
 
@@ -2851,9 +2852,15 @@ bonds
 
     - *sites*: an ordered list of 0-based indexes of the two sites that form a chemical bond.
 
+  - If translations are needed by at least one of the sites of a bond, the following key SHOULD be used:
+
+    - *translations*: a list of two lists of three integers each, defining translations of the sites.
+      Omitting this key means that both translation vectors are :val:`[0, 0, 0]`.
+
 - **Examples**:
 
   - :val:`[ {"sites": [1, 2]} ]`: a structure with a bond between sites 1 and 2.
+  - :val:`[ {"sites": [1, 1], "translations": [ [0, 0, 0], [0, 0, 1] ]} ]`: a 1D polymer.
 
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
