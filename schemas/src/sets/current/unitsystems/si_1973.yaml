@@ -1,16 +1,16 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_1970"
+$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_1973"
 title: "SI 1973"
 description: |-
-  The SI unit system as represented in the 1st edition of The International System of Units.
+  The SI unit system as represented in the 3rd edition of The International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 1st edition of The International System of Units in 1970.
+  This represents the SI unit system described in the 3rd edition of The International System of Units in 1973.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
-  name: "si_1970"
+  name: "si_1973"
 units:
   s:
     $$inherit: "/units/v1.2.0/si/1960/base/second"
@@ -24,6 +24,8 @@ units:
     $$inherit: "/units/v1.2.0/si/1967/base/kelvin"
   cd:
     $$inherit: "/units/v1.2.0/si/1967/base/candela"
+  mol:
+    $$inherit: "/units/v1.2.0/si/1971/base/mole"
   rad:
     $$inherit: "/units/v1.2.0/si/1960/supplementary/radian"
   sr:
@@ -32,6 +34,8 @@ units:
     $$inherit: "/units/v1.2.0/si/1967/named/hertz"
   N:
     $$inherit: "/units/v1.2.0/si/1967/named/newton"
+  Pa:
+    $$inherit: "/units/v1.2.0/si/1971/named/pascal"
   J:
     $$inherit: "/units/v1.2.0/si/1967/named/joule"
   W:
@@ -44,6 +48,8 @@ units:
     $$inherit: "/units/v1.2.0/si/1967/named/farad"
   ohm:
     $$inherit: "/units/v1.2.0/si/1967/named/ohm"
+  S:
+    $$inherit: "/units/v1.2.0/si/1971/named/siemens"
   Wb:
     $$inherit: "/units/v1.2.0/si/1967/named/weber"
   T:

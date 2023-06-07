@@ -16,3 +16,7 @@ entrytypes:
     $$inherit: "/sets/v1.2.0/entrytypes/optimade/files"
     x-optimade-requirements:
       support: "may"
+  references:
+    $$inherit: "/sets/v1.2.0/entrytypes/optimade/references"
+    x-optimade-requirements:
+      support: "may"

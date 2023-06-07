@@ -5,7 +5,7 @@ description: |-
   The SI unit system as represented in the 5th edition of The International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 5th edition of The International System of Units in 1991.
+  This represents the SI unit system described in the 5th edition of The International System of Units in 1995.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"

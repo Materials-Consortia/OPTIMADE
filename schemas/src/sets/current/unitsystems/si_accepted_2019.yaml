@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_extra_2019"
+$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_accepted_2019"
 $$inherit: ["/sets/v1.2.0/unitsystems/si_2019"]
 title: "SI accepted 2019"
 description: |-
@@ -13,7 +13,7 @@ x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
-  name: "si_extra_2019"
+  name: "si_accepted_2019"
 units:
   min:
     $$inherit: "/units/v1.2.0/si/1970/accepted/minute"
