@@ -2836,7 +2836,7 @@ assemblies
 bonds
 ~~~~~
 
-- **Description**: A list describing the chemical connectivity in the structure.
+- **Description**: A list describing the chemical connectivity of the structure.
 - **Type**: list of dictionary with keys:
 
   - :property:`sites`: a list of integers (REQUIRED)
