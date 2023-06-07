@@ -1,5 +1,5 @@
 =========================================
-OPTIMADE API specification v1.1.0~develop
+OPTIMADE API specification v1.2.0~develop
 =========================================
 
 .. comment
@@ -165,7 +165,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Relationships describe links between entries rather than data that belong to a single entry, and are thus regarded as distinct from the entry properties.
 
 **Query filter**
-    An expression used to influence the entries returned in the response to an URL query.
+    An expression used to influence the entries returned in the response to a URL query.
     The filter is specified using the URL query parameter :query-param:`filter`
     using a format described in the section `API Filtering Format Specification`_.
 
@@ -225,6 +225,28 @@ The definition of a property of an entry type specifies a type. The value of tha
 
 General API Requirements and Conventions
 ========================================
+
+Versioning of this standard
+---------------------------
+This standard describes a communication protocol that, when implemented by a server, provides clients with an API for data access.
+
+Released versions of the standard are versioned using `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ in reference to changes in *that API* (i.e., not in the server-side implementation of the protocol).
+
+To clarify: semantic versioning mandates version numbers of the form MAJOR.MINOR.PATCH, where a "backwards incompatible API change" requires incrementing the MAJOR version number.
+A future version of the OPTIMADE standard can mandate servers to change their behavior to be compliant with the newer version.
+However, such changes are only considered "backwards incompatible API changes" if they have the potential to break clients that correctly use the API according to the earlier version.
+
+Furthermore, the addition of new keys in key-value-formatted responses of the OPTIMADE API are not regarded as "backwards incompatible API changes."
+Hence, a client MUST disregard unrecognized keys when interpreting responses (but MAY issue warnings about them).
+On the other hand, a change of the OPTIMADE standard that fundamentally alters the interpretation of a response due to the presence of a new key will be regarded as a "backwards incompatible API change" since a client interpreting the response according to a prior version of the standard would misinterpret that response.
+
+Working copies distributed as part of the development of the standard are marked with the version number for the release they are based on with an additional "~develop" suffix.
+These "versions" do not refer to a single specific instance of the text (i.e., the same "~develop" version string is retained until a release), nor is it clear to what degree they contain backwards incompatible API changes.
+Hence, the suffix is intentionally designed to make these version strings not to conform with semantic versioning to prevent incorrect comparisons to released versions using the scheme prescribed by semantic versioning.
+Version strings with a "~develop" suffix MAY be used by implementations during testing.
+However, a client that encounters them unexpectedly SHOULD NOT make any assumptions about the level of API compatibility.
+
+In conclusion, the versioning policy of this standard is designed to allow clients using the OPTIMADE API according to a specific version of the standard to assume compatibility with servers implementing any future (non-development) version of the standard sharing the same MAJOR version number.
 
 Base URL
 --------
@@ -512,7 +534,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
-    The field :field:`status`, representing a HTTP response status code, MUST NOT be present for a warning resource object.
+    The field :field:`status`, representing an HTTP response status code, MUST NOT be present for a warning resource object.
     This is an exclusive field for error resource objects.
 
     Example for a deprecation warning:
@@ -527,7 +549,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
          "detail": "chemical_formula is deprecated, use instead chemical_formula_hill"
        }
 
-    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes, use instead the field :field:`code` for this.
+    **Note**: warning :field:`id`\ s MUST NOT be trusted to identify the exceptional situations (i.e., they are not error codes), use instead the field :field:`code` for this.
     Warning :field:`id`\ s can *only* be trusted to be unique in the list of warning resource objects, i.e., together with the :field:`type`.
 
     General OPTIMADE warning codes are specified in section `Warnings`_.
@@ -681,7 +703,7 @@ HTTP Response Status Codes
 All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
 The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
 
-See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending a HTTP GET request.
+See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending an HTTP GET request.
 
 **Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section `Index Meta-Database`_), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
 
@@ -897,6 +919,7 @@ OPTIONALLY it can also contain the following fields:
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
   The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
+  All relationships to entries of the same entry type MUST be grouped into the same JSON API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
 
 Example:
 
@@ -932,7 +955,7 @@ Example:
 Single Entry Endpoints
 ----------------------
 
-A client can request a specific entry by appending an URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
+A client can request a specific entry by appending a URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.
 
 In the default JSON response format, the ID component MUST be the content of the :field:`id` field.
 
@@ -1158,7 +1181,9 @@ Example (note: the description strings have been wrapped for readability only):
         "description": "a structures entry",
         "properties": {
           "nelements": {
+            "$id": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
             "title": "Number of elements",
+            "x-optimade-type": "integer",
             "type": ["integer", "null"],
             "description": "Number of different elements in the structure as an integer.\n
              \n
@@ -1169,9 +1194,9 @@ Example (note: the description strings have been wrapped for readability only):
               3
             ],
             "x-optimade-property": {
-              "property-uri": "urn:uuid:10a05e55-0c20-4f68-89ad-35a18eb7076f",
+               "property-format": "1.2"
             },
-            "x-optimade-unit: "dimensionless",
+            "x-optimade-unit": "dimensionless",
             "x-optimade-implementation": {
               "sortable": true,
               "query-support": "all mandatory"
@@ -1183,7 +1208,9 @@ Example (note: the description strings have been wrapped for readability only):
             }
           },
           "lattice_vectors": {
+            "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
             "title": "Unit cell lattice vectors",
+            "x-optimade-type": "list",
             "type": ["array", "null"],
             "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
             \n
@@ -1195,7 +1222,7 @@ Example (note: the description strings have been wrapped for readability only):
             ],
             "x-optimade-unit": "inapplicable",
             "x-optimade-property": {
-              "property-uri": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "property-format": "1.2",
               "unit-definitions": [
                 {
                   "symbol": "angstrom",
@@ -1208,7 +1235,7 @@ Example (note: the description strings have been wrapped for readability only):
                   }
                 }
               ]
-            }
+            },
             "x-optimade-implementation": {
               "sortable": false,
               "query-support": "none"
@@ -1217,26 +1244,28 @@ Example (note: the description strings have been wrapped for readability only):
               "support": "should",
               "sortable": false,
               "query-support": "none"
-            }
-            "maxItems": 3
-            "minItems": 3
+            },
+            "maxItems": 3,
+            "minItems": 3,
             "items": {
-               "type": "array",
-               "x-optimade-unit": "inapplicable",
-               "maxItems": 3
-               "minItems": 3
-               "items": {
-                 "type": "number",
-                 "x-optimade-unit": "angstrom",
-                 "x-optimade-implementation": {
-                   "sortable": true,
-                   "query-support": "none"
-                 },
-                 "x-optimade-requirements": {
-                   "sortable": false,
-                   "query-support": "none"
-                 }
-               }
+              "type": "array",
+              "x-optimade-type": "list",
+              "x-optimade-unit": "inapplicable",
+              "maxItems": 3,
+              "minItems": 3,
+              "items": {
+                "type": "number",
+                "x-optimade-type": "float",
+                "x-optimade-unit": "angstrom",
+                "x-optimade-implementation": {
+                  "sortable": true,
+                  "query-support": "none"
+                },
+                "x-optimade-requirements": {
+                  "sortable": false,
+                  "query-support": "none"
+                }
+              }
             }
           }
           // ... <other property descriptions>
@@ -1441,7 +1470,7 @@ Index Meta-Database Links Endpoint
 
 If the provider implements an `Index Meta-Database`_, it is RECOMMENDED to adopt a structure where the index meta-database is the :val:`root` implementation of the provider.
 
-This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the Links endpoint of the `Index Meta-Database`_.
+This will make all OPTIMADE databases and implementations by the provider discoverable as links with :val:`child` link type, under the :endpoint:`links` endpoint of the `Index Meta-Database`_.
 
 Link Aggregate Options
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -1463,13 +1492,13 @@ The API implementation is free to define roles of further URL path segments unde
 API Filtering Format Specification
 ==================================
 
-An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as an URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
+An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as a URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
 All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter features.
 The level of query support REQUIRED for other properties is described in `Entry list`_.
 
-When provided as an URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
+When provided as a URL query parameter, the contents of the :query-param:`filter` parameter is URL-encoded by the client in the HTTP GET request, and then URL-decoded by the API implementation before any further parsing takes place.
 In particular, this means the client MUST escape special characters in string values as described below for `String values`_ before the URL encoding, and the API implementation MUST first URL-decode the :query-param:`filter` parameter before reversing the escaping of string tokens.
 
 Examples of syntactically correct query strings embedded in queries:
@@ -1527,7 +1556,7 @@ The following tokens are used in the filter query component:
 
   String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 
-- **Numeric values** are represented as decimal integers or is scientific notation, using the usual programming language conventions.
+- **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
 
   - ERE: :ere:`[-+]?([0-9]+(\.[0-9]\*)?|\.[0-9]+)([eE][-+]?[0-9]+)?`
@@ -1800,7 +1829,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **REQUIRED keys for the outermost level of the Property Definition:**
 
-- :field:`title`: String and :field:`description`: String.
+- :field:`$id`: String, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
@@ -1809,10 +1838,13 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
-  - :field:`property-uri`: String.
-    A static URI identifier that is a URN or URL representing the specific version of the property.
-    It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-    (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+  - :field:`property-format`: String.
+    Specifies the minor version of the property definition format used.
+    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
+    The version number string MUST NOT be prefixed by, e.g., "v".
+    In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
+    A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+    This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
   **OPTIONAL keys:**
 
@@ -1838,6 +1870,10 @@ A Property Definition MUST be composed according to the combination of the requi
       A URI of the external resource (which MAY be a resolvable URL).
 
 **REQUIRED keys for all levels of the Property Definition:**
+
+- :field:`x-optimade-type`: String
+  Specifies the OPTIMADE data type for this level of the defined property.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
@@ -1889,7 +1925,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
-    This field SHOULD only appear in a :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
@@ -1910,25 +1946,41 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 **REQUIRED keys**
 
 - :field:`type`: String or List.
-  The string or list specifies the type of the defined property.
+  Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
+  The value is directly correlated with :field:`x-optimade-type` as explained below.
+
   It MUST be one of:
 
-  - One of the strings :val:`"boolean"`, :val:`"object"` (refers to an OPTIMADE dictionary), :val:`"array"` (refers to an OPTIMADE list), :val:`"number"` (refers to an OPTIMADE float), :val:`"string"`, or :val:`"integer"`.
-  - A list where the first item MUST be one of the strings above, and the second item MUST be the string :val:`"null"`.
+  - A string correlated with :field:`x-optimade-type` as follows.
+    If :field:`x-optimade-type` is:
+
+    * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
+    * :val:`"dictionary"` then :field:`type` is `"object"`.
+    * :val:`"list"` then :field:`type` is `"array"`.
+    * :val:`"float"` then :field:`type` is `"number"`.
+    * :val:`"timestamp"` then :field:`type` is `"string"`.
+
+  - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
+    This form specifies that the defined property can be :val:`null`.
 
 ..
 
   Implementation notes:
 
-    - The strings used in the :field:`type` field are JSON type names encoded as strings, but they refer to the corresponding OPTIMADE data types.
-      Nevertheless, for consistency across formats, the JSON type names MUST be used regardless of the standard type names of the output format.
-      The motivation for this design decision is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+    - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
+      The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+      Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output formats (i.e., the JSON names MUST NOT be translated into the type names of that output format).
 
     - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
       Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
       This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
 **OPTIONAL keys**
+
+- :field:`$id`: String.
+  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
+  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2051,7 +2103,7 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
   - :field:`maxLength`: Integer.
     A non-negative integer.
     The defined property is a string that MUST have a length that is less than or equal to the given integer.
-    (The length of the string is the number of individual Unicode characters it is composed from.)
+    (The length of the string is the number of individual Unicode characters it is composed of.)
 
   - :field:`minLength`: Integer.
     A non-negative integer.
@@ -2081,7 +2133,7 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.09 of the (separately versioned) unit database :val:`definition.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.21.
+A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database :val:`definitions.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
 If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
 
 A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
@@ -2095,7 +2147,7 @@ For example :val:`"km"` for kilometers.
 Furthermore:
 
 - No whitespace, parenthesis, or other symbols than specified above are permitted.
-- If multiple string representations of the same unit exist in ``definition.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
+- If multiple string representations of the same unit exist in ``definitions.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
 - The unit symbols MUST appear in alphabetical order.
 
 The string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
@@ -2123,7 +2175,7 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The abbreviated name of the standard being referenced.
     One of the following:
 
-    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with GNU Units `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
     - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
     - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
@@ -2210,7 +2262,7 @@ type
 immutable\_id
 ~~~~~~~~~~~~~
 
-- **Description**: The entry's immutable ID (e.g., an UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
+- **Description**: The entry's immutable ID (e.g., a UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
 - **Type**: string.
 - **Requirements/Conventions**:
 
@@ -2619,7 +2671,7 @@ species\_at\_sites
 - **Examples**:
 
   - :val:`["Ti","O2"]` indicates that the first site is hosting a species labeled :val:`"Ti"` and the second a species labeled :val:`"O2"`.
-  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicating the first two sites contains the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
+  - :val:`["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the :val:`"Ac"` species, while the third and fourth sites contain the :val:`"Ag"` and :val:`"Ir"` species, respectively.
 
 species
 ~~~~~~~
@@ -2672,7 +2724,7 @@ species
       Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-          **Note**: With regards to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
+          **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
           The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
@@ -2725,7 +2777,7 @@ assemblies
 
   - :val:`{"sites_in_groups": [[0], [1]], "group_probabilities": [0.3, 0.7]}`: the first site and the second site never occur at the same time in the unit cell.
     Statistically, 30 % of the times the first site is present, while 70 % of the times the second site is present.
-  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third site are either present together or not present; they form the first group of atoms for this assembly.
+  - :val:`{"sites_in_groups": [[1,2], [3]], "group_probabilities": [0.3, 0.7]}`: the second and third sites are either present together or not present; they form the first group of atoms for this assembly.
     The second group is formed by the fourth site.
     Sites of the first group (the second and the third) are never present at the same time as the fourth site.
     30 % of times sites 1 and 2 are present (and site 3 is absent); 70 % of times site 3 is present (and sites 1 and 2 are absent).
@@ -2733,7 +2785,7 @@ assemblies
 - **Notes**:
 
   - Assemblies are essential to represent, for instance, the situation where an atom can statistically occupy two different positions (sites).
-  - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it it is present in two conformations)
+  - By defining groups, it is possible to represent, e.g., the case where a functional molecule (and not just one atom) is either present or absent (or the case where it is present in two conformations).
   - Considerations on virtual alloys and on vacancies: In the special case of a virtual alloy, these specifications allow two different, equivalent ways of specifying them.
     For instance, for a site at the origin with 30 % probability of being occupied by Si, 50 % probability of being occupied by Ge, and 20 % of being a vacancy, the following two representations are possible:
 
