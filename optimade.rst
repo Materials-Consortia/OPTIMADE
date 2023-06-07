@@ -2847,7 +2847,8 @@ bonds
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - The property SHOULD be :val:`null` for structures for which the chemical connectivity is unknown to the implementation.
-  - :property:`sites` inside each dictionary contains two integers refering to different sites which are deemed chemically connected.
+  - :property:`sites` inside each dictionary contains two integers refering to sites which are deemed chemically connected.
+    The site indexes MUST be ordered in non-decreasing manner.
 
 - **Examples**:
 
