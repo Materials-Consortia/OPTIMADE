@@ -2836,7 +2836,7 @@ assemblies
 bonds
 ~~~~~
 
-- **Description**: A list describing the chemical connectivity in the structure.
+- **Description**: A list describing the chemical connectivity of the structure.
 - **Type**: list of dictionary with keys:
 
   - :property:`sites`: a list of integers (REQUIRED)
@@ -2847,8 +2847,8 @@ bonds
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - The property SHOULD be :val:`null` for structures for which the chemical connectivity is unknown to the implementation.
-  - :property:`sites` inside each dictionary contains two integers refering to sites which are deemed chemically connected.
-    The site indexes MUST be ordered in non-decreasing manner.
+  - If present, it MUST be a list of dictionaries, each of which represents a chemical bond and MUST have the following key:
+    - *sites*: an ordered list of 0-based indexes of the two sites that form a chemical bond.
 
 - **Examples**:
 
