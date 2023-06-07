@@ -2846,7 +2846,7 @@ bonds
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - The property SHOULD be :val:`null` for structures for which the bond perception has not been carried out by the implementation.
+  - The property SHOULD be :val:`null` for structures for which the chemical connectivity is unknown to the implementation.
   - :property:`sites` inside each dictionary contains two integers refering to different sites which are deemed chemically connected.
 
 - **Examples**:
