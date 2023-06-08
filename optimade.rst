@@ -3261,7 +3261,7 @@ An example of a dense response for a partial array data, multidimensional array 
     {"format": "dense", "returned_range": {"start": 10, "stop": 20, "step": 2}}
     [[10,20,21], [30,40,50]]
     [["ext"], "https://example.db.org/value2"]]
-    [[11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
+    [[11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
     [["next"], "https://example.db.org/value4"]
 
 An example of a sparse response for a partial array data with aggregated dimensions, single dimension array:
@@ -3269,7 +3269,7 @@ An example of a sparse response for a partial array data with aggregated dimensi
 .. code:: json
     {"format": "sparse"}
     [3,5,19,  [10,20,21,30]]
-    [30,15,9, [["ext"], "https://example.db.org/value1"]]
+    [30,15,9, [["ref"], "https://example.db.org/value1"]]
     [["next"], "https://example.db.org/"]
 
 An example of a sparse response for a partial array data with aggregated dimensions, scalar values:
@@ -3287,7 +3287,7 @@ An example of a sparse response for a partial array data with aggregated dimensi
     [3,5,19, [ [10,20,21], [30,40,50] ]
     [3,7,19, [["ext"], "https://example.db.org/value2"]]
     [4,5,19, [ [11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
-    [["next"], null]
+    [["end"], ""]
     
 The Filter Language EBNF Grammar
 --------------------------------
