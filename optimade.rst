@@ -2859,7 +2859,7 @@ bonds
       Omitting this key means that both translation vectors are :val:`[0, 0, 0]`.
 
   - OPTIONAL key :property:`distance` MAY be used to provide distance in ångström (Å) between the two sites after applying the appropriate translation vectors.
-    
+
 - **Examples**:
 
   - :val:`[ {"sites": [0, 1]} ]`: a structure with a bond between sites 0 and 1.
