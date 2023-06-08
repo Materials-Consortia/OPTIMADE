@@ -2858,7 +2858,7 @@ bonds
     - *translations*: a list of two lists of three integers each, defining translations of the sites.
       Omitting this key means that both translation vectors are :val:`[0, 0, 0]`.
 
-  - OPTIONAL key :property:`distance` MAY be used to provide distance in ångström (Å) between the two sites after applying the appropriate translation vectors.
+  - OPTIONAL key :property:`distance` MAY be used to provide the distance in ångströms (Å) between the two sites after applying the appropriate translation vectors.
 
 - **Examples**:
 
