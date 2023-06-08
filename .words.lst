@@ -1,4 +1,4 @@
-personal_ws-1.1 en 205
+personal_ws-1.1 en 209 
 ABNF
 ACM
 Aa
@@ -86,6 +86,7 @@ bandgap
 bd
 booktitle
 boolean
+bzip
 calc
 cartesian
 checksums
@@ -115,6 +116,7 @@ exclusiveMinimum
 exmpl
 fieldname
 firstname
+hdf
 howpublished
 href
 html
@@ -122,11 +124,13 @@ http
 hydrogens
 hydroperoxide
 implementers
+incrementing
 internaldb
 javascript
 json
 jsonapi
 jsonc
+jsonlines
 kvak
 lastname
 libc
