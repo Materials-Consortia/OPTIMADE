@@ -2859,7 +2859,7 @@ bonds
 
 - **Examples**:
 
-  - :val:`[ {"sites": [0, 1]} ]`: a structure with a bond between sites 1 and 2.
+  - :val:`[ {"sites": [0, 1]} ]`: a structure with a bond between sites 0 and 1.
   - :val:`[ {"sites": [0, 0], "translations": [ [0, 0, 0], [0, 0, 1] ]} ]`: a 1D polymer.
 
 structure\_features
