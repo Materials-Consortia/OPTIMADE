@@ -2503,7 +2503,7 @@ chemical\_formula\_anonymous
 inchikey
 ~~~~~~~~
 
-- **Description**: The standard InChIKey representation of the structure, as laid out by the [InChI Trust](https://www.inchi-trust.org)
+- **Description**: The standard InChIKey representation of the structure, as laid out by the `InChI Trust <https://www.inchi-trust.org>`_
 - **Type**: string
 - **Requirements/Conventions**:
 
