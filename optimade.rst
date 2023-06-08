@@ -3219,7 +3219,7 @@ The dictionary has the following OPTIONAL fields:
   The slice ends at the value with the given index (inclusive).
   If omitted, the end of the slice is not specified.
   If the end of the slice is not specified when used to express the values included in a response, the client has to count the number of items to know the end.
-  If the slice refers to a requested range of items, to omit :field:`stop` has the same meaning as specifying the last index of the array. 
+  If the slice refers to a requested range of items, to omit :field:`stop` has the same meaning as specifying the last index of the array.
 - :field:`"step"`
   The absolute difference in index between two subsequent values that are included in the slice.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
@@ -3306,7 +3306,7 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
            }
            "property_metadata": {
                "a": {
-                   
+
                }
            }
        }
@@ -3339,7 +3339,7 @@ An example of a sparse response for a partial array data with aggregated dimensi
     [["next"], "https://example.db.org/"]
 
 An example of a sparse response for a partial array data with aggregated dimensions, scalar values:
-          
+
 .. code:: json
     {"format": "sparse"}
     [3,5,19,  10]
@@ -3347,14 +3347,14 @@ An example of a sparse response for a partial array data with aggregated dimensi
     [["next"], "https://example.db.org/"]
 
 An example of a sparse response for a partial array data with aggregated dimensions, multidimensional array:
-          
+
 .. code:: json
     {"format": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
     [3,7,19, [["ref"], "https://example.db.org/value2"]]
     [4,5,19, [ [11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
     [["end"], ""]
-    
+
 The Filter Language EBNF Grammar
 --------------------------------
 
@@ -3576,6 +3576,3 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
-
-
-
