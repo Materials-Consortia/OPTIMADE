@@ -593,6 +593,23 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
   Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
 
+  The :field:`data` field MAY also contain a :field:`meta` field with the following keys:
+
+  - **property_metadata**: an object containing per-entry and per-property metadata.
+    The keys are the names of the fields in :field:`attributes` for which metadata is available.
+    The values belonging to these keys are dictionaries containing the relevant metadata fields.
+
+  - **partial_data_urls**: an object used to list URL:s which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+    The keys are the names of the fields in :field:`attributes` for which partial data URLs are available.
+    Each value is a list of items that MUST have the following keys:
+
+    - **format**: String.
+      A name of the format provided via this URL.
+      One of the items SHOULD be "json lines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+
+    - **url**: String.
+      The URL from which the data can be fetched.
+
 The response MAY also return resources related to the primary data in the field:
 
 - **links**: `JSON API links <http://jsonapi.org/format/1.0/#document-links>`__ is REQUIRED for implementing pagination.
@@ -915,7 +932,8 @@ OPTIONALLY it can also contain the following fields:
 
   - **self**: the entry's URL
 
-- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
+- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that is used to communicate metadata.
+  See `JSON Response Schema: Common Fields`_ for more information about this field.
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
   The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
@@ -3203,12 +3221,14 @@ Appendices
 OPTIMADE JSON lines partial data format
 ---------------------------------------
 The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
-In this case, the usual OPTIMADE response gives the value :val:`null` for the property, and the per-entry metadata specifies a URL that can be used to fetch the missing data in this format.
-See `Per-property metadata`_ for information on the per-entry and per-property metadata format.
+The format is based on `JSON Lines <https://jsonlines.org/>`__, which allows for streaming handling of large datasets.
+
+To communicate a property using this format, the usual OPTIMADE response gives the value :val:`null` for the property.
+Furthermore, a URL is given which can be used to fetch the missing data.
+For responses that use the JSON response format, a subfield :field:`partial_data_urls` of the resource object metadata field, :field:`meta`, is used, see `JSON Response Schema: Common Fields`_.
 
 .. _slice object:
 
-The JSON Lines specification is used to transmit long array data in a "streaming JSON" way [... ref ...].
 To aid the definition of the "json lines" format below, we first define a "slice object" to be a JSON object describing slices of arrays.
 The dictionary has the following OPTIONAL fields:
 
