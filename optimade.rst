@@ -3222,7 +3222,7 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
           }
        }
        "meta": {
-           "partial_data_urls": { // either this...
+           "partial_data_urls": {
                "a": [
                    {
                        "format": "plain-jsonlines",
@@ -3238,7 +3238,7 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
                    }
                ]
            }
-           "property_metadata": { // or this...:
+           "property_metadata": {
                "a": {
                    
                }
