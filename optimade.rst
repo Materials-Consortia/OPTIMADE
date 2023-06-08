@@ -3202,12 +3202,13 @@ Appendices
 
 OPTIMADE JSON lines partial data format
 ---------------------------------------
-The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data too large to fit in a single OPTIMADE response.
+The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
 In this case, the usual OPTIMADE response gives the value :val:`null` for the property, and the per-entry metadata specifies a URL that can be used to fetch the missing data in this format.
 See `Per-property metadata`_ for information on the per-entry and per-property metadata format.
 
 .. _slice object:
 
+The JSON Lines specification is used to transmit long array data in a "streaming JSON" way [... ref ...].
 To aid the definition of the "json lines" format below, we first define a "slice object" to be a JSON object describing slices of arrays.
 The dictionary has the following OPTIONAL fields:
 
