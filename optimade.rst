@@ -3239,20 +3239,9 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
                ]
            }
            "property_metadata": { // or this...:
-               "a": [
-                   {
-                       "format": "plain-jsonlines",
-                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/default_format"
-                   },
-                   {
-                       "format": "bzip2-jsonlines",
-                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/bzip2_format"
-                   },
-                   {
-                       "format": "hdf5",
-                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/hdf5"
-                   }
-               ]
+               "a": {
+                   
+               }
            }
        }
    }
