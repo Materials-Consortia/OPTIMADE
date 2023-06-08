@@ -447,7 +447,7 @@ Metadata properties
 
 A metadata property represents entry and property-specific metadata for a given entry.
 How these are communicated in the response depends on the response format.
-For the JSON response format, the resource object metadata field, :field:`meta`, is used, see `JSON Response Schema: Common Fields`_.
+For the JSON response format, a subfield :field:`property_metadata` of the resource object metadata field, :field:`meta`, is used, see `JSON Response Schema: Common Fields`_.
 
 The metadata property is a dictionary in the format specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property Definitions`_.
 Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-specific prefix even for metadata for database-specific fields.
@@ -469,11 +469,13 @@ Example of a response in the JSON response format with two structure entries tha
              "element_ratios":[0.33336, 0.22229, 0.44425],
            },
            "meta": {
-             "element_ratios": {
-               "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
-               "_exmpl_confidence_level": 0.95
-             },
-             "_exmpl_uploader" : "John Doe"
+             "property_metadata": {
+               "element_ratios": {
+                 "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
+                 "_exmpl_confidence_level": 0.95
+               },
+               "_exmpl_uploader" : "John Doe"
+             }
            }
          },
          {
