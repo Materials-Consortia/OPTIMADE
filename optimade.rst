@@ -692,10 +692,10 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
   Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
-  Each resource object MAY contain a :field:`meta` field used to communicate `Metadata properties`_.
-  The keys of the :field:`meta` field are the names of the fields in :field:`attributes` for which metadata is available.
-  The values belonging to these keys are dictionaries containing the relevant metadata fields..
-  In addition the :field:`meta` can also hold metadata fields that apply to the entry as a whole.
+  Each resource object MAY contain a :field:`meta` field used to communicate metadata.
+  The subkey :field:`property_metadata` is used to communicate `Metadata properties`_.
+  The keys of the :field:`property_metadata` field are the names of the fields in :field:`attributes` for which metadata is available.
+  The values belonging to these keys are dictionaries containing the relevant metadata fields.
 
 The response MAY also return resources related to the primary data in the field:
 
@@ -1019,10 +1019,12 @@ OPTIONALLY it can also contain the following fields:
 
   - **self**: the entry's URL
 
-- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that is used to communicate `Metadata properties`_.
-  The keys of the :field:`meta` field are the names of the fields in :field:`attributes` for which metadata is available.
-  The values belonging to these keys are dictionaries containing the relevant metadata fields.
-  In addition the :field:`meta` can also hold metadata fields that apply to the entry as a whole.
+- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that is used to communicate per-entry metadata.
+  It MAY contain the following keys:
+
+  - **property_metadata**: an object used to communicate `Metadata properties`_.
+    The keys are the names of the fields in :field:`attributes` for which metadata is available.
+    The values belonging to these keys are dictionaries containing the relevant metadata fields.
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
   The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
