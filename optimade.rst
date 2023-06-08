@@ -2859,8 +2859,8 @@ bonds
 
 - **Examples**:
 
-  - :val:`[ {"sites": [1, 2]} ]`: a structure with a bond between sites 1 and 2.
-  - :val:`[ {"sites": [1, 1], "translations": [ [0, 0, 0], [0, 0, 1] ]} ]`: a 1D polymer.
+  - :val:`[ {"sites": [0, 1]} ]`: a structure with a bond between sites 1 and 2.
+  - :val:`[ {"sites": [0, 0], "translations": [ [0, 0, 0], [0, 0, 1] ]} ]`: a 1D polymer.
 
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
