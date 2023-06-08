@@ -3200,6 +3200,11 @@ Relationships with files may be used to relate an entry with any number of :entr
 Appendices
 ==========
 
+OPTIMADE partial data format
+----------------------------
+
+
+
 The Filter Language EBNF Grammar
 --------------------------------
 
@@ -3421,3 +3426,6 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
+
+
+
