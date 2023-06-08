@@ -2856,7 +2856,8 @@ bonds
 
     - *translations*: a list of two lists of three integers each, defining translations of the sites.
       Omitting this key means that both translation vectors are :val:`[0, 0, 0]`.
-
+    - *distance*: the distance in Angstrom between the two sites after applying the appropriate translation vectors.
+    
 - **Examples**:
 
   - :val:`[ {"sites": [0, 1]} ]`: a structure with a bond between sites 0 and 1.
