@@ -3207,12 +3207,80 @@ The OPTIMADE response can in this case assign the property the value :val:`null`
 See `Per_property_metadata`_ for information on the format of the per-property metadata.
 This section describes the REST interface and response format provided via this URL.
 
-
-
 Examples
 --------
 
+An example of an OPTIMADE JSON-API response that contains a link to a partial data protocol URL:
 
+.. code:: json
+   {
+       "data": {
+          "type": "structures",
+          "id": "2345678",
+          "attributes": {
+              "a": null
+          }
+       }
+       "meta": {
+           "partial_data_urls": { // either this...
+               "a": [
+                   {
+                       "format": "plain-jsonlines",
+                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/default_format"
+                   },
+                   {
+                       "format": "bzip2-jsonlines",
+                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/bzip2_format"
+                   },
+                   {
+                       "format": "hdf5",
+                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/hdf5"
+                   }
+               ]
+           }
+           "property_metadata": { // or this...:
+               "a": [
+                   {
+                       "format": "plain-jsonlines",
+                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/default_format"
+                   },
+                   {
+                       "format": "bzip2-jsonlines",
+                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/bzip2_format"
+                   },
+                   {
+                       "format": "hdf5",
+                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/hdf5"
+                   }
+               ]
+           }
+       }
+   }
+
+          
+An example of a dense response for a partial array data (based on the array of 
+          
+.. code:: json
+    {"format": "dense", "returned_range": {"start": 1, "stop": 20, "step": 2}}
+
+An example of a sparse response for a partial array data with aggregated dimensions:
+          
+.. code:: json
+    {"format": "sparse"}
+    [3,5,19, [10,20,21,30]]
+    [3,5,19, [["ext"], "https://example.db.org/value1"]]
+    [["next"], "https://example.db.org/"]
+
+a[][3][5][19][][]
+
+.. code:: json
+    {"format": "sparse"}
+    [3,5,19, [ [10,20,21], [30,40,50] ]
+    [3,7,19, [["ext"], "https://example.db.org/value2"]]
+    [4,5,19, [ [11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
+    [["next"], null]
+
+    
 The Filter Language EBNF Grammar
 --------------------------------
 
