@@ -3200,12 +3200,74 @@ Relationships with files may be used to relate an entry with any number of :entr
 Appendices
 ==========
 
-OPTIMADE partial data protocol
-------------------------------
-The OPTIMADE partial data protocol is a lightweight REST protocol for transmission of property data which is too large to fit in a single response.
-The OPTIMADE response can in this case assign the property the value :val:`null` in the response, and in the per-property metadata for that property specify a URL that can be used to fetch the missing data using the OPTIMADE partial data protocol.
-See `Per_property_metadata`_ for information on the format of the per-property metadata.
-This section describes the REST interface and response format provided via this URL.
+OPTIMADE JSON lines partial data format
+---------------------------------------
+The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data too large to fit in a single OPTIMADE response.
+In this case, the usual OPTIMADE response gives the value :val:`null` for the property, and the per-entry metadata specifies a URL that can be used to fetch the missing data in this format.
+See `Per-property metadata`_ for information on the per-entry and per-property metadata format.
+
+.. _slice object:
+
+To aid the definition of the "json lines" format below, we first define a "slice object" to be a JSON object describing slices of arrays.
+The dictionary has the following OPTIONAL fields:
+
+- :field:`"start"`: Integer.
+  The slice starts at the value with the given index (inclusive).
+  The default is 0, i.e., the value at the start of the array.
+- :field:`"stop"`
+  The slice ends at the value with the given index (inclusive).
+  The default is the last value of the array.
+- :field:`"step"`
+  The absolute difference in index between two subsequent values that are included in the slice.
+  The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
+  For example, a value of 2 denotes a slice of every second value in the array.
+
+Furthermore, we also define the following special markers:
+
+- The "end-of-data--marker" is this exact JSON: :val:`[["end"], ""]`.
+- A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
+- A "next-marker" is this exact JSON: :val:`[["end"], "URK"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
+
+These JSON markers have been deliberately designed as lists with items of mixed data types, and thus cannot be encountered inside the actual data of an OPTIMADE property.
+
+The full response MUST be valid `json lines <https://jsonlines.org/>`__ that adheres to the format:
+
+- The first line is a header object (defined below)
+- The following lines are data lines adhering to the formats described below.
+- The final line is either an end-of-data--marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retriving data from the provided URL.
+
+The first line MUST be a JSON object providing header information.
+The header object MUST contain the key:
+
+- :field:`"format"`: String.
+  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format is dense or sparse.
+
+The header object MAY also contain the key:
+
+- :field:`"returned_range"`: Object.
+  A `slice object`_ representing the range of data present in the response.
+  Once the client has encountered an end-of-data--marker (defined below), any data not covered by the encountered slices are to be assigned the value :val:`null`.
+  If the format is `"dense"` and :field:`returned_range` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data--marker or next-marker (defined below).
+
+The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the format as :val:`"dense"` or :val:`sparse`.
+
+- **Dense format:** In the dense partial data format, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+  If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
+  If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items, which is then also provided in the JSON lines partial data format.
+
+- **Sparse format for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+
+  - The first item is the index of the item provided.
+  - The second item is a JSON representation of the item, on the same format as the lines in the dense format.
+    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
+
+- **Sparse format for multi-dimensional lists:** Specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists, the server MAY represent them using a sparse multi-dimensional format.
+  In this case, each data line contains a JSON array on the format:
+
+  - All items except the last item are coordinates providing indices in the embedded dimensions in the order of outermost to innermost.
+  - The last item is a JSON representation of the item at those coordinates, on the same format as the lines in the dense format.
+    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
+
 
 Examples
 --------
