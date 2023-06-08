@@ -3227,7 +3227,7 @@ Furthermore, we also define the following special markers:
 
 - The "end-of-data--marker" is this exact JSON: :val:`[["end"], ""]`.
 - A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`[["end"], "URK"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
+- A "next-marker" is this exact JSON: :val:`[["end"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
 
 These JSON markers have been deliberately designed as lists with items of mixed data types, and thus cannot be encountered inside the actual data of an OPTIMADE property.
 
@@ -3235,7 +3235,7 @@ The full response MUST be valid `json lines <https://jsonlines.org/>`__ that adh
 
 - The first line is a header object (defined below)
 - The following lines are data lines adhering to the formats described below.
-- The final line is either an end-of-data--marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retriving data from the provided URL.
+- The final line is either an end-of-data--marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
 
 The first line MUST be a JSON object providing header information.
 The header object MUST contain the key:
@@ -3263,7 +3263,7 @@ The format of data lines of the response (i.e., all lines except the first and t
     In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
 
 - **Sparse format for multi-dimensional lists:** Specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists, the server MAY represent them using a sparse multi-dimensional format.
-  In this case, each data line contains a JSON array on the format:
+  In this case, each data line contains a JSON array in the format of:
 
   - All items except the last item are coordinates providing indices in the embedded dimensions in the order of outermost to innermost.
   - The last item is a JSON representation of the item at those coordinates, on the same format as the lines in the dense format.
@@ -3323,7 +3323,7 @@ An example of a dense response for a partial array data, multidimensional array 
 .. code:: json
     {"format": "dense", "returned_range": {"start": 10, "stop": 20, "step": 2}}
     [[10,20,21], [30,40,50]]
-    [["ext"], "https://example.db.org/value2"]]
+    [["ref"], "https://example.db.org/value2"]
     [[11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
     [["next"], "https://example.db.org/value4"]
 
@@ -3348,8 +3348,8 @@ An example of a sparse response for a partial array data with aggregated dimensi
 .. code:: json
     {"format": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
-    [3,7,19, [["ext"], "https://example.db.org/value2"]]
-    [4,5,19, [ [11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
+    [3,7,19, [["ref"], "https://example.db.org/value2"]]
+    [4,5,19, [ [11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
     [["end"], ""]
     
 The Filter Language EBNF Grammar
