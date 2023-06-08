@@ -3258,10 +3258,14 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
    }
 
           
-An example of a dense response for a partial array data (based on the array of 
+An example of a dense response for a partial array data:
           
 .. code:: json
-    {"format": "dense", "returned_range": {"start": 1, "stop": 20, "step": 2}}
+    {"format": "dense", "returned_range": {"start": 10, "stop": 20, "step": 2}}
+    [[10,20,21], [30,40,50]]
+    [["ext"], "https://example.db.org/value2"]]
+    [[11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
+    [["next"], "https://example.db.org/value4"]
 
 An example of a sparse response for a partial array data with aggregated dimensions:
           
