@@ -3246,9 +3246,17 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
        }
    }
 
-          
-An example of a dense response for a partial array data:
-          
+An example of a dense response for a partial array data, scalar values:
+
+.. code:: json
+    {"format": "dense", "returned_range": {"start": 10, "stop": 20, "step": 2}}
+    123
+    345
+    -12.6
+    [["next"], "https://example.db.org/value4"]
+
+An example of a dense response for a partial array data, multidimensional array values:
+
 .. code:: json
     {"format": "dense", "returned_range": {"start": 10, "stop": 20, "step": 2}}
     [[10,20,21], [30,40,50]]
@@ -3256,23 +3264,30 @@ An example of a dense response for a partial array data:
     [[11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
     [["next"], "https://example.db.org/value4"]
 
-An example of a sparse response for a partial array data with aggregated dimensions:
+An example of a sparse response for a partial array data with aggregated dimensions, single dimension array:
+
+.. code:: json
+    {"format": "sparse"}
+    [3,5,19,  [10,20,21,30]]
+    [30,15,9, [["ext"], "https://example.db.org/value1"]]
+    [["next"], "https://example.db.org/"]
+
+An example of a sparse response for a partial array data with aggregated dimensions, scalar values:
           
 .. code:: json
     {"format": "sparse"}
-    [3,5,19, [10,20,21,30]]
-    [3,5,19, [["ext"], "https://example.db.org/value1"]]
+    [3,5,19,  10]
+    [30,15,9, 31]
     [["next"], "https://example.db.org/"]
 
-a[][3][5][19][][]
-
+An example of a sparse response for a partial array data with aggregated dimensions, multidimensional array:
+          
 .. code:: json
     {"format": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
     [3,7,19, [["ext"], "https://example.db.org/value2"]]
     [4,5,19, [ [11, 110], [["ext"], "https://example.db.org/value3"], [550, 333]]
     [["next"], null]
-
     
 The Filter Language EBNF Grammar
 --------------------------------
