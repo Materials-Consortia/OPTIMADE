@@ -3200,9 +3200,17 @@ Relationships with files may be used to relate an entry with any number of :entr
 Appendices
 ==========
 
-OPTIMADE partial data format
-----------------------------
+OPTIMADE partial data protocol
+------------------------------
+The OPTIMADE partial data protocol is a lightweight REST protocol for transmission of property data which is too large to fit in a single response.
+The OPTIMADE response can in this case assign the property the value :val:`null` in the response, and in the per-property metadata for that property specify a URL that can be used to fetch the missing data using the OPTIMADE partial data protocol.
+See `Per_property_metadata`_ for information on the format of the per-property metadata.
+This section describes the REST interface and response format provided via this URL.
 
+
+
+Examples
+--------
 
 
 The Filter Language EBNF Grammar
