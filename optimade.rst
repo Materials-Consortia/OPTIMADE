@@ -3249,7 +3249,7 @@ Furthermore, we also define the following special markers:
 
 - The "end-of-data--marker" is this exact JSON: :val:`[["end"], ""]`.
 - A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`[["end"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
+- A "next-marker" is this exact JSON: :val:`[["next"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
 
 These JSON markers have been deliberately designed as lists with items of mixed data types, and thus cannot be encountered inside the actual data of an OPTIMADE property.
 
