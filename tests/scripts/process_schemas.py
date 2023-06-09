@@ -131,6 +131,21 @@ arguments = [
         'help': 'Force validation against the given schema regardless of precense of $schema or not in instance',
         'nargs': 1
     },
+    {
+        'names': ['--html-header'],
+        'help': 'Add the given string to the header of generated html output, e.g., to insert a link for css',
+        'action': 'append', 'default': []
+    },
+    {
+        'names': ['--html-top'],
+        'help': 'Add the given string to the beginning of the body part of generated html output',
+        'action': 'append', 'default': []
+    },
+    {
+        'names': ['--html-bottom'],
+        'help': 'Add the given string to the bottom of the body part of generated html output',
+        'action': 'append', 'default': []
+    },
 
 ]
 
@@ -510,7 +525,7 @@ def set_definition_to_md_inner(prop, inner, indent):
     s += "\n"
     return s
 
-def set_definition_to_md(data, level=0):
+def set_definition_to_md(data, args, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -562,11 +577,11 @@ def set_definition_to_md(data, level=0):
 
     s += "\n"
     s += "**JSON definition:**\n"
-    s += general_to_md(data)
+    s += general_to_md(data, args)
 
     return s
 
-def single_definition_to_md(data, level=0):
+def single_definition_to_md(data, args, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -618,11 +633,11 @@ def single_definition_to_md(data, level=0):
         basename = os.path.basename(data['$id'])
         s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n\n"
     s += "**JSON definition:**\n"
-    s += general_to_md(data)
+    s += general_to_md(data, args)
 
     return s
 
-def general_to_md(data, level=0):
+def general_to_md(data, args, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -643,7 +658,7 @@ def general_to_md(data, level=0):
     s += "\n```"
     return s
 
-def property_definition_to_md(data, level=0):
+def property_definition_to_md(data, args, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -713,11 +728,11 @@ def property_definition_to_md(data, level=0):
         basename = os.path.basename(data['$id'])
         s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n\n"
     s += "**JSON definition:**\n"
-    s += general_to_md(data)
+    s += general_to_md(data, args)
 
     return s
 
-def data_to_md(data, level=0, index=False):
+def data_to_md(data, args, level=0):
     """
     Convert data representing OPTIMADE Definitions of different kinds into a markdown string.
 
@@ -731,21 +746,21 @@ def data_to_md(data, level=0, index=False):
     str
         A string representation of the input data.
     """
-    if index:
-        return data_to_md_index(data, level=level)
+    if args.index:
+        return data_to_md_index(data, args, level=level)
 
     s = ""
     if not "x-optimade-definition" in data:
         if 'title' in data:
             basics = data_get_basics(data)
             s += md_header(basics['title'], level, style="display")
-            s += general_to_md(data)
+            s += general_to_md(data, args)
             return s
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict):
                     s += md_header(item, level, style="display")
-                    s += data_to_md(data[item], level=level+1)
+                    s += data_to_md(data[item], args, level=level+1)
                 #elif item == "$id":
                 #    continue
                 #else:
@@ -761,17 +776,17 @@ def data_to_md(data, level=0, index=False):
     kind = data['x-optimade-definition']['kind']
 
     if kind == 'property':
-        s += property_definition_to_md(data, level)
+        s += property_definition_to_md(data, args, level)
     elif kind in ['unit', 'constant', 'prefix']:
-        s += single_definition_to_md(data, level)
+        s += single_definition_to_md(data, args, level)
     elif kind in ['standard', 'entrytype', 'unitsystem']:
-        s += set_definition_to_md(data, level)
+        s += set_definition_to_md(data, args, level)
     else:
         raise Exception("Unknown kind in x-optimade-definition: "+str(data['x-optimade-definition']['kind']))
 
     return s
 
-def data_to_md_index(data, path=[], level=0):
+def data_to_md_index(data, args, path=[], level=0):
     s = ""
     # The heuristic of lookoing for a 'title' field that is a string
     # to determine how to print things is not foolproof,
@@ -795,21 +810,21 @@ def data_to_md_index(data, path=[], level=0):
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict) and ('title' in data[item] and isinstance(data[item]['title'],str)):
-                    s += data_to_md_index(data[item], path=path+[str(item)], level=level+1)
+                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=level+1)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
             s += "\n"
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict) and not ('title' in data[item] and isinstance(data[item]['title'],str)):
-                    s += data_to_md_index(data[item], path=path+[str(item)], level=level+1)
+                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=level+1)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
             s += "\n"
     return s
 
 
-def data_to_html(data, index=False):
+def data_to_html(data, args, header=""):
 
     import markdown
 
@@ -833,24 +848,25 @@ def data_to_html(data, index=False):
     <script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/mathtex-script-type.min.js" defer></script>
     <title>%(title)s</title>
     <style>%(style)s</style>
+%(header)s
   </head>
 <body>
 %(body)s
 </body>
 </html>
 """
-    if index:
+    if args.index:
         title = "Index"
     else:
         title = str(data['title']) if 'title' in data else "?"
-    s = data_to_md(data, index=index)
+    s = data_to_md(data, args)
     md = markdown.Markdown(output_format="html5",
                            extensions = ['mdx_math', 'codehilite', 'fenced_code'],
                            extension_configs={'mdx_math': {"enable_dollar_delimiter": False}})
     body = md.convert(s)
-    return htmldoc % { 'title':title, 'body':body, 'style': codehilite_css}
+    return htmldoc % { 'title':title, 'body':"".join(args.html_top)+body+"".join(args.html_bottom), 'style': codehilite_css, 'header': "".join(args.html_header)}
 
-def output_str(data, output_format='json', index=False):
+def output_str(data, output_format, args):
     """
     Serializes key-value data into a string using the specified output format.
 
@@ -874,9 +890,9 @@ def output_str(data, output_format='json', index=False):
         import yaml
         return yaml.dump(data)
     elif output_format == "md":
-        return data_to_md(data, index=index)
+        return data_to_md(data, args)
     elif output_format == "html":
-        return data_to_html(data, index=index)
+        return data_to_html(data, args)
     else:
         raise Exception("Unknown output format: "+str(output_format))
 
@@ -1269,7 +1285,7 @@ if __name__ == "__main__":
 
         try:
             logging.info("Serializing data into format: %s", args.output_format)
-            outstr = output_str(data, args.output_format, args.index)
+            outstr = output_str(data, args.output_format, args)
         except Exception as e:
             raise ExceptionWrapper("Serialization of data failed", e) from e
 
