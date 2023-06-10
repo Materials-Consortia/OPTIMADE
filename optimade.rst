@@ -599,7 +599,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     The keys are the names of the fields in :field:`attributes` for which metadata is available.
     The values belonging to these keys are dictionaries containing the relevant metadata fields.
 
-  - **partial_data_urls**: an object used to list URL:s which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+  - **partial_data_urls**: an object used to list URLs which can be used to fetch data that has been omitted from the :field:`data` part of the response.
     The keys are the names of the fields in :field:`attributes` for which partial data URLs are available.
     Each value is a list of items that MUST have the following keys:
 
@@ -3243,7 +3243,9 @@ The dictionary has the following OPTIONAL fields:
 - :field:`"step"`
   The absolute difference in index between two subsequent values that are included in the slice.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
-  For example, a value of 2 denotes a slice of every second value in the array.
+  Hence, a value of 2 denotes a slice of every second value in the array.
+  
+For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` a slice that specifies start=1, end=7, and step=3 refers to the items `["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
@@ -3269,7 +3271,7 @@ The header object MUST contain the key:
 The header object MAY also contain the key:
 
 - :field:`"returned_ranges"`: Array of Object.
-  For dense data and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   Once the client has encountered an end-of-data--marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
   If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data--marker or next-marker.
   In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
@@ -3282,15 +3284,15 @@ The format of data lines of the response (i.e., all lines except the first and t
 
 - **Sparse format for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
 
-  - The first item is the index of the item provided.
-  - The second item is a JSON representation of the item, on the same format as the lines in the dense format.
-    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
+  - The first item is the (zero-based) index of the item provided.
+  - The second item is a JSON representation of the item, with the same format as the lines in the dense format.
+    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response (see example below).
 
-- **Sparse format for multi-dimensional lists:** Specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists, the server MAY represent them using a sparse multi-dimensional format.
+- **Sparse format for multi-dimensional lists:** We provide a sparse format specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array). Then, the server MAY represent them using the following sparse multi-dimensional format.
   In this case, each data line contains a JSON array in the format of:
 
-  - All items except the last item are coordinates providing indices in the embedded dimensions in the order of outermost to innermost.
-  - The last item is a JSON representation of the item at those coordinates, on the same format as the lines in the dense format.
+  - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the embedded dimensions in the order of outermost to innermost.
+  - The last item is a JSON representation of the item at those coordinates, with the same format as the lines in the dense format.
     In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
 
 
@@ -3333,7 +3335,7 @@ An example of an OPTIMADE JSON-API response that contains a link to a partial da
        }
    }
 
-An example of a dense response for a partial array data, scalar values:
+An example of a dense response for a partial array data, scalar values. The request returns the first three items and provides the next-marker link to continue fetching data:
 
 .. code:: json
     {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
@@ -3342,7 +3344,7 @@ An example of a dense response for a partial array data, scalar values:
     -12.6
     [["next"], "https://example.db.org/value4"]
 
-An example of a dense response for a partial array data, multidimensional array values:
+An example of a dense response for a partial array data, multidimensional array values. Item with index 10 in the original list (the first one provided in the response since start=10) is provided explicitly in the response. The item with index 12 in the list (the second provided, since start=10 and step=2) is not provided and only referenced. The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last ar explicitly provided, the second one is only referenced.
 
 .. code:: json
     {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
