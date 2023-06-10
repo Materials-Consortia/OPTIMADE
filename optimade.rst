@@ -442,6 +442,54 @@ For example, the following query can be sent to API implementations `exmpl1` and
 
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
+Transmission of large property values
+-------------------------------------
+
+A property value may be too large to fit in a single response.
+OPTIMADE provides a mechanism for a client to handle such properties by fetching them in separate series of requests.
+
+In this case, the response to the initial query gives the value :val:`null` for the property.
+A list of one or more data URLs together with their respective partial data formats are given in the response.
+How this list is provided is response format-dependent.
+For the JSON response format, see the description of the :field:`partial_data_urls` field inside :field:`meta` inside :field:`data` in the section `JSON Response Schema: Common Fields`_.
+
+The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
+An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
+Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
+
+Below follows an example of the data and meta parts in a response using the JSON response format that communicates that the property value has been omitted from the response, with three different URLs for different partial data formats provided.
+
+.. code:: jsonc
+   {
+       // ...
+       "data": {
+          "type": "structures",
+          "id": "2345678",
+          "attributes": {
+              "a": null
+          }
+       }
+       "meta": {
+           "partial_data_urls": {
+               "a": [
+                   {
+                       "format": "jsonlines",
+                       "url": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+                   },
+                   {
+                       "format": "_exmpl_bzip2_jsonlines",
+                       "url": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+                   },
+                   {
+                       "format": "_exmpl_hdf5",
+                       "url": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+                   }
+               ]
+           }
+       }
+       // ...
+   }
+
 Responses
 =========
 
@@ -595,20 +643,19 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   The :field:`data` field MAY also contain a :field:`meta` field with the following keys:
 
-  - **property_metadata**: an object containing per-entry and per-property metadata.
-    The keys are the names of the fields in :field:`attributes` for which metadata is available.
-    The values belonging to these keys are dictionaries containing the relevant metadata fields.
-
   - **partial_data_urls**: an object used to list URLs which can be used to fetch data that has been omitted from the :field:`data` part of the response.
     The keys are the names of the fields in :field:`attributes` for which partial data URLs are available.
     Each value is a list of items that MUST have the following keys:
 
     - **format**: String.
       A name of the format provided via this URL.
-      One of the items SHOULD be "json lines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+      One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
 
     - **url**: String.
       The URL from which the data can be fetched.
+      There is no requirement on the syntax or format of the URL.
+
+    For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_urls`, see `Transmission of large property values`_.
 
 The response MAY also return resources related to the primary data in the field:
 
@@ -3218,166 +3265,6 @@ Relationships with files may be used to relate an entry with any number of :entr
 Appendices
 ==========
 
-OPTIMADE JSON lines partial data format
----------------------------------------
-The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
-The format is based on `JSON Lines <https://jsonlines.org/>`__, which allows for streaming handling of large datasets.
-
-To communicate a property using this format, the usual OPTIMADE response gives the value :val:`null` for the property.
-Furthermore, a URL is given which can be used to fetch the missing data.
-For responses that use the JSON response format, a subfield :field:`partial_data_urls` of the resource object metadata field, :field:`meta`, is used, see `JSON Response Schema: Common Fields`_.
-
-.. _slice object:
-
-To aid the definition of the "json lines" format below, we first define a "slice object" to be a JSON object describing slices of arrays.
-The dictionary has the following OPTIONAL fields:
-
-- :field:`"start"`: Integer.
-  The slice starts at the value with the given index (inclusive).
-  The default is 0, i.e., the value at the start of the array.
-- :field:`"stop"`
-  The slice ends at the value with the given index (inclusive).
-  If omitted, the end of the slice is not specified.
-  If the end of the slice is not specified when used to express the values included in a response, the client has to count the number of items to know the end.
-  If the slice refers to a requested range of items, to omit :field:`stop` has the same meaning as specifying the last index of the array.
-- :field:`"step"`
-  The absolute difference in index between two subsequent values that are included in the slice.
-  The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
-  Hence, a value of 2 denotes a slice of every second value in the array.
-  
-For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` a slice that specifies start=1, end=7, and step=3 refers to the items `["b", "e", "h"]`.
-
-Furthermore, we also define the following special markers:
-
-- The "end-of-data--marker" is this exact JSON: :val:`[["end"], ""]`.
-The "end-of-data--marker" marker is chosen so that it is a valid JSON object but *not* a valid OPTIMADE value (an OPTIMADE object may not contain values of different types in a list as of v 1.1), which make sure that a valid value will never be misinterpreted as the "end..." marker. 
-- A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`[["next"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
-
-These JSON markers have been deliberately designed as lists with items of mixed data types, and thus cannot be encountered inside the actual data of an OPTIMADE property.
-
-The full response MUST be valid `json lines <https://jsonlines.org/>`__ that adheres to the format:
-
-- The first line is a header object (defined below)
-- The following lines are data lines adhering to the formats described below.
-- The final line is either an end-of-data--marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
-
-The first line MUST be a JSON object providing header information.
-The header object MUST contain the key:
-
-- :field:`"format"`: String.
-  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format is dense or sparse.
-
-The header object MAY also contain the key:
-
-- :field:`"returned_ranges"`: Array of Object.
-  For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  Once the client has encountered an end-of-data--marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
-  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data--marker or next-marker.
-  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
-
-The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the format as :val:`"dense"` or :val:`sparse`.
-
-- **Dense format:** In the dense partial data format, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
-  If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
-  If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items, which is then also provided in the JSON lines partial data format.
-
-- **Sparse format for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
-
-  - The first item is the (zero-based) index of the item provided.
-  - The second item is a JSON representation of the item, with the same format as the lines in the dense format.
-    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response (see example below).
-
-- **Sparse format for multi-dimensional lists:** We provide a sparse format specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array). Then, the server MAY represent them using the following sparse multi-dimensional format.
-  In this case, each data line contains a JSON array in the format of:
-
-  - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the embedded dimensions in the order of outermost to innermost.
-  - The last item is a JSON representation of the item at those coordinates, with the same format as the lines in the dense format.
-    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
-
-
-Examples
---------
-
-An example of an OPTIMADE JSON-API response that contains a link to a partial data protocol URL:
-
-.. code:: json
-   {
-       "data": {
-          "type": "structures",
-          "id": "2345678",
-          "attributes": {
-              "a": null
-          }
-       }
-       "meta": {
-           "partial_data_urls": {
-               "a": [
-                   {
-                       "format": "plain-jsonlines",
-                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/default_format"
-                   },
-                   {
-                       "format": "bzip2-jsonlines",
-                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/bzip2_format"
-                   },
-                   {
-                       "format": "hdf5",
-                       "url": "https://example.db.org/assets/partial_values/structures/2345678/a/hdf5"
-                   }
-               ]
-           }
-           "property_metadata": {
-               "a": {
-
-               }
-           }
-       }
-   }
-
-An example of a dense response for a partial array data, scalar values. The request returns the first three items and provides the next-marker link to continue fetching data:
-
-.. code:: json
-    {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
-    123
-    345
-    -12.6
-    [["next"], "https://example.db.org/value4"]
-
-An example of a dense response for a partial array data, multidimensional array values. Item with index 10 in the original list (the first one provided in the response since start=10) is provided explicitly in the response. The item with index 12 in the list (the second provided, since start=10 and step=2) is not provided and only referenced. The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last ar explicitly provided, the second one is only referenced.
-
-.. code:: json
-    {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
-    [[10,20,21], [30,40,50]]
-    [["ref"], "https://example.db.org/value2"]
-    [[11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
-    [["next"], "https://example.db.org/value4"]
-
-An example of a sparse response for a partial array data with aggregated dimensions, single dimension array:
-
-.. code:: json
-    {"format": "sparse"}
-    [3,5,19,  [10,20,21,30]]
-    [30,15,9, [["ref"], "https://example.db.org/value1"]]
-    [["next"], "https://example.db.org/"]
-
-An example of a sparse response for a partial array data with aggregated dimensions, scalar values:
-
-.. code:: json
-    {"format": "sparse"}
-    [3,5,19,  10]
-    [30,15,9, 31]
-    [["next"], "https://example.db.org/"]
-
-An example of a sparse response for a partial array data with aggregated dimensions, multidimensional array:
-
-.. code:: json
-    {"format": "sparse"}
-    [3,5,19, [ [10,20,21], [30,40,50] ]
-    [3,7,19, [["ref"], "https://example.db.org/value2"]]
-    [4,5,19, [ [11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
-    [["end"], ""]
-
 The Filter Language EBNF Grammar
 --------------------------------
 
@@ -3599,3 +3486,133 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
+
+OPTIMADE JSON lines partial data format
+---------------------------------------
+The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
+The format is based on `JSON Lines <https://jsonlines.org/>`__, which allows for streaming handling of large datasets.
+Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., "array" and "object" and for OPTIMADE properties they are, e.g., "list" and "dictionary".
+
+.. _slice object:
+
+To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of arrays.
+The dictionary has the following OPTIONAL fields:
+
+- :field:`"start"`: Integer.
+  The slice starts at the value with the given index (inclusive).
+  The default is 0, i.e., the value at the start of the array.
+- :field:`"stop"`: Integer.
+  The slice ends at the value with the given index (inclusive).
+  If omitted, the end of the slice is not specified.
+  If the slice is used to express the values included in a response and :field:`stop` is omitted, the client has to count the number of items to know the end.
+  If the slice is used to request a range of items, to omit :field:`stop` has the same meaning as specifying the last index of the array.
+- :field:`"step"`: Integer.
+  The absolute difference in index between two subsequent values that are included in the slice.
+  The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
+  Hence, a value of 2 denotes a slice of every second value in the array.
+
+For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object `{"start":1, "end":7, "step": 3}` refers to the items `["b", "e", "h"]`.
+
+Furthermore, we also define the following special markers:
+
+- The "end-of-data-marker" is this exact JSON: :val:`[["end"], ""]`.
+- A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
+- A "next-marker" is this exact JSON: :val:`[["next"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
+
+There is no requirement on the syntax or format of the URLs provided in these markers.
+The data provided via the URLs MUST be the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
+Since the OPTIMADE list data type is defined as list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
+
+The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
+
+- The first line is a header object (defined below)
+- The following lines are data lines adhering to the formats described below.
+- The final line is either an end-of-data-marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
+
+The first line MUST be a JSON object providing header information.
+The header object MUST contain the key:
+
+- :field:`"format"`: String.
+  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format is dense or sparse.
+
+The header object MAY also contain the key:
+
+- :field:`"returned_ranges"`: Array of Object.
+  For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
+  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data--marker or next-marker.
+  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+
+The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the format as :val:`"dense"` or :val:`sparse`.
+
+- **Dense format:** In the dense partial data format, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+  If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
+  If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
+
+- **Sparse format for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+
+  - The first item is the zero-based index of the item provided.
+  - The second item is a JSON representation of the item, with the same format as the lines in the dense format.
+    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response (see example below).
+
+- **Sparse format for multi-dimensional lists:** We provide a sparse format specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+  Then, the server MAY represent them using the following sparse multi-dimensional format for a number of aggregated dimensions.
+  In this case, each data line contains a JSON array in the format of:
+
+  - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
+  - The last item is a JSON representation of the item at those coordinates, with the same format as the lines in the dense format.
+    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
+
+Examples
+--------
+
+Below follows an example of a dense response for a partial array data of integer values.
+The request returns the first three items and provides the next-marker link to continue fetching data:
+
+.. code:: json
+    {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    123
+    345
+    -12.6
+    [["next"], "https://example.db.org/value4"]
+
+Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
+The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
+The item with index 12 in the list, the second data item provided since start=10 and step=2, is not included only referenced.
+The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
+
+.. code:: json
+    {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    [[10,20,21], [30,40,50]]
+    [["ref"], "https://example.db.org/value2"]
+    [[11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
+    [["next"], "https://example.db.org/value4"]
+
+Below follows an example of the sparse format for multi-dimensional lists with three aggregated dimensions.
+The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
+The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
+The response below communicates the first item explicitly; the second one by defering the innermost list using a reference-marker; and the third item is not included in this response, but defered to another page via a next-marker.
+
+.. code:: json
+    {"format": "sparse"}
+    [3,5,19,  [10,20,21,30]]
+    [30,15,9, [["ref"], "https://example.db.org/value1"]]
+    [["next"], "https://example.db.org/"]
+
+An example of the sparse format for multi-dimensional lists with three aggregated dimensions and integer values:
+
+.. code:: json
+    {"format": "sparse"}
+    [3,5,19,  10]
+    [30,15,9, 31]
+    [["next"], "https://example.db.org/"]
+
+An example of the sparse format for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+
+.. code:: json
+    {"format": "sparse"}
+    [3,5,19, [ [10,20,21], [30,40,50] ]
+    [3,7,19, [["ref"], "https://example.db.org/value2"]]
+    [4,5,19, [ [11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
+    [["end"], ""]
