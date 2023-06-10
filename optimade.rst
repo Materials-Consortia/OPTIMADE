@@ -3248,6 +3248,7 @@ The dictionary has the following OPTIONAL fields:
 Furthermore, we also define the following special markers:
 
 - The "end-of-data--marker" is this exact JSON: :val:`[["end"], ""]`.
+The "end-of-data--marker" marker is chosen so that it is a valid JSON object but *not* a valid OPTIMADE value (an OPTIMADE object may not contain values of different types in a list as of v 1.1), which make sure that a valid value will never be misinterpreted as the "end..." marker. 
 - A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
 - A "next-marker" is this exact JSON: :val:`[["next"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
 
