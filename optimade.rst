@@ -586,14 +586,12 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
          // ...
        }
 
-  :field:`meta` MAY also include these deprecated fields:
-
   - **schema**: a `JSON:API links object <http://jsonapi.org/format/1.1/#document-links>`__ that points to a schema for the response.
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allows for alternative schema types.
     Hence, if the :field:`meta` field of the JSON:API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST NOT handle failures to parse the schema or to validate the response against the schema as errors.
 
-    *Deprecated:* the field was previously RECOMMENDED in all responses, but is now deprecated in favor of the standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
+    Note: the field was previously RECOMMENDED in all responses, but is now demoted to being OPTIONAL since there now is a standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON:API resource object <http://jsonapi.org/format/1.1/#document-resource-objects>`__ or a *list* of JSON:API resource objects.
   Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
@@ -637,7 +635,6 @@ The response MAY also return resources related to the primary data in the field:
 
     Note: this field is the standard facility in JSON:API to communicate a response schema.
     It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
-    Hence, the latter is deprecated.
 
   The following fields are REQUIRED for implementing pagination:
 
