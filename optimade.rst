@@ -502,41 +502,17 @@ Example of the corresponding metadata property definition contained in the field
     .. code:: jsonc
          // ...
          "x-optimade-metadata-definition": {
-           "$id": "https://properties.example.com/v1.2.0/element_ratios_meta",
            "title": "Metadata for the element_ratios field",
-           "description": "This field contains the metadata for the element_ratios field that is specific to each individual entry.",
-           "x-optimade-property": {
-             "property-format": "1.2"
-           },
+           "description": "This field contains the per-entry metadata for the element_ratios field.",
            "x-optimade-type": "dictionary",
            "x-optimade-unit": "inapplicable",
            "type": ["object", "null"],
            "properties" : {
-             "_exmpl_confidence_interval": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_confidence_interval",
-               "description" : "This field consists of a list with a list that contains the lower and upper bounds of the confidence interval.",
-               "x-optimade-type": "list",
+             "_exmpl_originates_from_project": {
+               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+               "description" : "A string naming the internal example.com project id where this property was added to the database.",
+               "x-optimade-type": "string",
                "x-optimade-unit" : "inapplicable",
-               "type": "array",
-               "items": {
-                 "x-optimade-type": "list",
-                 "description" : "The first value in this list is the lower bound for the confidence interval the second value is the upper bound.",
-                 "x-optimade-unit" : "inapplicable",
-                 "type": "array",
-                 "items": {
-                   "x-optimade-type": "float",
-                   "x-optimade-unit" : "dimensionless",
-                   "type": "number"
-                 }
-               }
-             },
-             "_exmpl_confidence_level": {
-               "x-optimade-type": "float",
-               "description" : "The confidence level for this interval e.g. 0.95",
-               "maximum": 1.0,
-               "minimum": 0.0,
-               "x-optimade-unit" : "dimensionless",
-               "type": "number"
              }
            }
          }
