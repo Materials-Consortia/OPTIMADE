@@ -471,10 +471,8 @@ Example of a response in the JSON response format with two structure entries tha
            "meta": {
              "property_metadata": {
                "element_ratios": {
-                 "_exmpl_confidence_interval": [[0.33325,0.33347],[0.22190,0.22268],[0.44392,0.44458]],
-                 "_exmpl_confidence_level": 0.95
+                 "_exmpl_originates_from_project": "piezoelectic_perovskites"
                },
-               "_exmpl_uploader" : "John Doe"
              }
            }
          },
@@ -486,10 +484,8 @@ Example of a response in the JSON response format with two structure entries tha
            },
            "meta": {
              "element_ratios": {
-               "_exmpl_confidence_interval": [[0.6,0.4],[0.7,0.4]],
-               "_exmpl_confidence_level": 0.90
+               "_exmpl_originates_from_project": "ferroelectric_binaries"
              },
-             "_exmpl_uploader" : "John Doe"
            }
          }
          //...
