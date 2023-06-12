@@ -483,9 +483,11 @@ Example of a response in the JSON response format with two structure entries tha
              "element_ratios":[0.5, 0.5],
            },
            "meta": {
-             "element_ratios": {
-               "_exmpl_originates_from_project": "ferroelectric_binaries"
-             },
+             "propertiy_metadata":{
+               "element_ratios": {
+                 "_exmpl_originates_from_project": "ferroelectric_binaries"
+               },
+             }
            }
          }
          //...
@@ -664,7 +666,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
   Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
-  The :field:`data` field MAY also contain a :field:`meta` field with the following key:
+  Every resource object MAY also contain a :field:`meta` field with the following key:
 
   - **property_metadata**: an object containing per-entry and per-property metadata.
     The keys are the names of the fields in :field:`attributes` for which metadata is available.
