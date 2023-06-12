@@ -3515,9 +3515,9 @@ For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` 
 
 Furthermore, we also define the following special markers:
 
-- The "end-of-data-marker" is this exact JSON: :val:`[["end"], ""]`.
-- A "reference-marker" is this exact JSON: :val:`[["ref"], "URL"]`, where :val:`"URL"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`[["next"], "URL"]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
+- The "end-of-data-marker" is this exact JSON: :val:`["end", [""]]`.
+- A "reference-marker" is this exact JSON: :val:`["ref", ["URL"]]`, where :val:`"URL"` is to be replaced with a URL being referenced.
+- A "next-marker" is this exact JSON: :val:`["next", ["URL"]]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
 The data provided via the URLs MUST be the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
@@ -3575,7 +3575,7 @@ The request returns the first three items and provides the next-marker link to c
     123
     345
     -12.6
-    [["next"], "https://example.db.org/value4"]
+    ["next", ["https://example.db.org/value4"]]
 
 Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
 The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
@@ -3585,9 +3585,9 @@ The third provided item (index 14 in the original list) is only partially return
 .. code:: json
     {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     [[10,20,21], [30,40,50]]
-    [["ref"], "https://example.db.org/value2"]
-    [[11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
-    [["next"], "https://example.db.org/value4"]
+    ["ref", ["https://example.db.org/value2"]]
+    [[11, 110], ["ref", ["https://example.db.org/value3"]], [550, 333]]
+    ["next", ["https://example.db.org/value4"]]
 
 Below follows an example of the sparse format for multi-dimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
@@ -3597,8 +3597,8 @@ The response below communicates the first item explicitly; the second one by def
 .. code:: json
     {"format": "sparse"}
     [3,5,19,  [10,20,21,30]]
-    [30,15,9, [["ref"], "https://example.db.org/value1"]]
-    [["next"], "https://example.db.org/"]
+    [30,15,9, ["ref", ["https://example.db.org/value1"]]]
+    ["next", ["https://example.db.org/"]]
 
 An example of the sparse format for multi-dimensional lists with three aggregated dimensions and integer values:
 
@@ -3606,13 +3606,13 @@ An example of the sparse format for multi-dimensional lists with three aggregate
     {"format": "sparse"}
     [3,5,19,  10]
     [30,15,9, 31]
-    [["next"], "https://example.db.org/"]
+    ["next", ["https://example.db.org/"]]
 
 An example of the sparse format for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
 .. code:: json
     {"format": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
-    [3,7,19, [["ref"], "https://example.db.org/value2"]]
-    [4,5,19, [ [11, 110], [["ref"], "https://example.db.org/value3"], [550, 333]]
-    [["end"], ""]
+    [3,7,19, ["ref", ["https://example.db.org/value2"]]]
+    [4,5,19, [ [11, 110], ["ref", ["https://example.db.org/value3"]], [550, 333]]
+    ["end", [""]]
