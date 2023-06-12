@@ -457,7 +457,7 @@ The reason for this limitation is to avoid name collisions with standard metadat
 Implementation of the :field:`meta` field is OPTIONAL.
 However, when an implementation supports the :field:`meta` field, it SHOULD return the metadata for any of the fields that are in the returned entries as well as metadata that applies to the entries as a whole.
 
-Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database specific per entry metadata field :field:_exmpl_uploader` :
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database specific per entry metadata field :field:`_exmpl_uploader` :
 
 .. code:: jsonc
      {
@@ -466,13 +466,13 @@ Example of a response in the JSON response format with two structure entries tha
            "type": "structures",
            "id": "example.db:structs:0001",
            "attributes": {
-             "element_ratios":[0.33336, 0.22229, 0.44425],
+             "element_ratios":[0.33336, 0.22229, 0.44425]
            },
            "meta": {
              "property_metadata": {
                "element_ratios": {
                  "_exmpl_originates_from_project": "piezoelectic_perovskites"
-               },
+               }
              }
            }
          },
@@ -480,13 +480,13 @@ Example of a response in the JSON response format with two structure entries tha
            "type": "structures",
            "id": "example.db:structs:1234",
            "attributes": {
-             "element_ratios":[0.5, 0.5],
+             "element_ratios":[0.5, 0.5]
            },
            "meta": {
              "propertiy_metadata":{
                "element_ratios": {
                  "_exmpl_originates_from_project": "ferroelectric_binaries"
-               },
+               }
              }
            }
          }
@@ -510,7 +510,7 @@ Example of the corresponding metadata property definition contained in the field
                "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
                "description" : "A string naming the internal example.com project id where this property was added to the database.",
                "x-optimade-type": "string",
-               "x-optimade-unit" : "inapplicable",
+               "x-optimade-unit" : "inapplicable"
              }
            }
          }
