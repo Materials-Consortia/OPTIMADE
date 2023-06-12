@@ -3503,9 +3503,7 @@ The dictionary has the following OPTIONAL fields:
   The default is 0, i.e., the value at the start of the array.
 - :field:`"stop"`: Integer.
   The slice ends at the value with the given index (inclusive).
-  If omitted, the end of the slice is not specified.
-  If the slice is used to express the values included in a response and :field:`stop` is omitted, the client has to count the number of items to know the end.
-  If the slice is used to request a range of items, to omit :field:`stop` has the same meaning as specifying the last index of the array.
+  If omitted, the end of the slice is the last index of the array.
 - :field:`"step"`: Integer.
   The absolute difference in index between two subsequent values that are included in the slice.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
@@ -3541,7 +3539,8 @@ The header object MAY also contain the key:
 - :field:`"returned_ranges"`: Array of Object.
   For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
-  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker. 
+  If :field:`"returned_ranges"` is included and the client encounters a next or end-of-data-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to those items, i.e., this is not an error.
   In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the format as :val:`"dense"` or :val:`"sparse"`.
