@@ -483,7 +483,7 @@ Example of a response in the JSON response format with two structure entries tha
              "element_ratios":[0.5, 0.5]
            },
            "meta": {
-             "propertiy_metadata":{
+             "property_metadata":{
                "element_ratios": {
                  "_exmpl_originates_from_project": "ferroelectric_binaries"
                }
