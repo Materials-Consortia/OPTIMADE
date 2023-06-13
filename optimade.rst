@@ -588,7 +588,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **schema**: a `JSON:API links object <http://jsonapi.org/format/1.1/#document-links>`__ that points to a schema for the response.
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
-    It is possible that future versions of this specification allows for alternative schema types.
+    It is possible that future versions of this specification allow for alternative schema types.
     Hence, if the :field:`meta` field of the JSON:API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST NOT handle failures to parse the schema or to validate the response against the schema as errors.
 
     Note: the field was previously RECOMMENDED in all responses, but is now demoted to being OPTIONAL since there now is a standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
@@ -722,7 +722,7 @@ An example of a full response:
   The :field:`meta` subfield SHOULD be included and contain the following subfields:
 
   - **api**: A string with the value "OPTIMADE".
-  - **api-version**: A string with the full version of the optimade standard that the processing and response adheres to.
+  - **api-version**: A string with the full version of the OPTIMADE standard that the processing and response adheres to.
     This MAY be the version indicated at the top of this document, but MAY also be another version if the client, e.g., has used the query parameter :query-param:`api_hint` to request processing according to another version.
 
   If the server is able to handle serialization in such a way that it can dictate the order of the top level object members in the response, it is RECOMMENDED to put the :field:`jsonapi` as the first top level member to simplify identification of the response.
