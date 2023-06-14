@@ -447,8 +447,7 @@ Metadata properties
 
 A metadata property represents entry and property-specific metadata for a given entry.
 How these are communicated in the response depends on the response format.
-For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta`, see `JSON Response Schema: Common Fields`_. 
-Metadata, that does not apply to the entry as a whole but only to the individual properties under attributes, is stored under the subfield :field:`property_metadata` in dictionaries, here called metadata properties,  with the name of the property as the key . 
+For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta` in a dictionary field :field:`property_metadata` with the keys equal to the names of the respective properties for which metadata is available; see `JSON Response Schema: Common Fields`_.
 
 The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property  #Definitions`_.
 Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-specific prefix even for metadata for database-specific fields.
