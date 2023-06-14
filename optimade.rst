@@ -3524,7 +3524,7 @@ Since the OPTIMADE list data type is defined as list of values of the same data 
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
 
-- The first line is a header object (defined below)
+- The first line is a header object (defined below).
 - The following lines are data lines adhering to the formats described below.
 - The final line is either an end-of-data-marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
 
@@ -3591,7 +3591,7 @@ The third provided item (index 14 in the original list) is only partially return
 Below follows an example of the sparse format for multi-dimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
-The response below communicates the first item explicitly; the second one by defering the innermost list using a reference-marker; and the third item is not included in this response, but defered to another page via a next-marker.
+The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
 
 .. code:: json
     {"format": "sparse"}
