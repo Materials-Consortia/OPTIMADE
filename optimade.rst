@@ -670,7 +670,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **property_metadata**: an object containing per-entry and per-property metadata.
     The keys are the names of the fields in :field:`attributes` for which metadata is available.
-    The values belonging to these keys are dictionaries containing the relevant metadata fields.
+    The values belonging to these keys are dictionaries containing the relevant metadata fields. See also `Metadata properties`_
 
 The response MAY also return resources related to the primary data in the field:
 
