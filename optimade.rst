@@ -1324,12 +1324,8 @@ The response for these endpoints SHOULD also include the following information i
 - **type**: :field-val:`"info"`.
 - **id**: This MUST precisely match the entry type name, e.g., :field-val:`"structures"` for the :endpoint:`/info/structures`.
 
-    **Note**: Future versions of the OPTIMADE API will deprecate this behavior and
-    require all keys that are not :field:`type` or :field:`id` to be under the
-    :field:`attributes` key.
-    At this point, :field:`type` and :field:`id` will be made mandatory to allow
-    the :endpoint:`/info/<entry-type>` endpoints to be understood outside the
-    initial context of the request.
+    **Note**: Future versions of the OPTIMADE API will deprecate this behavior and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
+    At this point, :field:`type` and :field:`id` will be made mandatory to allow the :endpoint:`/info/<entry-type>` endpoints to be understood outside the initial context of the request.
     The present format is introduced for backwards-compatibility only.
 
 Example (note: the description strings have been wrapped for readability only):
