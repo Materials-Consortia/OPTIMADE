@@ -125,7 +125,19 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     Every database provider is designated a unique prefix.
     The prefix is used to separate the namespaces used by provider-specific extensions.
     The list of presently defined prefixes is maintained externally from this specification.
-    For more information, see section `Database-Provider-Specific Namespace Prefixes`_.
+    For more information, see section `Namespace Prefixes`_.
+
+**Definition provider**
+    A service that provides one or more external or domain-specific property definitions that
+    can be used by OPTIMADE API implementations.
+
+**Definition provider prefix**
+    Every definition provider is designated a prefix that cannot clash with an
+    existing database provider prefix.
+    The prefix is used to separate the namespaces used by these collections of
+    definitions.
+    The list of presently defined prefixes is maintained externally from this specification.
+    For more information, see section `Namespace Prefixes`_.
 
 **API implementation**
     A realization of the OPTIMADE API that a database provider uses to serve data from one or more databases.
@@ -361,11 +373,26 @@ A few suggestions and mandatory requirements of the OPTIMADE specification are s
 
 ..
 
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
-    This list is also machine-readable, optimizing the automatic discoverability.
+    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Namespace Prefixes`_.
+    This list is also machine-readable, enabling the automatic discoverability of OPTIMADE API services.
+
+Namespace Prefixes
+------------------
+
+There are two mechanisms by which a provider can serve properties that are not
+standardized by the OPTIMADE specification.
+
+1. By serving properties under a database-provider-specific namespace prefix.
+   This is the preferred mechanism for serving properties that are specific to a particular database provider.
+2. By adopting a property definition external to the specification by a
+   definition provider.
+   This is the preferred mechanism in cases where a database-specific field
+   aligns with a field that is already defined by a definition provider, and
+   can be used to enable aggregated filtering over all OPTIMADE APIs that
+   support this property.
 
 Database-Provider-Specific Namespace Prefixes
----------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This standard refers to database-provider-specific prefixes and database providers.
 
@@ -380,6 +407,28 @@ API implementations SHOULD NOT make up and use new prefixes without first gettin
 
 The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
 Identifiers prefixed with underscores will not be used for standardized names.
+
+Database-provider-specific fields only need to be consistent within the context of one particular database.
+Providers that serve multiple databases MAY use the same provider-specific field names with different meanings in different databases.
+For example, a provider may use the field `_exmpl_band_gap` to mean a computed band gap in one their databases, and a measured band gap in another database.
+
+Definition-Provider-Specific Namespace Prefixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This standard refers to definition-provider-specific prefixes and definition providers.
+
+A list of known providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
+Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
+
+API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
+
+**Examples**:
+
+- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+
+The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
+Identifiers prefixed with underscores will not be used for standardized names.
+
 
 URL Encoding
 ------------
@@ -576,7 +625,7 @@ Each endpoint MAY support additional formats, and SHOULD declare these formats u
 Clients can request these formats using the :query-param:`response_format` URL query parameter.
 Specifying a :query-param:`response_format` different from :query-val:`json` (e.g. :query-string:`response_format=xml`) allows the API to break conformance not only with the JSON response format specification, but also, e.g., in terms of how content negotiation is implemented.
 
-Database-provider-specific :query-param:`response_format` identifiers MUST include a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
+Database-provider-specific and definition-provider-specific :query-param:`response_format` identifiers MUST include the corresponding prefix (see section `Namespace Prefixes`_).
 
 JSON Response Schema: Common Fields
 -----------------------------------
@@ -1102,7 +1151,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 - **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
 - **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for `type` and `id`.
 
-  Database-provider-specific properties need to include the database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
+  Database-provider-specific and definition-provider-specific properties MUST include the corresponding prefix (see section `Namespace Prefixes`_).
 
 OPTIONALLY it can also contain the following fields:
 
@@ -1673,7 +1722,7 @@ List of Providers Links
 Resource objects with :property:`link_type` equal to :val:`providers` MUST point to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
 The intention is to be able to auto-discover all providers of OPTIMADE implementations.
 
-A list of known providers can be retrieved as described in section `Database-Provider-Specific Namespace Prefixes`_.
+A list of known database providers can be retrieved as described in section `Namespace Prefixes`_.
 This section also describes where to find information for how a provider can be added to this list.
 
 Index Meta-Database Links Endpoint
@@ -1742,7 +1791,7 @@ The following tokens are used in the filter query component:
   - :property-fail:`"foo bar"` (contains space; contains quotes)
   - :property-fail:`BadLuck` (contains upper-case letters)
 
-  Identifiers that start with an underscore are specific to a database provider, and MUST be on the format of a database-provider-specific prefix (see section `Database-Provider-Specific Namespace Prefixes`_).
+  Identifiers that start with an underscore are specific to a database or definition provider, and MUST be on the format of a namespace prefix (see section `Namespace Prefixes`_).
 
   Examples:
 
@@ -2500,11 +2549,11 @@ last\_modified
 
   - As part of JSON response format: :VAL:`"2007-04-05T14:30:20Z"` (i.e., encoded as an `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ string.)
 
-database-provider-specific properties
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Custom properties
+~~~~~~~~~~~~~~~~~
 
-- **Description**: Database providers are allowed to add database-provider-specific properties in the output of both standard entry types and database-provider-specific entry types.
-  Similarly, an implementation MAY add keys with a database-provider-specific prefix to dictionary properties and their sub-dictionaries.
+- **Description**: Providers are able to add database-provider-specific and definition-provider-specific properties in the output of both standard entry types and custom entry types.
+  Similarly, an implementation MAY add keys with a namespace prefix to dictionary properties and their sub-dictionaries.
   For example, the database-provider-specific property :property:`_exmpl_oxidation_state`, can be placed within the OPTIMADE property :property:`species`.
 
 - **Type**: Decided by the API implementation.
@@ -2517,10 +2566,10 @@ database-provider-specific properties
   - **Response**: API implementations are free to choose whether database-provider-specific properties are only included when requested using the query parameter :query-param:`response_fields`, or if they are included also when :query-param:`response_fields` is not present.
     Implementations are thus allowed to decide that some of these properties are part of what can be seen as the default value of :query-param:`response_fields` when that query parameter is omitted.
     Implementations SHOULD NOT include database-provider-specific properties when the query parameter :query-param:`response_fields` is present but does not list them.
-  - These MUST be prefixed by a database-provider-specific prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+  - These MUST be prefixed by a database-provider-specific prefix (see appendix `Namespace Prefixes`_).
   - Implementations MUST add the properties to the list of :property:`properties` under the respective entry listing :endpoint:`info` endpoint (see `Entry Listing Info Endpoints`_).
 
-- **Examples**: A few examples of valid database-provided-specific property names follows:
+- **Examples**: A few examples of valid database-provided-specific property names, for a predefined prefix `_exmpl`, are as follows:
 
   - :property:`_exmpl_formula_sum`
   - :property:`_exmpl_band_gap`
@@ -3357,7 +3406,7 @@ checksums
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
   - Supported dictionary keys: :property:`md5`, :property:`sha1`, :property:`sha224`, :property:`sha256`, :property:`sha384`, :property:`sha512`.
-    Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
+    Checksums outside this list MAY be used, but their names MUST be prefixed by a database-provider-specific namespace prefix (see appendix `Namespace Prefixes`_).
 
 atime
 ~~~~~
@@ -3392,13 +3441,14 @@ mtime
     :field:`last_modified` pertains to the modification of the OPTIMADE metadata, :field:`modification_timestamp` pertains to file contents and :field:`mtime` pertains to the modification of the file (not necessary changing its contents).
     For example, appending an empty string to a file would result in the change of :field:`mtime` in some operating systems, but this would not be deemed as a modification of its contents.
 
-Database-Provider-Specific Entry Types
---------------------------------------
+Custom Entry Types
+------------------
 
-Names of database-provider-specific entry types MUST start with database-provider-specific namespace prefix (see appendix `Database-Provider-Specific Namespace Prefixes`_).
-Database-provider-specific entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
+Database and definition providers can define custom entry types.
+The names of such entry types MUST start with corresponding namespace prefix (see appendix `Namespace Prefixes`_).
+Custom entry types MUST have all properties described above in section `Properties Used by Multiple Entry Types`_.
 
-- **Requirements/Conventions for properties in database-provider-specific entry types**:
+- **Requirements/Conventions for properties in custom entry types**:
 
   - **Support**: Support for any properties in database-provider-specific entry types is fully OPTIONAL.
   - **Query**: Support for queries on these properties are OPTIONAL.
