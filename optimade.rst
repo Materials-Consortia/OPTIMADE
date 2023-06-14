@@ -417,17 +417,7 @@ Definition-Provider-Specific Namespace Prefixes
 
 This standard refers to definition-provider-specific prefixes and definition providers.
 
-A list of known providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
-Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
-
-API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
-
-**Examples**:
-
-- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
-
-The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
-Identifiers prefixed with underscores will not be used for standardized names.
+PLACEHOLDER
 
 
 URL Encoding
