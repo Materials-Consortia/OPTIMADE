@@ -447,15 +447,16 @@ Metadata properties
 
 A metadata property represents entry and property-specific metadata for a given entry.
 How these are communicated in the response depends on the response format.
-For the JSON response format, a subfield :field:`property_metadata` of the resource object metadata field, :field:`meta`, is used, see `JSON Response Schema: Common Fields`_.
+For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta`, see `JSON Response Schema: Common Fields`_. 
+Metadata, that does not apply to the entry as a whole but only to the individual properties under attributes, is stored under the subfield :field:`property_metadata` in dictionaries, here called metadata properties,  with the name of the property as the key . 
 
-The metadata property is a dictionary in the format specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property Definitions`_.
+The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property  #Definitions`_.
 Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-specific prefix even for metadata for database-specific fields.
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
-The reason for this limitation is to avoid name collisions with standard metadata fields defined by the OPTIMADE standard that apply also to database-specific data fields.
+The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
 Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the :field:`meta` field, it SHOULD return the metadata for any of the fields that are in the returned entries as well as metadata that applies to the entries as a whole.
+However, when an implementation supports the :field:`meta` field, it SHOULD return the metadata for any of the fields that are in the response as well as metadata that applies to the entries as a whole.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database specific per entry metadata field :field:`_exmpl_uploader` :
 
