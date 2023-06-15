@@ -451,7 +451,7 @@ OPTIMADE provides a mechanism for a client to handle such properties by fetching
 In this case, the response to the initial query gives the value :val:`null` for the property.
 A list of one or more data URLs together with their respective partial data formats are given in the response.
 How this list is provided is response format-dependent.
-For the JSON response format, see the description of the :field:`partial_data_urls` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
+For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
 
 The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
 An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
@@ -473,15 +473,15 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
              "a": [
                {
                  "format": "jsonlines",
-                 "url": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+                 "link": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
                },
                {
                  "format": "_exmpl_bzip2_jsonlines",
-                 "url": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+                 "link": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
                },
                {
                  "format": "_exmpl_hdf5",
-                 "url": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+                 "link": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
                }
              ]
            }
@@ -643,7 +643,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   Every resource object MAY also contain a :field:`meta` field with the following keys:
 
-  - **partial_data_urls**: an object used to list URLs which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+  - **partial_data_links**: an object used to list URLs which can be used to fetch data that has been omitted from the :field:`data` part of the response.
     The keys are the names of the fields in :field:`attributes` for which partial data URLs are available.
     Each value is a list of items that MUST have the following keys:
 
@@ -651,11 +651,11 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
       A name of the format provided via this URL.
       One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
 
-    - **url**: String.
-      The URL from which the data can be fetched.
-      There is no requirement on the syntax or format of the URL.
+    - **link**: String.
+      A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
+      There is no requirement on the syntax or format for the link URL.
 
-    For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_urls`, see `Transmission of large property values`_.
+    For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_links`, see `Transmission of large property values`_.
 
 The response MAY also return resources related to the primary data in the field:
 
