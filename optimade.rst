@@ -3546,8 +3546,11 @@ The header object MAY also contain the key:
 - :field:`"returned_ranges"`: Array of Object.
   For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
-  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
-  If :field:`"returned_ranges"` is included and the client encounters a next or end-of-data-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to those items, i.e., this is not an error.
+  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data (possibly with a `step` between continuous indices) from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+If :field:`"returned_ranges"` is included and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to those items, i.e., this is not an error.
+Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned in another response retrieved via a next link encountered before the end-of-data-marker.
+(Since there is no requirement that values are assigned in order between responses, it is possible the omitted values have already been assigned.
+In that case they shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
   In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the format as :val:`"dense"` or :val:`"sparse"`.
