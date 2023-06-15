@@ -3548,6 +3548,10 @@ The header object MAY also contain the key:
 
 - :field:`"returned_ranges"`: Array of Object.
   For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  
+- :field:`"has_references"`: Boolean.
+  An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
+  By including this field and giving it the value :val:`false`, a server MAY indicate that the client does not have to process any of the lines to detect reference markers.
   Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
   If the field :field:`"representation"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data (possibly with a `step` between continuous indices) from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
 If :field:`"returned_ranges"` is included and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to those items, i.e., this is not an error.
