@@ -450,14 +450,14 @@ How these are communicated in the response depends on the response format.
 For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta` in a dictionary field :field:`property_metadata` with the keys equal to the names of the respective properties for which metadata is available; see `JSON Response Schema: Common Fields`_.
 
 The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property  #Definitions`_.
-Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-specific prefix even for metadata for database-specific fields.
+Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-provider-specific prefix even for metadata for database-specific fields.
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
 Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the :field:`meta` field, it SHOULD return the metadata for any of the fields that are in the response.
+However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all fields present in the data part of the response which has metadata.
 
-Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database specific per entry metadata field :field:`_exmpl_uploader` :
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_uploader` :
 
 .. code:: jsonc
      {
