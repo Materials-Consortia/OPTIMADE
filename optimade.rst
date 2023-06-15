@@ -485,7 +485,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
                }
              ]
            }
-         }               
+         }
        }
      // ...
    }
@@ -3534,9 +3534,9 @@ The header object MUST contain the key:
 - :field:`"optimade-partial-data"`: Object.
   An object that identifying the response as being on OPTIMADE partial data format.
   It MUST contain the following key:
-  
+
   - :field:`"partial-data-format"`: String.
-    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`. 
+    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
 
 - :field:`"format"`: String.
   A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format is dense or sparse.
