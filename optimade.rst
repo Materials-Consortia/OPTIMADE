@@ -3582,7 +3582,7 @@ The header object MAY also contain the keys:
   An object to provide relevant links for the property being provided.
   It MAY contain the following key:
 
-  - :field:`base_url`: String.
+  - :field:`"base_url"`: String.
     The base URL of the implementation serving the database to which this property belongs.
 
   - :field:`"item_describedby"`: String.
