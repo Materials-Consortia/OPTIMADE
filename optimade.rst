@@ -457,7 +457,7 @@ The default partial data format is named "jsonlines" and is described in the App
 An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different URLs for different partial data formats provided.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
 
 .. code:: jsonc
      {
