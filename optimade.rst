@@ -3544,8 +3544,6 @@ The header object MUST contain the keys:
   - :field:`"format"`: String.
     Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
 
-  It MAY contain the following keys:
-
 - :field:`"layout"`: String.
   A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
 
