@@ -3578,19 +3578,12 @@ The header object MAY also contain the keys:
   - :field:`base_url`: String.
     The base URL of the implementation serving the database to which this property belongs.
 
-Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
-
-If the field :field:`"layout"` is :val:`"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
-If :field:`"returned_ranges"` is included and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
-Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the end-of-data-marker.
-(Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
-In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
-
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
 - **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
+  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
 
 - **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
 
@@ -3605,6 +3598,14 @@ The format of data lines of the response (i.e., all lines except the first and t
   - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
   - The last item is a JSON layout of the item at those coordinates, with the same format as the lines in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed for data that does not fit in the response.
+
+If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retriving another partial data response from the provided URL.
+If the final line is an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
+
+If :field:`"returned_ranges"` is included in the response and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
+Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the end-of-data-marker.
+(Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
+In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
 
 Examples
 ~~~~~~~~
