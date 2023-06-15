@@ -3513,14 +3513,17 @@ For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` 
 
 Furthermore, we also define the following special markers:
 
-- The "end-of-data-marker" is this exact JSON: :val:`["end", [""]]`.
-- A "reference-marker" is this exact JSON: :val:`["ref", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`["next", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
+- The "end-of-data-marker" is this exact JSON: :val:`["PARTIAL-DATA-END", [""]]`.
+- A "reference-marker" is this exact JSON: :val:`["PARTIAL-DATA-REF", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
+- A "next-marker" is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
 The data provided via the URLs MUST be the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
 The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
-Since the OPTIMADE list data type is defined as list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
+Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
+
+    Implementation note: the unusual string values for the markers should make it possible to, with a high level of precision, determine lines that do not need further processing for potential reference-markers via a pre-scanning step just on the raw JSON text data (or, alternatively, by hooking into the string parser used by the JSON parser to trigger the additional processing only when these strings are detected).
+    This should help performance when parsing partial data with only occasional reference-markers. 
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
 
@@ -3594,9 +3597,9 @@ The third provided item (index 14 in the original list) is only partially return
 .. code:: json
     {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     [[10,20,21], [30,40,50]]
-    ["ref", ["https://example.db.org/value2"]]
-    [[11, 110], ["ref", ["https://example.db.org/value3"]], [550, 333]]
-    ["next", ["https://example.db.org/value4"]]
+    ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
+    [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
 Below follows an example of the sparse format for multi-dimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
@@ -3615,13 +3618,13 @@ An example of the sparse format for multi-dimensional lists with three aggregate
     {"format": "sparse"}
     [3,5,19,  10]
     [30,15,9, 31]
-    ["next", ["https://example.db.org/"]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
 An example of the sparse format for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
 .. code:: json
     {"format": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
-    [3,7,19, ["ref", ["https://example.db.org/value2"]]]
-    [4,5,19, [ [11, 110], ["ref", ["https://example.db.org/value3"]], [550, 333]]
-    ["end", [""]]
+    [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
+    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
+    ["PARTIAL-DATA-END", [""]]
