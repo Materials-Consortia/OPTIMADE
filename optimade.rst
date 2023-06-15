@@ -643,12 +643,12 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   Every resource object MAY also contain a :field:`meta` field with the following keys:
 
-  - **partial_data_links**: an object used to list URLs which can be used to fetch data that has been omitted from the :field:`data` part of the response.
-    The keys are the names of the fields in :field:`attributes` for which partial data URLs are available.
+  - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+    The keys are the names of the fields in :field:`attributes` for which partial data links are available.
     Each value is a list of items that MUST have the following keys:
 
     - **format**: String.
-      A name of the format provided via this URL.
+      A name of the format provided via this link.
       One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
 
     - **link**: String.
