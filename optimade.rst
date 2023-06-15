@@ -3523,7 +3523,7 @@ The markers have been deliberately designed to be valid JSON objects but *not* v
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
     Implementation note: the unusual string values for the markers should make it possible to, with a high level of precision, determine lines that do not need further processing for potential reference-markers via a pre-scanning step just on the raw JSON text data (or, alternatively, by hooking into the string parser used by the JSON parser to trigger the additional processing only when these strings are detected).
-    This should help performance when parsing partial data with only occasional reference-markers. 
+    This should help performance when parsing partial data with only occasional reference-markers.
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
 
@@ -3548,7 +3548,7 @@ The header object MAY also contain the key:
 
 - :field:`"returned_ranges"`: Array of Object.
   For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  
+
 - :field:`"has_references"`: Boolean.
   An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
   By including this field and giving it the value :val:`false`, a server MAY indicate that the client does not have to process any of the lines to detect reference markers.
