@@ -451,43 +451,43 @@ OPTIMADE provides a mechanism for a client to handle such properties by fetching
 In this case, the response to the initial query gives the value :val:`null` for the property.
 A list of one or more data URLs together with their respective partial data formats are given in the response.
 How this list is provided is response format-dependent.
-For the JSON response format, see the description of the :field:`partial_data_urls` field inside :field:`meta` inside :field:`data` in the section `JSON Response Schema: Common Fields`_.
+For the JSON response format, see the description of the :field:`partial_data_urls` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
 
 The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
 An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
-Below follows an example of the data and meta parts in a response using the JSON response format that communicates that the property value has been omitted from the response, with three different URLs for different partial data formats provided.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different URLs for different partial data formats provided.
 
 .. code:: jsonc
-   {
+     {
        // ...
        "data": {
-          "type": "structures",
-          "id": "2345678",
-          "attributes": {
-              "a": null
-          }
-       }
-       "meta": {
+         "type": "structures",
+         "id": "2345678",
+         "attributes": {
+             "a": null
+         }
+         "meta": {
            "partial_data_urls": {
-               "a": [
-                   {
-                       "format": "jsonlines",
-                       "url": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
-                   },
-                   {
-                       "format": "_exmpl_bzip2_jsonlines",
-                       "url": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
-                   },
-                   {
-                       "format": "_exmpl_hdf5",
-                       "url": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
-                   }
-               ]
+             "a": [
+               {
+                 "format": "jsonlines",
+                 "url": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+               },
+               {
+                 "format": "_exmpl_bzip2_jsonlines",
+                 "url": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+               },
+               {
+                 "format": "_exmpl_hdf5",
+                 "url": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+               }
+             ]
            }
+         }               
        }
-       // ...
+     // ...
    }
 
 Responses
@@ -3490,7 +3490,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 OPTIMADE JSON lines partial data format
 ---------------------------------------
 The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
-The format is based on `JSON Lines <https://jsonlines.org/>`__, which allows for streaming handling of large datasets.
+The format is based on `JSON Lines <https://jsonlines.org/>`__, which enables streaming of JSON data.
 Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., "array" and "object" and for OPTIMADE properties they are, e.g., "list" and "dictionary".
 
 .. _slice object:
@@ -3509,13 +3509,13 @@ The dictionary has the following OPTIONAL fields:
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the array.
 
-For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object `{"start":1, "end":7, "step": 3}` refers to the items `["b", "e", "h"]`.
+For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object `{"start": 1, "end": 7, "step": 3}` refers to the items `["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
 - The "end-of-data-marker" is this exact JSON: :val:`["end", [""]]`.
-- A "reference-marker" is this exact JSON: :val:`["ref", ["URL"]]`, where :val:`"URL"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`["next", ["URL"]]`, where :val:`"URL"` is to be replaced with the target URL for the next link.
+- A "reference-marker" is this exact JSON: :val:`["ref", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
+- A "next-marker" is this exact JSON: :val:`["next", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
 The data provided via the URLs MUST be the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
