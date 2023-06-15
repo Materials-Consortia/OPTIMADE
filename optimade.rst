@@ -3573,6 +3573,11 @@ The header object MAY also contain the keys:
   An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
   A value of :val:`false` means that the client does not have to process any of the lines to detect reference markers, which may speed up the parsing.
 
+- :field:`"item_schema"`: Object.
+  An object that represents a JSON Schema that validates the data lines of the response.
+  The format SHOULD be the relevant partial extract of a valid property definition as described in `Property Definitions`_.
+  If a schema is provided, it MUST be a valid JSON schema using the same version of JSON schema as described in that section.
+
 - :field:`"links"`: Object.
   An object to provide relevant links for the property being provided.
   It MAY contain the following key:
@@ -3580,11 +3585,9 @@ The header object MAY also contain the keys:
   - :field:`base_url`: String.
     The base URL of the implementation serving the database to which this property belongs.
 
-  - :field:`"item_schema"`: String.
-    A URL to a JSON Schema that validates the data lines of the response.
-    The format SHOULD be the relevant partial extract of a valid property definition as described in `Property Definitions`_.
-    If a schema is provided, it MUST be a valid JSON schema using the same version of JSON schema as described in that section.
-
+  - :field:`"item_describedby"`: String.
+    A URL to an external JSON Schema that validates the data lines of the response.
+    The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
 - **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
