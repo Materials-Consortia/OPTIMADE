@@ -460,6 +460,7 @@ Implementations MAY provide links to their own non-standard formats, but non-sta
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
 
 .. code:: jsonc
+
      {
        // ...
        "data": {
@@ -3509,21 +3510,22 @@ The dictionary has the following OPTIONAL fields:
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the array.
 
-For example, for the array `["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object `{"start": 1, "end": 7, "step": 3}` refers to the items `["b", "e", "h"]`.
+For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
-- The "end-of-data-marker" is this exact JSON: :val:`["PARTIAL-DATA-END", [""]]`.
-- A "reference-marker" is this exact JSON: :val:`["PARTIAL-DATA-REF", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
-- A "next-marker" is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
+- The *end-of-data-marker* is this exact JSON: :val:`["PARTIAL-DATA-END", [""]]`.
+- A *reference-marker* is this exact JSON: :val:`["PARTIAL-DATA-REF", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
+- A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
 The data provided via the URLs MUST be the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
 The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
-    Implementation note: the unusual string values for the markers should make it possible to, with a high level of precision, determine lines that do not need further processing for potential reference-markers via a pre-scanning step just on the raw JSON text data (or, alternatively, by hooking into the string parser used by the JSON parser to trigger the additional processing only when these strings are detected).
-    This should help performance when parsing partial data with only occasional reference-markers.
+  **Implementation note:** the recognizable string values for the markers should make it possible to, with a high level of precision, determine lines that do not need to be further processed for reference-markers by prescreening the raw JSON text data lines for the relevant string (alternatively, this screening can be done by the string parser used by the JSON parser).
+  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negliable compared to the time it takes to resolve and handle the large data they reference.
+  Hence, the most relevant optimization is to avoid spending time processing data structures to find markers for lines where there are none.
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
 
@@ -3532,62 +3534,87 @@ The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adh
 - The final line is either an end-of-data-marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
 
 The first line MUST be a JSON object providing header information.
-The header object MUST contain the key:
+The header object MUST contain the keys:
 
 - :field:`"optimade-partial-data"`: Object.
   An object that identifying the response as being on OPTIMADE partial data format.
+
   It MUST contain the following key:
 
   - :field:`"format"`: String.
     Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
 
-- :field:`"representation"`: String.
-  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format is dense or sparse.
+  It MAY contain the following keys:
 
-The header object MAY also contain the key:
+- :field:`"layout"`: String.
+  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
 
-- :field:`"returned_ranges"`: Array of Object.
-  For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+The header object MAY also contain the keys:
+
+- :field:`"property_name"`: String.
+  The name of the property being provided.
+
+- :field:`"entry"`: Object.
+  An object that MUST have the following two keys:
+
+  - :field:`"id"`: String.
+    The id of the entry of the property being provided.
+
+  - :field:`"type"`: String.
+    The type of the entry of the property being provided.
 
 - :field:`"has_references"`: Boolean.
   An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
   By including this field and giving it the value :val:`false`, a server MAY indicate that the client does not have to process any of the lines to detect reference markers.
   Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
-  If the field :field:`"representation"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data (possibly with a `step` between continuous indices) from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
-If :field:`"returned_ranges"` is included and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to those items, i.e., this is not an error.
-Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned in another response retrieved via a next link encountered before the end-of-data-marker.
-(Since there is no requirement that values are assigned in order between responses, it is possible the omitted values have already been assigned.
-In that case they shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
-  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
-The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the representation as :val:`"dense"` or :val:`"sparse"`.
+- :field:`"links"`: Object.
 
-- **Dense representation:** In the dense partial data representation, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+  An object to provide relevant links for the property being provided.
+  It MAY contain the following key:
+
+  - :field:`base_url`: String.
+    The base URL of the implementation serving the database to which this property belongs.
+
+- :field:`"returned_ranges"`: Array of Object.
+  For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+
+If the field :field:`"layout"` is :val:`"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+If :field:`"returned_ranges"` is included and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
+Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the end-of-data-marker.
+(Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
+In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
+In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+
+The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
+
+- **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
 
-- **Sparse representation for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
 
   - The first item is the zero-based index of the item provided.
-  - The second item is a JSON representation of the item, with the same format as the lines in the dense format.
-    In the same way as for the dense representation, reference-markers are allowed for data that does not fit in the response (see example below).
+  - The second item is a JSON layout of the item, with the same format as the lines in the dense format.
+    In the same way as for the dense layout, reference-markers are allowed for data that does not fit in the response (see example below).
 
-- **Sparse representation for multi-dimensional lists:** We provide a sparse representation specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
-  Then, the server MAY represent them using the following sparse multi-dimensional representation for a number of aggregated dimensions.
+- **Sparse layout for multi-dimensional lists:** We provide a sparse layout specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+  Then, the server MAY represent them using the following sparse multi-dimensional layout for a number of aggregated dimensions.
   In this case, each data line contains a JSON array in the format of:
 
   - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
-  - The last item is a JSON representation of the item at those coordinates, with the same format as the lines in the dense representation.
-    In the same way as for the dense representation, reference-markers are allowed for data that does not fit in the response.
+  - The last item is a JSON layout of the item at those coordinates, with the same format as the lines in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed for data that does not fit in the response.
 
 Examples
---------
+~~~~~~~~
 
 Below follows an example of a dense response for a partial array data of integer values.
 The request returns the first three items and provides the next-marker link to continue fetching data:
 
 .. code:: json
-    {"representation": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     123
     345
     -12.6
@@ -3599,35 +3626,39 @@ The item with index 12 in the list, the second data item provided since start=10
 The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
 
 .. code:: json
-    {"representation": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     [[10,20,21], [30,40,50]]
     ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
     [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
-Below follows an example of the sparse representation for multi-dimensional lists with three aggregated dimensions.
+Below follows an example of the sparse layout for multi-dimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
 
 .. code:: json
-    {"representation": "sparse"}
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
     [3,5,19,  [10,20,21,30]]
     [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse representation for multi-dimensional lists with three aggregated dimensions and integer values:
+An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and integer values:
 
 .. code:: json
-    {"representation": "sparse"}
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
     [3,5,19,  10]
     [30,15,9, 31]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse representation for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
 .. code:: json
-    {"representation": "sparse"}
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
     [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
     [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
