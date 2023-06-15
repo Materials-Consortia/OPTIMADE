@@ -3587,7 +3587,7 @@ The request returns the first three items and provides the next-marker link to c
     123
     345
     -12.6
-    ["next", ["https://example.db.org/value4"]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
 Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
 The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
