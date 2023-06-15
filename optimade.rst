@@ -3516,6 +3516,7 @@ Furthermore, we also define the following special markers:
 
 - The *end-of-data-marker* is this exact JSON: :val:`["PARTIAL-DATA-END", [""]]`.
 - A *reference-marker* is this exact JSON: :val:`["PARTIAL-DATA-REF", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
+  A reference-marker MUST only occur in a place where the property being communicated could have an embedded list.
 - A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
@@ -3579,6 +3580,11 @@ The header object MAY also contain the keys:
   - :field:`base_url`: String.
     The base URL of the implementation serving the database to which this property belongs.
 
+  - :field:`"item_schema"`: String.
+    A URL to a JSON Schema that validates the data lines of the response.
+    The format SHOULD be the relevant partial extract of a valid property definition as described in `Property Definitions`_.
+    If a schema is provided, it MUST be a valid JSON schema using the same version of JSON schema as described in that section.
+
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
 - **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
@@ -3588,23 +3594,22 @@ The format of data lines of the response (i.e., all lines except the first and t
 
 - **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
 
-  - The first item is the zero-based index of the item provided.
-  - The second item is a JSON layout of the item, with the same format as the lines in the dense format.
-    In the same way as for the dense layout, reference-markers are allowed for data that does not fit in the response (see example below).
+  - The first item of the array is the zero-based index of list property item being provided by this line.
+  - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
-- **Sparse layout for multi-dimensional lists:** We provide a sparse layout specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
-  Then, the server MAY represent them using the following sparse multi-dimensional layout for a number of aggregated dimensions.
-  In this case, each data line contains a JSON array in the format of:
+- **Sparse layout for multi-dimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+  In this case, each data line contains a JSON array of the format:
 
-  - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
-  - The last item is a JSON layout of the item at those coordinates, with the same format as the lines in the dense layout.
-    In the same way as for the dense layout, reference-markers are allowed for data that does not fit in the response.
+  - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
+  - The last item of the array is the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
 If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retriving another partial data response from the provided URL.
-If the final line is an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
+If the final line is an end-of-data-marker, any data not covered by any of the responses are to be assigned the value :val:`null`.
 
 If :field:`"returned_ranges"` is included in the response and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
-Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the end-of-data-marker.
+Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the final end-of-data-marker.
 (Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
 In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
 
