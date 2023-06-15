@@ -3658,7 +3658,7 @@ An example of the sparse layout for multi-dimensional lists with three aggregate
 .. code:: json
 
     {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
-    [3,5,19, [ [10,20,21], [30,40,50] ]
+    [3,5,19, [ [10,20,21], [30,40,50] ] ]
     [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
-    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
+    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
     ["PARTIAL-DATA-END", [""]]
