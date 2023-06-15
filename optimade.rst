@@ -3611,7 +3611,7 @@ The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
 
 .. code:: json
-    {"format": "sparse"}
+    {"representation": "sparse"}
     [3,5,19,  [10,20,21,30]]
     [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
