@@ -3547,6 +3547,12 @@ The header object MUST contain the keys:
 - :field:`"layout"`: String.
   A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
 
+The following key is RECOMMENDED in the header object:
+
+- :field:`"returned_ranges"`: Array of Object.
+  For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+
 The header object MAY also contain the keys:
 
 - :field:`"property_name"`: String.
@@ -3573,8 +3579,6 @@ The header object MAY also contain the keys:
   - :field:`base_url`: String.
     The base URL of the implementation serving the database to which this property belongs.
 
-- :field:`"returned_ranges"`: Array of Object.
-  For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
 
 Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
 
@@ -3583,7 +3587,6 @@ If :field:`"returned_ranges"` is included and the client encounters a next-marke
 Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the end-of-data-marker.
 (Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
 In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
-In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
