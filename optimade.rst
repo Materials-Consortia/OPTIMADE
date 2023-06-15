@@ -3572,7 +3572,6 @@ The header object MAY also contain the keys:
   By including this field and giving it the value :val:`false`, a server MAY indicate that the client does not have to process any of the lines to detect reference markers.
 
 - :field:`"links"`: Object.
-
   An object to provide relevant links for the property being provided.
   It MAY contain the following key:
 
