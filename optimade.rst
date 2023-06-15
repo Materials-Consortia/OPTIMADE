@@ -3538,10 +3538,10 @@ The header object MUST contain the key:
   An object that identifying the response as being on OPTIMADE partial data format.
   It MUST contain the following key:
 
-  - :field:`"partial-data-format"`: String.
+  - :field:`"format"`: String.
     Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
 
-- :field:`"format"`: String.
+- :field:`"representation"`: String.
   A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format is dense or sparse.
 
 The header object MAY also contain the key:
@@ -3549,32 +3549,32 @@ The header object MAY also contain the key:
 - :field:`"returned_ranges"`: Array of Object.
   For dense data, and sparse data of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
-  If the field :field:`"format"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data (possibly with a `step` between continuous indices) from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+  If the field :field:`"representation"` is `"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data (possibly with a `step` between continuous indices) from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
 If :field:`"returned_ranges"` is included and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to those items, i.e., this is not an error.
 Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned in another response retrieved via a next link encountered before the end-of-data-marker.
 (Since there is no requirement that values are assigned in order between responses, it is possible the omitted values have already been assigned.
 In that case they shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
   In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
-The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the format as :val:`"dense"` or :val:`"sparse"`.
+The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the representation as :val:`"dense"` or :val:`"sparse"`.
 
-- **Dense format:** In the dense partial data format, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+- **Dense representation:** In the dense partial data representation, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
 
-- **Sparse format for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+- **Sparse representation for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
 
   - The first item is the zero-based index of the item provided.
   - The second item is a JSON representation of the item, with the same format as the lines in the dense format.
-    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response (see example below).
+    In the same way as for the dense representation, reference-markers are allowed for data that does not fit in the response (see example below).
 
-- **Sparse format for multi-dimensional lists:** We provide a sparse format specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
-  Then, the server MAY represent them using the following sparse multi-dimensional format for a number of aggregated dimensions.
+- **Sparse representation for multi-dimensional lists:** We provide a sparse representation specifically for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+  Then, the server MAY represent them using the following sparse multi-dimensional representation for a number of aggregated dimensions.
   In this case, each data line contains a JSON array in the format of:
 
   - All items except the last item are integer zero-based indices of the value being provided in this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
-  - The last item is a JSON representation of the item at those coordinates, with the same format as the lines in the dense format.
-    In the same way as for the dense format, reference-markers are allowed for data that does not fit in the response.
+  - The last item is a JSON representation of the item at those coordinates, with the same format as the lines in the dense representation.
+    In the same way as for the dense representation, reference-markers are allowed for data that does not fit in the response.
 
 Examples
 --------
@@ -3583,7 +3583,7 @@ Below follows an example of a dense response for a partial array data of integer
 The request returns the first three items and provides the next-marker link to continue fetching data:
 
 .. code:: json
-    {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    {"representation": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     123
     345
     -12.6
@@ -3595,13 +3595,13 @@ The item with index 12 in the list, the second data item provided since start=10
 The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
 
 .. code:: json
-    {"format": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    {"representation": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     [[10,20,21], [30,40,50]]
     ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
     [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
-Below follows an example of the sparse format for multi-dimensional lists with three aggregated dimensions.
+Below follows an example of the sparse representation for multi-dimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
@@ -3612,18 +3612,18 @@ The response below communicates the first item explicitly; the second one by def
     [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse format for multi-dimensional lists with three aggregated dimensions and integer values:
+An example of the sparse representation for multi-dimensional lists with three aggregated dimensions and integer values:
 
 .. code:: json
-    {"format": "sparse"}
+    {"representation": "sparse"}
     [3,5,19,  10]
     [30,15,9, 31]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse format for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+An example of the sparse representation for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
 .. code:: json
-    {"format": "sparse"}
+    {"representation": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ]
     [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
     [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
