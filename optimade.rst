@@ -469,7 +469,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
              "a": null
          }
          "meta": {
-           "partial_data_urls": {
+           "partial_data_links": {
              "a": [
                {
                  "format": "jsonlines",
