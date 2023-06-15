@@ -3519,7 +3519,7 @@ Furthermore, we also define the following special markers:
 - A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
-When data is fetched from these URLs the response MUST be the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+When data is fetched from these URLs the response MUST use the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
 The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
