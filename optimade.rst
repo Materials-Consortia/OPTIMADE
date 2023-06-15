@@ -3579,7 +3579,6 @@ The header object MAY also contain the keys:
   - :field:`base_url`: String.
     The base URL of the implementation serving the database to which this property belongs.
 
-
 Once the client has encountered an end-of-data-marker, any data not covered by any of the encountered slices are to be assigned the value :val:`null`.
 
 If the field :field:`"layout"` is :val:`"dense"` and :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
