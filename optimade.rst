@@ -3537,7 +3537,7 @@ The first line MUST be a JSON object providing header information.
 The header object MUST contain the keys:
 
 - :field:`"optimade-partial-data"`: Object.
-  An object that identifying the response as being on OPTIMADE partial data format.
+  An object identifying the response as being on OPTIMADE partial data format.
 
   It MUST contain the following key:
 
@@ -3569,7 +3569,7 @@ The header object MAY also contain the keys:
 
 - :field:`"has_references"`: Boolean.
   An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
-  By including this field and giving it the value :val:`false`, a server MAY indicate that the client does not have to process any of the lines to detect reference markers.
+  A value of :val:`false` means that the client does not have to process any of the lines to detect reference markers, which may speed up the parsing.
 
 - :field:`"links"`: Object.
   An object to provide relevant links for the property being provided.
