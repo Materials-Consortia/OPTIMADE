@@ -721,7 +721,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
  - **property_metadata**: an object containing per-entry and per-property metadata.
     The keys are the names of the fields in :field:`attributes` for which metadata is available.
-    The values belonging to these keys are dictionaries containing the relevant metadata fields. 
+    The values belonging to these keys are dictionaries containing the relevant metadata fields.
     See also `Metadata properties`_
 
   - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
