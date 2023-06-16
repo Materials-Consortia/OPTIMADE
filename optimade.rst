@@ -499,7 +499,7 @@ A metadata property represents entry and property-specific metadata for a given 
 How these are communicated in the response depends on the response format.
 For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta` in a dictionary field :field:`property_metadata` with the keys equal to the names of the respective properties for which metadata is available; see `JSON Response Schema: Common Fields`_.
 
-The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property  #Definitions`_.
+The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property Definitions`_.
 Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-provider-specific prefix even for metadata for database-specific fields.
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
