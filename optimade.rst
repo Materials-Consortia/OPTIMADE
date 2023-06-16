@@ -447,6 +447,7 @@ Transmission of large property values
 
 A property value may be too large to fit in a single response.
 OPTIMADE provides a mechanism for a client to handle such properties by fetching them in separate series of requests.
+It is up to the implementation to decide which values are too large to represent in a single response, and this decision MAY change between responses.
 
 In this case, the response to the initial query gives the value :val:`null` for the property.
 A list of one or more data URLs together with their respective partial data formats are given in the response.
