@@ -3524,8 +3524,8 @@ When data is fetched from these URLs the response MUST use the JSON lines partia
 The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
-  **Implementation note:** the recognizable string values for the markers should make it possible to prescreen the raw text of the JSON data lines for the reference-marker string to determine which lines that one can exclude from further processing to resolve references (alternatively, this screening can be done by the string parser used by the JSON parser).
-  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negliable compared to the time it takes to resolve and handle the large data they reference.
+  **Implementation note:** the recognizable string values for the markers should make it possible to prescreen the raw text of the JSON data lines for the reference-marker string to determine which are the lines that one can exclude from further processing to resolve references (alternatively, this screening can be done by the string parser used by the JSON parser).
+  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
   Hence, the most relevant optimization is to avoid spending time processing data structures to find markers for lines where there are none.
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
