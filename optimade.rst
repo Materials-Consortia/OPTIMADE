@@ -643,6 +643,19 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
 
+  - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
+    If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
+    The dictionary can contain the OPTIONAL fields:
+
+    - **id**: the identifier of this database within those served by this provider, i.e., the ID under which this database is served in this provider's index meta-database.
+    - **name**: a human-readable name for the database, e.g., for use in clients.
+    - **version**: a string describing the version of the database.
+    - **description**: a human-readable description of the database, e.g., for use in clients.
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage for the particular database.
+    - **maintainer**: a dictionary providing details about the maintainer of the database, which MUST contain the single field:
+
+      - **email** with the maintainer's email address.
+
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
@@ -709,6 +722,15 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
                "email": "admin@example.com"
              },
              "issue_tracker": "http://tracker.example.com/exmpl-optimade"
+           },
+           "database": {
+             "id": "example_db",
+             "name": "Example database 1 (of many)",
+             "description": "The first example database in a series hosted by the Example Provider.",
+             "homepage": "http://database_one.example.com",
+             "maintainer": {
+               "email": "science_lead@example.com"
+             }
            }
          }
          // ...
