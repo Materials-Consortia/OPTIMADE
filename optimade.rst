@@ -741,7 +741,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   Every resource object MAY also contain a :field:`meta` field which MAY contain the following keys:
 
- - **property_metadata**: an object containing per-entry and per-property metadata.
+  - **property_metadata**: an object containing per-entry and per-property metadata.
     The keys are the names of the fields in :field:`attributes` for which metadata is available.
     The values belonging to these keys are dictionaries containing the relevant metadata fields.
     See also `Metadata properties`_
