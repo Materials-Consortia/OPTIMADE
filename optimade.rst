@@ -1314,19 +1314,14 @@ Entry listing info endpoints are accessed under the versioned or unversioned bas
 They return information related to the specific entry types served by the API.
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
-- **description**: Description of the entry.
-- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the section `Property Definitions`_.
-- **formats**: List of output formats available for this type of entry.
-- **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
-
-The response for these endpoints SHOULD also include the following information in the :field:`data` field:
-
 - **type**: :field-val:`"info"`.
 - **id**: This MUST precisely match the entry type name, e.g., :field-val:`"structures"` for the :endpoint:`/info/structures`.
+- **description**: Description of the entry.
+- **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the section `Property Definitions`_.
+- **formats**: List of output formats available for this type of entry (see section `Response Format`_)
+- **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
 
-    **Note**: Future versions of the OPTIMADE API will deprecate this behavior and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
-    At this point, :field:`type` and :field:`id` will be made mandatory to allow the :endpoint:`/info/<entry-type>` endpoints to be understood outside the initial context of the request.
-    The present format is introduced for backwards-compatibility only.
+    **Note**: Future versions of the OPTIMADE API will deprecate this format and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
 
 Example (note: the description strings have been wrapped for readability only):
 
