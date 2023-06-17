@@ -745,7 +745,6 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
 The response MAY also return resources related to the primary data in the field:
 
-- **links**: `JSON:API links <http://jsonapi.org/format/1.1/#document-links>`__ is REQUIRED for implementing pagination.
 - **links**: a `JSON API links object <http://jsonapi.org/format/1.1/#document-links>`__ is REQUIRED for implementing pagination.
   (see section `Entry Listing URL Query Parameters`_.)
   Each field of a links object, i.e., a "link", MUST be one of:
