@@ -2766,7 +2766,7 @@ space\_group\_symmetry\_operation\_xyz
 - **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and, together with the lattice translations given in the `lattice\_vectors` property allow to reconstruct all symmetries of the periodic material.
   Thus the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   For describing arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry, a different property will be used.
-- **Bibliographic References for `space\_group\_symmetry\_operation\_xyz` definitions**
+- **Bibliographic References for the `space\_group\_symmetry\_operation\_xyz` definitions**
 
 Bradley C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. ISBN 978-0-19-958258-7.
 
