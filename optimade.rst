@@ -442,6 +442,130 @@ For example, the following query can be sent to API implementations `exmpl1` and
 
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
+Transmission of large property values
+-------------------------------------
+
+A property value may be too large to fit in a single response.
+OPTIMADE provides a mechanism for a client to handle such properties by fetching them in separate series of requests.
+It is up to the implementation to decide which values are too large to represent in a single response, and this decision MAY change between responses.
+
+In this case, the response to the initial query gives the value :val:`null` for the property.
+A list of one or more data URLs together with their respective partial data formats are given in the response.
+How this list is provided is response format-dependent.
+For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
+
+The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
+An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
+Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
+
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
+
+.. code:: jsonc
+
+     {
+       // ...
+       "data": {
+         "type": "structures",
+         "id": "2345678",
+         "attributes": {
+             "a": null
+         }
+         "meta": {
+           "partial_data_links": {
+             "a": [
+               {
+                 "format": "jsonlines",
+                 "link": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+               },
+               {
+                 "format": "_exmpl_bzip2_jsonlines",
+                 "link": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+               },
+               {
+                 "format": "_exmpl_hdf5",
+                 "link": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+               }
+             ]
+           }
+         }
+       }
+     // ...
+   }
+
+Metadata properties
+-------------------
+
+A metadata property represents entry and property-specific metadata for a given entry.
+How these are communicated in the response depends on the response format.
+For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta` in a dictionary field :field:`property_metadata` with the keys equal to the names of the respective properties for which metadata is available, see `JSON Response Schema: Common Fields`_.
+
+The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property Definitions`_.
+Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-provider-specific prefix even for metadata of database-specific fields.
+For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
+The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
+
+Implementation of the :field:`meta` field is OPTIONAL.
+However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all fields present in the data part of the response which has metadata.
+
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
+
+.. code:: jsonc
+     {
+       "data": [
+         {
+           "type": "structures",
+           "id": "example.db:structs:0001",
+           "attributes": {
+             "element_ratios":[0.33336, 0.22229, 0.44425]
+           },
+           "meta": {
+             "property_metadata": {
+               "element_ratios": {
+                 "_exmpl_originates_from_project": "piezoelectic_perovskites"
+               }
+             }
+           }
+         },
+         {
+           "type": "structures",
+           "id": "example.db:structs:1234",
+           "attributes": {
+             "element_ratios":[0.5, 0.5]
+           },
+           "meta": {
+             "property_metadata":{
+               "element_ratios": {
+                 "_exmpl_originates_from_project": "ferroelectric_binaries"
+               }
+             }
+           }
+         }
+         //...
+       ]
+       // ...
+     }
+
+Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
+
+    .. code:: jsonc
+         // ...
+         "x-optimade-metadata-definition": {
+           "title": "Metadata for the element_ratios field",
+           "description": "This field contains the per-entry metadata for the element_ratios field.",
+           "x-optimade-type": "dictionary",
+           "x-optimade-unit": "inapplicable",
+           "type": ["object", "null"],
+           "properties" : {
+             "_exmpl_originates_from_project": {
+               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+               "description" : "A string naming the internal example.com project id where this property was added to the database.",
+               "x-optimade-type": "string",
+               "x-optimade-unit" : "inapplicable"
+             }
+           }
+         }
+         // ...
+
 Responses
 =========
 
@@ -489,10 +613,10 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   :field:`meta` SHOULD also include these fields:
 
-  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
+  - **schema**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allows for alternative schema types.
-    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
+    Hence, if a :field:`meta` field is provided for the link and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
 
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
@@ -505,7 +629,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
     :field:`provider` MAY include these fields:
 
-    - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the database provider, either directly as a string, or as a link object which can contain the following fields:
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the database provider, either directly as a string, or as an object which can contain the following fields:
 
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
@@ -519,17 +643,30 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
 
+  - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
+    If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
+    The dictionary can contain the OPTIONAL fields:
+
+    - **id**: the identifier of this database within those served by this provider, i.e., the ID under which this database is served in this provider's index meta-database.
+    - **name**: a human-readable name for the database, e.g., for use in clients.
+    - **version**: a string describing the version of the database.
+    - **description**: a human-readable description of the database, e.g., for use in clients.
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage for the particular database.
+    - **maintainer**: a dictionary providing details about the maintainer of the database, which MUST contain the single field:
+
+      - **email** with the maintainer's email address.
+
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
     - **version**: version string of the current implementation.
-    - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the implementation.
-    - **source\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation source, either downloadable archive or version control system.
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the implementation.
+    - **source\_url**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation source, either downloadable archive or version control system.
     - **maintainer**: a dictionary providing details about the maintainer of the implementation, MUST contain the single field:
 
       - **email** with the maintainer's email address.
 
-    - **issue\_tracker**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
+    - **issue\_tracker**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
 
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
     A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
@@ -585,6 +722,15 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
                "email": "admin@example.com"
              },
              "issue_tracker": "http://tracker.example.com/exmpl-optimade"
+           },
+           "database": {
+             "id": "example_db",
+             "name": "Example database 1 (of many)",
+             "description": "The first example database in a series hosted by the Example Provider.",
+             "homepage": "http://database_one.example.com",
+             "maintainer": {
+               "email": "science_lead@example.com"
+             }
            }
          }
          // ...
@@ -593,9 +739,30 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
   Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
 
+  Every resource object MAY also contain a :field:`meta` field which MAY contain the following keys:
+
+ - **property_metadata**: an object containing per-entry and per-property metadata.
+    The keys are the names of the fields in :field:`attributes` for which metadata is available.
+    The values belonging to these keys are dictionaries containing the relevant metadata fields.
+    See also `Metadata properties`_
+
+  - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+    The keys are the names of the fields in :field:`attributes` for which partial data links are available.
+    Each value is a list of items that MUST have the following keys:
+
+    - **format**: String.
+      A name of the format provided via this link.
+      One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+
+    - **link**: String.
+      A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
+      There is no requirement on the syntax or format for the link URL.
+
+    For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_links`, see `Transmission of large property values`_.
+
 The response MAY also return resources related to the primary data in the field:
 
-- **links**: `JSON API links <http://jsonapi.org/format/1.0/#document-links>`__ is REQUIRED for implementing pagination.
+- **links**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ is REQUIRED for implementing pagination.
   (see section `Entry Listing URL Query Parameters`_.)
   Each field of a links object, i.e., a "link", MUST be one of:
 
@@ -915,7 +1082,8 @@ OPTIONALLY it can also contain the following fields:
 
   - **self**: the entry's URL
 
-- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
+- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that is used to communicate metadata.
+  See `JSON Response Schema: Common Fields`_ for more information about this field.
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
   The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
@@ -1045,7 +1213,7 @@ The single resource object's response dictionary MUST include the following fiel
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
   - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
-  - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a URL to a web page containing a human-readable text describing the license (or licensing options if there are multiple) covering all the data and metadata provided by this database.
+  - **license**: A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ giving a URL to a web page containing a human-readable text describing the license (or licensing options if there are multiple) covering all the data and metadata provided by this database.
     Clients are advised not to try automated parsing of this link or its content, but rather rely on the field :field:`available_licenses` instead.
     Example: :field-val:`https://example.com/licenses/example_license.html`.
 
@@ -1322,12 +1490,12 @@ The resource objects' response dictionaries MUST include the following fields:
 
   - **name**: Human-readable name for the OPTIMADE API implementation, e.g., for use in clients to show the name to the end-user.
   - **description**: Human-readable description for the OPTIMADE API implementation, e.g., for use in clients to show a description to the end-user.
-  - **base\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the base URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+  - **base\_url**: `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the base URL for this implementation, either directly as a string, or as an object, which can contain the following fields:
 
     - **href**: a string containing the OPTIMADE base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
-  - **homepage**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+  - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as an object, which can contain the following fields:
 
     - **href**: a string containing the implementation homepage URL.
     - **meta**: a meta object containing non-standard meta-information about the homepage.
@@ -3486,3 +3654,189 @@ The Symmetry Operator Regular Expressions
     $ # ... match to the very end of the string
 
     #END PCRE symops
+
+OPTIMADE JSON lines partial data format
+---------------------------------------
+The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
+The format is based on `JSON Lines <https://jsonlines.org/>`__, which enables streaming of JSON data.
+Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., "array" and "object" and for OPTIMADE properties they are, e.g., "list" and "dictionary".
+
+.. _slice object:
+
+To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of arrays.
+The dictionary has the following OPTIONAL fields:
+
+- :field:`"start"`: Integer.
+  The slice starts at the value with the given index (inclusive).
+  The default is 0, i.e., the value at the start of the array.
+- :field:`"stop"`: Integer.
+  The slice ends at the value with the given index (inclusive).
+  If omitted, the end of the slice is the last index of the array.
+- :field:`"step"`: Integer.
+  The absolute difference in index between two subsequent values that are included in the slice.
+  The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
+  Hence, a value of 2 denotes a slice of every second value in the array.
+
+For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
+
+Furthermore, we also define the following special markers:
+
+- The *end-of-data-marker* is this exact JSON: :val:`["PARTIAL-DATA-END", [""]]`.
+- A *reference-marker* is this exact JSON: :val:`["PARTIAL-DATA-REF", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
+  A reference-marker MUST only occur in a place where the property being communicated could have an embedded list.
+- A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
+
+There is no requirement on the syntax or format of the URLs provided in these markers.
+When data is fetched from these URLs the response MUST use the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
+Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
+
+  **Implementation note:** the recognizable string values for the markers should make it possible to prescreen the raw text of the JSON data lines for the reference-marker string to determine which are the lines that one can exclude from further processing to resolve references (alternatively, this screening can be done by the string parser used by the JSON parser).
+  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
+  Hence, the most relevant optimization is to avoid spending time processing data structures to find markers for lines where there are none.
+
+The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
+
+- The first line is a header object (defined below).
+- The following lines are data lines adhering to the formats described below.
+- The final line is either an end-of-data-marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
+
+The first line MUST be a JSON object providing header information.
+The header object MUST contain the keys:
+
+- :field:`"optimade-partial-data"`: Object.
+  An object identifying the response as being on OPTIMADE partial data format.
+
+  It MUST contain the following key:
+
+  - :field:`"format"`: String.
+    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
+    A client MUST NOT expect to be able to parse the format if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+
+- :field:`"layout"`: String.
+  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
+
+The following key is RECOMMENDED in the header object:
+
+- :field:`"returned_ranges"`: Array of Object.
+  For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+
+The header object MAY also contain the keys:
+
+- :field:`"property_name"`: String.
+  The name of the property being provided.
+
+- :field:`"entry"`: Object.
+  An object that MUST have the following two keys:
+
+  - :field:`"id"`: String.
+    The id of the entry of the property being provided.
+
+  - :field:`"type"`: String.
+    The type of the entry of the property being provided.
+
+- :field:`"has_references"`: Boolean.
+  An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
+  A value of :val:`false` means that the client does not have to process any of the lines to detect reference markers, which may speed up the parsing.
+
+- :field:`"item_schema"`: Object.
+  An object that represents a JSON Schema that validates the data lines of the response.
+  The format SHOULD be the relevant partial extract of a valid property definition as described in `Property Definitions`_.
+  If a schema is provided, it MUST be a valid JSON schema using the same version of JSON schema as described in that section.
+
+- :field:`"links"`: Object.
+  An object to provide relevant links for the property being provided.
+  It MAY contain the following key:
+
+  - :field:`"base_url"`: String.
+    The base URL of the implementation serving the database to which this property belongs.
+
+  - :field:`"item_describedby"`: String.
+    A URL to an external JSON Schema that validates the data lines of the response.
+    The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
+The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
+
+- **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+  If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
+  If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
+  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+
+- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+
+  - The first item of the array is the zero-based index of list property item being provided by this line.
+  - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
+
+- **Sparse layout for multi-dimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+  In this case, each data line contains a JSON array of the format:
+
+  - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
+  - The last item of the array is the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
+
+If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retriving another partial data response from the provided URL.
+If the final line is an end-of-data-marker, any data not covered by any of the responses are to be assigned the value :val:`null`.
+
+If :field:`"returned_ranges"` is included in the response and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
+Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the final end-of-data-marker.
+(Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
+In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
+
+Examples
+~~~~~~~~
+
+Below follows an example of a dense response for a partial array data of integer values.
+The request returns the first three items and provides the next-marker link to continue fetching data:
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    123
+    345
+    -12.6
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
+
+Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
+The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
+The item with index 12 in the list, the second data item provided since start=10 and step=2, is not included only referenced.
+The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    [[10,20,21], [30,40,50]]
+    ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
+    [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
+
+Below follows an example of the sparse layout for multi-dimensional lists with three aggregated dimensions.
+The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
+The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
+The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    [3,5,19,  [10,20,21,30]]
+    [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
+
+An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and integer values:
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    [3,5,19,  10]
+    [30,15,9, 31]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
+
+An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    [3,5,19, [ [10,20,21], [30,40,50] ] ]
+    [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
+    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
+    ["PARTIAL-DATA-END", [""]]

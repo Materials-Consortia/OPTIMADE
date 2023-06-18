@@ -91,6 +91,7 @@ bandgap
 bd
 booktitle
 boolean
+bzip
 calc
 cartesian
 checksums
@@ -121,6 +122,7 @@ exclusiveMinimum
 exmpl
 fieldname
 firstname
+hdf
 howpublished
 href
 html
@@ -134,6 +136,7 @@ javascript
 json
 jsonapi
 jsonc
+jsonlines
 kvak
 lastname
 libc
@@ -215,4 +218,4 @@ xyz
 yacc
 zeo
 zeolites
-ångström
+Ã¥ngstrÃ¶m
