@@ -2761,7 +2761,7 @@ space\_group\_symmetry\_operation\_xyz
 
   Space group operations for the space group `C 2`:
 
-  - :val: `["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
+  - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
 - **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and, together with the lattice translations given in the `lattice\_vectors` property allow to reconstruct all symmetries of the periodic material.
   Thus the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
