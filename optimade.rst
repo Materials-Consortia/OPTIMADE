@@ -2736,7 +2736,7 @@ lattice\_vectors
 space\_group\_symmetry\_operation\_xyz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: a list of symmetry operations given as general positions :val:`x,y,z` coordinates in algebraic form.
+- **Description**: a list of symmetry operations given as general position x, y and z coordinates in algebraic form.
   Each symmetry operation is described as a string representing the symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972:pp. 35--37), adapted for computer string notation.
   The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
   The syntax of the strings representing symmetry operators MUST conform to regular expressions given in appendix `The Symmetry Operator Regular Expressions`_.
