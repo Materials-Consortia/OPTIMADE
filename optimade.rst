@@ -3637,7 +3637,7 @@ The regular expressions are recorded in the Perl Compatible Regular Expression (
 The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
 The :val:`symops` section contains the REs themselves.
 The white space in these definitions is not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
-A working example of these REs in action can be found in the :file:`tests/cases/pcre_symops_001.sh` and other test cases.
+A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
 
 .. code:: PCRE
 
