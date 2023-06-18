@@ -1,4 +1,4 @@
-personal_ws-1.1 en 205
+personal_ws-1.1 en 217 
 ABNF
 ACM
 Aa
@@ -16,6 +16,7 @@ ClNa
 ClosingBrace
 CommonMark
 ConstantFirstComparison
+Cracknell
 Cryst
 EREs
 Edsger
@@ -25,8 +26,11 @@ ExpressionClause
 ExpressionPhrase
 FuzzyStringOpRhs
 Grammatica
+Hermann
 IANA
 IEEE
+ITC
+IUCr
 IUPAC's
 IdentifierFirstComparison
 IdentifierZipAddon
@@ -35,6 +39,7 @@ Lausanne
 LengthComparison
 LengthOpRhs
 LowercaseLetter
+Mauguin
 NaCl
 NaN
 NaO
@@ -91,6 +96,7 @@ cartesian
 checksums
 cif
 conformant
+coreCIF
 cr
 crossref
 css
@@ -122,6 +128,7 @@ http
 hydrogens
 hydroperoxide
 implementers
+incrementing
 internaldb
 javascript
 json
@@ -158,6 +165,7 @@ occupancies
 ok
 optimade
 organisation
+overbars
 oxygens
 param
 pcre
@@ -180,9 +188,12 @@ subfields
 substring
 substrings
 supercell
+symop
+symops
 testdb
 timestamp
 timestamps
+typesetted
 ucum
 uniqueItems
 unrequested
@@ -200,6 +211,7 @@ whitespace
 workflow
 xml
 xy
+xyz
 yacc
 zeo
 zeolites
