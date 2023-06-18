@@ -2763,7 +2763,7 @@ space\_group\_symmetry\_operation\_xyz
 
   - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
-- **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the `lattice\_vectors` property allow to reconstruct all symmetries of the periodic material.
+- **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property allow to reconstruct all symmetries of the periodic material.
   Thus the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   For describing arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry, a different property will be used.
 - **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
