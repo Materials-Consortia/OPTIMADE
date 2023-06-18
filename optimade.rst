@@ -2565,6 +2565,45 @@ lattice\_vectors
 
   - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
 
+space\_group\_symmetry\_operation\_xyz
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: a list of symmetry operations given as general positions `x,y,z` coordinates in algebraic form.
+  Each symmetry operation is described as a string representing the symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972:pp. 35--37), adapted for computer string notation.
+  The letters `x`, `y` and `z` that are typesetted with overbars in printed text represent coordinates values muliplied by -1 and are ecnoded as `-x`, `-y` and -`z`, respectively.
+  The syntax of the strings representing symmetry operators MUST conform to regular expressions givem in Appendix 'The Symmetry Operator Regular Expressions'.
+  The intepretation of the strings MUST follow the conventions of the IUCr CIF code dictionary (IUCr, 2023).
+  In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
+  The identity operation `x,y,z` MUST be always present.
+  The symmetry operations are to be applied to fractional atom coordinates.
+  If the symmetry operaion list is present, it MUST be compatible with other space group specifications (the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol and other space group designations) if these are present.
+- **Type** list of strings
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+    However, the property is RECOMMENDED if fractional atom coordinates are returned in the response.
+    Moreover, the property is REQUIRED if fractional coordinates are returned and no other symmetry information that allows to derive symmetry operations unambiguously (e.g. the Hall symbol) is provided.
+  - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
+
+- **Examples**:
+
+  Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, Universal H-M symbol: `P 1 2 1`, Hall symbol `P 2y`):
+
+  - :val:`["x,y,z", "-x,y,-z"]`
+
+  Space group operations for the space group `C 2`:
+
+  - :val: `["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
+
+- **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and, together with the lattice translations given in the `lattice\_vectors` property allow to reconstruct all symmetries of the periodic material.
+  Thus the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
+  For describing arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry, a different property will be used.
+- **Bibliographic References for `space\_group\_symmetry\_operation\_xyz` definitions**
+
+Bradley C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. ISBN 978-0-19-958258-7.
+
+IUCr (2023) Core dictionary (coreCIF) version 2.4.5; data name `\_space\_group\_symop\_operation\_xyz`. Available from: https://www.iucr.org/__data/iucr/cifdic_html/1/cif_core.dic/Ispace_group_symop_operation_xyz.html [Accessed 2023-06-18T16:46+03:00].
+
 space\_group\_hall
 ~~~~~~~~~~~~~~~~~~
 
