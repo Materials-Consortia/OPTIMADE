@@ -2737,7 +2737,7 @@ space\_group\_symmetry\_operation\_xyz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: a list of symmetry operations given as general position x, y and z coordinates in algebraic form.
-  Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972:pp. 35--37), adapted for computer string notation.
+  Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972:pp.35-37), adapted for computer string notation.
   The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
   The syntax of the strings representing symmetry operators MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
   The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
