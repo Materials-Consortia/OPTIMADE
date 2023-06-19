@@ -3632,7 +3632,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
-Symmetry operation strings that describe :property:`space_group_symmetry_operation_xyz` property MUST conform to the following regular epxressions.
+Symmetry operation strings that describe :property:`space_group_symmetry_operation_xyz` property MUST conform to the following regular expressions.
 The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
 The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
 The :val:`symops` section contains the REs themselves.
