@@ -2790,6 +2790,21 @@ space\_group\_hall
   - :val:`P 2c -2ac`
   - :val:`-I 4bd 2ab 3`
 
+space\_group\_Hermann_Mauguin
+~~~~~~~~~~~~~~~~~~
+
+- **Description** A (human-redable) symbol of the space group containing a short-form of the Hermann-Mauguin symbol.
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**
+
+  - :val:`C 2`
+  - :val:`P 21 21 21`
+
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
