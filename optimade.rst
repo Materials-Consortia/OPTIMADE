@@ -1333,12 +1333,17 @@ Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Entry listing info endpoints are accessed under the versioned or unversioned base URL serving the API as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures).
+They return information related to the specific entry types served by the API.
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
+- **type**: :field-val:`"info"`.
+- **id**: This MUST precisely match the entry type name, e.g., :field-val:`"structures"` for the :endpoint:`/info/structures`.
 - **description**: Description of the entry.
 - **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the section `Property Definitions`_.
-- **formats**: List of output formats available for this type of entry.
+- **formats**: List of output formats available for this type of entry (see section `Response Format`_)
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
+
+    **Note**: Future versions of the OPTIMADE API will deprecate this format and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
 
 Example (note: the description strings have been wrapped for readability only):
 
@@ -1346,6 +1351,8 @@ Example (note: the description strings have been wrapped for readability only):
 
     {
       "data": {
+        "type": "info",
+        "id": "structures",
         "description": "a structures entry",
         "properties": {
           "nelements": {
@@ -2873,8 +2880,8 @@ species
       Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-          **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
-          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+    **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
+    The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
