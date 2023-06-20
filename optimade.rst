@@ -359,7 +359,7 @@ A few suggestions and mandatory requirements of the OPTIMADE specification are s
 - When serving an index meta-database in the form of static files, it is RECOMMENDED that the response excludes the subfields in the top-level :field:`meta` field that would need to be dynamically generated (as described in the section `JSON Response Schema: Common Fields`_.)
   The motivation is that static files cannot keep dynamic fields such as :field:`time_stamp` updated.
 
-- The `JSON:API specification <http://jsonapi.org/format/1.1>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
+- The `JSON:API specification <http://jsonapi.org/format/1.1>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-Type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
   Hence, API Implementations MAY ignore the content of these headers and respond to all requests.
   The motivation is that static file hosting is typically not flexible enough to support these requirements on HTTP headers.
 
