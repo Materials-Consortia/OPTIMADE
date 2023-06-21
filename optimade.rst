@@ -2793,7 +2793,7 @@ space\_group\_hall
 space\_group\_Hermann_Mauguin
 ~~~~~~~~~~~~~~~~~~
 
-- **Description** A (human-redable) symbol of the space group containing a short-form of the Hermann-Mauguin symbol.
+- **Description** A (human-redable) symbol of the space group containing a short-form of the Hermann-Mauguin (H-M) symbol. The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
 - **Type**: string
 - **Requirements/Conventions**:
 
@@ -2804,6 +2804,10 @@ space\_group\_Hermann_Mauguin
 
   - :val:`C 2`
   - :val:`P 21 21 21`
+
+- **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
+
+IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer, 2005.
 
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
