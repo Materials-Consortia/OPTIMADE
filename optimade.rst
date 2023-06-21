@@ -455,7 +455,7 @@ How this list is provided is response format-dependent.
 For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
 
 The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
-An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
+An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
@@ -505,7 +505,7 @@ For example, the metadata property definition of the field :field:`_exmpl_exampl
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
 Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all fields present in the data part of the response which has metadata.
+However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all fields, present in the data part of the response, which have metadata.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
 
@@ -726,11 +726,11 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
     The keys are the names of the fields in :field:`attributes` for which partial data links are available.
-    Each value is a list of items that MUST have the following keys:
+    Each value is a list of objects that MUST have the following keys:
 
     - **format**: String.
-      A name of the format provided via this link.
-      One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+      The name of the format provided via this link.
+      For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
 
     - **link**: String.
       A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
@@ -3605,7 +3605,7 @@ The markers have been deliberately designed to be valid JSON objects but *not* v
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
   **Implementation note:** the recognizable string values for the markers should make it possible to prescreen the raw text of the JSON data lines for the reference-marker string to determine which are the lines that one can exclude from further processing to resolve references (alternatively, this screening can be done by the string parser used by the JSON parser).
-  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
+  The underlying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
   Hence, the most relevant optimization is to avoid spending time processing data structures to find markers for lines where there are none.
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
@@ -3631,8 +3631,8 @@ The header object MUST contain the keys:
 
 The following key is RECOMMENDED in the header object:
 
-- :field:`"returned_ranges"`: Array of Object.
-  For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+- :field:`"returned_ranges"`: Array of Objects.
+  For one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
 The header object MAY also contain the keys:
@@ -3670,7 +3670,7 @@ The header object MAY also contain the keys:
     The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
-- **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+- **Dense layout:** In the dense partial data layout, each data line reproduces one item from the OPTIMADE list property being transmitted in the JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
   If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
