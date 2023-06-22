@@ -641,7 +641,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
     If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
-    The dictionary can contain the OPTIONAL fields:
+    The dictionary can contain the following OPTIONAL fields:
 
     - **id**: the identifier of this database within those served by this provider, i.e., the ID under which this database is served in this provider's index meta-database.
     - **name**: a human-readable name for the database, e.g., for use in clients.
@@ -1965,9 +1965,9 @@ For a specific structures entry, the nested property behaves as the list :filter
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
     **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
-    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
+    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
 
-    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmit"` and store the :filter-fragment:`id` values of the returned entries.
+    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
     - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
     (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
@@ -3750,7 +3750,7 @@ The format of data lines of the response (i.e., all lines except the first and t
   - The last item of the array is the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
-If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retriving another partial data response from the provided URL.
+If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retrieving another partial data response from the provided URL.
 If the final line is an end-of-data-marker, any data not covered by any of the responses are to be assigned the value :val:`null`.
 
 If :field:`"returned_ranges"` is included in the response and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
@@ -3786,7 +3786,7 @@ The third provided item (index 14 in the original list) is only partially return
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
 Below follows an example of the sparse layout for multi-dimensional lists with three aggregated dimensions.
-The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of abitrary length of numbers.
+The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of arbitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
 
