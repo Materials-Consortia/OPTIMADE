@@ -2851,7 +2851,7 @@ IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. 
 space\_group\_symbol\_Hermann_Mauguin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** A (human-readable) symbol of the space group containing a short-form of the Hermann-Mauguin (H-M) symbol.
+- **Description** A human- and machine-readable string containing a short Hermann-Mauguin (H-M) symbol.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
 
   To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
