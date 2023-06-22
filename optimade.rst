@@ -2782,7 +2782,7 @@ space\_group\_symmetry\_operation\_xyz
   The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
   The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
   In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
-  The identity operation :val:`x,y,z` MUST be always present.
+  This symmetry operation set MUST always include the :val:`x,y,z` identity operation.
   The symmetry operations are to be applied to fractional atom coordinates.
   If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
 - **Type** list of strings
