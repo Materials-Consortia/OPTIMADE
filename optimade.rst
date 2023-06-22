@@ -2859,7 +2859,7 @@ space\_group\_symbol\_hermann\_mauguin
   - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
   - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
   - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
-  - there MUST be NO spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
+  - there MUST be no spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
 
 - **Type**: string
 - **Requirements/Conventions**:
