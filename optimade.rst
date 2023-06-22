@@ -2790,6 +2790,8 @@ space\_group\_Hall
 
   - :val:`P 2c -2ac`
   - :val:`-I 4bd 2ab 3`
+  - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
+  - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
 
 - **Bibliographic References for the 'space\_group\_Hall' definitions**
 
