@@ -2848,7 +2848,7 @@ Hall, S. R. (1981a) Space-group notation with an explicit origin; erratum.  Acta
 
 IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
-space\_group\_symbol\_Hermann_Mauguin
+space\_group\_symbol\_hermann\_mauguin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
@@ -2872,18 +2872,18 @@ space\_group\_symbol\_Hermann_Mauguin
   - :val:`C 2`
   - :val:`P 21 21 21`
 
-- **Bibliographic References for the 'space\_group\_symbol\_Hermann_Mauguin' definitions**
+- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin' definitions**
 
 IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
 
-space\_group\_symbol\_Hermann_Mauguin\_extended
+space\_group\_symbol\_hermann\_mauguin\_extended
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
   The change-of-basis operation SHOULD be provided for unusual settings and cell choices.
   The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  The same character string encoding conventions MUST be used as for the specification of the `space\_group\_symbol\_Hermann_Mauguin`_ property.
+  The same character string encoding conventions MUST be used as for the specification of the `space\_group\_symbol\_hermann\_mauguin`_ property.
 
 - **Type**: string
 - **Requirements/Conventions**:
@@ -2895,7 +2895,7 @@ space\_group\_symbol\_Hermann_Mauguin\_extended
 
   - :val:`C 1 2 1`
 
-- **Bibliographic References for the 'space\_group\_symbol\_Hermann_Mauguin\_extended' definitions**
+- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin\_extended' definitions**
 
 IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
