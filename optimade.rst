@@ -2830,7 +2830,7 @@ space\_group\_symbol\_Hall
 
 - **Examples**:
 
-A space group symbol with explicit origin (the Hall symbol):
+Space group symbols with explicit origin (the Hall symbols):
 
   - :val:`P 2c -2ac`
   - :val:`-I 4bd 2ab 3`
