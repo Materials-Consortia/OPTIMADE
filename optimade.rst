@@ -2851,7 +2851,7 @@ IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. 
 space\_group\_symbol\_Hermann_Mauguin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** A human- and machine-readable string containing a short Hermann-Mauguin (H-M) symbol.
+- **Description** A human- and machine-readable string containing a short Hermann-Mauguin (H-M) symbol specifying the space group of the structure in the response.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
 
   To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
@@ -2879,7 +2879,7 @@ IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmet
 space\_group\_symbol\_Hermann_Mauguin\_extended
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** A (human-redable) symbol of the space group containing an extended form of the Hermann-Mauguin (H-M) symbol.
+- **Description** A human- and machine-readable string containing a short Hermann-Mauguin (H-M) symbol specifying the space group of the structure in the response.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
   The change-of-basis operation SHOULD be provided for unusual settings and cell choices.
   The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
