@@ -2800,7 +2800,7 @@ space\_group\_symmetry\_operation\_xyz
 
   - :val:`["x,y,z", "-x,y,-z"]`
 
-  Space group operations for the space group number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`):
+  Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`):
 
   - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
