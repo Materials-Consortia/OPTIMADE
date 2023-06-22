@@ -2773,8 +2773,8 @@ Bradley, C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry i
 
 IUCr (2023) Core dictionary (coreCIF) version 2.4.5; data name `\_space\_group\_symop\_operation\_xyz`. Available from: https://www.iucr.org/__data/iucr/cifdic_html/1/cif_core.dic/Ispace_group_symop_operation_xyz.html [Accessed 2023-06-18T16:46+03:00].
 
-space\_group\_Hall
-~~~~~~~~~~~~~~~~~~
+space\_group\_symbol\_Hall
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
   The change-of-basis operators are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
@@ -2807,8 +2807,8 @@ Hall, S. R. (1981a) Space-group notation with an explicit origin; erratum.  Acta
 
 IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
-space\_group\_Hermann_Mauguin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+space\_group\_symbol\_Hermann_Mauguin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A (human-redable) symbol of the space group containing a short-form of the Hermann-Mauguin (H-M) symbol.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
@@ -2827,8 +2827,8 @@ space\_group\_Hermann_Mauguin
 
 IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
 
-space\_group\_Hermann_Mauguin\_extended
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+space\_group\_symbol\_Hermann_Mauguin\_extended
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A (human-redable) symbol of the space group containing an extended form of the Hermann-Mauguin (H-M) symbol.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
