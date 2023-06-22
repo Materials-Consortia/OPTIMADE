@@ -2784,7 +2784,7 @@ space\_group\_symmetry\_operation\_xyz
   In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
   The identity operation :val:`x,y,z` MUST be always present.
   The symmetry operations are to be applied to fractional atom coordinates.
-  If the symmetry operation list is present, it MUST be compatible with other space group specifications (the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol and other space group designations) if these are present.
+  If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
 - **Type** list of strings
 - **Requirements/Conventions**:
 
