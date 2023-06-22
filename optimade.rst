@@ -641,7 +641,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
     If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
-    The dictionary can contain the OPTIONAL fields:
+    The dictionary can contain the following OPTIONAL fields:
 
     - **id**: the identifier of this database within those served by this provider, i.e., the ID under which this database is served in this provider's index meta-database.
     - **name**: a human-readable name for the database, e.g., for use in clients.
