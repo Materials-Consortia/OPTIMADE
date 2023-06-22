@@ -2791,7 +2791,7 @@ space\_group\_hall
   - :val:`-I 4bd 2ab 3`
 
 space\_group\_Hermann_Mauguin
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A (human-redable) symbol of the space group containing a short-form of the Hermann-Mauguin (H-M) symbol. The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
 - **Type**: string
