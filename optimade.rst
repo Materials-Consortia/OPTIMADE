@@ -1965,9 +1965,9 @@ For a specific structures entry, the nested property behaves as the list :filter
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
     **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
-    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
+    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
 
-    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmit"` and store the :filter-fragment:`id` values of the returned entries.
+    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
     - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
     (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
