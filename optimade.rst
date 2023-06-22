@@ -2813,6 +2813,13 @@ space\_group\_symbol\_Hermann_Mauguin
 
 - **Description** A (human-redable) symbol of the space group containing a short-form of the Hermann-Mauguin (H-M) symbol.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
+
+  To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
+
+  - the overbar above the numbers MUST be changed to the minus sign (e.g. '-2');
+  - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
+  - there MUST be NO spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
+
 - **Type**: string
 - **Requirements/Conventions**:
 
@@ -2835,6 +2842,8 @@ space\_group\_symbol\_Hermann_Mauguin\_extended
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
   The change-of-basis operation SHOULD be provided for unusual settings and cell choices.
   The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
+  The same character string encoding conventions MUST be used as for the specificatio of the `space\_group\_symbol\_Hermann_Mauguin`_ propeerty.
+
 - **Type**: string
 - **Requirements/Conventions**:
 
