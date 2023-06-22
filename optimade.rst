@@ -2817,6 +2817,7 @@ space\_group\_symbol\_Hermann_Mauguin
   To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
 
   - the overbar above the numbers MUST be changed to the minus sign (e.g. '-2');
+  - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
   - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
   - there MUST be NO spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
 
