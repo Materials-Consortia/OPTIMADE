@@ -2818,7 +2818,7 @@ space\_group\_symbol\_Hall
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
-  The change-of-basis operators are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
+  The change-of-basis operations are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
 - **Type**: string
 - **Requirements/Conventions**:
 
