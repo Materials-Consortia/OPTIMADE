@@ -2823,7 +2823,7 @@ space\_group\_symbol\_Hermann_Mauguin
   - :val:`C 2`
   - :val:`P 21 21 21`
 
-- **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
+- **Bibliographic References for the 'space\_group\_symbol\_Hermann_Mauguin' definitions**
 
 IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
 
@@ -2844,7 +2844,7 @@ space\_group\_symbol\_Hermann_Mauguin\_extended
 
   - :val:`C 1 2 1`
 
-- **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
+- **Bibliographic References for the 'space\_group\_symbol\_Hermann_Mauguin\_extended' definitions**
 
 IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
@@ -2853,7 +2853,7 @@ IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmet
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A. (IUCr, 2005)
 - **Type**: integer
 - **Requirements/Conventions**:
 
