@@ -391,33 +391,41 @@ standardized by the OPTIMADE specification.
    can be used to enable aggregated filtering over all OPTIMADE APIs that
    support this property.
 
-Database-Provider-Specific Namespace Prefixes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This standard refers to database-provider-specific prefixes and database providers.
-
-A list of known providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
+A list of known database and definition providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
+A human-readable dashboard is also hosted at `<https://www.optimade.org/providers-dashboard>`__.
 
 API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
 
 **Examples**:
 
 - A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+- A definition-provider prefix: ``dft``. Used as a field name in a response by multiple different providers: :field:`_dft_cell_volume` (note: this is a hypothetical example).
 
-The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
+The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization or definition provider.
 Identifiers prefixed with underscores will not be used for standardized names.
+
+Database-Provider-Specific Namespace Prefixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This standard refers to database-provider-specific prefixes and database providers.
 
 Database-provider-specific fields only need to be consistent within the context of one particular database.
 Providers that serve multiple databases MAY use the same provider-specific field names with different meanings in different databases.
-For example, a provider may use the field `_exmpl_band_gap` to mean a computed band gap in one their databases, and a measured band gap in another database.
+For example, a provider may use the field :field:`_exmpl_band_gap` to mean a computed band gap in one their databases, and a measured band gap in another database.
+
+Database-provider-specific fields SHOULD be fully described at the relevant :endpoint:`/info/<entry_type>` endpoint (see section `Entry Listing Info Endpoints`_)
 
 Definition-Provider-Specific Namespace Prefixes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This standard refers to definition-provider-specific prefixes and definition providers.
 
-PLACEHOLDER
+Definition providers MUST provide a canonical property definition for all custom fields they define using the OPTIMADE `Property Definitions`_ format.
+Definition providers MUST also list these definitions in the relevant :endpoint:`/info/<entry_type>` endpoint of the index meta-database for that provider.
+They may also provide human-readable webpages for their definitions.
+
+Definition-provider-specific fields MAY be fully described at the relevant :endpoint:`/info/<entry_type>` endpoint (see section `Entry Listing Info Endpoints`_) but can also rely on the canonical definitions provided by the definition provider, provided they return an ``$id`` for the field that resolves to the relevant OPTIMADE property definition.
 
 
 URL Encoding
