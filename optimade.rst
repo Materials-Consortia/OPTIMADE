@@ -749,9 +749,9 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     The values belonging to these keys are dictionaries containing the relevant metadata fields.
     See also `Metadata properties`_
 
-  - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+  - **partial_data_links**: a dictionary used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
     The keys are the names of the fields in :field:`attributes` for which partial data links are available.
-    Each value is a list of objects that MUST have the following keys:
+    Each value is a list of dictionaries that MUST have the following keys:
 
     - **format**: String.
       The name of the format provided via this link.
@@ -3693,7 +3693,7 @@ The header object MUST contain the keys:
 
 The following key is RECOMMENDED in the header object:
 
-- :field:`"returned_ranges"`: Array of Objects.
+- :field:`"returned_ranges"`: List of Dictionaries.
   For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
