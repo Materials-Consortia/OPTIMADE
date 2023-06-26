@@ -459,6 +459,9 @@ The default partial data format is named "jsonlines" and is described in the App
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
+To enable requesting only a part of the data for such properties via the :param:`property\_ranges` query parameter, there is additional meta data stored under the field :field:`meta.<property_name>.range`.
+The metadata field of the ranged property, :field:`meta.<property_name>.range`, MUST include these fields:
+
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
 
 .. code:: jsonc
@@ -492,6 +495,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
        }
      // ...
    }
+
 
 Metadata properties
 -------------------
@@ -1077,6 +1081,30 @@ Standard OPTIONAL URL query parameters not in the JSON:API specification:
   If provided, these fields MUST be returned along with the REQUIRED fields.
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
   Example: :query-url:`http://example.com/optimade/v1/structures?response_fields=last_modified,nsites`
+- **property\_ranges**: A set of slices for partial data properties.
+  This parameter is used to select a subrange of partial data properties so only a part of the data needs to be returned.
+  In general support is OPTIONAL, property definitions may however deviate from this and place stricter requirements on servers.
+  It consists of the name of a dimension directly followed by the requested slice in this dimension.
+  A slice consists of a pair of brackets ("(", ASCII 40(0x28)) and (")", ASCII 41(0x29)) enclosing three integers, which are separated by commas (",", ASCII 91(0x5B))
+  It is defined in the same manner as the `slice object`_.
+  The first integer specifies the first index in that dimension for which values should be returned.
+  The second integer specifies the last index for which values should be returned.
+  The third integer specifies the step size in that dimension.
+  Slices can be specified for multiple dimensions by separating them with a comma.
+  The slices are 0 based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`(10,20,1)` the last value returned belongs to index 20.
+  Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
+
+  If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
+  If a value is not present at a set of the indexes, no value SHOULD be returned.
+  However, when a value is explicitly set to :val:`null` and :val:`null` has a meaning beyond indicating that no value has been defined  :val:`null` MUST be returned.
+  Incase the requested property_range covers more data than the server wants to return the server may choose to return only a part of the data.
+  For each combination of indexes for which data is returned all the values for all requested properties however need to be returned.
+  If the server does not return all the requested data, a link MUST be provided in the :field:`next` field, that applies to an entry as a whole, from which the remainder of the data can be retrieved.
+
+
+
+
+
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
@@ -3621,7 +3649,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE identifiers
     [a-z_][a-z_0-9]*
     #END ERE identifiers
-
+==
     #BEGIN ERE numbers
     [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)?
     #END ERE numbers
