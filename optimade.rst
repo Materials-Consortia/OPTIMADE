@@ -459,10 +459,34 @@ The default partial data format is named "jsonlines" and is described in the App
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
-To enable requesting only a part of the data for such properties via the :param:`property\_ranges` query parameter, there is additional meta data stored under the field :field:`meta.<property_name>.range`.
-The metadata field of the ranged property, :field:`meta.<property_name>.range`, MUST include these fields:
+If the server supports the :query-param:`property_ranges` query parameter, as described in section `Entry Listing URL Query Parameters`_ additional metadata needs to be present under :field:`property_metadata` field, for each property that is returned in the partial data format.
+This meta data allows clients to request specific subsections of properties.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
+If the field can be sliced with the :query-param:`property_ranges`, the following fields MUST be defined under :field:`property_metadata` Otherwise implementation is OPTIONAL:
+
+- :field:`range_ids`: List of Strings.
+  A list with an identifier for each dimension of the property.
+  The outermost dimension of a nested array should come first.
+  If, within one entry, dimensions for two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
+  For example, both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`.
+  This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
+
+- :field:`indexable_dim`: List of Strings.
+  The list of range_ids of the dimensions for which slicing is supported, i.e. the client can request a subrange via the :query-param:`property_ranges` query parameter.
+
+- :field:`data_range`: List of Slice Objects.
+  This field describes how the values are distributed in the different dimensions.
+  It consists of a slice object for each dimension of the property.
+  The order of the slice objects must be the same as in the :field:`range_ids` field.
+
+- :field:`nvalues`: Integer.
+  The total number of values in the property.
+  SHOULD be a queryable property with support for all mandatory filter features.
+
+- :field:`"layout"`: String.
+  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
+
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format. It communicates that the property value has been omitted from the response and includes three different links for different partial data formats provided and metadata that makes it possible to only request only a part of the data for this property.
 
 .. code:: jsonc
 
@@ -475,6 +499,25 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
              "a": null
          }
          "meta": {
+           "property_metadata":{
+             "a":{
+               "range":{
+                 "range_ids":["frames","particles"],
+                 "indexable_dim": ["frames"],
+                 "data_range": [{
+                     "start": 1,
+                     "step": 1,
+                     "stop": 200,
+                   },{
+                     "start": 1,
+                     "step": 1,
+                     "stop": 3,
+                 }],
+                 "format":"1.2",
+                 "layout":"dense",
+               }
+             }
+           },
            "partial_data_links": {
              "a": [
                {
@@ -3679,6 +3722,7 @@ The dictionary has the following OPTIONAL fields:
   The absolute difference in index between two subsequent values that are included in the slice.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the array.
+
 
 For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
