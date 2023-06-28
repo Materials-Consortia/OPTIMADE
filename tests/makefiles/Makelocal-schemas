@@ -1,0 +1,99 @@
+#---*- Makefile -*-------------------------------------------------------
+
+# Targets related to handling the schema files
+SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
+SCHEMAS_JSON = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS))
+SCHEMAS_MD = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(SCHEMAS))
+SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%.html,$(SCHEMAS))
+SCHEMAS_HTML_NOEXT = $(patsubst schemas/src/%.yaml,schemas/output/%,$(SCHEMAS))
+
+EXT_SCHEMAS := $(filter-out external/json-schema/LICENSE, $(wildcard external/json-schema/*))
+EXT_SCHEMAS_ARGS := $(foreach schema,$(EXT_SCHEMAS),--schema $(schema))
+
+META_SCHEMAS := $(wildcard schemas/src/meta/current/optimade/*.yaml)
+META_SCHEMAS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(META_SCHEMAS))
+META_SCHEMAS_ARGS := $(foreach schema,$(META_SCHEMAS_JSON),--schema $(schema))
+
+INDEXES := $(wildcard schemas/src/*/current)
+INDEXES_HTML := $(patsubst schemas/src/%,schemas/output/%/index.html,$(INDEXES))
+
+OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
+ifeq ($(OPTIMADE_VERSION),)
+  OPTIMADE_VERSION_SUBST=
+else
+  OPTIMADE_VERSION_SUBST=--sub '$$$${OPTIMADE_VERSION}' "$(OPTIMADE_VERSION)"
+endif
+
+.PHONY: schemas schemas_vers_symlinks
+
+schemas: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML_NOEXT) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
+schemas_web: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
+schema_docs: schemas_vers_symlinks $(SCHEMAS_MD)
+
+schemas_vers_symlinks:
+	cd schemas/src; \
+	for KIND in *; do \
+          mkdir -p ../output/$$KIND; \
+	  ( cd "$$KIND";\
+	  for dir in *; do \
+	    if [ -h "$$dir" -a ! -h "../../output/$$KIND/$$dir" ]; then \
+	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
+	    fi ;\
+	  done \
+	  ) \
+	done
+
+schemas/output/%/current/index.html: schemas/src/%/current $(SCHEMAS)
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --index --basedir "schemas/src" --baseid="https://schemas.optimade.org/" -f html --output "$@" "$<" $(EXT_SCHEMAS_ARGS)
+
+schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" $(EXT_SCHEMAS_ARGS)
+
+schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<" $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS)
+
+schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+
+$(SCHEMAS_HTML): schemas/output/%.html: schemas/src/%.yaml | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --html-header '<link rel="stylesheet" type="text/css" media="screen" href="https://www.optimade.org/assets/css/style.css" />' --html-header '<style>body {background: #f2f2f2;} html {margin: 0 auto; max-width: 900px;}</style>' --html-top '<a href="https://www.optimade.org/"><img style="margin: 0.5em; float: left" src="https://avatars0.githubusercontent.com/u/23107754" width="10%" /></a><div style="width: 100%; clear: both"></div>' --output "$@" "$<"
+
+$(SCHEMAS_HTML_NOEXT): schemas/output/%: schemas/src/%.yaml | schemas_vers_symlinks
+	mkdir -p "$(dir $@)"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+
+
+.PHONY: clean clean_schemas
+
+clean: clean_schemas
+
+clean_schemas:
+	rm -rf schemas/output
+
+.PHONY: check_schemas_variables
+
+check_schemas_variables:
+	@echo "SCHEMAS = $(SCHEMAS)"
+	@echo "SCHEMAS_JSON = $(SCHEMAS_JSON)"
+	@echo ""
+	@echo "META_SCHEMAS = $(META_SCHEMAS)"
+	@echo "META_SCHEMAS_JSON = $(META_SCHEMAS_JSON)"
+	@echo "META_SCHEMAS_ARGS = $(META_SCHEMAS_ARGS)"
+	@echo ""
+	@echo "OPTIMADE_VERSION = $(OPTIMADE_VERSION)"
+	@echo "OPTIMADE_VERSION_SUBST = $(OPTIMADE_VERSION_SUBST)"
+
+
+.PHONY: validate_schemas
+
+validate_meta_schemas: schemas
+	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/property_definition.json external/json-schema/schema
+	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/physical_unit_definition.json external/json-schema/schema
+
+validate_schemas: schemas validate_meta_schemas
+	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/json-schema/current/optimade.json

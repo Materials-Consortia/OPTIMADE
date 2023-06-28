@@ -1,0 +1,12 @@
+$$inherit: "/json-ld/current/optimade"
+'@context':
+
+  id: "@id"
+  type: "@type"
+
+  data: "@graph"
+  attributes: "@nest"
+
+  structures:
+    '@id': "https://example.org/properties/v1.0.0/entrytypes/optimade/structures"
+    '@context': "https://example.org/json-ld/v1.0.0/entrytypes/optimade/structures.json"

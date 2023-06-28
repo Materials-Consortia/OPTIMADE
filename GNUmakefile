@@ -19,6 +19,15 @@
 # - spell: runs an interactive spellchecker
 #
 #
+# Targets for generating schemas
+################################
+#
+# - schemas: compile YAML-formatted source files for schemas,
+#     including property definitions, units, and constants
+#     in the schemas/src directory into JSON schema format
+#     placed in the output directory: schemas/output
+#
+#
 # Extracting machine-readable parts of the specification
 ########################################################
 #

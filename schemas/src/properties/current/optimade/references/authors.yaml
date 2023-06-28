@@ -1,0 +1,26 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
+$id: "https://schemas.optimade.org/properties/v1.2.0/optimade/references/authors"
+title: "authors"
+x-optimade-type: "list"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "authors"
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of dictionaries with names of the authors.
+
+  **Requirements/Conventions**:
+
+  - Each list member MUST be a dictionary with the following keys:
+
+    - **name**: Full name of the person, REQUIRED.
+    - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.
+items:
+  $$inherit: "/properties/v1.2.0/optimade/common/person"
+examples:
+  - [{"name": "John Smith"}, {"name": "Arthur Dent", "firstname": "Arthur", "lastname": "Dent"}]
+x-optimade-unit: "inapplicable"
