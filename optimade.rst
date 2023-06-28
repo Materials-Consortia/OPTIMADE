@@ -3684,9 +3684,9 @@ The header object MUST contain the keys:
 
   It MUST contain the following key:
 
-  - :field:`"format"`: String.
+  - :field:`"version"`: String.
     Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
-    A client MUST NOT expect to be able to parse the format if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+    A client MUST NOT expect to be able to parse the :field:`version` value if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
 
 - :field:`"layout"`: String.
   A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
@@ -3737,7 +3737,7 @@ The format of data lines of the response (i.e., all lines except the first and t
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
   If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
 
-- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array of the format:
 
   - The first item of the array is the zero-based index of list property item being provided by this line.
   - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
@@ -3766,7 +3766,7 @@ The request returns the first three items and provides the next-marker link to c
 
 .. code:: json
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    {"optimade-partial-data": {"version": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     123
     345
     -12.6
@@ -3779,7 +3779,7 @@ The third provided item (index 14 in the original list) is only partially return
 
 .. code:: json
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    {"optimade-partial-data": {"version": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
     [[10,20,21], [30,40,50]]
     ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
     [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
@@ -3792,7 +3792,7 @@ The response below communicates the first item explicitly; the second one by def
 
 .. code:: json
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    {"optimade-partial-data": {"version": "1.2.0"}, "layout": "sparse"}
     [3,5,19,  [10,20,21,30]]
     [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
@@ -3801,7 +3801,7 @@ An example of the sparse layout for multi-dimensional lists with three aggregate
 
 .. code:: json
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    {"optimade-partial-data": {"version": "1.2.0"}, "layout": "sparse"}
     [3,5,19,  10]
     [30,15,9, 31]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
@@ -3810,7 +3810,7 @@ An example of the sparse layout for multi-dimensional lists with three aggregate
 
 .. code:: json
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    {"optimade-partial-data": {"version": "1.2.0"}, "layout": "sparse"}
     [3,5,19, [ [10,20,21], [30,40,50] ] ]
     [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
     [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
