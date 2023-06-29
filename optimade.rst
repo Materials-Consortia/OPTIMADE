@@ -3079,24 +3079,8 @@ Trajectories Entries
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
   Furthermore, :entry:`trajectories` can optionally have relationships, database-specific fields and all the properties defined for the structures endpoint.
-  If one of these properties does not have a constant value it should be shared as a ranged property, as described in #TODO insert reference to ranged properties section.
+  If one of these properties does not have a constant value it should be shared via the partial data method, as described in section ` Transmission of large property values`_.
   The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"`.
-
-reference_frame
-~~~~~~~~~~~~~~~
-
-- **Description**: The indexes of a set of frames that give a good but brief overview of the trajectory.
-  The first frame could for example be a starting configuration, the second a transition state and the third the final state.
-- **Type**: list of integers
-- **Requirements/Conventions**: The values MUST be larger than 0 and equal or less than nframes.
-
-  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-  - **Query**: Support for queries on this property is OPTIONAL.
-    If supported, filters MAY support only a subset of comparison operators.
-
-- **Examples**:
-
-  - :val:`[0, 397, 1000]`
 
 nframes
 ~~~~~~~
@@ -3122,6 +3106,22 @@ nframes
 - **Examples**:
 
   -   :val:`42`
+
+reference_frame
+~~~~~~~~~~~~~~~
+
+- **Description**: The indexes of a set of frames that give a good but brief overview of the trajectory.
+  The first frame could for example be a starting configuration, the second a transition state and the third the final state.
+- **Type**: list of integers
+- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and e less than nframes.
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+
+- **Examples**:
+
+  - :val:`[0, 397, 1000]`
 
 
 Examples of a returned trajectory
@@ -3173,7 +3173,23 @@ This is an example of the data field of a JSON object that could be returned aft
         "_exmpl_ekin": null
       },
       "meta":{
-        "more_data_available": true,
+        "property_metadata":{
+          "cartesian_site_positions":{
+               "range":{
+                 "range_ids":["frames","particles"],
+                 "indexable_dim": ["frames"],
+                 "data_range": [{
+                     "start": 1,
+                     "step": 1,
+                     "stop": 200,
+                   },{
+                     "start": 1,
+                     "step": 1,
+                     "stop": 3,
+                 }],
+                 "layout":"dense",
+                 "nvalues": 600
+               }
         "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, _exmpl_temperature_set, _exmpl_ekin&property_ranges=",
         "cartesian_site_positions" : {
           "range": {
