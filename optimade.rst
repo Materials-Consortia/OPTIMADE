@@ -1128,30 +1128,6 @@ Standard OPTIONAL URL query parameters not in the JSON:API specification:
   If provided, these fields MUST be returned along with the REQUIRED fields.
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
   Example: :query-url:`http://example.com/optimade/v1/structures?response_fields=last_modified,nsites`
-- **property\_ranges**: A set of slices for partial data properties.
-  This parameter is used to select a subrange of partial data properties so only a part of the data needs to be returned.
-  In general support is OPTIONAL, property definitions may however deviate from this and place stricter requirements on servers.
-  It consists of the name of a dimension directly followed by the requested slice in this dimension.
-  A slice consists of a pair of brackets ("(", ASCII 40(0x28)) and (")", ASCII 41(0x29)) enclosing three integers, which are separated by commas (",", ASCII 91(0x5B))
-  It is defined in the same manner as the `slice object`_.
-  The first integer specifies the first index in that dimension for which values should be returned.
-  The second integer specifies the last index for which values should be returned.
-  The third integer specifies the step size in that dimension.
-  Slices can be specified for multiple dimensions by separating them with a comma.
-  The slices are 0 based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`(10,20,1)` the last value returned belongs to index 20.
-  Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
-
-  If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
-  If a value is not present at a set of the indexes, no value SHOULD be returned.
-  However, when a value is explicitly set to :val:`null` and :val:`null` has a meaning beyond indicating that no value has been defined  :val:`null` MUST be returned.
-  Incase the requested property_range covers more data than the server wants to return the server may choose to return only a part of the data.
-  For each combination of indexes for which data is returned all the values for all requested properties however need to be returned.
-  If the server does not return all the requested data, a link MUST be provided in the :field:`next` field, that applies to an entry as a whole, from which the remainder of the data can be retrieved.
-
-
-
-
-
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
@@ -1241,6 +1217,33 @@ The rules for which properties are to be present for an entry in the response ar
 
 Single Entry URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **property\_ranges**: A set of slices which specify which range of a property should be returned for partial data properties.
+  The property to which this range should be applied can be specified via the :query-param:`response_fields` query parameter.
+  Each slice consists of the name of a dimension directly followed by the requested slice in this dimension.
+  The dimension name and the start, stop and step values of the slice are separated by colons (":", ASCII 58(0x3A))
+  The slice is defined in the same manner as the `slice object`_.
+  If no value is placed between the colons for a component of the slice the default value is used.
+  The first integer specifies the start of the slice, i.e. the first index in that dimension for which values should be returned. The default is the index of the first value.
+  The second integer specifies the end/stop of the slice, i.e. the last index for which values should be returned. The default is the index of the last value of the property.
+  And the third integer specifies the step size in that dimension. The default is :val:`1`
+  Multiple dimensional slices can be defined by specifying a range for each dimension. These ranges are separated by a comma (",", ASCII 44(0x2C)).
+  The slices are 0 based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`:10:20:1` the last value returned belongs to index 20.
+
+  In general support is OPTIONAL, property definitions may however deviate from this and place stricter requirements on servers.
+  Databases must use the methods described in the section `Transmission of large property values`_ to return the requested sub-range of a property.
+Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
+
+  If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
+  If one or more values are not present at one of the requested combination of indexes, the server MAY either decide to return null or if possible adjust the returned range so the indexes for which no value is defined are no longer part of the range.
+  The latter is only allowed when no defined values would be lost.
+  For dense arrays that may mean that the field :field:`returned_range` differs from the requested range.
+  When a value is, however, explicitly set to :val:`null` and :val:`null` has a meaning beyond indicating that no value has been defined  :val:`null` MUST be returned
+
+  Example: In this example the Cartesian site positions are requested for particles 30 through 70 for 1 out of every 10 frames of the first 1000 frames of a trajectory.
+
+:query-url:`http://example.com/optimade/v1/structures/id_12345?response_fields=cartesian_site_positions&property_ranges=frames::1000:10,particles:30:70::`
+
 
 The client MAY provide a set of additional URL query parameters for this endpoint type.
 URL query parameters not recognized MUST be ignored.
