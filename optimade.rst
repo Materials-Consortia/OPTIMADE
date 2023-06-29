@@ -3078,7 +3078,7 @@ Trajectories Entries
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
-  Furthermore, :entry:`trajectories` can optionally have relationships, database specific fields and all the properties defined for the structures endpoint.
+  Furthermore, :entry:`trajectories` can optionally have relationships, database-specific fields and all the properties defined for the structures endpoint.
   If one of these properties does not have a constant value it should be shared as a ranged property, as described in #TODO insert reference to ranged properties section.
   The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"`.
 
