@@ -459,8 +459,8 @@ The default partial data format is named "jsonlines" and is described in the App
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
-If the server supports the :query-param:`property_ranges` query parameter, as described in section `Entry Listing URL Query Parameters`_ additional metadata needs to be present under :field:`property_metadata` field, for each property that is returned in the partial data format.
-This meta data allows clients to request specific subsections of properties.
+If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present in the property specific field under the :field:`property_metadata` field, for each property that is returned in the partial data format.
+This metadata allows clients to request specific subsections of properties.
 
 If the field can be sliced with the :query-param:`property_ranges`, the following fields MUST be defined under :field:`property_metadata`, otherwise implementation is OPTIONAL.
 Except for the `nvalues` field, the queryability of all fields is OPTIONAL.
@@ -468,7 +468,7 @@ Except for the `nvalues` field, the queryability of all fields is OPTIONAL.
 - :field:`range_ids`: List of Strings.
   A list with an identifier for each dimension of the property.
   The outermost dimension of a nested array should come first.
-  
+
   If, within one entry, dimensions for two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
   For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`.
   This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
@@ -519,6 +519,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
                      "stop": 3,
                  }],
                  "layout":"dense",
+                 "nvalues": 600
                }
              }
            },
@@ -1231,8 +1232,8 @@ Single Entry URL Query Parameters
   The slices are 0 based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`:10:20:1` the last value returned belongs to index 20.
 
   In general support is OPTIONAL, property definitions may however deviate from this and place stricter requirements on servers.
-  Databases must use the methods described in the section `Transmission of large property values`_ to return the requested sub-range of a property.
-Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
+  Databases MUST use the methods described in the section `Transmission of large property values`_ to return the requested sub-range of a property.
+  Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
 
   If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
   If one or more values are not present at one of the requested combination of indexes, the server MAY either decide to return null or if possible adjust the returned range so the indexes for which no value is defined are no longer part of the range.
@@ -1242,7 +1243,7 @@ Databases MUST use these ranges for properties where the dimension is listed und
 
   Example: In this example the Cartesian site positions are requested for particles 30 through 70 for 1 out of every 10 frames of the first 1000 frames of a trajectory.
 
-:query-url:`http://example.com/optimade/v1/structures/id_12345?response_fields=cartesian_site_positions&property_ranges=frames::1000:10,particles:30:70::`
+  :query-url:`http://example.com/optimade/v1/structures/id_12345?response_fields=cartesian_site_positions&property_ranges=frames::1000:10,particles:30:70::`
 
 
 The client MAY provide a set of additional URL query parameters for this endpoint type.
