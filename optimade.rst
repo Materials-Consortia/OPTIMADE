@@ -114,8 +114,9 @@ However, automating the retrieval of data is difficult if each database has a di
 This document specifies a standard API for retrieving data from materials databases.
 This API specification has been developed over a series of workshops entitled "Open Databases Integration for Materials Design", held at the Lorentz Center in Leiden, Netherlands and the CECAM headquarters in Lausanne, Switzerland.
 
-The API specification described in this document builds on top of the `JSON API v1.0 specification <http://jsonapi.org/format/1.0>`__.
-In particular, the JSON API specification is assumed to apply wherever it is stricter than what is formulated in this document.
+The API specification described in this document builds on top of the `JSON:API v1.1 specification <https://jsonapi.org/format/1.1/>`__.
+More specifically, it defines specific `implementation semantics <https://jsonapi.org/format/1.1/#semantics>`__ allowed by the JSON:API standard, but which go beyond the restrictions imposed on `JSON:API profiles <https://jsonapi.org/format/1.1/#profile-rules>`__ and `extensions <https://jsonapi.org/format/1.1/#extension-rules>`__.
+The JSON:API specification is assumed to apply wherever it is stricter than what is formulated in this document.
 Exceptions to this rule are stated explicitly (e.g. non-compliant responses are tolerated if a non-standard response format is explicitly requested).
 
 Definition of Terms
@@ -358,11 +359,11 @@ A few suggestions and mandatory requirements of the OPTIMADE specification are s
 - When serving an index meta-database in the form of static files, it is RECOMMENDED that the response excludes the subfields in the top-level :field:`meta` field that would need to be dynamically generated (as described in the section `JSON Response Schema: Common Fields`_.)
   The motivation is that static files cannot keep dynamic fields such as :field:`time_stamp` updated.
 
-- The `JSON API specification <http://jsonapi.org/format/1.0>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
+- The `JSON:API specification <http://jsonapi.org/format/1.1>`__ requirements on content negotiation using the HTTP headers :http-header:`Content-Type` and :http-header:`Accept` are NOT mandatory for index meta-databases.
   Hence, API Implementations MAY ignore the content of these headers and respond to all requests.
   The motivation is that static file hosting is typically not flexible enough to support these requirements on HTTP headers.
 
-- API implementations SHOULD serve JSON content with either the JSON API mandated HTTP header :http-header:`Content-Type: application/vnd.api+json` or :http-header:`Content-Type: application/json`. However, if the hosting platform does not allow this, JSON content MAY be served with :http-header:`Content-Type: text/plain`.
+- API implementations SHOULD serve JSON content with either the JSON:API mandated HTTP header :http-header:`Content-Type: application/vnd.api+json` or :http-header:`Content-Type: application/json`. However, if the hosting platform does not allow this, JSON content MAY be served with :http-header:`Content-Type: text/plain`.
 
 ..
 
@@ -399,7 +400,7 @@ The API implementation MAY describe many-to-many relationships between entries a
 These relationships can be to the same, or to different, entry types.
 Response formats have to encode these relationships in ways appropriate for each format.
 
-In the default response format, relationships are encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__, see section `Entry Listing JSON Response Schema`_.
+In the default response format, relationships are encoded as `JSON:API Relationships <https://jsonapi.org/format/1.1/#document-resource-object-relationships>`__, see section `Entry Listing JSON Response Schema`_.
 
     **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties.
     For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
@@ -442,13 +443,137 @@ For example, the following query can be sent to API implementations `exmpl1` and
 
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
+Transmission of large property values
+-------------------------------------
+
+A property value may be too large to fit in a single response.
+OPTIMADE provides a mechanism for a client to handle such properties by fetching them in separate series of requests.
+It is up to the implementation to decide which values are too large to represent in a single response, and this decision MAY change between responses.
+
+In this case, the response to the initial query gives the value :val:`null` for the property.
+A list of one or more data URLs together with their respective partial data formats are given in the response.
+How this list is provided is response format-dependent.
+For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
+
+The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
+An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
+Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
+
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
+
+.. code:: jsonc
+
+     {
+       // ...
+       "data": {
+         "type": "structures",
+         "id": "2345678",
+         "attributes": {
+             "a": null
+         }
+         "meta": {
+           "partial_data_links": {
+             "a": [
+               {
+                 "format": "jsonlines",
+                 "link": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+               },
+               {
+                 "format": "_exmpl_bzip2_jsonlines",
+                 "link": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+               },
+               {
+                 "format": "_exmpl_hdf5",
+                 "link": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+               }
+             ]
+           }
+         }
+       }
+     // ...
+   }
+
+Metadata properties
+-------------------
+
+A metadata property represents entry and property-specific metadata for a given entry.
+How these are communicated in the response depends on the response format.
+For the JSON response format, the metadata properties are stored in the resource object metadata field, :field:`meta` in a dictionary field :field:`property_metadata` with the keys equal to the names of the respective properties for which metadata is available, see `JSON Response Schema: Common Fields`_.
+
+The format of the metadata property is specified by the field :field:`x-optimade-metadata-definition` in the Property Definition of the field, see `Property Definitions`_.
+Database providers are allowed to define their own metadata properties in :field:`x-optimade-metadata-definition`, but they MUST use the database-provider-specific prefix even for metadata of database-specific fields.
+For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
+The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
+
+Implementation of the :field:`meta` field is OPTIONAL.
+However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all fields present in the data part of the response which has metadata.
+
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
+
+.. code:: jsonc
+     {
+       "data": [
+         {
+           "type": "structures",
+           "id": "example.db:structs:0001",
+           "attributes": {
+             "element_ratios":[0.33336, 0.22229, 0.44425]
+           },
+           "meta": {
+             "property_metadata": {
+               "element_ratios": {
+                 "_exmpl_originates_from_project": "piezoelectic_perovskites"
+               }
+             }
+           }
+         },
+         {
+           "type": "structures",
+           "id": "example.db:structs:1234",
+           "attributes": {
+             "element_ratios":[0.5, 0.5]
+           },
+           "meta": {
+             "property_metadata":{
+               "element_ratios": {
+                 "_exmpl_originates_from_project": "ferroelectric_binaries"
+               }
+             }
+           }
+         }
+         //...
+       ]
+       // ...
+     }
+
+Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
+
+    .. code:: jsonc
+         // ...
+         "x-optimade-metadata-definition": {
+           "title": "Metadata for the element_ratios field",
+           "description": "This field contains the per-entry metadata for the element_ratios field.",
+           "x-optimade-type": "dictionary",
+           "x-optimade-unit": "inapplicable",
+           "type": ["object", "null"],
+           "properties" : {
+             "_exmpl_originates_from_project": {
+               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+               "description" : "A string naming the internal example.com project id where this property was added to the database.",
+               "x-optimade-type": "string",
+               "x-optimade-unit" : "inapplicable"
+             }
+           }
+         }
+         // ...
+
 Responses
 =========
 
 Response Format
 ---------------
 
-This section defines a JSON response format that complies with the `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ specification.
+This section defines a JSON response format that complies with the `JSON:API v1.1 <http://jsonapi.org/format/1.1>`__ specification.
 All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below and MUST respond in this format by default.
 
 Each endpoint MAY support additional formats, and SHOULD declare these formats under the endpoint :endpoint:`/info/<entry type>` (see section `Entry Listing Info Endpoints`_).
@@ -470,7 +595,7 @@ In the JSON response format, property types translate as follows:
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
-- **meta**: a `JSON API meta member <https://jsonapi.org/format/1.0/#document-meta>`__ that contains JSON API meta objects of non-standard meta-information.
+- **meta**: a `JSON:API meta member <https://jsonapi.org/format/1.1/#document-meta>`__ that contains JSON:API meta objects of non-standard meta-information.
   It MUST be a dictionary with these fields:
 
   - **api\_version**: a string containing the full version of the API implementation.
@@ -489,11 +614,6 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   :field:`meta` SHOULD also include these fields:
 
-  - **schema**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ that points to a schema for the response.
-    If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
-    It is possible that future versions of this specification allows for alternative schema types.
-    Hence, if the :field:`meta` field of the JSON API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST not handle failures to parse the schema or to validate the response against the schema as errors.
-
   - **time\_stamp**: a timestamp containing the date and time at which the query was executed.
   - **data\_returned**: an integer containing the total number of data resource objects returned for the current :query-param:`filter` query, independent of pagination.
   - **provider**: information on the database provider of the implementation.
@@ -505,7 +625,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
     :field:`provider` MAY include these fields:
 
-    - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the database provider, either directly as a string, or as a link object which can contain the following fields:
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__, pointing to the homepage of the database provider, either directly as a string, or as an object which can contain the following fields:
 
       - **href**: a string containing the homepage URL.
       - **meta**: a meta object containing non-standard meta-information about the database provider's homepage.
@@ -519,20 +639,34 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
 
+  - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
+    If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
+    The dictionary can contain the following OPTIONAL fields:
+
+    - **id**: the identifier of this database within those served by this provider, i.e., the ID under which this database is served in this provider's index meta-database.
+    - **name**: a human-readable name for the database, e.g., for use in clients.
+    - **version**: a string describing the version of the database.
+    - **description**: a human-readable description of the database, e.g., for use in clients.
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage for the particular database.
+    - **maintainer**: a dictionary providing details about the maintainer of the database, which MUST contain the single field:
+
+      - **email** with the maintainer's email address.
+
   - **implementation**: a dictionary describing the server implementation, containing the OPTIONAL fields:
 
     - **name**: name of the implementation.
     - **version**: version string of the current implementation.
-    - **homepage**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the homepage of the implementation.
-    - **source\_url**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation source, either downloadable archive or version control system.
+    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__, pointing to the homepage of the implementation.
+    - **source\_url**: a `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__ pointing to the implementation source, either downloadable archive or version control system.
+
     - **maintainer**: a dictionary providing details about the maintainer of the implementation, MUST contain the single field:
 
       - **email** with the maintainer's email address.
 
-    - **issue\_tracker**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ pointing to the implementation's issue tracker.
+    - **issue\_tracker**: a `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__ pointing to the implementation's issue tracker.
 
   - **warnings**: a list of warning resource objects representing non-critical errors or warnings.
-    A warning resource object is defined similarly to a `JSON API error object <http://jsonapi.org/format/1.0/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
+    A warning resource object is defined similarly to a `JSON:API error object <http://jsonapi.org/format/1.1/#error-objects>`__, but MUST also include the field :field:`type`, which MUST have the value :field-val:`"warning"`.
     The field :field:`detail` MUST be present and SHOULD contain a non-critical message, e.g., reporting unrecognized search attributes or deprecated features.
     The field :field:`status`, representing an HTTP response status code, MUST NOT be present for a warning resource object.
     This is an exclusive field for error resource objects.
@@ -585,17 +719,53 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
                "email": "admin@example.com"
              },
              "issue_tracker": "http://tracker.example.com/exmpl-optimade"
+           },
+           "database": {
+             "id": "example_db",
+             "name": "Example database 1 (of many)",
+             "description": "The first example database in a series hosted by the Example Provider.",
+             "homepage": "http://database_one.example.com",
+             "maintainer": {
+               "email": "science_lead@example.com"
+             }
            }
          }
          // ...
        }
 
-- **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON API resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__ or a *list* of JSON API resource objects.
+  - **schema**: a `JSON:API links object <http://jsonapi.org/format/1.1/#document-links>`__ that points to a schema for the response.
+    If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
+    It is possible that future versions of this specification allow for alternative schema types.
+    Hence, if the :field:`meta` field of the JSON:API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST NOT handle failures to parse the schema or to validate the response against the schema as errors.
+      **Note**: The :field:`schema` field was previously RECOMMENDED in all responses, but is now demoted to being OPTIONAL since there now is a standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
+
+- **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON:API resource object <http://jsonapi.org/format/1.1/#document-resource-objects>`__ or a *list* of JSON:API resource objects.
   Every resource object needs the :field:`type` and :field:`id` fields, and its attributes (described in section `API Endpoints`_) need to be in a dictionary corresponding to the :field:`attributes` field.
+
+  Every resource object MAY also contain a :field:`meta` field which MAY contain the following keys:
+
+  - **property_metadata**: an object containing per-entry and per-property metadata.
+    The keys are the names of the fields in :field:`attributes` for which metadata is available.
+    The values belonging to these keys are dictionaries containing the relevant metadata fields.
+    See also `Metadata properties`_
+
+  - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
+    The keys are the names of the fields in :field:`attributes` for which partial data links are available.
+    Each value is a list of items that MUST have the following keys:
+
+    - **format**: String.
+      A name of the format provided via this link.
+      One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+
+    - **link**: String.
+      A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
+      There is no requirement on the syntax or format for the link URL.
+
+    For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_links`, see `Transmission of large property values`_.
 
 The response MAY also return resources related to the primary data in the field:
 
-- **links**: `JSON API links <http://jsonapi.org/format/1.0/#document-links>`__ is REQUIRED for implementing pagination.
+- **links**: a `JSON API links object <http://jsonapi.org/format/1.1/#document-links>`__ is REQUIRED for implementing pagination.
   (see section `Entry Listing URL Query Parameters`_.)
   Each field of a links object, i.e., a "link", MUST be one of:
 
@@ -625,6 +795,14 @@ The response MAY also return resources related to the primary data in the field:
         // ...
       }
 
+  The :field:`links` field SHOULD include the following links objects:
+
+  - **describedby**: a links object giving the URL for a schema that describes the response.
+    The URL SHOULD resolve into a JSON formatted response returning a JSON object with top level :field:`$schema` and/or :field:`$id` fields that can be used by the client to identify the schema format.
+
+      **Note**: This field is the standard facility in JSON:API to communicate a response schema.
+    It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
+
   The following fields are REQUIRED for implementing pagination:
 
   - **next**: represents a link to fetch the next set of results.
@@ -637,10 +815,14 @@ The response MAY also return resources related to the primary data in the field:
   - **last**: the last page of data.
   - **first**: the first page of data.
 
-- **included**: a list of `JSON API resource objects <http://jsonapi.org/format/1.0/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
-  Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ in the JSON API.
+  Finally, the :field:`links` field MAY also include the following links object:
 
-  The definition of this field is found in the `JSON API specification <http://jsonapi.org/format/1.0/#fetching-includes>`__.
+  - **self**: a links object giving the URL from which the response was obtained.
+
+- **included**: a list of `JSON:API resource objects <http://jsonapi.org/format/1.1/#document-resource-objects>`__ related to the primary data contained in :field:`data`.
+  Responses that contain related resources under :field:`included` are known as `compound documents <https://jsonapi.org/format/1.1/#document-compound-documents>`__ in the JSON:API.
+
+  The definition of this field is found in the `JSON:API specification <http://jsonapi.org/format/1.1/#fetching-includes>`__.
   Specifically, if the query parameter :query-param:`include` is included in the request, :field:`included` MUST NOT include unrequested resource objects.
   For further information on the parameter :query-param:`include`, see section `Entry Listing URL Query Parameters`_.
 
@@ -648,7 +830,7 @@ The response MAY also return resources related to the primary data in the field:
 
 If there were errors in producing the response all other fields MAY be present, but the top-level :field:`data` field MUST be skipped, and the following field MUST be present:
 
-- **errors**: a list of `JSON API error objects <http://jsonapi.org/format/1.0/#error-objects>`__, where the field :field:`detail` MUST be present.
+- **errors**: a list of `JSON:API error objects <http://jsonapi.org/format/1.1/#error-objects>`__, where the field :field:`detail` MUST be present.
   All other fields are OPTIONAL.
 
 An example of a full response:
@@ -697,13 +879,28 @@ An example of a full response:
        ]
      }
 
+- **@context**: A JSON-LD context that enables interpretation of data in the response as linked data.
+  If provided, it SHOULD be one of the following:
+  - An object conforming to a JSON-LD standard, which includes a :field:`@version` field specifying the version of the standard.
+  - A string containing a URL that resolves to such an object.
+
+- **jsonapi**: A `JSON:API object <https://jsonapi.org/format/1.1/#document-jsonapi-object>`__.
+  The :field:`version` subfield SHOULD be :field-val:`"1.1"`.
+  The :field:`meta` subfield SHOULD be included and contain the following subfields:
+
+  - **api**: A string with the value "OPTIMADE".
+  - **api-version**: A string with the full version of the OPTIMADE standard that the processing and response adheres to.
+    This MAY be the version indicated at the top of this document, but MAY also be another version if the client, e.g., has used the query parameter :query-param:`api_hint` to request processing according to another version.
+
+  If the server is able to handle serialization in such a way that it can dictate the order of the top level object members in the response, it is RECOMMENDED to put the :field:`jsonapi` as the first top level member to simplify identification of the response.
+
 HTTP Response Status Codes
 --------------------------
 
 All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
 The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
 
-See also the JSON API definitions of responses when `fetching <https://jsonapi.org/format/1.0/#fetching>`__ data, i.e., sending an HTTP GET request.
+See also the JSON:API definitions of responses when `fetching <https://jsonapi.org/format/1.1/#fetching>`__ data, i.e., sending an HTTP GET request.
 
 **Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section `Index Meta-Database`_), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
 
@@ -814,14 +1011,14 @@ Entry Listing URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The client MAY provide a set of URL query parameters in order to alter the response and provide usage information. While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
-To adhere to the requirement on implementation-specific URL query parameters of `JSON API v1.0 <http://jsonapi.org/format/1.0>`__, query parameters that are not standardized by that specification have been given names that consist of at least two words separated by an underscore (a LOW LINE character '\_').
+To adhere to the requirement on implementation-specific URL query parameters of `JSON:API v1.1 <http://jsonapi.org/format/1.1>`__, query parameters that are not standardized by that specification have been given names that consist of at least two words separated by an underscore (a LOW LINE character '\_').
 
-Standard OPTIONAL URL query parameters standardized by the JSON API specification:
+Standard OPTIONAL URL query parameters standardized by the JSON:API specification:
 
 - **filter**: a filter string, in the format described below in section `API Filtering Format Specification`_.
 
 - **page\_limit**: sets a numerical limit on the number of entries returned.
-  See `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-pagination>`__.
+  See `JSON:API 1.1 <https://jsonapi.org/format/1.1/#fetching-pagination>`__.
   The API implementation MUST return no more than the number specified.
   It MAY return fewer.
   The database MAY have a maximum limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned).
@@ -844,22 +1041,22 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
   - fetch page 2 of up to 50 structures per page: :query-url:`/structures?page_number=2&page_limit=50`.
   - fetch up to 100 structures above sort-field value 4000 (in this example, server chooses to fetch results sorted by increasing :field:`id`, so :field:`page_above` value refers to an :field:`id` value): :query-url:`/structures?page_above=4000&page_limit=100`.
 
-- **sort**: If supporting sortable queries, an implementation MUST use the :query-param:`sort` query parameter with format as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-sorting>`__.
+- **sort**: If supporting sortable queries, an implementation MUST use the :query-param:`sort` query parameter with format as specified by `JSON:API 1.1 <https://jsonapi.org/format/1.1/#fetching-sorting>`__.
 
   An implementation MAY support multiple sort fields for a single query.
-  If it does, it again MUST conform to the JSON API 1.0 specification.
+  If it does, it again MUST conform to the JSON:API 1.1 specification.
 
   If an implementation supports sorting for an `entry listing endpoint <Entry Listing Endpoints_>`_, then the :endpoint:`/info/<entries>` endpoint MUST include, for each field name :field:`<fieldname>` in its :field:`data.properties.<fieldname>` response value that can be used for sorting, the key :field:`sortable` with value :field-val:`true`.
   If a field name under an entry listing endpoint supporting sorting cannot be used for sorting, the server MUST either leave out the :field:`sortable` key or set it equal to :field-val:`false` for the specific field name.
-  The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON API 1.0 specification.
+  The set of field names, with :field:`sortable` equal to :field-val:`true` are allowed to be used in the "sort fields" list according to its definition in the JSON:API 1.1 specification.
   The field :field:`sortable` is in addition to each property description and other OPTIONAL fields.
   An example is shown in section `Entry Listing Info Endpoints`_.
 
-- **include**: A server MAY implement the JSON API concept of returning `compound documents <https://jsonapi.org/format/1.0/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON API 1.0 <https://jsonapi.org/format/1.0/#fetching-includes>`__.
+- **include**: A server MAY implement the JSON:API concept of returning `compound documents <https://jsonapi.org/format/1.1/#document-compound-documents>`__ by utilizing the :query-param:`include` query parameter as specified by `JSON:API 1.0 <https://jsonapi.org/format/1.1/#fetching-includes>`__.
 
   All related resource objects MUST be returned as part of an array value for the top-level :field:`included` field, see section `JSON Response Schema: Common Fields`_.
 
-  The value of :query-param:`include` MUST be a comma-separated list of "relationship paths", as defined in the `JSON API <https://jsonapi.org/format/1.0/#fetching-includes>`__.
+  The value of :query-param:`include` MUST be a comma-separated list of "relationship paths", as defined in the `JSON:API <https://jsonapi.org/format/1.1/#fetching-includes>`__.
   If relationship paths are not supported, or a server is unable to identify a relationship path a :http-error:`400 Bad Request` response MUST be made.
 
   The **default value** for :query-param:`include` is :query-val:`references`.
@@ -868,7 +1065,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON API specificatio
 
     **Note**: A query with the parameter :query-param:`include` set to the empty string means no related resource objects are to be returned under the top-level field :field:`included`.
 
-Standard OPTIONAL URL query parameters not in the JSON API specification:
+Standard OPTIONAL URL query parameters not in the JSON:API specification:
 
 - **response\_format**: the output format requested (see section `Response Format`_).
   Defaults to the format string 'json', which specifies the standard output format described in this specification.
@@ -883,7 +1080,7 @@ Standard OPTIONAL URL query parameters not in the JSON API specification:
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
-These names adhere to the requirements on implementation-specific query parameters of `JSON API v1.0 <http://jsonapi.org/format/1.0>`__ since the database-provider-specific prefixes contain at least two underscores (a LOW LINE character '\_').
+These names adhere to the requirements on implementation-specific query parameters of `JSON:API v1.1 <http://jsonapi.org/format/1.1>`__ since the database-provider-specific prefixes contain at least two underscores (a LOW LINE character '\_').
 
 Example uses of custom URL query parameters include providing an access token for the request, to tell the database to increase verbosity in error output, or providing a database-specific extended searching format.
 
@@ -901,7 +1098,7 @@ Entry Listing JSON Response Schema
 
 "Entry listing" endpoint response dictionaries MUST have a :field:`data` key.
 The value of this key MUST be a list containing dictionaries that represent individual entries.
-In the default JSON response format every dictionary (`resource object <http://jsonapi.org/format/1.0/#document-resource-objects>`__) MUST have the following fields:
+In the default JSON response format every dictionary (`resource object <http://jsonapi.org/format/1.1/#document-resource-objects>`__) MUST have the following fields:
 
 - **type**: field containing the Entry type as defined in section `Definition of Terms`_
 - **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
@@ -911,15 +1108,16 @@ In the default JSON response format every dictionary (`resource object <http://j
 
 OPTIONALLY it can also contain the following fields:
 
-- **links**: a `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ can OPTIONALLY contain the field
+- **links**: a `JSON:API links object <http://jsonapi.org/format/1.1/#document-links>`__ can OPTIONALLY contain the field
 
   - **self**: the entry's URL
 
-- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.0/#document-meta>`__ that contains non-standard meta-information about the object.
+- **meta**: a `JSON API meta object <https://jsonapi.org/format/1.1/#document-meta>`__ that is used to communicate metadata.
+  See `JSON Response Schema: Common Fields`_ for more information about this field.
 
-- **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON API Relationships <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON API resource identifier object.
-  All relationships to entries of the same entry type MUST be grouped into the same JSON API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
+- **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON:API Relationships <https://jsonapi.org/format/1.1/#document-resource-object-relationships>`__.
+  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON:API resource identifier object.
+  All relationships to entries of the same entry type MUST be grouped into the same JSON:API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
 
 Example:
 
@@ -1045,7 +1243,8 @@ The single resource object's response dictionary MUST include the following fiel
   - **formats**: List of available output formats.
   - **entry\_types\_by\_format**: Available entry endpoints as a function of output formats.
   - **available\_endpoints**: List of available endpoints (i.e., the string to be appended to the versioned or unversioned base URL serving the API).
-  - **license**: A `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__ giving a URL to a web page containing a human-readable text describing the license (or licensing options if there are multiple) covering all the data and metadata provided by this database.
+  - **license**: A `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__ giving a URL to a web page containing a human-readable text describing the license (or licensing options if there are multiple) covering all the data and metadata provided by this database.
+
     Clients are advised not to try automated parsing of this link or its content, but rather rely on the field :field:`available_licenses` instead.
     Example: :field-val:`https://example.com/licenses/example_license.html`.
 
@@ -1061,15 +1260,16 @@ The single resource object's response dictionary MUST include the following fiel
     If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database that the data and metadata is available, without exceptions, under the respective licenses.
     If the database cannot make that commitment, e.g., if only part of the data is available under a license, the corresponding license identifier MUST NOT appear in :field:`available_licenses` (but, rather, the field :field:`license` is to be used to clarify the licensing situation.)
     An empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field :field:`license`.
+
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
-- **relationships**: Dictionary that MAY contain a single `JSON API relationships object <https://jsonapi.org/format/1.0/#document-resource-object-relationships>`__:
+- **relationships**: Dictionary that MAY contain a single `JSON:API relationships object <https://jsonapi.org/format/1.1/#document-resource-object-relationships>`__:
 
   - **default**: Reference to the links identifier object under the :endpoint:`links` endpoint that the provider has chosen as their "default" OPTIMADE API database.
     A client SHOULD present this database as the first choice when an end-user chooses this provider.
     This MUST include the field:
 
-    - **data**: `JSON API resource linkage <http://jsonapi.org/format/1.0/#document-links>`__.
+    - **data**: `JSON:API resource linkage <http://jsonapi.org/format/1.1/#document-links>`__.
       It MUST be either :field-val:`null` or contain a single links identifier object with the fields:
 
       - **type**: :field-val:`links`
@@ -1167,12 +1367,17 @@ Entry Listing Info Endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Entry listing info endpoints are accessed under the versioned or unversioned base URL serving the API as :endpoint:`/info/<entry_type>` (e.g., http://example.com/optimade/v1/info/structures or http://example.com/optimade/info/structures).
+They return information related to the specific entry types served by the API.
 The response for these endpoints MUST include the following information in the :field:`data` field:
 
+- **type**: :field-val:`"info"`.
+- **id**: This MUST precisely match the entry type name, e.g., :field-val:`"structures"` for the :endpoint:`/info/structures`.
 - **description**: Description of the entry.
 - **properties**: A dictionary describing properties for this entry type, where each key is a property name and the value is an OPTIMADE Property Definition described in detail in the section `Property Definitions`_.
-- **formats**: List of output formats available for this type of entry.
+- **formats**: List of output formats available for this type of entry (see section `Response Format`_)
 - **output\_fields\_by\_format**: Dictionary of available output fields for this entry type, where the keys are the values of the :field:`formats` list and the values are the keys of the :field:`properties` dictionary.
+
+    **Note**: Future versions of the OPTIMADE API will deprecate this format and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
 
 Example (note: the description strings have been wrapped for readability only):
 
@@ -1180,6 +1385,8 @@ Example (note: the description strings have been wrapped for readability only):
 
     {
       "data": {
+        "type": "info",
+        "id": "structures",
         "description": "a structures entry",
         "properties": {
           "nelements": {
@@ -1324,12 +1531,13 @@ The resource objects' response dictionaries MUST include the following fields:
 
   - **name**: Human-readable name for the OPTIMADE API implementation, e.g., for use in clients to show the name to the end-user.
   - **description**: Human-readable description for the OPTIMADE API implementation, e.g., for use in clients to show a description to the end-user.
-  - **base\_url**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to the base URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+  - **base\_url**: `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__, pointing to the base URL for this implementation, either directly as a string, or as an object, which can contain the following fields:
+
 
     - **href**: a string containing the OPTIMADE base URL.
     - **meta**: a meta object containing non-standard meta-information about the implementation.
 
-  - **homepage**: `JSON API links object <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as a links object, which can contain the following fields:
+  - **homepage**: a `JSON API link <http://jsonapi.org/format/1.1/#document-links>`__, pointing to a homepage URL for this implementation, either directly as a string, or as an object, which can contain the following fields:
 
     - **href**: a string containing the implementation homepage URL.
     - **meta**: a meta object containing non-standard meta-information about the homepage.
@@ -1494,7 +1702,7 @@ The API implementation is free to define roles of further URL path segments unde
 API Filtering Format Specification
 ==================================
 
-An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as a URL query parameter as `specified by JSON API <https://jsonapi.org/format/1.0/#fetching-filtering>`__.
+An OPTIMADE filter expression is passed in the parameter :query-param:`filter` as a URL query parameter as `specified by JSON:API <https://jsonapi.org/format/1.1/#fetching-filtering>`__.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.
 
 All properties marked as REQUIRED in section `Entry list`_ MUST be queryable with all mandatory filter features.
@@ -1758,9 +1966,9 @@ For a specific structures entry, the nested property behaves as the list :filter
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
     **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
-    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmit" is performed by the following two steps:
+    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
 
-    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmit"` and store the :filter-fragment:`id` values of the returned entries.
+    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
     - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
     (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
@@ -2706,8 +2914,8 @@ species
       Elements denoting vacancies MUST have masses equal to 0.
     - **original\_name**: OPTIONAL. Can be any valid Unicode string, and SHOULD contain (if specified) the name of the species that is used internally in the source database.
 
-          **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
-          The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
+    **Note**: With regard to "source database", we refer to the immediate source being queried via the OPTIMADE API implementation.
+    The main use of this field is for source databases that use species names, containing characters that are not allowed (see description of the list property `species_at_sites`_).
 
   - For systems that have only species formed by a single chemical symbol, and that have at most one species per chemical symbol, SHOULD use the chemical symbol as species name (e.g., :val:`"Ti"` for titanium, :val:`"O"` for oxygen, etc.)
     However, note that this is OPTIONAL, and client implementations MUST NOT assume that the key corresponds to a chemical symbol, nor assume that if the species name is a valid chemical symbol, that it represents a species with that chemical symbol.
@@ -3430,7 +3638,7 @@ It relates an entry with any number of :entry:`references` entries.
 
 If the response format supports inclusion of entries of a different type in the response, then the response SHOULD include all references-type entries mentioned in the response.
 
-For example, for the JSON response format, the top-level :field:`included` field SHOULD be used as per the `JSON API 1.0 specification <https://jsonapi.org/format/1.0/#fetching-includes>`__:
+For example, for the JSON response format, the top-level :field:`included` field SHOULD be used as per the `JSON:API 1.1 specification <https://jsonapi.org/format/1.1/#fetching-includes>`__:
 
 .. code:: jsonc
 
@@ -3754,3 +3962,189 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE strings
     "([^\"]|\\.)*"
     #END ERE strings
+
+OPTIMADE JSON lines partial data format
+---------------------------------------
+The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
+The format is based on `JSON Lines <https://jsonlines.org/>`__, which enables streaming of JSON data.
+Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., "array" and "object" and for OPTIMADE properties they are, e.g., "list" and "dictionary".
+
+.. _slice object:
+
+To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of arrays.
+The dictionary has the following OPTIONAL fields:
+
+- :field:`"start"`: Integer.
+  The slice starts at the value with the given index (inclusive).
+  The default is 0, i.e., the value at the start of the array.
+- :field:`"stop"`: Integer.
+  The slice ends at the value with the given index (inclusive).
+  If omitted, the end of the slice is the last index of the array.
+- :field:`"step"`: Integer.
+  The absolute difference in index between two subsequent values that are included in the slice.
+  The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
+  Hence, a value of 2 denotes a slice of every second value in the array.
+
+For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
+
+Furthermore, we also define the following special markers:
+
+- The *end-of-data-marker* is this exact JSON: :val:`["PARTIAL-DATA-END", [""]]`.
+- A *reference-marker* is this exact JSON: :val:`["PARTIAL-DATA-REF", ["<url>"]]`, where :val:`"<url>"` is to be replaced with a URL being referenced.
+  A reference-marker MUST only occur in a place where the property being communicated could have an embedded list.
+- A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
+
+There is no requirement on the syntax or format of the URLs provided in these markers.
+When data is fetched from these URLs the response MUST use the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
+Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
+
+  **Implementation note:** the recognizable string values for the markers should make it possible to prescreen the raw text of the JSON data lines for the reference-marker string to determine which are the lines that one can exclude from further processing to resolve references (alternatively, this screening can be done by the string parser used by the JSON parser).
+  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
+  Hence, the most relevant optimization is to avoid spending time processing data structures to find markers for lines where there are none.
+
+The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
+
+- The first line is a header object (defined below).
+- The following lines are data lines adhering to the formats described below.
+- The final line is either an end-of-data-marker (indicating that there is no more data to be given), or a next-marker indicating that more data is available, which can be obtained by retrieving data from the provided URL.
+
+The first line MUST be a JSON object providing header information.
+The header object MUST contain the keys:
+
+- :field:`"optimade-partial-data"`: Object.
+  An object identifying the response as being on OPTIMADE partial data format.
+
+  It MUST contain the following key:
+
+  - :field:`"format"`: String.
+    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
+    A client MUST NOT expect to be able to parse the format if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+
+- :field:`"layout"`: String.
+  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
+
+The following key is RECOMMENDED in the header object:
+
+- :field:`"returned_ranges"`: Array of Object.
+  For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+
+The header object MAY also contain the keys:
+
+- :field:`"property_name"`: String.
+  The name of the property being provided.
+
+- :field:`"entry"`: Object.
+  An object that MUST have the following two keys:
+
+  - :field:`"id"`: String.
+    The id of the entry of the property being provided.
+
+  - :field:`"type"`: String.
+    The type of the entry of the property being provided.
+
+- :field:`"has_references"`: Boolean.
+  An optional boolean to indicate whether any of the data lines in the response contains a reference marker.
+  A value of :val:`false` means that the client does not have to process any of the lines to detect reference markers, which may speed up the parsing.
+
+- :field:`"item_schema"`: Object.
+  An object that represents a JSON Schema that validates the data lines of the response.
+  The format SHOULD be the relevant partial extract of a valid property definition as described in `Property Definitions`_.
+  If a schema is provided, it MUST be a valid JSON schema using the same version of JSON schema as described in that section.
+
+- :field:`"links"`: Object.
+  An object to provide relevant links for the property being provided.
+  It MAY contain the following key:
+
+  - :field:`"base_url"`: String.
+    The base URL of the implementation serving the database to which this property belongs.
+
+  - :field:`"item_describedby"`: String.
+    A URL to an external JSON Schema that validates the data lines of the response.
+    The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
+The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
+
+- **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+  If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
+  If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
+  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+
+- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+
+  - The first item of the array is the zero-based index of list property item being provided by this line.
+  - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
+
+- **Sparse layout for multi-dimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+  In this case, each data line contains a JSON array of the format:
+
+  - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
+  - The last item of the array is the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
+    In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
+
+If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retrieving another partial data response from the provided URL.
+If the final line is an end-of-data-marker, any data not covered by any of the responses are to be assigned the value :val:`null`.
+
+If :field:`"returned_ranges"` is included in the response and the client encounters a next-marker before receiving all lines indicated by the slice, it should proceed by not assigning any values to the corresponding items, i.e., this is not an error.
+Since the remaining values are not assigned a value, they will be :val:`null` if they are not assigned values by another response retrieved via a next link encountered before the final end-of-data-marker.
+(Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
+In that case the values shall remain as assigned, i.e., they are not overwritten by :val:`null` in this situation.)
+
+Examples
+~~~~~~~~
+
+Below follows an example of a dense response for a partial array data of integer values.
+The request returns the first three items and provides the next-marker link to continue fetching data:
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    123
+    345
+    -12.6
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
+
+Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
+The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
+The item with index 12 in the list, the second data item provided since start=10 and step=2, is not included only referenced.
+The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+    [[10,20,21], [30,40,50]]
+    ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
+    [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
+
+Below follows an example of the sparse layout for multi-dimensional lists with three aggregated dimensions.
+The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of arbitrary length of numbers.
+The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
+The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    [3,5,19,  [10,20,21,30]]
+    [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
+
+An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and integer values:
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    [3,5,19,  10]
+    [30,15,9, 31]
+    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
+
+An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+
+.. code:: json
+
+    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+    [3,5,19, [ [10,20,21], [30,40,50] ] ]
+    [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
+    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
+    ["PARTIAL-DATA-END", [""]]
