@@ -459,37 +459,38 @@ The default partial data format is named "jsonlines" and is described in the App
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
-If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present in the property specific field under the :field:`property_metadata` field, for each property that is returned in the partial data format.
-This metadata allows clients to request specific subsections of properties.
+If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present for each field that is returned via the partial data mechanism.
+The client needs this metadata to be able to select only a part of the data of a property.
+This metadata is stored in a dictionary in the field :field:`range` which is stored as per property metadata as described in section `Metadata properties`_
 
-If the field can be sliced with the :query-param:`property_ranges`, the following fields MUST be defined under :field:`property_metadata`, otherwise implementation is OPTIONAL.
-Except for the `nvalues` field, the queryability of all fields is OPTIONAL.
+- :field:`range`: Dictionary
+ A dictionary that contains the data necessary for the client to select only a sub_range of a property.
+ If the property_ranges query parameter is supported for this property the following keys MUST be present.
+ Otherwise these keys are optional.
 
-- :field:`range_ids`: List of Strings.
-  A list with an identifier for each dimension of the property.
-  The outermost dimension of a nested array should come first.
+  - :field:`range_ids`: List of Strings.
+    A list with an identifier for each dimension of the property.
+    The outermost dimension of a nested array should come first.
 
-  If, within one entry, dimensions for two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
-  For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`.
-  This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
+    If, within one entry, dimensions for two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
+    For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`.
+    This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
 
-- :field:`indexable_dim`: List of Strings.
-  The list of range_ids of the dimensions for which slicing is supported, i.e. the client can request a subrange in this dimension via the :query-param:`property_ranges` query parameter.
+  - :field:`indexable_dim`: List of Strings.
+    The list of range_ids of the dimensions for which slicing is supported, i.e. the client can request a subrange in this dimension via the :query-param:`property_ranges` query parameter.
 
-- :field:`"layout"`: String.
-  A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
+  - :field:`"layout"`: String.
+    A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
 
-- :field:`data_range`: List of Slice Objects.
-  This field describes how the values are distributed in the different dimensions.
-  It consists of a slice object for each dimension of the property.
-  The order of the slice objects must be the same as in the :field:`range_ids` field.
-  If the :field:`layout` field is set to :val:`"sparse"` the value of the :field:`step` sub-field has no meaning.
+  - :field:`data_range`: List of Slice Objects.
+    This field describes how the values are distributed in the different dimensions.
+    It consists of a slice object for each dimension of the property.
+    The order of the slice objects must be the same as in the :field:`range_ids` field.
+    If the :field:`layout` field is set to :val:`"sparse"` the value of the :field:`step` sub-field has no meaning.
 
-- :field:`nvalues`: Integer.
-  The total number of values in the property.
-  SHOULD be a queryable property with support for all mandatory filter features.
-
-
+  - :field:`nvalues`: Integer.
+    The total number of values in the property.
+    SHOULD be a queryable property with support for all mandatory filter features.
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format. It communicates that the property value has been omitted from the response and includes three different links for different partial data formats provided and metadata that makes it possible to only request only a part of the data for this property.
 
