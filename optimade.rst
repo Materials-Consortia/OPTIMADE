@@ -1226,10 +1226,14 @@ Single Entry URL Query Parameters
   The dimension name and the start, stop and step values of the slice are separated by colons (":", ASCII 58(0x3A))
   The slice is defined in the same manner as the `slice object`_.
   If no value is placed between the colons for a component of the slice the default value is used.
-  The first integer specifies the start of the slice, i.e. the first index in that dimension for which values should be returned. The default is the index of the first value.
-  The second integer specifies the end/stop of the slice, i.e. the last index for which values should be returned. The default is the index of the last value of the property.
-  And the third integer specifies the step size in that dimension. The default is :val:`1`
-  Multiple dimensional slices can be defined by specifying a range for each dimension. These ranges are separated by a comma (",", ASCII 44(0x2C)).
+  The first integer specifies the start of the slice, i.e. the first index in that dimension for which values should be returned.
+  The default is the index of the first value.
+  The second integer specifies the end/stop of the slice, i.e. the last index for which values should be returned.
+  The default is the index of the last value of the property.
+  And the third integer specifies the step size in that dimension.
+  The default is :val:`1`
+  Multiple dimensional slices can be defined by specifying a range for each dimension.
+  These ranges are separated by a comma (",", ASCII 44(0x2C)).
   The slices are 0 based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`:10:20:1` the last value returned belongs to index 20.
 
   In general support is OPTIONAL, property definitions may however deviate from this and place stricter requirements on servers.
