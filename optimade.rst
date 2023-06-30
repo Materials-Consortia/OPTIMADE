@@ -3706,7 +3706,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     #BEGIN ERE identifiers
     [a-z_][a-z_0-9]*
     #END ERE identifiers
-==
+
     #BEGIN ERE numbers
     [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)?
     #END ERE numbers
@@ -3736,7 +3736,6 @@ The dictionary has the following OPTIONAL fields:
   The absolute difference in index between two subsequent values that are included in the slice.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the array.
-
 
 For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
