@@ -492,7 +492,8 @@ This metadata is stored in a dictionary in the field :field:`range` which is sto
     The total number of values in the property.
     SHOULD be a queryable property with support for all mandatory filter features.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format. It communicates that the property value has been omitted from the response and includes three different links for different partial data formats provided and metadata that makes it possible to only request only a part of the data for this property.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format.
+It communicates that the property value has been omitted from the response and includes three different links for different partial data formats provided and metadata that makes it possible to request only a part of the data for this property.
 
 .. code:: jsonc
 
