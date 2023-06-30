@@ -2897,9 +2897,9 @@ space\_group\_symbol\_hermann\_mauguin\_extended
 
 - **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin\_extended' definitions**
 
-IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
+  IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
-IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
+  IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
 
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
