@@ -2904,7 +2904,7 @@ IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmet
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A. (IUCr, 2005)
+- **Description**: Space group number which specifies the space group of the structure as defined in the International Tables for Crystallography Vol. A. (IUCr, 2005).
 - **Type**: integer
 - **Requirements/Conventions**:
 
