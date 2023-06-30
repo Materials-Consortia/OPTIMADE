@@ -3078,8 +3078,10 @@ Trajectories Entries
 
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
-  Furthermore, :entry:`trajectories` can optionally have relationships, database-specific fields and all the properties defined for the structures endpoint.
-  If one of these properties does not have a constant value it should be shared via the partial data method, as described in section ` Transmission of large property values`_.
+  Furthermore, :entry:`trajectories` can optionally have relationships and database-specific fields.
+  The properties defined for the structures endpoint can also be used for trajectories.
+  In this case the values of these properties are however lists of whatever type has been defined for the original structures property.
+  This allows these properties to change during the trajectory.
   The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"`.
 
 nframes
@@ -3110,7 +3112,7 @@ nframes
 reference_frame
 ~~~~~~~~~~~~~~~
 
-- **Description**: The indexes of a set of frames that give a good but brief overview of the trajectory.
+- **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
   The first frame could for example be a starting configuration, the second a transition state and the third the final state.
 - **Type**: list of integers
 - **Requirements/Conventions**: The values MUST be larger than or equal to 0 and e less than nframes.
@@ -3138,19 +3140,19 @@ This is an example of the data field of a JSON object that could be returned aft
       "type": "trajectories",
       "attributes": {
         "last_modified":"2021-07-16T18:02:03Z",
-        "elements": ["H","O"],
-        "nelements": 2,
-        "elements_ratios": [0.666667,0.333333],
-        "chemical_formula_descriptive": "H2O",
-        "chemical_formula_reduced": "H2O",
-        "chemical_formula_anonymous": "A2B",
-        "dimension_types":[0,0,0],
-        "nperiodic_dimensions": 0,
-        "lattice_vectors" : [[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]],
+        "elements": [["H","O"]],
+        "nelements": [2],
+        "elements_ratios": [[0.666667,0.333333]],
+        "chemical_formula_descriptive": ["H2O"],
+        "chemical_formula_reduced": ["H2O"],
+        "chemical_formula_anonymous": ["A2B"],
+        "dimension_types":[[0,0,0]],
+        "nperiodic_dimensions": [0],
+        "lattice_vectors" : [[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
         "cartesian_site_positions" : null,
-        "nsites":3,
-        "species_at_sites":["O1","H1","H2"],
-        "species":[
+        "nsites":[3],
+        "species_at_sites":[["O1","H1","H2"]],
+        "species":[[
           {
             "name":"O1",
             "chemical_symbols":["O"],
@@ -3166,97 +3168,86 @@ This is an example of the data field of a JSON object that could be returned aft
             "chemical_symbols":["H"],
             "concentration":[1.0]
           }
-        ],
-        "reference_frame": 1,
-        "nframes": 360,
-        "_exmpl_temperature_set": null,
+        ]],
+        "reference_frame": [1],
+        "nframes": [360],
+        "_exmpl_temperature": null,
         "_exmpl_ekin": null
       },
       "meta":{
         "property_metadata":{
           "cartesian_site_positions":{
                "range":{
-                 "range_ids":["frames","particles"],
+                 "range_ids":["frames","particles","xyz"],
                  "indexable_dim": ["frames"],
                  "data_range": [{
                      "start": 1,
                      "step": 1,
-                     "stop": 200,
+                     "stop": 360,
                    },{
+                     "start": 1,
+                     "step": 1,
+                     "stop": 3,
+                 },{
                      "start": 1,
                      "step": 1,
                      "stop": 3,
                  }],
                  "layout":"dense",
-                 "nvalues": 600
-               }
-        "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, _exmpl_temperature_set, _exmpl_ekin&property_ranges=",
-        "cartesian_site_positions" : {
-          "range": {
-            "dim_size": [360, 3, 3],
-            "nvalues": 3240,
-            "range_ids": ["frames", "particles", "xyz"],
-            "indexable_dim": ["frames", "particles"],
-            "data_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 360,
-                "step": 1
-              },{
-                "name": "particles",
-                "start": 1,
-                "stop": 3,
-                "step": 1
-              },{
-                "name": "xyz",
-                "start": 1,
-                "stop": 3,
-                "step": 1
-              },
-            ],
-            "contains_null": false,
-            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions&property_ranges=frames(1,360,1)",
-            "more_data_available": true
+                 "nvalues": 3240
+               },
+          "_exmpl_temperature":{
+            "range": {
+              "range_ids":["frames"],
+              "nvalues": 144,
+              "indexable_dim": ["frames"],
+              "data_range": [
+                {
+                  "start": 1,
+                  "stop": 360,
+                  "step": null
+                }
+              ],
+              "layout": "sparse"
+          },
+          "_exmpl_ekin":{
+            "range": {
+              "nvalues": 180,
+              "range_ids": ["frames"],
+              "indexable_dim": ["frames"],
+              "data_range": [
+                {
+                  "start": 1,
+                  "stop": 360,
+                  "step": 2
+                }
+              ],
+              "layout":"dense",
+            }
           }
         },
-        "_exmpl_temperature_set":{
-          "range": {
-            "dim_size": [360],
-            "nvalues": 144,
-            "range_ids": ["frames"],
-            "indexable_dim": ["frames"],
-            "data_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 360,
-                "step": null
-              }
-            ],
-            "contains_null": false,
-            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=_exmpl_ekin&property_ranges=frames(1,360,1)",
-            "more_data_available": true
-          }
-        },
-        "_exmpl_ekin":{
-          "range": {
-            "dim_size": [360],
-            "nvalues": 180,
-            "range_ids": ["frames"],
-            "indexable_dim": ["frames"],
-            "data_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 360,
-                "step": 2
-              }
-            ],
-            "contains_null": false,
-            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=_exmpl_ekin&property_ranges=frames(1,360,2)",
-            "more_data_available": true
-          }
+        "partial_data_links": {
+          "cartesian_site_positions": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/jsonlines"
+            },{
+              "format": "_exmpl_xyz",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/xyz"
+            },
+          ],
+          "_exmpl_temperature": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/temperature/jsonlines"
+            },
+          ],
+          "_exmpl_ekin": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/ekin/jsonlines"
+            },
+          ]
         }
       },
       "relationships": {
@@ -3267,150 +3258,6 @@ This is an example of the data field of a JSON object that could be returned aft
               "id": "dummy/2019"
             }
           ]
-        }
-      }
-    }
-    //...
-  }
-Upon having performed the above query, the following query can be performed to return trajectory data:
-:query-url:`http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions,_exmpl_ekin,_exmpl_temperature_set&property_ranges=`
-
-.. code:: jsonc
-
-  {
-    "data":{
-      "id": "traj00000001",
-      "type": "trajectories",
-      "attributes":{
-        "last_modified":"2021-07-16T18:02:03Z",
-        "cartesian_site_positions":[
-            [[2,2,2],[1.238,2.000,1.416],[2.762,2.000,1.416]],
-            [[2,2,2],[1.238,2.013,1.416],[2.762,1.987,1.416]],
-            [[2,2,2],[1.238,2.027,1.416],[2.762,1.973,1.416]],
-            [[2,2,2],[1.239,2.040,1.416],[2.761,1.960,1.416]],
-            [[2,2,2],[1.240,2.053,1.416],[2.760,1.947,1.416]],
-            [[2,2,2],[1.241,2.066,1.416],[2.759,1.934,1.416]],
-            [[2,2,2],[1.242,2.080,1.416],[2.758,1.920,1.416]],
-            [[2,2,2],[1.244,2.093,1.416],[2.756,1.907,1.416]],
-            [[2,2,2],[1.245,2.106,1.416],[2.755,1.894,1.416]],
-            [[2,2,2],[1.247,2.119,1.416],[2.753,1.881,1.416]],
-            [[2,2,2],[1.250,2.132,1.416],[2.750,1.868,1.416]]
-            //...
-          ],
-        "_exmpl_temperature_set": [293.0,293.1,293.2,293.3,293.4,293.5
-          //...
-        ],
-        "_exmpl_ekin": [4.1100E-21,4.1102E-21,4.1101E-21,4.1102E-21,4.1099E-21
-          //...
-        ]
-      },
-      "meta":{
-        "more_data_available": true,
-        "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions, _exmpl_temperature_set, _exmpl_ekin&property_ranges=frames(101,360,1)",
-        "cartesian_site_positions":{
-          "range": {
-            "dim_size": [360, 3, 3],
-            "nvalues": 3240,
-            "range_ids": ["frames", "particles", "xyz"],
-            "indexable_dim": ["frames", "particles"],
-            "data_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 360,
-                "step": 1
-              },{
-                "name": "particles",
-                "start": 1,
-                "stop": 3,
-                "step": 1
-              },{
-                "name": "xyz",
-                "start": 1,
-                "stop": 3,
-                "step": 1
-              },
-            ],
-            "contains_null": false,
-            "more_data_available": true,
-            "nreturned_values": 900,
-            "returned_range":[{
-               "name": "frames",
-                "start": 1,
-                "stop": 100,
-                "step": 1
-              },{
-                "name": "particles",
-                "start": 1,
-                "stop": 3,
-                "step": 1
-              },{
-                "name": "xyz",
-                "start": 1,
-                "stop": 3,
-                "step": 1}
-            ],
-            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=cartesian_site_positions&property_ranges=frames(101,360,1)"
-          }
-        },
-        "_exmpl_temperature_set":{
-          "range":{
-            "dim_size": [360],
-            "nvalues": 144,
-            "range_ids": ["frames"],
-            "indexable_dim": ["frames"],
-            "data_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 360,
-                "step": null
-              }
-            ],
-            "contains_null": false,
-            "indexes": [[1],[3],[6],[8],[11],[13],[16],[18],[21],[23],[26],[28],[31],[33],[36],[38],[41]
-              //...
-            ],
-            "nreturned_values": 40,
-            "returned_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 100,
-                "step": 1
-              }
-            ],
-            "more_data_available": true,
-            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=_exmpl_temperature_set&property_ranges=frames(101,360,1)
-          }
-        },
-        "_exmpl_ekin":{
-          "range": {
-            "dim_size": [360],
-            "nvalues": 180,
-            "range_ids": ["frames"],
-            "indexable_dim": ["frames"],
-            "data_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 360,
-                "step": 2
-              }
-            ],
-            "contains_null": false,
-            "nreturned_values": 50,
-            "returned_range": [
-              {
-                "name": "frames",
-                "start": 1,
-                "stop": 100,
-                "step": 2
-              }
-            ],
-            "more_data_available": true,
-            "next": "http://example.com/optimade/v1/trajectories/traj00000001?response_fields=_exmpl_ekin&property_ranges=frames(101,360,1)"
-          }
         }
       }
     }
