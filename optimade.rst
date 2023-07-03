@@ -2849,7 +2849,7 @@ space\_group\_symbol\_hall
   IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
 space\_group\_symbol\_hermann\_mauguin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
