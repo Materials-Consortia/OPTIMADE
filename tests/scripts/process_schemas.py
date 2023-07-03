@@ -311,7 +311,6 @@ class ExceptionWrapper(Exception):
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
-
 def validate(instance, schemas={}, schema=None):
     import jsonschema
     from jsonschema import RefResolver
@@ -427,13 +426,24 @@ def read_data(source, input_format='auto', preserve_order=True, origin=None):
 
         if input_format == "yaml":
             import yaml
-            return yaml.safe_load(reader), "yaml"
+            if preserve_order:
+                class YamlOrderedSafeLoader(yaml.SafeLoader):
+                    def __init__(self, stream, object_pairs_hook=OrderedDict):
+                        super().__init__(stream)
+                        def mapper(loader, node):
+                            loader.flatten_mapping(node)
+                            return object_pairs_hook(loader.construct_pairs(node))
+                        self.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, mapper)
+                return yaml.load(reader, YamlOrderedSafeLoader), "yaml"
+            else:
+                return yaml.safe_load(reader), "yaml"
+
         if input_format == "json":
             import json
-            #if preserve_order:
-            #    return json.load(reader, object_pairs_hook=OrderedDict), "json"
-            #else:
-            return json.load(reader), "json"
+            if preserve_order:
+                return json.load(reader, object_pairs_hook=OrderedDict), "json"
+            else:
+                return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
     except Exception as e:
