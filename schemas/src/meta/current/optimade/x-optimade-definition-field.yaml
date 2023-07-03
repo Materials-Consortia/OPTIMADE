@@ -1,3 +1,4 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2.0/optimade/x-optimade-definition-field"
 type: object
 required: ["kind", "format", "name"]

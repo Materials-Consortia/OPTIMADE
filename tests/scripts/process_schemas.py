@@ -311,16 +311,14 @@ class ExceptionWrapper(Exception):
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
-def validate(instance, schemas={}, schema=None):
+def validate(instance, bases=None, source=None, schemas={}, schema=None, use_schema_field=False, sanity_check=True):
     import jsonschema
     from jsonschema import RefResolver
 
-    def retrieve_from_filesystem(uri: str):
-        if not uri.startswith("http://localhost/"):
-            raise NoSuchResource(ref=uri)
-        path = Path("/tmp/schemas") / Path(uri.removeprefix("http://localhost/"))
-        contents = json.loads(path.read_text())
-        return Resource.from_contents(contents)
+    # Block attempts to resolve schemas over the Internet, we only want to use Schemas present in the repository
+    class LocalOnlyRefResolver(RefResolver):
+        def resolve_remote(self, uri):
+            raise Exception("Validation: attempt to fetch remove schema over the internet blocked: "+str(uri))
 
     if '$schema' in instance:
         schema_id = instance['$schema']
@@ -345,25 +343,45 @@ def validate(instance, schemas={}, schema=None):
         else:
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
+    if use_schema_field:
+        if schema_id is not None:
+            validator = jsonschema.validators.validator_for(schema, default=_UNSET)
+        else:
+            raise Exception("Validation: asked to use $schema field to decide validator, but no such field present.")
+    else:
+        try:
+            validator = jsonschema.Draft202012Validator(schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+        except AttributeError:
+            logging.warning("JSON Schema Python library is not aware of the Draft202012 standard. It is probably too old. Will validate using default validator.")
+            validator = None
+
+    if sanity_check:
+        if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
+            dirprefix = os.path.commonprefix([bases['dir'], source])
+            dirpath = os.path.realpath(source)
+            _dummy, dirext = os.path.splitext(source)
+            idprefix = os.path.commonprefix([bases['id'], iid])
+            idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
+            if(dirpath!=idpath):
+                if 'top_deref' in bases:
+                    dirprefix = os.path.realpath(os.path.join(bases['dir'], bases['top_deref'].lstrip(os.path.sep)+dirext))
+                    idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
+                    print("HERE",dirpath,'::',idpath)
+                    if(dirpath!=idpath):
+                        raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file ["+source+"]")
+                else:
+                    raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file ["+source+"]")
+
     try:
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
 
-        resolver = RefResolver.from_schema(schema=schema, store=schemas)
+        resolver = LocalOnlyRefResolver.from_schema(schema=schema, store=schemas)
 
-        #schema = Resource.from_contents(
-        #    {
-        #        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        #        "type": "integer",
-        #        "minimum": 0,
-        #    },
-        #)
-        #registry = Registry(retrieve=retrieve_from_filesystem).with_resources(
-        #    [
-        #        ("http://example.com/nonneg-int-schema", schema),
-        #        ("urn:nonneg-integer-schema", schema),
-        #    ],
-        #)
-        jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+        if validator is not None:
+            validator.validate(instance)
+        else:
+            jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+
     except jsonschema.ValidationError as e:
         logging.debug("Schema validation failed, full output:\n"+str(e))
         logging.debug("Data being validated:\n"+str(instance))
@@ -1125,6 +1143,13 @@ def handle_all(data, bases, subs, args, level, origin=None):
             if args.remove_null and v is None:
                 del data[k]
 
+        # Always place $schema and $id at the top of the output for ordered output
+        if isinstance(data,OrderedDict):
+            if '$id' in data:
+                data.move_to_end('$id',last=False)
+            if '$schema' in data:
+                data.move_to_end('$schema',last=False)
+
         return data
 
     else:
@@ -1157,6 +1182,9 @@ def process(source, bases, subs, args):
     data, input_format = read_data(source, args.input_format)
     parsed_source = urllib.parse.urlparse(source)
     bases['self'] = os.path.dirname(parsed_source.path)
+
+    if '$$inherit' in data:
+        bases['top_deref'] = data['$$inherit']
 
     if "$id" in data:
         id_uri = data["$id"]
@@ -1278,7 +1306,7 @@ if __name__ == "__main__":
         try:
             if args.force_schema:
                 schema_data, ext = read_data(args.force_schema, "json")
-                validate(data, schema=args.force_schema)
+                validate(data, bases=bases, source=args.source, schema=args.force_schema)
 
             if args.schema is not None and '$schema' in data:
                 schemas = {}
@@ -1288,7 +1316,7 @@ if __name__ == "__main__":
                         schemas[schema_data['$id']] = schema_data
                     else:
                         raise Exception("Schema provided without $id field: "+str(schema_data))
-                validate(data, schemas=schemas)
+                validate(data, bases=bases, source=args.source, schemas=schemas)
 
         except Exception as e:
             raise ExceptionWrapper("Validation of data failed", e) from e
