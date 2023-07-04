@@ -1,8 +1,8 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 title: "henry"
 symbol: "H"
 display-symbol: "H"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/henry"
+$id: "https://schemas.optimade.org/units/v1.2/si/1960/named/henry"
 description: |-
   A derived SI unit for inductance equal to kg·m²·s⁻²·A⁻² in the 1960 SI base units.
 
@@ -21,13 +21,13 @@ resources:
 defining-relation:
   base-units:
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/ampere"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/ampere"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/second"
   base-units-expression: "A^-2*kg*m^2*s^-2"
 x-optimade-definition:
   kind: "unit"

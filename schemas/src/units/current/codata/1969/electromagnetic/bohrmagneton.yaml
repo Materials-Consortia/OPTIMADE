@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/codata/1969/electromagnetic/bohrmagneton"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton"
 title: "Bohr magneton"
 symbol: "bohrmagneton"
 display-symbol: '\(\mu_B\)'

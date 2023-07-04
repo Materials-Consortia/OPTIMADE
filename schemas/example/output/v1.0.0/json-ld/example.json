@@ -9,8 +9,8 @@
             "@context": "https://example.org/json-ld/v1.0.0/entrytypes/optimade/structures.json"
         },
         "files": {
-            "@id": "https://schemas.optimade.org/nodetypes/v1.2.0/optimade/files",
-            "@context": "https://schemas.optimade.org/json-ld/v1.2.0/nodetypes/optimade/files.json"
+            "@id": "https://schemas.optimade.org/nodetypes/v1.2/optimade/files",
+            "@context": "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/files.json"
         }
     }
 }

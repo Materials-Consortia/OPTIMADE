@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1970/temporary/radiationunit"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1970/temporary/radiationunit"
 title: "radiation unit"
 symbol: "radiationunit"
 display-symbol: "rad"

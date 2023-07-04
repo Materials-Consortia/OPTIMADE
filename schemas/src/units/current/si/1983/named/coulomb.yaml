@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/named/coulomb"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1983/named/coulomb"
 title: "coulomb"
 symbol: "coulomb"
 display-symbol: "C"
@@ -25,9 +25,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/ampere"
+      id: "https://schemas.optimade.org/units/v1.2/si/1983/base/ampere"
   base-units-expression: "A*s"
 x-optimade-definition:
   kind: "unit"

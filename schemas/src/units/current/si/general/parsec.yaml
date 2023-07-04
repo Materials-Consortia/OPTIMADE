@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/general/parsec"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/general/parsec"
 title: "parsec"
 symbol: "pc"
 display-symbol: "pc"
@@ -15,7 +15,7 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/parsec"
+  - "https://schemas.optimade.org/units/v1.2/si/1970/accepted/parsec"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -28,7 +28,7 @@ resources:
 approximate-relations:
   - base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/metre"
     scale:
       value: 3.0857E+16
 x-optimade-definition:

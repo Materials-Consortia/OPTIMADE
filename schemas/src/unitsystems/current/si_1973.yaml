@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/unitsystems/v1.2.0/si_1973"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/unitsystems/v1.2/si_1973"
 title: "SI 1973"
 description: |-
   The SI unit system as represented in the 3rd edition of The International System of Units.

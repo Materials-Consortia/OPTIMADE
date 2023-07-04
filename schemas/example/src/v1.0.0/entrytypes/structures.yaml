@@ -1,13 +1,13 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition"
-$id: "https://example.org/schemas/v1.0.0/entrytypes/structures"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://example.org/schemas/v1.0/entrytypes/structures"
 type: object
 title: "Example provider structures endpoint"
-$$inherit: "/sets/v1.2.0/entrytypes/optimade/structures"
+$$inherit: "/entrytypes/v1.2.0/optimade/structures"
 $$keep: ["properties"]
 x-optimade-definition:
   kind: "entrytype"
   format: "1.2"
-  version: "1.2.0"
+  version: "1.0.0"
   name: "structures"
 properties:
   id:

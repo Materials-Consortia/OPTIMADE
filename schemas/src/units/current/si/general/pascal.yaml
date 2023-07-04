@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/general/pascal"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/general/pascal"
 title: "pascal"
 symbol: "Pa"
 display-symbol: "Pa"
@@ -17,9 +17,9 @@ standard:
   version: "3.15"
   symbol: "pascal"
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/1971/named/pascal"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1983/named/pascal"
-  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/pascal"
+  - "https://schemas.optimade.org/units/v1.2/si/1971/named/pascal"
+  - "https://schemas.optimade.org/units/v1.2/si/1983/named/pascal"
+  - "https://schemas.optimade.org/units/v1.2/si/2019/named/pascal"
 resources:
   - relation: "Definition at the 14th CGPM Meeting (1971)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/14-1971"
@@ -32,11 +32,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/second"
   base-units-expression: "kg*m^-1*s^-2"
 x-optimade-definition:
   kind: "unit"

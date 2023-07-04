@@ -1,11 +1,11 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
-$id: "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_cell_volume"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://example.org/schemas/v1.0/properties/structures/_exmpl_cell_volume"
 title: "Cell volume"
 $comment: "This is an example of a database provider-specific property definition."
 x-optimade-type: "float"
 x-optimade-definition:
   kind: "property"
-  version: "1.2.0"
+  version: "1.0.0"
   format: "1.2"
   name: "_exmpl_cell_volume"
 x-optimade-unit-definitions:

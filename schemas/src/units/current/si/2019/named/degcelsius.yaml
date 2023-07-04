@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/named/degcelsius"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/2019/named/degcelsius"
 title: "Degree Celsius"
 symbol: "degC"
 display-symbol: "°C"
@@ -27,7 +27,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "K"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kelvin"
+      id: "https://schemas.optimade.org/units/v1.2/si/2019/base/kelvin"
   base-units-expression: "K"
   offset:
     numerator: 27315

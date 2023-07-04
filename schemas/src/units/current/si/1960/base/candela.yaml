@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/candela"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1960/base/candela"
 title: "candela"
 symbol: "cd"
 display-symbol: "cd"
@@ -10,7 +10,7 @@ description: |-
   This was a ratification of a definition of a definition at the 41st CIPM meeting in 1946, resolution 1, with a different phrasing: "The value of the new candle is such that the brightness of the full radiator at the temperature of solidification of platinum is 60 new candles per square centimetre."
   The candela was adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
 
-  Furthermore, in the definition SI 1960 definition of the candela the centimeter in the definition references 10⁻² times the SI 1960 metre (https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre).
+  Furthermore, in the definition SI 1960 definition of the candela the centimeter in the definition references 10⁻² times the SI 1960 metre (https://schemas.optimade.org/units/v1.2/si/1960/base/metre).
 resources:
   - relation: "Definition at the 9st CGPM meeting (1948)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"

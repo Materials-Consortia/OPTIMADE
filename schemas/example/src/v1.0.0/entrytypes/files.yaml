@@ -1,13 +1,13 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition"
-$id: "https://example.org/schemas/v1.0.0/entrytypes/files"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://example.org/schemas/v1.0/entrytypes/files"
 type: object
 title: "Example provider files endpoint"
-$$inherit: "/sets/v1.2.0/entrytypes/optimade/files"
+$$inherit: "/entrytypes/v1.2.0/optimade/files"
 $$keep: ["properties"]
 x-optimade-definition:
   kind: "entrytype"
   format: "1.2"
-  version: "1.2.0"
+  version: "1.0.0"
   name: "files"
 properties:
   id:

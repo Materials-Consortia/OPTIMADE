@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/general/kelvin"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/general/kelvin"
 title: "kelvin"
 symbol: "K"
 display-symbol: "K"
@@ -14,9 +14,9 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/1967/base/kelvin"
-  - "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kelvin"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1960/base/degreekelvin"
+  - "https://schemas.optimade.org/units/v1.2/si/1967/base/kelvin"
+  - "https://schemas.optimade.org/units/v1.2/si/2019/base/kelvin"
+  - "https://schemas.optimade.org/units/v1.2/si/1960/base/degreekelvin"
 standard:
   name: "gnu units"
   version: "3.15"

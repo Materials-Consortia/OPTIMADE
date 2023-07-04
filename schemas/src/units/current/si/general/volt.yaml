@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/general/volt"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/general/volt"
 title: "volt"
 symbol: "volt"
 display-symbol: "V"
@@ -13,10 +13,10 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/1960/named/volt"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1967/named/volt"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1983/named/volt"
-  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/volt"
+  - "https://schemas.optimade.org/units/v1.2/si/1960/named/volt"
+  - "https://schemas.optimade.org/units/v1.2/si/1967/named/volt"
+  - "https://schemas.optimade.org/units/v1.2/si/1983/named/volt"
+  - "https://schemas.optimade.org/units/v1.2/si/2019/named/volt"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -35,13 +35,13 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/second"
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/ampere"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/ampere"
   base-units-expression: "A^-1*kg*m^2*s^-3"
 x-optimade-definition:
   kind: "unit"

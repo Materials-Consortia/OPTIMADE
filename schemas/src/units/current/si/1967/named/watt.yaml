@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/watt"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1967/named/watt"
 title: "watt"
 symbol: "W"
 display-symbol: "W"
@@ -21,11 +21,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/meter"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/meter"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
   base-units-expression: "kg*m^2*s^-3"
 x-optimade-definition:
   kind: "unit"

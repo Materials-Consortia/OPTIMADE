@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/lumen"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1967/named/lumen"
 title: "lumen"
 symbol: "lm"
 display-symbol: "lm"
@@ -23,9 +23,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "cd"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/candela"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/candela"
     - symbol: "sr"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/supplementary/steradian"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/supplementary/steradian"
   base-units-expression: "cd*sr"
 x-optimade-definition:
   kind: "unit"

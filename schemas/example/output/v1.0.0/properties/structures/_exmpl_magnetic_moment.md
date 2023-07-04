@@ -20,7 +20,7 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definitio
 
 ``` json
 {
-    "$schema": "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition.md",
+    "$schema": "https://schemas.optimade.org/meta/v1.2/optimade/property_definition.md",
     "$id": "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment",
     "title": "Magnetic moment",
     "x-optimade-type": "list",
@@ -32,7 +32,7 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definitio
     },
     "x-optimade-unit-definitions": [
         {
-            "$id": "https://schemas.optimade.org/units/v1.2.0/codata/1969/electromagnetic/bohrmagneton",
+            "$id": "https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton",
             "title": "Bohr magneton",
             "symbol": "bohrmagneton",
             "display-symbol": "\\(\\mu_B\\)",

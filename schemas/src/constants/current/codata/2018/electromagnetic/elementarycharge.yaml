@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/constant_definition"
-$id: "https://schemas.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/elementarycharge"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/constant_definition"
+$id: "https://schemas.optimade.org/constants/v1.2/codata/2018/electromagnetic/elementarycharge"
 title: "Elementary charge"
 symbol: "e"
 display-symbol: '\(e\)'

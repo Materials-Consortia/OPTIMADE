@@ -1,8 +1,8 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
 title: "pico"
 symbol: "p"
 display-symbol: "p"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/pico"
+$id: "https://schemas.optimade.org/units/v1.2/si/prefixes/pico"
 description: "The pico SI prefix defined as a dimensionless multiple of 10⁻¹², adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 standard:
   name: "gnu units"

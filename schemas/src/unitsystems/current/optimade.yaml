@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/unitsystems/v1.2.0/optimade"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/unitsystems/v1.2/optimade"
 title: "OPTIMADE"
 description: |-
   A combination of SI and non-SI units in common use suitable for use with OPTIMADE.

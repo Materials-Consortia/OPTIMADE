@@ -11,7 +11,7 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Entrytype Definiti
 
 This entrytype defines the following properties:
 
-* **[ID](https://schemas.optimade.org/properties/v1.2.0/core/id)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/core/id`](https://schemas.optimade.org/properties/v1.2.0/core/id)  
+* **[ID](https://schemas.optimade.org/properties/v1.2/core/id)** (property) - [`https://schemas.optimade.org/properties/v1.2/core/id`](https://schemas.optimade.org/properties/v1.2/core/id)  
   A unique string referencing a specific entry in the database.
 
     **Requirements/Conventions:**  
@@ -24,7 +24,7 @@ This entrytype defines the following properties:
     - IDs MAY change over time.
 
 
-* **[Type](https://schemas.optimade.org/properties/v1.2.0/core/type)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/core/type`](https://schemas.optimade.org/properties/v1.2.0/core/type)  
+* **[Type](https://schemas.optimade.org/properties/v1.2/core/type)** (property) - [`https://schemas.optimade.org/properties/v1.2/core/type`](https://schemas.optimade.org/properties/v1.2/core/type)  
   The name of the type of an entry.
 
     **Requirements/Conventions:**  
@@ -36,7 +36,7 @@ This entrytype defines the following properties:
     - The entry of type <type> and ID <id> MUST be returned in response to a request for /<type>/<id> under the versioned or unversioned base URL serving the API.
 
 
-* **[Immutable ID (immutable_id)](https://schemas.optimade.org/properties/v1.2.0/core/immutable_id)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/core/immutable_id`](https://schemas.optimade.org/properties/v1.2.0/core/immutable_id)  
+* **[Immutable ID (immutable_id)](https://schemas.optimade.org/properties/v1.2/core/immutable_id)** (property) - [`https://schemas.optimade.org/properties/v1.2/core/immutable_id`](https://schemas.optimade.org/properties/v1.2/core/immutable_id)  
   The entry's immutable ID (e.g., a UUID).
 
     **Requirements/Conventions:**  
@@ -48,7 +48,7 @@ This entrytype defines the following properties:
     - This ID maps to the version-specific record, in case it changes in the future.
 
 
-* **[Last modified (last_modified)](https://schemas.optimade.org/properties/v1.2.0/core/last_modified)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/core/last_modified`](https://schemas.optimade.org/properties/v1.2.0/core/last_modified)  
+* **[Last modified (last_modified)](https://schemas.optimade.org/properties/v1.2/core/last_modified)** (property) - [`https://schemas.optimade.org/properties/v1.2/core/last_modified`](https://schemas.optimade.org/properties/v1.2/core/last_modified)  
   Date and time representing when the entry was last modified.
 
     **Requirements/Conventions:**  
@@ -57,7 +57,7 @@ This entrytype defines the following properties:
     - **Query:** MUST be a queryable property with support for all mandatory filter features.
     - **Response:** MUST be included by default in the response.
 
-* **[Elements](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements)  
+* **[Elements](https://schemas.optimade.org/properties/v1.2/optimade/structures/elements)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/elements`](https://schemas.optimade.org/properties/v1.2/optimade/structures/elements)  
   The chemical symbols of the different elements present in the structure.
 
     **Requirements/Conventions:**  
@@ -77,7 +77,7 @@ This entrytype defines the following properties:
     - Note: length queries on this property can be equivalently formulated by filtering on the `nelements` property directly.
 
 
-* **[Number of elements (nelements)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nelements)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nelements`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nelements)  
+* **[Number of elements (nelements)](https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements`](https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements)  
   Number of different elements in the structure as an integer.
 
     **Requirements/Conventions:**  
@@ -94,7 +94,7 @@ This entrytype defines the following properties:
     - A filter that matches structures that have between 2 and 7 elements: `nelements>=2 AND nelements<=7`.
 
 
-* **[Elements ratios (elements_ratios)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements_ratios)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements_ratios`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements_ratios)  
+* **[Elements ratios (elements_ratios)](https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios`](https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios)  
   Relative proportions of different elements in the structure.
 
     **Requirements/Conventions:**  
@@ -113,7 +113,7 @@ This entrytype defines the following properties:
     - OPTIONAL: a filter that matches structures where approximately 1/3 of the atoms in the structure are the element Al is: `elements:elements_ratios HAS ALL "Al":>0.3333, "Al":<0.3334`.
 
 
-* **[Descriptive chemical formula (chemical_formula_descriptive)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_descriptive)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_descriptive`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_descriptive)  
+* **[Descriptive chemical formula (chemical_formula_descriptive)](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive`](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive)  
   The chemical formula for a structure as a string in a form chosen by the API implementation.
 
     **Requirements/Conventions:**  
@@ -135,7 +135,7 @@ This entrytype defines the following properties:
     - A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
 
 
-* **[Reduced chemical formula (chemical_formula_reduced)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_reduced)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_reduced`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_reduced)  
+* **[Reduced chemical formula (chemical_formula_reduced)](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced`](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced)  
   The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
 
     **Requirements/Conventions:**  
@@ -155,7 +155,7 @@ This entrytype defines the following properties:
     - A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
 
 
-* **[Hill chemical formula (chemical_formula_hill)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_hill)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_hill`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_hill)  
+* **[Hill chemical formula (chemical_formula_hill)](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill`](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill)  
   The chemical formula for a structure in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.
 
     **Requirements/Conventions:**  
@@ -179,7 +179,7 @@ This entrytype defines the following properties:
     - A filter that matches an exactly given formula is `chemical_formula_hill="H2O2"`.
 
 
-* **[Anonymous chemical formula (chemical_formula_anonymous)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_anonymous)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_anonymous`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_anonymous)  
+* **[Anonymous chemical formula (chemical_formula_anonymous)](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous`](https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous)  
   The anonymous formula is the chemical_formula_reduced, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
 
     **Requirements/Conventions:**  
@@ -188,7 +188,7 @@ This entrytype defines the following properties:
     - **Query:** MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.
     - **Response:** MAY be included by default in the response.
 
-* **[Dimension types (dimension_types)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types)  
+* **[Dimension types (dimension_types)](https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types`](https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types)  
   List of three integers describing the periodicity of the boundaries of the unit cell. For each direction indicated by the three lattice_vectors, this list indicates if the direction is periodic (value 1) or non-periodic (value 0). Note: the elements in this list each refer to the direction of the corresponding entry in lattice_vectors and not the Cartesian x, y, z directions.
 
     **Requirements/Conventions:**  
@@ -207,7 +207,7 @@ This entrytype defines the following properties:
     - For a bulk 3D system with a unit cell that is periodic in all directions: `[1, 1, 1]`
 
 
-* **[Number of periodic dimensions (nperiodic_dimensions)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nperiodic_dimensions)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nperiodic_dimensions`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nperiodic_dimensions)  
+* **[Number of periodic dimensions (nperiodic_dimensions)](https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions`](https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions)  
   An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension_types`.
 
     **Requirements/Conventions:**  
@@ -229,7 +229,7 @@ This entrytype defines the following properties:
     - Match all structures with 2 or fewer periodic dimensions: `nperiodic_dimensions<=2`
 
 
-* **[Lattice vectors (lattice_vectors)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/lattice_vectors)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/lattice_vectors`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/lattice_vectors)  
+* **[Lattice vectors (lattice_vectors)](https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors`](https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors)  
   The three lattice vectors in Cartesian coordinates, in ångström (Å).
 
     **Requirements/Conventions:**  
@@ -251,7 +251,7 @@ This entrytype defines the following properties:
     - `[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is (4, 0, 0), i.e., a vector aligned along the x axis of length 4 Å; the second vector is (0, 4, 0); and the third vector is (0, 1, 4).
 
 
-* **[Hall space group (space_group_hall)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall)  
+* **[Hall space group (space_group_hall)](https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall`](https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall)  
   A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
 
     **Requirements/Conventions:**  
@@ -264,7 +264,7 @@ This entrytype defines the following properties:
     - MUST be null if n`periodic_dimensions` is not equal to 3.
 
 
-* **[Space group IT number (space_group_it_number)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_it_number)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_it_number`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_it_number)  
+* **[Space group IT number (space_group_it_number)](https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number`](https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number)  
   Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
 
     **Requirements/Conventions:**  
@@ -276,7 +276,7 @@ This entrytype defines the following properties:
     - MUST be null if `nperiodic_dimensions` is not equal to 3.
 
 
-* **[Cartesian site positions (cartesian_site_positions)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/cartesian_site_positions)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/cartesian_site_positions`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/cartesian_site_positions)  
+* **[Cartesian site positions (cartesian_site_positions)](https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions`](https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions)  
   Cartesian positions of each site in the structure.
 
     **Requirements/Conventions:**  
@@ -296,7 +296,7 @@ This entrytype defines the following properties:
     - `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 
 
-* **[Number of sites (nsites)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nsites)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nsites`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nsites)  
+* **[Number of sites (nsites)](https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites`](https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites)  
   An integer specifying the length of the `cartesian_site_positions` property.
 
     **Requirements/Conventions:**  
@@ -312,7 +312,7 @@ This entrytype defines the following properties:
     - Match structures that have between 2 and 7 sites: `nsites>=2 AND nsites<=7`
 
 
-* **[Species at sites (species_at_sites)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites)  
+* **[Species at sites (species_at_sites)](https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites`](https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites)  
   Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`). The properties of the species are found in the property `species`.
 
     **Requirements/Conventions:**  
@@ -332,7 +332,7 @@ This entrytype defines the following properties:
     - `["Ac", "Ac", "Ag", "Ir"]` indicates that the first two sites contain the `"Ac"` species, while the third and fourth sites contain the `"Ag"` and `"Ir"` species, respectively.
 
 
-* **[Species](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species)  
+* **[Species](https://schemas.optimade.org/properties/v1.2/optimade/structures/species)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/species`](https://schemas.optimade.org/properties/v1.2/optimade/structures/species)  
   A list describing the species of the sites of this structure. Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
 
     **Requirements/Conventions:**  
@@ -388,7 +388,7 @@ This entrytype defines the following properties:
     - `[ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]`: any site with this species is occupied by a methyl group, -CH3, which is represented without specifying precise positions of the hydrogen atoms.
 
 
-* **[Assemblies](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/assemblies)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/assemblies`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/assemblies)  
+* **[Assemblies](https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies`](https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies)  
   A description of groups of sites that are statistically correlated.
 
     **Requirements/Conventions:**  
@@ -497,7 +497,7 @@ This entrytype defines the following properties:
         However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2*0.3 = 6 % probability; the pair (0, 3) with 0.2*0.7 = 14 % probability; the pair (1, 2) with 0.8*0.3 = 24 % probability; and the pair (1, 3) with 0.8*0.7 = 56 % probability).
 
 
-* **[Structure features (structure_features)](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/structure_features)** (property) - [`https://schemas.optimade.org/properties/v1.2.0/optimade/structures/structure_features`](https://schemas.optimade.org/properties/v1.2.0/optimade/structures/structure_features)  
+* **[Structure features (structure_features)](https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features)** (property) - [`https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features`](https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features)  
   A list of strings that flag which special features are used by the structure.
 
     **Requirements/Conventions:**  
@@ -526,7 +526,7 @@ This entrytype defines the following properties:
 
 ``` json
 {
-    "$schema": "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition.md",
+    "$schema": "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition.md",
     "$id": "https://example.org/schemas/v1.0.0/entrytypes/structures",
     "type": "object",
     "title": "Example provider structures endpoint",
@@ -538,7 +538,7 @@ This entrytype defines the following properties:
     },
     "properties": {
         "id": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/core/id",
+            "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -573,7 +573,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "type": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/core/type",
+            "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -604,7 +604,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "immutable_id": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/core/immutable_id",
+            "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -637,7 +637,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "last_modified": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/core/last_modified",
+            "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -670,7 +670,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "elements": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -708,7 +708,7 @@ This entrytype defines the following properties:
             ],
             "x-optimade-unit": "inapplicable",
             "items": {
-                "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/common/element",
+                "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/element",
                 "title": "Element",
                 "x-optimade-type": "string",
                 "x-optimade-definition": {
@@ -853,7 +853,7 @@ This entrytype defines the following properties:
             }
         },
         "nelements": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nelements",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -885,7 +885,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "dimensionless"
         },
         "elements_ratios": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements_ratios",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -933,7 +933,7 @@ This entrytype defines the following properties:
             }
         },
         "chemical_formula_descriptive": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_descriptive",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -969,7 +969,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "chemical_formula_reduced": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_reduced",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1004,7 +1004,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "chemical_formula_hill": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_hill",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -1036,7 +1036,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "chemical_formula_anonymous": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_anonymous",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1070,7 +1070,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "inapplicable"
         },
         "dimension_types": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1128,7 +1128,7 @@ This entrytype defines the following properties:
             }
         },
         "nperiodic_dimensions": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nperiodic_dimensions",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1160,7 +1160,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "dimensionless"
         },
         "lattice_vectors": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/lattice_vectors",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1183,14 +1183,14 @@ This entrytype defines the following properties:
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2.0/si/general/angstrom",
+                    "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
                     "title": "\u00e5ngstr\u00f6m",
                     "symbol": "angstrom",
                     "display-symbol": "\u00c5",
                     "description": "A unit of length equal to 10\u207b\u00b9\u2070 meter, using the current, or one of the historical, definitions of the SI units.\n\nThe \u00e5ngstr\u00f6m appear in the International System of Units (SI), 1th ed. (1970) defined as \"1 \u00c5 = 0.1 nm = 10\u207b\u00b9\u2070 m\".\n\nThe \u00e5ngstr\u00f6m was implicitly redefined via the redefinition of the metre at the 17th CGPM meeting (1983), resolution 1.\n\nThe International System of Units (SI), 1th ed. (1970) categorizes the unit as \"temporarily admitted\" for use with the SI units.\nThe International System of Units (SI), 7th ed. (1998) changes the categorisation to \"Other non-SI units currently accepted for use with the International System.\"\nThe International System of Units (SI), 8th ed. (2006) changes the categorization to \"Other non-SI units\" and adds as a clarifying footnote \"The \u00e5ngstr\u00f6m is widely used by x-ray crystallographers and structural chemists because all chemical bonds lie in the range 1 to 3 \u00e5ngstr\u00f6ms. However it has no official sanction from the CIPM or the CGPM.\"\nThe \u00e5ngstr\u00f6m is omitted in the International System of Units (SI), 9th Edition (2019).\n\nThis is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.\nThis definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.",
                     "compatibility": [
-                        "https://schemas.optimade.org/units/v1.2.0/si/1970/temporary/angstrom",
-                        "https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/angstrom"
+                        "https://schemas.optimade.org/units/v1.2/si/1970/temporary/angstrom",
+                        "https://schemas.optimade.org/units/v1.2/si/1983/temporary/angstrom"
                     ],
                     "standard": {
                         "name": "gnu units",
@@ -1272,7 +1272,7 @@ This entrytype defines the following properties:
             }
         },
         "space_group_hall": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -1305,7 +1305,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "unapplicable"
         },
         "space_group_it_number": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_it_number",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -1337,7 +1337,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "unapplicable"
         },
         "cartesian_site_positions": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/cartesian_site_positions",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1360,14 +1360,14 @@ This entrytype defines the following properties:
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2.0/si/general/angstrom",
+                    "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
                     "title": "\u00e5ngstr\u00f6m",
                     "symbol": "angstrom",
                     "display-symbol": "\u00c5",
                     "description": "A unit of length equal to 10\u207b\u00b9\u2070 meter, using the current, or one of the historical, definitions of the SI units.\n\nThe \u00e5ngstr\u00f6m appear in the International System of Units (SI), 1th ed. (1970) defined as \"1 \u00c5 = 0.1 nm = 10\u207b\u00b9\u2070 m\".\n\nThe \u00e5ngstr\u00f6m was implicitly redefined via the redefinition of the metre at the 17th CGPM meeting (1983), resolution 1.\n\nThe International System of Units (SI), 1th ed. (1970) categorizes the unit as \"temporarily admitted\" for use with the SI units.\nThe International System of Units (SI), 7th ed. (1998) changes the categorisation to \"Other non-SI units currently accepted for use with the International System.\"\nThe International System of Units (SI), 8th ed. (2006) changes the categorization to \"Other non-SI units\" and adds as a clarifying footnote \"The \u00e5ngstr\u00f6m is widely used by x-ray crystallographers and structural chemists because all chemical bonds lie in the range 1 to 3 \u00e5ngstr\u00f6ms. However it has no official sanction from the CIPM or the CGPM.\"\nThe \u00e5ngstr\u00f6m is omitted in the International System of Units (SI), 9th Edition (2019).\n\nThis is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.\nThis definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.",
                     "compatibility": [
-                        "https://schemas.optimade.org/units/v1.2.0/si/1970/temporary/angstrom",
-                        "https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/angstrom"
+                        "https://schemas.optimade.org/units/v1.2/si/1970/temporary/angstrom",
+                        "https://schemas.optimade.org/units/v1.2/si/1983/temporary/angstrom"
                     ],
                     "standard": {
                         "name": "gnu units",
@@ -1444,7 +1444,7 @@ This entrytype defines the following properties:
             }
         },
         "nsites": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nsites",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1476,7 +1476,7 @@ This entrytype defines the following properties:
             "x-optimade-unit": "dimensionless"
         },
         "species_at_sites": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1516,7 +1516,7 @@ This entrytype defines the following properties:
             ],
             "x-optimade-unit": "inapplicable",
             "items": {
-                "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/common/species_name",
+                "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
                 "title": "Name of the species",
                 "x-optimade-type": "string",
                 "x-optimade-definition": {
@@ -1538,7 +1538,7 @@ This entrytype defines the following properties:
             }
         },
         "species": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species",
             "x-optimade-implementation": {
                 "support": "should",
                 "sortable": false,
@@ -1561,7 +1561,7 @@ This entrytype defines the following properties:
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2.0/si/general/atomicmassunit",
+                    "$id": "https://schemas.optimade.org/units/v1.2/si/general/atomicmassunit",
                     "title": "atomic mass unit",
                     "symbol": "u",
                     "display-symbol": "u",
@@ -1569,11 +1569,11 @@ This entrytype defines the following properties:
                         "dalton",
                         "Da"
                     ],
-                    "description": "A unit of mass representing 1/12 of the mass of a free carbon 12 atom (i.e., a typical value of the mass of a nucleon in an atom) using the current, or one of the historical, definitions given in the editions of The International System of Units (SI).\n\nThe International System of Units (SI), 1st ed. (1970) defines the atomic mass unit in the section \"Units used with the International System\" (known as \"Non-SI units accepted for use with the SI units\" in later editions).\nThe unit is defined in a footnote as: \"The atomic mass unit (unified) is equal to 1/12 of the mass of an atom of the nuclide \u00b9\u00b2C; 1 u = 1.66053 x 10\u207b\u00b2\u2077 kg approximately.\"\n\nThe definition is retained in The International System of Units up to the 7th edition (1998), where the conditions are slightly clarified and dalton (Da) is introduced as an alternative name: \"The unified atomic mass unit is equal to 1/12 of the mass of an unbound atom of the nuclide \u00b9\u00b2C, at rest, and in its ground state. In the field of biochemistry, the unified atomic mass unit is also called the dalton, symbol Da.\"\nIn the 8th ed. (2006) the definition is slightly adjusted, replacing \"unbound\" with \"free\": \"The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 times the mass of a free carbon 12 atom, at rest and in its ground state.\"\n\nAll editions of The International System of Units note approximate relationships to the kilogram.\nThe 9th ed. states \"1 Da = 1.660 539 066 60(50)\u00d710\u207b\u00b2\u2077 kg\", where the 2018 CODATA value has been used and the 2019 SI kilogram is referenced (https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram).\n\nIn the 2019 redefinition of the SI units, the atomic mass unit is the only unit listed as accepted for use with SI that has an experimental relationship to the base SI units.\n\nThis is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.\nThis definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.",
+                    "description": "A unit of mass representing 1/12 of the mass of a free carbon 12 atom (i.e., a typical value of the mass of a nucleon in an atom) using the current, or one of the historical, definitions given in the editions of The International System of Units (SI).\n\nThe International System of Units (SI), 1st ed. (1970) defines the atomic mass unit in the section \"Units used with the International System\" (known as \"Non-SI units accepted for use with the SI units\" in later editions).\nThe unit is defined in a footnote as: \"The atomic mass unit (unified) is equal to 1/12 of the mass of an atom of the nuclide \u00b9\u00b2C; 1 u = 1.66053 x 10\u207b\u00b2\u2077 kg approximately.\"\n\nThe definition is retained in The International System of Units up to the 7th edition (1998), where the conditions are slightly clarified and dalton (Da) is introduced as an alternative name: \"The unified atomic mass unit is equal to 1/12 of the mass of an unbound atom of the nuclide \u00b9\u00b2C, at rest, and in its ground state. In the field of biochemistry, the unified atomic mass unit is also called the dalton, symbol Da.\"\nIn the 8th ed. (2006) the definition is slightly adjusted, replacing \"unbound\" with \"free\": \"The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 times the mass of a free carbon 12 atom, at rest and in its ground state.\"\n\nAll editions of The International System of Units note approximate relationships to the kilogram.\nThe 9th ed. states \"1 Da = 1.660 539 066 60(50)\u00d710\u207b\u00b2\u2077 kg\", where the 2018 CODATA value has been used and the 2019 SI kilogram is referenced (https://schemas.optimade.org/units/v1.2/si/2019/base/kilogram).\n\nIn the 2019 redefinition of the SI units, the atomic mass unit is the only unit listed as accepted for use with SI that has an experimental relationship to the base SI units.\n\nThis is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.\nThis definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.",
                     "compatibility": [
-                        "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/atomicmassunit",
-                        "https://schemas.optimade.org/units/v1.2.0/si/1998/accepted/dalton",
-                        "https://schemas.optimade.org/units/v1.2.0/si/general/dalton"
+                        "https://schemas.optimade.org/units/v1.2/si/1970/accepted/atomicmassunit",
+                        "https://schemas.optimade.org/units/v1.2/si/1998/accepted/dalton",
+                        "https://schemas.optimade.org/units/v1.2/si/general/dalton"
                     ],
                     "standard": {
                         "name": "gnu units",
@@ -1725,7 +1725,7 @@ This entrytype defines the following properties:
                 ],
                 "properties": {
                     "name": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/common/species_name",
+                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
                         "title": "Name of the species",
                         "x-optimade-type": "string",
                         "x-optimade-definition": {
@@ -1766,7 +1766,7 @@ This entrytype defines the following properties:
                         ],
                         "x-optimade-unit": "inapplicable",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol_or_vacancy",
+                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol_or_vacancy",
                             "title": "Chemical symbol or vacancy",
                             "x-optimade-type": "string",
                             "x-optimade-definition": {
@@ -1962,7 +1962,7 @@ This entrytype defines the following properties:
                         ],
                         "x-optimade-unit": "inapplicable",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/common/chemical_symbol",
+                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol",
                             "title": "Chemical symbol",
                             "x-optimade-type": "string",
                             "x-optimade-definition": {
@@ -2178,7 +2178,7 @@ This entrytype defines the following properties:
             }
         },
         "assemblies": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/assemblies",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -2329,7 +2329,7 @@ This entrytype defines the following properties:
             ]
         },
         "structure_features": {
-            "$id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/structure_features",
+            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -2387,7 +2387,7 @@ This entrytype defines the following properties:
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2.0/codata/1969/electromagnetic/bohrmagneton",
+                    "$id": "https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton",
                     "title": "Bohr magneton",
                     "symbol": "bohrmagneton",
                     "display-symbol": "\\(\\mu_B\\)",

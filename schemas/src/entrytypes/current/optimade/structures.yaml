@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition"
-$id: "https://schemas.optimade.org/entrytypes/v1.2.0/optimade/structures"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/entrytypes/v1.2/optimade/structures"
 title: "Structures"
 description: "The structures entry type describes a crystal structure via its unit cell"
 x-optimade-definition:

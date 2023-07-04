@@ -1,10 +1,10 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
-$id: "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment"
 title: "Magnetic moment"
 x-optimade-type: "list"
 x-optimade-definition:
   kind: "property"
-  version: "1.2.0"
+  version: "1.0.0"
   format: "1.2"
   name: "magnetic_moment"
 x-optimade-unit-definitions:

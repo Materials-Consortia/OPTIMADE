@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/general/watt"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/general/watt"
 title: "watt"
 symbol: "W"
 display-symbol: "W"
@@ -13,10 +13,10 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/1960/named/watt"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1967/named/watt"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1983/named/watt"
-  - "https://schemas.optimade.org/units/v1.2.0/si/2019/named/watt"
+  - "https://schemas.optimade.org/units/v1.2/si/1960/named/watt"
+  - "https://schemas.optimade.org/units/v1.2/si/1967/named/watt"
+  - "https://schemas.optimade.org/units/v1.2/si/1983/named/watt"
+  - "https://schemas.optimade.org/units/v1.2/si/2019/named/watt"
 standard:
   name: "gnu units"
   version: "3.15"
@@ -35,11 +35,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/meter"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/meter"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/general/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/general/second"
   base-units-expression: "kg*m^2*s^-3"
 x-optimade-definition:
   kind: "unit"

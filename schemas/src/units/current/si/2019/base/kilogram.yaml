@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/2019/base/kilogram"
 title: "kilogram"
 symbol: "kg"
 display-symbol: "kg"
@@ -10,8 +10,8 @@ description: |-
 
   This definition references:
 
-  - The 2019 SI derived joule unit (https://schemas.optimade.org/units/v1.2.0/si/2019/named/joule).
-  - The 1967 SI base second unit (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
+  - The 2019 SI derived joule unit (https://schemas.optimade.org/units/v1.2/si/2019/named/joule).
+  - The 1967 SI base second unit (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
 standard:
   name: "gnu units"
   version: "3.15"

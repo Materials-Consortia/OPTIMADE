@@ -1,8 +1,8 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
 title: "deci"
 symbol: "d"
 display-symbol: "d"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/deci"
+$id: "https://schemas.optimade.org/units/v1.2/si/prefixes/deci"
 description: "The deci SI prefix defined as a dimensionless multiple of 10⁻¹, adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 standard:
   name: "gnu units"

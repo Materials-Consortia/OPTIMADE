@@ -1,5 +1,5 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
 title: OPTIMADE Prefix Definition
 $$inherit: physical_unit_definition
 properties:

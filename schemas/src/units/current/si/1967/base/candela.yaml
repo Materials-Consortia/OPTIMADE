@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/candela"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1967/base/candela"
 title: "candela"
 symbol: "cd"
 display-symbol: "cd"
@@ -10,8 +10,8 @@ description: |-
 
   Furthermore, the SI 1967 definition of the candela references:
 
-  - the SI 1960 metre (https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre).
-  - the SI 1967 derived newton unit (https://schemas.optimade.org/units/v1.2.0/si/1967/named/newton) equal to kilogram·metre·second⁻², referencing the SI 1960 kilogram (https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram) and metre (https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre); and the 1967 definition of the second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
+  - the SI 1960 metre (https://schemas.optimade.org/units/v1.2/si/1960/base/metre).
+  - the SI 1967 derived newton unit (https://schemas.optimade.org/units/v1.2/si/1967/named/newton) equal to kilogram·metre·second⁻², referencing the SI 1960 kilogram (https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram) and metre (https://schemas.optimade.org/units/v1.2/si/1960/base/metre); and the 1967 definition of the second (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
 resources:
   - relation: "Definition at the 13st CGPM meeting (1967)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/13-1967/resolution-5"

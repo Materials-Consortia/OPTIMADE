@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/nauticalmile"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1983/temporary/nauticalmile"
 title: "nautical mile"
 symbol: "M"
 display-symbol: "M"
@@ -33,7 +33,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/1983/base/metre"
   base-units-expression: "m"
   scale:
     numerator: 1852

@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/2019/base/candela"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/2019/base/candela"
 title: "candela"
 symbol: "cd"
 display-symbol: "cd"
@@ -12,9 +12,9 @@ description: |-
 
   Following the redefinition of the metre at the 17th CGPM Meeting in 1983, resolution 1, and the redefinition of the kilogram at the 26th CGPM Meeting (2018), resolution 1, the implicitly redefined candela references:
 
-  - the SI 1967 derived hertz unit (https://schemas.optimade.org/units/v1.2.0/si/1967/named/hertz) equal to second⁻¹, referencing the SI 1967 base unit second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
-  - the SI 2019 derived watt unit (https://schemas.optimade.org/units/v1.2.0/si/2019/named/watt) equal to kilogram·meter²·second⁻³, referencing the SI 2019 base unit kilogram (https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram), the SI 1983 base unit metre (https://schemas.optimade.org/units/v1.2.0/si/1983/base/metre); and the 1967 base unit second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
-  - the SI 1960 supplementary unit steradian (https://schemas.optimade.org/units/v1.2.0/si/1960/supplementary/steradian).
+  - the SI 1967 derived hertz unit (https://schemas.optimade.org/units/v1.2/si/1967/named/hertz) equal to second⁻¹, referencing the SI 1967 base unit second (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
+  - the SI 2019 derived watt unit (https://schemas.optimade.org/units/v1.2/si/2019/named/watt) equal to kilogram·meter²·second⁻³, referencing the SI 2019 base unit kilogram (https://schemas.optimade.org/units/v1.2/si/2019/base/kilogram), the SI 1983 base unit metre (https://schemas.optimade.org/units/v1.2/si/1983/base/metre); and the 1967 base unit second (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
+  - the SI 1960 supplementary unit steradian (https://schemas.optimade.org/units/v1.2/si/1960/supplementary/steradian).
 standard:
   name: "gnu units"
   version: "3.15"

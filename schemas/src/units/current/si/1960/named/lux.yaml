@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/lux"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1960/named/lux"
 title: "lux"
 symbol: "lx"
 display-symbol: "lx"
@@ -21,11 +21,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "cd"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/candela"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/candela"
     - symbol: "sr"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/named/steradian"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/named/steradian"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/metre"
   base-units-expression: "cd*m^-2*sr"
 x-optimade-definition:
   kind: "unit"

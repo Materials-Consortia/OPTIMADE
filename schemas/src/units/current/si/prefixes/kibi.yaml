@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/kibi"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/prefixes/kibi"
 title: "kibi"
 symbol: "Ki"
 display-symbol: "Ki"

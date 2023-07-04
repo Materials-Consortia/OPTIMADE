@@ -7,9 +7,9 @@
   attributes: "@nest"
 
   structures:
-    '@id': "https://schemas.optimade.org/nodetypes/v1.2.0/optimade/structures"
-    '@context': "https://schemas.optimade.org/json-ld/v1.2.0/nodetypes/optimade/structures.json"
+    '@id': "https://schemas.optimade.org/nodetypes/v1.2/optimade/structures"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/structures.json"
 
   files:
-    '@id': "https://schemas.optimade.org/nodetypes/v1.2.0/optimade/files"
-    '@context': "https://schemas.optimade.org/json-ld/v1.2.0/nodetypes/optimade/files.json"
+    '@id': "https://schemas.optimade.org/nodetypes/v1.2/optimade/files"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/files.json"

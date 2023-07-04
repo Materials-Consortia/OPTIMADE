@@ -99,7 +99,7 @@ overflow-wrap: break-word;
 <p>This entrytype defines the following properties:</p>
 <ul>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/id">ID</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/id"><code>https://schemas.optimade.org/properties/v1.2.0/core/id</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/id">ID</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/id"><code>https://schemas.optimade.org/properties/v1.2/core/id</code></a><br>
   A unique string referencing a specific entry in the database.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -112,7 +112,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/type">Type</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/type"><code>https://schemas.optimade.org/properties/v1.2.0/core/type</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/type">Type</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/type"><code>https://schemas.optimade.org/properties/v1.2/core/type</code></a><br>
   The name of the type of an entry.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -124,7 +124,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/immutable_id">Immutable ID (immutable_id)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/immutable_id"><code>https://schemas.optimade.org/properties/v1.2.0/core/immutable_id</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/immutable_id">Immutable ID (immutable_id)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/immutable_id"><code>https://schemas.optimade.org/properties/v1.2/core/immutable_id</code></a><br>
   The entry's immutable ID (e.g., a UUID).</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -136,7 +136,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/last_modified">Last modified (last_modified)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/last_modified"><code>https://schemas.optimade.org/properties/v1.2.0/core/last_modified</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/last_modified">Last modified (last_modified)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/last_modified"><code>https://schemas.optimade.org/properties/v1.2/core/last_modified</code></a><br>
   Date and time representing when the entry was last modified.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -146,7 +146,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url">URL</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/url</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/url">URL</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/url"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/url</code></a><br>
   The URL to get the contents of a file.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -157,7 +157,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until">URL stable until (url_stable_until)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until">URL stable until (url_stable_until)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until</code></a><br>
   Point in time until which the URL in <code>url</code> is guaranteed to stay stable.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -169,7 +169,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/name">Name</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/name"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/name</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/name">Name</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/name"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/name</code></a><br>
   Base name of a file.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -180,7 +180,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/size">Size</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/size"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/size</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/size">Size</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/size"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/size</code></a><br>
   Size of a file in bytes.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -193,7 +193,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type">Media type (media_type)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/media_type">Media type (media_type)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/media_type"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/media_type</code></a><br>
   Media type identifier (also known as MIME type), for a file as per <a href="https://datatracker.ietf.org/doc/html/rfc6838">RFC 6838 Media Type Specifications and Registration Procedures</a>.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -203,7 +203,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/version">Version</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/version"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/version</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/version">Version</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/version"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/version</code></a><br>
   Version information of a file (e.g. commit, revision, timestamp).</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -214,7 +214,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp">Modification timestamp (modification_timestamp)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp">Modification timestamp (modification_timestamp)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp</code></a><br>
   Timestamp of the last modification of file contents. A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -225,7 +225,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/description">Description</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/description"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/description</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/description">Description</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/description"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/description</code></a><br>
   Free-form description of a file.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -235,7 +235,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums">Checksums</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/checksums">Checksums</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/checksums"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/checksums</code></a><br>
   Dictionary providing checksums of file contents.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -252,7 +252,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime">Access time (atime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/atime">Access time (atime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/atime"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/atime</code></a><br>
   Time of last access of a file as per POSIX standard.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -262,7 +262,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime">Change time (ctime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/ctime">Change time (ctime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/ctime"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/ctime</code></a><br>
   Time of last status change of a file as per POSIX standard.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -272,7 +272,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime">Modification time (mtime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/files/mtime">Modification time (mtime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/files/mtime"><code>https://schemas.optimade.org/properties/v1.2/optimade/files/mtime</code></a><br>
   Time of last modification of a file as per POSIX standard.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -287,7 +287,7 @@ overflow-wrap: break-word;
 </ul>
 <p><strong>JSON definition:</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition.html&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition.html&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/entrytypes/files&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example provider files endpoint&quot;</span><span class="p">,</span><span class="w"></span>
@@ -299,7 +299,7 @@ overflow-wrap: break-word;
 <span class="w">    </span><span class="p">},</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/id&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/id&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -334,7 +334,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/type&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/type&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -365,7 +365,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;immutable_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/immutable_id&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/immutable_id&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -398,7 +398,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;last_modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/last_modified&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/last_modified&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -431,7 +431,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/url&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/url&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -462,7 +462,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;url_stable_until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -495,7 +495,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/name&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/name&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -526,7 +526,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/size&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/size&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -549,7 +549,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit-definitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2.0/iso-iec-80000/2008/information_science_and_technology/byte&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2/iso-iec-80000/2008/information_science_and_technology/byte&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;byte&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="w"></span>
@@ -573,7 +573,7 @@ overflow-wrap: break-word;
 <span class="w">                        </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                            </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bit&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2.0/information/bit&quot;</span><span class="w"></span>
+<span class="w">                                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2/information/bit&quot;</span><span class="w"></span>
 <span class="w">                            </span><span class="p">}</span><span class="w"></span>
 <span class="w">                        </span><span class="p">],</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bit&quot;</span><span class="p">,</span><span class="w"></span>
@@ -600,7 +600,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;byte&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;media_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/media_type&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -632,7 +632,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/version&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/version&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -664,7 +664,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;modification_timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -696,7 +696,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/description&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/description&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-requirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;may&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -722,7 +722,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;checksums&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/checksums&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-requirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;may&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -787,7 +787,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;atime&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/atime&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-requirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;may&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -814,7 +814,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;ctime&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/ctime&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-requirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;may&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -841,7 +841,7 @@ overflow-wrap: break-word;
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;mtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/files/mtime&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-requirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;may&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>

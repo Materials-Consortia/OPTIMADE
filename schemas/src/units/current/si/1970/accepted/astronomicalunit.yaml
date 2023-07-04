@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/astronomicalunit"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1970/accepted/astronomicalunit"
 title: "astronomical unit"
 symbol: "astronomicalunit"
 display-symbol: "au"
@@ -34,7 +34,7 @@ resources:
 approximate-relations:
   - base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/metre"
     base-units-expression: "m"
     scale:
       value: 1.49597870691E+11

@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1979/base/candela"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1979/base/candela"
 title: "candela"
 symbol: "cd"
 display-symbol: "cd"
@@ -10,9 +10,9 @@ description: |-
 
   The hertz, watt, and steradian units referenced in this definition are:
 
-  - the SI 1967 derived hertz unit (https://schemas.optimade.org/units/v1.2.0/si/1967/named/hertz) equal to second⁻¹, referencing the SI 1967 base unit second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
-  - the SI 1967 derived watt unit (https://schemas.optimade.org/units/v1.2.0/si/1967/named/watt) equal to kilogram·meter²·second⁻³, referencing the SI 1960 base unit kilogram (https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram) and metre (https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre); and the 1967 base unit second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
-  - the SI 1960 supplementary unit steradian (https://schemas.optimade.org/units/v1.2.0/si/1960/supplementary/steradian).
+  - the SI 1967 derived hertz unit (https://schemas.optimade.org/units/v1.2/si/1967/named/hertz) equal to second⁻¹, referencing the SI 1967 base unit second (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
+  - the SI 1967 derived watt unit (https://schemas.optimade.org/units/v1.2/si/1967/named/watt) equal to kilogram·meter²·second⁻³, referencing the SI 1960 base unit kilogram (https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram) and metre (https://schemas.optimade.org/units/v1.2/si/1960/base/metre); and the 1967 base unit second (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
+  - the SI 1960 supplementary unit steradian (https://schemas.optimade.org/units/v1.2/si/1960/supplementary/steradian).
 standard:
   name: "gnu units"
   version: "3.15"

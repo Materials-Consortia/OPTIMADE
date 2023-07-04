@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/general/atomicmassunit"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/general/atomicmassunit"
 title: "atomic mass unit"
 symbol: "u"
 display-symbol: "u"
@@ -16,16 +16,16 @@ description: |-
   In the 8th ed. (2006) the definition is slightly adjusted, replacing "unbound" with "free": "The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 times the mass of a free carbon 12 atom, at rest and in its ground state."
 
   All editions of The International System of Units note approximate relationships to the kilogram.
-  The 9th ed. states "1 Da = 1.660 539 066 60(50)×10⁻²⁷ kg", where the 2018 CODATA value has been used and the 2019 SI kilogram is referenced (https://schemas.optimade.org/units/v1.2.0/si/2019/base/kilogram).
+  The 9th ed. states "1 Da = 1.660 539 066 60(50)×10⁻²⁷ kg", where the 2018 CODATA value has been used and the 2019 SI kilogram is referenced (https://schemas.optimade.org/units/v1.2/si/2019/base/kilogram).
 
   In the 2019 redefinition of the SI units, the atomic mass unit is the only unit listed as accepted for use with SI that has an experimental relationship to the base SI units.
 
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2.0/si/1970/accepted/atomicmassunit"
-  - "https://schemas.optimade.org/units/v1.2.0/si/1998/accepted/dalton"
-  - "https://schemas.optimade.org/units/v1.2.0/si/general/dalton"
+  - "https://schemas.optimade.org/units/v1.2/si/1970/accepted/atomicmassunit"
+  - "https://schemas.optimade.org/units/v1.2/si/1998/accepted/dalton"
+  - "https://schemas.optimade.org/units/v1.2/si/general/dalton"
 standard:
   name: "gnu units"
   version: "3.15"

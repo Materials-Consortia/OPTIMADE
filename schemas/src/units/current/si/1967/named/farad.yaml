@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/farad"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1967/named/farad"
 title: "farad"
 symbol: "farad"
 display-symbol: "F"
@@ -23,13 +23,13 @@ resources:
 defining-relation:
   base-units:
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/ampere"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/ampere"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
   base-units-expression: "A^2*kg^-1*m^-2*s^4"
 x-optimade-definition:
   kind: "unit"

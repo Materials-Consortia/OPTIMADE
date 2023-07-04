@@ -1,9 +1,9 @@
 '@context':
 
-  url: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/url"
-  url_stable_until: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until"
-  name: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/name"
-  size: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/size"
-  media_type: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type"
-  version: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/version"
-  modification_timestamp: "https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp"
+  url: "https://schemas.optimade.org/properties/v1.2/optimade/files/url"
+  url_stable_until: "https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until"
+  name: "https://schemas.optimade.org/properties/v1.2/optimade/files/name"
+  size: "https://schemas.optimade.org/properties/v1.2/optimade/files/size"
+  media_type: "https://schemas.optimade.org/properties/v1.2/optimade/files/media_type"
+  version: "https://schemas.optimade.org/properties/v1.2/optimade/files/version"
+  modification_timestamp: "https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp"

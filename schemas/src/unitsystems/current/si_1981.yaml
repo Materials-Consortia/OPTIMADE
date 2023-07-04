@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/unitsystems/v1.2.0/si_1981"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/unitsystems/v1.2/si_1981"
 title: "SI 1981"
 description: |-
   The SI unit system as represented in the 4th edition of The International System of Units.

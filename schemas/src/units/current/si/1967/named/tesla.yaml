@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/tesla"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1967/named/tesla"
 title: "tesla"
 symbol: "tesla"
 display-symbol: "T"
@@ -19,11 +19,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/ampere"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/ampere"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1960/base/kilogram"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
   base-units-expression: "A^-1*kg*s^-2"
 x-optimade-definition:
   kind: "unit"

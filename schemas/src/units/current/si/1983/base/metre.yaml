@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/metre"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1983/base/metre"
 title: "metre"
 symbol: "m"
 display-symbol: "m"
@@ -13,7 +13,7 @@ description: |-
 
   At the 26th CGPM Meeting (2018), resolution 1 the definition was rephrased to: "The metre, symbol m, is the SI unit of length. It is defined by taking the fixed numerical value of the speed of light in vacuum \(c\) to be 299792458 when expressed in the unit m⋅s⁻¹, where the second is defined in terms of the caesium frequency \(\Delta \nu_\textrm{Cs}\)."
 
-  This definition references the SI 1967 second (https://schemas.optimade.org/units/v1.2.0/si/1967/base/second).
+  This definition references the SI 1967 second (https://schemas.optimade.org/units/v1.2/si/1967/base/second).
 standard:
   name: "gnu units"
   version: "3.15"

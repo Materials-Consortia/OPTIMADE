@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1967/named/hertz"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1967/named/hertz"
 title: "hertz"
 symbol: "hertz"
 display-symbol: "Hz"
@@ -25,7 +25,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
   base-units-expression: "s^-1"
 x-optimade-definition:
   kind: "unit"

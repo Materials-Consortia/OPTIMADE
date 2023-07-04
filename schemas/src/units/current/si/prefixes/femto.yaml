@@ -1,8 +1,8 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
 title: "femto"
 symbol: "f"
 display-symbol: "f"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/femto"
+$id: "https://schemas.optimade.org/units/v1.2/si/prefixes/femto"
 description: "The femto SI prefix defined as a dimensionless multiple of 10⁻¹⁵, defined at the 12:th CGPM Meeting in 1964, resolution 8."
 standard:
   name: "gnu units"

@@ -1,8 +1,8 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/constant_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/constant_definition"
 title: "pi"
 symbol: "pi"
 display-symbol: "π"
-$id: "https://schemas.optimade.org/constants/v1.2.0/math/pi"
+$id: "https://schemas.optimade.org/constants/v1.2/math/pi"
 description: |-
   The ratio of a circle's circumference to its diameter. Approximately equal to 3.1415926.
 

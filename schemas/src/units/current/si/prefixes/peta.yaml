@@ -1,8 +1,8 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
 title: "peta"
 symbol: "P"
 display-symbol: "P"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/peta"
+$id: "https://schemas.optimade.org/units/v1.2/si/prefixes/peta"
 description: "The peta SI prefix defined as a dimensionless multiple of 10¹⁵, defined at the 15th CGPM Meeting in 1975, resolution 10."
 standard:
   name: "gnu units"

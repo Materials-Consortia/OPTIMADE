@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
-$id: "https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/knot"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/units/v1.2/si/1983/temporary/knot"
 title: "knot"
 symbol: "knot"
 display-symbol: "knot"
@@ -28,9 +28,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1983/base/metre"
+      id: "https://schemas.optimade.org/units/v1.2/si/1983/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2.0/si/1967/base/second"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
   base-units-expression: "ms^-1"
   scale:
     numerator: 1852

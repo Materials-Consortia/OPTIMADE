@@ -1,5 +1,5 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/unitsystems/v1.2.0/si_accepted_2019"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/unitsystems/v1.2/si_accepted_2019"
 $$inherit: ["/unitsystems/v1.2.0/si_2019"]
 title: "SI accepted 2019"
 description: |-
