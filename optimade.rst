@@ -3072,10 +3072,9 @@ structure\_features
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, e.g., from a molecular dynamics or Monte Carlo simulation.
+- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, for example, from molecular dynamics or Monte Carlo simulations.
 
   The individual steps of the trajectories are called frames.
-
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
   :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
   Furthermore, :entry:`trajectories` can optionally have relationships and database-specific fields.
@@ -3115,7 +3114,7 @@ reference_frame
 - **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
   The first frame could for example be a starting configuration, the second a transition state and the third the final state.
 - **Type**: list of integers
-- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and e less than nframes.
+- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and less than nframes.
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
