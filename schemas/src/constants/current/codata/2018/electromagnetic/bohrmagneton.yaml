@@ -1,4 +1,4 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/constant_definition"
 $id: "https://schemas.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/bohrmagneton"
 title: "Bohr magneton"
 symbol: "bohrmagneton"

@@ -1,0 +1,25 @@
+{
+    "@context": {
+        "_exmpl_cell_volume": "https://example.com/properties/v1.0.0/structures/_exmpl_cell_volume",
+        "immutable_id": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/immutable_id",
+        "last_modified": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/last_modified",
+        "elements": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements",
+        "nelements": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nelements",
+        "elements_ratios": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/elements_ratios",
+        "chemical_formula_descriptive": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_descriptive",
+        "chemical_formula_reduced": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_reduced",
+        "chemical_formula_hill": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_hill",
+        "chemical_formula_anonymous": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/chemical_formula_anonymous",
+        "dimension_types": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/dimension_types",
+        "nperiodic_dimensions": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nperiodic_dimensions",
+        "lattice_vectors": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/lattice_vectors",
+        "space_group_hall": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_hall",
+        "space_group_it_number": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/space_group_it_number",
+        "cartesian_site_positions": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/cartesian_site_positions",
+        "nsites": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/nsites",
+        "species_at_sites": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species_at_sites",
+        "species": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/species",
+        "assemblies": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/assemblies",
+        "structure_features": "https://schemas.optimade.org/properties/v1.2.0/optimade/structures/structure_features"
+    }
+}

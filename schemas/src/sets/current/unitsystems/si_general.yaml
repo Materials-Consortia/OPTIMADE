@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_extra_2019"
+$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_general"
 title: "SI general"
 description: |-
   The SI unit system, using of current or historical definitions of the SI units.

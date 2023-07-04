@@ -78,6 +78,11 @@ arguments = [
         'help': 'Base id to relative to which $$inherit references are resolved',
     },
     {
+        'names': ['--resolve-path'],
+        'help': 'Add the given path to the list of paths when trying to resolve $$inherit',
+        'action': 'append', 'default': []
+    },
+    {
         'names': ['-s', '--sub'],
         'help': 'Define a subsitution: all occurences in strings of key will be replaced by val',
         'nargs': 2, 'metavar': ('key', 'value'), 'action': 'append',
@@ -311,17 +316,14 @@ class ExceptionWrapper(Exception):
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
-
-def validate(instance, schemas={}, schema=None):
+def validate(instance, args, bases=None, source=None, schemas={}, schema=None, use_schema_field=False, sanity_check=True):
     import jsonschema
     from jsonschema import RefResolver
 
-    def retrieve_from_filesystem(uri: str):
-        if not uri.startswith("http://localhost/"):
-            raise NoSuchResource(ref=uri)
-        path = Path("/tmp/schemas") / Path(uri.removeprefix("http://localhost/"))
-        contents = json.loads(path.read_text())
-        return Resource.from_contents(contents)
+    # Block attempts to resolve schemas over the Internet, we only want to use Schemas present in the repository
+    class LocalOnlyRefResolver(RefResolver):
+        def resolve_remote(self, uri):
+            raise Exception("Validation: attempt to fetch remove schema over the internet blocked: "+str(uri))
 
     if '$schema' in instance:
         schema_id = instance['$schema']
@@ -346,25 +348,47 @@ def validate(instance, schemas={}, schema=None):
         else:
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
+    if use_schema_field:
+        if schema_id is not None:
+            validator = jsonschema.validators.validator_for(schema, default=_UNSET)
+        else:
+            raise Exception("Validation: asked to use $schema field to decide validator, but no such field present.")
+    else:
+        try:
+            validator = jsonschema.Draft202012Validator(schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+        except AttributeError:
+            logging.warning("JSON Schema Python library is not aware of the Draft202012 standard. It is probably too old. Will validate using default validator.")
+            validator = None
+
+    if sanity_check:
+        if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
+
+            # if the top $id is inherited from another file, do the sanity check against that file path
+            if 'id_inherited_from' in bases:
+                idsource = inherit_to_source(bases['id_inherited_from'], bases['self'], args.resolve_path, supported_input_formats)
+            else:
+                idsource = source
+
+            dirprefix = os.path.commonprefix([bases['dir'], idsource])
+            dirpath = os.path.realpath(idsource)
+            _dummy, dirext = os.path.splitext(idsource)
+
+            idprefix = os.path.commonprefix([bases['id'], iid])
+            idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
+
+            if(dirpath!=idpath):
+                raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file path ["+idsource+"]\n"+
+                                "The actual comparison made was: "+dirpath+" vs. "+idpath+"\n")
     try:
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
 
-        resolver = RefResolver.from_schema(schema=schema, store=schemas)
+        resolver = LocalOnlyRefResolver.from_schema(schema=schema, store=schemas)
 
-        #schema = Resource.from_contents(
-        #    {
-        #        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        #        "type": "integer",
-        #        "minimum": 0,
-        #    },
-        #)
-        #registry = Registry(retrieve=retrieve_from_filesystem).with_resources(
-        #    [
-        #        ("http://example.com/nonneg-int-schema", schema),
-        #        ("urn:nonneg-integer-schema", schema),
-        #    ],
-        #)
-        jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+        if validator is not None:
+            validator.validate(instance)
+        else:
+            jsonschema.validate(instance=instance, schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+
     except jsonschema.ValidationError as e:
         logging.debug("Schema validation failed, full output:\n"+str(e))
         logging.debug("Data being validated:\n"+str(instance))
@@ -427,13 +451,24 @@ def read_data(source, input_format='auto', preserve_order=True, origin=None):
 
         if input_format == "yaml":
             import yaml
-            return yaml.safe_load(reader), "yaml"
+            if preserve_order:
+                class YamlOrderedSafeLoader(yaml.SafeLoader):
+                    def __init__(self, stream, object_pairs_hook=OrderedDict):
+                        super().__init__(stream)
+                        def mapper(loader, node):
+                            loader.flatten_mapping(node)
+                            return object_pairs_hook(loader.construct_pairs(node))
+                        self.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, mapper)
+                return yaml.load(reader, YamlOrderedSafeLoader), "yaml"
+            else:
+                return yaml.safe_load(reader), "yaml"
+
         if input_format == "json":
             import json
-            #if preserve_order:
-            #    return json.load(reader, object_pairs_hook=OrderedDict), "json"
-            #else:
-            return json.load(reader), "json"
+            if preserve_order:
+                return json.load(reader, object_pairs_hook=OrderedDict), "json"
+            else:
+                return json.load(reader), "json"
         else:
             raise Exception("Unknown input format or unable to automatically detect for: "+source+", input_format: "+str(input_format))
     except Exception as e:
@@ -897,7 +932,7 @@ def output_str(data, output_format, args):
         raise Exception("Unknown output format: "+str(output_format))
 
 
-def inherit_to_source(ref, bases):
+def inherit_to_source(ref, reldir, absdirs, formats):
     """
     Convert a JSON Schema $$inherit reference to a source path.
 
@@ -916,17 +951,29 @@ def inherit_to_source(ref, bases):
         The source path corresponding to the input reference.
 
     """
+
     parsed_ref = urllib.parse.urlparse(ref)
-    if parsed_ref.scheme in ['file', '']:
-        ref = parsed_ref.path
-        if os.path.isabs(ref):
-            # Re-process absolute path to file path
-            absref = urllib.parse.urljoin(bases['id'], ref)
-            relref = absref[len(bases['id']):]
-            return os.path.join(bases['dir'],relref)
-        else:
-            return os.path.join(bases['self'],ref)
-    return ref
+    if parsed_ref.scheme not in ['file', '']:
+        return ref
+    ref = parsed_ref.path
+
+    if os.path.isabs(ref):
+        # Re-process absolute path to file path
+        #absref = urllib.parse.urljoin(bases['id'], ref)
+        #ref = absref[len(bases['id']):]
+        ref = os.path.relpath(ref,'/')
+        checkdirs = absdirs
+    else:
+        # Relative paths are always resolved relative to the file itself
+        checkdirs = [ reldir ]
+
+    for d in checkdirs:
+        for ext in [''] + ['.'+s for s in formats]:
+            candidate = os.path.join(d,ref)+ext
+            if os.path.exists(candidate):
+              return candidate
+
+    raise Exception("File not found when dereferencing $$inherit: "+str(ref)+" looked in: "+str(checkdirs))
 
 
 def recursive_replace(d, subs):
@@ -992,7 +1039,7 @@ def handle_inherit(ref, mode, bases, subs, args, origin=None):
         base, ext = os.path.splitext(ref)
         return { "$ref": base + '.' + args.input_format }
     elif mode == "insert":
-        source = inherit_to_source(ref, bases)
+        source = inherit_to_source(ref, bases['self'], args.resolve_path, supported_input_formats)
         data = read_data(source, args.input_format, origin=origin)[0]
         if subs is not None:
             return recursive_replace(data, subs)
@@ -1074,7 +1121,7 @@ def handle_all(data, bases, subs, args, level, origin=None):
                 if isinstance(output, dict):
                     # Handle the inherit recursively
                     newbases = bases.copy()
-                    source = inherit_to_source(inherit, bases)
+                    source = inherit_to_source(inherit, bases['self'], args.resolve_path, supported_input_formats)
                     newbases['self'] = os.path.dirname(source)
                     output = handle_all(output, newbases, subs, args, level=level+1, origin=source)
 
@@ -1115,6 +1162,13 @@ def handle_all(data, bases, subs, args, level, origin=None):
             if args.remove_null and v is None:
                 del data[k]
 
+        # Always place $schema and $id at the top of the output for ordered output
+        if isinstance(data,OrderedDict):
+            if '$id' in data:
+                data.move_to_end('$id',last=False)
+            if '$schema' in data:
+                data.move_to_end('$schema',last=False)
+
         return data
 
     else:
@@ -1147,6 +1201,16 @@ def process(source, bases, subs, args):
     data, input_format = read_data(source, args.input_format)
     parsed_source = urllib.parse.urlparse(source)
     bases['self'] = os.path.dirname(parsed_source.path)
+
+    # First handle all replacements
+    if subs is not None:
+        recursive_replace(data, subs)
+
+    # Inheriting the top $id is interpreted as a special case that needs to be
+    # remembered to be handled correctly by the sanity check in the validator, since
+    # the $id should be named according to the referenced path.
+    if ('$$inherit' in data) and ('$id' not in data):
+        bases['id_inherited_from'] = data['$$inherit']
 
     if "$id" in data:
         id_uri = data["$id"]
@@ -1226,6 +1290,8 @@ if __name__ == "__main__":
 
         args = parser.parse_args()
         bases = {'id':args.baseid, 'dir':args.basedir }
+        if args.basedir is not None:
+            args.resolve_path = [ args.basedir ] + args.resolve_path
         subs = dict(args.sub) if len(args.sub) > 0 else None
 
         # Make sure verbosity is in the allowed range
@@ -1268,7 +1334,7 @@ if __name__ == "__main__":
         try:
             if args.force_schema:
                 schema_data, ext = read_data(args.force_schema, "json")
-                validate(data, schema=args.force_schema)
+                validate(data, args, bases=bases, source=args.source, schema=args.force_schema)
 
             if args.schema is not None and '$schema' in data:
                 schemas = {}
@@ -1278,7 +1344,7 @@ if __name__ == "__main__":
                         schemas[schema_data['$id']] = schema_data
                     else:
                         raise Exception("Schema provided without $id field: "+str(schema_data))
-                validate(data, schemas=schemas)
+                validate(data, args, bases=bases, source=args.source, schemas=schemas)
 
         except Exception as e:
             raise ExceptionWrapper("Validation of data failed", e) from e

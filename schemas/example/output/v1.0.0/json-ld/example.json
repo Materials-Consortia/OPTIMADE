@@ -1,0 +1,16 @@
+{
+    "@context": {
+        "id": "@id",
+        "type": "@type",
+        "data": "@graph",
+        "attributes": "@nest",
+        "structures": {
+            "@id": "https://example.org/properties/v1.0.0/entrytypes/optimade/structures",
+            "@context": "https://example.org/json-ld/v1.0.0/entrytypes/optimade/structures.json"
+        },
+        "files": {
+            "@id": "https://schemas.optimade.org/nodetypes/v1.2.0/optimade/files",
+            "@context": "https://schemas.optimade.org/json-ld/v1.2.0/nodetypes/optimade/files.json"
+        }
+    }
+}

@@ -1,4 +1,4 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/physical_unit_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
 $id: "https://schemas.optimade.org/units/v1.2.0/si/prefixes/yobi"
 title: "yobi"
 symbol: "Yi"
