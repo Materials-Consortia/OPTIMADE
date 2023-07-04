@@ -43,8 +43,8 @@ properties:
           type: string
       required: ["relation","resource-id"]
       patternProperties:
-        "^x-": {}
+        "^x-(?!optimade-)": {}
       additionalProperties: false
 patternProperties:
-  "^x-": {}
+  "^x-(?!optimade-)": {}
 additionalProperties: false

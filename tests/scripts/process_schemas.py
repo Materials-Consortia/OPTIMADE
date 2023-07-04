@@ -495,11 +495,15 @@ def md_header(s, level, style="display"):
         out = md_headers[level] + " " + s + "\n"
     return out
 
-def data_get_basics(data):
-    basics = {'title':"*[untitled]*", 'description_short':"", 'description_details':"", 'examples':"", 'kind':"*[unknown]*", 'Kind':"*[Unknown]*"}
+def data_get_basics(data, default_title="*[untitled]*", default_kind="*[unknown]*", default_Kind="*[Unknown]*"):
+    basics = {'title':default_title, 'description_short':"", 'description_details':"", 'examples':"", 'kind':default_kind, 'Kind':default_Kind}
     if 'x-optimade-definition' in data and 'kind' in data['x-optimade-definition']:
         basics['kind'] = data['x-optimade-definition']['kind']
         basics['name'] = data['x-optimade-definition']['name']
+    elif '$schema' in data and data['$schema'] == 'https://json-schema.org/draft/2020-12/schema':
+        basics['kind'] = 'schema'
+    elif '@context' in data:
+        basics['kind'] = 'json-ld'
     if 'title' in data:
         basics['title'] = str(data['title'])
     if 'description' in data:
@@ -693,6 +697,34 @@ def general_to_md(data, args, level=0):
     s += "\n```"
     return s
 
+def schema_to_md(data, args, level=0):
+    """
+    Convert data representing a JSON schema into a markdown string.
+
+    Parameters
+    ----------
+    data : dict
+        A dictionary containing the OPTIMADE Property Definition data.
+
+    Returns
+    -------
+    str
+        A string representation of the input data.
+    """
+    import json
+    s = ""
+
+    titlestr = (data['title'] + " (schema)") if 'title' in data else "Schema"
+    s += md_header(titlestr, level, style="display")
+
+    s += "This page documents a JSON Schema definition.\n\n"
+
+    s += "**JSON definition:**\n"
+    s += general_to_md(data, args)
+
+    return s
+
+
 def property_definition_to_md(data, args, level=0):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
@@ -786,6 +818,9 @@ def data_to_md(data, args, level=0):
 
     s = ""
     if not "x-optimade-definition" in data:
+        if '$schema' in data and data['$schema'] == 'https://json-schema.org/draft/2020-12/schema':
+            s += schema_to_md(data, args)
+            return s
         if 'title' in data:
             basics = data_get_basics(data)
             s += md_header(basics['title'], level, style="display")
@@ -826,9 +861,9 @@ def data_to_md_index(data, args, path=[], level=0):
     # The heuristic of lookoing for a 'title' field that is a string
     # to determine how to print things is not foolproof,
     # but seems to work for now. This may need revisiting later.
-    if 'title' in data and isinstance(data['title'],str):
-        title = data['title']
-        basics = data_get_basics(data)
+    if ('title' in data and isinstance(data['title'],str)) or '@context' in data:
+        basics = data_get_basics(data, default_title=path[-1])
+        title = basics['title']
         kind = basics['kind']
         if '$id' in data:
             s += "* **["+title+"]("+("/".join(path))+")** ("+kind+") - [`"+data['$id']+"`]("+data['$id']+")  \n"
@@ -967,8 +1002,14 @@ def inherit_to_source(ref, reldir, absdirs, formats):
         # Relative paths are always resolved relative to the file itself
         checkdirs = [ reldir ]
 
+    _dummy, ext = os.path.splitext(ref)
+    if ext is not None and ext != "":
+        try_exts = ['']
+    else:
+        try_exts = ['.'+s for s in formats]
+
     for d in checkdirs:
-        for ext in [''] + ['.'+s for s in formats]:
+        for ext in try_exts:
             candidate = os.path.join(d,ref)+ext
             if os.path.exists(candidate):
               return candidate

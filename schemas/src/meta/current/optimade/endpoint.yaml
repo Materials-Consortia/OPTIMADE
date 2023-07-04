@@ -2,7 +2,7 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint"
 title: "OPTIMADE Endpoint Definition schema"
 type: object
-required: ["$id", "$schema", "title", "type", "properties"]
+required: ["$id", "$schema", "title", "type", "properties","x-optimade-definition"]
 properties:
   "$id":
     type: string
@@ -16,6 +16,9 @@ properties:
     type: object
     additionalProperties:
       $$inherit: "property_definition"
+      allOf:
+        - $ref: "#/$defs/propdef"
+        - required: ["title", "description"]
   type:
     type: string
 additionalProperties: false

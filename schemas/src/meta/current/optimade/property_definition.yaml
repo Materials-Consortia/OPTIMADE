@@ -2,8 +2,9 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2.0/optimade/property_definition"
 title: "OPTIMADE Property Definition schema"
 type: object
-required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
-$ref: "#/$defs/propdef"
+allOf:
+  - $ref: "#/$defs/propdef"
+  - required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
 $defs:
   propdef:
     required: ["type", "x-optimade-type", "x-optimade-unit"]
@@ -281,7 +282,7 @@ $defs:
         type: string
       x-optimade-implementation:
         patternProperties:
-          "^x-": {}
+          "^x-(?!optimade-)": {}
         properties:
           query-support:
             enum:
@@ -324,7 +325,7 @@ $defs:
         additionalProperties: false
         properties:
           patternProperties:
-            "^x-": {}
+            "^x-(?!optimade-)": {}
           query-support:
             enum:
             - all mandatory
@@ -392,5 +393,5 @@ $defs:
         type: boolean
     # Allow database-specific fields
     patternProperties:
-      "^x-": {}
+      "^x-(?!optimade-)": {}
     additionalProperties: false

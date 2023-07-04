@@ -28,5 +28,7 @@ properties:
     type: object
     additionalProperties:
       $$inherit: "property_definition"
-      required: ["title", "description", "x-optimade-definition"]
+      allOf:
+        - $ref: "#/$defs/propdef"
+        - required: ["title", "description"]
 additionalProperties: false
