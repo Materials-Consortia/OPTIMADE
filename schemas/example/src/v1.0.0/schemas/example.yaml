@@ -1,10 +1,10 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $$inherit: "/json-schema/current/optimade"
-$id: "https://example.org/schemas/v1.0.0/example"
+$id: "https://example.org/schemas/v1.0.0/schemas/example"
 title: "Schema for example.org"
 description: "This is a schema for example.org OPTIMADE responses."
 endpoints:
   structures:
-    $$inherit: "/example/v1.0.0/endpoints/structures"
+    $$inherit: "/v1.0.0/endpoints/structures"
   files:
-    $$inherit: "/example/v1.0.0/endpoints/files"
+    $$inherit: "/v1.0.0/endpoints/files"

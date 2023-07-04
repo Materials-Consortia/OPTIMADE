@@ -78,6 +78,11 @@ arguments = [
         'help': 'Base id to relative to which $$inherit references are resolved',
     },
     {
+        'names': ['--resolve-path'],
+        'help': 'Add the given path to the list of paths when trying to resolve $$inherit',
+        'action': 'append', 'default': []
+    },
+    {
         'names': ['-s', '--sub'],
         'help': 'Define a subsitution: all occurences in strings of key will be replaced by val',
         'nargs': 2, 'metavar': ('key', 'value'), 'action': 'append',
@@ -311,7 +316,7 @@ class ExceptionWrapper(Exception):
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
-def validate(instance, bases=None, source=None, schemas={}, schema=None, use_schema_field=False, sanity_check=True):
+def validate(instance, args, bases=None, source=None, schemas={}, schema=None, use_schema_field=False, sanity_check=True):
     import jsonschema
     from jsonschema import RefResolver
 
@@ -360,7 +365,7 @@ def validate(instance, bases=None, source=None, schemas={}, schema=None, use_sch
 
             # if the top $id is inherited from another file, do the sanity check against that file path
             if 'id_inherited_from' in bases:
-                idsource = inherit_to_source(bases['id_inherited_from'], bases)
+                idsource = inherit_to_source(bases['id_inherited_from'], bases['self'], args.resolve_path, supported_input_formats)
             else:
                 idsource = source
 
@@ -372,8 +377,8 @@ def validate(instance, bases=None, source=None, schemas={}, schema=None, use_sch
             idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
 
             if(dirpath!=idpath):
-                raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file ["+idsource+"]")
-
+                raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file path ["+idsource+"]\n"+
+                                "The actual comparison made was: "+dirpath+" vs. "+idpath+"\n")
     try:
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
 
@@ -927,7 +932,7 @@ def output_str(data, output_format, args):
         raise Exception("Unknown output format: "+str(output_format))
 
 
-def inherit_to_source(ref, bases):
+def inherit_to_source(ref, reldir, absdirs, formats):
     """
     Convert a JSON Schema $$inherit reference to a source path.
 
@@ -946,17 +951,29 @@ def inherit_to_source(ref, bases):
         The source path corresponding to the input reference.
 
     """
+
     parsed_ref = urllib.parse.urlparse(ref)
-    if parsed_ref.scheme in ['file', '']:
-        ref = parsed_ref.path
-        if os.path.isabs(ref):
-            # Re-process absolute path to file path
-            absref = urllib.parse.urljoin(bases['id'], ref)
-            relref = absref[len(bases['id']):]
-            return os.path.join(bases['dir'],relref)
-        else:
-            return os.path.join(bases['self'],ref)
-    return ref
+    if parsed_ref.scheme not in ['file', '']:
+        return ref
+    ref = parsed_ref.path
+
+    if os.path.isabs(ref):
+        # Re-process absolute path to file path
+        #absref = urllib.parse.urljoin(bases['id'], ref)
+        #ref = absref[len(bases['id']):]
+        ref = os.path.relpath(ref,'/')
+        checkdirs = absdirs
+    else:
+        # Relative paths are always resolved relative to the file itself
+        checkdirs = [ reldir ]
+
+    for d in checkdirs:
+        for ext in [''] + ['.'+s for s in formats]:
+            candidate = os.path.join(d,ref)+ext
+            if os.path.exists(candidate):
+              return candidate
+
+    raise Exception("File not found when dereferencing $$inherit: "+str(ref)+" looked in: "+str(checkdirs))
 
 
 def recursive_replace(d, subs):
@@ -1022,7 +1039,7 @@ def handle_inherit(ref, mode, bases, subs, args, origin=None):
         base, ext = os.path.splitext(ref)
         return { "$ref": base + '.' + args.input_format }
     elif mode == "insert":
-        source = inherit_to_source(ref, bases)
+        source = inherit_to_source(ref, bases['self'], args.resolve_path, supported_input_formats)
         data = read_data(source, args.input_format, origin=origin)[0]
         if subs is not None:
             return recursive_replace(data, subs)
@@ -1104,7 +1121,7 @@ def handle_all(data, bases, subs, args, level, origin=None):
                 if isinstance(output, dict):
                     # Handle the inherit recursively
                     newbases = bases.copy()
-                    source = inherit_to_source(inherit, bases)
+                    source = inherit_to_source(inherit, bases['self'], args.resolve_path, supported_input_formats)
                     newbases['self'] = os.path.dirname(source)
                     output = handle_all(output, newbases, subs, args, level=level+1, origin=source)
 
@@ -1184,6 +1201,10 @@ def process(source, bases, subs, args):
     data, input_format = read_data(source, args.input_format)
     parsed_source = urllib.parse.urlparse(source)
     bases['self'] = os.path.dirname(parsed_source.path)
+
+    # First handle all replacements
+    if subs is not None:
+        recursive_replace(data, subs)
 
     # Inheriting the top $id is interpreted as a special case that needs to be
     # remembered to be handled correctly by the sanity check in the validator, since
@@ -1269,6 +1290,8 @@ if __name__ == "__main__":
 
         args = parser.parse_args()
         bases = {'id':args.baseid, 'dir':args.basedir }
+        if args.basedir is not None:
+            args.resolve_path = [ args.basedir ] + args.resolve_path
         subs = dict(args.sub) if len(args.sub) > 0 else None
 
         # Make sure verbosity is in the allowed range
@@ -1311,7 +1334,7 @@ if __name__ == "__main__":
         try:
             if args.force_schema:
                 schema_data, ext = read_data(args.force_schema, "json")
-                validate(data, bases=bases, source=args.source, schema=args.force_schema)
+                validate(data, args, bases=bases, source=args.source, schema=args.force_schema)
 
             if args.schema is not None and '$schema' in data:
                 schemas = {}
@@ -1321,7 +1344,7 @@ if __name__ == "__main__":
                         schemas[schema_data['$id']] = schema_data
                     else:
                         raise Exception("Schema provided without $id field: "+str(schema_data))
-                validate(data, bases=bases, source=args.source, schemas=schemas)
+                validate(data, args, bases=bases, source=args.source, schemas=schemas)
 
         except Exception as e:
             raise ExceptionWrapper("Validation of data failed", e) from e

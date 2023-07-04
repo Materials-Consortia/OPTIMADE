@@ -265,7 +265,7 @@ $defs:
       x-optimade-unit-definitions:
         type: array
         items:
-          $$inherit: "physical_unit_definition.yaml"
+          $$inherit: "physical_unit_definition"
           required: ['title', 'symbol', 'display-symbol', 'description']
       x-optimade-type:
         type: string
