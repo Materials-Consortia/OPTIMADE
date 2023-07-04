@@ -90,12 +90,213 @@ overflow-wrap: break-word;
 
   </head>
 <body>
-<h2>Example provider files endpoint</h2>
+<h1>Example provider files endpoint (entrytype)</h1>
+<p>This page documents an <a href="https://www.optimade.org/">OPTIMADE</a> <a href="https://schemas.optimade.org/#definitions">Entrytype Definition</a>. See <a href="https://schemas.optimade.org/">https://schemas.optimade.org/</a> for more information.</p>
+<p><strong>ID: <a href="https://example.org/schemas/v1.0.0/entrytypes/files"><code>https://example.org/schemas/v1.0.0/entrytypes/files</code></a></strong><br>
+<strong>Definition name:</strong> <code>files</code></p>
+<p><strong>Entrytype name:</strong> Example provider files endpoint  </p>
+<p><strong>Formats:</strong> [<a href="files.json">JSON</a>] [<a href="files.md">MD</a>]</p>
+<p>This entrytype defines the following properties:</p>
+<ul>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/id">ID</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/id"><code>https://schemas.optimade.org/properties/v1.2.0/core/id</code></a><br>
+  A unique string referencing a specific entry in the database.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> MUST be supported by all implementations, MUST NOT be <code>null</code>.</li>
+<li><strong>Query:</strong> MUST be a queryable property with support for all mandatory filter features.</li>
+<li><strong>Response:</strong> MUST always be included in the response.</li>
+<li>Taken together, the ID and entry type MUST uniquely identify the entry.</li>
+<li>Reasonably short IDs are encouraged and SHOULD NOT be longer than 255 characters.</li>
+<li>IDs MAY change over time.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/type">Type</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/type"><code>https://schemas.optimade.org/properties/v1.2.0/core/type</code></a><br>
+  The name of the type of an entry.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> MUST be supported by all implementations, MUST NOT be <code>null</code>.</li>
+<li><strong>Query:</strong> MUST be a queryable property with support for all mandatory filter features.</li>
+<li><strong>Response:</strong> MUST always be included in the response.</li>
+<li>MUST be an existing entry type.</li>
+<li>The entry of type <type> and ID <id> MUST be returned in response to a request for /<type>/<id> under the versioned or unversioned base URL serving the API.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/immutable_id">Immutable ID (immutable_id)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/immutable_id"><code>https://schemas.optimade.org/properties/v1.2.0/core/immutable_id</code></a><br>
+  The entry's immutable ID (e.g., a UUID).</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> MUST be a queryable property with support for all mandatory filter features.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants.</li>
+<li>This ID maps to the version-specific record, in case it changes in the future.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/core/last_modified">Last modified (last_modified)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/core/last_modified"><code>https://schemas.optimade.org/properties/v1.2.0/core/last_modified</code></a><br>
+  Date and time representing when the entry was last modified.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> SHOULD be supported by all implementations, i.e., SHOULD NOT be <code>null</code>.</li>
+<li><strong>Query:</strong> MUST be a queryable property with support for all mandatory filter features.</li>
+<li><strong>Response:</strong> MUST be included by default in the response.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url">URL</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/url</code></a><br>
+  The URL to get the contents of a file.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> MUST be supported by all implementations, MUST NOT be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MUST be included by default in the response.</li>
+<li>The URL MUST point to the actual contents of a file (i.e. byte stream), not an intermediate (preview) representation. For example, if referring to a file on GitHub, a link should point to raw contents.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until">URL stable until (url_stable_until)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/url_stable_until</code></a><br>
+  Point in time until which the URL in <code>url</code> is guaranteed to stay stable.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li><code>null</code> means that there is no stability guarantee for the URL in url.
+  Indefinite support could be communicated by providing a date sufficiently far in the future, for example, 9999-12-31.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/name">Name</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/name"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/name</code></a><br>
+  Base name of a file.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> SHOULD be supported by all implementations, i.e., SHOULD NOT be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>File name extension is an integral part of a file name and, if available, MUST be included.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/size">Size</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/size"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/size</code></a><br>
+  Size of a file in bytes.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>If provided, it MUST be guaranteed that either exact size of a file is given or its upper bound.
+  This way if a client reserves a static buffer or truncates the download stream after this many bytes the whole file would be received.
+  Such provision is included to allow the providers to serve on-the-fly compressed files.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type">Media type (media_type)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/media_type</code></a><br>
+  Media type identifier (also known as MIME type), for a file as per <a href="https://datatracker.ietf.org/doc/html/rfc6838">RFC 6838 Media Type Specifications and Registration Procedures</a>.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/version">Version</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/version"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/version</code></a><br>
+  Version information of a file (e.g. commit, revision, timestamp).</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>If provided, it MUST be guaranteed that file contents pertaining to the same combination of id and version are the same.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp">Modification timestamp (modification_timestamp)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/modification_timestamp</code></a><br>
+  Timestamp of the last modification of file contents. A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>Timestamps of subsequent file modifications SHOULD be increasing (not earlier than previous timestamps).</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/description">Description</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/description"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/description</code></a><br>
+  Free-form description of a file.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums">Checksums</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/checksums</code></a><br>
+  Dictionary providing checksums of file contents.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>
+<p>The keys in the dictionary identify checksum functions and the values are strings containing the corresponding checksum.</p>
+</li>
+<li>
+<p>Supported dictionary keys: <code>md5</code>, <code>sha1</code>, <code>sha224</code>, <code>sha256</code>, <code>sha384</code>, <code>sha512</code>.
+  Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime">Access time (atime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/atime</code></a><br>
+  Time of last access of a file as per POSIX standard.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime">Change time (ctime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/ctime</code></a><br>
+  Time of last status change of a file as per POSIX standard.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime">Modification time (mtime)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime"><code>https://schemas.optimade.org/properties/v1.2.0/optimade/files/mtime</code></a><br>
+  Time of last modification of a file as per POSIX standard.</p>
+<p><strong>Requirements/Conventions:</strong>  </p>
+<ul>
+<li><strong>Support:</strong> OPTIONAL support in implementations, i.e., MAY be <code>null</code>.</li>
+<li><strong>Query:</strong> Support for queries on this property is OPTIONAL.</li>
+<li><strong>Response:</strong> MAY be included by default in the response.</li>
+<li>It should be noted that the values of <code>last_modified</code>, <code>modification_timestamp</code> and <code>mtime</code> do not necessary match.
+  <code>last_modified</code> pertains to the modification of the OPTIMADE metadata, <code>modification_timestamp</code> pertains to file contents and <code>mtime</code> pertains to the modification of the file (not necessary changing its contents).
+  For example, appending an empty string to a file would result in the change of <code>mtime</code> in some operating systems, but this would not be deemed as a modification of its contents.</li>
+</ul>
+</li>
+</ul>
+<p><strong>JSON definition:</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint.html&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/endpoints/files&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition.html&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/entrytypes/files&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example provider files endpoint&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;entrytype&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/id&quot;</span><span class="p">,</span><span class="w"></span>

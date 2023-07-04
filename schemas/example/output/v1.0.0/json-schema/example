@@ -95,15 +95,21 @@ overflow-wrap: break-word;
 <p><strong>JSON definition:</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://json-schema.org/draft/2020-12/schema&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/schemas/example&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/json-schema/example&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Schema for example.org&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a schema for example.org OPTIMADE responses.&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;endpoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/sets/v1.2.0/standards/optimade&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;structures&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/endpoints/structures&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/entrytypes/structures&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example provider structures endpoint&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;entrytype&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;structures&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/id&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1938,89 +1944,109 @@ overflow-wrap: break-word;
 <span class="w">                    </span><span class="p">}</span><span class="w"></span>
 <span class="w">                </span><span class="p">},</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;_exmpl_cell_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/properties/structures/_exmpl_cell_volume&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;query-support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all mandatory&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;response-level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="w"></span>
 <span class="w">                    </span><span class="p">},</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cell volume&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an example of a database provider-specific property definition.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Magnetic moment&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_exmpl_cell_volume&quot;</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;magnetic_moment&quot;</span><span class="w"></span>
 <span class="w">                    </span><span class="p">},</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;x-optimade-unit-definitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                        </span><span class="p">{</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2.0/si/general/angstrom&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\u00e5ngstr\u00f6m&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;angstrom&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\u00c5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A unit of length equal to 10\u207b\u00b9\u2070 meter, using the current, or one of the historical, definitions of the SI units.\n\nThe \u00e5ngstr\u00f6m appear in the International System of Units (SI), 1th ed. (1970) defined as \&quot;1 \u00c5 = 0.1 nm = 10\u207b\u00b9\u2070 m\&quot;.\n\nThe \u00e5ngstr\u00f6m was implicitly redefined via the redefinition of the metre at the 17th CGPM meeting (1983), resolution 1.\n\nThe International System of Units (SI), 1th ed. (1970) categorizes the unit as \&quot;temporarily admitted\&quot; for use with the SI units.\nThe International System of Units (SI), 7th ed. (1998) changes the categorisation to \&quot;Other non-SI units currently accepted for use with the International System.\&quot;\nThe International System of Units (SI), 8th ed. (2006) changes the categorization to \&quot;Other non-SI units\&quot; and adds as a clarifying footnote \&quot;The \u00e5ngstr\u00f6m is widely used by x-ray crystallographers and structural chemists because all chemical bonds lie in the range 1 to 3 \u00e5ngstr\u00f6ms. However it has no official sanction from the CIPM or the CGPM.\&quot;\nThe \u00e5ngstr\u00f6m is omitted in the International System of Units (SI), 9th Edition (2019).\n\nThis is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.\nThis definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;compatibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                                </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2.0/si/1970/temporary/angstrom&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2.0/si/1983/temporary/angstrom&quot;</span><span class="w"></span>
-<span class="w">                            </span><span class="p">],</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2.0/codata/1969/electromagnetic/bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bohr magneton&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\\(\\mu_B\\)&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A unit expressing the magnetic moment of an electron caused by its orbital or spin angular momentum defined as part of CODATA 1969.\n\n\&quot;The magneton moment of the free electron in units of the Bohr magneton \\(\\mu_B=e\\hbar/2m_e\\)\&quot; [B. N. Taylor, W. H. Parker, and D. N. Langenberg, Rev. Mod. Phys. 41(3), 375-496 (1969)]&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gnu units&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.15&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;angstrom&quot;</span><span class="w"></span>
+<span class="w">                                </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="w"></span>
 <span class="w">                            </span><span class="p">},</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Definition in the International System of Units (SI), 1th Edition&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;resource-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://www.bipm.org/en/publications/si-brochure&quot;</span><span class="w"></span>
-<span class="w">                                </span><span class="p">},</span><span class="w"></span>
-<span class="w">                                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;resource-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1&quot;</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Defining paper: B. N. Taylor, W. H. Parker, and D. N. Langenberg, Rev. Mod. Phys. 41(3), 375-496 (1969)&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;resource-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://doi.org/10.1103/RevModPhys.41.375&quot;</span><span class="w"></span>
 <span class="w">                                </span><span class="p">},</span><span class="w"></span>
 <span class="w">                                </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                    </span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Wikipedia article describing the unit&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;resource-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://en.wikipedia.org/wiki/Angstrom&quot;</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;resource-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://en.wikipedia.org/wiki/Bohr_magneton&quot;</span><span class="w"></span>
 <span class="w">                                </span><span class="p">}</span><span class="w"></span>
 <span class="w">                            </span><span class="p">],</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;defining-relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                                    </span><span class="p">{</span><span class="w"></span>
-<span class="w">                                        </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/v1.2.0/si/general/metre&quot;</span><span class="w"></span>
-<span class="w">                                    </span><span class="p">}</span><span class="w"></span>
-<span class="w">                                </span><span class="p">],</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;scale&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;exponent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-10</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;approximate-relations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                                        </span><span class="p">{</span><span class="w"></span>
+<span class="w">                                            </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/bohrmagneton&quot;</span><span class="w"></span>
+<span class="w">                                        </span><span class="p">}</span><span class="w"></span>
+<span class="w">                                    </span><span class="p">],</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="w"></span>
 <span class="w">                                </span><span class="p">}</span><span class="w"></span>
-<span class="w">                            </span><span class="p">},</span><span class="w"></span>
+<span class="w">                            </span><span class="p">],</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unit&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;angstrom&quot;</span><span class="w"></span>
+<span class="w">                                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="w"></span>
 <span class="w">                            </span><span class="p">}</span><span class="w"></span>
 <span class="w">                        </span><span class="p">}</span><span class="w"></span>
 <span class="w">                    </span><span class="p">],</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                        </span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="s2">&quot;array&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="s2">&quot;null&quot;</span><span class="w"></span>
 <span class="w">                    </span><span class="p">],</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The volume of the unit cell in in \u00e5ngstr\u00f6m cubed ($\\AA^3$).&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The magnetic moment of each atom in the structure in Bohr magnetons (\\(\\mu_B\\)).&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;examples&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                        </span><span class="mf">42.0</span><span class="w"></span>
+<span class="w">                        </span><span class="p">[</span><span class="w"></span>
+<span class="w">                            </span><span class="p">[</span><span class="w"></span>
+<span class="w">                                </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="mf">2.0</span><span class="w"></span>
+<span class="w">                            </span><span class="p">],</span><span class="w"></span>
+<span class="w">                            </span><span class="p">[</span><span class="w"></span>
+<span class="w">                                </span><span class="mf">-1.2</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="mf">1.8</span><span class="w"></span>
+<span class="w">                            </span><span class="p">]</span><span class="w"></span>
+<span class="w">                        </span><span class="p">]</span><span class="w"></span>
 <span class="w">                    </span><span class="p">],</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;angstrom^3&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                            </span><span class="s2">&quot;array&quot;</span><span class="w"></span>
+<span class="w">                        </span><span class="p">],</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                                </span><span class="s2">&quot;number&quot;</span><span class="w"></span>
+<span class="w">                            </span><span class="p">],</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="w"></span>
+<span class="w">                        </span><span class="p">}</span><span class="w"></span>
+<span class="w">                    </span><span class="p">}</span><span class="w"></span>
 <span class="w">                </span><span class="p">}</span><span class="w"></span>
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/endpoints/files&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/entrytypes/files&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example provider files endpoint&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;entrytype&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2.0/core/id&quot;</span><span class="p">,</span><span class="w"></span>

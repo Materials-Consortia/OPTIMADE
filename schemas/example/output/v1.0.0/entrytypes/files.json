@@ -1,13 +1,14 @@
-Example provider files endpoint
--------------------------------
-
-
-``` json
 {
-    "$schema": "https://schemas.optimade.org/meta/v1.2.0/optimade/endpoint.md",
-    "$id": "https://example.org/schemas/v1.0.0/endpoints/files",
+    "$schema": "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition.json",
+    "$id": "https://example.org/schemas/v1.0.0/entrytypes/files",
     "type": "object",
     "title": "Example provider files endpoint",
+    "x-optimade-definition": {
+        "kind": "entrytype",
+        "format": "1.2",
+        "version": "1.2.0",
+        "name": "files"
+    },
     "properties": {
         "id": {
             "$id": "https://schemas.optimade.org/properties/v1.2.0/core/id",
@@ -580,4 +581,3 @@ Example provider files endpoint
         }
     }
 }
-```
