@@ -357,20 +357,22 @@ def validate(instance, bases=None, source=None, schemas={}, schema=None, use_sch
 
     if sanity_check:
         if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
-            dirprefix = os.path.commonprefix([bases['dir'], source])
-            dirpath = os.path.realpath(source)
-            _dummy, dirext = os.path.splitext(source)
+
+            # if the top $id is inherited from another file, do the sanity check against that file path
+            if 'id_inherited_from' in bases:
+                idsource = inherit_to_source(bases['id_inherited_from'], bases)
+            else:
+                idsource = source
+
+            dirprefix = os.path.commonprefix([bases['dir'], idsource])
+            dirpath = os.path.realpath(idsource)
+            _dummy, dirext = os.path.splitext(idsource)
+
             idprefix = os.path.commonprefix([bases['id'], iid])
             idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
+
             if(dirpath!=idpath):
-                if 'top_deref' in bases:
-                    dirprefix = os.path.realpath(os.path.join(bases['dir'], bases['top_deref'].lstrip(os.path.sep)+dirext))
-                    idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
-                    print("HERE",dirpath,'::',idpath)
-                    if(dirpath!=idpath):
-                        raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file ["+source+"]")
-                else:
-                    raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file ["+source+"]")
+                raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file ["+idsource+"]")
 
     try:
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
@@ -1183,8 +1185,11 @@ def process(source, bases, subs, args):
     parsed_source = urllib.parse.urlparse(source)
     bases['self'] = os.path.dirname(parsed_source.path)
 
-    if '$$inherit' in data:
-        bases['top_deref'] = data['$$inherit']
+    # Inheriting the top $id is interpreted as a special case that needs to be
+    # remembered to be handled correctly by the sanity check in the validator, since
+    # the $id should be named according to the referenced path.
+    if ('$$inherit' in data) and ('$id' not in data):
+        bases['id_inherited_from'] = data['$$inherit']
 
     if "$id" in data:
         id_uri = data["$id"]
