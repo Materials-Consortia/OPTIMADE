@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/standard_definition"
-$id: "https://schemas.optimade.org/sets/v1.2.0/standards/optimade"
+$id: "https://schemas.optimade.org/standards/v1.2.0/optimade"
 title: "OPTIMADE standard"
 description: "The OPTIMADE standard node types and properties"
 x-optimade-definition:
@@ -9,14 +9,14 @@ x-optimade-definition:
   name: "optimade"
 entrytypes:
   structures:
-    $$inherit: "/sets/v1.2.0/entrytypes/optimade/structures"
+    $$inherit: "/entrytypes/v1.2.0/optimade/structures"
     x-optimade-requirements:
       support: "must"
   files:
-    $$inherit: "/sets/v1.2.0/entrytypes/optimade/files"
+    $$inherit: "/entrytypes/v1.2.0/optimade/files"
     x-optimade-requirements:
       support: "may"
   references:
-    $$inherit: "/sets/v1.2.0/entrytypes/optimade/references"
+    $$inherit: "/entrytypes/v1.2.0/optimade/references"
     x-optimade-requirements:
       support: "may"

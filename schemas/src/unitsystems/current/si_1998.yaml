@@ -1,16 +1,16 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/sets/v1.2.0/unitsystems/si_2006"
-title: "SI 2006"
+$id: "https://schemas.optimade.org/unitsystems/v1.2.0/si_1998"
+title: "SI 1998"
 description: |-
-  The SI unit system as represented in the 8th edition of The International System of Units.
+  The SI unit system as represented in the 7th edition of The International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 8th edition of The International System of Units in 2006.
+  This represents the SI unit system described in the 7th edition of The International System of Units in 1998.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
-  name: "si_2006"
+  name: "si_1998"
 units:
   s:
     $$inherit: "/units/v1.2.0/si/1967/base/second"
@@ -68,8 +68,6 @@ units:
     $$inherit: "/units/v1.2.0/si/1983/named/gray"
   Sv:
     $$inherit: "/units/v1.2.0/si/1983/named/sievert"
-  kat:
-    $$inherit: "/units/v1.2.0/si/1999/named/katal"
 prefixes:
   Y:
     $$inherit: "/units/v1.2.0/si/prefixes/yotta"

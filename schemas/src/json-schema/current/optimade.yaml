@@ -24,4 +24,4 @@ definitions:
           attributes:
             $ref: "#endpoints/entrytypes/references"
 endpoints:
-  $$inherit: "/sets/current/standards/optimade"
+  $$inherit: "/standards/current/optimade"

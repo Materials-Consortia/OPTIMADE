@@ -1,5 +1,5 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2.0/optimade/entrytype_definition"
-$id: "https://schemas.optimade.org/sets/v1.2.0/entrytypes/optimade/references"
+$id: "https://schemas.optimade.org/entrytypes/v1.2.0/optimade/references"
 title: "References"
 description: "The references entry type describes a reference"
 x-optimade-definition:
