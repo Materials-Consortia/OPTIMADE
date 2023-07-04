@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+title: "zetta"
+symbol: "Z"
+display-symbol: "Z"
+$id: "https://schemas.optimade.org/prefixes/v1.2/si/zetta"
+description: "The zetta SI prefix defined as a dimensionless multiple of 10²¹, defined at the 19:th CGPM Meeting in 1991, resolution 4."
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "zetta"
+resources:
+  - relation: "Definition in the 19:th CGPM Meeting in 1991, resolution 4"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/19-1991/resolution-4"
+  - relation: "Wikipedia article describing SI prefixes"
+    resource-id: "https://en.wikipedia.org/wiki/Metric_prefix"
+defining-relation:
+  base-units: []
+  base-units-expression: ""
+  scale:
+    exponent: 21
+x-optimade-definition:
+  kind: "prefix"
+  format: "1.2"
+  version: "1.2.0"
+  name: "zetta"
