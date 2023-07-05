@@ -1,17 +1,17 @@
 {
     "$schema": "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition.json",
-    "$id": "https://example.org/schemas/v1.0.0/entrytypes/files",
+    "$id": "https://example.org/schemas/v1.0/entrytypes/files",
     "type": "object",
     "title": "Example provider files endpoint",
     "x-optimade-definition": {
         "kind": "entrytype",
         "format": "1.2",
-        "version": "1.2.0",
+        "version": "1.0.0",
         "name": "files"
     },
     "properties": {
         "id": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -46,7 +46,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "type": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -77,7 +77,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "immutable_id": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -110,7 +110,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "last_modified": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -143,7 +143,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "url": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/url",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/url",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -174,7 +174,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "url_stable_until": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/url_stable_until",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -207,7 +207,7 @@
             "format": "date-time"
         },
         "name": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/name",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/name",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -238,7 +238,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "size": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/size",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/size",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -261,7 +261,7 @@
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2/iso-iec-80000/2008/information_science_and_technology/byte",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/units/iso-iec-80000/2008/information_science_and_technology/byte",
                     "title": "byte",
                     "symbol": "B",
                     "display-symbol": "B",
@@ -312,7 +312,7 @@
             "x-optimade-unit": "byte"
         },
         "media_type": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/media_type",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/media_type",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -344,7 +344,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "version": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/version",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/version",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -376,7 +376,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "modification_timestamp": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/modification_timestamp",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -408,7 +408,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "description": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/description",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/description",
             "x-optimade-requirements": {
                 "support": "may",
                 "sortable": false,
@@ -434,7 +434,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "checksums": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/checksums",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/checksums",
             "x-optimade-requirements": {
                 "support": "may",
                 "sortable": false,
@@ -499,7 +499,7 @@
             }
         },
         "atime": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/atime",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/atime",
             "x-optimade-requirements": {
                 "support": "may",
                 "sortable": false,
@@ -526,7 +526,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "ctime": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/ctime",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/ctime",
             "x-optimade-requirements": {
                 "support": "may",
                 "sortable": false,
@@ -553,7 +553,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "mtime": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/mtime",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/mtime",
             "x-optimade-requirements": {
                 "support": "may",
                 "sortable": false,

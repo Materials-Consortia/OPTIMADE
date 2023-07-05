@@ -92,14 +92,14 @@ overflow-wrap: break-word;
 <body>
 <h1>Example provider structures endpoint (entrytype)</h1>
 <p>This page documents an <a href="https://www.optimade.org/">OPTIMADE</a> <a href="https://schemas.optimade.org/#definitions">Entrytype Definition</a>. See <a href="https://schemas.optimade.org/">https://schemas.optimade.org/</a> for more information.</p>
-<p><strong>ID: <a href="https://example.org/schemas/v1.0.0/entrytypes/structures"><code>https://example.org/schemas/v1.0.0/entrytypes/structures</code></a></strong><br>
+<p><strong>ID: <a href="https://example.org/schemas/v1.0/entrytypes/structures"><code>https://example.org/schemas/v1.0/entrytypes/structures</code></a></strong><br>
 <strong>Definition name:</strong> <code>structures</code></p>
 <p><strong>Entrytype name:</strong> Example provider structures endpoint  </p>
 <p><strong>Formats:</strong> [<a href="structures.json">JSON</a>] [<a href="structures.md">MD</a>]</p>
 <p>This entrytype defines the following properties:</p>
 <ul>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/id">ID</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/id"><code>https://schemas.optimade.org/properties/v1.2/core/id</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/core/id">ID</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/core/id"><code>https://schemas.optimade.org/defs/v1.2/properties/core/id</code></a><br>
   A unique string referencing a specific entry in the database.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -112,7 +112,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/type">Type</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/type"><code>https://schemas.optimade.org/properties/v1.2/core/type</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/core/type">Type</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/core/type"><code>https://schemas.optimade.org/defs/v1.2/properties/core/type</code></a><br>
   The name of the type of an entry.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -124,7 +124,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/immutable_id">Immutable ID (immutable_id)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/immutable_id"><code>https://schemas.optimade.org/properties/v1.2/core/immutable_id</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id">Immutable ID (immutable_id)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id"><code>https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id</code></a><br>
   The entry's immutable ID (e.g., a UUID).</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -136,7 +136,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/core/last_modified">Last modified (last_modified)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/core/last_modified"><code>https://schemas.optimade.org/properties/v1.2/core/last_modified</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/core/last_modified">Last modified (last_modified)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/core/last_modified"><code>https://schemas.optimade.org/defs/v1.2/properties/core/last_modified</code></a><br>
   Date and time representing when the entry was last modified.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -146,7 +146,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/elements">Elements</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/elements"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/elements</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements">Elements</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements</code></a><br>
   The chemical symbols of the different elements present in the structure.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -166,7 +166,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements">Number of elements (nelements)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements">Number of elements (nelements)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements</code></a><br>
   Number of different elements in the structure as an integer.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -183,7 +183,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios">Elements ratios (elements_ratios)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios">Elements ratios (elements_ratios)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios</code></a><br>
   Relative proportions of different elements in the structure.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -202,7 +202,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive">Descriptive chemical formula (chemical_formula_descriptive)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive">Descriptive chemical formula (chemical_formula_descriptive)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive</code></a><br>
   The chemical formula for a structure as a string in a form chosen by the API implementation.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -224,7 +224,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced">Reduced chemical formula (chemical_formula_reduced)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced">Reduced chemical formula (chemical_formula_reduced)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced</code></a><br>
   The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -244,7 +244,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill">Hill chemical formula (chemical_formula_hill)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill">Hill chemical formula (chemical_formula_hill)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill</code></a><br>
   The chemical formula for a structure in <a href="https://dx.doi.org/10.1021/ja02046a005">Hill form</a> with element symbols followed by integer chemical proportion numbers. The proportion number MUST be omitted if it is 1.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -268,7 +268,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous">Anonymous chemical formula (chemical_formula_anonymous)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous">Anonymous chemical formula (chemical_formula_anonymous)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous</code></a><br>
   The anonymous formula is the chemical_formula_reduced, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -278,7 +278,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types">Dimension types (dimension_types)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types">Dimension types (dimension_types)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types</code></a><br>
   List of three integers describing the periodicity of the boundaries of the unit cell. For each direction indicated by the three lattice_vectors, this list indicates if the direction is periodic (value 1) or non-periodic (value 0). Note: the elements in this list each refer to the direction of the corresponding entry in lattice_vectors and not the Cartesian x, y, z directions.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -297,7 +297,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions">Number of periodic dimensions (nperiodic_dimensions)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions">Number of periodic dimensions (nperiodic_dimensions)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions</code></a><br>
   An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in <code>dimension_types</code>.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -322,7 +322,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors">Lattice vectors (lattice_vectors)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors">Lattice vectors (lattice_vectors)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors</code></a><br>
   The three lattice vectors in Cartesian coordinates, in ångström (Å).</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -344,7 +344,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall">Hall space group (space_group_hall)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall">Hall space group (space_group_hall)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall</code></a><br>
   A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -357,7 +357,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number">Space group IT number (space_group_it_number)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number">Space group IT number (space_group_it_number)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number</code></a><br>
   Space group number for the structure assigned by the International Tables for Crystallography Vol. A.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -369,7 +369,7 @@ overflow-wrap: break-word;
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions">Cartesian site positions (cartesian_site_positions)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions">Cartesian site positions (cartesian_site_positions)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions</code></a><br>
   Cartesian positions of each site in the structure.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -389,7 +389,7 @@ A site is usually used to describe positions of atoms; what atoms can be encount
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites">Number of sites (nsites)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites">Number of sites (nsites)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites</code></a><br>
   An integer specifying the length of the <code>cartesian_site_positions</code> property.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -405,7 +405,7 @@ A site is usually used to describe positions of atoms; what atoms can be encount
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites">Species at sites (species_at_sites)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites">Species at sites (species_at_sites)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites</code></a><br>
   Name of the species at each site (where values for sites are specified with the same order of the property <code>cartesian_site_positions</code>). The properties of the species are found in the property <code>species</code>.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -425,7 +425,7 @@ A site is usually used to describe positions of atoms; what atoms can be encount
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/species">Species</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/species"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/species</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species">Species</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species</code></a><br>
   A list describing the species of the sites of this structure. Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -493,7 +493,7 @@ Furthermore, if they are provided, the <code>structure_features</code> property 
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies">Assemblies</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies">Assemblies</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies</code></a><br>
   A description of groups of sites that are statistically correlated.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -615,7 +615,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 </ul>
 </li>
 <li>
-<p><strong><a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features">Structure features (structure_features)</a></strong> (property) - <a href="https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features"><code>https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features</code></a><br>
+<p><strong><a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features">Structure features (structure_features)</a></strong> (property) - <a href="https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features"><code>https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features</code></a><br>
   A list of strings that flag which special features are used by the structure.</p>
 <p><strong>Requirements/Conventions:</strong>  </p>
 <ul>
@@ -636,25 +636,25 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
   - A structure having implicit atoms and using assemblies: <code>["assemblies", "implicit_atoms"]</code></p>
 </li>
 <li>
-<p><strong><a href="../properties/structures/_exmpl_magnetic_moment">Magnetic moment (_exmpl_cell_volume)</a></strong> (property) - <a href="https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment"><code>https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment</code></a><br>
+<p><strong><a href="../properties/structures/_exmpl_magnetic_moment">Magnetic moment (_exmpl_cell_volume)</a></strong> (property) - <a href="https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment"><code>https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment</code></a><br>
   The magnetic moment of each atom in the structure in Bohr magnetons (<script type="math/tex">\mu_B</script>).</p>
 </li>
 </ul>
 <p><strong>JSON definition:</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition.html&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/entrytypes/structures&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0/entrytypes/structures&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example provider structures endpoint&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;entrytype&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;structures&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">},</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/id&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/core/id&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -689,7 +689,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/type&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/core/type&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -720,7 +720,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;immutable_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/immutable_id&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -753,7 +753,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;last_modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/core/last_modified&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/core/last_modified&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -786,7 +786,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;elements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/elements&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -824,7 +824,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">],</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/common/element&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/common/element&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Element&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -969,7 +969,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;nelements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1001,7 +1001,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dimensionless&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;elements_ratios&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1049,7 +1049,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;chemical_formula_descriptive&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1085,7 +1085,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;chemical_formula_reduced&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1120,7 +1120,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;chemical_formula_hill&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1152,7 +1152,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;chemical_formula_anonymous&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1186,7 +1186,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;dimension_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1244,7 +1244,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;nperiodic_dimensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1276,7 +1276,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dimensionless&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;lattice_vectors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1299,7 +1299,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit-definitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2/si/general/angstrom&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\u00e5ngstr\u00f6m&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;angstrom&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\u00c5&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1331,7 +1331,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                        </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                            </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/v1.2.0/si/general/metre&quot;</span><span class="w"></span>
+<span class="w">                                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/si/general/metre&quot;</span><span class="w"></span>
 <span class="w">                            </span><span class="p">}</span><span class="w"></span>
 <span class="w">                        </span><span class="p">],</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1388,7 +1388,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;space_group_hall&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1421,7 +1421,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;space_group_it_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1453,7 +1453,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unapplicable&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;cartesian_site_positions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1476,7 +1476,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit-definitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2/si/general/angstrom&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\u00e5ngstr\u00f6m&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;angstrom&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\u00c5&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1508,7 +1508,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                        </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                            </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/v1.2.0/si/general/metre&quot;</span><span class="w"></span>
+<span class="w">                                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/si/general/metre&quot;</span><span class="w"></span>
 <span class="w">                            </span><span class="p">}</span><span class="w"></span>
 <span class="w">                        </span><span class="p">],</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1560,7 +1560,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;nsites&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1592,7 +1592,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dimensionless&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;species_at_sites&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1632,7 +1632,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">],</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/common/species_name&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Name of the species&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1654,7 +1654,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;species&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/species&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;should&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -1677,7 +1677,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit-definitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2/si/general/atomicmassunit&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/units/si/general/atomicmassunit&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;atomic mass unit&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1715,7 +1715,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                            </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                                </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kg&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/v1.2.0/si/general/kilogram&quot;</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/units/si/general/kilogram&quot;</span><span class="w"></span>
 <span class="w">                                </span><span class="p">}</span><span class="w"></span>
 <span class="w">                            </span><span class="p">],</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kg&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1841,7 +1841,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                </span><span class="p">],</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/common/species_name&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Name of the species&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1882,7 +1882,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                        </span><span class="p">],</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol_or_vacancy&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol_or_vacancy&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Chemical symbol or vacancy&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -2078,7 +2078,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                        </span><span class="p">],</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;x-optimade-unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inapplicable&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                        </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Chemical symbol&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -2294,7 +2294,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;assemblies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
@@ -2445,7 +2445,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">]</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;structure_features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -2486,7 +2486,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;_exmpl_cell_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;sortable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -2497,13 +2497,13 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">            </span><span class="nt">&quot;x-optimade-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;magnetic_moment&quot;</span><span class="w"></span>
 <span class="w">            </span><span class="p">},</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;x-optimade-unit-definitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;$id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schemas.optimade.org/defs/v1.2/units/codata/1969/electromagnetic/bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bohr magneton&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="nt">&quot;display-symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;\\(\\mu_B\\)&quot;</span><span class="p">,</span><span class="w"></span>
@@ -2528,7 +2528,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 <span class="w">                            </span><span class="nt">&quot;base-units&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">                                </span><span class="p">{</span><span class="w"></span>
 <span class="w">                                    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/bohrmagneton&quot;</span><span class="w"></span>
+<span class="w">                                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.optimade.org/constants/codata/2018/electromagnetic/bohrmagneton&quot;</span><span class="w"></span>
 <span class="w">                                </span><span class="p">}</span><span class="w"></span>
 <span class="w">                            </span><span class="p">],</span><span class="w"></span>
 <span class="w">                            </span><span class="nt">&quot;base-units-expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bohrmagneton&quot;</span><span class="w"></span>

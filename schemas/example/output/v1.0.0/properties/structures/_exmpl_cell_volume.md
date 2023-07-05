@@ -1,7 +1,7 @@
 # Cell volume (property)
 This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definition](https://schemas.optimade.org/#definitions). See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.
 
-**ID: [`https://example.org/schemas/v1.0.0/properties/structures/_exmpl_cell_volume`](https://example.org/schemas/v1.0.0/properties/structures/_exmpl_cell_volume)**  
+**ID: [`https://example.org/schemas/v1.0/properties/structures/_exmpl_cell_volume`](https://example.org/schemas/v1.0/properties/structures/_exmpl_cell_volume)**  
 **Definition name:** `_exmpl_cell_volume`
 
 **Property name:** Cell volume  
@@ -21,19 +21,19 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definitio
 ``` json
 {
     "$schema": "https://schemas.optimade.org/meta/v1.2/optimade/property_definition.md",
-    "$id": "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_cell_volume",
+    "$id": "https://example.org/schemas/v1.0/properties/structures/_exmpl_cell_volume",
     "title": "Cell volume",
     "$comment": "This is an example of a database provider-specific property definition.",
     "x-optimade-type": "float",
     "x-optimade-definition": {
         "kind": "property",
-        "version": "1.2.0",
+        "version": "1.0.0",
         "format": "1.2",
         "name": "_exmpl_cell_volume"
     },
     "x-optimade-unit-definitions": [
         {
-            "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+            "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
             "title": "\u00e5ngstr\u00f6m",
             "symbol": "angstrom",
             "display-symbol": "\u00c5",
@@ -65,7 +65,7 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definitio
                 "base-units": [
                     {
                         "symbol": "m",
-                        "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                        "id": "https://schema.optimade.org/units/si/general/metre"
                     }
                 ],
                 "base-units-expression": "m",

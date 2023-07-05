@@ -1,0 +1,22 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/standard_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/standards/optimade"
+title: "OPTIMADE standard"
+description: "The OPTIMADE standard node types and properties"
+x-optimade-definition:
+  kind: "standard"
+  format: "1.2"
+  version: "1.2.0"
+  name: "optimade"
+entrytypes:
+  structures:
+    $$inherit: "/entrytypes/optimade/structures"
+    x-optimade-requirements:
+      support: "must"
+  files:
+    $$inherit: "/entrytypes/optimade/files"
+    x-optimade-requirements:
+      support: "may"
+  references:
+    $$inherit: "/entrytypes/optimade/references"
+    x-optimade-requirements:
+      support: "may"

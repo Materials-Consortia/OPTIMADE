@@ -1,0 +1,101 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si_1977"
+title: "SI 1977"
+description: |-
+  The SI unit system as represented in the 3rd edition of The International System of Units.
+
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
+  This represents the SI unit system described in the 3rd edition of The International System of Units in 1977.
+x-optimade-definition:
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "si_1977"
+units:
+  s:
+    $$inherit: "/units/si/1967/base/second"
+  m:
+    $$inherit: "/units/si/1960/base/metre"
+  kg:
+    $$inherit: "/units/si/1960/base/kilogram"
+  A:
+    $$inherit: "/units/si/1967/base/ampere"
+  K:
+    $$inherit: "/units/si/1967/base/kelvin"
+  mol:
+    $$inherit: "/units/si/1971/base/mole"
+  cd:
+    $$inherit: "/units/si/1967/base/candela"
+  rad:
+    $$inherit: "/units/si/1960/supplementary/radian"
+  sr:
+    $$inherit: "/units/si/1960/supplementary/steradian"
+  Hz:
+    $$inherit: "/units/si/1967/named/hertz"
+  N:
+    $$inherit: "/units/si/1967/named/newton"
+  Pa:
+    $$inherit: "/units/si/1971/named/pascal"
+  J:
+    $$inherit: "/units/si/1967/named/joule"
+  W:
+    $$inherit: "/units/si/1967/named/watt"
+  C:
+    $$inherit: "/units/si/1967/named/coulomb"
+  V:
+    $$inherit: "/units/si/1967/named/volt"
+  F:
+    $$inherit: "/units/si/1967/named/farad"
+  ohm:
+    $$inherit: "/units/si/1967/named/ohm"
+  S:
+    $$inherit: "/units/si/1971/named/siemens"
+  Wb:
+    $$inherit: "/units/si/1967/named/weber"
+  T:
+    $$inherit: "/units/si/1967/named/tesla"
+  H:
+    $$inherit: "/units/si/1967/named/henry"
+  degC:
+    $$inherit: "/units/si/1967/named/degcelsius"
+  lm:
+    $$inherit: "/units/si/1967/named/lumen"
+  lx:
+    $$inherit: "/units/si/1967/named/lux"
+  Bq:
+    $$inherit: "/units/si/1975/named/becquerel"
+  Gy:
+    $$inherit: "/units/si/1975/named/gray"
+prefixes:
+  E:
+    $$inherit: "/units/si/prefixes/exa"
+  P:
+    $$inherit: "/units/si/prefixes/peta"
+  T:
+    $$inherit: "/units/si/prefixes/tera"
+  G:
+    $$inherit: "/units/si/prefixes/giga"
+  M:
+    $$inherit: "/units/si/prefixes/mega"
+  k:
+    $$inherit: "/units/si/prefixes/kilo"
+  h:
+    $$inherit: "/units/si/prefixes/hecto"
+  da:
+    $$inherit: "/units/si/prefixes/deca"
+  d:
+    $$inherit: "/units/si/prefixes/deci"
+  c:
+    $$inherit: "/units/si/prefixes/centi"
+  m:
+    $$inherit: "/units/si/prefixes/milli"
+  mc:
+    $$inherit: "/units/si/prefixes/micro"
+  n:
+    $$inherit: "/units/si/prefixes/nano"
+  p:
+    $$inherit: "/units/si/prefixes/pico"
+  f:
+    $$inherit: "/units/si/prefixes/femto"
+  a:
+    $$inherit: "/units/si/prefixes/atto"

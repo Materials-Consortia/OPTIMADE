@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/named/tesla"
+title: "tesla"
+symbol: "tesla"
+display-symbol: "T"
+description: |-
+  A derived SI unit for magnetic flux density equal to kg·s⁻²·A⁻¹ in the 1967 SI units.
+
+  The tesla was defined as 1 Wb/m in the introduction of the SI unit system the 11th CGPM Meeting in 1960, resolution 12 and implicitly redefined via the redefinition of the second at the 13th CGPM Meeting in 1967, resolution 1.
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "tesla"
+resources:
+  - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Tesla_(unit)"
+defining-relation:
+  base-units:
+    - symbol: "A"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/ampere"
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/kilogram"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
+  base-units-expression: "A^-1*kg*s^-2"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "tesla"

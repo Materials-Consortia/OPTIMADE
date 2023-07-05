@@ -13,24 +13,27 @@ else
 	OPTIMADE_HTML_TOP = <a href="https://www.optimade.org/"><img style="margin: 0.5em; float: left" src="https://avatars0.githubusercontent.com/u/23107754" width="10%" /></a><div style="width: 100%; clear: both"></div>
 endif
 
-SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
-SCHEMAS_JSON = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS))
-SCHEMAS_MD = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(SCHEMAS))
+META_SCHEMAS := $(wildcard schemas/src/meta/*/optimade/*.yaml)
+META_SCHEMAS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(META_SCHEMAS))
+META_SCHEMAS_ARGS := $(foreach schema,$(META_SCHEMAS_JSON),--schema $(schema))
+
+SCHEMAS := $(wildcard schemas/src/releases/v*.*.*/*/*/*/*/*.yaml schemas/src/releases/v*.*.*/*/*/*/*.yaml schemas/src/releases/v*.*.*/*/*/*.yaml schemas/src/releases/v*.*.*/*/*.yaml schemas/src/releases/v*.*.*/*.yaml)
+SCHEMAS_DEFS := $(wildcard schemas/src/defs/v*.*/*/*/*/*/*.yaml schemas/src/defs/v*.*/*/*/*/*.yaml schemas/src/defs/v*.*/*/*/*.yaml schemas/src/defs/v*.*/*/*.yaml schemas/src/defs/v*.*/*.yaml)
+SCHEMAS_JSON = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS) $(SCHEMAS_DEFS))
+SCHEMAS_MD = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(SCHEMAS) $(SCHEMAS_DEFS))
 
 ifeq ($(origin schemas_html_ext), undefined)
-	SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%,$(SCHEMAS))
+	SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%,$(SCHEMAS) $(SCHEMAS_DEFS))
+	SCHEMAS_HTML_EXT =
 else
-	SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%.html,$(SCHEMAS))
+	SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%.html,$(SCHEMAS) $(SCHEMAS_DEFS))
+	SCHEMAS_HTML_EXT = .html
 endif
 
 EXT_SCHEMAS := $(filter-out external/json-schema/LICENSE, $(wildcard external/json-schema/*))
 EXT_SCHEMAS_ARGS := $(foreach schema,$(EXT_SCHEMAS),--schema $(schema))
 
-META_SCHEMAS := $(wildcard schemas/src/meta/current/optimade/*.yaml)
-META_SCHEMAS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(META_SCHEMAS))
-META_SCHEMAS_ARGS := $(foreach schema,$(META_SCHEMAS_JSON),--schema $(schema))
-
-INDEXES := $(wildcard schemas/src/*/current)
+INDEXES := $(wildcard schemas/src/releases/*)
 INDEXES_HTML := $(patsubst schemas/src/%,schemas/output/%/index.html,$(INDEXES))
 
 OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
@@ -40,49 +43,53 @@ else
   OPTIMADE_VERSION_SUBST=--sub '$$$${OPTIMADE_VERSION}' "$(OPTIMADE_VERSION)"
 endif
 
-.PHONY: schemas schemas_vers_symlinks
+.PHONY: schemas schemas_meta schemas_json schemas_docs schemas_html schemas_symlinks
 
-schemas: schemas_vers_symlinks $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(META_SCHEMAS_JSON) $(INDEXES_HTML)
-schema_docs: schemas_vers_symlinks $(SCHEMAS_MD)
+schemas: schemas_meta schemas_json schemas_docs schemas_html
+schemas_meta: $(META_SCHEMAS_JSON)
+schemas_json: $(SCHEMAS_JSON)
+schemas_docs: $(SCHEMAS_MD)
+schemas_html: $(SCHEMAS_HTML) $(INDEXES_HTML)
 
-schemas_vers_symlinks:
-	cd schemas/src; \
-	for KIND in *; do \
+schemas_symlinks:
+	cd schemas/src/; \
+	for KIND in meta releases; do \
           mkdir -p ../output/$$KIND; \
 	  ( cd "$$KIND";\
 	  for dir in *; do \
 	    if [ -h "$$dir" -a ! -h "../../output/$$KIND/$$dir" ]; then \
 	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
+	    elif [ -d "$$dir" -a ! -e "../../output/$$KIND/$$dir" ]; then \
+	      mkdir "../../output/$$KIND/$$dir" ;\
 	    fi ;\
 	  done \
 	  ) \
 	done
 
-schemas/output/%/current/index.html: schemas/src/%/current $(SCHEMAS)
-	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --index --basedir "schemas/src" --baseid="https://schemas.optimade.org/" -f html --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+# Macro to extract the third (defs, releases) and fourth (version) path segments of the target dependency to compose a suitable basedir value for process_schemas
+basedir = "schemas/src/$(word 3,$(subst /, ,$<))/$(word 4,$(subst /, ,$(1)))/"
+# Marco to create a suitable URL baseid by processing the version number in the fourth path segment of the target dependency by removing the patch version if present
+baseid = "https://schemas.optimade.org/defs/$(if $(findstring 3,$(words $(subst ., ,$(word 4,$(subst /, ,$(1)))))),$(basename $(word 4,$(subst /, ,$(1)))),$(word 4,$(subst /, ,$(1))))/"
 
-schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_vers_symlinks
+$(META_SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
 	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
-schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_vers_symlinks
+$(SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas $(OPTIMADE_VERSION_SUBST) --basedir $(call basedir,$<) --baseid $(call baseid,$<) $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
-schemas/output/%.md: schemas/src/%.yaml | schemas_vers_symlinks
+$(SCHEMAS_MD): schemas/output/%.md: schemas/src/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir $(call basedir,$<) --baseid $(call baseid,$<) --output "$@" "$<"
 
-ifeq ($(origin schemas_html_ext), undefined)
-$(SCHEMAS_HTML): schemas/output/%: schemas/src/%.yaml | schemas_vers_symlinks
+$(SCHEMAS_HTML): schemas/output/%$(SCHEMAS_HTML_EXT): schemas/src/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
-else
-$(SCHEMAS_HTML): schemas/output/%.html: schemas/src/%.yaml | schemas_vers_symlinks
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir $(call basedir,$<) --baseid $(call baseid,$<) --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
+
+$(INDEXES_HTML): schemas/output/releases/%/index.html: schemas/src/releases/% $(SCHEMAS)
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
-endif
+	tests/scripts/process_schemas.py --index --basedir $(call basedir,$<) --baseid $(call baseid,$<) -f html --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
 .PHONY: clean clean_schemas
 

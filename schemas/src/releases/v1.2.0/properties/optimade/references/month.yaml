@@ -1,0 +1,17 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/month"
+title: "month"
+x-optimade-type: "string"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "month"
+type:
+  - "string"
+  - "null"
+description: |-
+  The three letter abbreviation of the month of publication or writing (the month field in the BibTeX specification).
+examples:
+  - "jul"
+x-optimade-unit: "inapplicable"

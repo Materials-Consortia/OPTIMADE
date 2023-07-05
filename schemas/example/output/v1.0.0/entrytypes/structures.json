@@ -1,17 +1,17 @@
 {
     "$schema": "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition.json",
-    "$id": "https://example.org/schemas/v1.0.0/entrytypes/structures",
+    "$id": "https://example.org/schemas/v1.0/entrytypes/structures",
     "type": "object",
     "title": "Example provider structures endpoint",
     "x-optimade-definition": {
         "kind": "entrytype",
         "format": "1.2",
-        "version": "1.2.0",
+        "version": "1.0.0",
         "name": "structures"
     },
     "properties": {
         "id": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -46,7 +46,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "type": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -77,7 +77,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "immutable_id": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -110,7 +110,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "last_modified": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -143,7 +143,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "elements": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -181,7 +181,7 @@
             ],
             "x-optimade-unit": "inapplicable",
             "items": {
-                "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/element",
+                "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/element",
                 "title": "Element",
                 "x-optimade-type": "string",
                 "x-optimade-definition": {
@@ -326,7 +326,7 @@
             }
         },
         "nelements": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -358,7 +358,7 @@
             "x-optimade-unit": "dimensionless"
         },
         "elements_ratios": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -406,7 +406,7 @@
             }
         },
         "chemical_formula_descriptive": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -442,7 +442,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "chemical_formula_reduced": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -477,7 +477,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "chemical_formula_hill": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -509,7 +509,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "chemical_formula_anonymous": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -543,7 +543,7 @@
             "x-optimade-unit": "inapplicable"
         },
         "dimension_types": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -601,7 +601,7 @@
             }
         },
         "nperiodic_dimensions": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -633,7 +633,7 @@
             "x-optimade-unit": "dimensionless"
         },
         "lattice_vectors": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -656,7 +656,7 @@
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
                     "title": "\u00e5ngstr\u00f6m",
                     "symbol": "angstrom",
                     "display-symbol": "\u00c5",
@@ -688,7 +688,7 @@
                         "base-units": [
                             {
                                 "symbol": "m",
-                                "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                                "id": "https://schema.optimade.org/units/si/general/metre"
                             }
                         ],
                         "base-units-expression": "m",
@@ -745,7 +745,7 @@
             }
         },
         "space_group_hall": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -778,7 +778,7 @@
             "x-optimade-unit": "unapplicable"
         },
         "space_group_it_number": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number",
             "x-optimade-implementation": {
                 "support": "no",
                 "sortable": false,
@@ -810,7 +810,7 @@
             "x-optimade-unit": "unapplicable"
         },
         "cartesian_site_positions": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -833,7 +833,7 @@
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
                     "title": "\u00e5ngstr\u00f6m",
                     "symbol": "angstrom",
                     "display-symbol": "\u00c5",
@@ -865,7 +865,7 @@
                         "base-units": [
                             {
                                 "symbol": "m",
-                                "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                                "id": "https://schema.optimade.org/units/si/general/metre"
                             }
                         ],
                         "base-units-expression": "m",
@@ -917,7 +917,7 @@
             }
         },
         "nsites": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -949,7 +949,7 @@
             "x-optimade-unit": "dimensionless"
         },
         "species_at_sites": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -989,7 +989,7 @@
             ],
             "x-optimade-unit": "inapplicable",
             "items": {
-                "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
+                "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name",
                 "title": "Name of the species",
                 "x-optimade-type": "string",
                 "x-optimade-definition": {
@@ -1011,7 +1011,7 @@
             }
         },
         "species": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species",
             "x-optimade-implementation": {
                 "support": "should",
                 "sortable": false,
@@ -1034,7 +1034,7 @@
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2/si/general/atomicmassunit",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/atomicmassunit",
                     "title": "atomic mass unit",
                     "symbol": "u",
                     "display-symbol": "u",
@@ -1072,7 +1072,7 @@
                             "base-units": [
                                 {
                                     "symbol": "kg",
-                                    "id": "https://schema.optimade.org/units/v1.2.0/si/general/kilogram"
+                                    "id": "https://schema.optimade.org/units/si/general/kilogram"
                                 }
                             ],
                             "base-units-expression": "kg",
@@ -1198,7 +1198,7 @@
                 ],
                 "properties": {
                     "name": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name",
                         "title": "Name of the species",
                         "x-optimade-type": "string",
                         "x-optimade-definition": {
@@ -1239,7 +1239,7 @@
                         ],
                         "x-optimade-unit": "inapplicable",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol_or_vacancy",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol_or_vacancy",
                             "title": "Chemical symbol or vacancy",
                             "x-optimade-type": "string",
                             "x-optimade-definition": {
@@ -1435,7 +1435,7 @@
                         ],
                         "x-optimade-unit": "inapplicable",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol",
                             "title": "Chemical symbol",
                             "x-optimade-type": "string",
                             "x-optimade-definition": {
@@ -1651,7 +1651,7 @@
             }
         },
         "assemblies": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": false,
@@ -1802,7 +1802,7 @@
             ]
         },
         "structure_features": {
-            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features",
+            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -1843,7 +1843,7 @@
             }
         },
         "_exmpl_cell_volume": {
-            "$id": "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment",
+            "$id": "https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment",
             "x-optimade-implementation": {
                 "support": "yes",
                 "sortable": true,
@@ -1854,13 +1854,13 @@
             "x-optimade-type": "list",
             "x-optimade-definition": {
                 "kind": "property",
-                "version": "1.2.0",
+                "version": "1.0.0",
                 "format": "1.2",
                 "name": "magnetic_moment"
             },
             "x-optimade-unit-definitions": [
                 {
-                    "$id": "https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/units/codata/1969/electromagnetic/bohrmagneton",
                     "title": "Bohr magneton",
                     "symbol": "bohrmagneton",
                     "display-symbol": "\\(\\mu_B\\)",
@@ -1885,7 +1885,7 @@
                             "base-units": [
                                 {
                                     "symbol": "bohrmagneton",
-                                    "id": "https://schema.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/bohrmagneton"
+                                    "id": "https://schema.optimade.org/constants/codata/2018/electromagnetic/bohrmagneton"
                                 }
                             ],
                             "base-units-expression": "bohrmagneton"

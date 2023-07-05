@@ -1,6 +1,6 @@
 {
     "@context": {
-        "_exmpl_cell_volume": "https://example.com/properties/v1.0.0/structures/_exmpl_cell_volume",
+        "_exmpl_cell_volume": "https://example.com/properties/v1.0/structures/_exmpl_cell_volume",
         "immutable_id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/immutable_id",
         "last_modified": "https://schemas.optimade.org/properties/v1.2/optimade/structures/last_modified",
         "elements": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements",

@@ -1,0 +1,42 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/person"
+title: "authors"
+x-optimade-type: "dictionary"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "person"
+type:
+  - "object"
+  - "null"
+description: |-
+  A dictionary with name information about a person.
+
+  **Requirements/Conventions**:
+
+  - The dictionary MUST adhere to the following format:
+
+    - **name**: Full name of the person, REQUIRED.
+    - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.
+required: ["name"]
+properties:
+  name:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - string
+  firstname:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - string
+  lastname:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - string
+examples:
+  - {"name": "John Smith"}
+  - {"name": "Arthur Dent", "firstname": "Arthur", "lastname": "Dent"}
+x-optimade-unit: "inapplicable"

@@ -1,0 +1,29 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/codata/1969/electromagnetic/bohrmagneton"
+title: "Bohr magneton"
+symbol: "bohrmagneton"
+display-symbol: '\(\mu_B\)'
+description: |-
+  A unit expressing the magnetic moment of an electron caused by its orbital or spin angular momentum defined as part of CODATA 1969.
+
+  "The magneton moment of the free electron in units of the Bohr magneton \(\mu_B=e\hbar/2m_e\)" [B. N. Taylor, W. H. Parker, and D. N. Langenberg, Rev. Mod. Phys. 41(3), 375-496 (1969)]
+standard:
+  name: "gnu units"
+  version: "3.15"
+  symbol: "bohrmagneton"
+resources:
+  - relation: 'Defining paper: B. N. Taylor, W. H. Parker, and D. N. Langenberg, Rev. Mod. Phys. 41(3), 375-496 (1969)'
+    resource-id: "https://doi.org/10.1103/RevModPhys.41.375"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Bohr_magneton"
+approximate-relations:
+  - base-units:
+      - symbol: "bohrmagneton"
+        id: "https://schema.optimade.org/constants/codata/2018/electromagnetic/bohrmagneton"
+    base-units-expression: "bohrmagneton"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "bohrmagneton"
+

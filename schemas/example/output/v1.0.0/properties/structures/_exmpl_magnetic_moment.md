@@ -1,7 +1,7 @@
 # Magnetic moment (property)
 This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definition](https://schemas.optimade.org/#definitions). See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.
 
-**ID: [`https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment`](https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment)**  
+**ID: [`https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment`](https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment)**  
 **Definition name:** `magnetic_moment`
 
 **Property name:** Magnetic moment  
@@ -21,18 +21,18 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definitio
 ``` json
 {
     "$schema": "https://schemas.optimade.org/meta/v1.2/optimade/property_definition.md",
-    "$id": "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment",
+    "$id": "https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment",
     "title": "Magnetic moment",
     "x-optimade-type": "list",
     "x-optimade-definition": {
         "kind": "property",
-        "version": "1.2.0",
+        "version": "1.0.0",
         "format": "1.2",
         "name": "magnetic_moment"
     },
     "x-optimade-unit-definitions": [
         {
-            "$id": "https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton",
+            "$id": "https://schemas.optimade.org/defs/v1.2/units/codata/1969/electromagnetic/bohrmagneton",
             "title": "Bohr magneton",
             "symbol": "bohrmagneton",
             "display-symbol": "\\(\\mu_B\\)",
@@ -57,7 +57,7 @@ This page documents an [OPTIMADE](https://www.optimade.org/) [Property Definitio
                     "base-units": [
                         {
                             "symbol": "bohrmagneton",
-                            "id": "https://schema.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/bohrmagneton"
+                            "id": "https://schema.optimade.org/constants/codata/2018/electromagnetic/bohrmagneton"
                         }
                     ],
                     "base-units-expression": "bohrmagneton"

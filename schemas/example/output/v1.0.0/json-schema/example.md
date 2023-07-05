@@ -8,24 +8,24 @@ This page documents a JSON Schema definition.
 ``` json
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://example.org/schemas/v1.0.0/json-schema/example",
+    "$id": "https://example.org/schemas/v1.0/json-schema/example",
     "title": "Schema for example.org",
     "description": "This is a schema for example.org OPTIMADE responses.",
     "endpoints": {
-        "$id": "https://schemas.optimade.org/standards/v1.2/optimade",
+        "$id": "https://schemas.optimade.org/defs/v1.2/standards/optimade",
         "structures": {
-            "$id": "https://example.org/schemas/v1.0.0/entrytypes/structures",
+            "$id": "https://example.org/schemas/v1.0/entrytypes/structures",
             "type": "object",
             "title": "Example provider structures endpoint",
             "x-optimade-definition": {
                 "kind": "entrytype",
                 "format": "1.2",
-                "version": "1.2.0",
+                "version": "1.0.0",
                 "name": "structures"
             },
             "properties": {
                 "id": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": true,
@@ -60,7 +60,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "type": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": true,
@@ -91,7 +91,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "immutable_id": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -124,7 +124,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "last_modified": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -157,7 +157,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "elements": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -195,7 +195,7 @@ This page documents a JSON Schema definition.
                     ],
                     "x-optimade-unit": "inapplicable",
                     "items": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/element",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/element",
                         "title": "Element",
                         "x-optimade-type": "string",
                         "x-optimade-definition": {
@@ -340,7 +340,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "nelements": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -372,7 +372,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "dimensionless"
                 },
                 "elements_ratios": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -420,7 +420,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "chemical_formula_descriptive": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -456,7 +456,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "chemical_formula_reduced": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -491,7 +491,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "chemical_formula_hill": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -523,7 +523,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "chemical_formula_anonymous": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -557,7 +557,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "dimension_types": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -615,7 +615,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "nperiodic_dimensions": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -647,7 +647,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "dimensionless"
                 },
                 "lattice_vectors": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -670,7 +670,7 @@ This page documents a JSON Schema definition.
                     },
                     "x-optimade-unit-definitions": [
                         {
-                            "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
                             "title": "\u00e5ngstr\u00f6m",
                             "symbol": "angstrom",
                             "display-symbol": "\u00c5",
@@ -702,7 +702,7 @@ This page documents a JSON Schema definition.
                                 "base-units": [
                                     {
                                         "symbol": "m",
-                                        "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                                        "id": "https://schema.optimade.org/units/si/general/metre"
                                     }
                                 ],
                                 "base-units-expression": "m",
@@ -759,7 +759,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "space_group_hall": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -792,7 +792,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "unapplicable"
                 },
                 "space_group_it_number": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -824,7 +824,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "unapplicable"
                 },
                 "cartesian_site_positions": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -847,7 +847,7 @@ This page documents a JSON Schema definition.
                     },
                     "x-optimade-unit-definitions": [
                         {
-                            "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
                             "title": "\u00e5ngstr\u00f6m",
                             "symbol": "angstrom",
                             "display-symbol": "\u00c5",
@@ -879,7 +879,7 @@ This page documents a JSON Schema definition.
                                 "base-units": [
                                     {
                                         "symbol": "m",
-                                        "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                                        "id": "https://schema.optimade.org/units/si/general/metre"
                                     }
                                 ],
                                 "base-units-expression": "m",
@@ -931,7 +931,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "nsites": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -963,7 +963,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "dimensionless"
                 },
                 "species_at_sites": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -1003,7 +1003,7 @@ This page documents a JSON Schema definition.
                     ],
                     "x-optimade-unit": "inapplicable",
                     "items": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name",
                         "title": "Name of the species",
                         "x-optimade-type": "string",
                         "x-optimade-definition": {
@@ -1025,7 +1025,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "species": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species",
                     "x-optimade-implementation": {
                         "support": "should",
                         "sortable": false,
@@ -1048,7 +1048,7 @@ This page documents a JSON Schema definition.
                     },
                     "x-optimade-unit-definitions": [
                         {
-                            "$id": "https://schemas.optimade.org/units/v1.2/si/general/atomicmassunit",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/atomicmassunit",
                             "title": "atomic mass unit",
                             "symbol": "u",
                             "display-symbol": "u",
@@ -1086,7 +1086,7 @@ This page documents a JSON Schema definition.
                                     "base-units": [
                                         {
                                             "symbol": "kg",
-                                            "id": "https://schema.optimade.org/units/v1.2.0/si/general/kilogram"
+                                            "id": "https://schema.optimade.org/units/si/general/kilogram"
                                         }
                                     ],
                                     "base-units-expression": "kg",
@@ -1212,7 +1212,7 @@ This page documents a JSON Schema definition.
                         ],
                         "properties": {
                             "name": {
-                                "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
+                                "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name",
                                 "title": "Name of the species",
                                 "x-optimade-type": "string",
                                 "x-optimade-definition": {
@@ -1253,7 +1253,7 @@ This page documents a JSON Schema definition.
                                 ],
                                 "x-optimade-unit": "inapplicable",
                                 "items": {
-                                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol_or_vacancy",
+                                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol_or_vacancy",
                                     "title": "Chemical symbol or vacancy",
                                     "x-optimade-type": "string",
                                     "x-optimade-definition": {
@@ -1449,7 +1449,7 @@ This page documents a JSON Schema definition.
                                 ],
                                 "x-optimade-unit": "inapplicable",
                                 "items": {
-                                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol",
+                                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol",
                                     "title": "Chemical symbol",
                                     "x-optimade-type": "string",
                                     "x-optimade-definition": {
@@ -1665,7 +1665,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "assemblies": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -1816,7 +1816,7 @@ This page documents a JSON Schema definition.
                     ]
                 },
                 "structure_features": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": true,
@@ -1857,7 +1857,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "_exmpl_cell_volume": {
-                    "$id": "https://example.org/schemas/v1.0.0/properties/structures/_exmpl_magnetic_moment",
+                    "$id": "https://example.org/schemas/v1.0/properties/structures/_exmpl_magnetic_moment",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": true,
@@ -1868,13 +1868,13 @@ This page documents a JSON Schema definition.
                     "x-optimade-type": "list",
                     "x-optimade-definition": {
                         "kind": "property",
-                        "version": "1.2.0",
+                        "version": "1.0.0",
                         "format": "1.2",
                         "name": "magnetic_moment"
                     },
                     "x-optimade-unit-definitions": [
                         {
-                            "$id": "https://schemas.optimade.org/units/v1.2/codata/1969/electromagnetic/bohrmagneton",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/units/codata/1969/electromagnetic/bohrmagneton",
                             "title": "Bohr magneton",
                             "symbol": "bohrmagneton",
                             "display-symbol": "\\(\\mu_B\\)",
@@ -1899,7 +1899,7 @@ This page documents a JSON Schema definition.
                                     "base-units": [
                                         {
                                             "symbol": "bohrmagneton",
-                                            "id": "https://schema.optimade.org/constants/v1.2.0/codata/2018/electromagnetic/bohrmagneton"
+                                            "id": "https://schema.optimade.org/constants/codata/2018/electromagnetic/bohrmagneton"
                                         }
                                     ],
                                     "base-units-expression": "bohrmagneton"
@@ -1951,18 +1951,18 @@ This page documents a JSON Schema definition.
             }
         },
         "files": {
-            "$id": "https://example.org/schemas/v1.0.0/entrytypes/files",
+            "$id": "https://example.org/schemas/v1.0/entrytypes/files",
             "type": "object",
             "title": "Example provider files endpoint",
             "x-optimade-definition": {
                 "kind": "entrytype",
                 "format": "1.2",
-                "version": "1.2.0",
+                "version": "1.0.0",
                 "name": "files"
             },
             "properties": {
                 "id": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": true,
@@ -1997,7 +1997,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "type": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": true,
@@ -2028,7 +2028,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "immutable_id": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -2061,7 +2061,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "last_modified": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -2094,7 +2094,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "url": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/url",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/url",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -2125,7 +2125,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "url_stable_until": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/url_stable_until",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -2158,7 +2158,7 @@ This page documents a JSON Schema definition.
                     "format": "date-time"
                 },
                 "name": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/name",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/name",
                     "x-optimade-implementation": {
                         "support": "yes",
                         "sortable": false,
@@ -2189,7 +2189,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "size": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/size",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/size",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -2212,7 +2212,7 @@ This page documents a JSON Schema definition.
                     },
                     "x-optimade-unit-definitions": [
                         {
-                            "$id": "https://schemas.optimade.org/units/v1.2/iso-iec-80000/2008/information_science_and_technology/byte",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/units/iso-iec-80000/2008/information_science_and_technology/byte",
                             "title": "byte",
                             "symbol": "B",
                             "display-symbol": "B",
@@ -2263,7 +2263,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "byte"
                 },
                 "media_type": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/media_type",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/media_type",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -2295,7 +2295,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "version": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/version",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/version",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -2327,7 +2327,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "modification_timestamp": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/modification_timestamp",
                     "x-optimade-implementation": {
                         "support": "no",
                         "sortable": false,
@@ -2359,7 +2359,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "description": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/description",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/description",
                     "x-optimade-requirements": {
                         "support": "may",
                         "sortable": false,
@@ -2385,7 +2385,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "checksums": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/checksums",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/checksums",
                     "x-optimade-requirements": {
                         "support": "may",
                         "sortable": false,
@@ -2450,7 +2450,7 @@ This page documents a JSON Schema definition.
                     }
                 },
                 "atime": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/atime",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/atime",
                     "x-optimade-requirements": {
                         "support": "may",
                         "sortable": false,
@@ -2477,7 +2477,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "ctime": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/ctime",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/ctime",
                     "x-optimade-requirements": {
                         "support": "may",
                         "sortable": false,
@@ -2504,7 +2504,7 @@ This page documents a JSON Schema definition.
                     "x-optimade-unit": "inapplicable"
                 },
                 "mtime": {
-                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/mtime",
+                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/mtime",
                     "x-optimade-requirements": {
                         "support": "may",
                         "sortable": false,
@@ -2542,7 +2542,7 @@ This page documents a JSON Schema definition.
         },
         "entrytypes": {
             "structures": {
-                "$id": "https://schemas.optimade.org/entrytypes/v1.2/optimade/structures",
+                "$id": "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/structures",
                 "x-optimade-requirements": {
                     "support": "must"
                 },
@@ -2557,7 +2557,7 @@ This page documents a JSON Schema definition.
                 "type": "object",
                 "properties": {
                     "id": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -2586,7 +2586,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "type": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -2611,7 +2611,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "immutable_id": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -2638,7 +2638,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "last_modified": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -2665,7 +2665,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "elements": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -2697,7 +2697,7 @@ This page documents a JSON Schema definition.
                         ],
                         "x-optimade-unit": "inapplicable",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/element",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/element",
                             "title": "Element",
                             "x-optimade-type": "string",
                             "x-optimade-definition": {
@@ -2842,7 +2842,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "nelements": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nelements",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nelements",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -2868,7 +2868,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "dimensionless"
                     },
                     "elements_ratios": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/elements_ratios",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -2910,7 +2910,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "chemical_formula_descriptive": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_descriptive",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -2940,7 +2940,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "chemical_formula_reduced": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_reduced",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -2969,7 +2969,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "chemical_formula_hill": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_hill",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_hill",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -2995,7 +2995,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "chemical_formula_anonymous": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/chemical_formula_anonymous",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_anonymous",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3023,7 +3023,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "dimension_types": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/dimension_types",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/dimension_types",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3075,7 +3075,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "nperiodic_dimensions": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nperiodic_dimensions",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nperiodic_dimensions",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3101,7 +3101,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "dimensionless"
                     },
                     "lattice_vectors": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/lattice_vectors",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3118,7 +3118,7 @@ This page documents a JSON Schema definition.
                         },
                         "x-optimade-unit-definitions": [
                             {
-                                "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+                                "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
                                 "title": "\u00e5ngstr\u00f6m",
                                 "symbol": "angstrom",
                                 "display-symbol": "\u00c5",
@@ -3150,7 +3150,7 @@ This page documents a JSON Schema definition.
                                     "base-units": [
                                         {
                                             "symbol": "m",
-                                            "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                                            "id": "https://schema.optimade.org/units/si/general/metre"
                                         }
                                     ],
                                     "base-units-expression": "m",
@@ -3207,7 +3207,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "space_group_hall": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_hall",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_hall",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -3234,7 +3234,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "unapplicable"
                     },
                     "space_group_it_number": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/space_group_it_number",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_it_number",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -3260,7 +3260,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "unapplicable"
                     },
                     "cartesian_site_positions": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/cartesian_site_positions",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/cartesian_site_positions",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3277,7 +3277,7 @@ This page documents a JSON Schema definition.
                         },
                         "x-optimade-unit-definitions": [
                             {
-                                "$id": "https://schemas.optimade.org/units/v1.2/si/general/angstrom",
+                                "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/angstrom",
                                 "title": "\u00e5ngstr\u00f6m",
                                 "symbol": "angstrom",
                                 "display-symbol": "\u00c5",
@@ -3309,7 +3309,7 @@ This page documents a JSON Schema definition.
                                     "base-units": [
                                         {
                                             "symbol": "m",
-                                            "id": "https://schema.optimade.org/units/v1.2.0/si/general/metre"
+                                            "id": "https://schema.optimade.org/units/si/general/metre"
                                         }
                                     ],
                                     "base-units-expression": "m",
@@ -3361,7 +3361,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "nsites": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/nsites",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3387,7 +3387,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "dimensionless"
                     },
                     "species_at_sites": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species_at_sites",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species_at_sites",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3421,7 +3421,7 @@ This page documents a JSON Schema definition.
                         ],
                         "x-optimade-unit": "inapplicable",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name",
                             "title": "Name of the species",
                             "x-optimade-type": "string",
                             "x-optimade-definition": {
@@ -3443,7 +3443,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "species": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/species",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/species",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -3460,7 +3460,7 @@ This page documents a JSON Schema definition.
                         },
                         "x-optimade-unit-definitions": [
                             {
-                                "$id": "https://schemas.optimade.org/units/v1.2/si/general/atomicmassunit",
+                                "$id": "https://schemas.optimade.org/defs/v1.2/units/si/general/atomicmassunit",
                                 "title": "atomic mass unit",
                                 "symbol": "u",
                                 "display-symbol": "u",
@@ -3498,7 +3498,7 @@ This page documents a JSON Schema definition.
                                         "base-units": [
                                             {
                                                 "symbol": "kg",
-                                                "id": "https://schema.optimade.org/units/v1.2.0/si/general/kilogram"
+                                                "id": "https://schema.optimade.org/units/si/general/kilogram"
                                             }
                                         ],
                                         "base-units-expression": "kg",
@@ -3624,7 +3624,7 @@ This page documents a JSON Schema definition.
                             ],
                             "properties": {
                                 "name": {
-                                    "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/species_name",
+                                    "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/species_name",
                                     "title": "Name of the species",
                                     "x-optimade-type": "string",
                                     "x-optimade-definition": {
@@ -3665,7 +3665,7 @@ This page documents a JSON Schema definition.
                                     ],
                                     "x-optimade-unit": "inapplicable",
                                     "items": {
-                                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol_or_vacancy",
+                                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol_or_vacancy",
                                         "title": "Chemical symbol or vacancy",
                                         "x-optimade-type": "string",
                                         "x-optimade-definition": {
@@ -3861,7 +3861,7 @@ This page documents a JSON Schema definition.
                                     ],
                                     "x-optimade-unit": "inapplicable",
                                     "items": {
-                                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/chemical_symbol",
+                                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol",
                                         "title": "Chemical symbol",
                                         "x-optimade-type": "string",
                                         "x-optimade-definition": {
@@ -4077,7 +4077,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "assemblies": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/assemblies",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/assemblies",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4222,7 +4222,7 @@ This page documents a JSON Schema definition.
                         ]
                     },
                     "structure_features": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/structures/structure_features",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/structure_features",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -4259,7 +4259,7 @@ This page documents a JSON Schema definition.
                 }
             },
             "files": {
-                "$id": "https://schemas.optimade.org/entrytypes/v1.2/optimade/files",
+                "$id": "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/files",
                 "x-optimade-requirements": {
                     "support": "may"
                 },
@@ -4274,7 +4274,7 @@ This page documents a JSON Schema definition.
                 "type": "object",
                 "properties": {
                     "id": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -4303,7 +4303,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "type": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -4328,7 +4328,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "immutable_id": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4355,7 +4355,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "last_modified": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -4382,7 +4382,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "url": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/url",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/url",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -4407,7 +4407,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "url_stable_until": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/url_stable_until",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/url_stable_until",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4434,7 +4434,7 @@ This page documents a JSON Schema definition.
                         "format": "date-time"
                     },
                     "name": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/name",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/name",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -4459,7 +4459,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "size": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/size",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/size",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4476,7 +4476,7 @@ This page documents a JSON Schema definition.
                         },
                         "x-optimade-unit-definitions": [
                             {
-                                "$id": "https://schemas.optimade.org/units/v1.2/iso-iec-80000/2008/information_science_and_technology/byte",
+                                "$id": "https://schemas.optimade.org/defs/v1.2/units/iso-iec-80000/2008/information_science_and_technology/byte",
                                 "title": "byte",
                                 "symbol": "B",
                                 "display-symbol": "B",
@@ -4527,7 +4527,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "byte"
                     },
                     "media_type": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/media_type",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/media_type",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4553,7 +4553,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "version": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/version",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/version",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4579,7 +4579,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "modification_timestamp": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/modification_timestamp",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/modification_timestamp",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4605,7 +4605,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "description": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/description",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/description",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4631,7 +4631,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "checksums": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/checksums",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/checksums",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4696,7 +4696,7 @@ This page documents a JSON Schema definition.
                         }
                     },
                     "atime": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/atime",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/atime",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4723,7 +4723,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "ctime": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/ctime",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/ctime",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4750,7 +4750,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "mtime": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/files/mtime",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/mtime",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4779,7 +4779,7 @@ This page documents a JSON Schema definition.
                 }
             },
             "references": {
-                "$id": "https://schemas.optimade.org/entrytypes/v1.2/optimade/references",
+                "$id": "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/references",
                 "x-optimade-requirements": {
                     "support": "may"
                 },
@@ -4794,7 +4794,7 @@ This page documents a JSON Schema definition.
                 "type": "object",
                 "properties": {
                     "id": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/id",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/id",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -4823,7 +4823,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "type": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/type",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/type",
                         "x-optimade-requirements": {
                             "support": "must",
                             "sortable": false,
@@ -4848,7 +4848,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "immutable_id": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/immutable_id",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/immutable_id",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4875,7 +4875,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "last_modified": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/core/last_modified",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified",
                         "x-optimade-requirements": {
                             "support": "should",
                             "sortable": false,
@@ -4902,7 +4902,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "address": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/address",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/address",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4928,7 +4928,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "annote": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/annote",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/annote",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4954,7 +4954,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "booktitle": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/booktitle",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/booktitle",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -4980,7 +4980,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "chapter": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/chapter",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/chapter",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5006,7 +5006,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "crossref": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/crossref",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/crossref",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5032,7 +5032,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "edition": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/edition",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/edition",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5058,7 +5058,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "howpublished": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/howpublished",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/howpublished",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5084,7 +5084,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "institution": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/institution",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/institution",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5110,7 +5110,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "journal": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/journal",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/journal",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5136,7 +5136,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "key": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/key",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/key",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5162,7 +5162,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "month": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/month",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/month",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5188,7 +5188,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "note": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/note",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/note",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5214,7 +5214,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "number": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/number",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/number",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5240,7 +5240,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "organization": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/organization",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/organization",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5266,7 +5266,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "pages": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/pages",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/pages",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5292,7 +5292,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "publisher": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/publisher",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/publisher",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5318,7 +5318,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "school": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/school",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/school",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5344,7 +5344,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "series": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/series",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/series",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5370,7 +5370,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "title": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/title",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/title",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5396,7 +5396,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "volume": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/volume",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/volume",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5422,7 +5422,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "year": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/year",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/year",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5448,7 +5448,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "bib_type": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/bib_type",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/bib_type",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5474,7 +5474,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "authors": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/authors",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/authors",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5495,7 +5495,7 @@ This page documents a JSON Schema definition.
                         ],
                         "description": "A list of dictionaries with names of the authors.\n\n**Requirements/Conventions**:\n\n- Each list member MUST be a dictionary with the following keys:\n\n  - **name**: Full name of the person, REQUIRED.\n  - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/person",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/person",
                             "title": "authors",
                             "x-optimade-type": "dictionary",
                             "x-optimade-definition": {
@@ -5562,7 +5562,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "editors": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/editors",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/editors",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5583,7 +5583,7 @@ This page documents a JSON Schema definition.
                         ],
                         "description": "A list of dictionaries with names of the editors.\n\n**Requirements/Conventions**:\n\n- Each list member MUST be a dictionary with the following keys:\n\n  - **name**: Full name of the person, REQUIRED.\n  - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.",
                         "items": {
-                            "$id": "https://schemas.optimade.org/properties/v1.2/optimade/common/person",
+                            "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/person",
                             "title": "authors",
                             "x-optimade-type": "dictionary",
                             "x-optimade-definition": {
@@ -5650,7 +5650,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "doi": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/doi",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/doi",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,
@@ -5676,7 +5676,7 @@ This page documents a JSON Schema definition.
                         "x-optimade-unit": "inapplicable"
                     },
                     "url": {
-                        "$id": "https://schemas.optimade.org/properties/v1.2/optimade/references/url",
+                        "$id": "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/url",
                         "x-optimade-requirements": {
                             "support": "may",
                             "sortable": false,

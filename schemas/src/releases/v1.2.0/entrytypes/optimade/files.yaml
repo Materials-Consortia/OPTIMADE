@@ -1,0 +1,138 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/files"
+title: "Files"
+description: "The files entry type describes a file with metadata and an URL to retrive it"
+x-optimade-definition:
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.2.0"
+  name: "files"
+type: object
+properties:
+  id:
+    $$inherit: "/properties/optimade/files/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/properties/optimade/files/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/properties/optimade/files/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/properties/optimade/files/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
+
+  url:
+    $$inherit: "/properties/optimade/files/url"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "none"
+      response-level: "must"
+
+  url_stable_until:
+    $$inherit: "/properties/optimade/files/url_stable_until"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  name:
+    $$inherit: "/properties/optimade/files/name"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  size:
+    $$inherit: "/properties/optimade/files/size"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  media_type:
+    $$inherit: "/properties/optimade/files/media_type"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  version:
+    $$inherit: "/properties/optimade/files/version"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  modification_timestamp:
+    $$inherit: "/properties/optimade/files/modification_timestamp"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  description:
+    $$inherit: "/properties/optimade/files/description"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  checksums:
+    $$inherit: "/properties/optimade/files/checksums"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  atime:
+    $$inherit: "/properties/optimade/files/atime"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  ctime:
+    $$inherit: "/properties/optimade/files/ctime"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  mtime:
+    $$inherit: "/properties/optimade/files/mtime"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
