@@ -491,9 +491,22 @@ def md_header(s, level, style="display"):
     if level <= 1 and style=="display":
         out = s + "\n"
         out += md_display_headers[level]*len(s)+"\n\n"
+    elif style=="list":
+        out = "    "*level + "* "+s+"\n"
     else:
-        out = md_headers[level] + " " + s + "\n"
+        out = md_headers[level] + " " + s + "\n\n"
     return out
+
+def md_format_lines(s, level, style="display"):
+    """
+    Format markdown lines
+    """
+    if style != "list":
+        return s
+
+    prefix = "    "*level
+
+    return "\n".join([prefix + line for line in s.splitlines()]) + "\n"
 
 def data_get_basics(data, default_title="*[untitled]*", default_kind="*[unknown]*", default_Kind="*[Unknown]*"):
     basics = {'title':default_title, 'description_short':"", 'description_details':"", 'examples':"", 'kind':default_kind, 'Kind':default_Kind}
@@ -858,7 +871,7 @@ def data_to_md(data, args, level=0):
 
 def data_to_md_index(data, args, path=[], level=0):
     s = ""
-    # The heuristic of lookoing for a 'title' field that is a string
+    # The heuristic of looking for a 'title' field that is a string
     # to determine how to print things is not foolproof,
     # but seems to work for now. This may need revisiting later.
     if ('title' in data and isinstance(data['title'],str)) or '@context' in data:
@@ -866,31 +879,32 @@ def data_to_md_index(data, args, path=[], level=0):
         title = basics['title']
         kind = basics['kind']
         if '$id' in data:
-            s += "* **["+title+"]("+("/".join(path))+")** ("+kind+") - [`"+data['$id']+"`]("+data['$id']+")  \n"
-            s += "  "+basics['description_short']
+            s += md_header("**["+title+"]("+("/".join(path))+")** ("+kind+") - [`"+data['$id']+"`]("+data['$id']+")",level=level,style="list")
+            s += md_format_lines("\n"+basics['description_short'],level=level+1,style="list")
         else:
-            s += "* **["+title+"]("+("/".join(path))+")** ("+kind+")  \n"
-            s += "  "+basics['description_short']
+            s += md_header("**["+title+"]("+("/".join(path))+")** ("+kind+")",level=level,style="list")
+            s += md_format_lines("\n"+basics['description_short'],level=level+1, style="list")
         s += "\n"
     else:
         if len(path) > 0:
-            s += md_header(path[-1], level, style="display")
+            s += md_header("**"+path[-1]+"**", level, style="list")
+            next_level = level + 1
         else:
-            s += md_header("Index", level, style="display")
+            s += md_header("Index", level, style="header")
+            next_level = 0
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict) and ('title' in data[item] and isinstance(data[item]['title'],str)):
-                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=level+1)
+                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=next_level)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
-            s += "\n"
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict) and not ('title' in data[item] and isinstance(data[item]['title'],str)):
-                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=level+1)
+                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=next_level)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
-            s += "\n"
+
     return s
 
 

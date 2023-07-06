@@ -1,3 +1,3 @@
-$$inherit: "/json-ld/nodetypes/optimade/structures"
+$$inherit: "/json-ld/v1.2/nodetypes/optimade/structures"
 '@context':
   _exmpl_cell_volume: "https://example.com/properties/v1.0/structures/_exmpl_cell_volume"

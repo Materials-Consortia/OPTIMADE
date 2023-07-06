@@ -10,7 +10,7 @@ all: schemas
 
 # You may need to edit these paths to reference the right versions
 PROCESS_SCHEMAS=../../tests/scripts/process_schemas.py
-RESOLVE_PATHS_ARGS=--resolve-path ../output/releases/v1.2/
+RESOLVE_PATHS_ARGS=--resolve-path ../output/
 META_SCHEMA_PATH=../output/meta/v1.2
 BASEID=https://example.org/schemas/v1.0/
 BASEDIR=src/v1.0.0
@@ -28,9 +28,11 @@ SCHEMAS_JSON = $(patsubst src/%.yaml,output/%.json,$(SCHEMAS))
 SCHEMAS_MD = $(patsubst src/%.yaml,output/%.md,$(SCHEMAS))
 
 ifeq ($(origin schemas_html_ext), undefined)
-	SCHEMAS_HTML = $(patsubst src/%.yaml,output/%,$(SCHEMAS))
+	SCHEMAS_HTML := $(patsubst src/%.yaml,output/%,$(SCHEMAS))
+	SCHEMAS_HTML_EXT =
 else
-	SCHEMAS_HTML = $(patsubst src/%.yaml,output/%.html,$(SCHEMAS))
+	SCHEMAS_HTML := $(patsubst src/%.yaml,output/%.html,$(SCHEMAS))
+	SCHEMAS_HTML_EXT = .html
 endif
 
 EXT_SCHEMAS := $(filter-out ../../external/json-schema/LICENSE, $(wildcard ../../external/json-schema/*))
@@ -46,10 +48,6 @@ INDEXES_HTML := $(patsubst src/%,output/%/index.html,$(INDEXES))
 
 schemas: $(SCHEMAS_JSON) $(SCHEMAS_MD) $(SCHEMAS_HTML) $(INDEXES_HTML)
 
-output/%/index.html: src/% $(SCHEMAS)
-	mkdir -p "$(dir $@)"
-	$(PROCESS_SCHEMAS) --index --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(RESOLVE_PATHS_ARGS) -f html --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
-
 output/%.json: src/%.yaml $(META_SCHEMAS_JSON)
 	mkdir -p "$(dir $@)"
 	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas $(RESOLVE_PATHS_ARGS) --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
@@ -58,15 +56,13 @@ output/%.md: src/%.yaml
 	mkdir -p "$(dir $@)"
 	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas -f md $(RESOLVE_PATHS_ARGS) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --output "$@" "$<"
 
-ifeq ($(origin schemas_html_ext), undefined)
-$(SCHEMAS_HTML): output/%: src/%.yaml
+$(SCHEMAS_HTML): output/%$(SCHEMAS_HTML_EXT): src/%.yaml
 	mkdir -p "$(dir $@)"
 	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas -f html $(RESOLVE_PATHS_ARGS) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
-else
-$(SCHEMAS_HTML): output/%.html: src/%.yaml
+
+output/%/index.html: src/% $(SCHEMAS)
 	mkdir -p "$(dir $@)"
-	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas -f html $(RESOLVE_PATHS_ARGS) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
-endif
+	$(PROCESS_SCHEMAS) --index --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(RESOLVE_PATHS_ARGS) -f html --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
 .PHONY: clean clean_schemas
 

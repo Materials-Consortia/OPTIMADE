@@ -1,4 +1,4 @@
-$$inherit: "/json-ld/optimade"
+$$inherit: "/json-ld/v1.2/optimade"
 '@context':
 
   id: "@id"

@@ -5,6 +5,9 @@
 # Use "make schemas schemas_html_ext=true" to generate html files with .html extensions also for files meant to be served
 # without extensions, which is useful for hosting, e.g., on github that automatically redirects URLs without extensions.
 
+BASEDIR = "schemas/src/defs/"
+BASEID = "https://schemas.optimade.org/defs/"
+
 ifeq ($(origin schemas_html_pretty), undefined)
 	OPTIMADE_HTML_HEADER ?=
 	OPTIMADE_HTML_TOP ?=
@@ -13,83 +16,124 @@ else
 	OPTIMADE_HTML_TOP = <a href="https://www.optimade.org/"><img style="margin: 0.5em; float: left" src="https://avatars0.githubusercontent.com/u/23107754" width="10%" /></a><div style="width: 100%; clear: both"></div>
 endif
 
-META_SCHEMAS := $(wildcard schemas/src/meta/*/optimade/*.yaml)
+ALL_SCHEMAS := $(wildcard schemas/src/*/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*/*.yaml schemas/src/*/*/*/*/*.yaml schemas/src/*/*/*/*.yaml schemas/src/*/*/*.yaml)
+
+META_SCHEMAS := $(filter schemas/src/meta/%, $(ALL_SCHEMAS))
 META_SCHEMAS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(META_SCHEMAS))
 META_SCHEMAS_ARGS := $(foreach schema,$(META_SCHEMAS_JSON),--schema $(schema))
 
-SCHEMAS := $(wildcard schemas/src/releases/v*.*.*/*/*/*/*/*.yaml schemas/src/releases/v*.*.*/*/*/*/*.yaml schemas/src/releases/v*.*.*/*/*/*.yaml schemas/src/releases/v*.*.*/*/*.yaml schemas/src/releases/v*.*.*/*.yaml)
-SCHEMAS_DEFS := $(wildcard schemas/src/defs/v*.*/*/*/*/*/*.yaml schemas/src/defs/v*.*/*/*/*/*.yaml schemas/src/defs/v*.*/*/*/*.yaml schemas/src/defs/v*.*/*/*.yaml schemas/src/defs/v*.*/*.yaml)
-SCHEMAS_JSON = $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(SCHEMAS) $(SCHEMAS_DEFS))
-SCHEMAS_MD = $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(SCHEMAS) $(SCHEMAS_DEFS))
+DEFINITIONS := $(filter schemas/src/defs/%, $(ALL_SCHEMAS))
+DEFINITIONS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(DEFINITIONS))
+DEFINITIONS_MD := $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(DEFINITIONS))
+
+OTHER_SCHEMAS := $(filter-out schemas/src/meta/%,$(filter-out schemas/src/defs/%,$(ALL_SCHEMAS)))
+OTHER_SCHEMAS_JSON := $(patsubst schemas/src/%.yaml,schemas/output/%.json,$(OTHER_SCHEMAS))
+OTHER_SCHEMAS_MD := $(patsubst schemas/src/%.yaml,schemas/output/%.md,$(OTHER_SCHEMAS))
 
 ifeq ($(origin schemas_html_ext), undefined)
-	SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%,$(SCHEMAS) $(SCHEMAS_DEFS))
-	SCHEMAS_HTML_EXT =
+	DEFINITIONS_HTML := $(patsubst schemas/src/%.yaml,schemas/output/%,$(DEFINITIONS))
+	DEFINITIONS_HTML_EXT =
 else
-	SCHEMAS_HTML = $(patsubst schemas/src/%.yaml,schemas/output/%.html,$(SCHEMAS) $(SCHEMAS_DEFS))
-	SCHEMAS_HTML_EXT = .html
+	DEFINITIONS_HTML := $(patsubst schemas/src/%.yaml,schemas/output/%.html,$(DEFINITIONS))
+	DEFINITIOS_HTML_EXT = .html
 endif
 
 EXT_SCHEMAS := $(filter-out external/json-schema/LICENSE, $(wildcard external/json-schema/*))
 EXT_SCHEMAS_ARGS := $(foreach schema,$(EXT_SCHEMAS),--schema $(schema))
 
-INDEXES := $(wildcard schemas/src/releases/*)
+INDEXES := schemas/src/defs
 INDEXES_HTML := $(patsubst schemas/src/%,schemas/output/%/index.html,$(INDEXES))
 
 OPTIMADE_VERSION := $(shell awk 'NR==2 && /OPTIMADE API specification/ { sub(/~develop/, "", $$NF); print $$NF; exit }' optimade.rst)
+
 ifeq ($(OPTIMADE_VERSION),)
-  OPTIMADE_VERSION_SUBST=
+  OPTIMADE_VERSION_MINOR :=
+  OPTIMADE_VERSION_SUBST :=
 else
-  OPTIMADE_VERSION_SUBST=--sub '$$$${OPTIMADE_VERSION}' "$(OPTIMADE_VERSION)"
+  OPTIMADE_VERSION_MINOR := "$(basename $(OPTIMADE_VERSION))"
+  OPTIMADE_VERSION_SUBST := --sub '$$$${OPTIMADE_VERSION}' "$(OPTIMADE_VERSION)"
 endif
 
-.PHONY: schemas schemas_meta schemas_json schemas_docs schemas_html schemas_symlinks
+.PHONY: schemas schemas_meta schemas_json schemas_docs schemas_html schemas_symlinks schema_releases
 
-schemas: schemas_meta schemas_json schemas_docs schemas_html
+schemas: schemas_build schemas_releases
+schemas_build: schemas_symlinks schemas_meta schemas_defs_json schemas_defs_docs schemas_defs_html schemas_other_json schemas_indexes_html
 schemas_meta: $(META_SCHEMAS_JSON)
-schemas_json: $(SCHEMAS_JSON)
-schemas_docs: $(SCHEMAS_MD)
-schemas_html: $(SCHEMAS_HTML) $(INDEXES_HTML)
+schemas_defs_json: $(DEFINITIONS_JSON) schemas_meta
+schemas_defs_docs: $(DEFINITIONS_MD) schemas_meta
+schemas_defs_html: $(DEFINITIONS_HTML) schemas_meta
+schemas_other_json: $(OTHER_SCHEMAS_JSON) schemas_defs_json
+schemas_indexes_html: $(INDEXES_HTML) schemas_meta
+
+# The 'schemas_symlinks' rule is run before schema builds to try to maintain a structure under '/output' that helps
+# handling multiple parallel versions of schema definitions. Normally a build would go into a minor version directory (e.g., 'v1.2')
+# since the source files have to be organized that way for versioned $$inherit to work. The 'schemas_symlinks' rule
+# symlinks a full version directory (e.g., v1.2.0) to the corresponding minor version directory where the build then goes.
+# The result is an 'output' that allows a straightforward:
+#
+#   rsync -a output/ /path/to/arhive/of/versions/
+#
+# to do the right thing, where previously generated historical versions remains maintained correctly under '/path/to/arhive/of/versions/'
+#
+# Note: output/defs is deliberatly not handled by this rule since updated property defintions with the same ids are meant to replace
+# older versions in the /defs/<minor version> directories.
 
 schemas_symlinks:
-	cd schemas/src/; \
-	for KIND in meta releases; do \
-          mkdir -p ../output/$$KIND; \
-	  ( cd "$$KIND";\
-	  for dir in *; do \
-	    if [ -h "$$dir" -a ! -h "../../output/$$KIND/$$dir" ]; then \
-	      ln -s "$$(readlink "$$dir")" "../../output/$$KIND/$$dir" ;\
-	    elif [ -d "$$dir" -a ! -e "../../output/$$KIND/$$dir" ]; then \
-	      mkdir "../../output/$$KIND/$$dir" ;\
+	mkdir -p schemas/output/; \
+	cd schemas/output/; \
+	for KIND in meta json-schema json-ld releases; do \
+	  if [ ! -e "$$KIND" ]; then \
+            mkdir -p "$$KIND" ;\
+          fi ;\
+	  if [ -n "$(OPTIMADE_VERSION)" ]; then \
+            if [ ! -e "$$KIND/$(OPTIMADE_VERSION)" ]; then \
+	      mkdir "$$KIND/$(OPTIMADE_VERSION)" ;\
+            fi ;\
+            if [ ! -e "$$KIND/$(OPTIMADE_VERSION_MINOR)" -o -h "$$KIND/$(OPTIMADE_VERSION_MINOR)" ]; then \
+	      ln -nsf "$(OPTIMADE_VERSION)" "$$KIND/$(OPTIMADE_VERSION_MINOR)" ;\
 	    fi ;\
-	  done \
-	  ) \
+            if [ ! -e "$$KIND/latest" -o -h "$$KIND/latest" ]; then \
+	      ln -nsf "$(OPTIMADE_VERSION_MINOR)" "$$KIND/latest" ;\
+	    fi ;\
+	  fi \
 	done
 
-# Macro to extract the third (defs, releases) and fourth (version) path segments of the target dependency to compose a suitable basedir value for process_schemas
-basedir = "schemas/src/$(word 3,$(subst /, ,$<))/$(word 4,$(subst /, ,$(1)))/"
-# Marco to create a suitable URL baseid by processing the version number in the fourth path segment of the target dependency by removing the patch version if present
-baseid = "https://schemas.optimade.org/defs/$(if $(findstring 3,$(words $(subst ., ,$(word 4,$(subst /, ,$(1)))))),$(basename $(word 4,$(subst /, ,$(1)))),$(word 4,$(subst /, ,$(1))))/"
+# The releases directory aggregates this releases versions of all property definitions and is thus
+# how one finds the definition file that was part of a specific relase.
+schemas_releases: schemas_build
+	mkdir -p schemas/output/releases/latest
+	cd schemas/output/defs; \
+	for DIR in $$(ls -vrd v*); do \
+          ( cd "$$DIR"; \
+	    find . -type f -exec cp --parents \{\} ../../releases/latest \; ;\
+	  ) \
+        done
 
-$(META_SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml | schemas_symlinks
+# Meta schemas need a separate rule since the other rules depend on the meta schemas for validation (and the meta schemas cannot depend on themselves)
+$(META_SCHEMAS_JSON): schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "schemas/src" --baseid="https://schemas.optimade.org/" $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
-$(SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
+$(DEFINITIONS_JSON) $(OTHER_SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas $(OPTIMADE_VERSION_SUBST) --basedir $(call basedir,$<) --baseid $(call baseid,$<) $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
-$(SCHEMAS_MD): schemas/output/%.md: schemas/src/%.yaml | schemas_symlinks
+$(DEFINITIONS_MD): schemas/output/%.md: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir $(call basedir,$<) --baseid $(call baseid,$<) --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --output "$@" "$<"
 
-$(SCHEMAS_HTML): schemas/output/%$(SCHEMAS_HTML_EXT): schemas/src/%.yaml | schemas_symlinks
+$(DEFINITIONS_HTML): schemas/output/%$(SCHEMAS_HTML_EXT): schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir $(call basedir,$<) --baseid $(call baseid,$<) --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
+	tests/scripts/process_schemas.py --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
 
-$(INDEXES_HTML): schemas/output/releases/%/index.html: schemas/src/releases/% $(SCHEMAS)
+$(INDEXES_HTML): schemas/output/%/index.html: schemas/src/% $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	tests/scripts/process_schemas.py --index --basedir $(call basedir,$<) --baseid $(call baseid,$<) -f html --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+	tests/scripts/process_schemas.py --index --basedir "$(BASEDIR)" --baseid "$(BASEID)" -f html --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+
+.PHONY: schemas_release
+
+schemas_release:
+	ls -v schemas/src/defs | xargs
 
 .PHONY: clean clean_schemas
 
@@ -98,11 +142,23 @@ clean: clean_schemas
 clean_schemas:
 	rm -rf schemas/output
 
+.PHONY: validate_schemas
+
+validate_meta_schemas: schemas
+	tests/scripts/validate_json_schema.py schemas/output/meta/latest/optimade/property_definition.json external/json-schema/schema
+	tests/scripts/validate_json_schema.py schemas/output/meta/latest/optimade/physical_unit_definition.json external/json-schema/schema
+
+validate_schemas: schemas validate_meta_schemas
+	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/json-schema/latest/optimade.json
+
 .PHONY: check_schemas_variables
 
-check_schemas_variables:
-	@echo "SCHEMAS = $(SCHEMAS)"
-	@echo "SCHEMAS_JSON = $(SCHEMAS_JSON)"
+schemas_check_variables:
+	@echo "DEFINITIONS = $(DEFINITIONS)"
+	@echo "DEFINITIONS_JSON = $(DEFINITIONS_JSON)"
+	@echo ""
+	@echo "OTHER_SCHEMAS = $(OTHER_SCHEMAS)"
+	@echo "OTHER_SCHEMAS_JSON = $(OTHER_SCHEMAS_JSON)"
 	@echo ""
 	@echo "META_SCHEMAS = $(META_SCHEMAS)"
 	@echo "META_SCHEMAS_JSON = $(META_SCHEMAS_JSON)"
@@ -110,13 +166,7 @@ check_schemas_variables:
 	@echo ""
 	@echo "OPTIMADE_VERSION = $(OPTIMADE_VERSION)"
 	@echo "OPTIMADE_VERSION_SUBST = $(OPTIMADE_VERSION_SUBST)"
+	@echo ""
+	@echo "INDEXES = $(INDEXES)"
+	@echo "INDEXES_HTML = $(INDEXES_HTML)"
 
-
-.PHONY: validate_schemas
-
-validate_meta_schemas: schemas
-	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/property_definition.json external/json-schema/schema
-	tests/scripts/validate_json_schema.py schemas/output/meta/current/optimade/physical_unit_definition.json external/json-schema/schema
-
-validate_schemas: schemas validate_meta_schemas
-	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/json-schema/current/optimade.json

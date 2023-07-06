@@ -8,7 +8,7 @@ x-optimade-definition:
   format: "1.2"
   name: "magnetic_moment"
 x-optimade-unit-definitions:
-  - $$inherit: "/units/codata/1969/electromagnetic/bohrmagneton"
+  - $$inherit: "/defs/v1.2/units/codata/1969/electromagnetic/bohrmagneton"
 type:
   - "array"
   - "null"

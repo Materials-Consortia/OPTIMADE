@@ -9,7 +9,7 @@ x-optimade-definition:
   format: "1.2"
   name: "_exmpl_cell_volume"
 x-optimade-unit-definitions:
-  - $$inherit: "/units/si/general/angstrom"
+  - $$inherit: "/defs/v1.2/units/si/general/angstrom"
 type:
   - "number"
   - "null"
