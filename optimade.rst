@@ -3081,7 +3081,7 @@ Trajectories Entries
   The properties defined for the structures endpoint can also be used for trajectories.
   In this case the values of these properties are however lists of whatever type has been defined for the original structures property.
   This allows these properties to change during the trajectory.
-  The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"`.
+  The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"` for that dimension in its property definition, See `Property Definition keys from JSON Schema`_.
 
 nframes
 ~~~~~~~
@@ -3176,28 +3176,27 @@ This is an example of the data field of a JSON object that could be returned aft
       "meta":{
         "property_metadata":{
           "cartesian_site_positions":{
-               "range":{
-                 "range_ids":["frames","particles","xyz"],
-                 "indexable_dim": ["frames"],
-                 "data_range": [{
-                     "start": 1,
-                     "step": 1,
-                     "stop": 360,
-                   },{
-                     "start": 1,
-                     "step": 1,
-                     "stop": 3,
-                 },{
-                     "start": 1,
-                     "step": 1,
-                     "stop": 3,
-                 }],
-                 "layout":"dense",
-                 "nvalues": 3240
-               },
+            "range":{
+              "indexable_dim": ["frames"],
+              "data_range": [{
+                  "start": 1,
+                  "step": 1,
+                  "stop": 360,
+                },{
+                  "start": 1,
+                  "step": 1,
+                  "stop": 3,
+                },{
+                  "start": 1,
+                  "step": 1,
+                  "stop": 3,
+                }],
+              "layout":"dense",
+              "nvalues": 3240
+            },
+          },
           "_exmpl_temperature":{
             "range": {
-              "range_ids":["frames"],
               "nvalues": 144,
               "indexable_dim": ["frames"],
               "data_range": [
@@ -3208,11 +3207,11 @@ This is an example of the data field of a JSON object that could be returned aft
                 }
               ],
               "layout": "sparse"
+            }
           },
           "_exmpl_ekin":{
             "range": {
               "nvalues": 180,
-              "range_ids": ["frames"],
               "indexable_dim": ["frames"],
               "data_range": [
                 {
