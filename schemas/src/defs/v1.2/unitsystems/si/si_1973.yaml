@@ -1,19 +1,19 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si_1981"
-title: "SI 1981"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_1973"
+title: "SI 1973"
 description: |-
-  The SI unit system as represented in the 4th edition of The International System of Units.
+  The SI unit system as represented in the 3rd edition of The International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 4th edition of The International System of Units in 1981.
+  This represents the SI unit system described in the 3rd edition of The International System of Units in 1973.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
-  name: "si_1981"
+  name: "si_1973"
 units:
   s:
-    $$inherit: "/v1.2/units/si/1967/base/second"
+    $$inherit: "/v1.2/units/si/1960/base/second"
   m:
     $$inherit: "/v1.2/units/si/1960/base/metre"
   kg:
@@ -22,10 +22,10 @@ units:
     $$inherit: "/v1.2/units/si/1967/base/ampere"
   K:
     $$inherit: "/v1.2/units/si/1967/base/kelvin"
-  mol:
-    $$inherit: "/v1.2/units/si/1971/base/mole"
   cd:
     $$inherit: "/v1.2/units/si/1967/base/candela"
+  mol:
+    $$inherit: "/v1.2/units/si/1971/base/mole"
   rad:
     $$inherit: "/v1.2/units/si/1960/supplementary/radian"
   sr:
@@ -59,20 +59,10 @@ units:
   degC:
     $$inherit: "/v1.2/units/si/1967/named/degcelsius"
   lm:
-    $$inherit: "/v1.2/units/si/1979/named/lumen"
+    $$inherit: "/v1.2/units/si/1967/named/lumen"
   lx:
     $$inherit: "/v1.2/units/si/1967/named/lux"
-  Bq:
-    $$inherit: "/v1.2/units/si/1975/named/becquerel"
-  Gy:
-    $$inherit: "/v1.2/units/si/1975/named/gray"
-  Sv:
-    $$inherit: "/v1.2/units/si/1979/named/sievert"
 prefixes:
-  E:
-    $$inherit: "/v1.2/units/si/prefixes/exa"
-  P:
-    $$inherit: "/v1.2/units/si/prefixes/peta"
   T:
     $$inherit: "/v1.2/units/si/prefixes/tera"
   G:

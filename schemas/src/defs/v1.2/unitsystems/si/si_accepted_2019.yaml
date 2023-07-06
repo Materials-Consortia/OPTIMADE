@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si_accepted_2019"
-$$inherit: "/v1.2/unitsystems/si_2019"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_accepted_2019"
+$$inherit: "/v1.2/unitsystems/si/si_2019"
 title: "SI accepted 2019"
 description: |-
   The SI 2019 unit system and units accepted to be used with the SI.

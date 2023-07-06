@@ -1,16 +1,16 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si_1985"
-title: "SI 1985"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_1991"
+title: "SI 1991"
 description: |-
-  The SI unit system as represented in the 5th edition of The International System of Units.
+  The SI unit system as represented in the 6th edition of The International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 5th edition of The International System of Units in 1995.
+  This represents the SI unit system described in the 6th edition of The International System of Units in 1991.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
-  name: "si_1985"
+  name: "si_1991"
 units:
   s:
     $$inherit: "/v1.2/units/si/1967/base/second"
@@ -69,6 +69,10 @@ units:
   Sv:
     $$inherit: "/v1.2/units/si/1983/named/sievert"
 prefixes:
+  Y:
+    $$inherit: "/v1.2/units/si/prefixes/yotta"
+  Z:
+    $$inherit: "/v1.2/units/si/prefixes/zetta"
   E:
     $$inherit: "/v1.2/units/si/prefixes/exa"
   P:
@@ -101,3 +105,7 @@ prefixes:
     $$inherit: "/v1.2/units/si/prefixes/femto"
   a:
     $$inherit: "/v1.2/units/si/prefixes/atto"
+  z:
+    $$inherit: "/v1.2/units/si/prefixes/zepto"
+  y:
+    $$inherit: "/v1.2/units/si/prefixes/yocto"

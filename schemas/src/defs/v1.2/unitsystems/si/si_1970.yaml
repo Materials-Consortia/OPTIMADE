@@ -1,31 +1,29 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
-$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si_2006"
-title: "SI 2006"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_1970"
+title: "SI 1970"
 description: |-
-  The SI unit system as represented in the 8th edition of The International System of Units.
+  The SI unit system as represented in the 2nd edition of The International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 8th edition of The International System of Units in 2006.
+  This represents the SI unit system described in the 2nd edition of The International System of Units in 1970.
 x-optimade-definition:
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"
-  name: "si_2006"
+  name: "si_1970"
 units:
   s:
-    $$inherit: "/v1.2/units/si/1967/base/second"
+    $$inherit: "/v1.2/units/si/1960/base/second"
   m:
-    $$inherit: "/v1.2/units/si/1983/base/metre"
+    $$inherit: "/v1.2/units/si/1960/base/metre"
   kg:
     $$inherit: "/v1.2/units/si/1960/base/kilogram"
   A:
-    $$inherit: "/v1.2/units/si/1983/base/ampere"
+    $$inherit: "/v1.2/units/si/1967/base/ampere"
   K:
     $$inherit: "/v1.2/units/si/1967/base/kelvin"
-  mol:
-    $$inherit: "/v1.2/units/si/1971/base/mole"
   cd:
-    $$inherit: "/v1.2/units/si/1983/base/candela"
+    $$inherit: "/v1.2/units/si/1967/base/candela"
   rad:
     $$inherit: "/v1.2/units/si/1960/supplementary/radian"
   sr:
@@ -33,9 +31,7 @@ units:
   Hz:
     $$inherit: "/v1.2/units/si/1967/named/hertz"
   N:
-    $$inherit: "/v1.2/units/si/1983/named/newton"
-  Pa:
-    $$inherit: "/v1.2/units/si/1983/named/pascal"
+    $$inherit: "/v1.2/units/si/1967/named/newton"
   J:
     $$inherit: "/v1.2/units/si/1967/named/joule"
   W:
@@ -43,42 +39,24 @@ units:
   C:
     $$inherit: "/v1.2/units/si/1967/named/coulomb"
   V:
-    $$inherit: "/v1.2/units/si/1983/named/volt"
+    $$inherit: "/v1.2/units/si/1967/named/volt"
   F:
-    $$inherit: "/v1.2/units/si/1983/named/farad"
+    $$inherit: "/v1.2/units/si/1967/named/farad"
   ohm:
-    $$inherit: "/v1.2/units/si/1983/named/ohm"
-  S:
-    $$inherit: "/v1.2/units/si/1983/named/siemens"
+    $$inherit: "/v1.2/units/si/1967/named/ohm"
   Wb:
-    $$inherit: "/v1.2/units/si/1983/named/weber"
+    $$inherit: "/v1.2/units/si/1967/named/weber"
   T:
     $$inherit: "/v1.2/units/si/1967/named/tesla"
   H:
-    $$inherit: "/v1.2/units/si/1983/named/henry"
+    $$inherit: "/v1.2/units/si/1967/named/henry"
   degC:
     $$inherit: "/v1.2/units/si/1967/named/degcelsius"
   lm:
-    $$inherit: "/v1.2/units/si/1979/named/lumen"
+    $$inherit: "/v1.2/units/si/1967/named/lumen"
   lx:
-    $$inherit: "/v1.2/units/si/1983/named/lux"
-  Bq:
-    $$inherit: "/v1.2/units/si/1975/named/becquerel"
-  Gy:
-    $$inherit: "/v1.2/units/si/1983/named/gray"
-  Sv:
-    $$inherit: "/v1.2/units/si/1983/named/sievert"
-  kat:
-    $$inherit: "/v1.2/units/si/1999/named/katal"
+    $$inherit: "/v1.2/units/si/1967/named/lux"
 prefixes:
-  Y:
-    $$inherit: "/v1.2/units/si/prefixes/yotta"
-  Z:
-    $$inherit: "/v1.2/units/si/prefixes/zetta"
-  E:
-    $$inherit: "/v1.2/units/si/prefixes/exa"
-  P:
-    $$inherit: "/v1.2/units/si/prefixes/peta"
   T:
     $$inherit: "/v1.2/units/si/prefixes/tera"
   G:
@@ -107,7 +85,3 @@ prefixes:
     $$inherit: "/v1.2/units/si/prefixes/femto"
   a:
     $$inherit: "/v1.2/units/si/prefixes/atto"
-  z:
-    $$inherit: "/v1.2/units/si/prefixes/zepto"
-  y:
-    $$inherit: "/v1.2/units/si/prefixes/yocto"
