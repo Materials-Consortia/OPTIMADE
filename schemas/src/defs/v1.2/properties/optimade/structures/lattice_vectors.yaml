@@ -1,12 +1,15 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors"
 title: "Lattice vectors"
-x-optimade-type: "list"
 x-optimade-definition:
   kind: "property"
   version: "1.2.0"
   format: "1.2"
   name: "lattice_vectors"
+x-optimade-type: "list"
+x-optimade-dimensions:
+  names: ["dim_lattice", "dim_spatial"]
+  lengths: [3, 3]
 x-optimade-unit-definitions:
   - $$inherit: "/v1.2/units/si/general/angstrom"
 type:
@@ -34,6 +37,9 @@ examples:
 x-optimade-unit: "inapplicable"
 items:
   x-optimade-type: "list"
+  x-optimade-dimensions:
+    names: ["dim_spatial"]
+    lengths: [3]
   type:
     - "array"
   x-optimade-unit: "inapplicable"

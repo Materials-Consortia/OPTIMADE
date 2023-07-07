@@ -68,34 +68,34 @@ units:
     $$inherit: "/v1.2/units/si/1975/named/gray"
 prefixes:
   E:
-    $$inherit: "/v1.2/units/si/prefixes/exa"
+    $$inherit: "/v1.2/prefixes/si/exa"
   P:
-    $$inherit: "/v1.2/units/si/prefixes/peta"
+    $$inherit: "/v1.2/prefixes/si/peta"
   T:
-    $$inherit: "/v1.2/units/si/prefixes/tera"
+    $$inherit: "/v1.2/prefixes/si/tera"
   G:
-    $$inherit: "/v1.2/units/si/prefixes/giga"
+    $$inherit: "/v1.2/prefixes/si/giga"
   M:
-    $$inherit: "/v1.2/units/si/prefixes/mega"
+    $$inherit: "/v1.2/prefixes/si/mega"
   k:
-    $$inherit: "/v1.2/units/si/prefixes/kilo"
+    $$inherit: "/v1.2/prefixes/si/kilo"
   h:
-    $$inherit: "/v1.2/units/si/prefixes/hecto"
+    $$inherit: "/v1.2/prefixes/si/hecto"
   da:
-    $$inherit: "/v1.2/units/si/prefixes/deca"
+    $$inherit: "/v1.2/prefixes/si/deca"
   d:
-    $$inherit: "/v1.2/units/si/prefixes/deci"
+    $$inherit: "/v1.2/prefixes/si/deci"
   c:
-    $$inherit: "/v1.2/units/si/prefixes/centi"
+    $$inherit: "/v1.2/prefixes/si/centi"
   m:
-    $$inherit: "/v1.2/units/si/prefixes/milli"
+    $$inherit: "/v1.2/prefixes/si/milli"
   mc:
-    $$inherit: "/v1.2/units/si/prefixes/micro"
+    $$inherit: "/v1.2/prefixes/si/micro"
   n:
-    $$inherit: "/v1.2/units/si/prefixes/nano"
+    $$inherit: "/v1.2/prefixes/si/nano"
   p:
-    $$inherit: "/v1.2/units/si/prefixes/pico"
+    $$inherit: "/v1.2/prefixes/si/pico"
   f:
-    $$inherit: "/v1.2/units/si/prefixes/femto"
+    $$inherit: "/v1.2/prefixes/si/femto"
   a:
-    $$inherit: "/v1.2/units/si/prefixes/atto"
+    $$inherit: "/v1.2/prefixes/si/atto"

@@ -9,6 +9,9 @@ x-optimade-definition:
   name: "cartesian_site_positions"
 x-optimade-unit-definitions:
   - $$inherit: "/v1.2/units/si/general/angstrom"
+x-optimade-dimensions:
+  names: ["dim_sites", "dim_spatial"]
+  sizes: [null, 3]
 type:
   - "array"
   - "null"
@@ -30,6 +33,9 @@ examples:
 x-optimade-unit: "inapplicable"
 items:
   x-optimade-type: "list"
+  x-optimade-dimensions:
+    names: ["dim_spatial"]
+    sizes: [3]
   type:
     - "array"
   x-optimade-unit: "inapplicable"

@@ -8,10 +8,6 @@ description: |-
 
   This constant is described in Rev. Mod. Phys. 93, 025010 (2021) as "Absolute value of the charge of the electron and one of the seven defining constants of the SI".
   It is exactly 1.602176634·10⁻¹⁹ C following the 2019 redefinition of the SI base units.
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "angstrom"
 resources:
   - relation: "Definition in: E. Tiesinga, P. J. Mohr, D. B. Newell, and B. N. Taylor, Rev. Mod. Phys. 93, 025010 (2021)"
     resource-id: "https://doi.org/10.1103/RevModPhys.93.025010"

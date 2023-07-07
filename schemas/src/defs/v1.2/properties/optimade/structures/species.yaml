@@ -7,6 +7,8 @@ x-optimade-definition:
   version: "1.2.0"
   format: "1.2"
   name: "species"
+x-optimade-dimensions:
+  names: ["dim_species"]
 x-optimade-unit-definitions:
   - $$inherit: "/v1.2/units/si/general/atomicmassunit"
 type:
@@ -85,6 +87,8 @@ items:
     chemical_symbols:
       title: "Chemical symbols"
       x-optimade-type: "list"
+      x-optimade-dimensions:
+          names: ["dim_species_chemical_symbols"]
       type:
         - "array"
       description: |-
@@ -109,6 +113,8 @@ items:
     concentration:
       title: "Concentration"
       x-optimade-type: "list"
+      x-optimade-dimensions:
+          names: ["dim_species_chemical_symbols"]
       type:
         - "array"
       description: |-
@@ -137,6 +143,8 @@ items:
     attached:
       title: "Attached chemical symbols"
       x-optimade-type: "list"
+      x-optimade-dimensions:
+          names: ["dim_species_attached"]
       type:
         - "array"
       description: |-
@@ -160,6 +168,8 @@ items:
     nattached:
       title: "Number of attached entities"
       x-optimade-type: "list"
+      x-optimade-dimensions:
+          names: ["dim_species_attached"]
       type:
         - "array"
       description: |-
@@ -179,8 +189,10 @@ items:
         x-optimade-unit: "dimensionless"
         minimum: 0
     mass:
-      title: "Number of attached entities"
+      title: "Masses of the entities composing the species"
       x-optimade-type: "list"
+      x-optimade-dimensions:
+        names: ["dim_species_chemical_symbols"]
       type:
         - "array"
       description: |-

@@ -4,10 +4,6 @@ title: "pebi"
 symbol: "Ei"
 display-symbol: "Ei"
 description: "The pebi prefix as a dimensionless multiple of 2⁵⁰ is one of a set of recommended prefixes in the International System of Units (SI), 9th Edition for refering to powers of 2."
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "pebi"
 resources:
   - relation: "Definition in the International System of Units (SI), 9th Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"

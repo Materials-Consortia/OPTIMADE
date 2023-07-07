@@ -15,10 +15,6 @@ description: |-
 compatibility:
   - "https://schemas.optimade.org/units/v1.2/si/1960/named/hertz"
   - "https://schemas.optimade.org/units/v1.2/si/1967/named/hertz"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "hertz"
 resources:
   - relation: "Definition at the 9st CGPM meeting (1948)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"

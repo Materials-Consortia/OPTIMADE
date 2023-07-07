@@ -7,10 +7,6 @@ description: |-
   A derived SI unit for radioactivity, defined as s⁻¹ using the 1967 SI second, defined at the 15th CGPM Meeting in 1975.
 
   "The 15th Conférence Générale des Poids et Mesures, [...] adopts the following special name for the SI unit of activity: becquerel, symbol Bq, equal to one reciprocal second." [15th CGPM Meeting (1975)]
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "becquerel"
 resources:
   - relation: "Definition at the 15th CGPM Meeting (1975)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/15-1975"

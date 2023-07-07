@@ -18,10 +18,6 @@ compatibility:
   - "https://schemas.optimade.org/units/v1.2/si/1979/named/lumen"
   - "https://schemas.optimade.org/units/v1.2/si/1983/named/lumen"
   - "https://schemas.optimade.org/units/v1.2/si/2019/named/lumen"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "lumen"
 resources:
   - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"

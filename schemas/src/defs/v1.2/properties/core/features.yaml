@@ -9,6 +9,8 @@ x-optimade-definition:
   name: "features"
 type:
   - "array"
+x-optimade-dimensions:
+  names: ["dim_features"]
 description: |-
   A list of strings that flag which special features are used by the entry.
 

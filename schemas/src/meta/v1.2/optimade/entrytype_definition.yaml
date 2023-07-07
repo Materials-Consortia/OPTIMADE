@@ -32,3 +32,5 @@ properties:
         - $ref: "#/$defs/propdef"
         - required: ["title", "description"]
 additionalProperties: false
+$$inherit: "property_definition"
+$$keep: ['$defs']

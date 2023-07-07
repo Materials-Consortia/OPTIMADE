@@ -9,10 +9,6 @@ description: |-
   "The volt is the electric potential difference that exists between two points of a conducting wire carrying a constant current of one ampere when the power dissipated between these points is equal to one watt." [9th CGPM meeting in 1946]
 
   The volt was defined at the 9th CGPM Meeting in 1946, included in SI at the 11th CGPM meeting in 1960, resolution 12 and implicitly redefined via the redefinitions of the second at the 13th CGPM Meeting in 1967, resolution 1, the metre at the 17th CGPM Meeting in 1983, resolution 1, and the kilogram at the 26th CGPM Meeting (2018), resolution 1.
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "V"
 resources:
   - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"

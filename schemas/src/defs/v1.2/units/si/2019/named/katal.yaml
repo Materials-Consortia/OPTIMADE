@@ -9,10 +9,6 @@ description: |-
   "The 21st Conférence Générale des Poids et Mesures, [...] decides to adopt the special name katal, symbol kat, for the SI unit mole per second to express catalytic activity, especially in the fields of medicine and biochemistry, and recommends that when the katal is used, the measurand be specified by reference to the measurement procedure; the measurement procedure must identify the indicator reaction." [21th CGPM meeting (1999), resolution 12]
 
   The katal was implicitly redefined via the redefinition of the mole at the 26th CGPM Meeting (2018), resolution 1.
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "katal"
 resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Katal"

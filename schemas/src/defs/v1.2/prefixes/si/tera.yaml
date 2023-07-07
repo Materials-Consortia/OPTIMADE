@@ -4,10 +4,6 @@ symbol: "T"
 display-symbol: "T"
 $id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/tera"
 description: "The tera SI prefix defined as a dimensionless multiple of 10¹², adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "tera"
 resources:
   - relation: "Definition in the 11:th CGPM Meeting in 1960, resolution 12"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
