@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_reduced"
+title: "Reduced chemical formula"
+x-optimade-type: "string"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "chemical_formula_reduced"
+type:
+  - "string"
+  - "null"
+description: |-
+  The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
+
+  **Requirements/Conventions**:
+
+  - Intricate queries on formula components are suggested to be formulated using set-type filter operators on the multi valued `elements` and `elements_ratios` properties.
+  - Element symbols MUST have proper capitalization (e.g., `"Si"`, not `"SI"` for "silicon").
+  - Elements MUST be placed in alphabetical order, followed by their integer chemical proportion number.
+  - For structures with no partial occupation, the chemical proportion numbers are the smallest integers for which the chemical proportion is exactly correct.
+  - For structures with partial occupation, the chemical proportion numbers are integers that within reasonable approximation indicate the correct chemical proportions. The precise details of how to perform the rounding is chosen by the API implementation.
+  - No spaces or separators are allowed.
+
+  **Query examples**:
+
+  - A filter that matches an exactly given formula is `chemical_formula_reduced="H2NaO"`.
+examples:
+  - "H2NaO"
+  - "ClNa"
+  - "CCaO3"
+x-optimade-unit: "inapplicable"

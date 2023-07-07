@@ -1,9 +1,0 @@
-$schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "https://schemas.optimade.org/meta/v1.2.0/optimade/prefix_definition"
-title: OPTIMADE Prefix Definition
-$$inherit: physical_unit_definition
-properties:
-  $schema:
-    description: |-
-      A normalized URI for a meta-schema that validates the definition.
-      This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/prefix_definition.json

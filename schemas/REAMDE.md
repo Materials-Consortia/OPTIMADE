@@ -1,19 +1,40 @@
-# OPTIMADE Property Definitions
+# OPTIMADE Property Definitions and other schemas
 
-## What is an OPTIMADE property definition?
+## OPTIMADE Property Definitions
 
-The section `Property Definitions` of the OPTIMADE specification defines an output format-agnostic way to declare data properties, with particular support for describing physical quantities and related data.
-The format uses a subset of JSON Schema extended with additional OPTIMADE-specific identifiers, as allowed by the JSON Schema standard with identifiers prefixed with `x-optimade`.
+The section `Property Definitions` of the OPTIMADE specification defines an output format-agnostic way to declare properties that can be communicated via OPTIMADE to describe physical quantities and related data.
+The format uses a subset of JSON Schema extended with OPTIMADE-specific identifiers, as allowed by the JSON Schema standard with identifiers prefixed with `x-optimade-`.
 Hence, they can be used as schemas to validate data items using standard tools for JSON Schema.
-Property Definitions are used in the OPTIMADE API to describe precisely what data a database makes available.
-However, they can also be used in other contexts since they allow assigning stable URI identifiers to such definitions, which can be used anywhere there is a need to refer to a specific definition of a data property unambiguously.
 
-As described in more detail below, the OPTIMADE consortium publishes the current and past standardized sets of Property Definitions in subdirectories of the following URL:
+As described in more detail below, the OPTIMADE consortium publishes the current and past standardized sets of Property Definitions, with an index available at the following URL:
 
-  - https://schemas.optimade.org/properties/
+  - https://schemas.optimade.org/defs/
 
-You can, of course, publish your own sets of Property Definitions under any URL you like.
-See [Editing and contributing Property Definitions](#editing_and_contributing_property_definitions) below for more information.
+Anyone can, of course, publish their own sets of Property Definitions under any URL they like.
+See [Creating database-specific definitions](#creating_database_specific_definitions) and [Editing and contributing Property Definitions](#editing_and_contributing_property_definitions) below for more information.
+
+
+### Using the definitions
+
+The primary purpose of Property Definitions is to include them in the info endpoint responses in an implementation of the OPTIMADE API to describe precisely what data a database makes available.
+For example, the URI IDs in the definitions may tell a client interacting with two databases that these databases communicate the same property in the same way.
+
+However, they can also be used in other contexts since they provide stable URI IDs that unambiguously define both a data format and the meaning of the data represented using that format.
+These URIs are user-friendly in the sense they are resolvable URLs that give a human-readable definition of the defined entity.
+
+A researcher who uploads research data in, say, CSV format, to an online data repository (e.g., figshare) can use the Property Definition URIs and/or the JSON definition files to unambiguously communicate the format and content of the cells in the CSV file.
+The definitions can be referenced, for example, by using the stable URIs as column headers in the CSV file or by using the definition names as column headers and giving the full URIs in accompanying information (e.g., an attached README file).
+The full JSON-formatted definition files can also be included in the upload to make the upload completely self-contained.
+
+Instead of using individual URIs or definition files for each property, it is also possible to instead give the URI to an OPTIMADE entry type or standard definition, which groups multiple Property Definitions.
+Since the JSON representations of the definitions always are non-referential (i.e., they contain all the information inline with no references to external definitions), it is safe to include a single JSON file for each entity being referenced (i.e., each property, entry type, or just the one file to reference any set of properties part of the OPTIMADE standard).
+
+
+### Physical unit definitions
+
+As part of standardizing property definitions, OPTIMADE also includes stable URIs for physical units (see below).
+Similarly to the possible use of Property Definitions outside of the OPTIMADE API, the unit definitions may be useful for referring to specific units in other contexts unambiguously.
+For example, the stable URIs and/or the JSON definition files can be used in software to carefully communicate exactly the definition of the units of the values being returned.
 
 
 ## Property Definitions in the OPTIMADE repository
@@ -22,130 +43,244 @@ The OPTIMADE repository:
 
 - https://github.com/Materials-Consortia/OPTIMADE
 
-contains a subdirectory `schemas/src/properties` with source files from which to generate Property Definitions for the standard OPTIMADE properties.
-They are organized with one subdirectory per category, of which we currently use:
+contains a subdirectory `schemas/src/defs/`, followed by version number directories, under which source files from which the Property Definitions for the standard OPTIMADE properties are generated.
+The primary source files for properties reside under `properties`.
+They are organized with one subdirectory per category, of which we presently use:
+
 - `core` for the most core Property Definitions of the OPTIMADE API protocol.
-- `physical` for general definitions of physical properties to be referenced in the other property definitions.
-- `optimade` for property definitions that are integral to the OPTIMADE standard.
+- `optimade` for property definitions integral to the OPTIMADE standard.
 
-The `optimade` category is further partitioned using subdirectories according to OPTIMADE endpoints.
-In addition, common definitions reused by other optimade definition source files are sorted in a special subdirectory, `common`.
+The `optimade` category is further partitioned using subdirectories according to OPTIMADE entry types (which correspond to endpoints in the REST API).
+In addition, common definitions reused across the definition source files are sorted in a special subdirectory, `common`.
 
-These directories contain human-readable YAML-formatted property definition source files with `.yaml` extensions.
-The source files use JSON Schema pointers to reference other source files to avoid duplication of information.
-They are processed with the tool `tests/scripts/process_propdefs.py` into standards-conformant JSON files where JSON Schema pointers are replaced by inline copies of the corresponding definitions to adhere to the OPTIMADE standard format for Property Definitions.
+These directories contain YAML-formatted property definition source files with `.yaml` extensions.
+The source files are processed with the tool `tests/scripts/process_propdefs.py` into standards-conformant JSON files where inline copies of the corresponding definitions replace references to other files to adhere to the OPTIMADE standard format for Property Definitions.
 
-All Property Definitions can be processed in one go into the output directory `schemas/output` by using the following makefile target:
+The following makefile target processes all Property Definitions (and other schema definitions, see below) into the output directory `schemas/output`:
 ```
-make properties
+make schemas
 ```
+This command also generates documentation in markdown and HTML meant to be keept alongside the JSON definition files.
+Once the generation is complete, the property definitions are found under `schemas/output/defs/` using the same directory structure as under `schemas/src`.
+
+You can browse the definitions by starting a browser with the generated index page, e.g.:
+```
+  firefox schemas/output/defs/index.html
+```
+The generation places extension-less HTML files alongside the JSON definition files, which this index page links to.
+This should work with most browsers.
+
+The `make schemas` commands take two optional parameters:
+
+- `schemas_html_pretty=true` creates html output that is arguably styled more nicely.
+- `schemas_html_ext=true` creates files with `.html` extensions also for the HTML files that are meant to be served without extensions.
+  To generate the files with these extensions may be useful for some hosting solutions (e.g., GitHub pages) that automatically forward URLs without extensions.
+  Unless the files are served using such a solution, links to the definitions (e.g., from the index page) will be broken.
 
 
-## Stable Property Definition URIs
+### Stable Property Definition URIs
 
 Properties standardized by OPTIMADE are given stable URIs that are URLs with the following format:
 ```
-  https://schemas.optimade.org/properties/<version>/<namespace>/<endpoint>/<property id>
+  https://schemas.optimade.org/defs/<version>/properties/<namespace>/<entrytype>/<name>
 ```
 where:
 
-- `<version>` is the property definition version prefixed with a `v`, which per definition coincides with the full OPTIMADE version in which the property definition was last changed (see below), e.g., `v1.2.0`.
+- `<version>` is the minor version of the property on format "vMAJOR.MINOR", e.g. "v1.2", which is the minor OPTIMADE version in which the property was created or functionally changed.
+  Functionally changed means that the definition of the property is not just amended or clarified, but altered in a way that changes its interpretation.
+  In accordance with [semantic versioning](https://semver.org/), if only the minor version number is increased, the change MUST be backward compatible (e.g., the changed definition may add a non-mandatory field to a dictionary.)
 - `<namespace>` is a particular namespace for the Property Definitions.
-  The namespace `optimade` is used for property definitions that are integral to the OPTIMADE standard.
-- `<endpoint>` is the endpoint to which the property is designated in OPTIMADE.
-- `<property id>` is a lowercase identifier that identifies the property.
+  The namespace `optimade` is used for property definitions integral to the OPTIMADE standard.
+- `<entrytype>` is the OPTIMADE entry type that the property belongs to in OPTIMADE.
+- `<name>` is an identifier of lowercase Latin characters and the underscore character identifying the property.
 
-The following URL references a compound JSON document collecting all Property Definitions that belong to the same endpoint:
+The URIs are URLs that can be retrieved to fetch a human-readable description of the definition in HTML format.
+Every URI can also be suffixed with the extension ".json" to obtain the machine-readable JSON definition file.
+These URIs are stable in the sense that they will always refer to a single specific definition.
+However, the definition description that the URL resolves to may be amended and clarified in ways that do not functionally alter the definition.
+When this happens, the version number in the definition file (in the field `x-optimade-definition -> version`) will be updated to match the corresponding release of OPTIMADE.
+The URI (and thus the `$id` in the JSON definition) will be retained as long as the definition functionally remains the same.
+
+Historical versions of the definitions are retained unmodified under URLs using the following format:
 ```
-  https://schemas.optimade.org/properties/<version>/<namespace>/<endpoint>
+  https://schemas.optimade.org/releases/<full version>/<version>/properties/<namespace>/<entrytype>/<name>
 ```
-The following URL references a compound JSON document collecting all definitions that belong to all endpoints in a namespace:
+where `<full_version>` refers to a version string on the format "vMAJOR.MINOR.PATCH", e.g., "v1.2.0" referring to the full version number of the definition and `<version>` still refers to the format "vMAJOR.MINOR".
+These URLs collect all historical versions corresponding to the OPTIMADE release with the same version.
+The double URL segments for versions may look redundant.
+However, they take this form to keep a complete historical record that preserves any amendments and clarifications of the older definition files.
+
+
+### Entry type definitions
+
+In OPTIMADE, an entry type consists of a set of property definitions.
+Machine-readable definition of these entry types are provided analgous to the property definitions with stable URIs that are URLs and historical URLs with the following formats:
 ```
-  https://schemas.optimade.org/properties/<version>/<namespace>
+  https://schemas.optimade.org/defs/<version>/entrytypes/<namespace>/<entrytype>
+  https://schemas.optimade.org/releases/<full version>/entrytypes/<namespace>/<entrytype>
 ```
-A URI used to reference property definitions MUST always use the URL with the full version number, including the major, minor, and patch version segments.
+The corresponding source files are found in the OPTIMADE repository in `schemas/output/defs/<version>/entrytypes`.
 
 
-## Other useful URLs
+### Standards definitions
 
-To simplify access to the Property Definitions, all the URLs in the previous section are also available via URLs with less precise version numbers than the stable URIs described in the previous section.
-In this case, `<version>` references either a `<major>.<minor>` or just a `<major>` OPTIMADE version number, e.g., `v1.2` or `v1`.
-However, these URLs MUST NOT be used as URIs to reference Property Definitions since they will be changed over time to reference the latest respective version.
+A set of entry types can be bundled to define a standard.
+There is presently only a single standard published by OPTIMADE, which is provided with a stable URI and historical URL with the following formats:
+```
+  https://schemas.optimade.org/defs/<version>/standards/optimade
+  https://schemas.optimade.org/releases/<full version>/standards/optimade
+```
+(In the future, OPTIMADE may use this feature for implementations to be able to indicate the support of data beyond what is included in the core optimade standard.)
 
-Note that the `$id` fields in the properties found via these URLs always point to the correct stable URI (i.e., with a `<major>.<minor>.<patch>` version).
-Hence, these URLs can be reliably used to locate the correct `$id` for the latest relevant version of a property definition.
+
+### Unit, constant, and prefix definitions
+
+To support the definition of properties, OPTIMADE also provide definition files for units, constants, and prefixes under the corresponding subdirectories of `schemas/src/defs/<version>`.
+The format for these definitions is described in the subsection `Physical Units in Property Definitions` of `Property Definitions` in the OPTIMADE specification.
+
+These are also given stable URIs using the following URLs:
+```
+  https://schemas.optimade.org/defs/<version>/units/<defining organization>/<year>/<category>/<name>
+  https://schemas.optimade.org/defs/<version>/constants/<defining organization>/<year>/<category>/<name>
+  https://schemas.optimade.org/defs/<version>/prefixes/<defining organization>/<name>
+```
+They are distinguished according to the following conventions:
+
+- A unit defines a reference for expressing the magnitude of a quantity.
+- A constant defines a known measurement, i.e., a specific dimensioned or dimensionless quantity, possibly along with a specified standard uncertainty.
+- A prefix defines a dimensionless constant whose symbols are commonly used prepended to unit symbols to express a correspondingly rescaled unit.
+
+For example, the Bohr magneton *unit* (defined, e.g., in Rev. Mod. Phys 41, 375 (1969)) refers to the reference magnetic moment used to express a measure in multiples of the magnetic dipole moment of an electron which orbits an atom in the orbit of lowest energy in the Bohr model.
+Various experimentally determined relations of this magnetic moment to the SI base units are represented as constants in OPTIMADE.
+For example, one such Bohr magneton constant is the "2018 CODATA recommended value" published in Rev. Mod. Phys. 93, 025010 (2021), which is 9.2740100783(28) x 10^(-24) J/T.
+Another is the "1973 CODATA recommended value" published in J. Phys. Chem. Ref. Data 2, 663 (1973), which is 9.274078(36) x 10^(-24) J/T.
+The Bohr magneton constants can be used to express an approximate relationship between the Bohr magneton unit and the SI base units.
+
+Analogous to how property definitions are grouped into entry types and standards, unit, constant and prefix definitions are grouped into unit systems.
+Unit systems are accssible using URIs and historical URLs with the following formats:
+```
+  https://schemas.optimade.org/defs/<version>/unitsystems/<defining organization>/<name>
+  https://schemas.optimade.org/releases/<full version>/unitsystems/<defining organization>/<name>
+```
 
 
-## Versioning of Property Definitions
+## Versioning of definitions
 
 The property definition URIs are meant to be kept as static as possible to improve interoperability.
-
 The properties standardized by OPTIMADE use OPTIMADE version numbers.
-However, even in further releases of OPTIMADE, they stay at the precise OPTIMADE patch release in which they were last modified.
+The URIs omit the PATCH version number since it is not possible for a definition to functionally change between patch releases.
 
-Exactly which Property Definitions are part of a specific version of OPTIMADE can be located using the URLs in the preceding section or in the files generated by `make properties`.
+The exact Property Definition files released as part of a specific version of OPTIMADE are found using the URLs with the version number on the format "vMAJOR.MINOR.PATCH".
 
 For example, a full list of the Property Definitions (including their version numbers) that are part of OPTIMADE release v1.2.0 is found at:
 ```
-  https://schemas.optimade.org/properties/v1.2.0/optimade
+  https://schemas.optimade.org/properties/v1.2.0/index.html
 ```
-The same information is also found in the path: `properties/v1.2.0/optimade.json` after executing `make properties` in the OPTIMADE repository.
 
 
-## Editing and Contributing Property Definitions
+## JSON-Schema for OPTIMADE response validation
 
-To create a new property definition or to propose a modification to an existing definition:
+The definition files under `schemas/src/defs` are used in combination with supplied [JSON Schema](https://json-schema.org/) schemas for [JSON:API](https://jsonapi.org/) to generate JSON Schema files that can validate OPTIMADE responses.
+The corresponding source file is found in `schemas/src/json-schema/<version>/optimade.yaml`.
+After generating the schemas with `make schemas`, the generated JSON Schema is found in `schemas/output/json-schema/<version>/optimade.json`.
 
-- Compose or edit YAML files for the Property Definitions.
-  The definition of the format is published in the OPTIMADE standard.
-  You can also look at the files in `properties/src` as examples.
-  Make sure to give the Property Definitions appropriate `$id` values as URLs where you plan to host them (see below).
 
-- Place them under appropriate directories in the OPTIMADE repository: `properties/src/<namespace>/<endpoint>/`.
+## JSON-LD definitions
 
-- Execute `make properties`
+The definition files under `schemas/src/defs` are also used to generate definition files for [JSON-LD](https://json-ld.org/) that can be used to annotate JSON:API-formatted responses from OPTIMADE so that the containing data is compatible with JSON-LD.
+The corresponding source file is found under `schemas/src/json-ld/<version>`.
+After generating the schemas with `make schemas` the generated JSON-LD context and supporting files are found under `schemas/output/json-schema/<version>`.
 
-Your new/changed properties will appear under `properties/output`.
-If you want to host your Property Definitions, use your web server to publish the content under `properties/output` under the appropriate base URL, e.g., `https://example.com/properties/`.
+The JSON-LD context is hosted at:
+```
+https://schemas.optimade.org/json-ld/<version>/optimade.json
+```
+For example, if a standard JSON:API-formatted OPTIMADE v1.2 response includes a top-level field `"@context": "https://schemas.optimade.org/json-ld/v1.2/optimade.json"`, the resulting response will be parsable using standard JSON-LD tools.
+To generate JSON-LD contexts that include database-specific properties, see [Creating database-specific definitions](#creating_database_specific_definitions) below.
 
-If you want to integrate your Property Definitions in the OPTIMADE standard:
 
-- Decide what namespace to use and ensure your definition files are placed in appropriate directories `properties/src/<namespace>/<endpoint>/` in your clone of the OPTIMADE repository.
-  Use `optimade` for `<namespace>` to get them included in the central part of the OPTIMADE standard.
+## Creating database-specific definitions
 
-- Edit the `$id` fields to use the corresponding locations under `https://schemas.optimade.org/properties/`.
+Database providers may want to use the OPTIMADE repository framework for property definitions to generate their own definition files for database-specific properties.
+The repository provides a directory `schemas/src/example` to help with this.
 
-- If you know which future version of the OPTIMADE standard will contain these properties (e.g., because a new release is being readied in which they will be included), put that version in `$id` (as, e.g., `v1.2.0`) and `x-optimade-property/version` (as, e.g., `1.2.0`).
-  If you do not know, put instead the placeholder `{OPTIMADE_VERSION}` in both places; set e.g.: `$id: "https://schemas.optimade.org/properties/v{OPTIMADE_VERSION}/optimade/example/property"` and `version: "{OPTIMADE_VERSION}"` in `x-optimade-property`.
-  When running `make properties`, this placeholder is automatically replaced with the OPTIMADE version number as written at the top of the specification document, which renders Property Definition output files useful for testing.
-  When a new versions of the OPTIMADE standard is released, the OPTIMADE maintainers are meant to replace all placeholders with the version being released, which then becomes the permanent version for those property definitions.
+The example demonstrates a typical situation where:
+
+- The `structures` and `files` entry types are inherited from the standard source files and extended with implementation-specific information in `x-optimade-implementation`.
+- A couple of extra database-specific properties (`_exmpl_cell_volume`, `_exmpl_magnetic_moment`) are defined and added to the extended `structures` entry type.
+- Files to be used for `json-ld` and `json-schema` validation are generated with the necessary modifications.
+
+A recommended workflow is:
+
+* Copy `schemas/src/example` into a working directory of your own, e.g., `schemas/src/my-database`.
+* Edit the settings related to the specifics of the database, e.g., the domain name used for the static URIs, in the Makefile `GNUMakefile` in this directory.
+* Edit the content under `src` in this directory.
+* Execute `make` to processes the files into `output`, similarly to how the OPTIMADE standard definition files are processed.
+
+If you want to host your definitions online, serve the contents of `output` at the appropriate base URL, e.g., `https://example.com/schemas/`.
+
+Note that the parameters `schemas_html_pretty=true` and `schemas_html_ext=true` documented under [Property Definitions in the OPTIMADE repository](property_definitions_in_the_optimade_repository) also works here.
+
+
+## Contributing standard definitions to OPTIMADE
+
+To propose new definitions, or modifications to existing definitions:
+
+- Clone the OPTIMADE repository from GitHub.
+
+- Compose or edit the YAML files for the definitions under `schemas/src`.
+  The format is described in the OPTIMADE standard.
+  You can also look at the files in `schemas/example` as examples.
+
+- Execute `make schemas` to process them info `schemas/output`.
+
+If you want to integrate these definitions into the OPTIMADE standard:
+
+- Decide what namespace to use and ensure your definition files are placed in appropriate directories under `schemas/src/defs/<version>`.
+  For proporties to be included in the central part of the OPTIMADE standard, use `optimade` for `<namespace>`.
+
+- Edit the `$id` fields to use the corresponding locations under `https://schemas.optimade.org/`.
 
 - Make a GitHub pull request from your repository to the `develop` OPTIMADE repository branch.
 
 When the pull request is merged, the properties will become part of the next release of the OPTIMADE standard and published under `https://schemas.optimade.org/properties/`
 
 
-## Units
+## Updating schemas.optimade.org (for OPTIMADE maintainers)
 
-OPTIMADE also provides a set of unit definitions in direct analog to the property definitions above.
-The format for unit definitions is defined in the subsection `Physical Units in Property Definitions` of the section `Property Definition` of the OPTIMADE specification.
+This is the workflow to update the schemas at `https://schemas.optimade.org/`:
 
-These are primarily intended for inclusion by reference from the Property Definition source files to be provided inline in the JSON formatted files.
-However, OPTIMADE also makes them available at stable URLs that can be used as URIs in the same way as the Property Definitions.
-They are published under `https://schemas.optimade.org/units/<version>`.
-For example, the following references the `v1.2.0` version of the angstrom unit:
-```
-  https://schemas.optimade.org/units/v1.2.0/atomistic/angstrom
-```
+- Make sure to have cloned the OPTIMADE main and schema repositories.
 
-## Notes
+- Execute in the main OPTIMADE repository:
+  ```
+  make clean
+  make schemas schemas_html_pretty=true schemas_html_ext=true
+  ```
 
-Sometimes one encounter units defined in the literature that are, essentialy, doubly defined with a physical definition and a strict relationship to, e.g., SI units.
-For example, in the International System of Units (SI), 9th ed. (2019) the electronvolt is categorized as a non-SI unit accepted for use with the SI units
-and both expressed in a table as exactly equal to 1.602176634·10⁻¹⁹ J and simultaneously described in a footnote as "The electron volt is the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum."
-Strictly speaking, this provides two different definitions of the electronvolt that happen to be identical in the 2019 edition of the SI unit system.
+- From the OPTIMADE repository execute the following command to see what files are about to be uploaded and modified in the schemas repository:
+  ```
+  rsync -ia --no-t --checksum --dry-run schemas/output/ /path/to/repo/for/schemas/ | tests/scripts/filter_rsync_itemize_output.sh
+  ```
+  Be careful to include the trailing slash on `schemas/output/`.
+  The arguments `--no-t --checksum` makes sure to only update files only if the contents differ (not if only the modification time is different because the files have been regenerated).
+  You should see a new release directory being uploaded and only modified files under `defs` for the definitions we have amended or clarified since the previous release, and the occasional update of a version symlink.
+  Check that the output matches your expectations.
 
-In OPTIMADE we prefer unit definitions that remain as static as possible to promote interoperability.
-Hence, in situations like this, it is recommended to take the physical definition as the primary definition, and specify the relationship to other units not as a defining relationship but as a (possibly approximate) non-defining relationship.
+- If all looks well:
+  ```
+  rsync -av --no-t --checksum schemas/output/ /path/to/repo/for/schemas/
+  ```
 
-Hence, it is preferable here to define the electronvolt as, e.g., the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum, with the 2019 SI definition of volt, rather than being exactly 1.602176634·10⁻¹⁹ J, since the former definition arguably has a higher logetivity.
+- Check that the changes look resonable also from the perspective of git:
+  ```
+  cd /path/to/repo/for/schemas/
+  git status
+  ```
+
+- Stage, commit and push the changes to the schema repo:
+  ```
+  git add .
+  git commit -m "Update schemas for <version> release"
+  git push
+  ```

@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/size"
+title: "Size"
+x-optimade-type: "integer"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "size"
+x-optimade-unit-definitions:
+  - $$inherit: "/v1.2/units/iso-iec-80000/2008/information_science_and_technology/byte"
+type:
+  - "integer"
+  - "null"
+description: |-
+  Size of a file in bytes.
+
+  **Requirements/Conventions:**
+
+  - If provided, it MUST be guaranteed that either exact size of a file is given or its upper bound.
+    This way if a client reserves a static buffer or truncates the download stream after this many bytes the whole file would be received.
+    Such provision is included to allow the providers to serve on-the-fly compressed files.
+examples:
+  - 4711
+x-optimade-unit: "byte"

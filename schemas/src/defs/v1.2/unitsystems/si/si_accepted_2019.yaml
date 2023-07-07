@@ -1,0 +1,41 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_accepted_2019"
+$$inherit: "/v1.2/unitsystems/si/si_2019"
+title: "SI accepted 2019"
+description: |-
+  The SI 2019 unit system and units accepted to be used with the SI.
+
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
+  In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
+  The si_extra_2019 unit system includes the prefixes and the units designated in The International System of Units (SI), 9th ed. (2019) as "non-SI units that are accepted for use with the SI."
+  (The general logarithmic ratio quantities, B and dB are not included.)
+x-optimade-definition:
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "si_accepted_2019"
+units:
+  min:
+    $$inherit: "/v1.2/units/si/1970/accepted/minute"
+  h:
+    $$inherit: "/v1.2/units/si/1970/accepted/hour"
+  day:
+    $$inherit: "/v1.2/units/si/1970/accepted/day"
+  au:
+    $$inherit: "/v1.2/units/si/2019/accepted/astronomicalunit"
+  deg:
+    $$inherit: "/v1.2/units/si/1970/accepted/degree"
+  arcmin:
+    $$inherit: "/v1.2/units/si/1970/accepted/arcminute"
+  arcsec:
+    $$inherit: "/v1.2/units/si/1970/accepted/arcsecond"
+  ha:
+    $$inherit: "/v1.2/units/si/1983/temporary/hectare"
+  l:
+    $$inherit: "/v1.2/units/si/1983/accepted/litre"
+  t:
+    $$inherit: "/v1.2/units/si/2019/accepted/tonne"
+  da:
+    $$inherit: "/v1.2/units/si/1998/accepted/dalton"
+  eV:
+    $$inherit: "/v1.2/units/si/2019/accepted/electronvolt"

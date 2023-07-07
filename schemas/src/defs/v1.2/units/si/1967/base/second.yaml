@@ -1,0 +1,23 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
+title: "second"
+symbol: "s"
+display-symbol: "s"
+description: |-
+  The SI base unit of time defined via the periods of transitions between levels in the caesium 133 atom after the redefinition at the 13th CGPM Meeting in 1967.
+
+  "The second is the duration of 9192631770 periods of the radiation corresponding to the transition between the two hyperfine levels of the ground state of the caesium 133 atom" [13th CGPM Meeting (1967), resolution 1]
+
+  At the 26th CGPM Meeting (2018), resolution 1 the definition was rephrased to: "The second, symbol s, is the SI unit of time. It is defined by taking the fixed numerical value of the caesium frequency, \(\Delta \nu_\textrm{Cs}\), the unperturbed ground-state hyperfine transition frequency of the caesium 133 atom, to be 9192631770 when expressed in the unit Hz, which is equal to s⁻¹."
+resources:
+  - relation: "Definition in the 13th CGPM Meeting (1967), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/13-1967/resolution-1"
+  - relation: "Rephrased definition in the 26th CGPM Meeting (2018), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Second"
+x-optimade-definition:
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "second"

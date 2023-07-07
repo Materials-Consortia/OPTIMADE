@@ -1,0 +1,182 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://example.org/schemas/v1.0/entrytypes/structures"
+type: object
+title: "Example provider structures endpoint"
+$$inherit: "/defs/v1.2/entrytypes/optimade/structures"
+$$keep: ["properties"]
+x-optimade-definition:
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.0.0"
+  name: "structures"
+properties:
+  id:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "no"
+
+  last_modified:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  elements:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  nelements:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  elements_ratios:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  chemical_formula_descriptive:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  chemical_formula_reduced:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "equality only"
+      response-level: "yes"
+
+  chemical_formula_hill:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
+
+  chemical_formula_anonymous:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  dimension_types:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
+
+  nperiodic_dimensions:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  lattice_vectors:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
+
+  space_group_hall:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
+
+  space_group_it_number:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
+
+  cartesian_site_positions:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
+
+  nsites:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  species_at_sites:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
+
+  species:
+    x-optimade-implementation:
+      support: "should"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
+
+  assemblies:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: false
+      query-support: "none"
+      response-level: "yes"
+
+  structure_features:
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  _exmpl_cell_volume:
+    $$inherit: "/properties/structures/_exmpl_cell_volume"
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "yes"
+
+  _exmpl_cell_volume:
+    $$inherit: "/properties/structures/_exmpl_magnetic_moment"
+    x-optimade-implementation:
+      support: "yes"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "yes"
+

@@ -1,0 +1,17 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/series"
+title: "series"
+x-optimade-type: "string"
+x-optimade-definition:
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "series"
+type:
+  - "string"
+  - "null"
+description: |-
+  The name of a series or set of books (the series field in the BibTeX specification).
+examples:
+  - "Lecture Notes in Computer Science"
+x-optimade-unit: "inapplicable"
