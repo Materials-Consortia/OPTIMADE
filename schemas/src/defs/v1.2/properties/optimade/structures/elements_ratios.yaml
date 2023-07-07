@@ -6,7 +6,7 @@ x-optimade-definition:
   kind: "property"
   version: "1.2.0"
   format: "1.2"
-  name: "element_ratios"
+  name: "elements_ratios"
 type:
   - "array"
   - "null"

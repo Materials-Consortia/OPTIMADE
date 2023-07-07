@@ -361,6 +361,7 @@ def validate(instance, args, bases=None, source=None, schemas={}, schema=None, u
             validator = None
 
     if sanity_check:
+        # Check that the id and file path makes sense
         if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
 
             # if the top $id is inherited from another file, do the sanity check against that file path
@@ -377,8 +378,18 @@ def validate(instance, args, bases=None, source=None, schemas={}, schema=None, u
             idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
 
             if(dirpath!=idpath):
-                raise Exception("Validation: sanity check failed, $id ["+iid+"] does not match source file path ["+idsource+"]\n"+
-                                "The actual comparison made was: "+dirpath+" vs. "+idpath+"\n")
+                raise Exception("Validation: sanity check failed, $id ("+iid+") does not match source file path ("+idsource+")\n"+
+                                "The fully resolved file path is: "+dirpath+" and the expected path based on the id is: "+idpath)
+
+        # Check that the definition name and filename are the same
+        if 'x-optimade-definition' in instance and source is not None:
+            if 'name' in instance['x-optimade-definition']:
+                defname = instance['x-optimade-definition']['name']
+                basename = os.path.basename(source)
+                base, ext = os.path.splitext(basename)
+                if defname != base:
+                    raise Exception("Validation: sanity check failed, x-optimade-definition -> name ("+defname+") does not match source file name ("+basename+")")
+
     try:
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
 
@@ -525,7 +536,7 @@ def data_get_basics(data, default_title="*[untitled]*", default_kind="*[unknown]
         basics['examples'] = "- " + "\n- ".join(["`"+str(x)+"`" for x in data['examples']])
     return basics
 
-def set_definition_to_md_inner(prop, inner, indent):
+def set_definition_to_md_inner(prop, inner, indent, linksuffix=""):
     inner_basics = data_get_basics(inner)
     kind = inner_basics['kind']
 
@@ -542,7 +553,7 @@ def set_definition_to_md_inner(prop, inner, indent):
                 base_dir='.'+posixpath.dirname(base.path)
                 target='.'+target.path
                 url = posixpath.relpath(target,start=base_dir)
-        s += indent + "* **["+title+"]("+url+")** ("+kind+") - [`"+inner['$id']+"`]("+inner['$id']+")  \n"
+        s += indent + "* **["+title+"]("+url+linksuffix+")** ("+kind+") - [`"+inner['$id']+"`]("+inner['$id']+linksuffix+")  \n"
         s += indent + "  "+inner_basics['description_short']
         if 'x-optimade-requirements' in inner:
             req_support, req_sort, req_query, req_response = [None]*4
@@ -577,7 +588,7 @@ def set_definition_to_md_inner(prop, inner, indent):
     s += "\n"
     return s
 
-def set_definition_to_md(data, args, level=0):
+def set_definition_to_md(data, args, level=0, linksuffix=""):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -601,7 +612,7 @@ def set_definition_to_md(data, args, level=0):
     s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
 
     if '$id' in data:
-        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n"
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+linksuffix+")**  \n"
     if 'name' in basics:
         s += "**Definition name:** `"+basics['name']+"`\n"
     s += "\n"
@@ -625,15 +636,15 @@ def set_definition_to_md(data, args, level=0):
             s += "This "+basics['kind'] + " defines the following "+itemtype+":\n\n"
             for prop in data[itemtype].keys():
                 inner = data[itemtype][prop]
-                s += set_definition_to_md_inner(prop, inner, indent="")
+                s += set_definition_to_md_inner(prop, inner, indent="", linksuffix=linksuffix)
 
     s += "\n"
     s += "**JSON definition:**\n"
-    s += general_to_md(data, args)
+    s += general_to_md(data, args, linksuffix=linksuffix)
 
     return s
 
-def single_definition_to_md(data, args, level=0):
+def single_definition_to_md(data, args, level=0, linksuffix=""):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -657,7 +668,7 @@ def single_definition_to_md(data, args, level=0):
     s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
 
     if '$id' in data:
-        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n"
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+linksuffix+")**  \n"
     if 'name' in basics:
         s += "**Definition name:** `"+basics['name']+"`\n"
     s += "\n"
@@ -685,11 +696,11 @@ def single_definition_to_md(data, args, level=0):
         basename = os.path.basename(data['$id'])
         s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n\n"
     s += "**JSON definition:**\n"
-    s += general_to_md(data, args)
+    s += general_to_md(data, args, linksuffix=linksuffix)
 
     return s
 
-def general_to_md(data, args, level=0):
+def general_to_md(data, args, level=0, linksuffix=""):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -710,7 +721,7 @@ def general_to_md(data, args, level=0):
     s += "\n```"
     return s
 
-def schema_to_md(data, args, level=0):
+def schema_to_md(data, args, level=0, linksuffix=""):
     """
     Convert data representing a JSON schema into a markdown string.
 
@@ -733,12 +744,12 @@ def schema_to_md(data, args, level=0):
     s += "This page documents a JSON Schema definition.\n\n"
 
     s += "**JSON definition:**\n"
-    s += general_to_md(data, args)
+    s += general_to_md(data, args, linksuffix=linksuffix)
 
     return s
 
 
-def property_definition_to_md(data, args, level=0):
+def property_definition_to_md(data, args, level=0, linksuffix=""):
     """
     Convert data representing OPTIMADE Property Definitions into a markdown string.
 
@@ -779,7 +790,7 @@ def property_definition_to_md(data, args, level=0):
     s += "See [https://schemas.optimade.org/](https://schemas.optimade.org/) for more information.\n\n"
 
     if '$id' in data:
-        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+")**  \n"
+        s += "**ID: [`"+str(data['$id'])+"`]("+data['$id']+linksuffix+")**  \n"
     if 'name' in basics:
         s += "**Definition name:** `"+basics['name']+"`\n"
     s += "\n"
@@ -808,11 +819,11 @@ def property_definition_to_md(data, args, level=0):
         basename = os.path.basename(data['$id'])
         s += "**Formats:** [[JSON]("+basename+".json)] [[MD]("+basename+".md)]\n\n"
     s += "**JSON definition:**\n"
-    s += general_to_md(data, args)
+    s += general_to_md(data, args, linksuffix=linksuffix)
 
     return s
 
-def data_to_md(data, args, level=0):
+def data_to_md(data, args, level=0, linksuffix=""):
     """
     Convert data representing OPTIMADE Definitions of different kinds into a markdown string.
 
@@ -827,23 +838,23 @@ def data_to_md(data, args, level=0):
         A string representation of the input data.
     """
     if args.index:
-        return data_to_md_index(data, args, level=level)
+        return data_to_md_index(data, args, level=level, linksuffix=linksuffix)
 
     s = ""
     if not "x-optimade-definition" in data:
         if '$schema' in data and data['$schema'] == 'https://json-schema.org/draft/2020-12/schema':
-            s += schema_to_md(data, args)
+            s += schema_to_md(data, args, linksuffix=linksuffix)
             return s
         if 'title' in data:
             basics = data_get_basics(data)
             s += md_header(basics['title'], level, style="display")
-            s += general_to_md(data, args)
+            s += general_to_md(data, args, linksuffix=linksuffix)
             return s
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict):
                     s += md_header(item, level, style="display")
-                    s += data_to_md(data[item], args, level=level+1)
+                    s += data_to_md(data[item], args, level=level+1, linksuffix=linksuffix)
                 #elif item == "$id":
                 #    continue
                 #else:
@@ -859,17 +870,17 @@ def data_to_md(data, args, level=0):
     kind = data['x-optimade-definition']['kind']
 
     if kind == 'property':
-        s += property_definition_to_md(data, args, level)
+        s += property_definition_to_md(data, args, level, linksuffix=linksuffix)
     elif kind in ['unit', 'constant', 'prefix']:
-        s += single_definition_to_md(data, args, level)
+        s += single_definition_to_md(data, args, level, linksuffix=linksuffix)
     elif kind in ['standard', 'entrytype', 'unitsystem']:
-        s += set_definition_to_md(data, args, level)
+        s += set_definition_to_md(data, args, level, linksuffix=linksuffix)
     else:
         raise Exception("Unknown kind in x-optimade-definition: "+str(data['x-optimade-definition']['kind']))
 
     return s
 
-def data_to_md_index(data, args, path=[], level=0):
+def data_to_md_index(data, args, path=[], level=0, linksuffix=""):
     s = ""
     # The heuristic of looking for a 'title' field that is a string
     # to determine how to print things is not foolproof,
@@ -879,10 +890,10 @@ def data_to_md_index(data, args, path=[], level=0):
         title = basics['title']
         kind = basics['kind']
         if '$id' in data:
-            s += md_header("**["+title+"]("+("/".join(path))+")** ("+kind+") - [`"+data['$id']+"`]("+data['$id']+")",level=level,style="list")
+            s += md_header("**["+title+"]("+("/".join(path))+linksuffix+")** ("+kind+") - [`"+data['$id']+"`]("+data['$id']+linksuffix+")",level=level,style="list")
             s += md_format_lines("\n"+basics['description_short'],level=level+1,style="list")
         else:
-            s += md_header("**["+title+"]("+("/".join(path))+")** ("+kind+")",level=level,style="list")
+            s += md_header("**["+title+"]("+("/".join(path))+linksuffix+")** ("+kind+")",level=level,style="list")
             s += md_format_lines("\n"+basics['description_short'],level=level+1, style="list")
         s += "\n"
     else:
@@ -895,13 +906,13 @@ def data_to_md_index(data, args, path=[], level=0):
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict) and ('title' in data[item] and isinstance(data[item]['title'],str)):
-                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=next_level)
+                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=next_level, linksuffix=linksuffix)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
         for item in sorted(data.keys()):
             try:
                 if isinstance(data[item], dict) and not ('title' in data[item] and isinstance(data[item]['title'],str)):
-                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=next_level)
+                    s += data_to_md_index(data[item], args, path=path+[str(item)], level=next_level, linksuffix=linksuffix)
             except Exception as e:
                 raise ExceptionWrapper("Could not process item: "+item,e)
 
@@ -974,7 +985,7 @@ def output_str(data, output_format, args):
         import yaml
         return yaml.dump(data)
     elif output_format == "md":
-        return data_to_md(data, args)
+        return data_to_md(data, args, linksuffix=".md")
     elif output_format == "html":
         return data_to_html(data, args)
     else:

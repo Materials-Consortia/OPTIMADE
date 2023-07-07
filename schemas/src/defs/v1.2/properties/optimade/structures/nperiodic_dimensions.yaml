@@ -6,7 +6,7 @@ x-optimade-definition:
   kind: "property"
   version: "1.2.0"
   format: "1.2"
-  name: "nelements"
+  name: "nperiodic_dimensions"
 type:
   - "integer"
   - "null"

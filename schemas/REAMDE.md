@@ -1,19 +1,40 @@
 # OPTIMADE Property Definitions and other schemas
 
-## What is an OPTIMADE property definition?
+## OPTIMADE Property Definitions
 
 The section `Property Definitions` of the OPTIMADE specification defines an output format-agnostic way to declare properties that can be communicated via OPTIMADE to describe physical quantities and related data.
 The format uses a subset of JSON Schema extended with OPTIMADE-specific identifiers, as allowed by the JSON Schema standard with identifiers prefixed with `x-optimade-`.
 Hence, they can be used as schemas to validate data items using standard tools for JSON Schema.
-Property Definitions are used in the OPTIMADE API to describe precisely what data a database makes available.
-However, they can also be used in other contexts since they can be used to assign stable URI identifiers to such definitions, which can then be used anywhere where there is a need to refer to a specific definition of a data property unambiguously.
 
 As described in more detail below, the OPTIMADE consortium publishes the current and past standardized sets of Property Definitions, with an index available at the following URL:
 
-  - https://schemas.optimade.org/defs/index
+  - https://schemas.optimade.org/defs/
 
 Anyone can, of course, publish their own sets of Property Definitions under any URL they like.
-See [Editing and contributing Property Definitions](#editing_and_contributing_property_definitions) below for more information.
+See [Creating database-specific definitions](#creating_database_specific_definitions) and [Editing and contributing Property Definitions](#editing_and_contributing_property_definitions) below for more information.
+
+
+### Using the definitions
+
+The primary purpose of Property Definitions is to include them in the info endpoint responses in an implementation of the OPTIMADE API to describe precisely what data a database makes available.
+For example, the URI IDs in the definitions may tell a client interacting with two databases that these databases communicate the same property in the same way.
+
+However, they can also be used in other contexts since they provide stable URI IDs that unambiguously define both a data format and the meaning of the data represented using that format.
+These URIs are user-friendly in the sense they are resolvable URLs that give a human-readable definition of the defined entity.
+
+A researcher who uploads research data in, say, CSV format, to an online data repository (e.g., figshare) can use the Property Definition URIs and/or the JSON definition files to unambiguously communicate the format and content of the cells in the CSV file.
+The definitions can be referenced, for example, by using the stable URIs as column headers in the CSV file or by using the definition names as column headers and giving the full URIs in accompanying information (e.g., an attached README file).
+The full JSON-formatted definition files can also be included in the upload to make the upload completely self-contained.
+
+Instead of using individual URIs or definition files for each property, it is also possible to instead give the URI to an OPTIMADE entry type or standard definition, which groups multiple Property Definitions.
+Since the JSON representations of the definitions always are non-referential (i.e., they contain all the information inline with no references to external definitions), it is safe to include a single JSON file for each entity being referenced (i.e., each property, entry type, or just the one file to reference any set of properties part of the OPTIMADE standard).
+
+
+### Physical unit definitions
+
+As part of standardizing property definitions, OPTIMADE also includes stable URIs for physical units (see below).
+Similarly to the possible use of Property Definitions outside of the OPTIMADE API, the unit definitions may be useful for referring to specific units in other contexts unambiguously.
+For example, the stable URIs and/or the JSON definition files can be used in software to carefully communicate exactly the definition of the units of the values being returned.
 
 
 ## Property Definitions in the OPTIMADE repository
@@ -52,12 +73,12 @@ This should work with most browsers.
 The `make schemas` commands take two optional parameters:
 
 - `schemas_html_pretty=true` creates html output that is arguably styled more nicely.
-- `schemas_html_ext=true` gives html extensions also for the HTML files that are meant to be served without extensions.
-  To generate the files with extensions is useful for some hosting solutions (e.g., GitHub pages) that automatically forwards URLs without extensions.
+- `schemas_html_ext=true` creates files with `.html` extensions also for the HTML files that are meant to be served without extensions.
+  To generate the files with these extensions may be useful for some hosting solutions (e.g., GitHub pages) that automatically forward URLs without extensions.
   Unless the files are served using such a solution, links to the definitions (e.g., from the index page) will be broken.
 
 
-## Stable Property Definition URIs
+### Stable Property Definition URIs
 
 Properties standardized by OPTIMADE are given stable URIs that are URLs with the following format:
 ```
@@ -67,9 +88,9 @@ where:
 
 - `<version>` is the minor version of the property on format "vMAJOR.MINOR", e.g. "v1.2", which is the minor OPTIMADE version in which the property was created or functionally changed.
   Functionally changed means that the definition of the property is not just amended or clarified, but altered in a way that changes its interpretation.
-  In accordance with [semantic versioning](https://semver.org/), if only the minor version number is increased, the change MUST be backwards compatible (e.g., the changed definition may add a non-mandatory field to a dictionary.)
+  In accordance with [semantic versioning](https://semver.org/), if only the minor version number is increased, the change MUST be backward compatible (e.g., the changed definition may add a non-mandatory field to a dictionary.)
 - `<namespace>` is a particular namespace for the Property Definitions.
-  The namespace `optimade` is used for property definitions that are integral to the OPTIMADE standard.
+  The namespace `optimade` is used for property definitions integral to the OPTIMADE standard.
 - `<entrytype>` is the OPTIMADE entry type that the property belongs to in OPTIMADE.
 - `<name>` is an identifier of lowercase Latin characters and the underscore character identifying the property.
 
@@ -78,17 +99,19 @@ Every URI can also be suffixed with the extension ".json" to obtain the machine-
 These URIs are stable in the sense that they will always refer to a single specific definition.
 However, the definition description that the URL resolves to may be amended and clarified in ways that do not functionally alter the definition.
 When this happens, the version number in the definition file (in the field `x-optimade-definition -> version`) will be updated to match the corresponding release of OPTIMADE.
-However, the URI (and thus the `$id` in the JSON definition) will be retained as long as the definition functionally remains the same.
+The URI (and thus the `$id` in the JSON definition) will be retained as long as the definition functionally remains the same.
 
 Historical versions of the definitions are retained unmodified under URLs using the following format:
 ```
-  https://schemas.optimade.org/releases/<full version>/properties/<namespace>/<entrytype>/<name>
+  https://schemas.optimade.org/releases/<full version>/<version>/properties/<namespace>/<entrytype>/<name>
 ```
-where `<full_version>` refers to a version string on the format "vMAJOR.MINOR.PATCH", e.g., "v1.2.0" referring to the full version number of the definition.
+where `<full_version>` refers to a version string on the format "vMAJOR.MINOR.PATCH", e.g., "v1.2.0" referring to the full version number of the definition and `<version>` still refers to the format "vMAJOR.MINOR".
 These URLs collect all historical versions corresponding to the OPTIMADE release with the same version.
+The double URL segments for versions may look redundant.
+However, they take this form to keep a complete historical record that preserves any amendments and clarifications of the older definition files.
 
 
-## Entry type definitions
+### Entry type definitions
 
 In OPTIMADE, an entry type consists of a set of property definitions.
 Machine-readable definition of these entry types are provided analgous to the property definitions with stable URIs that are URLs and historical URLs with the following formats:
@@ -99,7 +122,7 @@ Machine-readable definition of these entry types are provided analgous to the pr
 The corresponding source files are found in the OPTIMADE repository in `schemas/output/defs/<version>/entrytypes`.
 
 
-## Standards definitions
+### Standards definitions
 
 A set of entry types can be bundled to define a standard.
 There is presently only a single standard published by OPTIMADE, which is provided with a stable URI and historical URL with the following formats:
@@ -110,7 +133,7 @@ There is presently only a single standard published by OPTIMADE, which is provid
 (In the future, OPTIMADE may use this feature for implementations to be able to indicate the support of data beyond what is included in the core optimade standard.)
 
 
-## Unit, constant, and prefix definitions
+### Unit, constant, and prefix definitions
 
 To support the definition of properties, OPTIMADE also provide definition files for units, constants, and prefixes under the corresponding subdirectories of `schemas/src/defs/<version>`.
 The format for these definitions is described in the subsection `Physical Units in Property Definitions` of `Property Definitions` in the OPTIMADE specification.

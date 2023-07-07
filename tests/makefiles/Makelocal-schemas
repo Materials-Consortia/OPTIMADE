@@ -106,11 +106,18 @@ schemas_symlinks:
 schemas_releases: schemas_build
 	mkdir -p schemas/output/releases/latest
 	cd schemas/output/defs; \
-	for DIR in $$(ls -vrd v*); do \
-          ( cd "$$DIR"; \
-	    find . -type f -exec cp --parents \{\} ../../releases/latest \; ;\
-	  ) \
-        done
+	find . -type f -exec cp --parents \{\} ../releases/latest \;
+
+# Old version that keeps only the latest version of all definitions. We may want to go back to this in the future
+# if these historical definition archives gets too large.
+#schemas_releases: schemas_build
+#	mkdir -p schemas/output/releases/latest
+#	cd schemas/output/defs; \
+#	for DIR in $$(ls -vrd v*); do \
+#          ( cd "$$DIR"; \
+#	    find . -type f -exec cp --parents \{\} ../../releases/latest \; ;\
+#	  ) \
+#        done
 
 # Meta schemas need a separate rule since the other rules depend on the meta schemas for validation (and the meta schemas cannot depend on themselves)
 $(META_SCHEMAS_JSON): schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_symlinks
