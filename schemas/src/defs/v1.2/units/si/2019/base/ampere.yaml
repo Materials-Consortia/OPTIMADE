@@ -9,10 +9,6 @@ description: |-
   "The ampere, symbol A, is the SI unit of electric current. It is defined by taking the fixed numerical value of the elementary charge \(e\) to be 1.602176634×10⁻¹⁹ when expressed in the unit C, which is equal to A⋅s, where the second is defined in terms of \(\Delta \nu_\textrm{Cs}\)." [26th CGPM Meeting (2018), resolution 1].
 
   This definition references the 1976 SI base second unit (https://schemas.optimade.org/units/v1.2/si/1976/base/second).
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "ampere"
 resources:
   - relation: "Definition in the 26th CGPM Meeting in 2018, resolution 1"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"

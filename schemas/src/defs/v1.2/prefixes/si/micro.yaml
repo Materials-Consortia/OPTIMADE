@@ -7,11 +7,7 @@ description: |-
   The micro SI prefix defined as a dimensionless multiple of 10⁻⁶, adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12.
 
   The micro SI prefix is the only one using a non Latin symbol.
-  Based on the recommendation of the ISMP List of Error-Prone Abbreviations, Symbols, and Dose Designations to use mcg in place of μg, mc is used for a symbol for micro using the Latin alphabet.
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "micro"
+  Based on the recommendation of the ISMP List of Error-Prone Abbreviations, Symbols, and Dose Designations to use mcg in place of μg, i.e., mc is used as the symbol for micro using the Latin alphabet.
 resources:
   - relation: "Definition in the 11:th CGPM Meeting in 1960, resolution 12"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"

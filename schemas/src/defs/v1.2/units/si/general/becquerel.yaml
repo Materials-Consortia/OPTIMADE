@@ -12,10 +12,6 @@ description: |-
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
   - "https://schemas.optimade.org/units/v1.2/si/1975/named/becquerel"
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "becquerel"
 resources:
   - relation: "Definition at the 15th CGPM Meeting (1975)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/15-1975"

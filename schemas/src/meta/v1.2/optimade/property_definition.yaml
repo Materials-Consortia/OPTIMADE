@@ -178,14 +178,6 @@ $defs:
         description: |-
           The defined property is a list where each item MUST match this inner Property Definition.
         $ref: '#/$defs/propdef'
-      maxItems:
-        description: "The defined property is an array that MUST contain a number of items that is less than or equal to the given integer."
-        type: "integer"
-        minimum: 0
-      minItems:
-        description: "A non-negative integer. The defined property is an array that MUST contain a number of items that is greater than or equal to the given integer."
-        type: "integer"
-        minimum: 0
       uniqueItems:
         description: "If TRUE, the defined property is an array that MUST only contain unique items. If FALSE, this field sets no limitation on the defined property."
         type: "boolean"
@@ -263,6 +255,34 @@ $defs:
         type: string
       x-optimade-definition:
         $$inherit: "x-optimade-definition-field"
+      x-optimade-dimensions:
+        description: |-
+          Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
+          Each dimension is given a name and optionally a fixed size.
+          It was decided that OPTIMADE Property Definitions cannot use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests asking for only parts of the data in the lists.
+          Instead, list length information that an implementation can use to validate the length of lists is communicated in the `length` subfiled of this field (however, at this time, it can only specify a fixed length requirement.)
+        type: object
+        patternProperties:
+          "^x-(?!optimade-)": {}
+        properties:
+          names:
+            description: |-
+              A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+              The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+            type: array
+            items:
+              type: string
+          sizes:
+            description: |-
+              A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+              The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+              The data only validates if the respective level consists of lists of exactly this length.
+              A value of `null` allows arbitrary-length lists at the corresponding level.
+            type: array
+            items:
+              type:
+                - "integer"
+                - "null"
       x-optimade-unit-definitions:
         type: array
         items:

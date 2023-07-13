@@ -9,10 +9,6 @@ description: |-
   "The 15th Conférence Générale des Poids et Mesures, [...] adopts the following special name for the SI unit of ionizing radiation: gray, symbol Gy, equal to one joule per kilogram." [15th CGPM Meeting (1975)]
 
   The gray was defined at the 15th CGPM Meeting in 1975, and implicitly redefined via the redefinition of the meter at the 17th CGPM Meeting in 1983, resolution 1.
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "gray"
 resources:
   - relation: "Definition at the 15th CGPM Meeting (1975)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/15-1975"

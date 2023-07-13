@@ -7,10 +7,6 @@ description: |-
   A unit expressing the magnetic moment of an electron caused by its orbital or spin angular momentum defined as part of CODATA 1969.
 
   "The magneton moment of the free electron in units of the Bohr magneton \(\mu_B=e\hbar/2m_e\)" [B. N. Taylor, W. H. Parker, and D. N. Langenberg, Rev. Mod. Phys. 41(3), 375-496 (1969)]
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "bohrmagneton"
 resources:
   - relation: 'Defining paper: B. N. Taylor, W. H. Parker, and D. N. Langenberg, Rev. Mod. Phys. 41(3), 375-496 (1969)'
     resource-id: "https://doi.org/10.1103/RevModPhys.41.375"

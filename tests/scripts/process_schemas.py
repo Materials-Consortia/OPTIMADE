@@ -21,9 +21,11 @@ input and output formats. In particular, it adds a few preprocessor directives:
 - $$schema: is replaced by $shema with an extension added for the output format.
 
 Usage:
+
   process_schemas.py source [options]
 
 Examples:
+
   # Process a single file and write the output to stdout:
   process_schemas.py file.json
 
@@ -31,8 +33,10 @@ Examples:
   process_schemas.py dir -o output.json
 
 Dependencies:
-  - apt install python3-yaml python3-jsonschema python3-markdown python3-mdx-math python3-pygments
-  - pip install PyYAML jsonschema python-markdown python-markdown-math pygments
+
+  - apt: `apt install python3-yaml python3-jsonschema python3-markdown python3-mdx-math python3-pygments`
+  - pip: `pip install PyYAML jsonschema python-markdown python-markdown-math pygments`
+  - conda: `conda install python=3 pyyaml jsonschema markdown python-markdown-math pygments
 
 """
 
@@ -348,18 +352,6 @@ def validate(instance, args, bases=None, source=None, schemas={}, schema=None, u
         else:
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
-    if use_schema_field:
-        if schema_id is not None:
-            validator = jsonschema.validators.validator_for(schema, default=_UNSET)
-        else:
-            raise Exception("Validation: asked to use $schema field to decide validator, but no such field present.")
-    else:
-        try:
-            validator = jsonschema.Draft202012Validator(schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
-        except AttributeError:
-            logging.warning("JSON Schema Python library is not aware of the Draft202012 standard. It is probably too old. Will validate using default validator.")
-            validator = None
-
     if sanity_check:
         # Check that the id and file path makes sense
         if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
@@ -394,6 +386,18 @@ def validate(instance, args, bases=None, source=None, schemas={}, schema=None, u
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")
 
         resolver = LocalOnlyRefResolver.from_schema(schema=schema, store=schemas)
+
+        if use_schema_field:
+            if schema_id is not None:
+                validator = jsonschema.validators.validator_for(schema, default=_UNSET)
+            else:
+                raise Exception("Validation: asked to use $schema field to decide validator, but no such field present.")
+        else:
+            try:
+                validator = jsonschema.Draft202012Validator(schema=schema, format_checker=jsonschema.FormatChecker(), resolver=resolver)
+            except AttributeError:
+                logging.warning("JSON Schema Python library is not aware of the Draft202012 standard. It is probably too old. Will validate using default validator.")
+                validator = None
 
         if validator is not None:
             validator.validate(instance)

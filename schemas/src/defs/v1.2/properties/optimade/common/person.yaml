@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/person"
-title: "authors"
+title: "Person"
 x-optimade-type: "dictionary"
 x-optimade-definition:
   kind: "property"

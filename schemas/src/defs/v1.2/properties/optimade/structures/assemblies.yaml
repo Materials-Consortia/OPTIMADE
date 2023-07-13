@@ -122,6 +122,8 @@ properties:
   sites_in_groups:
     title: "Sites in groups"
     x-optimade-type: "list"
+    x-optimade-dimensions:
+      names: ["dim_assembly_groups", "dim_assembly_groups_sites"]
     type:
       - "array"
     description: |-
@@ -138,6 +140,8 @@ properties:
     items:
       title: "Group of sites"
       x-optimade-type: "list"
+      x-optimade-dimensions:
+        names: ["dim_assembly_groups_sites"]
       type:
         - "array"
       description: |-
@@ -159,6 +163,8 @@ properties:
   group_probabilities:
     title: "Group probabilities"
     x-optimade-type: "list"
+    x-optimade-dimensions:
+        names: ["dim_assembly_groups"]
     type:
       - "array"
     description: |-

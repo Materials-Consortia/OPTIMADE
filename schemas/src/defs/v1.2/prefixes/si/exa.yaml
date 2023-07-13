@@ -4,10 +4,6 @@ symbol: "E"
 display-symbol: "E"
 $id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/exa"
 description: "The exa SI prefix defined as a dimensionless multiple of 10¹⁸, defined at the 15th CGPM Meeting in 1975, resolution 10."
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "exa"
 resources:
   - relation: "Definition in the 15th CGPM Meeting in 1975, resolution 10"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/15-1975/resolution-10"

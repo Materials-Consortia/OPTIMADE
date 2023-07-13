@@ -12,10 +12,6 @@ description: |-
 
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
-standard:
-  name: "gnu units"
-  version: "3.15"
-  symbol: "pascal"
 compatibility:
   - "https://schemas.optimade.org/units/v1.2/si/1971/named/pascal"
   - "https://schemas.optimade.org/units/v1.2/si/1983/named/pascal"
