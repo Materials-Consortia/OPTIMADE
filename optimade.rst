@@ -1999,7 +1999,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
   It MUST be a list of one or two elements where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
-  * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
+  * :val:`"boolean"`, :val:`"string"`, or :val:`"integer"` then :field:`type` is the same string.
   * :val:`"dictionary"` then :field:`type` is `"object"`.
   * :val:`"list"` then :field:`type` is `"array"`.
   * :val:`"float"` then :field:`type` is `"number"`.
@@ -2211,8 +2211,8 @@ Clients and servers that use other units internally thus have to do unit convers
 The physical unit of a property, the embedded items of a list, or values of a dictionary, are defined with the field :field:`x-optimade-unit` with the following requirements:
 
 - The field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and all inner Property Definitions.
-- If the property refers to a physical quantity that is dimension and unitless (often also referred to as having the dimension 1) or refers to a dimension and unitless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
-  However, quantities that uses counting units, e.g., the mole, or quantities that use dimensionless units, e.g., the radian MUST NOT set the field to :val:`dimensionless`.
+- If the property refers to a physical quantity that is dimensionless and unitless (often also referred to as having the dimension 1) or refers to a dimensionless and unitless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+  However, quantities that use counting units, e.g., the mole, or quantities that use dimensionless units, e.g., the radian MUST NOT set the field to :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
 - If the field does not take the value :val:`dimensionless` or :val:`inapplicable`, it MUST be set to a single unit symbol or a Compound Unit Expressions from a set of unit symbols using the format described in `Compound Unit Expressions`_.
 - All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`units` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition, or in the :field:`units` field in the Entry info endpoint (the latter is only possible for Property Definitions embedded in such a response).
@@ -2230,7 +2230,7 @@ The prefixed unit symbol, e.g., :val:`"km"` is viewed as a single symbol for the
 
 Furthermore:
 
-- If multiple symbols referencing the same unit or constant in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
+- If multiple symbols referencing the same unit or constant are present in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
 
 Compound Unit Expressions
 -------------------------
@@ -2347,13 +2347,14 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
     - :field:`symbol`: String.
       The symbol used to reference this unit in the dimensional formula.
+
     - :field:`id`: String.
       The IRI of one of the units referenced in the dimensional formula for the defining relation.
 
   - :field:`base-units-expression`: String.
     A string expressing the base units part of the defining relation for the unit being defined.
     It MUST adhere to the format for compound unit expression described in `Physical Units in Property Definitions`_.
-    if the field is missing or :val:`null` the base-units-expression is taken to be equal to 1, i.e., the defining relation is dimensionless.
+    If the field is missing or :val:`null` the base-units-expression is taken to be equal to 1, i.e., the defining relation is dimensionless.
 
   - :field:`scale`: Dictionary.
     A dictionary specifying the scale in the defining relation, adhering to the following format:
@@ -3671,7 +3672,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 Property Definition Example
 ---------------------------
 
-This appendix provides a more complete example of a Property Definition on the format defined in `Property Definitions`_.
+This appendix provides a more complete example of a Property Definition in the format defined in `Property Definitions`_.
 (Note: the description strings have been wrapped for readability only.)
 
 .. code:: jsonc
