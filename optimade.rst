@@ -3695,7 +3695,7 @@ The following key is RECOMMENDED in the header object:
 
 - :field:`"returned_ranges"`: Array of Objects.
   For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multidimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional array, representing slices for each dimension that cover the data given in the response.
 
 The header object MAY also contain the keys:
 
@@ -3743,7 +3743,7 @@ The format of data lines of the response (i.e., all lines except the first and t
   - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
-- **Sparse layout for multi-dimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+- **Sparse layout for multidimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
   In this case, each data line contains a JSON array of the format:
 
   - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
@@ -3785,7 +3785,7 @@ The third provided item (index 14 in the original list) is only partially return
     [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
-Below follows an example of the sparse layout for multi-dimensional lists with three aggregated dimensions.
+Below follows an example of the sparse layout for multidimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of arbitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
@@ -3797,7 +3797,7 @@ The response below communicates the first item explicitly; the second one by def
     [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and integer values:
+An example of the sparse layout for multidimensional lists with three aggregated dimensions and integer values:
 
 .. code:: json
 
@@ -3806,7 +3806,7 @@ An example of the sparse layout for multi-dimensional lists with three aggregate
     [30,15,9, 31]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+An example of the sparse layout for multidimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
 .. code:: json
 
