@@ -3685,7 +3685,9 @@ The header object MUST contain the keys:
   It MUST contain the following key:
 
   - :field:`"version"`: String.
-    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
+    Specifies the minor version of the partial data format used.
+    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format.
+    The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
     A client MUST NOT expect to be able to parse the :field:`version` value if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
 
 - :field:`"layout"`: String.
