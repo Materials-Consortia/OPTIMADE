@@ -3685,7 +3685,9 @@ The header object MUST contain the keys:
   It MUST contain the following key:
 
   - :field:`"version"`: String.
-    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
+    Specifies the minor version of the partial data format used.
+    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format.
+    The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
     A client MUST NOT expect to be able to parse the :field:`version` value if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
 
 - :field:`"layout"`: String.
@@ -3695,7 +3697,7 @@ The following key is RECOMMENDED in the header object:
 
 - :field:`"returned_ranges"`: Array of Objects.
   For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multidimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
 
 The header object MAY also contain the keys:
 
