@@ -3695,7 +3695,7 @@ The header object MUST contain the keys:
 
 The following key is RECOMMENDED in the header object:
 
-- :field:`"returned_ranges"`: Array of Objects.
+- :field:`"returned_ranges"`: Array of Object.
   For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
   In the specific case of a hierarchy of list properties represented as a sparse multidimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional array, representing slices for each dimension that cover the data given in the response.
 
