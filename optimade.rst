@@ -379,17 +379,12 @@ A few suggestions and mandatory requirements of the OPTIMADE specification are s
 Namespace Prefixes
 ------------------
 
-There are two mechanisms by which a provider can serve properties that are not
-standardized by the OPTIMADE specification.
+There are two mechanisms by which a provider can serve properties that are not standardized by the OPTIMADE specification.
 
 1. By serving properties under a database-provider-specific namespace prefix.
    This is the preferred mechanism for serving properties that are specific to a particular database provider.
-2. By adopting a property definition external to the specification by a
-   definition provider.
-   This is the preferred mechanism in cases where a database-specific field
-   aligns with a field that is already defined by a definition provider, and
-   can be used to enable aggregated filtering over all OPTIMADE APIs that
-   support this property.
+2. By adopting a property definition external to the specification by a definition provider.
+   This is the preferred mechanism in cases where a database-specific field aligns with a field that is already defined by a definition provider, and can be used to enable aggregated filtering over all OPTIMADE APIs that support this property.
 
 A list of known database and definition providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
 Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
@@ -423,9 +418,9 @@ This standard refers to definition-provider-specific prefixes and definition pro
 
 Definition providers MUST provide a canonical property definition for all custom fields they define using the OPTIMADE `Property Definitions`_ format.
 Definition providers MUST also list these definitions in the relevant :endpoint:`/info/<entry_type>` endpoint of the index meta-database for that provider.
-They may also provide human-readable webpages for their definitions.
+They MAY also provide human-readable webpages for their definitions.
 
-Definition-provider-specific fields MAY be fully described at the relevant :endpoint:`/info/<entry_type>` endpoint (see section `Entry Listing Info Endpoints`_) but can also rely on the canonical definitions provided by the definition provider, provided they return an ``$id`` for the field that resolves to the relevant OPTIMADE property definition.
+Definition-provider-specific fields MAY be fully described at the relevant :endpoint:`/info/<entry_type>` endpoint (see section `Entry Listing Info Endpoints`_), but can also rely on the canonical definitions provided by the definition provider, provided they return an ``$id`` for the field that resolves to the relevant OPTIMADE property definition.
 
 
 URL Encoding
