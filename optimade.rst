@@ -3076,7 +3076,7 @@ Trajectories Entries
 
   The individual steps of the trajectories are called frames.
   Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frame`_.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frames`_.
   Furthermore, :entry:`trajectories` can optionally have relationships and database-specific fields.
   The properties defined for the structures endpoint can also be used for trajectories.
   In this case the values of these properties are however lists of whatever type has been defined for the original structures property.
@@ -3108,7 +3108,7 @@ nframes
 
   -   :val:`42`
 
-reference_frame
+reference_frames
 ~~~~~~~~~~~~~~~
 
 - **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
@@ -3168,7 +3168,7 @@ This is an example of the data field of a JSON object that could be returned aft
             "concentration":[1.0]
           }
         ]],
-        "reference_frame": [1],
+        "reference_frames": [1],
         "nframes": [360],
         "_exmpl_temperature": null,
         "_exmpl_ekin": null
