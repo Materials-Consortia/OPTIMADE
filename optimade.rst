@@ -2790,7 +2790,7 @@ space\_group\_symmetry\_operations\_xyz
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
     However, the property is RECOMMENDED if fractional atom coordinates are returned in the response.
-    Moreover, the property is REQUIRED if fractional coordinates are returned and no other symmetry information that allows to derive symmetry operations unambiguously (e.g., the Hall symbol) is provided.
+    Moreover, the property is REQUIRED if fractional coordinates are returned and no other symmetry information that allows the user to derive symmetry operations unambiguously (e.g., the Hall symbol) is provided.
     - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
   - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
 
@@ -2804,7 +2804,7 @@ space\_group\_symmetry\_operations\_xyz
 
   - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
-- **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property allows to reconstruct all symmetries of the periodic material.
+- **Notes** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides all information necessary to reconstruct every symmetry of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   For describing arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry, a different property will be used.
 
