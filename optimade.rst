@@ -2883,7 +2883,7 @@ space\_group\_symbol\_hermann\_mauguin\_extended
   The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
   The change-of-basis operation SHOULD be provided for unusual settings and cell choices.
   The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  The same character string encoding conventions MUST be used as for the specification of the `space\_group\_symbol\_hermann\_mauguin`_ property.
+  The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin`_ property.
 
 - **Type**: string
 - **Requirements/Conventions**:
