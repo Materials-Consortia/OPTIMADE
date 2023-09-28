@@ -1,4 +1,4 @@
-personal_ws-1.1 en 214 
+personal_ws-1.1 en 216 
 ABNF
 ACM
 Aa
@@ -123,6 +123,7 @@ ferroelectric
 fieldname
 firstname
 hdf
+hermann
 howpublished
 href
 http
@@ -140,6 +141,7 @@ kvak
 lastname
 lst
 maintainer's
+mauguin
 maxItems
 maxLength
 maxProperties
