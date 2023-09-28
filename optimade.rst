@@ -2840,7 +2840,7 @@ space\_group\_symbol\_hall
   - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
   - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
 
-- **Bibliographic References for the 'space\_group\_hall' definitions**
+- **Bibliographic References for the 'space\_group\_symbol\_hall' definitions**
 
   Hall, S. R. (1981) Space-group notation with an explicit origin. Acta Crystallographica Section A, 37, 517-525, International Union of Crystallography (IUCr), DOI: https://doi.org/10.1107/s0567739481001228
 
