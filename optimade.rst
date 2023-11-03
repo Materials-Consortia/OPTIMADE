@@ -2790,7 +2790,7 @@ space\_group\_symmetry\_operations\_xyz
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-    However, the property is RECOMMENDED if coordinates are returned in a form to which these operations can and must be applied (e.g. fractional atom coordinates of an asymmetric unit).
+    However, the property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
     Moreover, the property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
     - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
   - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
