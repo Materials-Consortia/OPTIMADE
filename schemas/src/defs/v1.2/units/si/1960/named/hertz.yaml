@@ -17,7 +17,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/s"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/second"
   base-units-expression: "s^-1"
 x-optimade-definition:
   kind: "unit"

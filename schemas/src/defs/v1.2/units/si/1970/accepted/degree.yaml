@@ -22,9 +22,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "pi"
-      id: "https://schema.optimade.org/units/constants/math/pi"
+      id: "https://schemas.optimade.org/defs/v1.2/constants/math/pi"
     - symbol: "rad"
-      id: "https://schema.optimade.org/units/si/2019/named/radian"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/radian"
   base-units-expression: "pi*rad"
   scale:
     denomenator: 180

@@ -17,8 +17,8 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1970/temporary/hectare"
-  - "https://schemas.optimade.org/units/v1.2/si/1983/temporary/hectare"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1970/temporary/hectare"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1983/temporary/hectare"
 resources:
   - relation: "Definition in the International System of Units (SI), 9th Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
@@ -29,7 +29,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schema.optimade.org/units/si/general/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/metre"
   base-units-expression: "m^2"
   scale:
     exponent: 4

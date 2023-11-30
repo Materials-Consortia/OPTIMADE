@@ -19,11 +19,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2/si/2019/base/ampere"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/ampere"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2/si/2019/base/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/kilogram"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "A^-1*kg*s^-2"
 x-optimade-definition:
   kind: "unit"

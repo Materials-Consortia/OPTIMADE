@@ -21,9 +21,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "V"
-      id: "https://schema.optimade.org/units/si/2019/named/volt"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/volt"
     - symbol: "e"
-      id: "https://schema.optimade.org/constants/codata/2018/electromagnetic/elementarycharge"
+      id: "https://schema.optimade.org/defs/v1.2/units/codata/2018/electromagnetic/elementarycharge"
   base-units-expression: "e*V"
 x-optimade-definition:
   kind: "unit"

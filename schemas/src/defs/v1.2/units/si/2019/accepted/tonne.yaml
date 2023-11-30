@@ -23,7 +23,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schema.optimade.org/units/si/2019/base/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/kilogram"
   base-units-expression: "kg"
   scale:
     exponent: 3

@@ -23,9 +23,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2/si/2019/base/ampere"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/ampere"
   base-units-expression: "A*s"
 x-optimade-definition:
   kind: "unit"

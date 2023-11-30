@@ -15,7 +15,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "degK"
-      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/kelvin"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/kelvin"
   base-units-expression: "degK"
   offset:
     numerator: 27315

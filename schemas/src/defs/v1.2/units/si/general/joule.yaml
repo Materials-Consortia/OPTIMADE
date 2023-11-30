@@ -13,10 +13,10 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1960/named/joule"
-  - "https://schemas.optimade.org/units/v1.2/si/1967/named/joule"
-  - "https://schemas.optimade.org/units/v1.2/si/1983/named/joule"
-  - "https://schemas.optimade.org/units/v1.2/si/2019/named/joule"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1960/named/joule"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1967/named/joule"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1983/named/joule"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/joule"
 resources:
   - relation: "Definition at the 9st CGPM meeting (1948)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
@@ -33,11 +33,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/second"
   base-units-expression: "kg*m^2*s^-2"
 x-optimade-definition:
   kind: "unit"

@@ -18,11 +18,11 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1960/base/candela"
-  - "https://schemas.optimade.org/units/v1.2/si/1967/base/candela"
-  - "https://schemas.optimade.org/units/v1.2/si/1979/base/candela"
-  - "https://schemas.optimade.org/units/v1.2/si/1983/base/candela"
-  - "https://schemas.optimade.org/units/v1.2/si/2019/base/candela"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/candela"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/candela"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1979/base/candela"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1983/base/candela"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/candela"
 resources:
   - relation: "Definition in the 26th CGPM Meeting in 2018, resolution 1"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
