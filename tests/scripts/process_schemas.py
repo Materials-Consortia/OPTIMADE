@@ -320,14 +320,87 @@ class ExceptionWrapper(Exception):
             full_message += "\nAdd command line argument -d for a full traceback or one or more -v for higher verbosity."
         super().__init__(full_message)
 
-def validate(instance, args, bases=None, source=None, schemas={}, schema=None, use_schema_field=False, sanity_check=True):
+def sanity_check_id(iid, bases, source_ext=None, idsource = None):
+
+    idprefix = os.path.commonprefix([bases['id'], iid])
+
+    if idsource is not None:
+        dirprefix = os.path.commonprefix([bases['dir'], idsource])
+        dirpath = os.path.realpath(idsource)
+        _dummy, dirext = os.path.splitext(idsource)
+    else:
+        dirpath = None
+        dirext = None
+
+    if dirext is not None:
+        idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
+    else:
+        idpath = None
+        for ext in [source_ext] + ["."+x for x in supported_input_formats]:
+            idpath = os.path.realpath(os.path.join(bases['dir'],iid[len(idprefix):]+ext))
+            if os.path.exists(idpath):
+                break
+        else:
+            # For error reporting, go back to the most relevant (first) extension
+            idpath = os.path.realpath(os.path.join(bases['dir'],iid[len(idprefix):]+source_ext))
+
+    if not os.path.exists(idpath):
+        raise Exception("Validation: sanity check failed, failed to find a source file corresponding to $id ("+iid+")\n"+
+                        "Expected to find it here :"+idpath+" (+ or with other file extension).")
+
+    if idsource is not None:
+        if(dirpath!=idpath):
+            raise Exception("Validation: sanity check failed, $id ("+iid+") does not match source file path ("+idsource+")\n"+
+                        "The fully resolved file path is: "+dirpath+" and the expected path based on the id is: "+idpath)
+
+def sanity_check(instance, source, iid, bases, args):
+
+    if source is not None:
+        base_, source_ext = os.path.splitext(source)
+
+    # Check that the id and file path makes sense
+    if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
+
+        # if the top $id is inherited from another file, do the sanity check against that file path
+        if 'id_inherited_from' in bases:
+            idsource = inherit_to_source(bases['id_inherited_from'], bases['self'], args.resolve_path, supported_input_formats)
+        else:
+            idsource = source
+
+        sanity_check_id(iid, bases, source_ext, idsource)
+
+    # Check that the definition name and filename are the same
+    if 'x-optimade-definition' in instance and source is not None:
+        if 'name' in instance['x-optimade-definition']:
+            defname = instance['x-optimade-definition']['name']
+            basename = os.path.basename(source)
+            base, ext = os.path.splitext(basename)
+            if defname != base:
+                raise Exception("Validation: sanity check failed, x-optimade-definition -> name ("+defname+") does not match source file name ("+basename+")")
+
+        if 'kind' in instance['x-optimade-definition']:
+            if instance['x-optimade-definition']['kind'] == 'unit':
+                # Check that approximate-relations -> base-units -> id are valid
+                if 'approximate-relations' in instance and 'base-units' in instance['approximate-relations']:
+                    for stanza in instance['approximate-relations']['base-units']:
+                         sanity_check_id(stanza['id'], bases, source_ext)
+                if 'defining-relation' in instance and 'base-units' in instance['defining-relation']:
+                    for stanza in instance['defining-relation']['base-units']:
+                         sanity_check_id(stanza['id'], bases, source_ext)
+                if 'compatibility' in instance:
+                    for compat_id in instance['compatibility']:
+                         sanity_check_id(compat_id, bases, source_ext)
+        else:
+            raise Exception("Validation: sanity check failed, x-optimade-definition -> kind missing")
+
+def validate(instance, args, bases=None, source=None, schemas={}, schema=None, use_schema_field=False, run_sanity_check=True):
     import jsonschema
     from jsonschema import RefResolver
 
     # Block attempts to resolve schemas over the Internet, we only want to use Schemas present in the repository
     class LocalOnlyRefResolver(RefResolver):
         def resolve_remote(self, uri):
-            raise Exception("Validation: attempt to fetch remove schema over the internet blocked: "+str(uri))
+            raise Exception("Validation: attempt to fetch remote schema over the internet blocked: "+str(uri))
 
     if '$schema' in instance:
         schema_id = instance['$schema']
@@ -352,35 +425,8 @@ def validate(instance, args, bases=None, source=None, schemas={}, schema=None, u
         else:
             raise Exception("Validation: validation requested but instance does not contain $schema, nor was an explicit schema given")
 
-    if sanity_check:
-        # Check that the id and file path makes sense
-        if (source is not None) and (iid is not None) and (bases is not None) and ('dir' in bases) and ('id' in bases):
-
-            # if the top $id is inherited from another file, do the sanity check against that file path
-            if 'id_inherited_from' in bases:
-                idsource = inherit_to_source(bases['id_inherited_from'], bases['self'], args.resolve_path, supported_input_formats)
-            else:
-                idsource = source
-
-            dirprefix = os.path.commonprefix([bases['dir'], idsource])
-            dirpath = os.path.realpath(idsource)
-            _dummy, dirext = os.path.splitext(idsource)
-
-            idprefix = os.path.commonprefix([bases['id'], iid])
-            idpath = os.path.realpath(os.path.join(dirprefix,iid[len(idprefix):]+dirext))
-
-            if(dirpath!=idpath):
-                raise Exception("Validation: sanity check failed, $id ("+iid+") does not match source file path ("+idsource+")\n"+
-                                "The fully resolved file path is: "+dirpath+" and the expected path based on the id is: "+idpath)
-
-        # Check that the definition name and filename are the same
-        if 'x-optimade-definition' in instance and source is not None:
-            if 'name' in instance['x-optimade-definition']:
-                defname = instance['x-optimade-definition']['name']
-                basename = os.path.basename(source)
-                base, ext = os.path.splitext(basename)
-                if defname != base:
-                    raise Exception("Validation: sanity check failed, x-optimade-definition -> name ("+defname+") does not match source file name ("+basename+")")
+    if run_sanity_check:
+        sanity_check(instance, source, iid, bases, args)
 
     try:
         logging.debug("\n\n** Validating:**\n\n"+pprint.pformat(instance)+"\n\n** Using schema:**\n\n"+pprint.pformat(schema)+"\n\n")

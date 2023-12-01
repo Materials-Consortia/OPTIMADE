@@ -22,7 +22,7 @@ defining-relation:
     - symbol: "C"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/named/coulomb"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/defs/v1.2/units/si/1976/named/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/kilogram"
   base-units-expression: "C*kg^-1"
   scale:
     exponent: -4
