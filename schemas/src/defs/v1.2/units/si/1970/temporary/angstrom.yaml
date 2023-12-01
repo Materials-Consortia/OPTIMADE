@@ -20,7 +20,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schema.optimade.org/units/si/2019/base/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/metre"
   base-units-expression: "m"
   scale:
     exponent: -10

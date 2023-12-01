@@ -16,9 +16,9 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1970/accepted/electronvolt"
-  - "https://schemas.optimade.org/units/v1.2/si/1983/accepted/electronvolt"
-  - "https://schemas.optimade.org/units/v1.2/si/2019/accepted/electronvolt"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1970/accepted/electronvolt"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1983/accepted/electronvolt"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/2019/accepted/electronvolt"
 resources:
   - relation: "Definition in the International System of Units (SI), 9th Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
@@ -27,9 +27,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "V"
-      id: "https://schema.optimade.org/units/si/general/volt"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/volt"
     - symbol: "e"
-      id: "https://schema.optimade.org/constants/codata/2018/electromagnetic/elementarycharge"
+      id: "https://schema.optimade.org/defs/v1.2/units/codata/2018/electromagnetic/elementarycharge"
   base-units-expression: "e*V"
 x-optimade-definition:
   kind: "unit"

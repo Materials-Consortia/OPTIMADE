@@ -13,9 +13,9 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1971/named/siemens"
-  - "https://schemas.optimade.org/units/v1.2/si/1983/named/siemens"
-  - "https://schemas.optimade.org/units/v1.2/si/2019/named/siemens"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1971/named/siemens"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1983/named/siemens"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/siemens"
 resources:
   - relation: "Definition at the 14th CGPM Meeting (1971)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/14-1971"
@@ -28,13 +28,13 @@ resources:
 defining-relation:
   base-units:
     - symbol: "A"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/ampere"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/ampere"
     - symbol: "kg"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/kilogram"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/second"
   base-units-expression: "A^2*kg^-1*m^-2*s^3"
 x-optimade-definition:
   kind: "unit"

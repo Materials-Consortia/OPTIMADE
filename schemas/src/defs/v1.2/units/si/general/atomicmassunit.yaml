@@ -23,9 +23,9 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1970/accepted/atomicmassunit"
-  - "https://schemas.optimade.org/units/v1.2/si/1998/accepted/dalton"
-  - "https://schemas.optimade.org/units/v1.2/si/general/dalton"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1970/accepted/atomicmassunit"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1998/accepted/dalton"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/general/dalton"
 resources:
   - relation: "Definition in the International System of Units (SI), 9th Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
@@ -36,7 +36,7 @@ resources:
 approximate-relations:
   - base-units:
     - symbol: "kg"
-      id: "https://schema.optimade.org/units/si/general/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/kilogram"
     base-units-expression: "kg"
     scale:
       value: 1.66053906660E-27

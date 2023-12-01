@@ -25,7 +25,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2/si/1960/base/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
   base-units-expression: "m"
   scale:
     numerator: 1852

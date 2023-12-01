@@ -19,7 +19,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schema.optimade.org/units/si/1960/base/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
   scale:
     - exponent: -28
   base-units-expression: "m^2"

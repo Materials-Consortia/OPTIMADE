@@ -11,7 +11,7 @@ description: |-
   The name dalton as an alternative name to *atomic mass unit* is defined in The International System of Units (SI), 7th ed. (1998) in a footnote to a table labeled "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally" in the section "Units outside the international system".
   The definition given is: "The unified atomic mass unit is equal to 1/12 of the mass of an unbound atom of the nuclide ¹²C, at rest, and in its ground state. In the field of biochemistry, the unified atomic mass unit is also called the dalton, symbol Da."
 
-  This definition makes the dalton equivalent to the atomic mass unit defined in The International System of Units (SI), 1st ed. (1970) (https://schemas.optimade.org/units/v1.2/si/1970/accepted/atomicmassunit)
+  This definition makes the dalton equivalent to the atomic mass unit defined in The International System of Units (SI), 1st ed. (1970) (https://schemas.optimade.org/defs/v1.2/units/si/1970/accepted/atomicmassunit)
 
   In the The International System of Units (SI) 8th ed. (2006) the definition is slightly adjusted, replacing "unbound" with "free": "The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 times the mass of a free carbon 12 atom, at rest and in its ground state."
 
@@ -27,11 +27,11 @@ resources:
   - relation: "CODATA unified atomic mass unit fundamental physical constant: source for relationship to kg"
     resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?ukg"
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1970/accepted/atomicmassunit"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1970/accepted/atomicmassunit"
 approximate-relations:
   - base-units:
     - symbol: "kg"
-      id: "https://schema.optimade.org/units/si/2019/base/kilogram"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/kilogram"
     base-units-expression: "kg"
     scale:
       value: 1.66053906660E-27

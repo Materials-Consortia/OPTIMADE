@@ -16,8 +16,8 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1964/temporary/curie"
-  - "https://schemas.optimade.org/units/v1.2/si/1967/temporary/curie"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1964/temporary/curie"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1967/temporary/curie"
 resources:
   - relation: "Definition at the 12th CGPM meeting (1964), resolution 3"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/12-1964/resolution-3"
@@ -30,7 +30,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schema.optimade.org/units/si/general/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/second"
   base-units-expression: "s^-1"
   scale:
     nominator: 37

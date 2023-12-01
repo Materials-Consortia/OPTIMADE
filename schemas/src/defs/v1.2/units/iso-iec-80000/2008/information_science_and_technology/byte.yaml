@@ -15,7 +15,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "bit"
-      id: "https://schemas.optimade.org/units/v1.2/information/bit"
+      id: "https://schemas.optimade.org/defs/v1.2/units/v1.2/information/bit"
   base-units-expression: "bit"
   scale:
     numerator: 8

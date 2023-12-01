@@ -25,11 +25,11 @@ resources:
 defining-relation:
   base-units:
     - symbol: "cd"
-      id: "https://schemas.optimade.org/units/v1.2/si/1983/base/candela"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/base/candela"
     - symbol: "sr"
-      id: "https://schemas.optimade.org/units/v1.2/si/1960/supplementary/steradian"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/supplementary/steradian"
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2/si/1983/base/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/base/metre"
   base-units-expression: "cd*m^-2*sr"
 x-optimade-definition:
   kind: "unit"

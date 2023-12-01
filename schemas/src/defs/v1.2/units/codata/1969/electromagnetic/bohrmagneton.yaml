@@ -15,7 +15,7 @@ resources:
 approximate-relations:
   - base-units:
       - symbol: "bohrmagneton"
-        id: "https://schema.optimade.org/constants/codata/2018/electromagnetic/bohrmagneton"
+        id: "https://schema.optimade.org/defs/v1.2/units/codata/2018/electromagnetic/bohrmagneton"
     base-units-expression: "bohrmagneton"
 x-optimade-definition:
   kind: "unit"

@@ -10,7 +10,7 @@ description: |-
   The definition makes the unit equal to 1 volt times the experimentally determined value of the elementary charge.
   Later editions update the approximate relation to use the respectively recommended value by CODATA at the time.
 
-  In the 1970 definition, the volt refers to the 1967 volt derived named SI unit (https://schema.optimade.org/units/si/1967/named/volt).
+  In the 1970 definition, the volt refers to the 1967 volt derived named SI unit (https://schemas.optimade.org/defs/v1.2/units/si/1967/named/volt).
 
   - The International System of Units (SI), 1th ed. (1970) categorizes the unit as "units for use with the SI in specific domains."
   - The International System of Units (SI), 2th ed. (1973) categorizes the unit as "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally."
@@ -24,9 +24,9 @@ resources:
 approximate-relations:
   - base-units:
       - symbol: "V"
-        id: "https://schema.optimade.org/units/si/1967/named/volt"
+        id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/named/volt"
       - symbol: "e"
-        id: "https://schema.optimade.org/constants/codata/2018/electromagnetic/elementarycharge"
+        id: "https://schema.optimade.org/defs/v1.2/units/codata/2018/electromagnetic/elementarycharge"
     base-units-expression: "e*V"
 x-optimade-definition:
   kind: "unit"

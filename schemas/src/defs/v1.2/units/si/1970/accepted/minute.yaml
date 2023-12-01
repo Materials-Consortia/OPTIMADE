@@ -18,7 +18,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schema.optimade.org/units/si/1967/base/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/second"
   base-units-expression: "s"
   scale:
     numerator: 60

@@ -19,9 +19,9 @@ resources:
 defining-relation:
   base-units:
     - symbol: "m"
-      id: "https://schemas.optimade.org/units/v1.2/si/1983/base/metre"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/base/metre"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/1967/base/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "m^2*s^-2"
 x-optimade-definition:
   kind: "unit"

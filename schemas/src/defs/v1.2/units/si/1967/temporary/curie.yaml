@@ -24,7 +24,7 @@ resources:
 defining-relation:
   base-units:
     - symbol: "s"
-      id: "https://schema.optimade.org/units/si/1967/named/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "s^-1"
   scale:
     nominator: 37

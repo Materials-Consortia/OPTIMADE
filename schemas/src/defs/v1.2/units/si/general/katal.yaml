@@ -13,17 +13,17 @@ description: |-
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
 compatibility:
-  - "https://schemas.optimade.org/units/v1.2/si/1999/named/katal"
-  - "https://schemas.optimade.org/units/v1.2/si/2019/named/katal"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/1999/named/katal"
+  - "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/katal"
 resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Katal"
 defining-relation:
   base-units:
     - symbol: "mol"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/mole"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/mole"
     - symbol: "s"
-      id: "https://schemas.optimade.org/units/v1.2/si/general/second"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/general/second"
   base-units-expression: "mol*s^-1"
 x-optimade-definition:
   kind: "unit"
