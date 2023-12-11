@@ -35,7 +35,7 @@ approximate-relations:
     base-units-expression: "kg"
     scale:
       value: 1.66053906660E-27
-      uncertainty: 0.00000000050E-27
+      standard_uncertainty: 0.00000000050E-27
 x-optimade-definition:
   kind: "unit"
   format: "1.2"

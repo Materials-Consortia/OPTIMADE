@@ -33,7 +33,7 @@ defining-relation:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/general/second"
   base-units-expression: "s^-1"
   scale:
-    nominator: 37
+    numerator: 37
     exponent: -11
 x-optimade-definition:
   kind: "unit"

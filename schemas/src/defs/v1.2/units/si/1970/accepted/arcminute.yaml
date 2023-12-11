@@ -37,7 +37,7 @@ defining-relation:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/supplementary/radian"
   base-units-expression: "pi*rad"
   scale:
-    denomenator: 10800
+    denominator: 10800
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
