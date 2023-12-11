@@ -30,7 +30,7 @@ approximate-relations:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/general/volt"
     - symbol: "e"
       id: "https://schemas.optimade.org/defs/v1.2/constants/codata/2018/electromagnetic/elementarycharge"
-  base-units-expression: "e*V"
+    base-units-expression: "e*V"
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
