@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/named/farad"
 title: "farad"
-symbol: "farad"
+symbol: "F"
 display-symbol: "F"
 description: |-
   A derived SI unit for electrical capacitance equal to kg⁻¹·m⁻²·s⁴·A² in the 1960 SI base units.

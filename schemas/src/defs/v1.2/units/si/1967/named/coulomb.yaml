@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/named/coulomb"
 title: "coulomb"
-symbol: "coulomb"
+symbol: "C"
 display-symbol: "C"
 description: |-
   A derived SI unit for electric charge equal to s·A in the 1967 SI base units.

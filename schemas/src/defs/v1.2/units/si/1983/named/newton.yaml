@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/named/newton"
 title: "newton"
-symbol: "newton"
+symbol: "N"
 display-symbol: "N"
 description: |-
   The newton is a derived SI unit for force and weight equal to kg·m·s⁻² in 1983 SI units.

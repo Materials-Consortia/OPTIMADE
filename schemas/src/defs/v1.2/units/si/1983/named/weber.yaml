@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/named/weber"
 title: "weber"
-symbol: "weber"
+symbol: "Wb"
 display-symbol: "Wb"
 description: |-
   A derived SI unit for magnetic flux equal to kg·m²·s⁻³·A⁻¹ in the 1983 SI units.

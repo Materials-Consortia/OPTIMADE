@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/general/coulomb"
 title: "coulomb"
-symbol: "coulomb"
+symbol: "C"
 display-symbol: "C"
 description: |-
   A unit for electric charge equal to s·A using the current, or one of the historical, definitions of the SI units.

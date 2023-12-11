@@ -15,9 +15,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Elementary_charge"
 defining-relation:
   base-units:
-    - symbol: "coulomb"
+    - symbol: "C"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/coulomb"
-  base-units-expression: "coulomb"
+  base-units-expression: "C"
   scale:
     numerator: 1602176634
     exponent: -28

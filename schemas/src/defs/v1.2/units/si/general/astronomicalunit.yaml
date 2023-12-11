@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/general/astronomicalunit"
 title: "astronomical unit"
-symbol: "astronomicalunit"
+symbol: "au"
 display-symbol: "au"
 description: |-
   A unit of length representing the mean distance between the Earth and the Sun, using the current, or one of the historical, definitions given in the editions of The International System of Units (SI).

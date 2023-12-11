@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/accepted/astronomicalunit"
 title: "astronomical unit"
-symbol: "astronomicalunit"
+symbol: "au"
 display-symbol: "au"
 description: |-
   A unit defined as exactly 149597870700 meters which is meant to represent the mean distance between the Earth and the Sun using the SI 1983 meter.

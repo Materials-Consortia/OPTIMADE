@@ -1,7 +1,7 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/accepted/litre"
 title: "litre"
-symbol: "litre"
+symbol: "l"
 display-symbol: "l"
 alternate-symbols:
   - "L"
