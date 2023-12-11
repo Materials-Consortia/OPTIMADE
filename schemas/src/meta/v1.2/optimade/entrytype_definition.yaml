@@ -17,6 +17,7 @@ properties:
       kind:
         const: "entrytype"
   x-optimade-requirements:
+    additionalProperties: False
     properties:
       support:
         type: string

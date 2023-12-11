@@ -31,9 +31,11 @@ properties:
     items:
       patternProperties:
         "^_": {}
+      additionalProperties: False
       properties:
         base-units:
           items:
+            additionalProperties: False
             properties:
               id:
                 format: uri
@@ -50,6 +52,7 @@ properties:
         offset:
           patternProperties:
             "^_": {}
+          additionalProperties: False
           properties:
             relative_standard_uncertainty:
               type: number
@@ -63,6 +66,7 @@ properties:
         scale:
           patternProperties:
             "^_": {}
+          additionalProperties: False
           properties:
             relative_standard_uncertainty:
               type: number
@@ -85,11 +89,13 @@ properties:
        Some units, e.g., the atomic mass unit (also known as dalton, commonly denoted `u`), only has an approximate relationship to SI units, in which case the `defining-relation` MUST be omitted or `null`.
 
        If the fields in `scale` are designated as `sn`, `sd`, and `se`; and the fields in `offset` are designated as `on`, `od`, and `oe`; and `base-units-expression` is designated as `b`, these fields state the following defining relation: a value `v` multiplied by the unit being defined is equal to the following expression `(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b`, where `*` designates multiplication and `**` designates exponentiation.
+    additionalProperties: False
+    patternProperties:
+      "^_": {}
     properties:
-      patternProperties:
-        "^_": {}
       base-units:
         items:
+          additionalProperties: False
           patternProperties:
             "^_": {}
           properties:
@@ -125,6 +131,7 @@ properties:
           If omitted or `null`, the defaults for the `numerator`, `denominator`, `base` and `exponent` are respectively 1, 1, 10, and 0.
         patternProperties:
           "^_": {}
+        additionalProperties: False
         properties:
           denominator:
             type: integer
@@ -141,6 +148,7 @@ properties:
           If omitted or `null`, the defaults for the `numerator`, `denominator`, `base` and `exponent` are respectively 0, 1, 10, and 0.
         patternProperties:
           "^_": {}
+        additionalProperties: False
         properties:
           denominator:
             type: integer
@@ -161,6 +169,7 @@ properties:
     items:
       patternProperties:
         "^_": {}
+      additionalProperties: False
       properties:
         relation:
           description: "A human-readable description of the relationship between the defined entity and the remote resource."
@@ -177,6 +186,7 @@ properties:
     description: "This field is used to reference a preexisting standard for the defined entity."
     patternProperties:
       "^_": {}
+    additionalProperties: False
     properties:
       name:
         description: "The abbreviated name of the standard being referenced."
