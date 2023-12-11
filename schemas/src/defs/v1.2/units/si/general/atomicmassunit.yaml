@@ -41,7 +41,6 @@ approximate-relations:
     scale:
       value: 1.66053906660E-27
       standard_uncertainty: 0.00000000050E-27
-      relative_standard_uncertainty: 3.0E-10
 x-optimade-definition:
   kind: "unit"
   format: "1.2"

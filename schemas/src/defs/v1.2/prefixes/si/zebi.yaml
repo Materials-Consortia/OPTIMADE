@@ -14,7 +14,7 @@ defining-relation:
   base-units-expression: ""
   scale:
     base: 2
-    nominator: 70
+    numerator: 70
 x-optimade-definition:
   kind: "prefix"
   format: "1.2"

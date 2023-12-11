@@ -10,17 +10,17 @@ resources:
     resource-id: "https://physics.nist.gov/cgi-bin/cuu/Value?mub"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Bohr_magneton"
-approximate-relations:
-  - base-units:
-    - symbol: "J"
-      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/joule"
-    - symbol: "T"
-      id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/tesla"
-    base-units-expression: "J*T^-1"
-    scale:
-      numerator: 92740100783
-      exponent: -34
-      standard_uncertainty: 0.00000000028E-24
+defining-relation:
+  base-units:
+  - symbol: "J"
+    id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/joule"
+  - symbol: "T"
+    id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/named/tesla"
+  base-units-expression: "J*T^-1"
+  scale:
+    numerator: 92740100783
+    exponent: -34
+    standard_uncertainty: 0.00000000028E-24
 x-optimade-definition:
   kind: "unit"
   format: "1.2"
