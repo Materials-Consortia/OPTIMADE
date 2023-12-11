@@ -1,0 +1,224 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schemas.optimade.org/meta/v1.2/optimade/unit_entity_definition"
+title: "OPTIMADE Unit Entity Definition"
+description: "Meta-schema for definitions of physical units, constants, and prefixes."
+type: object
+additionalProperties: False
+required: ['$id', '$schema', 'title', 'symbol', 'x-optimade-definition','display-symbol','description']
+patternProperties:
+  "^_": {}
+properties:
+  $id:
+    description: |-
+      A static IRI identifier that is a URN or URL representing the specific version of the definition.
+
+      (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+      It SHOULD NOT be changed as long as the definition functionally remains identical, and SHOULD be changed when the definition changes.
+      For example, definitions SHOULD be regarded as the same if they only differ by, e.g.:
+
+      - Additions or corrections of clarifying or historical notes to the `description` field.
+      - Changes to the fields `deprecated` and `$comment` on any level.
+
+      Note that this means that the version number part of the URL is *retained* even in newer releases of the OPTIMADE standard as long as the definition remains functionally identical.
+    type: string
+  $comment:
+    type: string
+  $schema:
+    description: |-
+      A normalized URI for a meta-schema that validates the definition.
+      This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/unit_entity_definition plus a relevant extension for the schema format.
+  approximate-relations:
+    items:
+      patternProperties:
+        "^_": {}
+      properties:
+        base-units:
+          items:
+            properties:
+              id:
+                format: uri
+                type: string
+              symbol:
+                type: string
+            required:
+            - symbol
+            - id
+            type: object
+          type: array
+        base-units-expression:
+          type: string
+        offset:
+          patternProperties:
+            "^_": {}
+          properties:
+            relative_standard_uncertainty:
+              type: number
+            standard_uncertainty:
+              type: number
+            value:
+              type: number
+          required:
+          - value
+          type: object
+        scale:
+          patternProperties:
+            "^_": {}
+          properties:
+            relative_standard_uncertainty:
+              type: number
+            standard_uncertainty:
+              type: number
+            value:
+              type: number
+          required:
+          - value
+          type: object
+      type: object
+    type: array
+  compatibility:
+    type: array
+    items:
+      type: string
+  defining-relation:
+    description: |-
+       A dictionary that encodes a defining relation to a unit or set of units, with the primary intended use of reproduce the definition of the entity in SI units, if such a relationship exists.
+       Some units, e.g., the atomic mass unit (also known as dalton, commonly denoted `u`), only has an approximate relationship to SI units, in which case the `defining-relation` MUST be omitted or `null`.
+
+       If the fields in `scale` are designated as `sn`, `sd`, and `se`; and the fields in `offset` are designated as `on`, `od`, and `oe`; and `base-units-expression` is designated as `b`, these fields state the following defining relation: a value `v` multiplied by the unit being defined is equal to the following expression `(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b`, where `*` designates multiplication and `**` designates exponentiation.
+    properties:
+      patternProperties:
+        "^_": {}
+      base-units:
+        items:
+          patternProperties:
+            "^_": {}
+          properties:
+            id:
+              description: "The IRI of one of the units referenced in the dimensional formula for the defining relation."
+              format: uri
+              type: string
+            symbol:
+              description: "The symbol used to reference this unit in the dimensional formula."
+              type: string
+          required:
+          - symbol
+          - id
+          type: object
+        type: array
+      base-units-expression:
+        description: |-
+          A string expressing the base units part of the defining relation for the unit being defined.
+
+          A compound unit expression is created by a sequence of constants, prefixes, and unit symbols separated by a single multiplication `*` symbol.
+          Each unit symbol can also be suffixed by a single `^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., `m^3` for cubic meter, `m^-3` for inverse cubic meter.
+          (Positive integers MUST NOT be preceded by a plus sign.)
+          Furthermore:
+
+          - No whitespace, parenthesis, or other symbols than specified above are permitted.
+          - The unit symbols MUST appear in alphabetical order.
+        type: string
+      scale:
+        description: |-
+          A dictionary specifying the scale in the defining relation.
+
+          The four fields `numerator`, `denominator`, `base`, and `exponent` specify the value as the rational number `numerator` / `denominator`, multiplied by `base` to the power of `exponent`.
+          If omitted or `null`, the defaults for the `numerator`, `denominator`, `base` and `exponent` are respectively 1, 1, 10, and 0.
+        patternProperties:
+          "^_": {}
+        properties:
+          denominator:
+            type: integer
+          numerator:
+            type: integer
+          exponent:
+            type: integer
+          base:
+            type: integer
+        type: object
+      offset:
+        description: |-
+          The four fields `numerator`, `denominator`, `base`, and `exponent` specify the value as the rational number `numerator` / `denominator`, multiplied by `base` to the power of `exponent`.
+          If omitted or `null`, the defaults for the `numerator`, `denominator`, `base` and `exponent` are respectively 0, 1, 10, and 0.
+        patternProperties:
+          "^_": {}
+        properties:
+          denominator:
+            type: integer
+          exponent:
+            type: integer
+          numerator:
+            type: integer
+          base:
+            type: integer
+        type: object
+    type: object
+  description:
+    description: |-
+      A human-readable multiple-line detailed description of the defined entity.
+    type: string
+  resources:
+    description: "A list of dictionaries that reference remote resources that describe the defined entity."
+    items:
+      patternProperties:
+        "^_": {}
+      properties:
+        relation:
+          description: "A human-readable description of the relationship between the defined entity and the remote resource."
+          type: string
+        resource-id:
+          description: "A IRI of the external resource (which MAY be a resolvable URL)."
+          type: string
+      required:
+      - relation
+      - resource-id
+      type: object
+    type: array
+  standard:
+    description: "This field is used to reference a preexisting standard for the defined entity."
+    patternProperties:
+      "^_": {}
+    properties:
+      name:
+        description: "The abbreviated name of the standard being referenced."
+        enum:
+        - gnu units
+        - ucum
+        - qudt
+        - si
+        type: string
+      symbol:
+        description: |-
+          The symbol to use from the referenced standard, expressed according to that standard.
+          This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard.
+          However, the `symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
+        type: string
+      version:
+        description: |-
+          A version string of the referenced standard.
+        type: string
+    required:
+    - name
+    - version
+    - symbol
+    type: object
+  symbol:
+    description: "Specifies the symbol to be used in `x-optimade-unit` to reference the defined entity."
+    type: string
+    pattern: ^[a-zA-Z_][a-zA-Z_0-9]*$
+  display-symbol:
+    description: |-
+      The suggested standard typographical symbolic representation of the defined entity.
+      Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2.
+    type: string
+  alternate-symbols:
+    description: |-
+      A list of other symbols often used for the defined entity.
+      Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2.
+    type: array
+    items:
+      type: string
+  title:
+    description: "The standard human-readable name of the defined entity."
+    type: string
+  x-optimade-definition:
+    $$inherit: "x-optimade-definition-field"
