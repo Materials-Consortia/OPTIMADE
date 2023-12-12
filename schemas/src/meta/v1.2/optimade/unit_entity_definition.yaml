@@ -200,7 +200,15 @@ properties:
         description: |-
           The symbol to use from the referenced standard, expressed according to that standard.
           This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard.
-          However, the `symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
+          However, the `symbol` fields SHOULD be the same unless a different symbol is needed to avoid collisions.
+        type: string
+      year:
+        description: |-
+          The year that the standards organization adopted the definition.
+        type: integer
+      category:
+        description: |-
+          The category that the standards organization have used for the definition.
         type: string
       version:
         description: |-
@@ -208,7 +216,6 @@ properties:
         type: string
     required:
     - name
-    - version
     - symbol
     type: object
   symbol:
