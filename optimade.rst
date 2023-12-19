@@ -2807,7 +2807,7 @@ space\_group\_symmetry\_operations\_xyz
 
 - **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
-  For describing arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry, a different property will be used.
+  This property is not meant to represent arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry.
 
 - **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
 
@@ -2853,7 +2853,9 @@ space\_group\_symbol\_hermann\_mauguin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
-  The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
+  The H-M symbol SHOULD aim to convey the closest representation of the symmetry information that can be specified using the short format used in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1 as described in the accompanying text.
+  The symbol MAY be a non-standard short H-M symbol.
+  The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
 
   To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
 
