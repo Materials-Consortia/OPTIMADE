@@ -2724,7 +2724,7 @@ dimension\_types
 
 - **Examples**:
 
-  - A nonperiodic structure, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A nonperiodic structure, for example, for a single molecule: :val:`[0, 0, 0]`
   - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
   - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
   - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
@@ -2790,20 +2790,14 @@ space\_group\_symmetry\_operations\_xyz
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-    However, the property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
-    Moreover, the property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
+    - The property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
+    - The property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
     - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
   - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
 
 - **Examples**:
-
-  Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, extended H-M symbol: `P 1 2 1`, Hall symbol `P 2y`):
-
-  - :val:`["x,y,z", "-x,y,-z"]`
-
-  Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`):
-
-  - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
+  - Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, extended H-M symbol: `P 1 2 1`, Hall symbol `P 2y`): :val:`["x,y,z", "-x,y,-z"]`
+  - Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`): :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
 - **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
@@ -2870,12 +2864,12 @@ space\_group\_symbol\_hermann\_mauguin
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
 
-- **Examples**
+- **Examples**:
 
   - :val:`C 2`
   - :val:`P 21 21 21`
 
-- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin' definitions**
+- **Bibliographic References**:
 
   IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
 
@@ -2887,7 +2881,7 @@ space\_group\_symbol\_hermann\_mauguin\_extended
   The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
   The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
   The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin`_ property.
+  The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin` property.
 
 - **Type**: string
 - **Requirements/Conventions**:
@@ -2895,11 +2889,11 @@ space\_group\_symbol\_hermann\_mauguin\_extended
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
 
-- **Examples**
+- **Examples**:
 
   - :val:`C 1 2 1`
 
-- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin\_extended' definitions**
+- **Bibliographic References**:
 
   IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
