@@ -2777,15 +2777,7 @@ space\_group\_symmetry\_operations\_xyz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: a list of symmetry operations given as general position x, y and z coordinates in algebraic form.
-  Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
-  The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
-  The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
-  The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
-  In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
-  This symmetry operation set MUST always include the :val:`x,y,z` identity operation.
-  The symmetry operations are to be applied to fractional atom coordinates.
-  In case only Cartesian coordinates are available, these Cartesian coordinates must be converted to fractional coordinates before the application of the provided symmetry operations.
-  If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
+
 - **Type** list of strings
 - **Requirements/Conventions**:
 
@@ -2794,6 +2786,15 @@ space\_group\_symmetry\_operations\_xyz
     - The property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
     - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
   - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
+  - Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
+  - The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
+  - The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
+  - The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
+    In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
+  - This symmetry operation set MUST always include the :val:`x,y,z` identity operation.
+  - The symmetry operations are to be applied to fractional atom coordinates.
+    In case only Cartesian coordinates are available, these Cartesian coordinates must be converted to fractional coordinates before the application of the provided symmetry operations.
+  - If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
 
 - **Examples**:
   - Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, extended H-M symbol: `P 1 2 1`, Hall symbol `P 2y`): :val:`["x,y,z", "-x,y,-z"]`
@@ -2803,7 +2804,7 @@ space\_group\_symmetry\_operations\_xyz
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   This property is not meant to represent arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry.
 
-- **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
+- **Bibliographic References**:
 
   Bradley, C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. ISBN `978-0-19-958258-7 <https://isbnsearch.org/isbn/9780199582587>`__.
 
@@ -2813,29 +2814,29 @@ space\_group\_symbol\_hall
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
-  The change-of-basis operations are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - The change-of-basis operations are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
   - Each component of the Hall symbol MUST be separated by a single space symbol.
   - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
   - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
 
 - **Examples**:
 
-  Space group symbols with explicit origin (the Hall symbols):
+  - Space group symbols with explicit origin (the Hall symbols):
 
-  - :val:`P 2c -2ac`
-  - :val:`-I 4bd 2ab 3`
+    - :val:`P 2c -2ac`
+    - :val:`-I 4bd 2ab 3`
 
-  Space group symbols with change-of-basis operations:
+  - Space group symbols with change-of-basis operations:
 
-  - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
-  - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
+    - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
+    - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
 
-- **Bibliographic References for the 'space\_group\_symbol\_hall' definitions**
+- **Bibliographic References**:
 
   Hall, S. R. (1981) Space-group notation with an explicit origin. Acta Crystallographica Section A, 37, 517-525, International Union of Crystallography (IUCr), DOI: https://doi.org/10.1107/s0567739481001228
 
@@ -2847,22 +2848,20 @@ space\_group\_symbol\_hermann\_mauguin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
-  The H-M symbol SHOULD aim to convey the closest representation of the symmetry information that can be specified using the short format used in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1 as described in the accompanying text.
-  The symbol MAY be a non-standard short H-M symbol.
-  The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
-
-  To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
-
-  - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
-  - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
-  - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
-  - there MUST be no spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
 
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - The H-M symbol SHOULD aim to convey the closest representation of the symmetry information that can be specified using the short format used in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1 as described in the accompanying text.
+  - The symbol MAY be a non-standard short H-M symbol.
+  - The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
+  - To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
+    - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
+    - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
+    - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
+    - there MUST be no spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
 
 - **Examples**:
 
@@ -2877,17 +2876,16 @@ space\_group\_symbol\_hermann\_mauguin\_extended
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
-  The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
-  The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
-  The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
-  The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin` property.
-
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
+  - The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
+  - The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
+  - The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
+  - The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin` property.
 
 - **Examples**:
 
@@ -3741,7 +3739,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
-Symmetry operation strings that comprise the :property:`space_group_symmetry_operation_xyz` property MUST conform to the following regular expressions.
+Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operations\_xyz` property MUST conform to the following regular expressions.
 The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
 The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
 The :val:`symops` section contains the REs themselves.
