@@ -23,7 +23,13 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/second"
   base-units-expression: "kg*m^2*s^-2"
+standard:
+  name: "si"
+  year: 1960
+  category: "named"
+  symbol: "J"
 x-optimade-definition:
+  label: "joule_si_1960_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

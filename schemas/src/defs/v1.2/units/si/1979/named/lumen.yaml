@@ -25,7 +25,13 @@ defining-relation:
     - symbol: "sr"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/supplementary/steradian"
   base-units-expression: "cd*sr"
+standard:
+  name: "si"
+  year: 1979
+  category: "named"
+  symbol: "lm"
 x-optimade-definition:
+  label: "lumen_si_1979_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

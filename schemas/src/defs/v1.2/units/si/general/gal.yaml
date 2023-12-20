@@ -35,6 +35,7 @@ defining-relation:
   scale:
     exponent: 4
 x-optimade-definition:
+  label: "gal_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

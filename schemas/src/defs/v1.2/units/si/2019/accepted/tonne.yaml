@@ -28,6 +28,7 @@ defining-relation:
   scale:
     exponent: 3
 x-optimade-definition:
+  label: "tonne_si_2019_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

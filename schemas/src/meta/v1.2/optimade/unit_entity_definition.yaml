@@ -195,12 +195,15 @@ properties:
         - ucum
         - qudt
         - si
+        - codata
+        - iso-iec-80000
         type: string
       symbol:
         description: |-
           The symbol to use from the referenced standard, expressed according to that standard.
-          This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard.
-          However, the `symbol` fields SHOULD be the same unless a different symbol is needed to avoid collisions.
+          The field MAY use mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2.
+          This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
+          However, if possible, the `symbol` fields SHOULD be the same.
         type: string
       year:
         description: |-

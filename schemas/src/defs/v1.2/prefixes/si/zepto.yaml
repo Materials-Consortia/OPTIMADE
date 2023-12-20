@@ -15,6 +15,7 @@ defining-relation:
   scale:
     exponent: -21
 x-optimade-definition:
+  label: "zepto_prefix_si"
   kind: "prefix"
   format: "1.2"
   version: "1.2.0"

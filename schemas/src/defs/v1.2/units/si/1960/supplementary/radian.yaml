@@ -23,7 +23,13 @@ resources:
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/20-1995/resolution-8"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Radian"
+standard:
+  name: "si"
+  year: 1960
+  category: "supplementary"
+  symbol: "rad"
 x-optimade-definition:
+  label: "radian_si_1960_supplementary"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

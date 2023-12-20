@@ -1,8 +1,13 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2/optimade/x-optimade-definition-field"
 type: object
-required: ["kind", "format", "name"]
+required: ["kind", "format", "name", "label"]
 properties:
+  label:
+    type: string
+    description: |-
+      An expanded version of the name that clarifies its context sufficiently to be unique within definitions issued together as a set.
+    pattern: ^[a-z_][a-z_0-9]*$
   name:
     type: string
     description: |-

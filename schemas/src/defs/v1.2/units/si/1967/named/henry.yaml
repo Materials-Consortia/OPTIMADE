@@ -29,7 +29,13 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "A^-2*kg*m^2*s^-2"
+standard:
+  name: "si"
+  year: 1967
+  category: "named"
+  symbol: "H"
 x-optimade-definition:
+  label: "henry_si_1967_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

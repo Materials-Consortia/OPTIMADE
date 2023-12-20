@@ -21,7 +21,13 @@ defining-relation:
     numerator: 92740100783
     exponent: -34
     standard_uncertainty: 0.00000000028E-24
+standard:
+  name: "codata"
+  year: 2018
+  category: "electromagnetic"
+  symbol: '\(\mu_B\)'
 x-optimade-definition:
+  label: "bohrmagneton_constant_codata_2018_electromagnetic"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

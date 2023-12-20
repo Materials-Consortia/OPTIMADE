@@ -15,6 +15,7 @@ defining-relation:
   scale:
     exponent: -12
 x-optimade-definition:
+  label: "pico_prefix_si"
   kind: "prefix"
   format: "1.2"
   version: "1.2.0"

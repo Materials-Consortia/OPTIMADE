@@ -29,7 +29,13 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "kg*m^2*s^-3"
+standard:
+  name: "si"
+  year: 2019
+  category: "named"
+  symbol: "W"
 x-optimade-definition:
+  label: "watt_si_2019_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

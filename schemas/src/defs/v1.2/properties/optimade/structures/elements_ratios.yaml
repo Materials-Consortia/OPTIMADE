@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elem
 title: "Elements ratios"
 x-optimade-type: "list"
 x-optimade-definition:
+  label: "elements_ratios_optimade_structures"
   kind: "property"
   version: "1.2.0"
   format: "1.2"

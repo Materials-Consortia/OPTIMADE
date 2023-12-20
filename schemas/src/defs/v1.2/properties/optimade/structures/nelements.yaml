@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nele
 title: "Number of elements"
 x-optimade-type: "integer"
 x-optimade-definition:
+  label: "nelements_optimade_structures"
   kind: "property"
   version: "1.2.0"
   format: "1.2"

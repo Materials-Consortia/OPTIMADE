@@ -28,7 +28,13 @@ defining-relation:
   offset:
     numerator: 27315
     denominator: 100
+standard:
+  name: "si"
+  year: 2019
+  category: "named"
+  symbol: "degC"
 x-optimade-definition:
+  label: "degcelsius_si_2019_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/edit
 title: "editors"
 x-optimade-type: "list"
 x-optimade-definition:
+  label: "editors_optimade_references"
   kind: "property"
   version: "1.2.0"
   format: "1.2"

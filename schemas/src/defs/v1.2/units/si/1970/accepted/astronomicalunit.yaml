@@ -36,6 +36,7 @@ approximate-relations:
       value: 1.49597870691E+11
       standard_uncertainty: 0.00000000006E+11
 x-optimade-definition:
+  label: "astronomicalunit_si_1970_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

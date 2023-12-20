@@ -19,7 +19,13 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "m^2*s^-2"
+standard:
+  name: "si"
+  year: 1979
+  category: "named"
+  symbol: "Sv"
 x-optimade-definition:
+  label: "sievert_si_1979_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

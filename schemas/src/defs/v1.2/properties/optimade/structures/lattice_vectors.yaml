@@ -2,6 +2,7 @@ $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/lattice_vectors"
 title: "Lattice vectors"
 x-optimade-definition:
+  label: "lattice_vectors_optimade_structures"
   kind: "property"
   version: "1.2.0"
   format: "1.2"

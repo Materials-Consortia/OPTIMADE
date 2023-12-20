@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/spac
 title: "Space group IT number"
 x-optimade-type: "integer"
 x-optimade-definition:
+  label: "space_group_it_number_optimade_structures"
   kind: "property"
   version: "1.2.0"
   format: "1.2"

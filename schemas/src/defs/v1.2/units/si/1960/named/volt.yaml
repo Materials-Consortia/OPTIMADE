@@ -25,7 +25,13 @@ defining-relation:
     - symbol: "A"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/ampere"
   base-units-expression: "A^-1*kg*m^2*s^-3"
+standard:
+  name: "si"
+  year: 1960
+  category: "named"
+  symbol: "V"
 x-optimade-definition:
+  label: "volt_si_1960_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

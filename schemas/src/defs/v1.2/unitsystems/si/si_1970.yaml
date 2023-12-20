@@ -7,6 +7,7 @@ description: |-
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
   This represents the SI unit system described in the 2nd edition of The International System of Units in 1970.
 x-optimade-definition:
+  label: "si_1970_unitsystem"
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"

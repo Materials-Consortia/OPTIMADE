@@ -27,13 +27,14 @@ resources:
 defining-relation:
   base-units:
     - symbol: "pi"
-      id: "https://schemas.optimade.org/defs/v1.2/constants/math/pi"
+      id: "https://schemas.optimade.org/defs/v1.2/constants/math/basic/pi"
     - symbol: "rad"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/supplementary/radian"
   base-units-expression: "pi*rad"
   scale:
     denominator: 648000
 x-optimade-definition:
+  label: "arcsecond_si_1970_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

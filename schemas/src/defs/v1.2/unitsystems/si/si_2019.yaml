@@ -11,6 +11,7 @@ description: |-
   The 9th edition was later updated in 2022 with new SI prefixes defined at the 27th CGPM meeting in 2022.
   These prefixes are not included.
 x-optimade-definition:
+  label: "si_2019_unitsystem"
   kind: "unitsystem"
   format: "1.2"
   version: "1.2.0"

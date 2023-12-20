@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/files"
 title: "Files"
 description: "The files entry type describes a file with metadata and an URL to retrive it"
 x-optimade-definition:
+  label: "files_entrytype_optimade"
   kind: "entrytype"
   format: "1.2"
   version: "1.2.0"

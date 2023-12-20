@@ -37,6 +37,7 @@ approximate-relations:
       value: 1.66053906660E-27
       standard_uncertainty: 0.00000000050E-27
 x-optimade-definition:
+  label: "dalton_si_1998_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

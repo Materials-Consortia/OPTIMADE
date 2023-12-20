@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/standards/optimade"
 title: "OPTIMADE standard"
 description: "The OPTIMADE standard node types and properties"
 x-optimade-definition:
+  label: "optimade_standard"
   kind: "standard"
   format: "1.2"
   version: "1.2.0"

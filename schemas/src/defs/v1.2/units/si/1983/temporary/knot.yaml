@@ -32,6 +32,7 @@ defining-relation:
     numerator: 1852
     denominator: 3600
 x-optimade-definition:
+  label: "knot_si_1983_temporary"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

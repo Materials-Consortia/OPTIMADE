@@ -19,7 +19,13 @@ defining-relation:
   base-units-expression: "bit"
   scale:
     numerator: 8
+standard:
+  name: "iso-iec-80000"
+  year: 2008
+  category: "information_science_and_technology"
+  symbol: "B"
 x-optimade-definition:
+  label: "byte_iso_iec_80000_2008_information_science_and_technology"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

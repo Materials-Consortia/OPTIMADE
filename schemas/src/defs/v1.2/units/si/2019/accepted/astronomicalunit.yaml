@@ -22,6 +22,7 @@ defining-relation:
   scale:
     numerator: 149597870700
 x-optimade-definition:
+  label: "astronomicalunit_si_2019_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

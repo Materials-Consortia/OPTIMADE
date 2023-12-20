@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/mtime"
 title: "Modification time"
 x-optimade-type: "timestamp"
 x-optimade-definition:
+  label: "mtime_optimade_files"
   kind: "property"
   version: "1.2.0"
   format: "1.2"

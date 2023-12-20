@@ -27,7 +27,13 @@ defining-relation:
     - symbol: "m"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
   base-units-expression: "cd*m^-2*sr"
+standard:
+  name: "si"
+  year: 1967
+  category: "named"
+  symbol: "lx"
 x-optimade-definition:
+  label: "lux_si_1967_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

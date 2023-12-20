@@ -36,6 +36,7 @@ defining-relation:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/general/ampere"
   base-units-expression: "A*s"
 x-optimade-definition:
+  label: "coulomb_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

@@ -27,6 +27,7 @@ resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Second"
 x-optimade-definition:
+  label: "second_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

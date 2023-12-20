@@ -40,6 +40,7 @@ defining-relation:
   scale:
     numerator: 1852
 x-optimade-definition:
+  label: "nauticalmile_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

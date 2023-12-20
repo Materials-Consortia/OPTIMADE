@@ -32,6 +32,7 @@ defining-relation:
   scale:
     exponent: 5
 x-optimade-definition:
+  label: "bar_si_1983_temporary"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

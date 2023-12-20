@@ -39,6 +39,7 @@ defining-relation:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/general/steradian"
   base-units-expression: "cd*sr"
 x-optimade-definition:
+  label: "lumen_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

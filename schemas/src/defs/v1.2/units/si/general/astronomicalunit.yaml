@@ -39,6 +39,7 @@ approximate-relations:
     scale:
       value: 149597870700
 x-optimade-definition:
+  label: "astronomicalunit_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

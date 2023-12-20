@@ -13,6 +13,7 @@ resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Bit"
 x-optimade-definition:
+  label: "bit_independent_1948_information"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

@@ -25,6 +25,7 @@ defining-relation:
   scale:
     exponent: -10
 x-optimade-definition:
+  label: "angstrom_si_1970_temporary"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

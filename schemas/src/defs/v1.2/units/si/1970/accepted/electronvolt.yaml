@@ -29,6 +29,7 @@ approximate-relations:
         id: "https://schema.optimade.org/defs/v1.2/units/codata/2018/electromagnetic/elementarycharge"
     base-units-expression: "e*V"
 x-optimade-definition:
+  label: "electronvolt_si_1970_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

@@ -23,6 +23,7 @@ defining-relation:
   scale:
     exponent: -3
 x-optimade-definition:
+  label: "litre_si_1964_accepted"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

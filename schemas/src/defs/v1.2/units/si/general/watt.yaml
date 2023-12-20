@@ -38,6 +38,7 @@ defining-relation:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/general/second"
   base-units-expression: "kg*m^2*s^-3"
 x-optimade-definition:
+  label: "watt_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

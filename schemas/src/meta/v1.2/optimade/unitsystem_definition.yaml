@@ -25,11 +25,6 @@ properties:
     additionalProperties:
       $$inherit: "physical_unit_definition"
       required: ["title", "description", "x-optimade-definition"]
-  constants:
-    type: object
-    additionalProperties:
-      $$inherit: "physical_unit_definition"
-      required: ["title", "description", "x-optimade-definition"]
   prefixes:
     type: object
     additionalProperties:

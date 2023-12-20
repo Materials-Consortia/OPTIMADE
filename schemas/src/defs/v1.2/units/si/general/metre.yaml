@@ -28,6 +28,7 @@ resources:
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Metre"
 x-optimade-definition:
+  label: "metre_si_general"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

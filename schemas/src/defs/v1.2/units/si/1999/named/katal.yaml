@@ -19,7 +19,13 @@ defining-relation:
     - symbol: "s"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
   base-units-expression: "mol*s^-1"
+standard:
+  name: "si"
+  year: 1999
+  category: "named"
+  symbol: "kat"
 x-optimade-definition:
+  label: "katal_si_1999_named"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

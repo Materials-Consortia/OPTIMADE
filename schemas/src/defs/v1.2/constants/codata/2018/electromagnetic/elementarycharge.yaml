@@ -21,7 +21,13 @@ defining-relation:
   scale:
     numerator: 1602176634
     exponent: -28
+standard:
+  name: "codata"
+  year: 2018
+  category: "electromagnetic"
+  symbol: "e"
 x-optimade-definition:
+  label: "elementary_charge_constant_codata_2019_electromagnetic"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

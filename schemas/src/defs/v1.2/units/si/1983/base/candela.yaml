@@ -24,7 +24,13 @@ resources:
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/13-1967/resolution-1"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Candela"
+standard:
+  name: "si"
+  year: 1983
+  category: "base"
+  symbol: "cd"
 x-optimade-definition:
+  label: "candela_si_1983_base"
   kind: "unit"
   format: "1.2"
   version: "1.2.0"

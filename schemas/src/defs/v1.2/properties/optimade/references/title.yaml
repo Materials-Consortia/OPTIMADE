@@ -3,6 +3,7 @@ $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/titl
 title: "title"
 x-optimade-type: "string"
 x-optimade-definition:
+  label: "title_optimade_references"
   kind: "property"
   version: "1.2.0"
   format: "1.2"
