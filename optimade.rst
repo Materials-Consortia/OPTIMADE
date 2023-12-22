@@ -456,7 +456,7 @@ How this list is provided is response format-dependent.
 For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
 
 The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
-An implementation SHOULD always include this format as one of alternative partial data formats provided for a property that has been omitted from the response to the initial query.
+An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
@@ -506,7 +506,7 @@ For example, the metadata property definition of the field :field:`_exmpl_exampl
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
 Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all fields present in the data part of the response which has metadata.
+However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
 
@@ -751,11 +751,11 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
   - **partial_data_links**: an object used to list links which can be used to fetch data that has been omitted from the :field:`data` part of the response.
     The keys are the names of the fields in :field:`attributes` for which partial data links are available.
-    Each value is a list of items that MUST have the following keys:
+    Each value is a list of objects that MUST have the following keys:
 
     - **format**: String.
-      A name of the format provided via this link.
-      One of the items SHOULD be "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+      The name of the format provided via this link.
+      For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
 
     - **link**: String.
       A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
@@ -3021,10 +3021,53 @@ lattice\_vectors
 
   - :val:`[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is :val:`(4, 0, 0)`, i.e., a vector aligned along the :val:`x` axis of length 4 Å; the second vector is :val:`(0, 4, 0)`; and the third vector is :val:`(0, 1, 4)`.
 
-space\_group\_hall
-~~~~~~~~~~~~~~~~~~
+space\_group\_symmetry\_operations\_xyz
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: A Hall space group symbol representing the symmetry of the structure as defined in Hall, S. R. (1981), Acta Cryst. A37, 517-525 and erratum (1981), A37, 921.
+- **Description**: a list of symmetry operations given as general position x, y and z coordinates in algebraic form.
+  Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
+  The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
+  The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
+  The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
+  In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
+  This symmetry operation set MUST always include the :val:`x,y,z` identity operation.
+  The symmetry operations are to be applied to fractional atom coordinates.
+  In case only Cartesian coordinates are available, these Cartesian coordinates must be converted to fractional coordinates before the application of the provided symmetry operations.
+  If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
+- **Type** list of strings
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+    However, the property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
+    Moreover, the property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
+    - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
+  - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
+
+- **Examples**:
+
+  Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, extended H-M symbol: `P 1 2 1`, Hall symbol `P 2y`):
+
+  - :val:`["x,y,z", "-x,y,-z"]`
+
+  Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`):
+
+  - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
+
+- **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
+  Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
+  This property is not meant to represent arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry.
+
+- **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
+
+  Bradley, C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. ISBN `978-0-19-958258-7 <https://isbnsearch.org/isbn/9780199582587>`__.
+
+  IUCr (2023) Core dictionary (coreCIF) version 2.4.5; data name `\_space\_group\_symop\_operation\_xyz`. Available from: https://www.iucr.org/__data/iucr/cifdic_html/1/cif_core.dic/Ispace_group_symop_operation_xyz.html [Accessed 2023-06-18T16:46+03:00].
+
+space\_group\_symbol\_hall
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
+  The change-of-basis operations are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
 - **Type**: string
 - **Requirements/Conventions**:
 
@@ -3032,17 +3075,88 @@ space\_group\_hall
   - **Query**: Support for queries on this property is OPTIONAL.
   - Each component of the Hall symbol MUST be separated by a single space symbol.
   - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
-  - MUST be null if :property:`nperiodic_dimensions` is not equal to 3.
+  - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
 
 - **Examples**:
+
+  Space group symbols with explicit origin (the Hall symbols):
 
   - :val:`P 2c -2ac`
   - :val:`-I 4bd 2ab 3`
 
+  Space group symbols with change-of-basis operations:
+
+  - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
+  - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
+
+- **Bibliographic References for the 'space\_group\_symbol\_hall' definitions**
+
+  Hall, S. R. (1981) Space-group notation with an explicit origin. Acta Crystallographica Section A, 37, 517-525, International Union of Crystallography (IUCr), DOI: https://doi.org/10.1107/s0567739481001228
+
+  Hall, S. R. (1981a) Space-group notation with an explicit origin; erratum.  Acta Crystallographica Section A, 37, 921-921, International Union of Crystallography (IUCr), DOI: https://doi.org/10.1107/s0567739481001976
+
+  IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
+
+space\_group\_symbol\_hermann\_mauguin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description** A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
+  The H-M symbol SHOULD aim to convey the closest representation of the symmetry information that can be specified using the short format used in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1 as described in the accompanying text.
+  The symbol MAY be a non-standard short H-M symbol.
+  The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
+
+  To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
+
+  - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
+  - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
+  - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
+  - there MUST be no spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
+
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**
+
+  - :val:`C 2`
+  - :val:`P 21 21 21`
+
+- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin' definitions**
+
+  IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
+
+space\_group\_symbol\_hermann\_mauguin\_extended
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description** A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
+  The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
+  The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
+  The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
+  The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
+  The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin`_ property.
+
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+- **Examples**
+
+  - :val:`C 1 2 1`
+
+- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin\_extended' definitions**
+
+  IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
+
+  IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
+
 space\_group\_it\_number
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: Space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+- **Description**: Space group number which specifies the space group of the structure as defined in the International Tables for Crystallography Vol. A. (IUCr, 2005).
 - **Type**: integer
 - **Requirements/Conventions**:
 
@@ -3878,6 +3992,39 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
     "([^\"]|\\.)*"
     #END ERE strings
 
+The Symmetry Operation String Regular Expressions
+-------------------------------------------------
+
+Symmetry operation strings that comprise the :property:`space_group_symmetry_operation_xyz` property MUST conform to the following regular expressions.
+The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
+The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
+The :val:`symops` section contains the REs themselves.
+The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
+A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
+
+.. code:: PCRE
+
+    #BEGIN PCRE symop_definitions
+
+    $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
+
+    $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
+    $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
+
+    $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
+
+    #END PCRE symop_definitions
+
+.. code:: PCRE
+
+    #BEGIN PCRE symops
+
+    ^ # From the beginning of the string...
+    ($symop_re)(,$symop_re){2}
+    $ # ... match to the very end of the string
+
+    #END PCRE symops
+
 OPTIMADE JSON lines partial data format
 ---------------------------------------
 The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
@@ -3915,7 +4062,7 @@ The markers have been deliberately designed to be valid JSON objects but *not* v
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
   **Implementation note:** the recognizable string values for the markers should make it possible to prescreen the raw text of the JSON data lines for the reference-marker string to determine which are the lines that one can exclude from further processing to resolve references (alternatively, this screening can be done by the string parser used by the JSON parser).
-  The undelying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
+  The underlying design idea is that for lines that have reference-markers, the time it takes to process the data structure to locate the markers should be negligible compared to the time it takes to resolve and handle the large data they reference.
   Hence, the most relevant optimization is to avoid spending time processing data structures to find markers for lines where there are none.
 
 The full response MUST be valid `JSON Lines <https://jsonlines.org/>`__ that adheres to the following format:
@@ -3933,8 +4080,10 @@ The header object MUST contain the keys:
   It MUST contain the following key:
 
   - :field:`"format"`: String.
-    Specifies the minor version of the partial data format used. The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format. The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
-    A client MUST NOT expect to be able to parse the format if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+    Specifies the minor version of the partial data format used.
+    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format.
+    The version number string MUST NOT be prefixed by, e.g., "v". In implementations of the present version of the standard, the value MUST be exactly :val:`1.2`.
+    A client MUST NOT expect to be able to parse the :field:`format` value if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
 
 - :field:`"layout"`: String.
   A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the returned format uses a dense or sparse layout.
@@ -3943,7 +4092,7 @@ The following key is RECOMMENDED in the header object:
 
 - :field:`"returned_ranges"`: Array of Object.
   For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  In the specific case of a hierarchy of list properties represented as a sparse multi-dimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multi-dimensional array, representing slices for each dimension that cover the data given in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multidimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional array, representing slices for each dimension that cover the data given in the response.
 
 The header object MAY also contain the keys:
 
@@ -3980,18 +4129,18 @@ The header object MAY also contain the keys:
     The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
-- **Dense layout:** In the dense partial data layout, each data line reproduces one list item in the OPTIMADE list property being transmitted in JSON format.
+- **Dense layout:** In the dense partial data layout, each data line reproduces one item from the OPTIMADE list property being transmitted in the JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
   If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
 
-- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array on the format:
+- **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array of the format:
 
   - The first item of the array is the zero-based index of list property item being provided by this line.
   - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
-- **Sparse layout for multi-dimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+- **Sparse layout for multidimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
   In this case, each data line contains a JSON array of the format:
 
   - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
@@ -4033,7 +4182,7 @@ The third provided item (index 14 in the original list) is only partially return
     [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
-Below follows an example of the sparse layout for multi-dimensional lists with three aggregated dimensions.
+Below follows an example of the sparse layout for multidimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of arbitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
@@ -4045,7 +4194,7 @@ The response below communicates the first item explicitly; the second one by def
     [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and integer values:
+An example of the sparse layout for multidimensional lists with three aggregated dimensions and integer values:
 
 .. code:: json
 
@@ -4054,7 +4203,7 @@ An example of the sparse layout for multi-dimensional lists with three aggregate
     [30,15,9, 31]
     ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
-An example of the sparse layout for multi-dimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
+An example of the sparse layout for multidimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
 .. code:: json
 
