@@ -3748,34 +3748,45 @@ The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
 Symmetry operation strings that comprise the :property:`space_group_symmetry_operation_xyz` property MUST conform to the following regular expressions.
-The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
-The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
-The :val:`symops` section contains the REs themselves.
-The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
-A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
+The regular expressions are recorded below in two forms:
+- Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability and expressivity.
+  The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
+  The :val:`symops` section contains the REs themselves.
+  The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
+  A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
 
-.. code:: PCRE
+  .. code:: PCRE
 
-    #BEGIN PCRE symop_definitions
+     #BEGIN PCRE symop_definitions
 
-    $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
+     $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
-    $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
-    $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
+     $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
+     $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
 
-    $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
+     $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
 
-    #END PCRE symop_definitions
+     #END PCRE symop_definitions
 
-.. code:: PCRE
+  .. code:: PCRE
 
-    #BEGIN PCRE symops
+     #BEGIN PCRE symops
 
-    ^ # From the beginning of the string...
-    ($symop_re)(,$symop_re){2}
-    $ # ... match to the very end of the string
+     ^ # From the beginning of the string...
+     ($symop_re)(,$symop_re){2}
+     $ # ... match to the very end of the string
 
-    #END PCRE symops
+     #END PCRE symops
+
+- The regular expression is also provided in a simplified explicit form compatible with the subset of the `ECMA 262 dialect <https://ecma-international.org/publications-and-standards/standards/ecma-262/>`_ syntax supported by `JSON Schema field "pattern" <https://json-schema.org/draft/2020-12/json-schema-validation#name-pattern>_`:
+
+  .. code:: ECMA
+
+     #BEGIN ECMA symops
+
+     ^([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?),([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?),([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?)$
+
+     #END ECMA symops
 
 OPTIMADE JSON lines partial data format
 ---------------------------------------
