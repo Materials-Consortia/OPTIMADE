@@ -1377,7 +1377,10 @@ The response for these endpoints MUST include the following information in the :
 
     **Note**: Future versions of the OPTIMADE API will deprecate this format and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
 
-Example (note: the description strings have been wrapped for readability only):
+An example of the data part of the entry listing info endpoint response follows below, however, note that:
+
+- The description strings have been wrapped for readability only (newline characters are not allowed inside JSON strings)
+- The properties in the example, 'nelements' and 'lattice_vectors', mimick OPTIMADE standard properties, but are given here with simplified definitions compared to the standard definitions for these properties.
 
 .. code:: jsonc
 
@@ -1418,6 +1421,7 @@ Example (note: the description strings have been wrapped for readability only):
             "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
             "title": "Lattice vectors",
             "x-optimade-definition": {
+              "label": "lattice_vectors_optimade_structures"
               "kind": "property",
               "format": "1.2",
               "version": "1.2.0",
@@ -2040,10 +2044,11 @@ The format of Property Definitions defined below allows nesting inner Property D
 To make a property definition expressible in any output format, the fields of the property definition below are specified using OPTIMADE data types.
 When a property definition is communicated using a specific data format (e.g., JSON), the property definition is implemented in that data format by mapping the OPTIMADE data types into the corresponding data types for that output format.
 
-Property Definitions are regarded as equal and SHOULD share the same value of the :field:`$id` field if, and only if, all the fields are the same except for the fields described below as "annotations" to the definition.
-In this context, the nullability of a property as a whole is *not* meant to be dictated by the Property Definition itself, but rather the layer above it, e.g., a Property Definition that embeds it.
-Hence, the appearance of :val:`"null"` in the `type` field is also regarded as an annotation in the above sense.
-For more information, see the `definition of the $id field`_ and the `definition of the type field`_.
+Clients are meant to be able to rely on that properties with the same :field:`$id` fields represents equivalently defined properties.
+Hence, when a Property Definition that has been published previously is updated, it is of major importance to decide if the update merely amend, annotate, or clarify the definition in a way that leaves it functionally the same and thus can retain the :field:`$id`, or whether the property is redefined.
+An example of an update that does not functionally change the definition is the addition or modification of the examples given in the :field:`examples` field.
+If a property is redefined, the redefinition MUST change the :field:`$id`.
+The nature of an updated definition can also be reflected in the subfield :field:`version` of :field:`x-optimade-definition`, which allows definitions to be versioned using the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard where the update is categorized on the levels of a patch, minor, or major change.
 
 A Property Definition MUST be composed according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
 
@@ -2053,31 +2058,45 @@ A Property Definition MUST be composed according to the combination of the requi
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
-- :field:`x-optimade-property`: Dictionary.
-  Additional information to define the property that is not covered by fields in the JSON Schema standard.
+.. _definition of the x-optimade-definition field:
+
+- :field:`x-optimade-definition`: Dictionary.
+  Additional information about the definition that is not covered by fields in the JSON Schema standard.
 
   **REQUIRED keys:**
 
   .. _definition of the property-format field:
 
-  - :field:`property-format`: String.
-    Specifies the minor version of the property definition format used.
+  - :field:`format`: String.
+    A string that declares the OPTIMADE definition format the definition adheres to.
+    Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
     The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
     The version number string MUST NOT be prefixed by, e.g., "v".
     In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
     A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
     This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
+  - :field:`kind`: String.
+    A string specifying what entity is being defined.
+    For Property Definitions this MUST be the string "property".
+
+  - :field:`name`: String.
+    An short identifier (as defined in `Definition of Terms`_) that provides a reasonable short non-unique name for the entity being defined.
+
+  - :field:`label`: String.
+    An extended identifier (as defined in `Definition of Terms`_) that describes the entity being defined in a way that is unique within a set of definitions provided together.
+    The label SHOULD start with the name.
+
+      Implementation notes:
+
+      The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as [RDF data](https://www.w3.org/TR/rdf-schema/) (see, e.g., rdfs:label).
+
   **OPTIONAL keys:**
 
   - :field:`version`: String.
-    This string indicates the version of the property definition.
+    This string indicates the version of the definition.
     The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
-
-  - :field:`units`: List.
-    A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
-    This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`.
-    See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
+    When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
 
   - :field:`resources`: List.
     A list of dictionaries that references remote resources that describe the property.
@@ -2103,10 +2122,35 @@ A Property Definition MUST be composed according to the combination of the requi
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
   See subsection `Physical Units in Property Definitions`_ for the details on how compound units are represented in OPTIMADE Property Definitions and the precise format of this string.
 
-**OPTIONAL keys at all nested levels of the Property Definition which are regarded as annotations to the Property Definition:**
+**OPTIONAL keys at all nested levels of the Property Definition:**
 
-The following fields should be seen as annotations to a Property Definition rather than an integral part of it.
-Property Defintions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
+- :field:`x-optimade-unit-definitions`: List.
+  A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
+  This field **MUST be included at the outermost level of a property definition** if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`, and it MUST include definitions of all units used on all levels in the property definition.
+  The field MAY also occur at deeper nesting levels (but this is not required).
+  If it does, the unit definitions provided MUST be redundant with those provided at higher nesting levels.
+  See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
+
+.. _definition of the x-optimade-dimensions field:
+
+- :field:`x-optimade-dimensions`: Dictionary.
+  Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
+  Each dimension is given a name and optionally a fixed size.
+
+  **REQUIRED keys:**
+
+    - :field:`names`: List of Strings.
+      A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+
+    - :field:`sizes`: List of Integers or :val:`null`.
+      A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+      The data only validates if the respective level consists of lists of exactly this length.
+      A value of `null` allows arbitrary-length lists at the corresponding level.
+
+    Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
+    Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
 
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
@@ -2217,8 +2261,10 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   If the second element is included, it MUST be the string :val:`"null"`.
   This two element form specifies that the defined property can be :val:`null`.
 
-  Specifically for the *outermost appearance* of this field in a Property Definition the inclusion or ommision of :val:`"null"` is regarded as an annotation rather than an integral part of the Property Definition.
-  Hence, Property Definitions that only differ by the inclusion of the :val:`"null"` value and other fields marked as annotations are considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
+  The inclusion or not of :val:`"null"` in the field :field:`type` for a subfield defined at a nested level by a Property Definition declares if that subfield is nullable.
+  Property Definitions for which the nullability of a subfield differs MUST NOT share the same :field:`$id`.
+  However, the nullability of the subfield SHOULD NOT be taken into account when comparing the nested Property Definition for that subfield with other definitions, i.e., a nullable and non-nullable subfield that are otherwise defined the same SHOULD share the same :field:`$id`.
+  Hence, formally OPTIMADE Property Definitions regard nullability of a subfield to belong one level *above* where it appears in the JSON Schema definition.
 
     Implementation notes:
 
@@ -2234,19 +2280,14 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`$schema`: String.
   A URL for a meta schema that describes the Property Definitions format.
-  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/property_definitions.yaml".
+  For Property Definitions adhering to the format described in this document, it should be set to: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition.json".
 
 .. _definition of the $id field:
 
 - :field:`$id`: String.
   A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
-  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-  Property Definitions SHOULD be regarded as the same if they only differ by:
-
-  - The inclusion or omission of :val:`"null"` in the :field:`type` in the outermost layer of the definition.
-  - Additions of annotating notes to end of the :field:`description` field.
-  - Changes to the following specific fields at any level: :field:`deprecated`, :field:`examples`, :field:`$comment`, :field:`x-optimade-implementation`, and :field:`x-optimade-requirements`.
+  It SHOULD NOT be changed as long as the property definition remains the same, and MUST be changed when the property definition changes.
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
@@ -2259,19 +2300,30 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`__.
   When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
 
-  Additions appended to the end of the :field:`description` field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Property Definition rather than an integral part of it.
-  Such annotations SHOULD only be added to the end of an otherwise unmodified :field:`description` and MUST NOT change the meaning or interpretation of the text above them.
-  The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
-  For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
-
 **OPTIONAL keys**
+
+- :field:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should normally not be shown to the end users.
+  Comments pertaining to the Property Definition that are relevant to end users should go into the field :field:`description`.
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
+
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
+  If :val:`FALSE`, the defined property is not deprecated.
+  The field not being present means :val:`FALSE`.
+  A Property Definition marked as deprecated is generally considered to be the same as its non-deprecated counterpart, i.e., it SHOULD retain its :field:`$id`.
+
+- :field:`examples`: List.
+  A list of example values that the defined property can have.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
   The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
   If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
 
-Depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
+Furthermore, depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
 
 - :val:`"object"`:
 
@@ -2311,17 +2363,12 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
 
   **OPTIONAL**
 
-  - :field:`maxItems`: Integer.
-    A non-negative integer.
-    The defined property is an array that MUST contain a number of items that is less than or equal to the given integer.
-
-  - :field:`minItems`: Integer.
-    A non-negative integer.
-    The defined property is an array that MUST contain a number of items that is greater than or equal to the given integer.
-
   - :field:`uniqueItems`: Boolean.
     If :val:`TRUE`, the defined property is an array that MUST only contain unique items.
     If :val:`FALSE`, this field sets no limitation on the defined property.
+
+  Furthermore, despite being defined in the JSON Schema standard, the fields :field:`minItems` and :field:`maxItems` MUST NOT be used to indicate limits of the number of items of a list.
+  See the `definition of the x-optimade-dimension field`_ for more information.
 
 - :val:`"integer"`:
 
@@ -2388,26 +2435,6 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI according to :RFC:`3986`.
     - :val:`"iri"`: a string instance is valid against this attribute if it is a valid IRI according to :RFC:`3987`.
 
-**OPTIONAL keys which are regarded as annotations to a Property Definition**
-
-These fields are annotations rather than an integral parts of the Property Definition.
-Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field`_ SHOULD share the same :field:`$id`.
-
-- :field:`$comment`: String.
-  A human-readable comment relevant in the context of the raw definition data.
-  These comments should normally not be shown to the end users.
-  Comments pertaining to the Property Definition that are relevant to end users should go into the field :field:`description`.
-  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
-
-- :field:`deprecated`: Boolean.
-  If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
-  If :val:`FALSE`, the defined property is not deprecated.
-  The field not being present means :val:`FALSE`.
-
-- :field:`examples`: List.
-  A list of example values that the defined property can have.
-  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
-
 A complete example of a Property Definition is found in the appendix `Property Definition Example`_.
 
 Physical Units in Property Definitions
@@ -2427,31 +2454,21 @@ The physical unit of a property, the embedded items of a list, or values of a di
 - All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`units` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition, or in the :field:`units` field in the Entry info endpoint (the latter is only possible for Property Definitions embedded in such a response).
 - The :field:`units` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in `Physical Unit Definitions`_.
 
-A standard set of symbols for units, constants and prefixes for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
-If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units (with or without prefixes, see below), the value of :field:`x-optimade-unit` SHOULD use the (compound) string symbol and the corresponding definitions of the (prefixed) symbols used SHOULD be given in the field :field:`standard`.
-
-The unit symbols used from the GNU Units MAY be prefixed by one (but not more than one) of the prefixes defined in the ``definitions.units`` file.
-A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
-If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
-If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
-For example, the GNU Units database defines the symbol :val:`"km"` for kilometers by a combination of the ``k-`` SI kilo prefix and the ``m`` symbol for the SI meter unit.
-The prefixed unit symbol, e.g., :val:`"km"` is viewed as a single symbol for the purpose of forming a Compound Unit Expression and when defining the symbol in the field :field:`standard`.
-
-Furthermore:
-
-- If multiple symbols referencing the same unit or constant are present in the file, the *first one* consisting of only lowercase letters ``a-z`` and underscores ``_``, but no other characters, SHOULD be used.
-
 Compound Unit Expressions
 -------------------------
 
-A Compound Unit Expression is formed by a sequence of symbols for units and constants separated by a single multiplication ``*`` character.
+A Compound Unit Expression is formed by a sequence of symbols for units or constants separated by a single multiplication ``*`` character.
 Each symbol can also be suffixed by a single ``^`` character followed by a positive or negative integer to indicate the power of the preceding symbol, e.g., ``m^3`` for cubic meter, ``m^-3`` for inverse cubic meter.
 (Positive integers MUST NOT be preceded by a plus sign.)
+Each unit or constant symbol MAY be directly prefixed by a prefix symbol.
+A prefix symbol MUST be directly followed by a unit symbol, i.e., it MUST NOT be used on its own, and MUST NOT be followed by ``^`` to indicate a power.
+When defining prefix symbols it is important to ensure that they do not introduce ambiguity.
+If there are ambiguous interpretations of a symbol as either having or not having a prefix, it MUST be interpreted as a unit without a prefix.
 
 Furthermore:
 
 - No whitespace, parentheses, or other symbols than specified above are permitted.
-- The unit and constant symbols MUST appear in alphabetical order.
+- The (prefixed) unit and constant symbols MUST appear in alphabetical order.
 
 Physical Unit Definitions
 -------------------------
@@ -2462,7 +2479,10 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
 - :field:`$schema`: String.
   A URL for a meta schema that describes the Physical Unit Definitions format.
-  For Property Definitions adhering to the format described in this document, it should be set to: "https://schema.optimade.org/meta/v1.2.0/optimade/physical_unit_definitions.yaml".
+  For Property Definitions adhering to the format described in this document, it should be set to: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition.json".
+
+- :field:`x-optimade-definition`: Dictionary.
+  The same field as defined in the `definition of the x-optimade-definition field`_ for Property Definitions but where the :field:`kind` subfield MUST be :val:`unit`.
 
 .. _definition of the $id field in Physical Unit Definitions:
 
@@ -2489,8 +2509,10 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
   For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
 
+**OPTIONAL keys:**
+
 - :field:`standard`: Dictionary.
-  This field is used to define the unit symbol using a preexisting standard.
+  This field is used to express that the unit is part of a preexisting standard.
   The dictionary has the following format:
 
   **REQUIRED keys:**
@@ -2499,23 +2521,42 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     The abbreviated name of the standard being referenced.
     One of the following:
 
-    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
-    - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
-    - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
+    - :val:`"si"`: the symbol is defined as part of the SI standard of unit symbols and prefixes.
+    - :val:`"codata"`: the symbol is defined as part of one of the CODATA series of publications.
+    - :val:`"iso-iec-80000"`: the symbol is defined in the iso-iec-80000 standard.
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__.
+
+      A standard set of symbols for units and prefixes for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
+      A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
+      If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units and prefixes, the value of :field:`x-optimade-unit` SHOULD use the (compound) string symbol.
+      If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
+      If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
+      For example, the GNU Units database defines the symbol :val:`"km"` for kilometers by a combination of the ``k-`` SI kilo prefix and the ``m`` symbol for the SI meter unit.
+
+    - :val:`"ucum"`: the symbol is defined in `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
+    - :val:`"qudt"`: the symbol is defined in the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
+
+  - :field:`symbol`: String.
+    The symbol to use from the referenced standard, expressed according to that standard.
+    The field MAY use mathematical expressions written the same way as described in the `definition of the description field`_.
+    This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
+    However, if possible, the `symbol` fields SHOULD be the same.
+
+  **OPTIONAL keys:**
 
   - :field:`version`: String.
     The version string of the referenced standard.
 
-  - :field:`symbol`: String.
-    The symbol to use from the referenced standard, expressed according to that standard.
-    This field MAY be different from :field:`symbol` directly under :field:`units`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
-    However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
+  - :field:`year`: Integer.
+    The year that the standard adopted the definition.
 
-**OPTIONAL keys:**
+  - :field:`category`
+    The category of the definition in case the standard uses categories to organize definitions.
 
 - :field:`alternate-symbols`: List of String.
   A list of other symbols that are commonly associated with the unit.
+  The stings MAY use mathematical expressions written the same way as described in the `definition of the description field`_.
 
 - :field:`property-format`: String.
   Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
@@ -2576,6 +2617,10 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
     These three fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by 10 to the power of :field:`exponent`.
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 1, 1, and 0.
+
+    - :field:`standard_uncertainty`: Float.
+      The standard uncertainty of the value used in the defining relation.
+      Some definitions define an entity (e.g. a constant) to a specific value along with an uncertainty of that value.
 
   - :field:`offset`: Dictionary.
     A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
@@ -2641,11 +2686,6 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
   The values for :field:`scale` and :field:`offset` take the same meaning as in the `definition of defining-relation`_ to express a relationship between the unit being defined and the compound unit expression in :field:`base-units-expression`.
 
-**OPTIONAL keys which are regarded as annotations to a Physical Unit Definition**
-
-These field are annotations rather than integral parts of the Physical Unit Definition.
-Physical Unit Defintions that only differ by fields that are considered annotations are to be considered the same, and as explained in the `definition of the $id field in Physical Unit Definitions`_ SHOULD share the same :field:`$id`.
-
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the unit defined in this Physical Unit Definition.
   If :val:`FALSE`, the unit defined in this Physical Unit Definition is not deprecated.
@@ -2658,6 +2698,22 @@ Physical Unit Defintions that only differ by fields that are considered annotati
   Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_ of Property Definitions.
 
 An example of a Physical Unit Definition, including a defining relation that involves more than one other unit, is embedded in the example of a Property Definition in the appendix `Property Definition Example`_.
+
+Prefixes and constants
+----------------------
+
+Prefixes and constants are defined in OPTIMADE using nearly identical schemas as the one for units in `Physical Unit Definitions`_.
+The only difference is that for prefixes:
+
+- The :field:`$schema` SHOULD be set to: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition.json".
+
+- The subfield :field:`kind` of the field :field:`x-optimade-definition` MUST be :val:`prefix`.
+
+And for Constants:
+
+- The :field:`$schema` SHOULD be set to: "https://schemas.optimade.org/meta/v1.2/optimade/constant_definition.json".
+
+- The subfield :field:`kind` of the field :field:`x-optimade-definition` MUST be :val:`constant`.
 
 Unrecognized keys in property definitions
 -----------------------------------------
