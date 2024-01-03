@@ -2782,6 +2782,7 @@ space\_group\_symmetry\_operations\_xyz
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+
     - The property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
     - The property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
     - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
@@ -2797,8 +2798,9 @@ space\_group\_symmetry\_operations\_xyz
   - If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
 
 - **Examples**:
-  - Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, extended H-M symbol: `P 1 2 1`, Hall symbol `P 2y`): :val:`["x,y,z", "-x,y,-z"]`
-  - Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`): :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
+
+  - Space group operations for the space group with ITC number 3 (H-M symbol `P 2`, extended H-M symbol `P 1 2 1`, Hall symbol `P 2y`): :val:`["x,y,z", "-x,y,-z"]`
+  - Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol `C 1 2 1`, Hall symbol `C 2y`): :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
 - **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
@@ -2858,6 +2860,7 @@ space\_group\_symbol\_hermann\_mauguin
   - The symbol MAY be a non-standard short H-M symbol.
   - The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
   - To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
+
     - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
     - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
     - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
