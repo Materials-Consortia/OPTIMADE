@@ -1022,7 +1022,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON:API specificatio
   See `JSON:API 1.1 <https://jsonapi.org/format/1.1/#fetching-pagination>`__.
   The API implementation MUST return no more than the number specified.
   It MAY return fewer.
-  The database MAY have a maximum limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned).
+  The database MAY have a maximum limit and not accept larger numbers (in which case the :http-error:`403 Forbidden` error code MUST be returned).
   The default limit value is up to the API implementation to decide.
   Example: :query-url:`http://example.com/optimade/v1/structures?page_limit=100`
 
