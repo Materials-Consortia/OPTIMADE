@@ -881,6 +881,7 @@ An example of a full response:
 
 - **@context**: A JSON-LD context that enables interpretation of data in the response as linked data.
   If provided, it SHOULD be one of the following:
+
   - An object conforming to a JSON-LD standard, which includes a :field:`@version` field specifying the version of the standard.
   - A string containing a URL that resolves to such an object.
 
