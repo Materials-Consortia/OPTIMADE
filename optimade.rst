@@ -2435,7 +2435,9 @@ Furthermore, depending on what string the :field:`type` is equal to, or contains
     - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
     - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI according to :RFC:`3986`.
     - :val:`"iri"`: a string instance is valid against this attribute if it is a valid IRI according to :RFC:`3987`.
-
+  - :field:`pattern`: String.
+    This string SHOULD be a valid regular expression, according to the ECMA-262 regular expression dialect.
+    A string instance is considered valid if the regular expression matches the instance successfully. Recall: regular expressions are not implicitly anchored.
 A complete example of a Property Definition is found in the appendix `Property Definition Example`_.
 
 Physical Units in Property Definitions
