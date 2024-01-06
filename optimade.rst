@@ -3960,3 +3960,29 @@ An example of the sparse layout for multidimensional lists with three aggregated
     [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
     [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
     ["PARTIAL-DATA-END", [""]]
+
+OPTIMADE Regular Expression Format
+----------------------------------
+This section defines a string representation for regular expressions (regexes) to be referred to from other parts of the specification.
+This format will be referred to as an "OPTIMADE regex."
+Depending on the context, a delimiter may be required to enclose the regex (e.g., double quotes or a slash character), and some outer-level escape rule may apply (e.g., to distinguish an enclosing double quote from one that is part of the regex).
+Such delimiters and escape rules are not defined as part of the OPTIMADE regex format itself and has to be clarified when this format is referenced.
+
+The format is a subset of the format described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__.
+The format is closely inspired by the subset recommended in the JSON schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
+However, OPTIMADE has decided to restrict the subset further to better align with the features available in common database backends and clarified that the escape character token can be used with the meaning defined by ECMA-262, section 21.2.1.
+
+Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__ (when processed with Unicode support) that only uses the following tokens and features (this list is partially quoted from the JSON Schema standard):
+
+- Individual Unicode characters, as defined by the `JSON specification <https://json-schema.org/draft/2020-12/json-schema-core#RFC8259>`__.
+- The escape character (``\``) with the functionality described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__.
+- Simple character classes (e.g., ``[abc]``) and range character classes (e.g., ``[a-z]``).
+- Complemented character classes (e.g., ``[^abc]``, ``[^a-z]``)
+- Simple quantifiers: ``+`` (one or more), ``*`` (zero or more), ``?`` (zero or one).
+- The beginning-of-input (``^``) and end-of-input (``$``) anchors.
+- Simple grouping (``(...)``) and alternation (``|``).
+
+Note that compared to the JSON Schema standard, lazy quantifiers (``+?``, ``*?``, ``??``) are NOT included, nor are range quantifiers (``{x}``, ``{x,y}``, ``{x,}``).
+
+Unless explicitly anchored, the expression is evaluated unanchored.
+For example, the OPTIMADE regex "es" matches "expression".
