@@ -108,7 +108,28 @@ properties:
       query-support: "none"
       response-level: "yes"
 
-  space_group_hall:
+  space_group_symmetry_operations_xyz:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
+
+  space_group_symbol_hall:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
+
+  space_group_symbol_hermann_mauguin:
+    x-optimade-implementation:
+      support: "no"
+      sortable: false
+      query-support: "none"
+      response-level: "no"
+
+  space_group_symbol_hermann_mauguin_extended:
     x-optimade-implementation:
       support: "no"
       sortable: false

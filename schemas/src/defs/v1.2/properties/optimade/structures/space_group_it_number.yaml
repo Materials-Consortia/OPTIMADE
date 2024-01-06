@@ -17,7 +17,7 @@ description: |-
   **Requirements/Conventions**:
 
   - The integer value MUST be between 1 and 230.
-  - MUST be null if `nperiodic_dimensions` is not equal to 3.
+  - MUST be `null` if `nperiodic_dimensions` is not equal to 3.
 examples:
   - 42
 x-optimade-unit: "unapplicable"

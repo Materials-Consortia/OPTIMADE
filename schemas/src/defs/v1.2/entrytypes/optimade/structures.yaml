@@ -124,8 +124,32 @@ properties:
       response-level: "may"
       query-support: "none"
 
-  space_group_hall:
-    $$inherit: "/v1.2/properties/optimade/structures/space_group_hall"
+  space_group_symmetry_operations_xyz:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symmetry_operations_xyz"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hall:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symbol_hall"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hermann_mauguin:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symbol_hermann_mauguin"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hermann_mauguin_extended:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symbol_hermann_mauguin_extended"
     x-optimade-requirements:
       support: "may"
       sortable: false
