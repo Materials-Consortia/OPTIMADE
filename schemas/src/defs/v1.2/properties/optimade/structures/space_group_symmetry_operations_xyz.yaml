@@ -40,3 +40,5 @@ examples:
   - ["x,y,z", "-x,y,-z"]
   - ["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]
 x-optimade-unit: "unapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/common/space_group_symmetry_operation_xyz"
