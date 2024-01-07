@@ -3965,12 +3965,12 @@ OPTIMADE Regular Expression Format
 ----------------------------------
 This section defines a string representation for regular expressions (regexes) to be referred to from other parts of the specification.
 This format will be referred to as an "OPTIMADE regex."
-Depending on the context, a delimiter may be required to enclose the regex (e.g., double quotes or a slash character), and some outer-level escape rule may apply (e.g., to distinguish an enclosing double quote from one that is part of the regex).
-Such delimiters and escape rules are not defined as part of the OPTIMADE regex format itself and has to be clarified when this format is referenced.
+Depending on the context, a delimiter may be required to enclose the regex (e.g., double quotes or a slash character), and some outer-level escape rules may apply (e.g., to distinguish an enclosing double quote from one that is part of the regex).
+Such delimiters and escape rules are not defined as part of the OPTIMADE regex format itself and have to be clarified when this format is referenced.
 
 The format is a subset of the format described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__.
 The format is closely inspired by the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
-However, OPTIMADE has decided to restrict the subset further to better align with the features available in common database backends and clarified that the escape character token can be used with the meaning defined by ECMA-262, section 21.2.1.
+However, OPTIMADE has decided to restrict the subset further to better align it with the features available in common database backends and clarified that the escape character token can be used with the meaning defined by ECMA-262, section 21.2.1.
 
 Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__ (when processed with Unicode support) that only uses the following tokens and features (this list is partially quoted from the JSON Schema standard):
 
