@@ -16,14 +16,14 @@ description: |-
   **Requirements/Conventions**:
 
   - The symmetry operation is described in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
-
+  - The interpretation of the string MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
   - The letters `x`, `y` and `z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as `-x`, `-y` and `-z`, respectively.
-  - The syntax of the string representing a symmetry operation MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
+  - The syntax of the string representing a symmetry operation MUST conform to regular expressions given in the OPTIMADE specification appendix 'The Symmetry Operation String Regular Expressions'.
 
   **Bibliographic References**
 
-  - Bradley, C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. ISBN `978-0-19-958258-7 <https://isbnsearch.org/isbn/9780199582587>`__.
-  - IUCr (2023) Core dictionary (coreCIF) version 2.4.5; data name `\_space\_group\_symop\_operation\_xyz`. Available from: https://www.iucr.org/__data/iucr/cifdic_html/1/cif_core.dic/Ispace_group_symop_operation_xyz.html [Accessed 2023-06-18T16:46+03:00].
+  - Bradley, C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. [ISBN 978-0-19-958258-7](https://isbnsearch.org/isbn/9780199582587>).
+  - IUCr (2023) Core dictionary (coreCIF) version 2.4.5; data name `_space_group_symop_operation_xyz`. Available from: [https://www.iucr.org/__data/iucr/cifdic_html/1/cif_core.dic/Ispace_group_symop_operation_xyz.html](https://www.iucr.org/__data/iucr/cifdic_html/1/cif_core.dic/Ispace_group_symop_operation_xyz.html) [Accessed 2023-06-18T16:46+03:00].
 examples:
   - "x,y,z"
   - "-x,y,-z"
