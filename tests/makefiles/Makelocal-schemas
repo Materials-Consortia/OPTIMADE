@@ -10,6 +10,9 @@ PROCESS_SCHEMAS=dependencies/submodules/optimade-property-tools/bin/process_sche
 BASEDIR = schemas/src/defs/
 BASEID = https://schemas.optimade.org/defs/
 
+BASEDIR_META = schemas/src/meta/
+BASEID_META = https://schemas.optimade.org/meta/
+
 ifeq ($(origin schemas_html_pretty), undefined)
 	OPTIMADE_HTML_HEADER ?=
 	OPTIMADE_HTML_TOP ?=
@@ -136,7 +139,7 @@ schemas_releases: schemas_build
 # Meta schemas need a separate rule since the other rules depend on the meta schemas for validation (and the meta schemas cannot depend on themselves)
 $(META_SCHEMAS_JSON): schemas/output/meta/%.json: schemas/src/meta/%.yaml | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	$(PROCESS_SCHEMAS) --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+	$(PROCESS_SCHEMAS) --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR_META)" --baseid "$(BASEID_META)" $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
 $(DEFINITIONS_JSON) $(OTHER_SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
