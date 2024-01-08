@@ -202,24 +202,11 @@ To generate JSON-LD contexts that include database-specific properties, see [Cre
 ## Creating database-specific definitions
 
 Database providers may want to use the OPTIMADE repository framework for property definitions to generate their own definition files for database-specific properties.
-The repository provides a directory `schemas/src/example` to help with this.
+There is a repository provided via OPTIMADE that contains example files for this:
 
-The example demonstrates a typical situation where:
+- https://github.com/Materials-Consortia/optimade-property-tools
 
-- The `structures` and `files` entry types are inherited from the standard source files and extended with implementation-specific information in `x-optimade-implementation`.
-- A couple of extra database-specific properties (`_exmpl_cell_volume`, `_exmpl_magnetic_moment`) are defined and added to the extended `structures` entry type.
-- Files to be used for `json-ld` and `json-schema` validation are generated with the necessary modifications.
-
-A recommended workflow is:
-
-* Copy `schemas/src/example` into a working directory of your own, e.g., `schemas/src/my-database`.
-* Edit the settings related to the specifics of the database, e.g., the domain name used for the static URIs, in the Makefile `GNUMakefile` in this directory.
-* Edit the content under `src` in this directory.
-* Execute `make` to processes the files into `output`, similarly to how the OPTIMADE standard definition files are processed.
-
-If you want to host your definitions online, serve the contents of `output` at the appropriate base URL, e.g., `https://example.com/schemas/`.
-
-Note that the parameters `schemas_html_pretty=true` and `schemas_html_ext=true` documented under [Property Definitions in the OPTIMADE repository](property_definitions_in_the_optimade_repository) also works here.
+Please see the instructions provided in the README.md file of that repository.
 
 
 ## Contributing standard definitions to OPTIMADE
