@@ -20,6 +20,7 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
+        submodules: 'true'
     - name: Install dependencies
       run: pip install pre-commit==2.8.2
     - name: Run pre-commit tests

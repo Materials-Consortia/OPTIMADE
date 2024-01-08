@@ -1,0 +1,3 @@
+[submodule "dependencies/submodules/optimade-property-tools"]
+	path = dependencies/submodules/optimade-property-tools
+	url = https://github.com/Materials-Consortia/optimade-property-tools.git
