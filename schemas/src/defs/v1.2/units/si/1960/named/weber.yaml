@@ -24,7 +24,7 @@ defining-relation:
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
     - symbol: "s"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/second"
-  base-units-expression: "ampere^-1*kg*m^2*s^-3"
+  base-units-expression: "A^-1*kg*m^2*s^-3"
 standard:
   name: "si"
   year: 1960

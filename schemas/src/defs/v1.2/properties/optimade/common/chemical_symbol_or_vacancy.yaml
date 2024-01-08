@@ -9,7 +9,7 @@ x-optimade-definition:
   format: "1.2"
   name: "chemical_symbol_or_vacancy"
 description: |-
-  A chemical symbol refering to an element, a non-chemical element, or a vacancy.
+  A chemical symbol referring to an element, a non-chemical element, or a vacancy.
 
   **Requirements/Conventions:**
 
@@ -17,7 +17,7 @@ description: |-
 
     - a valid chemical-element symbol, or
     - the special value `"X"` to represent a non-chemical element, or
-    - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy (the respective probability is indicated in the `concentration` list, see below).
+    - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy.
 x-optimade-unit: inapplicable
 examples:
   - "He"

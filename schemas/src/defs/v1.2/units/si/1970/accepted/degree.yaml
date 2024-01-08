@@ -6,9 +6,9 @@ display-symbol: "°"
 description: |-
   A unit of plane and phase angle where a full circle is 360 degrees, which is equivalent to pi/180 rad, with rad defined according to the 1960 SI units.
 
-  The degree appear in the International System of Units (SI), 1th ed. (1970) defined as "1° = (pi/180) rad".
+  The degree appear in the International System of Units (SI), 1st ed. (1970) defined as "1° = (pi/180) rad".
 
-  - The International System of Units (SI), 1th ed. (1970) categorizes the unit as "Units in use with the International System."
+  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "Units in use with the International System."
   - The International System of Units (SI), 7th ed. (1998) adds as a footnote: "ISO 31 recommends that the degree be subdivided decimally rather than using the minute and second."
   - The International System of Units (SI), 8th ed. (2006) further adds to that footnote: "For navigation and surveying, however, the minute has the advantage that one minute of latitude on the surface of the Earth corresponds (approximately) to one nautical mile."
   - The International System of Units (SI), 9th ed. (2019) replaces the footnote with: "For some applications such as in astronomy, small angles are measured in arcseconds (i.e. seconds of plane angle), denoted as or ′′, or milliarcseconds, microarcseconds and picoarcseconds, denoted mas, μas and pas, respectively, where arcsecond is an alternative name for second of plane angle."

@@ -2620,10 +2620,11 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
     - :field:`numerator`: Integer.
     - :field:`denominator`: Integer.
+    - :field:`base`: Integer.
     - :field:`exponent`: Integer.
 
-    These three fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by 10 to the power of :field:`exponent`.
-    If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 1, 1, and 0.
+    These four fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by :field:`base` to the power of :field:`exponent`.
+    If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, :field:`base`, and :field:`exponent` are respectively 1, 1, 10, and 0.
 
     - :field:`standard_uncertainty`: Float.
       The standard uncertainty of the value used in the defining relation.

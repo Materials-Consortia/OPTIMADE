@@ -9,7 +9,7 @@ x-optimade-definition:
   format: "1.2"
   name: "chemical_symbol"
 description: |-
-  A chemical symbol refering to an element or a non-chemical element.
+  A chemical symbol referring to an element or a non-chemical element.
 
   **Requirements/Conventions:**
 

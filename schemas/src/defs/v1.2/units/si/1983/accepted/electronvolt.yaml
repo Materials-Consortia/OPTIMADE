@@ -6,13 +6,13 @@ display-symbol: "eV"
 description: |-
   A unit of energy equal to the amount of kinetic energy acquired by an electron as it accelerates through a 1 volt potential difference in a vacuum using the 1967 SI units.
 
-  The electronvolt appear in the International System of Units (SI), 1th ed. (1970) defined as "1 electronvolt is the energy acquired by an electron after traversing a potential difference of 1 V in a vacuum; 1 eV = 1.60219×10⁻¹⁹ J approximately."
+  The electronvolt appear in the International System of Units (SI), 1st ed. (1970) defined as "1 electronvolt is the energy acquired by an electron after traversing a potential difference of 1 V in a vacuum; 1 eV = 1.60219×10⁻¹⁹ J approximately."
   The definition makes the unit equal to 1 volt times the experimentally determined value of the elementary charge.
   Later editions update the approximate relation to use the respectively recommended value by CODATA at the time.
 
   In the 1983 redefinition of the electron volt, the volt refers to the 1983 volt derived named SI unit (https://schemas.optimade.org/defs/v1.2/units/si/1983/named/volt).
 
-  - The International System of Units (SI), 1th ed. (1970) categorizes the unit as "units for use with the SI in specific domains."
+  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "units for use with the SI in specific domains."
   - The International System of Units (SI), 2th ed. (1973) categorizes the unit as "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally."
 
   Following the redefinitions of the SI units 2019, the electronvolt has an exact relationship to the joule, hence the International System of Units (SI), 9th ed. (2019) notes "1 eV = 1.602176634·10⁻¹⁹ J" and categorizes the unit as "Non-SI units accepted for use with the SI units".
