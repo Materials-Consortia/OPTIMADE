@@ -9,6 +9,7 @@ patternProperties:
   "^_": {}
 properties:
   $id:
+    $$inherit: "/v1.2/common/id"
     description: |-
       A static IRI identifier that is a URN or URL representing the specific version of the definition.
 
@@ -20,7 +21,6 @@ properties:
       - Changes to the fields `deprecated` and `$comment` on any level.
 
       Note that this means that the version number part of the URL is *retained* even in newer releases of the OPTIMADE standard as long as the definition remains functionally identical.
-    type: string
   $comment:
     type: string
   $schema:
@@ -35,6 +35,12 @@ properties:
       properties:
         base-units:
           $$inherit: "/v1.2/common/symbol_list"
+          items:
+            properties:
+              id:
+                description: "The IRI of one of the units referenced in the dimensional formula for the defining relation."
+              symbol:
+                description: "The symbol used to reference this unit in the dimensional formula."
         base-units-expression:
           type: string
         offset:
@@ -66,7 +72,7 @@ properties:
   compatibility:
     type: array
     items:
-      type: string
+      $$inherit: "/v1.2/common/id"
   defining-relation:
     description: |-
        A dictionary that encodes a defining relation to a unit or set of units, with the primary intended use of reproduce the definition of the entity in SI units, if such a relationship exists.
@@ -78,23 +84,13 @@ properties:
       "^_": {}
     properties:
       base-units:
+        $$inherit: "/v1.2/common/symbol_list"
         items:
-          additionalProperties: False
-          patternProperties:
-            "^_": {}
           properties:
             id:
               description: "The IRI of one of the units referenced in the dimensional formula for the defining relation."
-              format: uri
-              type: string
             symbol:
               description: "The symbol used to reference this unit in the dimensional formula."
-              type: string
-          required:
-          - symbol
-          - id
-          type: object
-        type: array
       base-units-expression:
         description: |-
           A string expressing the base units part of the defining relation for the unit being defined.

@@ -230,6 +230,7 @@ $defs:
           The regular expression is not implicitly anchored, i.e., it can match the string at any position unless the expression contains a leading '^' or a trailing '$'.
         type: "string"
       $id:
+        $$inherit: "/v1.2/common/id"
         description: |-
           A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
           (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
@@ -238,7 +239,6 @@ $defs:
           - The inclusion or omission of "null" in the type in the outermost layer of the definition.
           - Additions of annotating notes to end of the description field.
           - Changes to the following specific fields at any level: deprecated, examples, $comment, x-optimade-implementation, and x-optimade-requirements.
-        type: string
       $schema:
         description: |-
           A normalized URI for a meta-schema that validates the Property Definition.
@@ -399,6 +399,15 @@ $defs:
           $comment:
             type: string
         type: object
+      x-optimade-metadata-definition:
+        description: |-
+          A dictionary that is a property definition of a dictionary-type property that defines all metadata properties.
+        allOf:
+          - $ref: '#/$defs/propdef'
+          - properties:
+              type:
+                enum:
+                  - ["object", "null"]
       $comment:
         description: |-
           A human-readable comment relevant in the context of the raw definition data.

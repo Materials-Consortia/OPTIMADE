@@ -4,11 +4,16 @@ title: "Symbol List"
 description: "A list of dictionaries that associate and id with a symbol"
 items:
   additionalProperties: False
+  patternProperties:
+    "^_": {}
   properties:
     id:
-      format: uri
+      description: "The IRI of one of the referenced entity."
+      format: "uri"
       type: string
     symbol:
+      description: "The symbol used to reference this entity."
+      pattern: ^[a-zA-Z_][a-zA-Z_0-9]*$
       type: string
   required:
   - symbol

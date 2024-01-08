@@ -548,24 +548,25 @@ Example of a response in the JSON response format with two structure entries tha
 
 Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
 
-    .. code:: jsonc
-         // ...
-         "x-optimade-metadata-definition": {
-           "title": "Metadata for the element_ratios field",
-           "description": "This field contains the per-entry metadata for the element_ratios field.",
-           "x-optimade-type": "dictionary",
+.. code:: jsonc
+     // ...
+     "x-optimade-metadata-definition": {
+       "title": "Metadata for the element_ratios field",
+       "description": "This field contains the per-entry metadata for the element_ratios field.",
+       "x-optimade-type": "dictionary",
+       "x-optimade-unit": "inapplicable",
+       "type": ["object", "null"],
+       "properties": {
+         "_exmpl_originates_from_project": {
+           "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+           "description": "A string naming the internal example.com project id where this property was added to the database.",
+           "x-optimade-type": "string",
            "x-optimade-unit": "inapplicable",
-           "type": ["object", "null"],
-           "properties" : {
-             "_exmpl_originates_from_project": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
-               "description" : "A string naming the internal example.com project id where this property was added to the database.",
-               "x-optimade-type": "string",
-               "x-optimade-unit" : "inapplicable"
-             }
-           }
+           "type": ["string"]
          }
-         // ...
+       }
+     }
+     // ...
 
 Responses
 =========

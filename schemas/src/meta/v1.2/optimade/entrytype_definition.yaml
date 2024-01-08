@@ -5,7 +5,7 @@ type: object
 required: ["$id", "$schema", "x-optimade-definition", "title", "type", "properties"]
 properties:
   "$id":
-    type: string
+    $$inherit: "/v1.2/common/id"
   "$schema":
     type: string
   type:
