@@ -5,7 +5,9 @@
 # Use "make schemas schemas_html_ext=true" to generate html files with .html extensions also for files meant to be served
 # without extensions, which is useful for hosting, e.g., on github that automatically redirects URLs without extensions.
 
+# Dependencies from optimade-property-tools
 PROCESS_SCHEMAS=dependencies/submodules/optimade-property-tools/bin/process_schemas
+EXT_SCHEMAS := $(filter-out dependencies/submodules/optimade-property-tools/external/json-schema/LICENSE, $(wildcard dependencies/submodules/optimade-property-tools/external/json-schema/*))
 
 BASEDIR = schemas/src/defs/
 BASEID = https://schemas.optimade.org/defs/
@@ -43,7 +45,6 @@ else
 	DEFINITIONS_HTML_EXT = .html
 endif
 
-EXT_SCHEMAS := $(filter-out external/json-schema/LICENSE, $(wildcard external/json-schema/*))
 EXT_SCHEMAS_ARGS := $(foreach schema,$(EXT_SCHEMAS),--schema $(schema))
 
 DEF_INDEXES_HTML = schemas/output/defs/index.html
@@ -64,14 +65,18 @@ endif
 .PHONY: submodule-optimade-property-tools
 
 submodule-optimade-property-tools:
-	@if git submodule status dependencies/submodules/optimade-property-tools | egrep -q '^[-+]' ; then \
+	@if [ ! -e "dependencies/submodules/optimade-property-tools/bin/process_schemas" ] ; then \
                 echo "*************************************************************************************************************************"; \
 		echo "ERROR: The optimade-property-tools submodule is required to build the OPTIMADE schemas. Please run the following command:"; \
 		echo "git submodule update --init dependencies/submodules/optimade-property-tools"; \
                 echo "*************************************************************************************************************************"; \
 		false; \
+	elif git submodule status dependencies/submodules/optimade-property-tools | egrep -q '^[-+]' ; then \
+                echo "********************************************************************************************************"; \
+		echo "NOTE: The optimade-property-tools submodule is not in a clean state, if this is unintentional, consider:"; \
+		echo "git submodule update --init dependencies/submodules/optimade-property-tools"; \
+                echo "********************************************************************************************************"; \
 	fi
-
 
 .PHONY: schemas schemas_meta schemas_json schemas_docs schemas_html schemas_symlinks schema_releases schemas_indexes_docs schemas_release_indexes_docs
 
@@ -143,15 +148,15 @@ $(META_SCHEMAS_JSON): schemas/output/meta/%.json: schemas/src/meta/%.yaml | sche
 
 $(DEFINITIONS_JSON) $(OTHER_SCHEMAS_JSON): schemas/output/%.json: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
+	$(PROCESS_SCHEMAS) --remove-null $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" $(META_SCHEMAS_ARGS) $(EXT_SCHEMAS_ARGS) --output "$@" "$<"
 
 $(DEFINITIONS_MD): schemas/output/%.md: schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas -f md $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --output "$@" "$<"
+	$(PROCESS_SCHEMAS) --remove-null -f md $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --output "$@" "$<"
 
 $(DEFINITIONS_HTML): schemas/output/%$(DEFINITIONS_HTML_EXT): schemas/src/%.yaml $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"
-	$(PROCESS_SCHEMAS) --remove-null --clean-inner-schemas -f html $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
+	$(PROCESS_SCHEMAS) --remove-null -f html $(OPTIMADE_VERSION_SUBST) --basedir "$(BASEDIR)" --baseid "$(BASEID)" --html-header '$(OPTIMADE_HTML_HEADER)' --html-top '$(OPTIMADE_HTML_TOP)' --output "$@" "$<"
 
 $(DEF_INDEXES_MD): schemas/output/%/index.md: schemas/src/% $(META_SCHEMAS_JSON) | schemas_symlinks
 	mkdir -p "$(dir $@)"

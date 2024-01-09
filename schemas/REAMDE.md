@@ -11,7 +11,7 @@ As described in more detail below, the OPTIMADE consortium publishes the current
   - https://schemas.optimade.org/defs/
 
 Anyone can, of course, publish their own sets of Property Definitions under any URL they like.
-See [Creating database-specific definitions](#creating_database_specific_definitions) and [Editing and contributing Property Definitions](#editing_and_contributing_property_definitions) below for more information.
+See [Creating database-specific definitions](#creating-database-specific-definitions) and [Contributing standard definitions to OPTIMADE](#contributing-standard-definitions-to-optimade) below for more information.
 
 
 ### Using the definitions
