@@ -5,7 +5,7 @@ description: |-
   The SI unit system, using of current or historical definitions of the SI units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  The si_general unit system includes all SI prefixes, and all units that have either been part of the SI unit system or categorized as accepted for use with the SI.
+  The si_general unit system includes all prefixes defined by SI (including the non-SI binary ones), and all units that have either been part of the SI unit system or categorized as accepted for use with the SI.
 x-optimade-definition:
   label: "si_general_unitsystem"
   kind: "unitsystem"
@@ -172,3 +172,19 @@ prefixes:
     $$inherit: "/v1.2/prefixes/si/ronto"
   q:
     $$inherit: "/v1.2/prefixes/si/quecto"
+  Ei:
+    $$inherit: "/v1.2/prefixes/si/exbi"
+  Gi:
+    $$inherit: "/v1.2/prefixes/si/gibi"
+  Ki:
+    $$inherit: "/v1.2/prefixes/si/kibi"
+  Mi:
+    $$inherit: "/v1.2/prefixes/si/mebi"
+  Pi:
+    $$inherit: "/v1.2/prefixes/si/pebi"
+  Ti:
+    $$inherit: "/v1.2/prefixes/si/tebi"
+  Yi:
+    $$inherit: "/v1.2/prefixes/si/yobi"
+  Zi:
+    $$inherit: "/v1.2/prefixes/si/zebi"
