@@ -3204,7 +3204,7 @@ optimization\_type
       A common technique for this type of optimization is to construct the convex hull of thermodynamical stability from the known minima and dismiss structures outside the relevant energy range.
 
     * :val:`local`: the structure has been optimized using a theoretical technique based on a reasonable energy model into a local minimum of the energy surface.
-      For example, structures relaxed using *ab initio* calculations without consideration of the convex hull of thermodynamical stability qualify for this category.
+      For example, structures relaxed using *ab initio* calculations without consideration of the energy of other minima in configuration space qualify for this category.
 
     * :val:`none`: the structure has not undergone an optimization process and is thus, in some sense, arbitrary.
       Structures of this kind can come from, e.g., randomly generated coordinates or non-equilibrium snapshots.
