@@ -2860,57 +2860,52 @@ structure\_features
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
-structure\_origin
-~~~~~~~~~~~~~~~~~
+optimization\_type
+~~~~~~~~~~~~~~~~~~
 
-- **Description**: A string that describes aspects of the origin of the structural data to indicate if it is based directly or indirectly on experimental evidence, or inferred from other sources, giving some information on whether the structural data was obtained with the intent of representing a structure that can exist in nature or be synthesized as a stable compound.
+- **Description**: A string that classifies the type of optimization that has resulted in the structural data.
 
 - **Type**: string
 - **Requirements/Conventions**:
-
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-  - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - **Query**: Support for queries on this property is OPTIONAL.
 
-  - If the property is :val:`null` or omitted, no information is provided regarding these aspects of the origin of the structural information.
+  - If the property is :val:`null` or omitted, no information is provided about the type of optimization used to obtain the structural data.
 
-  - If present and not :val:`null`, the property SHOULD take the first of the following values for which the structural information qualifies:
+  - If present and not :val:`null`, the property SHOULD take one of the following values:
 
-    * :val:`experimental`: the structural information is a faithful representation of the outcome of an experimental technique for structure determination.
+    * :val:`experimental`: the structure is the result of an optimization or refinement process part of an experimental technique, e.g., minimization of the discrepancy between observed and predicted scattered amplitudes from diffraction data.
 
-    * :val:`derived`: the structural information originates from experimental data, but has undergone additional processing in such a way that the result is still recognizable as the experimental structure it was based on.
-      For example, experimental structures relaxed using *ab initio* calculations are meant to qualify for this category.
-      Structures where one or more elements in a structure have been substituted (while, e.g., keeping the experimental coordinates the same) are not meant to qualify for this category.
-      The category definition involves a degree of subjectivity that has to be decided by the database provider.
+    * :val:`hybrid`: the structure is the result of the combination of an experiment and further optimization based on a reasonable theoretical energy model in such a way that it remains a fair representation of the original experimental structure.
+      For example, experimental structures relaxed using *ab initio* calculations are in this category.
+      Structures where the experimental coordinates are kept, but one or more elements are substituted for other elements are not included in this category.
 
-    * :val:`predicted`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a potentially synthesizable structure.
-      For example, theoretically invented structures found to be close to the convex hull of thermodynamical stability at reasonable conditions by relaxation using *ab initio* calculations, AI models with a demonstrated reasonable predictive power, or similar techniques qualify for this category.
-      Structures that are the outcome of theoretical methods that specifically target conditions far outside normal conditions are not meant to qualify for this category.
-      This category definition involves a degree of subjectivity that has to be determined by the database provider.
-      It is OPTIONAL for database providers to predict theoretical structures as potentially synthesizable or not.
-      If this functionality is not provided, any structures that could fit this category are meant to be assigned the next qualifying category below instead.
+    * :val:`global`: the structure has been optimized using a theoretical technique based on a reasonable energy model in a way that takes into account the global energy surface.
+      The structure has been optimized into the global energy minimum or into a local minimum within an energy range of the global minimum commonly considered for potential metastability (typically on the scale of 100 meV/atom).
+      A common technique for this type of optimization is to construct the convex hull of thermodynamical stability from the known minima and dismiss structures outside the relevant energy range. 
+  
+    * :val:`local`: the structure has been optimized using a theoretical technique based on a reasonable energy model into a local minimum of the energy surface.
+      For example, structures relaxed using *ab initio* calculations without consideration of the convex hull of thermodynamical stability qualify for this category.
 
-    * :val:`hypothetical`: the structural information is not directly related to the outcome of an experiment on an existing material, but is proposed from theoretical methods to represent a local energy minimum on the potential energy surface.
-      This category accommodates potentially highly thermodynamically unstable structures, e.g., predicted to decompose into other competing phases, even with respect to the elemental solids.
-      For example, structures relaxed using *ab initio* calculations but not identified to end up close to the convex hull of thermodynamical stability qualify for this category.
-      AI models which, with a demonstrated reasonable predictive power, can generate structures in local potential energy minimums (e.g., by relaxation via predicted forces, direct generation, etc.) also qualify.
-      This category definition also involves a degree of subjectivity that has to be determined by the database provider.
+    * :val:`none`: the structural has not undergone an optimization process and is thus, in some sense, arbitrary.
+      Structures of this kind can come from, e.g., randomly generated coordinates or non-equilibrium snapshots.
+    
+    * :val:`indeterminate`: the database declares that the type of optimization used for this specific entry cannot be determined, e.g., because that information is missing.
+      This value represents a stronger statement - it is known that optimization is unknown - than an omitted classification (i.e, the field is missing or has value :val:`null`) that marks the property unknown only in the sense discussed in the section `Properties with an unknown value`_.)
 
-    * :val:`arbitrary`: the structural information has been created in a way that does not ensure any type of stability, i.e., not even representing a local energy minimum on the potential energy surface.
-      For example, arbitrarily placed atoms that have not been locally optimized, non-equilibrium snapshots, and outcomes of AI models for which the predictive power is deemed insufficient for the earlier categories, all qualify for this category.
+    * :val:`other`: the structure is the result of some optimization process, but none of the other categories correctly represents the type of optimization used.
 
-    * :val:`indeterminate`: the database provider has determined that it is unable to classify the origin of the structural data into these categories, e.g., because the source of the data provides no such information.
-      There is a subtle, but relevant, distinction between this value and and not assigning the property any value (i.e, the field is missing or has value :val:`null`, making the property unknown in the sense discussed in the section `Properties with an unknown value`_).
-      The value "indeterminate" communicates that the database provider has intentionally classified the structure into this category, i.e., it states that it is known that its origin is not known, in contrast to the database not providing any data value for classifying the structure.
-
-    * :val:`other`: the origin of the structural information is known, but is not correctly described by any of the above categories.
-
-  - Database-specific strings using a database provider prefix (e.g., `_exmpl_experimental_at_extreme_pressure`) MAY be used but are strongly discouraged.
+    Other strings prefixed by a database-specific prefix, e.g., `_exmpl_optimized_on_fixed_grid`. SHOULD NOT be used.
+    Other non-standard strings MUST NOT be used.
     Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
+    
+    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent with structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used. 
 
 - **Examples**:
 
   - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
-  - For a structure entry that encodes the structural information from a theoretical relaxation of an :val:`"experimental"` entry using computational software that implements density functional theory: :val:`"derived"`.
+  
+  - For a structure entry that encodes the structural information from a theoretical relaxation of an :val:`"experimental"` entry using computational software that implements density functional theory: :val:`"hybrid"`.
 
 Calculations Entries
 --------------------
