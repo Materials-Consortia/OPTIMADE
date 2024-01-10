@@ -6,7 +6,7 @@ display-symbol: "atm"
 description: |-
   A pressure approximately equal to the average atmospheric pressure at sea level on Earth, defined as 101325 Pa using the 1967 SI units.
 
-  The standard atmosphere appear in the International System of Units (SI), 1st ed. (1970) defined as "1 atm = 101325 Pa" with the footnote "Resolution 4 at the 10th C.G.P.M. (1954)."
+  The standard atmosphere unit appears in the International System of Units (SI), 1st ed. (1970) defined as "1 atm = 101325 Pa" with the footnote "Resolution 4 at the 10th C.G.P.M. (1954)."
   (While the pascal appear in the 1st ed. as a symbol for N·s/m², it was adopted into SI at the 14th CGPM meeting in 1971.)
 
   - In the International System of Units (SI), 1st ed. (1970) it is categorized as "temporarily admitted" for use with the SI units.

@@ -251,7 +251,7 @@ $defs:
         description: |-
           A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
           The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
-          Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>.
+          Formatting in the text SHOULD use Markdown in the CommonMark v0.3 format, with mathematical expressions written to render correctly with the LaTeX mode of Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>.
           When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
 
           Additions appended to the end of the description field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Property Definition rather than an integral part of it.
@@ -274,14 +274,14 @@ $defs:
           names:
             description: |-
               A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-              The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+              The order is that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
             type: array
             items:
               type: string
           sizes:
             description: |-
               A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-              The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+              The order is that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
               The data only validates if the respective level consists of lists of exactly this length.
               A value of `null` allows arbitrary-length lists at the corresponding level.
             type: array
@@ -415,7 +415,7 @@ $defs:
           Comments pertaining to the Property Definition that are relevant to end users should go into the field description.
           Formatting in the text SHOULD use Markdown using the format described in the definition of the description field.
 
-          This fields is an annotation rather than an integral part of the Property Definition.
+          This field is an annotation rather than an integral part of the Property Definition.
           Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the definition of the $id field SHOULD share the same $id.
         type: string
       deprecated:
@@ -423,7 +423,7 @@ $defs:
            If TRUE, implementations SHOULD not use the defined property, and it MAY be removed in the future.
            If FALSE, the defined property is not deprecated. The field not being present means FALSE.
 
-           This fields is an annotation rather than an integral part of the Property Definition.
+           This field is an annotation rather than an integral part of the Property Definition.
            Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the definition of the $id field SHOULD share the same $id.
         type: boolean
     # Allow database-specific fields

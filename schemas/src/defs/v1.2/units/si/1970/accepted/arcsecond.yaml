@@ -20,7 +20,7 @@ description: |-
     The formulation "denoted as or ″" is reproduced here faithfully from the source and suggests an alternate symbol may have been omitted due to a typographical error.
     It is not clear what alternate symbol was intended to be referenced.
 resources:
-  - relation: "Definition in the International System of Units (SI), 1th Edition"
+  - relation: "Definition in the International System of Units (SI), 1st Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Minute_and_second_of_arc"

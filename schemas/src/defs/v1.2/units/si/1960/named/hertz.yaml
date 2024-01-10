@@ -8,7 +8,7 @@ description: |-
 
   "The frequency of a periodic phenomenon is expressed in hertz, as the inverse of its period expressed in seconds." [9th CGPM meeting in 1946]
 resources:
-  - relation: "Definition at the 9st CGPM meeting (1948)"
+  - relation: "Definition at the 9th CGPM meeting (1948)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
   - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"

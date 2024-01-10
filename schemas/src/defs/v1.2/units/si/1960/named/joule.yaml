@@ -8,7 +8,7 @@ description: |-
 
   "The joule is the work produced by a newton whose point of application moves one meter in the direction of the force." [9th CGPM meeting in 1946]
 resources:
-  - relation: "Definition at the 9st CGPM meeting (1948)"
+  - relation: "Definition at the 9th CGPM meeting (1948)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
   - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"

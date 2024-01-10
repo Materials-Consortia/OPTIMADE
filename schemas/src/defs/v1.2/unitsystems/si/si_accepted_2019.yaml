@@ -7,7 +7,7 @@ description: |-
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
   In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
-  The si_extra_2019 unit system includes the prefixes and the units designated in The International System of Units (SI), 9th ed. (2019) as "non-SI units that are accepted for use with the SI."
+  The si_extra_2019 unit system includes the prefixes and the units designated in the International System of Units (SI), 9th ed. (2019) as "non-SI units that are accepted for use with the SI."
   (The general logarithmic ratio quantities, B and dB are not included.)
 x-optimade-definition:
   label: "si_accepted_2019_unitsystem"

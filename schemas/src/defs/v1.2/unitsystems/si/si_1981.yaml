@@ -2,10 +2,10 @@ $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition
 $id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_1981"
 title: "SI 1981"
 description: |-
-  The SI unit system as represented in the 4th edition of The International System of Units.
+  The SI unit system as represented in the 4th edition of the International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 4th edition of The International System of Units in 1981.
+  This represents the SI unit system described in the 4th edition of the International System of Units in 1981.
 x-optimade-definition:
   label: "si_1981_unitsystem"
   kind: "unitsystem"

@@ -8,7 +8,7 @@ description: |-
 
   This unit definition uses "radiationunit" as the symbol for this unit despite "rad" being in common use to distiguish it from the radian, which is an SI unit with rad as its symbol.
 
-  The radiation unit appear in the International System of Units (SI), 1st ed. (1970) defined as "1 rad = 10⁻² J/kg" with the footnote: "The rad is a special unit employed to express absorbed dose of ionizing radiation. When there is risk of confusion with the symbol for radian, rd may be used as the symbol for rad."
+  The radiation unit appears in the International System of Units (SI), 1st ed. (1970) defined as "1 rad = 10⁻² J/kg" with the footnote: "The rad is a special unit employed to express absorbed dose of ionizing radiation. When there is risk of confusion with the symbol for radian, rd may be used as the symbol for rad."
 
   - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "Units in use temporarily with the International System."
   - The International System of Units (SI), 3rd ed. (1977) changes the definition to use the unit gray: "1 rad = cGy = 10⁻² Gy."

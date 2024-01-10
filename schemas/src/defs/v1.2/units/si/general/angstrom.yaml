@@ -6,9 +6,9 @@ display-symbol: "Å"
 description: |-
   A unit of length equal to 10⁻¹⁰ meter, using the current, or one of the historical, definitions of the SI units.
 
-  The ångström appear in the International System of Units (SI), 1st ed. (1970) defined as "1 Å = 0.1 nm = 10⁻¹⁰ m".
+  The ångström unit appears in the International System of Units (SI), 1st ed. (1970) defined as "1 Å = 0.1 nm = 10⁻¹⁰ m".
 
-  The ångström was implicitly redefined via the redefinition of the metre at the 17th CGPM meeting (1983), resolution 1.
+  The ångström unit was implicitly redefined via the redefinition of the metre at the 17th CGPM meeting (1983), resolution 1.
 
   - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "temporarily admitted" for use with the SI units.
   - The International System of Units (SI), 7th ed. (1998) changes the categorisation to "Other non-SI units currently accepted for use with the International System."
@@ -21,7 +21,7 @@ compatibility:
   - "https://schemas.optimade.org/defs/v1.2/units/si/1970/temporary/angstrom"
   - "https://schemas.optimade.org/defs/v1.2/units/si/1983/temporary/angstrom"
 resources:
-  - relation: "Definition in the International System of Units (SI), 1th Edition"
+  - relation: "Definition in the International System of Units (SI), 1st Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
   - relation: "Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1"

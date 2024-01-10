@@ -13,7 +13,7 @@ description: |-
   The radian is categorized in the International System of Units (SI), 1st Edition as a supplementary SI unit.
   At the 20th CGPM meeting in 1995, resolution 8 the categorization was changed to a dimensionless derived SI unit.
 resources:
-  - relation: "Definition at the 9st CGPM meeting (1948)"
+  - relation: "Definition at the 9th CGPM meeting (1948)"
     resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
   - relation: "Definition in the International System of Units (SI), 9th Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"

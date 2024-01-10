@@ -6,16 +6,16 @@ display-symbol: "Da"
 alternate-symbols:
   - "u"
 description: |-
-  A unit of mass intended to represent a typical mass of a nucleon in an atom using the current, or one of the historical, definitions given in the editions of The International System of Units (SI).
+  A unit of mass intended to represent a typical mass of a nucleon in an atom using the current, or one of the historical, definitions given in the editions of the International System of Units (SI).
 
-  The name dalton as an alternative name to *atomic mass unit* is defined in The International System of Units (SI), 7th ed. (1998) in a footnote to a table labeled "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally" in the section "Units outside the international system".
+  The name dalton as an alternative name to *atomic mass unit* is defined in the International System of Units (SI), 7th ed. (1998) in a footnote to a table labeled "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally" in the section "Units outside the international system".
   The definition given is: "The unified atomic mass unit is equal to 1/12 of the mass of an unbound atom of the nuclide ¹²C, at rest, and in its ground state. In the field of biochemistry, the unified atomic mass unit is also called the dalton, symbol Da."
 
-  This definition makes the dalton equivalent to the atomic mass unit defined in The International System of Units (SI), 1st ed. (1970) (https://schemas.optimade.org/defs/v1.2/units/si/general/atomicmassunit)
+  This definition makes the dalton equivalent to the atomic mass unit defined in the International System of Units (SI), 1st ed. (1970) (https://schemas.optimade.org/defs/v1.2/units/si/general/atomicmassunit)
 
-  In the The International System of Units (SI) 8th ed. (2006) the definition is slightly adjusted, replacing "unbound" with "free": "The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 times the mass of a free carbon 12 atom, at rest and in its ground state."
+  In the International System of Units (SI) 8th ed. (2006) the definition is slightly adjusted, replacing "unbound" with "free": "The dalton (Da) and the unified atomic mass unit (u) are alternative names (and symbols) for the same unit, equal to 1/12 times the mass of a free carbon 12 atom, at rest and in its ground state."
 
-  All editions of The International System of Units (SI) note approximate relationships to the kilogram.
+  All editions of the International System of Units (SI) note approximate relationships to the kilogram.
   The 9th ed. states "1 Da = 1.660 539 066 60(50)×10⁻²⁷ kg", where the 2018 CODATA value has been used and the 2019 SI kilogram is referenced (https://schemas.optimade.org/defs/v1.2/units/si/2019/base/kilogram).
 
   Note: in the 2019 redefinition of the SI units, the dalton is the only unit listed as accepted for use with SI that does not have an exact relation to the base SI units.

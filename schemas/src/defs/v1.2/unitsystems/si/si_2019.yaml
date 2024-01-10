@@ -2,12 +2,12 @@ $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition
 $id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_2019"
 title: "SI 2019"
 description: |-
-  The SI 2019 unit system as represented in the 9th edition (v1.06) of The International System of Units.
+  The SI 2019 unit system as represented in the 9th edition (v1.06) of the International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
   In the redefinition of the SI unit system in 2019 the magnitudes of all SI units are defined from declaring exact numerical values for seven defining constants when expressed in terms of their SI units.
 
-  The SI 2019 unit system represents the original publication of the 9th edition of the The International System of Units in march 2019 (marked v1.06).
+  The SI 2019 unit system represents the original publication of the 9th edition of the International System of Units in March 2019 (marked v1.06).
   The 9th edition was later updated in 2022 with new SI prefixes defined at the 27th CGPM meeting in 2022.
   These prefixes are not included.
 x-optimade-definition:

@@ -12,7 +12,7 @@ description: |-
   A unit of plane and phase angle equal to 1/60 of a degree representing 1/21600 of a circle, equal to π/10800 rad, using the current, or one of the historical, definitions of the SI units.
 
   This definition uses "arcminute" as the unit name to distingush it from the time unit named minute.
-  A footnote in The International System of Units, 9th ed. (2019) note that "arcsecond is an alternative name for second of plane angle".
+  A footnote in the International System of Units, 9th ed. (2019) note that "arcsecond is an alternative name for second of plane angle".
   However, "arcminute" and "arcmin" have so far not been mentioned in any of the editions of the International System of Units.
   They are defined in the GNU Units 3.15 unit database as 1/60 degree.
 
@@ -30,7 +30,7 @@ description: |-
 compatibility:
   - "https://schemas.optimade.org/defs/v1.2/units/si/1970/accepted/arcminute"
 resources:
-  - relation: "Definition in the International System of Units (SI), 1th Edition"
+  - relation: "Definition in the International System of Units (SI), 1st Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"
   - relation: "Wikipedia article describing the unit"
     resource-id: "https://en.wikipedia.org/wiki/Minute_and_second_of_arc"

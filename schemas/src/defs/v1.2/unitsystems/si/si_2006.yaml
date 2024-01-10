@@ -2,10 +2,10 @@ $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition
 $id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_2006"
 title: "SI 2006"
 description: |-
-  The SI unit system as represented in the 8th edition of The International System of Units.
+  The SI unit system as represented in the 8th edition of the International System of Units.
 
   The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
-  This represents the SI unit system described in the 8th edition of The International System of Units in 2006.
+  This represents the SI unit system described in the 8th edition of the International System of Units in 2006.
 x-optimade-definition:
   label: "si_2006_unitsystem"
   kind: "unitsystem"
