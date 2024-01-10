@@ -2883,7 +2883,7 @@ optimization\_type
 
     * :val:`global`: the structure has been optimized using a theoretical technique based on a reasonable energy model in a way that takes into account the global energy surface.
       The structure has been optimized into the global energy minimum or into a local minimum within an energy range of the global minimum commonly considered for potential metastability (typically on the scale of 100 meV/atom).
-      A common technique for this type of optimization is to construct the convex hull of thermodynamical stability from the known minima and dismiss structures outside the relevant energy range. 
+      A common technique for this type of optimization is to construct the convex hull of thermodynamical stability from the known minima and dismiss structures outside the relevant energy range.
   
     * :val:`local`: the structure has been optimized using a theoretical technique based on a reasonable energy model into a local minimum of the energy surface.
       For example, structures relaxed using *ab initio* calculations without consideration of the convex hull of thermodynamical stability qualify for this category.
@@ -2900,7 +2900,7 @@ optimization\_type
     Other non-standard strings MUST NOT be used.
     Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
     
-    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent to structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used. 
+    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent to structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used.
 
 - **Examples**:
 
