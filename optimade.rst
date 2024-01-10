@@ -3214,7 +3214,7 @@ optimization\_type
 
     * :val:`other`: the structure is the result of some optimization process, but none of the other categories correctly represents the type of optimization used.
 
-    Other strings prefixed by a database-specific prefix, e.g., `_exmpl_optimized_on_fixed_grid`. SHOULD NOT be used.
+    Other strings prefixed by a database-specific prefix, e.g., `_exmpl_optimized_on_fixed_grid` SHOULD NOT be used.
     Other non-standard strings MUST NOT be used.
     Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
 
