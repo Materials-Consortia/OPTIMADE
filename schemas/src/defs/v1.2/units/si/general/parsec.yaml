@@ -6,7 +6,7 @@ display-symbol: "pc"
 description: |-
   A unit of length representing the distance at which 1 astronomical unit subtends an angle of 1 arcsecond using the current, or one of the historical, definitions of the SI units.
 
-  The parsec unit appears in the International System of Units (SI), 1st ed. (1970) defined in a footnote as "1 parsec is the distance at which 1 astronomical unit subtends an angle of 1 arcsecond; therefore, approximately, 1 pc = 206 265 AU = 30 857 x 10¹² m.
+  The parsec unit appears in the International System of Units (SI), 1st ed. (1970) defined in a footnote as "1 parsec is the distance at which 1 astronomical unit subtends an angle of 1 arcsecond; therefore, approximately, 1 pc = 206 265 AU = 30 857 x 10¹² m."
 
   - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "units for use with the SI in specific domains."
   - The International System of Units (SI), 2nd ed. (1973) categorizes the unit as "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally."

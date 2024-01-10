@@ -160,7 +160,7 @@ $defs:
           No restriction is inferred from this field for keys in the defined property that do not match any key in the given dictionary.
         type: "object"
         additionalProperties:
-          type": "array"
+          type: "array"
           items:
             type: "string"
           uniqueItems: true

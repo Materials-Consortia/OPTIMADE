@@ -18,7 +18,7 @@ description: |-
   All editions of the International System of Units note approximate relationships to the kilogram.
   The 9th ed. states "1 Da = 1.660 539 066 60(50)×10⁻²⁷ kg", where the 2018 CODATA value has been used and the 2019 SI kilogram is referenced (https://schemas.optimade.org/defs/v1.2/units/si/2019/base/kilogram).
 
-  In the 2019 redefinition of the SI units, the atomic mass unit is the only unit listed as accepted for use with SI that has an experimental relationship to the base SI units.
+  In the 2019 redefinition of the SI units, the atomic mass unit is the only unit listed as accepted for use with SI that has a value in SI units which is determined experimentally.
 
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.
