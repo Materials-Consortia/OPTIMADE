@@ -2867,6 +2867,7 @@ optimization\_type
 
 - **Type**: string
 - **Requirements/Conventions**:
+
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
 
@@ -2874,11 +2875,11 @@ optimization\_type
 
   - If present and not :val:`null`, the property SHOULD take one of the following values:
 
-    * :val:`experimental`: the structure is the result of an optimization or refinement process part of an experimental technique, e.g., minimization of the discrepancy between observed and predicted scattered amplitudes from diffraction data.
+    * :val:`experimental`: the structure results from an optimization or refinement process part of an experimental technique, e.g., minimization of the discrepancy between observed and predicted scattered amplitudes from diffraction data.
 
-    * :val:`hybrid`: the structure is the result of the combination of an experiment and further optimization based on a reasonable theoretical energy model in such a way that it remains a fair representation of the original experimental structure.
+    * :val:`hybrid`: the structure is the result of the combination of an experiment and further optimization based on a reasonable theoretical energy model so that it remains a fair representation of the original experimental structure.
       For example, experimental structures relaxed using *ab initio* calculations are in this category.
-      Structures where the experimental coordinates are kept, but one or more elements are substituted for other elements are not included in this category.
+      Structures where the experimental coordinates are kept, but one or more elements are substituted for other elements, are not included in this category.
 
     * :val:`global`: the structure has been optimized using a theoretical technique based on a reasonable energy model in a way that takes into account the global energy surface.
       The structure has been optimized into the global energy minimum or into a local minimum within an energy range of the global minimum commonly considered for potential metastability (typically on the scale of 100 meV/atom).
@@ -2887,11 +2888,11 @@ optimization\_type
     * :val:`local`: the structure has been optimized using a theoretical technique based on a reasonable energy model into a local minimum of the energy surface.
       For example, structures relaxed using *ab initio* calculations without consideration of the convex hull of thermodynamical stability qualify for this category.
 
-    * :val:`none`: the structural has not undergone an optimization process and is thus, in some sense, arbitrary.
+    * :val:`none`: the structure has not undergone an optimization process and is thus, in some sense, arbitrary.
       Structures of this kind can come from, e.g., randomly generated coordinates or non-equilibrium snapshots.
     
     * :val:`indeterminate`: the database declares that the type of optimization used for this specific entry cannot be determined, e.g., because that information is missing.
-      This value represents a stronger statement - it is known that optimization is unknown - than an omitted classification (i.e, the field is missing or has value :val:`null`) that marks the property unknown only in the sense discussed in the section `Properties with an unknown value`_.)
+      This value represents a stronger statement (that the database knows that the type of optimization is not known) than an omitted classification (i.e., the field is missing or has the value :val:`null`) which communicates that the property is unknown only in the sense discussed in the section `Properties with an unknown value`_.)
 
     * :val:`other`: the structure is the result of some optimization process, but none of the other categories correctly represents the type of optimization used.
 
@@ -2899,7 +2900,7 @@ optimization\_type
     Other non-standard strings MUST NOT be used.
     Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
     
-    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent with structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used. 
+    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent to structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used. 
 
 - **Examples**:
 
