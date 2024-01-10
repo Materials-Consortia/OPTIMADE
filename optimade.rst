@@ -128,14 +128,11 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
     For more information, see section `Namespace Prefixes`_.
 
 **Definition provider**
-    A service that provides one or more external or domain-specific property definitions that
-    can be used by OPTIMADE API implementations.
+    A service that provides one or more external or domain-specific property definitions that can be used by OPTIMADE API implementations.
 
 **Definition provider prefix**
-    Every definition provider is designated a prefix that cannot clash with an
-    existing database provider prefix.
-    The prefix is used to separate the namespaces used by these collections of
-    definitions.
+    Every definition provider is designated a prefix that cannot clash with an existing database provider prefix.
+    The prefix is used to separate the namespaces used by these collections of definitions.
     The list of presently defined prefixes is maintained externally from this specification.
     For more information, see section `Namespace Prefixes`_.
 
