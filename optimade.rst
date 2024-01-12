@@ -365,3 +365,127 @@ A few suggestions and mandatory requirements of the OPTIMADE specification are s
   The motivation is that static file hosting is typically not flexible enough to support these requirements on HTTP headers.
 
 - API implementations SHOULD serve JSON content with either the JSON:API mandated HTTP header :http-header:`Content-Type: application/vnd.api+json` or :http-header:`Content-Type: application/json`. However, if the hosting platform does not allow this, JSON content MAY be served with :http-header:`Content-Type: text/plain`.
+
+Database-Provider-Specific Namespace Prefixes
+---------------------------------------------
+
+This standard refers to database-provider-specific prefixes and database providers.
+
+A list of known providers and their assigned prefixes is published in the form of an OPTIMADE Index Meta-Database with base URL `https://providers.optimade.org <https://providers.optimade.org>`__.
+Visiting this URL in a web browser gives a human-readable description of how to retrieve the information in the form of a JSON file, and specifies the procedure for registration of new prefixes.
+
+API implementations SHOULD NOT make up and use new prefixes without first getting them registered in the official list.
+
+**Examples**:
+
+- A database-provider-specific prefix: ``exmpl``. Used as a field name in a response: :field:`_exmpl_custom_field`.
+
+The initial underscore indicates an identifier that is under a separate namespace under the ownership of that organization.
+Identifiers prefixed with underscores will not be used for standardized names.
+
+URL Encoding
+------------
+
+Clients SHOULD encode URLs according to :RFC:`3986`.
+API implementations MUST decode URLs according to :RFC:`3986`.
+
+Relationships
+-------------
+
+The API implementation MAY describe many-to-many relationships between entries along with OPTIONAL human-readable descriptions that describe each relationship.
+These relationships can be to the same, or to different, entry types.
+Response formats have to encode these relationships in ways appropriate for each format.
+
+In the default response format, relationships are encoded as `JSON:API Relationships <https://jsonapi.org/format/1.1/#document-resource-object-relationships>`__, see section `Entry Listing JSON Response Schema`_.
+
+    **For implementers**: For database-specific response formats without a dedicated mechanism to indicate relationships, it is suggested that they are encoded alongside the entry properties.
+    For each entry type, the relationships with entries of that type can then be encoded in a field with the name of the entry type, which are to contain a list of the IDs of the referenced entries alongside the respective human-readable description of the relationships.
+    It is the intent that future versions of this standard uphold the viability of this encoding by not standardizing property names that overlap with the entry type names.
+
+Properties with an unknown value
+--------------------------------
+
+Many databases allow specific data values to exist for some of the entries, whereas for others, no data value is present.
+This is referred to as the property having an *unknown* value, or equivalently, that the property value is :val:`null`.
+
+The text in this section describes how the API handles properties with the value :val:`null`.
+The use of :val:`null` values inside nested property values (such as, e.g., lists or dictionaries) are described in the definitions of those data structures elsewhere in the specification, see section `Entry List`_.
+For these properties, :val:`null` MAY carry a special meaning.
+
+REQUIRED properties with an unknown value MUST be included and returned in the response with the value :val:`null`.
+
+OPTIONAL properties with an unknown value, if requested explicitly via the :query-param:`response_fields` query parameter, MUST be included and returned in the response with the value :val:`null`.
+(For more info on the :query-param:`response_fields` query parameter, see section `Entry Listing URL Query Parameters`_.)
+
+The interaction of properties with an unknown value with query filters is described in the section `Filtering on Properties with an unknown value`_.
+In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
+
+Handling unknown property names
+-------------------------------
+
+When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
+
+* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
+
+* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
+
+  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
+
+  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
+
+The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.
+
+For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
+
+:filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
+
+Transmission of large property values
+-------------------------------------
+
+A property value may be too large to fit in a single response.
+OPTIMADE provides a mechanism for a client to handle such properties by fetching them in separate series of requests.
+It is up to the implementation to decide which values are too large to represent in a single response, and this decision MAY change between responses.
+
+In this case, the response to the initial query gives the value :val:`null` for the property.
+A list of one or more data URLs together with their respective partial data formats are given in the response.
+How this list is provided is response format-dependent.
+For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
+
+The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
+An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
+Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
+
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
+
+.. code:: jsonc
+
+     {
+       // ...
+       "data": {
+         "type": "structures",
+         "id": "2345678",
+         "attributes": {
+             "a": null
+         }
+         "meta": {
+           "partial_data_links": {
+             "a": [
+               {
+                 "format": "jsonlines",
+                 "link": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+               },
+               {
+                 "format": "_exmpl_bzip2_jsonlines",
+                 "link": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+               },
+               {
+                 "format": "_exmpl_hdf5",
+                 "link": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+               }
+             ]
+           }
+         }
+       }
+     // ...
+   }
+
