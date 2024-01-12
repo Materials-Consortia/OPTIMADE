@@ -508,7 +508,7 @@ The reason for this limitation is to avoid name collisions with metadata fields 
 Implementation of the :field:`meta` field is OPTIONAL.
 However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 
-Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
 
 .. code:: jsonc
 
@@ -518,11 +518,11 @@ Example of a response in the JSON response format with two structure entries tha
            "type": "structures",
            "id": "example.db:structs:0001",
            "attributes": {
-             "element_ratios":[0.33336, 0.22229, 0.44425]
+             "elements_ratios":[0.33336, 0.22229, 0.44425]
            },
            "meta": {
              "property_metadata": {
-               "element_ratios": {
+               "elements_ratios": {
                  "_exmpl_originates_from_project": "piezoelectic_perovskites"
                }
              }
@@ -532,11 +532,11 @@ Example of a response in the JSON response format with two structure entries tha
            "type": "structures",
            "id": "example.db:structs:1234",
            "attributes": {
-             "element_ratios":[0.5, 0.5]
+             "elements_ratios":[0.5, 0.5]
            },
            "meta": {
              "property_metadata":{
-               "element_ratios": {
+               "elements_ratios": {
                  "_exmpl_originates_from_project": "ferroelectric_binaries"
                }
              }
@@ -547,20 +547,20 @@ Example of a response in the JSON response format with two structure entries tha
        // ...
      }
 
-Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
+Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`elements_ratios`:
 
     .. code:: jsonc
 
          // ...
          "x-optimade-metadata-definition": {
-           "title": "Metadata for the element_ratios field",
-           "description": "This field contains the per-entry metadata for the element_ratios field.",
+           "title": "Metadata for the elements_ratios field",
+           "description": "This field contains the per-entry metadata for the elements_ratios field.",
            "x-optimade-type": "dictionary",
            "x-optimade-unit": "inapplicable",
            "type": ["object", "null"],
            "properties" : {
              "_exmpl_originates_from_project": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+               "$id": "https://properties.example.com/v1.2.0/elements_ratios_meta/_exmpl_originates_from_project",
                "description" : "A string naming the internal example.com project id where this property was added to the database.",
                "x-optimade-type": "string",
                "x-optimade-unit" : "inapplicable"
