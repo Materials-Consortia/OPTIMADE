@@ -737,6 +737,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allow for alternative schema types.
     Hence, if the :field:`meta` field of the JSON:API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST NOT handle failures to parse the schema or to validate the response against the schema as errors.
+
       **Note**: The :field:`schema` field was previously RECOMMENDED in all responses, but is now demoted to being OPTIONAL since there now is a standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON:API resource object <http://jsonapi.org/format/1.1/#document-resource-objects>`__ or a *list* of JSON:API resource objects.
@@ -801,7 +802,7 @@ The response MAY also return resources related to the primary data in the field:
     The URL SHOULD resolve into a JSON formatted response returning a JSON object with top level :field:`$schema` and/or :field:`$id` fields that can be used by the client to identify the schema format.
 
       **Note**: This field is the standard facility in JSON:API to communicate a response schema.
-    It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
+      It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
 
   The following fields are REQUIRED for implementing pagination:
 
