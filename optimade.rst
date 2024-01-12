@@ -511,6 +511,7 @@ However, when an implementation supports the :field:`property_metadata` field, i
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
 
 .. code:: jsonc
+
      {
        "data": [
          {
@@ -549,6 +550,7 @@ Example of a response in the JSON response format with two structure entries tha
 Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
 
     .. code:: jsonc
+
          // ...
          "x-optimade-metadata-definition": {
            "title": "Metadata for the element_ratios field",
