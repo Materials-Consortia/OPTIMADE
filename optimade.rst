@@ -913,3 +913,82 @@ An example of a full response:
 
   If the server is able to handle serialization in such a way that it can dictate the order of the top level object members in the response, it is RECOMMENDED to put the :field:`jsonapi` as the first top level member to simplify identification of the response.
 
+
+HTTP Response Status Codes
+--------------------------
+
+All HTTP response status codes MUST conform to `RFC 7231: HTTP Semantics <http://tools.ietf.org/html/rfc7231>`__.
+The code registry is maintained by IANA and can be found `here <http://www.iana.org/assignments/http-status-codes>`__.
+
+See also the JSON:API definitions of responses when `fetching <https://jsonapi.org/format/1.1/#fetching>`__ data, i.e., sending an HTTP GET request.
+
+**Important**: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section `Index Meta-Database`_), the next course of action SHOULD be to fetch the resource objects under the :endpoint:`links` endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's :field:`base_url` value.
+
+HTTP Response Headers
+---------------------
+
+There are relevant use-cases for allowing data served via OPTIMADE to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation.
+For such use, many browsers need the server to include the header :http-header:`Access-Control-Allow-Origin: *` in its responses, which indicates that in-browser JavaScript access is allowed from any site.
+
+Warnings
+--------
+
+Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
+Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
+
+Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes (currently, none are specified).
+For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see section `Database-Provider-Specific Namespace Prefixes`_).
+
+API Endpoints
+=============
+
+Access to API endpoints as described in the subsections below are to be provided under the versioned and/or the unversioned base URL as explained in the section `Base URL`_.
+
+The endpoints are:
+
+- a :endpoint:`versions` endpoint
+- an "entry listing" endpoint
+- a "single entry" endpoint
+- an introspection :endpoint:`info` endpoint
+- an "entry listing" introspection :endpoint:`info` endpoint
+- a :endpoint:`links` endpoint to discover related implementations
+- a custom :endpoint:`extensions` endpoint prefix
+
+These endpoints are documented below.
+
+Query parameters
+----------------
+Query parameters to the endpoints are documented in the respective subsections below.
+However, in addition, all API endpoints MUST accept the :query-param:`api_hint` parameter described under `Version Negotiation`_.
+
+Versions Endpoint
+-----------------
+
+The :endpoint:`versions` endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides.
+This endpoint is special in that it MUST be provided directly on the unversioned base URL at :query-url:`/versions` and MUST NOT be provided under the versioned base URLs.
+
+The response to a query to this endpoint is in a restricted subset of the :RFC:`4180` CSV (`text/csv; header=present`) format.
+The restrictions are: (i) field values and header names MUST NOT contain commas, newlines, or double quote characters; (ii) Field values and header names MUST NOT be enclosed by double quotes; (iii) The first line MUST be a header line.
+These restrictions allow clients to parse the file line-by-line, where each line can be split on all occurrences of the comma ',' character to obtain the head names and field values.
+
+In the present version of the API, the response contains only a single field that is used to list the major versions of the API that the implementation supports.
+The CSV format header line MUST specify :val:`version` as the name for this field.
+However, clients MUST accept responses that include other fields that follow the version.
+
+The major API versions in the response are to be ordered according to the preference of the API implementation.
+If a version of the API is served on the unversioned base URL as described in the section `Base URL`_, that version MUST be the first value in the response (i.e., it MUST be on the second line of the response directly following the required CSV header).
+
+It is the intent that all future versions of this specification retain this endpoint, its restricted CSV response format, and the meaning of the first field of the response.
+
+Example response:
+
+.. code:: CSV
+
+  version
+  1
+  0
+
+The above response means that the API versions 1 and 0 are served under the versioned base URLs :query-url:`/v1` and :query-url:`/v0`, respectively.
+The order of the versions indicates that the API implementation regards version 1 as preferred over version 0.
+If the API implementation allows access to the API on the unversioned base URL, this access has to be to version 1, since the number 1 appears in the first (non-header) line.
+
