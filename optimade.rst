@@ -51,10 +51,6 @@ OPTIMADE API specification v1.2.0~develop
      <anything>-fail : means this is a counter-example of something
                        that is meant to be on form <anything> but is not valid.
 
-.. sectnum::
-
-.. contents::
-
 
 Introduction
 ============
