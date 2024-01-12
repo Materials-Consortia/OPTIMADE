@@ -508,20 +508,21 @@ The reason for this limitation is to avoid name collisions with metadata fields 
 Implementation of the :field:`meta` field is OPTIONAL.
 However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 
-Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
 
 .. code:: jsonc
+
      {
        "data": [
          {
            "type": "structures",
            "id": "example.db:structs:0001",
            "attributes": {
-             "element_ratios":[0.33336, 0.22229, 0.44425]
+             "elements_ratios":[0.33336, 0.22229, 0.44425]
            },
            "meta": {
              "property_metadata": {
-               "element_ratios": {
+               "elements_ratios": {
                  "_exmpl_originates_from_project": "piezoelectic_perovskites"
                }
              }
@@ -531,11 +532,11 @@ Example of a response in the JSON response format with two structure entries tha
            "type": "structures",
            "id": "example.db:structs:1234",
            "attributes": {
-             "element_ratios":[0.5, 0.5]
+             "elements_ratios":[0.5, 0.5]
            },
            "meta": {
              "property_metadata":{
-               "element_ratios": {
+               "elements_ratios": {
                  "_exmpl_originates_from_project": "ferroelectric_binaries"
                }
              }
@@ -546,19 +547,20 @@ Example of a response in the JSON response format with two structure entries tha
        // ...
      }
 
-Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
+Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`elements_ratios`:
 
     .. code:: jsonc
+
          // ...
          "x-optimade-metadata-definition": {
-           "title": "Metadata for the element_ratios field",
-           "description": "This field contains the per-entry metadata for the element_ratios field.",
+           "title": "Metadata for the elements_ratios field",
+           "description": "This field contains the per-entry metadata for the elements_ratios field.",
            "x-optimade-type": "dictionary",
            "x-optimade-unit": "inapplicable",
            "type": ["object", "null"],
            "properties" : {
              "_exmpl_originates_from_project": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+               "$id": "https://properties.example.com/v1.2.0/elements_ratios_meta/_exmpl_originates_from_project",
                "description" : "A string naming the internal example.com project id where this property was added to the database.",
                "x-optimade-type": "string",
                "x-optimade-unit" : "inapplicable"
@@ -737,6 +739,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allow for alternative schema types.
     Hence, if the :field:`meta` field of the JSON:API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST NOT handle failures to parse the schema or to validate the response against the schema as errors.
+
       **Note**: The :field:`schema` field was previously RECOMMENDED in all responses, but is now demoted to being OPTIONAL since there now is a standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON:API resource object <http://jsonapi.org/format/1.1/#document-resource-objects>`__ or a *list* of JSON:API resource objects.
@@ -801,7 +804,7 @@ The response MAY also return resources related to the primary data in the field:
     The URL SHOULD resolve into a JSON formatted response returning a JSON object with top level :field:`$schema` and/or :field:`$id` fields that can be used by the client to identify the schema format.
 
       **Note**: This field is the standard facility in JSON:API to communicate a response schema.
-    It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
+      It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
 
   The following fields are REQUIRED for implementing pagination:
 
@@ -2542,7 +2545,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
-  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements\_ratios`_, if the latter is provided.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements_ratios`_, if the latter is provided.
   - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
 
 - **Examples**:
@@ -2565,7 +2568,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - MUST be equal to the lengths of the list properties `elements`_ and `elements\_ratios`_, if they are provided.
+  - MUST be equal to the lengths of the list properties `elements`_ and `elements_ratios`_, if they are provided.
 
 - **Examples**:
 
@@ -2713,8 +2716,8 @@ dimension\_types
 ~~~~~~~~~~~~~~~~
 
 - **Description**: List of three integers describing the periodicity of the boundaries of the unit cell.
-  For each direction indicated by the three `lattice\_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
-  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
+  For each direction indicated by the three `lattice_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
 
@@ -2733,18 +2736,18 @@ dimension\_types
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension\_types`_.
+- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension_types`_.
 - **Type**: integer
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension\_types`_ property.
+  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension_types`_ property.
   - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
 
 - **Examples**:
 
-  - :val:`2` should be indicated in cases where :property:`dimension\_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
+  - :val:`2` should be indicated in cases where :property:`dimension_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
 
 - **Query examples**:
 
@@ -2764,10 +2767,10 @@ lattice\_vectors
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension\_types`_.
+  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`_.
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension\_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
+  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
     If a lattice vector contains the value :val:`null`, all coordinates of that lattice vector MUST be :val:`null`.
 
 - **Examples**:
