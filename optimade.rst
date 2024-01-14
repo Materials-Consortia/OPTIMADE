@@ -3972,7 +3972,9 @@ The format is a subset of the format described in `ECMA-262, section 21.2.1 <htt
 The format is closely inspired by the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
 However, OPTIMADE has decided to restrict the subset further to better align it with the features available in common database backends and clarified that the escape character token can be used with the meaning defined by ECMA-262, section 21.2.1.
 
-Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__ (when processed with Unicode support) that only uses the following tokens and features (this list is partially quoted from the JSON Schema standard):
+Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__.
+The regex is interpreted according to the processing rules that apply for an expression where only the Unicode variable is set to true of all variables set by the RegExp internal slot described by [Sec. 21.2.2.1](https://262.ecma-international.org/11.0/#sec-notation).
+Furthermore, it can only use the following tokens and features (this list is partially quoted from the JSON Schema standard):
 
 - Individual Unicode characters, as defined by the `JSON specification <https://json-schema.org/draft/2020-12/json-schema-core#RFC8259>`__.
 - The escape character (``\``) with the functionality described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/>`__.
