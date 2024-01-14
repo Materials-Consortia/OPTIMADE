@@ -3984,5 +3984,5 @@ Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, sect
 
 Note that compared to the JSON Schema standard, lazy quantifiers (``+?``, ``*?``, ``??``) are NOT included, nor are range quantifiers (``{x}``, ``{x,y}``, ``{x,}``).
 
-Unless explicitly anchored, the expression is evaluated unanchored.
+The expression matches the string at any position unless it contains a leading beginning-of-input (``^``) or trailing end-of-input (``$``) anchor listed above, i.e., the anchors are not implicitly assumed.
 For example, the OPTIMADE regex "es" matches "expression".
