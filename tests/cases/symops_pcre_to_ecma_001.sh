@@ -2,7 +2,8 @@
 
 # Test case: tests the equivalence of the provided PCRE and ECMA regular
 # expressions used in the validation of space group symmetry operations.
-# The equivalence is tested by translating the expression from PCRE to ECMA.
+# The equivalence is tested by translating the expression from PCRE to the
+# subset of the ECMA 262 dialect supported by OPTIMADE.
 
 set -ue
 
