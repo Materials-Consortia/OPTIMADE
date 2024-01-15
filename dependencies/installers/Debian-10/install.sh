@@ -3,6 +3,7 @@
 sudo apt-get install -y \
     ant \
     default-jdk \
+    make \
     patch \
     python3-mdx-math \
     unzip \
