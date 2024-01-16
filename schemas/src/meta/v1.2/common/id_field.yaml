@@ -1,5 +1,5 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "https://schemas.optimade.org/meta/v1.2/common/id"
+$id: "https://schemas.optimade.org/meta/v1.2/common/id_field"
 title: "ID"
 description: "An IRI that is an ID"
 type: string

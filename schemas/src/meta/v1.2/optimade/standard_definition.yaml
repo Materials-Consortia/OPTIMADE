@@ -2,26 +2,33 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2/optimade/standard_definition"
 title: "OPTIMADE Endpoint Definition schema"
 type: object
-required: ["$id", "$schema", "x-optimade-definition", "title", "entrytypes"]
-properties:
-  "$id":
-    $$inherit: "/v1.2/common/id"
-  "$schema":
-    type: string
-  title:
-    type: string
-  description:
-    type: string
-  x-optimade-definition:
-    $$inherit: "x-optimade-definition-field"
-    properties:
-      kind:
-        const: "standard"
-  entrytypes:
+allOf:
+  - $ref: "#/$defs/standard_definition_field"
+  - required: ["$id", "$schema"]
+$$inherit: "entrytype_definition"
+$$keep: ["$defs"]
+$defs:
+  id_field:
+    $$inherit: "/v1.2/common/id_field"
+  standard_definition_field:
     type: object
-    additionalProperties:
-      $$inherit: "entrytype_definition"
-      required: ["title", "type", "x-optimade-definition", "properties"]
-additionalProperties: false
-$$inherit: "property_definition"
-$$keep: ['$defs']
+    additionalProperties: false
+    required: ["x-optimade-definition", "title", "entrytypes"]
+    properties:
+      "$id":
+        $ref: "#/$defs/id_field"
+      "$schema":
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      x-optimade-definition:
+        $$inherit: "x-optimade-definition-field"
+        properties:
+          kind:
+            const: "standard"
+      entrytypes:
+        type: object
+        additionalProperties:
+          $ref: "#/$defs/entrytype_definition_field"

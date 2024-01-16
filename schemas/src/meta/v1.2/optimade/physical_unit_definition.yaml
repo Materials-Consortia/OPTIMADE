@@ -3,8 +3,3 @@ $id: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
 title: OPTIMADE Physical Unit Definition
 description: "Meta-schema for OPTIMADE definitions of physical units."
 $$inherit: unit_entity_definition
-properties:
-  $schema:
-    description: |-
-      A normalized URI for a meta-schema that validates the definition.
-      This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/physical_unit_definition plus a relevant extension for the schema format.

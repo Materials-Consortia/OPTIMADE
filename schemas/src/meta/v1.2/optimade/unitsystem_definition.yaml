@@ -3,9 +3,14 @@ $id: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
 title: "OPTIMADE Unit system definition schema"
 type: object
 required: ["$id", "$schema", "x-optimade-definition", "title"]
+$$inherit: "physical_unit_definition"
+$$keep: ["$defs"]
+$defs:
+  id_field:
+    $$inherit: "/v1.2/common/id_field"
 properties:
   "$id":
-    type: string
+    $ref: "#/$defs/id_field"
   "$schema":
     type: string
   type:
@@ -23,11 +28,9 @@ properties:
   units:
     type: object
     additionalProperties:
-      $$inherit: "physical_unit_definition"
-      required: ["title", "description", "x-optimade-definition"]
+      $ref: "#/$defs/unit_entity_definition_field"
   prefixes:
     type: object
     additionalProperties:
-      $$inherit: "physical_unit_definition"
-      required: ["title", "description", "x-optimade-definition"]
+      $ref: "#/$defs/unit_entity_definition_field"
 additionalProperties: false

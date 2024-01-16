@@ -3,10 +3,13 @@ $id: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 title: "OPTIMADE Property Definition schema"
 type: object
 allOf:
-  - $ref: "#/$defs/propdef"
+  - $ref: "#/$defs/property_definition_field"
   - required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
+$$inherit: "physical_unit_definition"
 $defs:
-  propdef:
+  id_field:
+    $$inherit: "/v1.2/common/id_field"
+  property_definition_field:
     required: ["type", "x-optimade-type", "x-optimade-unit"]
     anyOf:
     - type: object
@@ -133,7 +136,7 @@ $defs:
           (Or, if the type field is the list "object" and "null", it can also be null.)
         type: object
         additionalProperties:
-          $ref: '#/$defs/propdef'
+          $ref: '#/$defs/property_definition_field'
       required:
         description: |-
           The defined property MUST have keys that match all the strings in this list.
@@ -175,9 +178,10 @@ $defs:
         items:
           $comment: "Must validate against the Property Definition itself, but there is no easy way to express that in the schema."
       items:
-        description: |-
-          The defined property is a list where each item MUST match this inner Property Definition.
-        $ref: '#/$defs/propdef'
+        allOf:
+          - $ref: '#/$defs/property_definition_field'
+          - description: |-
+              The defined property is a list where each item MUST match this inner Property Definition.
       uniqueItems:
         description: "If TRUE, the defined property is an array that MUST only contain unique items. If FALSE, this field sets no limitation on the defined property."
         type: "boolean"
@@ -230,15 +234,16 @@ $defs:
           The regular expression is not implicitly anchored, i.e., it can match the string at any position unless the expression contains a leading '^' or a trailing '$'.
         type: "string"
       $id:
-        $$inherit: "/v1.2/common/id"
-        description: |-
-          A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
-          (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
-          It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
-          Property Definitions SHOULD be regarded as the same if they only differ by:
-          - The inclusion or omission of "null" in the type in the outermost layer of the definition.
-          - Additions of annotating notes to end of the description field.
-          - Changes to the following specific fields at any level: deprecated, examples, $comment, x-optimade-implementation, and x-optimade-requirements.
+        allOf:
+          - $ref: '#/$defs/id_field'
+          - description: |-
+              A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
+              (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+              It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+              Property Definitions SHOULD be regarded as the same if they only differ by:
+              - The inclusion or omission of "null" in the type in the outermost layer of the definition.
+              - Additions of annotating notes to end of the description field.
+              - Changes to the following specific fields at any level: deprecated, examples, $comment, x-optimade-implementation, and x-optimade-requirements.
       $schema:
         description: |-
           A normalized URI for a meta-schema that validates the Property Definition.
@@ -292,8 +297,9 @@ $defs:
       x-optimade-unit-definitions:
         type: array
         items:
-          $$inherit: "physical_unit_definition"
-          required: ['title', 'symbol', 'display-symbol', 'description']
+          allOf:
+            - $ref: "#/$defs/unit_entity_definition_field"
+            - required: ['title', 'symbol', 'display-symbol', 'description']
       x-optimade-type:
         type: string
         enum:
@@ -403,7 +409,7 @@ $defs:
         description: |-
           A dictionary that is a property definition of a dictionary-type property that defines all metadata properties.
         allOf:
-          - $ref: '#/$defs/propdef'
+          - $ref: '#/$defs/property_definition_field'
           - properties:
               type:
                 enum:
