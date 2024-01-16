@@ -2071,7 +2071,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
-  .. _definition of the property-format field:
+.. _definition of the property-format field:
 
   - :field:`format`: String.
     A string that declares the OPTIMADE definition format the definition adheres to.
@@ -2374,7 +2374,7 @@ Furthermore, depending on what string the :field:`type` is equal to, or contains
     If :val:`FALSE`, this field sets no limitation on the defined property.
 
   Furthermore, despite being defined in the JSON Schema standard, the fields :field:`minItems` and :field:`maxItems` MUST NOT be used to indicate limits of the number of items of a list.
-  See the `definition of the x-optimade-dimension field`_ for more information.
+  See the `definition of the x-optimade-dimensions field`_ for more information.
 
 - :val:`"integer"`:
 
