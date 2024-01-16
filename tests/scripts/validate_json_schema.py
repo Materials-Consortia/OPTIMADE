@@ -43,6 +43,6 @@ if __name__ == "__main__":
     with open(args.schema, "r") as f:
         schema=json.load(f)
 
-    validate(instance=data, schema=schema)
+    validate(instance=data, schema=schema, format_checker=jsonschema.FormatChecker())
 
     print("JSON file: "+str(args.infile)+" validated against JSON Schema: "+str(args.schema)+": OK")

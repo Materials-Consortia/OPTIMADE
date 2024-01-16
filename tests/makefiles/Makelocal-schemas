@@ -185,8 +185,8 @@ clean_schemas:
 .PHONY: validate_schemas
 
 validate_meta_schemas: schemas
-	tests/scripts/validate_json_schema.py schemas/output/meta/latest/optimade/property_definition.json external/json-schema/schema
-	tests/scripts/validate_json_schema.py schemas/output/meta/latest/optimade/physical_unit_definition.json external/json-schema/schema
+	tests/scripts/validate_json_schema.py schemas/output/meta/latest/optimade/property_definition.json dependencies/submodules/optimade-property-tools/external/json-schema/schema
+	tests/scripts/validate_json_schema.py schemas/output/meta/latest/optimade/physical_unit_definition.json dependencies/submodules/optimade-property-tools/external/json-schema/schema
 
 validate_schemas: schemas validate_meta_schemas
 	tests/scripts/validate_json_schema.py schemas/tests/example-structures.optimade schemas/output/json-schema/latest/optimade.json
