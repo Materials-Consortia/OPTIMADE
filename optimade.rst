@@ -1264,6 +1264,7 @@ The single resource object's response dictionary MUST include the following fiel
     If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database that the content, metadata and database structure are available, without exceptions, under the respective licenses.
     If the database cannot make that commitment, e.g., if only part of the content, metadata or database structure is available under a license, the corresponding license identifier MUST NOT appear in :field:`available_licenses` (but, rather, the field :field:`license` is to be used to clarify the licensing situation.)
     An empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field :field:`license`.
+    An unknown value means that the database makes no commitment to its content, metadata and/or database structure data being covered by any of the SPDX licenses.
 
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
