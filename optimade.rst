@@ -212,7 +212,7 @@ Hence, entry properties are described in this proposal using
 context-independent types that are assumed to have some form of
 representation in all contexts. They are as follows:
 
-- Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
+- Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**, **smiles**.
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
 - **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
@@ -592,6 +592,7 @@ In the JSON response format, property types translate as follows:
 - **string**, **boolean**, **list** are represented by their similarly named counterparts in JSON.
 - **integer**, **float** are represented as the JSON number type.
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
+- **smiles** uses a string representation of chemical structure as defined in `OpenSMILES specification <http://opensmiles.org/opensmiles.html>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
 
@@ -1766,7 +1767,7 @@ The following tokens are used in the filter query component:
 
   (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped.)
 
-  String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
+  String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ and **smiles** according to the `OpenSMILES specification <http://opensmiles.org/opensmiles.html>`__.
 
 - **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
@@ -1796,6 +1797,7 @@ More examples of the number tokens and machine-readable definitions and tests ca
 
 - **Operator tokens** are represented by usual mathematical relation symbols or by case-sensitive keywords.
   Currently the following operators are supported: :filter-op:`=`, :filter-op:`!=`, :filter-op:`<=`, :filter-op:`>=`, :filter-op:`<`, :filter-op:`>` for tests of number, string (lexicographical) or timestamp (temporal) equality, inequality, less-than, more-than, less, and more relations; :filter-op:`AND`, :filter-op:`OR`, :filter-op:`NOT` for logical conjunctions, and a number of keyword operators discussed in the next section.
+  Of the comparison operators, SMILES data type supports only equality and inequality operators (:filter-op:`=` and :filter-op:`!=`).
 
   In future extensions, operator tokens that are words MUST contain only upper-case letters.
   This requirement guarantees that no operator token will ever clash with a property name.
@@ -1887,6 +1889,21 @@ Examples:
 - :filter:`property = TRUE`
 - :filter:`property != FALSE`
 - :filter:`_exmpl_has_inversion_symmetry AND NOT _exmpl_is_primitive`
+
+Comparisons of SMILES values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Equality comparisons ('=' and '!=') MUST be supported for SMILES values.
+When handling equality comparisons of SMILES values, an implementation SHOULD NOT regard them as simple strings.
+Instead, an implementation SHOULD either compare the described chemical structures or canonicalize SMILES representations and then perform direct string matching.
+In addition to equality comparison operators, :val:`CONTAINS` MAY be supported optionally as an operator to check whether one structure is a substructure of another.
+Other comparison operators MUST NOT be supported.
+
+Examples:
+
+- :filter:`smiles = "c1ccccc1"`
+- :filter:`smiles != "O"`
+- :filter:`smiles CONTAINS "c1ccccc1"`
 
 Comparisons of list properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2014,11 +2031,13 @@ Type handling and conversions in comparisons
 
 The definitions of specific properties in this standard define their types.
 Similarly, for `database-provider-specific properties`_, the database provider decides their types.
-In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with a single exception of timestamps (see below).
+In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with the exception of timestamps and SMILES representations (see below).
 Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
-As the filter language syntax does not define a lexical token for timestamps, values of this type are expressed using string tokens in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
+As the filter language syntax does not define lexical tokens for timestamps or SMILES, values of these types are expressed using string tokens.
+For timestamps `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__ representation is used and `OpenSMILES specification <http://opensmiles.org/opensmiles.html>`__ is used for SMILES.
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
+In a comparison with a SMILES property, a string token represents a chemical structure that would result from parsing the string according to the OpenSMILES specification v1.0.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
 Optional filter features
@@ -2170,7 +2189,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
     * :val:`"dictionary"` then :field:`type` is `"object"`.
     * :val:`"list"` then :field:`type` is `"array"`.
     * :val:`"float"` then :field:`type` is `"number"`.
-    * :val:`"timestamp"` then :field:`type` is `"string"`.
+    * :val:`"timestamp"` or :val:`"smiles"` then :field:`type` is `"string"`.
 
   - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
     This form specifies that the defined property can be :val:`null`.
@@ -2711,6 +2730,22 @@ chemical\_formula\_anonymous
 - **Querying**:
 
   - A filter that matches an exactly given formula is :filter:`chemical_formula_anonymous="A2B"`.
+
+smiles
+~~~~~~
+
+- **Description**: The SMILES (Simplified Molecular Input Line Entry System) representation of the structure.
+- **Type**: smiles
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+  - Value MUST adhere to the `OpenSMILES specification v1.0 <http://opensmiles.org/opensmiles.html>`__.
+  - When structures or their parts cannot be unambiguously represented in SMILES according to OpenSMILES recommendations, using the guidelines from `Quirós et al. 2018 <https://doi.org/10.1186/s13321-018-0279-6>`__ is RECOMMENDED.
+
+- **Examples**:
+
+  - caffeine: `CN1C=NC2=C1C(=O)N(C(=O)N2C)C`
 
 dimension\_types
 ~~~~~~~~~~~~~~~~
