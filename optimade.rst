@@ -508,7 +508,7 @@ The reason for this limitation is to avoid name collisions with metadata fields 
 Implementation of the :field:`meta` field is OPTIONAL.
 However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 
-Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project`:
 
 .. code:: jsonc
 
@@ -1715,11 +1715,11 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+chemical_formula_descriptive="SiO2"&response_format=xml`
+- :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+chemical_formula_descriptive="SiO2"&response_format=xml`
 
-Or, fully URL encoded :
+Or, fully URL encoded:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&response_format=xml`
+- :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&response_format=xml`
 
 Lexical Tokens
 --------------
@@ -2006,8 +2006,8 @@ The precedence (priority) of the operators MUST be as indicated in the list belo
 
 Examples:
 
--  :filter:`NOT a > b OR c = 100 AND f = "C2 H6"`: this is interpreted as :filter:`(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )` when fully braced.
--  :filter:`a >= 0 AND NOT b < c OR c = 0`: this is interpreted as :filter:`((a >= 0) AND (NOT (b < c))) OR (c = 0)` when fully braced.
+- :filter:`NOT a > b OR c = 100 AND f = "C2 H6"`: this is interpreted as :filter:`(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )` when fully braced.
+- :filter:`a >= 0 AND NOT b < c OR c = 0`: this is interpreted as :filter:`((a >= 0) AND (NOT (b < c))) OR (c = 0)` when fully braced.
 
 Type handling and conversions in comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
