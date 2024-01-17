@@ -3878,6 +3878,7 @@ The header object MAY also contain the keys:
   - :field:`"item_describedby"`: String.
     A URL to an external JSON Schema that validates the data lines of the response.
     The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
+
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
 - **Dense layout:** In the dense partial data layout, each data line reproduces one item from the OPTIMADE list property being transmitted in the JSON format.
