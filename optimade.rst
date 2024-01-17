@@ -1266,7 +1266,7 @@ The single resource object's response dictionary MUST include the following fiel
     An empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field :field:`license`.
     An unknown value means that the database makes no commitment to its content, metadata and/or database structure data being covered by any of the SPDX licenses.
 
-  - **available\_licenses\_for\_entries**: List of `SPDX license identifiers <https://spdx.org/licenses/>` specifying a set of alternative licenses under which the client is granted access to all the content, metadata and data extracts that neither constitute substantial parts of the database nor encompass the structure of this database.
+  - **available\_licenses\_for\_entries**: List of `SPDX license identifiers <https://spdx.org/licenses/>`__ specifying a set of alternative licenses under which the client is granted access to all the content, metadata and data extracts that neither constitute substantial parts of the database nor encompass the structure of this database.
     The remaining definition of this field is the same as for :field:`available_licenses`.
 
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
