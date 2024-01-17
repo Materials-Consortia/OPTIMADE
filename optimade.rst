@@ -1258,7 +1258,7 @@ The single resource object's response dictionary MUST include the following fiel
 
     If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., the default is for :field:`is_index` to be :field-val:`false`).
 
-  - **available\_licenses**: List of `SPDX license identifiers <https://spdx.org/licenses/>` specifying a set of alternative licenses under which the client is granted access to all the content, metadata and database structure in this database.
+  - **available\_licenses**: List of `SPDX license identifiers <https://spdx.org/licenses/>` specifying a set of alternative licenses under which the client is granted access to all the content, metadata and structure of this database.
     If the content, metadata and database structure are available under multiple alternative licenses, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions they can be used.
     Inclusion of a license identifier in the list is a commitment of the database that the rights are in place to grant clients access to all the content, metadata and database structure according to the terms of either of these licenses (at the choice of the client).
     If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database that the content, metadata and database structure are available, without exceptions, under the respective licenses.
