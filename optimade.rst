@@ -3778,7 +3778,7 @@ The regular expressions are recorded below in two forms:
 
      #END PCRE symops
 
-- The regular expression is also provided in a simplified explicit form compatible with the subset of the `ECMA 262 dialect <https://ecma-international.org/publications-and-standards/standards/ecma-262/>`_ syntax supported by `JSON Schema field "pattern" <https://json-schema.org/draft/2020-12/json-schema-validation#name-pattern>_`:
+- The regular expression is also provided in an expanded form:
 
   .. code:: ECMA
 

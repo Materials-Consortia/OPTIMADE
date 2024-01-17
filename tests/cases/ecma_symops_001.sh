@@ -1,7 +1,7 @@
 #! /bin/sh
 
-# Test case: test if a provided PCRE correctly recognises symmetry
-# operation strings.
+# Test case: test if the provided ECMA-compatible regular expression correctly
+# recognises symmetry operation strings.
 
 #BEGIN DEPEND
 
