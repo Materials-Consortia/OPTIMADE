@@ -3109,7 +3109,7 @@ nframes
   -   :val:`42`
 
 reference_frames
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 - **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
   The first frame could for example be a starting configuration, the second a transition state and the third the final state.
