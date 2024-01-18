@@ -495,28 +495,26 @@ It communicates that the property value has been omitted from the response and i
    }
 
 
-Metadata for Property_ranges query parameter
+Metadata for :query-param:`property_ranges` query parameter
 --------------------------------------------
 
 If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present for each field for which the :query-param:`property_ranges` query parameter can be used.
 The client needs this metadata to be able to select only a part of the data of a property.
-This metadata is stored in a dictionary in the field :field:`range` which is stored as per property metadata as described in section `Metadata properties`_
+This metadata is given in a dictionary field :field:`range` which stores per property metadata as described in section `Metadata properties`_
 
-- :field:`range`: Dictionary
-
-  A dictionary that contains the data necessary for the client to select only a sub_range of a property.
-  If the property_ranges query parameter is supported for this property the following keys MUST be present.
-  Otherwise this dictionary and these keys are optional.
+- :field:`range`: Dictionary.
+  A dictionary that contains the data necessary for the client to select only a subset or slice of a property.
+  If the :query-param:`property_ranges` query parameter is supported for this property the following keys MUST be present:
 
   - :field:`indexable_dim`: List of Strings.
-    The list of range_ids of the dimensions for which slicing is supported, i.e. the client can request a subrange in this dimension via the :query-param:`property_ranges` query parameter.
+    The list of :field:`range_ids` of the dimensions for which slicing is supported, i.e. the client can request a slice in this dimension via the :query-param:`property_ranges` query parameter.
 
   - :field:`layout`: String.
     A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
 
-  - :field:`data_range`: List of Slice Objects.
+  - :field:`data_range`: List of slice objects.
     This field describes how the values are distributed in the different dimensions.
-    It consists of a slice object for each dimension of the property.
+    It consists of a `slice object`_ for each dimension of the property.
     The order of the slice objects must be the same as in the :field:`range_ids` field in the property definition.
     If the :field:`layout` field is set to :val:`"sparse"` the value of the :field:`step` sub-field has no meaning.
 
@@ -535,24 +533,27 @@ It communicates that the property value has been omitted from the response and m
          "type": "structures",
          "id": "2345678",
          "attributes": {
-             "a": null
+           "a": null
          }
          "meta": {
-           "property_metadata":{
-             "a":{
-               "range":{
-                 "range_ids":["frames","particles"],
+           "property_metadata": {
+             "a": {
+               "range": {
+                 "range_ids": ["frames", "particles"],
                  "indexable_dim": ["frames"],
-                 "data_range": [{
+                 "data_range": [
+                   {
                      "start": 1,
                      "step": 1,
                      "stop": 200,
-                   },{
+                   },
+                   {
                      "start": 1,
                      "step": 1,
                      "stop": 3,
-                 }],
-                 "layout":"dense",
+                   }
+                 ],
+                 "layout": "dense",
                  "nvalues": 600
                }
              }
@@ -1240,39 +1241,38 @@ The rules for which properties are to be present for an entry in the response ar
 Single Entry URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **property\_ranges**: A set of slices which specify which sub-range of a property should be returned.
+- **property\_ranges**: A set of slice objects which specify which sub-range of a property should be returned.
 
   The property to which this sub-range should be applied can be specified via the :query-param:`response_fields` query parameter.
   Each slice consists of the name of a dimension directly followed by the requested slice in this dimension.
   The dimension name and the start, stop and step values of the slice are separated by colons (":", ASCII 58(0x3A))
   The slice is defined in a similar manner as the `slice object`_.
-  If no value is placed between the colons for a component of the slice the default value is used.
+  If no value is placed between the colons for a component of the slice then the default value is used.
 
   The first integer specifies the start of the slice, i.e. the first index in that dimension for which values should be returned.
   The default is the index of the first value.
   The second integer specifies the end/stop of the slice, i.e. the last index for which values should be returned.
   The default is the index of the last value of the property.
-  And the third integer specifies the step size in that dimension.
+  The third integer specifies the step size in that dimension.
   The default is :val:`1`
 
-  Multiple dimensional slices can be defined by specifying a range for each dimension.
+  Multidimensional slices can be defined by specifying a range for each dimension.
   These ranges are separated by a comma (",", ASCII 44(0x2C)).
-  The slices are 0 based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`:10:20:1` the last value returned belongs to index 20.
+  The slices are 0-based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`:10:20:1` the last value returned belongs to index 20.
 
-  In general support is OPTIONAL, property definitions may however deviate from this and place stricter requirements on servers.
-  Databases MUST use these ranges for properties where the dimension is listed under indexable_dimensions, if this is not the case the database MAY return more data than was specified in the range.
+  General support for :field:`property_ranges` is OPTIONAL, however particular property definitions may themselves deviate from this and place stricter requirements on implementations.
+  Databases MUST use these ranges for properties where the dimension is listed under :field:`indexable_dimensions`, if this is not the case, the database MAY return more data than was specified in the range.
 
   If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
   If one or more values are not present at one of the requested combination of indexes, the server MAY either decide to return null or if possible adjust the returned range so the indexes for which no value is defined are no longer part of the range.
   The latter is only allowed when no defined values would be lost.
   For dense arrays that may mean that the field :field:`returned_range` differs from the requested range.
-  When a value is, however, explicitly set to :val:`null` and :val:`null` has a meaning beyond indicating that no value has been defined  :val:`null` MUST be returned
+  However, when a value is explicitly set to :val:`null` to indicate that the underlying property has no defined values, then :val:`null` MUST be returned.
 
-  Example: In this example the Cartesian site positions are requested for particles 30 through 70 for 1 out of every 10 frames of the first 1000 frames of a trajectory.
+  Example: In this example the Cartesian site positions are requested for particles 30 through 70 for 1 out of every 10 frames of the first 1000 frames of a trajectory with ID :val:`id_12345`.
 
-  :query-url:`http://example.com/optimade/v1/structures/id_12345?response_fields=cartesian_site_positions&property_ranges=frames::1000:10,particles:30:70::`
+  :query-url:`http://example.com/optimade/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=frames::1000:10,particles:30:70::`
 
-|
 
 The client MAY provide a set of additional URL query parameters for this endpoint type.
 URL query parameters not recognized MUST be ignored.
@@ -2218,17 +2218,17 @@ A Property Definition MUST be composed according to the combination of the requi
     - :val:`none`: the defined property does not need to be queryable with any features of the filter language.
 
   - :field:`property_range`: Dictionary.
-    A dictionary that contains information needed to use the :query-param:`property_range` query parameter
+    A dictionary that contains information needed to use the :query-param:`property_range` query parameter.
 
     - :field:`supported`: Boolean.
-      This field indicates whether the it is possible to use the :query-param:`property_range` query parameter in combination with this field. If true the use of the :query-param:`property_range` is supported
+      This field indicates whether it is possible to use the :query-param:`property_range` query parameter in combination with this field. 
 
     - :field:`range_ids`: List of Strings.
       A list with an identifier for each dimension of the property.
       The outermost dimension of a nested array should come first.
       If, within one entry, dimensions for two or more properties share the same :field:`range_id` those dimensions should be thought of as the same dimension.
       For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames`.
-      This means that the energy at index x(in the dimension labelled by this range_id) belongs to the cartesian_site_positions at the same index x.
+      This means that the energy at index *x* (in the dimension labelled by this :field:`range_id`) belongs to the :field:`cartesian_site_positions` at the same index *x*.
 
   - :field:`query-support-operators`: List of Strings.
     Defines the filter language features supported on this property.
