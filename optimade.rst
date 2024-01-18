@@ -3967,7 +3967,7 @@ An example of the sparse layout for multidimensional lists with three aggregated
 OPTIMADE Regular Expression Format
 ----------------------------------
 This section defines a string representation for regular expressions (regexes) to be referred to from other parts of the specification.
-This format will be referred to as an "OPTIMADE regex."
+This format will be referred to as an "OPTIMADE regex".
 Depending on the context, a delimiter may be required to enclose the regex (e.g., double quotes or a slash character), and some outer-level escape rules may apply (e.g., to distinguish an enclosing double quote from one that is part of the regex).
 Such delimiters and escape rules are not defined as part of the OPTIMADE regex format itself and have to be clarified when this format is referenced.
 
