@@ -1267,7 +1267,7 @@ The single resource object's response dictionary MUST include the following fiel
     An unknown value means that the database makes no commitment.
 
   - **available\_licenses\_for\_entries**: List of `SPDX license identifiers <https://spdx.org/licenses/>`__ specifying a set of additional alternative licenses under which the client is granted access to individual database entries, their metadata and data extracts that do not constitute substantial parts of the database.
-    If :field:`available_licenses` is known, the licenses provided in :field:`available_licenses_for_entries` are additional alternative licenses granting access to individual database entries, their metadata and data extracts that do not constitute substantial parts of the database.
+Note that the definition of the field :field:`available_licenses` implies that licenses specified in that field are available also for the licensing specified by this field, even if they are not explicitly included in the field :field:`available_licenses_for_entries` or if it is :val:`null` (however, the opposite relationship does not hold).
     If :field:`available_licenses` is unknown, only the licenses in :field:`available_licenses_for_entries` apply.
 
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
