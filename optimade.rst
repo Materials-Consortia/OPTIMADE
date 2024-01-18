@@ -1266,7 +1266,7 @@ The single resource object's response dictionary MUST include the following fiel
     An empty list indicates that none of the SPDX licenses apply and that the licensing situation is clarified in human readable form in the field :field:`license`.
     An unknown value means that the database makes no commitment.
 
-  - **available\_licenses\_for\_entries**: List of `SPDX license identifiers <https://spdx.org/licenses/>`__ specifying a set of additional alternative licenses under which the client is granted access to individual database entries, their metadata and data extracts that do not constitute substantial parts of the database.
+  - **available\_licenses\_for\_entries**: List of `SPDX license identifiers <https://spdx.org/licenses/>`__ specifying a set of additional alternative licenses available to the client for licensing individual, and non-substantial sets of, database entries, metadata, and extracts from the database that do not constitute substantial parts of the database.
     Note that the definition of the field :field:`available_licenses` implies that licenses specified in that field are available also for the licensing specified by this field, even if they are not explicitly included in the field :field:`available_licenses_for_entries` or if it is :val:`null` (however, the opposite relationship does not hold).
     If :field:`available_licenses` is unknown, only the licenses in :field:`available_licenses_for_entries` apply.
 
