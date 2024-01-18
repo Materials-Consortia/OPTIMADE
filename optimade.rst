@@ -582,20 +582,21 @@ The reason for this limitation is to avoid name collisions with metadata fields 
 Implementation of the :field:`meta` field is OPTIONAL.
 However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 
-Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`element_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project` :
+Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project`:
 
 .. code:: jsonc
+
      {
        "data": [
          {
            "type": "structures",
            "id": "example.db:structs:0001",
            "attributes": {
-             "element_ratios":[0.33336, 0.22229, 0.44425]
+             "elements_ratios":[0.33336, 0.22229, 0.44425]
            },
            "meta": {
              "property_metadata": {
-               "element_ratios": {
+               "elements_ratios": {
                  "_exmpl_originates_from_project": "piezoelectic_perovskites"
                }
              }
@@ -605,11 +606,11 @@ Example of a response in the JSON response format with two structure entries tha
            "type": "structures",
            "id": "example.db:structs:1234",
            "attributes": {
-             "element_ratios":[0.5, 0.5]
+             "elements_ratios":[0.5, 0.5]
            },
            "meta": {
              "property_metadata":{
-               "element_ratios": {
+               "elements_ratios": {
                  "_exmpl_originates_from_project": "ferroelectric_binaries"
                }
              }
@@ -620,19 +621,20 @@ Example of a response in the JSON response format with two structure entries tha
        // ...
      }
 
-Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`element_ratios`:
+Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`elements_ratios`:
 
     .. code:: jsonc
+
          // ...
          "x-optimade-metadata-definition": {
-           "title": "Metadata for the element_ratios field",
-           "description": "This field contains the per-entry metadata for the element_ratios field.",
+           "title": "Metadata for the elements_ratios field",
+           "description": "This field contains the per-entry metadata for the elements_ratios field.",
            "x-optimade-type": "dictionary",
            "x-optimade-unit": "inapplicable",
            "type": ["object", "null"],
            "properties" : {
              "_exmpl_originates_from_project": {
-               "$id": "https://properties.example.com/v1.2.0/element_ratios_meta/_exmpl_originates_from_project",
+               "$id": "https://properties.example.com/v1.2.0/elements_ratios_meta/_exmpl_originates_from_project",
                "description" : "A string naming the internal example.com project id where this property was added to the database.",
                "x-optimade-type": "string",
                "x-optimade-unit" : "inapplicable"
@@ -811,6 +813,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     If it is a string, or a dictionary containing no :field:`meta` field, the provided URL MUST point at an `OpenAPI <https://swagger.io/specification/>`__ schema.
     It is possible that future versions of this specification allow for alternative schema types.
     Hence, if the :field:`meta` field of the JSON:API links object is provided and contains a field :field:`schema_type` that is not equal to the string :field-val:`OpenAPI` the client MUST NOT handle failures to parse the schema or to validate the response against the schema as errors.
+
       **Note**: The :field:`schema` field was previously RECOMMENDED in all responses, but is now demoted to being OPTIONAL since there now is a standard way of specifying a response schema in JSON:API through the :field:`describedby` subfield of the top-level :field:`links` field.
 
 - **data**: The schema of this value varies by endpoint, it can be either a *single* `JSON:API resource object <http://jsonapi.org/format/1.1/#document-resource-objects>`__ or a *list* of JSON:API resource objects.
@@ -875,7 +878,7 @@ The response MAY also return resources related to the primary data in the field:
     The URL SHOULD resolve into a JSON formatted response returning a JSON object with top level :field:`$schema` and/or :field:`$id` fields that can be used by the client to identify the schema format.
 
       **Note**: This field is the standard facility in JSON:API to communicate a response schema.
-    It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
+      It overlaps in function with the field :field:`schema` in the top level :field:`meta` field.
 
   The following fields are REQUIRED for implementing pagination:
 
@@ -955,6 +958,7 @@ An example of a full response:
 
 - **@context**: A JSON-LD context that enables interpretation of data in the response as linked data.
   If provided, it SHOULD be one of the following:
+
   - An object conforming to a JSON-LD standard, which includes a :field:`@version` field specifying the version of the standard.
   - A string containing a URL that resolves to such an object.
 
@@ -1095,7 +1099,7 @@ Standard OPTIONAL URL query parameters standardized by the JSON:API specificatio
   See `JSON:API 1.1 <https://jsonapi.org/format/1.1/#fetching-pagination>`__.
   The API implementation MUST return no more than the number specified.
   It MAY return fewer.
-  The database MAY have a maximum limit and not accept larger numbers (in which case an error code -- 403 Forbidden -- MUST be returned).
+  The database MAY have a maximum limit and not accept larger numbers (in which case the :http-error:`403 Forbidden` error code MUST be returned).
   The default limit value is up to the API implementation to decide.
   Example: :query-url:`http://example.com/optimade/v1/structures?page_limit=100`
 
@@ -1818,11 +1822,11 @@ In particular, this means the client MUST escape special characters in string va
 
 Examples of syntactically correct query strings embedded in queries:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+chemical_formula_descriptive="SiO2"&response_format=xml`
+- :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements=4+AND+chemical_formula_descriptive="SiO2"&response_format=xml`
 
-Or, fully URL encoded :
+Or, fully URL encoded:
 
--  :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&response_format=xml`
+- :query-url:`http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&response_format=xml`
 
 Lexical Tokens
 --------------
@@ -2109,8 +2113,8 @@ The precedence (priority) of the operators MUST be as indicated in the list belo
 
 Examples:
 
--  :filter:`NOT a > b OR c = 100 AND f = "C2 H6"`: this is interpreted as :filter:`(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )` when fully braced.
--  :filter:`a >= 0 AND NOT b < c OR c = 0`: this is interpreted as :filter:`((a >= 0) AND (NOT (b < c))) OR (c = 0)` when fully braced.
+- :filter:`NOT a > b OR c = 100 AND f = "C2 H6"`: this is interpreted as :filter:`(NOT (a > b)) OR ( (c = 100) AND (f = "C2 H6") )` when fully braced.
+- :filter:`a >= 0 AND NOT b < c OR c = 0`: this is interpreted as :filter:`((a >= 0) AND (NOT (b < c))) OR (c = 0)` when fully braced.
 
 Type handling and conversions in comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2661,7 +2665,7 @@ elements
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
   - The order MUST be alphabetical.
-  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements\_ratios`_, if the latter is provided.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements_ratios`_, if the latter is provided.
   - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field :field:`chemical_symbols` for the :property:`species` property).
 
 - **Examples**:
@@ -2684,7 +2688,7 @@ nelements
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - MUST be equal to the lengths of the list properties `elements`_ and `elements\_ratios`_, if they are provided.
+  - MUST be equal to the lengths of the list properties `elements`_ and `elements_ratios`_, if they are provided.
 
 - **Examples**:
 
@@ -2832,8 +2836,8 @@ dimension\_types
 ~~~~~~~~~~~~~~~~
 
 - **Description**: List of three integers describing the periodicity of the boundaries of the unit cell.
-  For each direction indicated by the three `lattice\_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
-  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice\_vectors`_ and *not* the Cartesian x, y, z directions.
+  For each direction indicated by the three `lattice_vectors`_, this list indicates if the direction is periodic (value :val:`1`) or non-periodic (value :val:`0`).
+  Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors`_ and *not* the Cartesian x, y, z directions.
 - **Type**: list of integers.
 - **Requirements/Conventions**:
 
@@ -2844,7 +2848,7 @@ dimension\_types
 
 - **Examples**:
 
-  - A nonperiodic structure, for example, for a single molecule : :val:`[0, 0, 0]`
+  - A nonperiodic structure, for example, for a single molecule: :val:`[0, 0, 0]`
   - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: :val:`[0, 0, 1]`
   - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: :val:`[1, 0, 1]`
   - For a bulk 3D system with a unit cell that is periodic in all directions: :val:`[1, 1, 1]`
@@ -2852,18 +2856,18 @@ dimension\_types
 nperiodic\_dimensions
 ~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension\_types`_.
+- **Description**: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension_types`_.
 - **Type**: integer
 - **Requirements/Conventions**:
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension\_types`_ property.
+  - The integer value MUST be between 0 and 3 inclusive and MUST be equal to the sum of the items in the `dimension_types`_ property.
   - This property only reflects the treatment of the lattice vectors provided for the structure, and not any physical interpretation of the dimensionality of its contents.
 
 - **Examples**:
 
-  - :val:`2` should be indicated in cases where :property:`dimension\_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
+  - :val:`2` should be indicated in cases where :property:`dimension_types` is any of :val:`[1, 1, 0]`, :val:`[1, 0, 1]`, :val:`[0, 1, 1]`.
 
 - **Query examples**:
 
@@ -2883,10 +2887,10 @@ lattice\_vectors
   - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
     (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
   - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
-  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension\_types`_.
+  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`_.
     The vectors SHOULD by convention be chosen so the determinant of the :property:`lattice_vectors` matrix is different from zero.
     The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
-  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension\_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
+  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types`_ is :val:`0`) MAY be given as a list of all :val:`null` values.
     If a lattice vector contains the value :val:`null`, all coordinates of that lattice vector MUST be :val:`null`.
 
 - **Examples**:
@@ -2897,39 +2901,36 @@ space\_group\_symmetry\_operations\_xyz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: a list of symmetry operations given as general position x, y and z coordinates in algebraic form.
-  Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
-  The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
-  The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
-  The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
-  In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
-  This symmetry operation set MUST always include the :val:`x,y,z` identity operation.
-  The symmetry operations are to be applied to fractional atom coordinates.
-  In case only Cartesian coordinates are available, these Cartesian coordinates must be converted to fractional coordinates before the application of the provided symmetry operations.
-  If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
+
 - **Type** list of strings
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
-    However, the property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
-    Moreover, the property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
-    - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
+
+    - The property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
+    - The property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
   - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
+  - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
+  - Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
+  - The letters :val:`x`, :val:`y` and :val:`z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as :val:`-x`, :val:`-y` and :val:`-z`, respectively.
+  - The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
+  - The interpretation of the strings MUST follow the conventions of the IUCr CIF core dictionary (IUCr, 2023).
+    In particular, this property MUST explicitly provide all symmetry operations needed to generate all the atoms in the unit cell from the atoms in the asymmetric unit, for the setting used.
+  - This symmetry operation set MUST always include the :val:`x,y,z` identity operation.
+  - The symmetry operations are to be applied to fractional atom coordinates.
+    In case only Cartesian coordinates are available, these Cartesian coordinates must be converted to fractional coordinates before the application of the provided symmetry operations.
+  - If the symmetry operation list is present, it MUST be compatible with other space group specifications (e.g. the ITC space group number, the Hall symbol, the Hermann-Mauguin symbol) if these are present.
 
 - **Examples**:
 
-  Space group operations for the space group with ITC number 3 (H-M symbol: `P 2`, extended H-M symbol: `P 1 2 1`, Hall symbol `P 2y`):
-
-  - :val:`["x,y,z", "-x,y,-z"]`
-
-  Space group operations for the space group with ITC number 5 (H-M symbol `C 2`, extended H-M symbol: `C 1 2 1`, Hall symbol `C 2y`):
-
-  - :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
+  - Space group operations for the space group with ITC number 3 (H-M symbol :val:`P 2`, extended H-M symbol :val:`P 1 2 1`, Hall symbol :val:`P 2y`): :val:`["x,y,z", "-x,y,-z"]`
+  - Space group operations for the space group with ITC number 5 (H-M symbol :val:`C 2`, extended H-M symbol :val:`C 1 2 1`, Hall symbol :val:`C 2y`): :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
 - **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   This property is not meant to represent arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry.
 
-- **Bibliographic References for the 'space\_group\_symmetry\_operation\_xyz' definitions**
+- **Bibliographic References**:
 
   Bradley, C. J. and Cracknell, A. P. (1972) The Mathematical Theory of Symmetry in Solids. Oxford, Clarendon Press (paperback edition 2010) 745 p. ISBN `978-0-19-958258-7 <https://isbnsearch.org/isbn/9780199582587>`__.
 
@@ -2939,29 +2940,29 @@ space\_group\_symbol\_hall
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description**: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
-  The change-of-basis operations are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - The change-of-basis operations are used as defined in the International Tables of Crystallography (ITC) Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
   - Each component of the Hall symbol MUST be separated by a single space symbol.
   - If there exists a standard Hall symbol which represents the symmetry it SHOULD be used.
   - MUST be :val:`null` if :property:`nperiodic_dimensions` is not equal to 3.
 
 - **Examples**:
 
-  Space group symbols with explicit origin (the Hall symbols):
+  - Space group symbols with explicit origin (the Hall symbols):
 
-  - :val:`P 2c -2ac`
-  - :val:`-I 4bd 2ab 3`
+    - :val:`P 2c -2ac`
+    - :val:`-I 4bd 2ab 3`
 
-  Space group symbols with change-of-basis operations:
+  - Space group symbols with change-of-basis operations:
 
-  - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
-  - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
+    - :val:`P 2yb (-1/2*x+z,1/2*x,y)`
+    - :val:`-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)`
 
-- **Bibliographic References for the 'space\_group\_symbol\_hall' definitions**
+- **Bibliographic References**:
 
   Hall, S. R. (1981) Space-group notation with an explicit origin. Acta Crystallographica Section A, 37, 517-525, International Union of Crystallography (IUCr), DOI: https://doi.org/10.1107/s0567739481001228
 
@@ -2973,29 +2974,28 @@ space\_group\_symbol\_hermann\_mauguin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
-  The H-M symbol SHOULD aim to convey the closest representation of the symmetry information that can be specified using the short format used in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1 as described in the accompanying text.
-  The symbol MAY be a non-standard short H-M symbol.
-  The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
-
-  To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
-
-  - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
-  - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
-  - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
-  - there MUST be no spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
 
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - The H-M symbol SHOULD aim to convey the closest representation of the symmetry information that can be specified using the short format used in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1 as described in the accompanying text.
+  - The symbol MAY be a non-standard short H-M symbol.
+  - The H-M symbol does not unambiguously communicate the axis, cell, and origin choice, and the given symbol SHOULD NOT be amended to convey this information.
+  - To encode as character strings, the following adaptations MUST be made when representing H-M symbols given in their typesetted form:
 
-- **Examples**
+    - the overbar above the numbers MUST be changed to the minus sign in front of the digit (e.g. '-2');
+    - subscripts that denote screw axes are written as digits immediately after the axis designator without a space (e.g. 'P 32')
+    - the space group generators MUST be separated by a single space (e.g. 'P 21 21 2');
+    - there MUST be no spaces in the space group generator designation (i.e. use 'P 21/m', not the 'P 21 / m');
+
+- **Examples**:
 
   - :val:`C 2`
   - :val:`P 21 21 21`
 
-- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin' definitions**
+- **Bibliographic References**:
 
   IUCr (2005). International Tables for Crystallography vol. A. Space-Group Symmetry. Ed. Theo Hahn. 5-th edition. Dordrecht, Springer.
 
@@ -3003,23 +3003,22 @@ space\_group\_symbol\_hermann\_mauguin\_extended
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
-  The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
-  The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
-  The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
-  The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin`_ property.
-
 - **Type**: string
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
+  - The H-M symbols SHOULD be given as specified in the International Tables for Crystallography vol. A (IUCr, 2005), Table 4.3.2.1.
+  - The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
+  - The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
+  - The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
+  - The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin` property.
 
-- **Examples**
+- **Examples**:
 
   - :val:`C 1 2 1`
 
-- **Bibliographic References for the 'space\_group\_symbol\_hermann\_mauguin\_extended' definitions**
+- **Bibliographic References**:
 
   IUCr (2001). International Tables for Crystallography vol. B. Reciprocal Space. Ed. U. Shmueli. 2-nd edition. Dordrecht/Boston/London, Kluwer Academic Publishers.
 
@@ -3867,7 +3866,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
-Symmetry operation strings that comprise the :property:`space_group_symmetry_operation_xyz` property MUST conform to the following regular expressions.
+Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operations\_xyz` property MUST conform to the following regular expressions.
 The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
 The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
 The :val:`symops` section contains the REs themselves.
@@ -3999,6 +3998,7 @@ The header object MAY also contain the keys:
   - :field:`"item_describedby"`: String.
     A URL to an external JSON Schema that validates the data lines of the response.
     The format and requirements on this schema are the same as for the inline schema field :field:`item_schema`.
+
 The format of data lines of the response (i.e., all lines except the first and the last) depends on whether the header object specifies the layout as :val:`"dense"` or :val:`"sparse"`.
 
 - **Dense layout:** In the dense partial data layout, each data line reproduces one item from the OPTIMADE list property being transmitted in the JSON format.
