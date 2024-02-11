@@ -52,7 +52,6 @@ OPTIMADE API specification v1.2.0~develop
                        that is meant to be on form <anything> but is not valid.
 
 .. role:: filter(code)
-   :language: filter
 
 .. role:: filter-fragment(literal)
 
@@ -61,7 +60,6 @@ OPTIMADE API specification v1.2.0~develop
 .. role:: ere(literal)
 
 .. role:: pcre(literal)
-
 
 .. role:: entry(literal)
 
@@ -73,8 +71,6 @@ OPTIMADE API specification v1.2.0~develop
 
 .. role:: property-fail(literal)
 
-
-
 .. role:: endpoint(literal)
 
 .. role:: query-param(literal)
@@ -85,11 +81,9 @@ OPTIMADE API specification v1.2.0~develop
 
 .. role:: query-url(literal)
 
-
 .. role:: http-header(literal)
 
 .. role:: http-error(literal)
-
 
 .. role:: json(code)
    :language: json
