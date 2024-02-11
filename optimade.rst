@@ -865,7 +865,6 @@ An example of a full response:
              }
            }
          },
-         "response_message": "OK"
          // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
        },
        "data": [
