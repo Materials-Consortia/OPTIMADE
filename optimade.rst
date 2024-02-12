@@ -3968,19 +3968,22 @@ OPTIMADE Regular Expression Format
 ----------------------------------
 This section defines a string representation for regular expressions (regexes) to be referred to from other parts of the specification.
 This format will be referred to as an "OPTIMADE regex".
-Depending on the context, a delimiter may be required to enclose the regex (e.g., double quotes or a slash character), and some outer-level escape rules may apply (e.g., to distinguish an enclosing double quote from one that is part of the regex).
-Such delimiters and escape rules are not defined as part of the OPTIMADE regex format itself and have to be clarified when this format is referenced.
+Depending on the context in which an OPTIMADE regex appear, a delimiter may be required to enclose the regex (e.g., double quotes or a slash character) and some outer-level escape rules may apply.
+Such delimiters and outer escape rules are not a part of the OPTIMADE regex format itself and have to be clarified when this format is referenced.
+For example, if the string representing the regex is serialized as part of JSON data, the JSON escape rules for strings apply to distinguish an enclosing double quote from one that is part of the regex string.
+The format documented here applies to the string after the JSON data has been deserialised.
 
 The format is a subset of the format described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__.
 The format is closely inspired by the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
-However, OPTIMADE has decided to restrict the subset further to better align it with the features available in common database backends and clarified that the escape character token can be used with the meaning defined by ECMA-262, section 21.2.1.
+However, OPTIMADE has decided to restrict the subset further to better align it with the features available in common database backends and clarified which characters can be escaped.
+The intent is that the specified format also is a subset of the `PCRE2 regex format <https://www.pcre.org/current/doc/html/>`__, making the format directly useful without translation in a wide range of regex implementations.
 
 Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__ with the additional restrictions described in the following.
 The regex is interpreted according to the processing rules that apply for an expression where only the Unicode variable is set to true of all variables set by the RegExp internal slot described by `ECMA-262, section 21.2.2.1 <https://262.ecma-international.org/11.0/#sec-notation>`__.
 Furthermore, it can only use the following tokens and features (this list is partially quoted from the JSON Schema standard):
 
 - Individual Unicode characters, as defined by the `JSON specification <https://json-schema.org/draft/2020-12/json-schema-core#RFC8259>`__.
-- The escape character (``\``) with the functionality described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__.
+- A literal escape of one of the syntax characters or the character ``/``, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } | /`` to represent that literal character.
 - Simple character classes (e.g., ``[abc]``) and range character classes (e.g., ``[a-z]``).
 - Complemented character classes (e.g., ``[^abc]``, ``[^a-z]``)
 - Simple quantifiers: ``+`` (one or more), ``*`` (zero or more), ``?`` (zero or one).
@@ -3988,6 +3991,23 @@ Furthermore, it can only use the following tokens and features (this list is par
 - Simple grouping (``(...)``) and alternation (``|``).
 
 Note that compared to the JSON Schema standard, lazy quantifiers (``+?``, ``*?``, ``??``) are NOT included, nor are range quantifiers (``{x}``, ``{x,y}``, ``{x,}``).
+Furthermore, there is no support for character classes shorthands via the backslash character ``\`` and a letter, nor is there a way to represent a unicode character by its code point.
 
 The expression matches the string at any position unless it contains a leading beginning-of-input (``^``) or trailing end-of-input (``$``) anchor listed above, i.e., the anchors are not implicitly assumed.
 For example, the OPTIMADE regex "es" matches "expression".
+
+OPTIMADE regexes that utilizes tokes and features documented by ECMA-262 beyond the designated subset is allowed to have an undefined behavior,i.e., it MAY match or not match any string, or MAY produce an error.
+Implementations that do not produce errors in this situation are RECOMMENDED to generate warnings if possible.
+
+  Compatibility notes:
+
+  Since the specification tolerates regexes using tokens and features beyond the defined subset (with undefined behavior), a regex can be directly handed over to an internal regex engine as long as it is compatible with the defined subset without need for validation or translation.
+  Compatibility with other regex formats may change between language versions and options provided to the respective implementation.
+  However, using third-party sources, e.g., the [Regular Expression Engine Comparison Chart](https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816)), we have collected the following information as a general guide [TODO WIP: check this]:
+
+  * The following regex formats appear to be compatible: ECMAScript, PCRE (both v1 and v2), POSIX ERE, Python, Ruby, Tcl ARE, Java, .NET, MySQL, XPath, `MongoDB <https://www.mongodb.com/docs/manual/reference/operator/query/regex/>`__, `MS SQL Server <https://learn.microsoft.com/en-us/sql/ssms/scripting/search-text-with-regular-expressions>`__, `Oracle <https://docs.oracle.com/cd/B13789_01/appdev.101/b10795/adfns_re.htm>`__, `IBM Db2 <https://www.ibm.com/docs/en/db2/11.5?topic=sql-regular-expression-control-characters>`__, `Elasticsearch <https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html>`__, `Snowflake <https://docs.snowflake.com/en/sql-reference/functions-regexp.html>`__, `Splunk <https://docs.splunk.com/Documentation/Splunk/9.0.3/SearchReference/Regex>`__, `DuckDB <https://duckdb.org/docs/sql/functions/patternmatching.html#regular-expressions>`__.
+
+  * XML Schema regexes are compatible except that they are implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
+  * SQLite supports regexes via libraries and thus can use a compatible format (e.g., PCRE2).
+  * Basic POSIX regular expressions requires grouping to be escaped, i.e. ``\(``, ``\)``.
+  * Rust regexes are compatible except they do not recognize ``\/`` for a literal ``/``, which would have to be translated into just a single ``/`` for a literal match.
