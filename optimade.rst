@@ -3989,7 +3989,6 @@ Furthermore, it can only use the following tokens and features (this list is par
 - A literal escape of one of the syntax characters, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
 - Simple character classes (e.g., ``[abc]``) and range character classes (e.g., ``[a-z]``) with the following constraints:
 
-  * The class has to be ordered so that it does not start with the character ``[``.
   * If the first character is ``]`` it designates a class that includes a literal ``]`` (and not an empty class).
     The ``]`` character cannot appear anywhere else in the class.
   * The character ``-`` designates ranges unless it appears at the start or end of the class.
