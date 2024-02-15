@@ -3967,14 +3967,14 @@ An example of the sparse layout for multidimensional lists with three aggregated
 
 OPTIMADE Regular Expression Format
 ----------------------------------
-This section defines a unicode string representation of regular expressions (regexes) to be referenced from other parts of the specification.
+This section defines a Unicode string representation of regular expressions (regexes) to be referenced from other parts of the specification.
 The format will be referred to as an "OPTIMADE regex".
 
 Regexes are commonly embedded in a contexts where they need to be enclosed by delimiters (e.g., double quotes or slash characters).
 If this is the case, it is likely that some outer-level escape rules apply to allow the end delimiter to appear within the regex.
 Such delimiters and escape rules are *not* included in the definition of the OPTIMADE regex format itself and needs to be clarified when this format is referenced.
 The format defined in this section applies after such outer escape rules have been applied (e.g., when all occurences of ``\/`` have been translated into ``/`` for a format where an unescaped slash character is the end delimiter).
-Likewise, if an OPTIMADE regex is embedded in a serialized data format (e.g., JSON) this section documents the format of the unicode string resulting from unserialization of that format.
+Likewise, if an OPTIMADE regex is embedded in a serialized data format (e.g., JSON) this section documents the format of the Unicode string resulting from unserialization of that format.
 
 The format is a subset of the format described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__.
 The format is closely inspired by the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
@@ -4003,7 +4003,7 @@ Furthermore, it can only use the following tokens and features (this list is par
 - Simple grouping (``(...)``) and alternation (``|``).
 
 Note that compared to the JSON Schema standard, lazy quantifiers (``+?``, ``*?``, ``??``) are NOT included, nor are range quantifiers (``{x}``, ``{x,y}``, ``{x,}``).
-Furthermore, there is no support for character class shorthands via the backslash character ``\`` and a letter, nor is there a way to represent a unicode character by its code point (i.e., one has to include it as the literal unicode character).
+Furthermore, there is no support for character class shorthands via the backslash character ``\`` and a letter, nor is there a way to represent a Unicode character by its code point (i.e., one has to include it as the literal Unicode character).
 
 An OPTIMADE regex matches the string at any position unless it contains a leading beginning-of-input (``^``) or trailing end-of-input (``$``) anchor listed above, i.e., the anchors are not implicitly assumed.
 For example, the OPTIMADE regex "es" matches "expression".
