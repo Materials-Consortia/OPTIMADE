@@ -4013,7 +4013,7 @@ Furthermore, there is no support for escapes designating shorthand character cla
 An OPTIMADE regex matches the string at any position unless it contains a leading beginning-of-input (``^``) or trailing end-of-input (``$``) anchor listed above, i.e., the anchors are not implicitly assumed.
 For example, the OPTIMADE regex "es" matches "expression".
 
-Regexes that utilize tokes and features documented by ECMA-262 beyond the designated subset are allowed to have an undefined behavior, i.e., they MAY match or not match *any* string or MAY produce an error.
+Regexes that utilize tokes and features beyond the designated subset are allowed to have an undefined behavior, i.e., they MAY match or not match *any* string or MAY produce an error.
 Implementations that do not produce errors in this situation are RECOMMENDED to generate warnings if possible.
 
   Compatibility notes:
@@ -4032,4 +4032,5 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
   * The following regex formats appear generally compatible when operating in Unicode mode: `Perl <https://perldoc.perl.org/perlre>`__, `Python <https://docs.python.org/3/library/re.html>`__, `Ruby <https://ruby-doc.org/3.2.2/Regexp.html>`__, `Rust <https://docs.rs/regex/latest/regex/>`__, `Java <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html>`__, `.NET <https://learn.microsoft.com/en-us/dotnet/standard/base-types/details-of-regular-expression-behavior>`__, `MySQL 8 <https://dev.mysql.com/doc/refman/8.0/en/regexp.html>`__, `MongoDB <https://www.mongodb.com/docs/manual/reference/operator/query/regex/>`__, `Oracle <https://docs.oracle.com/cd/B13789_01/appdev.101/b10795/adfns_re.htm>`__, `IBM Db2 <https://www.ibm.com/docs/en/db2/11.5?topic=reference-regular-expressions>`__, `Elasticsearch <https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html>`__, `DuckDB <https://duckdb.org/docs/sql/functions/patternmatching.html#regular-expressions>`__ (which uses the `re2 <https://github.com/google/re2/wiki/Syntax>`__ library).
   * SQLite supports regexes via libraries and thus can use a compatible format (e.g., PCRE2).
   * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
-  * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes. POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
+  * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes. 
+    POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
