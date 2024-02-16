@@ -3968,7 +3968,7 @@ An example of the sparse layout for multidimensional lists with three aggregated
 OPTIMADE Regular Expression Format
 ----------------------------------
 This section defines a Unicode string representation of regular expressions (regexes) to be referenced from other parts of the specification.
-The format will be referred to as an "OPTIMADE regex."
+The format will be referred to as an "OPTIMADE regex".
 
 Regexes are commonly embedded in a context where they need to be enclosed by delimiters (e.g., double quotes or slash characters).
 If this is the case, some outer-level escape rules likely apply to allow the end delimiter to appear within the regex.
