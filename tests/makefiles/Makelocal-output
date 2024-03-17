@@ -18,4 +18,4 @@ HTML_FILES = ${RST_FILES:%.rst=%.html}
 html: ${HTML_FILES}
 
 %.html: %.rst
-	./tests/makefiles/build_html.sh $<
+	rst2html5.py -d --syntax-highlight=none --stylesheet=./tests/makefiles/style.css $< $@
