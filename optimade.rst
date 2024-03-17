@@ -463,35 +463,35 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
 
 .. code:: jsonc
 
-     {
-       // ...
-       "data": {
-         "type": "structures",
-         "id": "2345678",
-         "attributes": {
-             "a": null
-         }
-         "meta": {
-           "partial_data_links": {
-             "a": [
-               {
-                 "format": "jsonlines",
-                 "link": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
-               },
-               {
-                 "format": "_exmpl_bzip2_jsonlines",
-                 "link": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
-               },
-               {
-                 "format": "_exmpl_hdf5",
-                 "link": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
-               }
-             ]
-           }
-         }
-       }
-     // ...
-   }
+    {
+      // ...
+      "data": {
+        "type": "structures",
+        "id": "2345678",
+        "attributes": {
+            "a": null
+        }
+        "meta": {
+          "partial_data_links": {
+            "a": [
+              {
+                "format": "jsonlines",
+                "link": "https://example.org/optimade/v1.2/extensions/partial_data/structures/2345678/a/default_format"
+              },
+              {
+                "format": "_exmpl_bzip2_jsonlines",
+                "link": "https://db.example.org/assets/partial_values/structures/2345678/a/bzip2_format"
+              },
+              {
+                "format": "_exmpl_hdf5",
+                "link": "https://cloud.example.org/ACCHSORJGIHWOSJZG"
+              }
+            ]
+          }
+        }
+      }
+      // ...
+    }
 
 Metadata properties
 -------------------
