@@ -370,7 +370,7 @@ A few suggestions and mandatory requirements of the OPTIMADE specification are s
 
 ..
 
-    **Note**: A list of database providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Namespace Prefixes`_.
+    **Note**: A list of database and definition providers acknowledged by the **Open Databases Integration for Materials Design** consortium is maintained externally from this specification and can be retrieved as described in section `Namespace Prefixes`_.
     This list is also machine-readable, enabling the automatic discoverability of OPTIMADE API services.
 
 Namespace Prefixes
@@ -418,7 +418,6 @@ Definition providers MUST also list these definitions in the relevant :endpoint:
 They MAY also provide human-readable webpages for their definitions.
 
 Definition-provider-specific fields MAY be fully described at the relevant :endpoint:`/info/<entry_type>` endpoint (see section `Entry Listing Info Endpoints`_), but can also rely on the canonical definitions provided by the definition provider, provided they return an ``$id`` for the field that resolves to the relevant OPTIMADE property definition.
-
 
 URL Encoding
 ------------
@@ -3440,7 +3439,7 @@ Custom entry types MUST have all properties described above in section `Properti
 
 - **Requirements/Conventions for properties in custom entry types**:
 
-  - **Support**: Support for any properties in database-provider-specific entry types is fully OPTIONAL.
+  - **Support**: Support for any properties in database-provider-specific or definition-provider-specific entry types is fully OPTIONAL.
   - **Query**: Support for queries on these properties are OPTIONAL.
     If supported, only a subset of the filter features MAY be supported.
 
