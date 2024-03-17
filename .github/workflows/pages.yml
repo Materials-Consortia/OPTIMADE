@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      COMMIT_AUTHOR: Pages Deployment
-      COMMIT_AUTHOR_EMAIL: action@github.com
+      COMMIT_AUTHOR: OPTIMADE developers
+      COMMIT_AUTHOR_EMAIL: dev@optimade.org
 
     steps:
 
@@ -28,12 +28,15 @@ jobs:
     - name: Run rst2html
       run: make html
 
+    - name: Configure git
+      run: |
+        git config --global user.name "${COMMIT_AUTHOR}"
+        git config --global user.email "${COMMIT_AUTHOR_EMAIL}"
+
     - name: Commit to gh-pages
       run: |
         git branch -D gh-pages || true
         git checkout -b gh-pages
-        git config user.name "${COMMIT_AUTHOR}"
-        git config user.name "${COMMIT_AUTHOR_EMAIL}"
         git add optimade.html
         git commit -m "Deploy to GitHub Pages: ${SHA}"
         if git diff --cached --quiet; then
