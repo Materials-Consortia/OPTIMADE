@@ -517,7 +517,7 @@ pre.math, pre.code {
 }
 
 /* Block Quotes and Topics */
-blockquote { 
+blockquote {
   background-color: var(--code-bg-color);
   color: var(--fg-color);
   border: thin solid var(--fg-color);
@@ -532,7 +532,7 @@ blockquote p.attribution,
 
 /* Code */
 pre.code { padding: 0.7ex }
-pre.code, code { 
+pre.code, code {
   background-color: var(--code-bg-color);
   color: var(--code-fg-color);
 }
