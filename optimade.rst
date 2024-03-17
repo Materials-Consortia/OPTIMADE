@@ -549,25 +549,25 @@ Example of a response in the JSON response format with two structure entries tha
 
 Example of the corresponding metadata property definition contained in the field :field:`x-optimade-metadata-definition` which is placed in the property definition of :field:`elements_ratios`:
 
-    .. code:: jsonc
+.. code:: jsonc
 
-         // ...
-         "x-optimade-metadata-definition": {
-           "title": "Metadata for the elements_ratios field",
-           "description": "This field contains the per-entry metadata for the elements_ratios field.",
-           "x-optimade-type": "dictionary",
-           "x-optimade-unit": "inapplicable",
-           "type": ["object", "null"],
-           "properties" : {
-             "_exmpl_originates_from_project": {
-               "$id": "https://properties.example.com/v1.2.0/elements_ratios_meta/_exmpl_originates_from_project",
-               "description" : "A string naming the internal example.com project id where this property was added to the database.",
-               "x-optimade-type": "string",
-               "x-optimade-unit" : "inapplicable"
-             }
-           }
+     // ...
+     "x-optimade-metadata-definition": {
+       "title": "Metadata for the elements_ratios field",
+       "description": "This field contains the per-entry metadata for the elements_ratios field.",
+       "x-optimade-type": "dictionary",
+       "x-optimade-unit": "inapplicable",
+       "type": ["object", "null"],
+       "properties" : {
+         "_exmpl_originates_from_project": {
+           "$id": "https://properties.example.com/v1.2.0/elements_ratios_meta/_exmpl_originates_from_project",
+           "description" : "A string naming the internal example.com project id where this property was added to the database.",
+           "x-optimade-type": "string",
+           "x-optimade-unit" : "inapplicable"
          }
-         // ...
+       }
+     }
+     // ...
 
 Responses
 =========
@@ -2182,15 +2182,15 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 ..
 
-  Implementation notes:
+  **Implementation notes:**
 
-    - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
-      The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
-      Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output formats (i.e., the JSON names MUST NOT be translated into the type names of that output format).
+  - The field :field:`type` can be derived from the field :field:`x-optimade-type` and its role is only to provide the JSON type names corresponding to :field:`x-optimade-type`.
+    The motivation to include these type names is that it makes the JSON representation of a Property Definition a fully valid standard JSON Schema.
+    Nevertheless, for consistency across formats, these JSON type names MUST still be included when a property definition is represented in other output formats (i.e., the JSON names MUST NOT be translated into the type names of that output format).
 
-    - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
-      Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
-      This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
+  - The allowed values of the :field:`type` field are highly restricted compared to what is permitted using the full JSON Schema standard.
+    Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
+    This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
 **OPTIONAL keys**
 
