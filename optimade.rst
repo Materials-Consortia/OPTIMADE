@@ -52,7 +52,6 @@ OPTIMADE API specification v1.2.0~develop
                        that is meant to be on form <anything> but is not valid.
 
 .. role:: filter(code)
-   :language: filter
 
 .. role:: filter-fragment(literal)
 
@@ -61,7 +60,6 @@ OPTIMADE API specification v1.2.0~develop
 .. role:: ere(literal)
 
 .. role:: pcre(literal)
-
 
 .. role:: entry(literal)
 
@@ -73,8 +71,6 @@ OPTIMADE API specification v1.2.0~develop
 
 .. role:: property-fail(literal)
 
-
-
 .. role:: endpoint(literal)
 
 .. role:: query-param(literal)
@@ -85,11 +81,9 @@ OPTIMADE API specification v1.2.0~develop
 
 .. role:: query-url(literal)
 
-
 .. role:: http-header(literal)
 
 .. role:: http-error(literal)
-
 
 .. role:: json(code)
    :language: json
@@ -639,7 +633,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **response\_message**: response string from the server.
   - **request\_delay**: a non-negative float giving time in seconds that the client is suggested to wait before issuing a subsequent request.
 
-  Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
+    Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__.
+    Implementations are suggested to provide consistent handling of request overload through both mechanisms.
 
   - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
     If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
@@ -871,7 +866,6 @@ An example of a full response:
              }
            }
          },
-         "response_message": "OK"
          // <OPTIONAL implementation- or database-provider-specific metadata, global to the query>
        },
        "data": [
@@ -3918,54 +3912,54 @@ Examples
 Below follows an example of a dense response for a partial array data of integer values.
 The request returns the first three items and provides the next-marker link to continue fetching data:
 
-.. code:: json
+.. code:: jsonl
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
-    123
-    345
-    -12.6
-    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
+   {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+   123
+   345
+   -12.6
+   ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
 Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
 The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
 The item with index 12 in the list, the second data item provided since start=10 and step=2, is not included only referenced.
 The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
 
-.. code:: json
+.. code:: jsonl
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
-    [[10,20,21], [30,40,50]]
-    ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
-    [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
-    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
+   {"optimade-partial-data": {"format": "1.2.0"}, "layout": "dense", "returned_ranges": [{"start": 10, "stop": 20, "step": 2}]}
+   [[10,20,21], [30,40,50]]
+   ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]
+   [[11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]
+   ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
 Below follows an example of the sparse layout for multidimensional lists with three aggregated dimensions.
 The underlying property value can be taken to be sparse data in lists in four dimensions of 10000 x 10000 x 10000 x N, where the innermost list is a non-sparse list of arbitrary length of numbers.
 The only non-null items in the outer three dimensions are, say, [3,5,19], [30,15,9], and [42,54,17].
 The response below communicates the first item explicitly; the second one by deferring the innermost list using a reference-marker; and the third item is not included in this response, but deferred to another page via a next-marker.
 
-.. code:: json
+.. code:: jsonl
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
-    [3,5,19,  [10,20,21,30]]
-    [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
-    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
+   {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+   [3,5,19,  [10,20,21,30]]
+   [30,15,9, ["PARTIAL-DATA-REF", ["https://example.db.org/value1"]]]
+   ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
 An example of the sparse layout for multidimensional lists with three aggregated dimensions and integer values:
 
-.. code:: json
+.. code:: jsonl
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
-    [3,5,19,  10]
-    [30,15,9, 31]
-    ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
+   {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+   [3,5,19,  10]
+   [30,15,9, 31]
+   ["PARTIAL-DATA-NEXT", ["https://example.db.org/"]]
 
 An example of the sparse layout for multidimensional lists with three aggregated dimensions and values that are multidimensional lists of integers of arbitrary lengths:
 
-.. code:: json
+.. code:: jsonl
 
-    {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
-    [3,5,19, [ [10,20,21], [30,40,50] ] ]
-    [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
-    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
-    ["PARTIAL-DATA-END", [""]]
+   {"optimade-partial-data": {"format": "1.2.0"}, "layout": "sparse"}
+   [3,5,19, [ [10,20,21], [30,40,50] ] ]
+   [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
+   [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
+   ["PARTIAL-DATA-END", [""]]
