@@ -2,7 +2,7 @@
 
 :root {
     --bg-color: white;
-    --fg-color: #505050;
+    --fg-color: #000000;
     --code-bg-color: #F0F0F0;
     --code-fg-color: #282828;
     --primary: #007bff;
@@ -513,7 +513,8 @@ pre.math, pre.code {
   border: thin solid var(--fg-color);
   color: var(--code-fg-color);
   border-radius: 0.2em;
-
+  padding-left: 0.5em;
+overflow: auto;
 }
 
 /* Block Quotes and Topics */

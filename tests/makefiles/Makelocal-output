@@ -17,5 +17,5 @@ HTML_FILES = ${RST_FILES:%.rst=%.html}
 
 html: ${HTML_FILES}
 
-%.html: %.rst
-	rst2html5.py -d --syntax-highlight=none --stylesheet=./tests/makefiles/style.css $< $@
+%.html: %.rst ./tests/makefiles/
+	rst2html5 -d --syntax-highlight=none --stylesheet=$(word 2, $^) $< $@
