@@ -1251,12 +1251,17 @@ The single resource object's response dictionary MUST include the following fiel
 
     If this member is *not* provided, the client MUST assume this is **not** an index meta-database base URL (i.e., the default is for :field:`is_index` to be :field-val:`false`).
 
-  - **available\_licenses**: List of `SPDX license identifiers <https://spdx.org/licenses/>` specifying a set of alternative licenses under which the client is granted access to all the data and metadata in this database.
-    If the data and metadata is available under multiple alternative licenses, identifiers of these multiple licenses SHOULD be provided to let clients know under which conditions the data and metadata can be used.
-    Inclusion of a license identifier in the list is a commitment of the database that the rights are in place to grant clients access to all the data and metadata according to the terms of either of these licenses (at the choice of the client).
-    If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database that the data and metadata is available, without exceptions, under the respective licenses.
-    If the database cannot make that commitment, e.g., if only part of the data is available under a license, the corresponding license identifier MUST NOT appear in :field:`available_licenses` (but, rather, the field :field:`license` is to be used to clarify the licensing situation.)
-    An empty list indicates that none of the SPDX licenses apply for the entirety of the database and that the licensing situation is clarified in human readable form in the field :field:`license`.
+  - **available\_licenses**: List of `SPDX license identifiers <https://spdx.org/licenses/>`__ specifying a set of alternative licenses available to the client for licensing the complete database, i.e., all the entries, metadata, and the content and structure of the database itself.
+    If more than one license is available to the client, the identifier of each one SHOULD be included in the list.
+    Inclusion of a license identifier in the list is a commitment of the database that the rights are in place to grant clients access to all the individual entries, all metadata, and the content and structure of the database itself according to the terms of any of these licenses (at the choice of the client).
+    If the licensing information provided via the field :field:`license` omits licensing options specified in :field:`available_licenses`, or if it otherwise contradicts them, a client MUST still be allowed to interpret the inclusion of a license in :field:`available_licenses` as a full commitment from the database without exceptions, under the respective licenses.
+    If the database cannot make that commitment, e.g., if only part of the database is available under a license, the corresponding license identifier MUST NOT appear in :field:`available_licenses` (but, rather, the field :field:`license` is to be used to clarify the licensing situation.)
+    An empty list indicates that none of the SPDX licenses apply and that the licensing situation is clarified in human readable form in the field :field:`license`.
+    An unknown value means that the database makes no commitment.
+
+  - **available\_licenses\_for\_entries**: List of `SPDX license identifiers <https://spdx.org/licenses/>`__ specifying a set of additional alternative licenses available to the client for licensing individual, and non-substantial sets of, database entries, metadata, and extracts from the database that do not constitute substantial parts of the database.
+    Note that the definition of the field :field:`available_licenses` implies that licenses specified in that field are available also for the licensing specified by this field, even if they are not explicitly included in the field :field:`available_licenses_for_entries` or if it is :val:`null` (however, the opposite relationship does not hold).
+    If :field:`available_licenses` is unknown, only the licenses in :field:`available_licenses_for_entries` apply.
 
 If this is an index meta-database base URL (see section `Index Meta-Database`_), then the response dictionary MUST also include the field:
 
