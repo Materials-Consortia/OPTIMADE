@@ -633,7 +633,8 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
   - **response\_message**: response string from the server.
   - **request\_delay**: a non-negative float giving time in seconds that the client is suggested to wait before issuing a subsequent request.
 
-    Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__. Implementations are suggested to provide consistent handling of request overload through both mechanisms.
+    Implementation note: the functionality of this field overlaps to some degree with features provided by the HTTP error :http-error:`429 Too Many Requests` and the `Retry-After HTTP header <https://tools.ietf.org/html/rfc7231.html#section-7.1.3>`__.
+    Implementations are suggested to provide consistent handling of request overload through both mechanisms.
 
   - **database**: a dictionary describing the specific database accessible at this OPTIMADE API.
     If provided, the dictionary fields SHOULD match those provided in the corresponding links entry for the database in the provider's index meta-database, outlined in `Links Endpoint JSON Response Schema`_.
