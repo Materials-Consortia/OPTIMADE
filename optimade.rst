@@ -2093,7 +2093,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
       Implementation notes:
 
-      The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as [RDF data](https://www.w3.org/TR/rdf-schema/) (see, e.g., rdfs:label).
+      The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as `RDF data <https://www.w3.org/TR/rdf-schema/>`__ (see, e.g., rdfs:label).
 
   **OPTIONAL keys:**
 
