@@ -33,7 +33,7 @@
 #        - schemas_html_pretty=true applies OPTIMADE styling to the html output
 #        - schemas_html_ext=true generates html files with .html extensions also
 #              for files meant to be served without extensions, which is useful
-#              for hosting, e.g., on github that automatically redirects URLs without extensions.
+#              for hosting, e.g., on GitHub that automatically redirects URLs without extensions.
 #
 #     For documentation pages hosted on schema.optimade.org use:
 #         make schemas schemas_html_pretty=true schemas_html_ext=true
