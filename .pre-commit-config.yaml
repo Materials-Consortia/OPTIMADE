@@ -1,16 +1,25 @@
+repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v2.2.3
+  rev: v4.4.0
   hooks:
   - id: trailing-whitespace
     exclude: &exclude_files >
       (?x)^(
         tests/inputs/various-whitespace.filter|
-        tests/inputs/fuzzystring-leading-trailing-spaces.filter
+        tests/inputs/fuzzystring-leading-trailing-spaces.filter|
+        units/definitions.units|
+        .words.lst
       )$
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
-  rev: v1.1.10
+  rev: v1.3.1
   hooks:
   - id: remove-tabs
     args: [ '--whitespaces-count', '2']
     files: \.rst$
+
+- repo: https://github.com/rstcheck/rstcheck
+  rev: v6.2.0
+  hooks:
+  - id: rstcheck
+    args: [ '--config', '.rstcheck.cfg' ]
