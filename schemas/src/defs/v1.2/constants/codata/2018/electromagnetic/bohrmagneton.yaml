@@ -28,7 +28,7 @@ standard:
   symbol: '\(\mu_B\)'
 x-optimade-definition:
   label: "bohrmagneton_constant_codata_2018_electromagnetic"
-  kind: "unit"
+  kind: "constant"
   format: "1.2"
   version: "1.2.0"
   name: "bohrmagneton"
