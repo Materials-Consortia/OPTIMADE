@@ -2050,7 +2050,7 @@ Type handling and conversions in comparisons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The definitions of specific properties in this standard define their types.
-Similarly, for `database-provider-specific properties`_, the database provider decides their types.
+Similarly, for `custom properties`_, the database provider decides their types.
 In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with a single exception of timestamps (see below).
 Different types of values MUST be reported as :http-error:`501 Not Implemented` errors, meaning that type conversion is not implemented in the specification.
 
