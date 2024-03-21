@@ -8,7 +8,7 @@ alternate-symbols:
 description: |-
   A unit of mass defined as 1000 kg, with kilogram defined according to the 2019 SI units.
 
-  The International System of Units (SI), 1st ed. (1970) defines the tonne as "1 t = 10³ kg" with the footnote "The symbol and the unit was defined in resolution 7 at the 9:th meeting of the C.G.P.M. (1948)."
+  The International System of Units (SI), 1st ed. (1970) defines the tonne as "1 t = 10³ kg" with the footnote "The symbol and the unit was defined in resolution 7 at the 9th meeting of the C.G.P.M. (1948)."
 
   In the 2019 implicit redefinition of the tonne, the kilogram in the definition refers to the 2019 kilogram SI base unit (https://schema.optimade.org/units/si/2019/named/kilogram).
 
