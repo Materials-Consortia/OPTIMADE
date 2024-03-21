@@ -1,11 +1,7 @@
 # Changelog
 
-## v1.2.0-rc.2 (December 2023)
+## v1.2.0 (March 2024)
 
-This is the second release candidate of v1.2.0 of the OPTIMADE API specification.
-Implementation details may still be modified before the final release.
-
-Note: The OpenAPI schemas distributed in `./schemas` have not yet been modified with the new features 1.2.0.
 
 This minor release adds significant but optional new functionality to the specification, as well as providing several clarifications to existing behaviour.
 
