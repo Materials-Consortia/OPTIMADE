@@ -9,9 +9,9 @@ description: |-
   The gal unit appears in the International System of Units (SI), 1st ed. (1970) defined as "1 Gal = 1 cm/s² = 10⁻² m/s²" with the footnote "The gal is a special unit of acceleration employed in geodesy and geophysics to express acceleration due to gravity."
 
   - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "units in use temporarily".
-  - The International System of Units (SI), 7th ed. (1998) changes the categorisation to "derived CGS units with special names".
+  - The International System of Units (SI), 7th ed. (1998) changes the categorization to "derived CGS units with special names".
   - The International System of Units (SI), 9th ed. (2019) moves the unit definition to the margin aside the table for Non-SI units accepted for use with the SI units.
-    It is not clear how to interprete the categorization intended with this placement of the unit.
+    It is not clear how to interpret the categorization intended with this placement of the unit.
 resources:
   - relation: "Definition in the International System of Units (SI), 1st Edition"
     resource-id: "https://www.bipm.org/en/publications/si-brochure"

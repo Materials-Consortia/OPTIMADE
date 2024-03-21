@@ -159,7 +159,7 @@ $defs:
         type: object
       description:
         description: |-
-          A human-readable multiple-line detailed description of the defined entity.
+          A human-readable multiline detailed description of the defined entity.
         type: string
       resources:
         $ref: "#/$defs/resource_list"

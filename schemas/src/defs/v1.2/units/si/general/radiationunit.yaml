@@ -6,7 +6,7 @@ display-symbol: "rad"
 description: |-
   A unit used to express the absorbed dose of ionizing radiation defined as 10⁻² J/kg using the current, or one of the historical, definitions of the SI units.
 
-  This unit definition uses "radiationunit" as the symbol for this unit despite "rad" being in common use, to distiguish it from the radian, which is an SI unit with rad as its symbol.
+  This unit definition uses "radiationunit" as the symbol for this unit despite "rad" being in common use, to distinguish it from the radian, which is an SI unit with rad as its symbol.
 
   The radiation unit appears in the International System of Units (SI), 1st ed. (1970) defined as "1 rad = 10⁻² J/kg" with the footnote: "The rad is a special unit employed to express absorbed dose of ionizing radiation. When there is risk of confusion with the symbol for radian, rd may be used as the symbol for rad."
 

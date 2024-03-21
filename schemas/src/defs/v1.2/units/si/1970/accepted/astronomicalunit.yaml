@@ -10,12 +10,12 @@ description: |-
 
   The International System of Units (SI), 1st ed. (1970) defines the unit in a footnote as "The astronomical unit of distance is the length of the unperturbed circular orbit about the Sun of a body of infinitesimal mass in motion around the Sun with an angular sidereal velocity of 0.017202098950 radians per ephemeris day of 86,400 seconds. In the System of Astronomical Constants of the International Astronomical Union, the adopted value is: 1 AU = 149,600 x 10⁶ m."
 
-  This definition interpretes the definition to be the expression in radians and seconds, with the meter value regarded only as an approximation.
+  This definition interprets the definition to be the expression in radians and seconds, with the meter value regarded only as an approximation.
 
   - The radian refers to the 1960 supplementary SI unit (https://schema.optimade.org/units/si/1960/supplementary/radian)
   - The second refers to the 1967 base SI unit (https://schema.optimade.org/units/si/1967/base/second)
 
-  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "units for use with the SI in specific domains."
+  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "Units for use with the SI in specific domains."
   - The International System of Units (SI), 2nd ed. (1973) categorizes the unit as "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally" and prefixes the footnote with: "This unit does not have an international symbol; abbreviations are used, for example, UA in French, AU in English, AG in German, а.е. in Russian, etc."
   - The International System of Units (SI), 4th ed. (1981) omits the unit.
   - The International System of Units (SI), 7th ed. (1998) reintroduces the unit in the category "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally." with the experimental relationship "1 au = 1.49597870691(30)×10¹¹ m" with the footnote: "The astronomical unit is a unit of length approximatively equal to the mean Earth-Sun distance. Its value is such that, when used to describe the motion of bodies in the Solar System, the heliocentric gravitational constant is (0.01720209895)² ua³⋅d⁻²."

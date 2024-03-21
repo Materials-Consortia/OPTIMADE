@@ -6,7 +6,7 @@ display-symbol: "T"
 description: |-
   A unit for magnetic flux density equal to kg·s⁻²·A⁻¹ using the current, or one of the historical, definitions of the SI units.
 
-  The tesla was defined as 1 Wb/m in the introduction of the SI unit system the 11th CGPM Meeting in 1960, resolution 12, implicitly redefined via the redefinitions of the second at the 13th CGPM Meeting in 1967, resolution 1, the ampere (implcitly via the redefinition of the metre) at the 17th CGPM Meeting in 1983, resolution 1, and the kilogram and ampere at the 26th CGPM Meeting (2018), resolution 1.
+  The tesla was defined as 1 Wb/m in the introduction of the SI unit system the 11th CGPM Meeting in 1960, resolution 12, implicitly redefined via the redefinitions of the second at the 13th CGPM Meeting in 1967, resolution 1, the ampere (implicitly via the redefinition of the metre) at the 17th CGPM Meeting in 1983, resolution 1, and the kilogram and ampere at the 26th CGPM Meeting (2018), resolution 1.
 
   This is a generalized definition taken to reference the current, or one of the historical, SI unit definitions.
   This definition is intended for situations when it is not possible to be more precise, e.g., in contexts where data have been collected that uses different historical SI definitions.

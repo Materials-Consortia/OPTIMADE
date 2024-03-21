@@ -12,7 +12,7 @@ description: |-
 
   In the 1970 definition, the volt refers to the 1967 volt derived named SI unit (https://schemas.optimade.org/defs/v1.2/units/si/1967/named/volt).
 
-  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "units for use with the SI in specific domains."
+  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "Units for use with the SI in specific domains."
   - The International System of Units (SI), 2nd ed. (1973) categorizes the unit as "Non-SI units accepted for use with the International System, whose values in SI units are obtained experimentally."
   - Following the redefinitions of the SI units 2019, the electronvolt has an exact relationship to the joule, hence the International System of Units (SI), 9th ed. (2019) notes "1 eV = 1.602176634·10⁻¹⁹ J" and categorizes the unit as "Non-SI units accepted for use with the SI units".
     The footnote is also rephrased to say: "The electron volt is the kinetic energy acquired by an electron after traversing a potential difference of 1 V in a vacuum. The electronvolt is often combined with the SI prefixes."
