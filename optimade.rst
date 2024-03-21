@@ -1425,7 +1425,7 @@ An example of the data part of the entry listing info endpoint response follows 
             "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
             "title": "Lattice vectors",
             "x-optimade-definition": {
-              "label": "lattice_vectors_optimade_structures"
+              "label": "lattice_vectors_optimade_structures",
               "kind": "property",
               "format": "1.2",
               "version": "1.2.0",
@@ -1433,7 +1433,7 @@ An example of the data part of the entry listing info endpoint response follows 
             },
             "x-optimade-type": "list",
             "x-optimade-dimensions": {
-               "names": ["dim_lattice", "dim_spatial"]
+               "names": ["dim_lattice", "dim_spatial"],
                "lengths": [3, 3]
             },
             "x-optimade-unit-definitions": [
@@ -2284,7 +2284,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`$schema`: String.
   A URL for a meta schema that describes the Property Definitions format.
-  For Property Definitions adhering to the format described in this document, it should be set to: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition.json".
+  For Property Definitions adhering to the format described in this document, it should be set to: :val:`https://schemas.optimade.org/meta/v1.2/optimade/property_definition.json`.
 
 .. _definition of the $id field:
 
@@ -2488,7 +2488,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
 
 - :field:`$schema`: String.
   A URL for a meta schema that describes the Physical Unit Definitions format.
-  For Property Definitions adhering to the format described in this document, it should be set to: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition.json".
+  For Property Definitions adhering to the format described in this document, it should be set to: :val:`https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition.json`.
 
 - :field:`x-optimade-definition`: Dictionary.
   The same field as defined in the `definition of the x-optimade-definition field`_ for Property Definitions but where the :field:`kind` subfield MUST be :val:`unit`.
