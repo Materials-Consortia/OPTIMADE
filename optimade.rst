@@ -4013,7 +4013,7 @@ Furthermore, there is no support for escapes designating shorthand character cla
 An OPTIMADE regex matches the string at any position unless it contains a leading beginning-of-input (``^``) or trailing end-of-input (``$``) anchor listed above, i.e., the anchors are not implicitly assumed.
 For example, the OPTIMADE regex "es" matches "expression".
 
-Regexes that utilize tokes and features beyond the designated subset are allowed to have an undefined behavior, i.e., they MAY match or not match *any* string or MAY produce an error.
+Regexes that utilize tokens and features beyond the designated subset are allowed to have an undefined behavior, i.e., they MAY match or not match *any* string or MAY produce an error.
 Implementations that do not produce errors in this situation are RECOMMENDED to generate warnings if possible.
 
   Compatibility notes:
