@@ -185,7 +185,7 @@ properties:
       type:
         - "number"
       description: |-
-        An float that specifies the statistical probability of a group in the description of assemblies.
+        A float that specifies the statistical probability of a group in the description of assemblies.
       examples:
         - 0.4
       x-optimade-unit: "dimensionless"
