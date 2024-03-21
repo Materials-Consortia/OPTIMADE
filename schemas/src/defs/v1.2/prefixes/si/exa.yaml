@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/exa"
 title: "exa"
 symbol: "E"
 display-symbol: "E"
-$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/exa"
 description: "The exa SI prefix defined as a dimensionless multiple of 10¹⁸, defined at the 15th CGPM Meeting in 1975, resolution 10."
 resources:
   - relation: "Definition in the 15th CGPM Meeting in 1975, resolution 10"

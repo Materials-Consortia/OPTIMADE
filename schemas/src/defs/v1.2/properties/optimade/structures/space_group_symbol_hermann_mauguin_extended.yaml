@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/space_group_symbol_hermann_mauguin_extended"
-title: "Extended Hermann-Mauguin space group symbol"
+title: "extended Hermann-Mauguin space group symbol"
 x-optimade-type: "string"
 x-optimade-definition:
   label: "space_group_symbol_hermann_mauguin_extended_optimade_structures"

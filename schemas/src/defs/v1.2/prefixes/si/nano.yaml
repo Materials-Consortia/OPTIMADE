@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/nano"
 title: "nano"
 symbol: "n"
 display-symbol: "n"
-$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/nano"
 description: "The nano SI prefix defined as a dimensionless multiple of 10⁻⁹, adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 resources:
   - relation: "Definition in the 11th CGPM Meeting in 1960, resolution 12"

@@ -1,6 +1,6 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2/optimade/unit_entity_definition"
-title: "OPTIMADE Unit Entity Definition"
+title: "OPTIMADE unit entity definition schema"
 description: "Meta-schema for definitions of physical units, constants, and prefixes."
 type: object
 required: ['$id', '$schema', 'x-optimade-definition']

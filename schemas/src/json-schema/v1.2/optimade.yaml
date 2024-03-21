@@ -1,6 +1,6 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $$inherit: "jsonapi.json"
-title: "OPTIMADE Schema"
+title: "OPTIMADE schema"
 description: "This is a schema for responses in the JSON output format from the OPTIMADE API. It is directly based on the schema for JSON:API."
 definitions:
   resource:

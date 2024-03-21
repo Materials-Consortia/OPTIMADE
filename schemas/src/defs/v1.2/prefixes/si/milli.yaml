@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/milli"
 title: "milli"
 symbol: "m"
 display-symbol: "m"
-$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/milli"
 description: "The milli SI prefix defined as a dimensionless multiple of 10⁻³, adopted into SI at its creation at the 11th CGPM Meeting in 1960, resolution 12."
 resources:
   - relation: "Definition in the 11th CGPM Meeting in 1960, resolution 12"

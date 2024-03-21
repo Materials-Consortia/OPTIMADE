@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/named/henry"
 title: "henry"
 symbol: "H"
 display-symbol: "H"
-$id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/named/henry"
 description: |-
   A derived SI unit for inductance equal to kg·m²·s⁻²·A⁻² in the 1960 SI base units.
 

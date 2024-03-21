@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/atto"
 title: "atto"
 symbol: "a"
 display-symbol: "a"
-$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/atto"
 description: "The atto SI prefix defined as a dimensionless multiple of 10⁻¹⁸, defined at the 12th CGPM Meeting in 1964, resolution 8."
 resources:
   - relation: "Definition in the 12th CGPM Meeting in 1964, resolution 8"

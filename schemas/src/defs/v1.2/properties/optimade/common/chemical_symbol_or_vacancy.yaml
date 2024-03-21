@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/chemical_symbol_or_vacancy"
-title: "Chemical symbol or vacancy"
+title: "chemical symbol or vacancy"
 x-optimade-type: "string"
 x-optimade-definition:
   label: "chemical_symbol_or_vacancy_optimade_common"

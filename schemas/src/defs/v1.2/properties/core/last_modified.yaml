@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified"
-title: "Last modified"
+title: "last modified"
 x-optimade-type: "timestamp"
 x-optimade-definition:
   label: "last_modified_core"

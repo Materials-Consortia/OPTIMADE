@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/atime"
-title: "Access time"
+title: "access time"
 x-optimade-type: "timestamp"
 x-optimade-definition:
   label: "atime_optimade_files"

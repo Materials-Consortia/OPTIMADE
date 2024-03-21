@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/core/features"
-title: "Features"
+title: "features"
 x-optimade-type: "list"
 x-optimade-definition:
   label: "features_core"

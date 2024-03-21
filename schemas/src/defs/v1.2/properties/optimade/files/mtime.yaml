@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/mtime"
-title: "Modification time"
+title: "modification time"
 x-optimade-type: "timestamp"
 x-optimade-definition:
   label: "mtime_optimade_files"

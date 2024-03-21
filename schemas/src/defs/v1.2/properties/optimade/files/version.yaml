@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/version"
-title: "Version"
+title: "version"
 x-optimade-type: "string"
 x-optimade-definition:
   label: "version_optimade_files"

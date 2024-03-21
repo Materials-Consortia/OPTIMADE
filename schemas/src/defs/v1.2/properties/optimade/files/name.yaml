@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/name"
-title: "Name"
+title: "name"
 x-optimade-type: "string"
 x-optimade-definition:
   label: "name_optimade_files"

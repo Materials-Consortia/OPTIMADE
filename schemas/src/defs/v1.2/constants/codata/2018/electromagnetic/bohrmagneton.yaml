@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/constant_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/constants/codata/2018/electromagnetic/bohrmagneton"
-title: "Bohr magneton"
+title: "bohr magneton"
 symbol: "bohrmagneton"
 display-symbol: '\(\mu_B\)'
 description: |-

@@ -1,8 +1,8 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/ronto"
 title: "ronto"
 symbol: "r"
 display-symbol: "r"
-$id: "https://schemas.optimade.org/defs/v1.2/prefixes/si/ronto"
 description: "The ronto SI prefix defined as a dimensionless multiple of 10^⁻²⁷, defined at the 27th CGPM Meeting in 2022, resolution 3."
 resources:
   - relation: "Definition in the 27th CGPM Meeting in 2022, resolution 3"

@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/chemical_formula_descriptive"
-title: "Descriptive chemical formula"
+title: "descriptive chemical formula"
 x-optimade-type: "string"
 x-optimade-definition:
   label: "chemical_formula_descriptive_optimade_structures"

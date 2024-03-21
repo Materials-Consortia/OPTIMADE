@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/elements_ratios"
-title: "Elements ratios"
+title: "elements ratios"
 x-optimade-type: "list"
 x-optimade-definition:
   label: "elements_ratios_optimade_structures"
