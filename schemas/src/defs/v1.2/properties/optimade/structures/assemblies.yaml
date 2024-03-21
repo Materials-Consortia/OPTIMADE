@@ -113,7 +113,7 @@ examples:
 x-optimade-unit: "inapplicable"
 properties:
   sites_in_groups:
-    title: "Sites in groups"
+    title: "sites in groups"
     x-optimade-type: "list"
     x-optimade-dimensions:
       names: ["dim_assembly_groups", "dim_assembly_groups_sites"]
@@ -131,7 +131,7 @@ properties:
       - [[1,2], [3]]
     x-optimade-unit: "inapplicable"
     items:
-      title: "Group of sites"
+      title: "group of sites"
       x-optimade-type: "list"
       x-optimade-dimensions:
         names: ["dim_assembly_groups_sites"]
@@ -144,7 +144,7 @@ properties:
         - [1,2]
       x-optimade-unit: "inapplicable"
       items:
-        title: "A site reference"
+        title: "a site reference"
         x-optimade-type: "integer"
         type:
           - "integer"
@@ -154,7 +154,7 @@ properties:
           - 2
         x-optimade-unit: "inapplicable"
   group_probabilities:
-    title: "Group probabilities"
+    title: "group probabilities"
     x-optimade-type: "list"
     x-optimade-dimensions:
         names: ["dim_assembly_groups"]
@@ -172,7 +172,7 @@ properties:
       - [0.3, 0.7]
     x-optimade-unit: "inapplicable"
     items:
-      title: "A concentration"
+      title: "a concentration"
       x-optimade-type: "float"
       type:
         - "number"

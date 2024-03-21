@@ -75,7 +75,7 @@ examples:
   - [ {"name": "CH3", "chemical_symbols": ["C"], "concentration": [1.0], "attached": ["H"], "nattached": [3]} ]
 x-optimade-unit: "inapplicable"
 items:
-  title: "Species declaration"
+  title: "species declaration"
   x-optimade-type: "dictionary"
   description: |-
     A declaration of a species of the sites of this structure. Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
@@ -86,7 +86,7 @@ items:
     name:
       $$inherit: "/v1.2/properties/optimade/common/species_name"
     chemical_symbols:
-      title: "Chemical symbols"
+      title: "chemical symbols"
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_chemical_symbols"]
@@ -112,7 +112,7 @@ items:
       items:
         $$inherit: "/v1.2/properties/optimade/common/chemical_symbol_or_vacancy"
     concentration:
-      title: "Concentration"
+      title: "concentration"
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_chemical_symbols"]
@@ -142,7 +142,7 @@ items:
         minimum: 0.0
         maximum: 1.0
     attached:
-      title: "Attached chemical symbols"
+      title: "attached chemical symbols"
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_attached"]
@@ -167,7 +167,7 @@ items:
       items:
         $$inherit: "/v1.2/properties/optimade/common/chemical_symbol"
     nattached:
-      title: "Number of attached entities"
+      title: "number of attached entities"
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_attached"]
@@ -190,7 +190,7 @@ items:
         x-optimade-unit: "dimensionless"
         minimum: 0
     mass:
-      title: "Masses of the entities composing the species"
+      title: "masses of the entities composing the species"
       x-optimade-type: "list"
       x-optimade-dimensions:
         names: ["dim_species_chemical_symbols"]
@@ -212,7 +212,7 @@ items:
         x-optimade-unit: "dalton"
         minimum: 0.0
     original_name:
-      title: "Original name"
+      title: "original name"
       x-optimade-type: "string"
       type:
         - "string"
