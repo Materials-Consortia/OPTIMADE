@@ -19,7 +19,7 @@ $defs:
     patternProperties:
       "^_": {}
     properties:
-      $id:
+      "$id":
         allOf:
         - $ref: "#/$defs/id_field"
         - description: |-
@@ -33,9 +33,9 @@ $defs:
             - Changes to the fields `deprecated` and `$comment` on any level.
 
             Note that this means that the version number part of the URL is *retained* even in newer releases of the OPTIMADE standard as long as the definition remains functionally identical.
-      $comment:
+      "$comment":
         type: string
-      $schema:
+      "$schema":
         description: |-
           A normalized URI for a meta-schema that validates the definition.
       approximate-relations:

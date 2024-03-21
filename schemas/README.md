@@ -60,7 +60,7 @@ The following makefile target processes all Property Definitions (and other sche
 ```
 make schemas
 ```
-This command also generates documentation in markdown and HTML meant to be keept alongside the JSON definition files.
+This command also generates documentation in markdown and HTML meant to be kept alongside the JSON definition files.
 Once the generation is complete, the property definitions are found under `schemas/output/defs/` using the same directory structure as under `schemas/src`.
 
 You can browse the definitions by starting a browser with the generated index page, e.g.:

@@ -227,7 +227,7 @@ $defs:
           - "iri": a string instance is valid against this attribute if it is a valid IRI according to RFC 3987.
         type: "string"
         enum: ["date-time", "date", "time", "duration", "email", "uri", "iri"]
-      $id:
+      "$id":
         allOf:
           - $ref: '#/$defs/id_field'
           - description: |-
@@ -238,7 +238,7 @@ $defs:
               - The inclusion or omission of "null" in the type in the outermost layer of the definition.
               - Additions of annotating notes to end of the description field.
               - Changes to the following specific fields at any level: deprecated, examples, $comment, x-optimade-implementation, and x-optimade-requirements.
-      $schema:
+      "$schema":
         description: |-
           A normalized URI for a meta-schema that validates the Property Definition.
           This SHOULD be https://schemas.optimade.org/meta/{OPTIMADE_VERSION}/optimade/physical_unit_definition.json
@@ -344,7 +344,7 @@ $defs:
               - "no"
           sortable:
             type: boolean
-          $comment:
+          "$comment":
             type: string
         type: object
       x-optimade-requirements:
@@ -396,7 +396,7 @@ $defs:
             - should
             - may
             type: string
-          $comment:
+          "$comment":
             type: string
         type: object
       x-optimade-metadata-definition:
@@ -408,7 +408,7 @@ $defs:
               type:
                 enum:
                   - ["object", "null"]
-      $comment:
+      "$comment":
         description: |-
           A human-readable comment relevant in the context of the raw definition data.
           These comments should normally not be shown to the end users.
