@@ -12,7 +12,7 @@ type:
   - "string"
   - "null"
 description: |-
-  Version information of a file (e.g. commit, revision, timestamp).
+  Version information of a file (e.g., commit, revision, timestamp).
 
   **Requirements/Conventions:**
 
