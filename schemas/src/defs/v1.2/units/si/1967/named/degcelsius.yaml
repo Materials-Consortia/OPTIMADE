@@ -20,9 +20,9 @@ resources:
     resource-id: "https://en.wikipedia.org/wiki/Celsius"
 defining-relation:
   base-units:
-    - symbol: "degK"
+    - symbol: "K"
       id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/kelvin"
-  base-units-expression: "degK"
+  base-units-expression: "K"
   offset:
     numerator: 27315
     denominator: 100
