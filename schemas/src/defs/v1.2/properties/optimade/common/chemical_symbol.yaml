@@ -15,8 +15,8 @@ description: |-
 
   - Must be one of the following:
 
-    - a valid chemical-element symbol, or
-    - the special value `"X"` to represent a non-chemical element.
+      - a valid chemical-element symbol, or
+      - the special value `"X"` to represent a non-chemical element.
 x-optimade-unit: inapplicable
 examples:
   - "He"

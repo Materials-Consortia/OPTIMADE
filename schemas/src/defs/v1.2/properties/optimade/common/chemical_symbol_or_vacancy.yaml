@@ -15,9 +15,9 @@ description: |-
 
   - Must be one of the following:
 
-    - a valid chemical-element symbol, or
-    - the special value `"X"` to represent a non-chemical element, or
-    - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy.
+      - a valid chemical-element symbol, or
+      - the special value `"X"` to represent a non-chemical element, or
+      - the special value `"vacancy"` to represent that this site has a non-zero probability of having a vacancy.
 x-optimade-unit: inapplicable
 examples:
   - "He"

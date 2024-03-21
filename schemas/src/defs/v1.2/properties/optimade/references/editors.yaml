@@ -20,8 +20,8 @@ description: |-
 
   - Each list member MUST be a dictionary with the following keys:
 
-    - **name**: Full name of the person, REQUIRED.
-    - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.
+      - **name**: Full name of the person, REQUIRED.
+      - **firstname**, **lastname**: Parts of the person's name, OPTIONAL.
 items:
   $$inherit: "/v1.2/properties/optimade/common/person"
 examples:
