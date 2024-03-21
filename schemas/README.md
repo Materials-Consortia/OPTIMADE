@@ -259,7 +259,7 @@ This is the workflow to update the schemas at `https://schemas.optimade.org/`:
   rsync -av --no-t --checksum schemas/output/ /path/to/repo/for/schemas/
   ```
 
-- Check that the changes look resonable also from the perspective of git:
+- Check that the changes look reasonable also from the perspective of git:
   ```
   cd /path/to/repo/for/schemas/
   git status

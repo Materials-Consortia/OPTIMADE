@@ -2086,8 +2086,8 @@ The format of Property Definitions defined below allows nesting inner Property D
 To make a property definition expressible in any output format, the fields of the property definition below are specified using OPTIMADE data types.
 When a property definition is communicated using a specific data format (e.g., JSON), the property definition is implemented in that data format by mapping the OPTIMADE data types into the corresponding data types for that output format.
 
-Clients are meant to be able to rely on that properties with the same :field:`$id` fields represents equivalently defined properties.
-Hence, when a Property Definition that has been published previously is updated, it is of major importance to decide if the update merely amend, annotate, or clarify the definition in a way that leaves it functionally the same and thus can retain the :field:`$id`, or whether the property is redefined.
+Clients are meant to be able to rely on the fact that properties with the same :field:`$id` fields represents equivalently defined properties.
+Hence, when a Property Definition that has been published previously is updated, it is of major importance to decide if the updates merely amend, annotate, or clarify the definition in a way that leaves it functionally the same and thus can retain the :field:`$id`, or whether the property is redefined.
 An example of an update that does not functionally change the definition is the addition or modification of the examples given in the :field:`examples` field.
 If a property is redefined, the redefinition MUST change the :field:`$id`.
 The nature of an updated definition can also be reflected in the subfield :field:`version` of :field:`x-optimade-definition`, which allows definitions to be versioned using the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard where the update is categorized on the levels of a patch, minor, or major change.
