@@ -12,7 +12,7 @@ type:
   - "string"
   - "null"
 description: |-
-  The three letter abbreviation of the month of publication or writing (the month field in the BibTeX specification).
+  The three-letter abbreviation of the month of publication or writing (the month field in the BibTeX specification).
 examples:
   - "jul"
 x-optimade-unit: "inapplicable"
