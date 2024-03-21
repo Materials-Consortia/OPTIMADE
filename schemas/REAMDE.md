@@ -95,7 +95,7 @@ where:
 - `<name>` is an identifier of lowercase Latin characters and the underscore character identifying the property.
 
 The URIs are URLs that can be retrieved to fetch a human-readable description of the definition in HTML format.
-Every URI can also be suffixed with the extension ".json" to obtain the machine-readable JSON definition file.
+Every URI can also be suffixed with the extension `.json` to obtain the machine-readable JSON definition file.
 These URIs are stable in the sense that they will always refer to a single specific definition.
 However, the definition description that the URL resolves to may be amended and clarified in ways that do not functionally alter the definition.
 When this happens, the version number in the definition file (in the field `x-optimade-definition -> version`) will be updated to match the corresponding release of OPTIMADE.
