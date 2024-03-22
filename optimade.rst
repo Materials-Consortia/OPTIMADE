@@ -4014,15 +4014,10 @@ Such delimiters and escape rules are *not* included in the definition of the OPT
 The format defined in this section applies after such outer escape rules have been applied (e.g., when all occurrences of ``\/`` have been translated into ``/`` for a format where an unescaped slash character is the end delimiter).
 Likewise, if an OPTIMADE regex is embedded in a serialized data format (e.g., JSON), this section documents the format of the Unicode string resulting from the deserialization of that format.
 
-The format is a subset of the format described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__.
-The restrictions are chosen to match features commonly available in database backends.
-The subset is compatible with the `PCRE2 regex engine <https://www.pcre.org/current/doc/html/>`__ when it is configured accordingly.
-The subset is also intended to be compatible with, but even further restricted than, the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
-The compatibility with the JSON Schema standard is expressed as "intended" since there is some room for interpretation of the precise features included in the subset of regex features recommended in that standard.
+An OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__ with additional restrictions described below which define a subset of the ECMA-262 format chosen to match features commonly available in different database backends.
+The regex is interpreted according to the ECMA-262 processing rules that apply for an expression where only the Unicode variable is set to true of all variables set by the RegExp internal slot described by `ECMA-262, section 21.2.2.1 <https://262.ecma-international.org/11.0/#sec-notation>`__.
 
-Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__ with the additional restrictions described in the following.
-The regex is interpreted according to the processing rules that apply for an expression where only the Unicode variable is set to true of all variables set by the RegExp internal slot described by `ECMA-262, section 21.2.2.1 <https://262.ecma-international.org/11.0/#sec-notation>`__.
-Furthermore, it can only use the following tokens and features (this list is partially quoted from the JSON Schema standard):
+The subset includes only the following tokens and features:
 
 - Individual Unicode characters matching themselves, as defined by the `JSON specification <https://json-schema.org/draft/2020-12/json-schema-core#RFC8259>`__.
 - The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
@@ -4056,19 +4051,23 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
 
   Compatibility notes:
 
-  The definition tolerates (with undefined behavior) regexes that use tokens and features beyond the defined subset.
-  Hence, a regex can be directly handed over to a backend implementation compatible with the subset without needing validation or translation.
-  Additional consideration of how the ``.`` character operates in relation to line breaks may be required for multiline text.
-  If the regex is applied to strings containing only the LINE FEED (U+000A) character and none of the other Unicode line break characters, most regex backend implementations are compatible with the defined behavior.
-  If the regex is applied to string data containing arbitrary combinations of Unicode line break characters and the right behavior cannot be achieved via environmental settings and regex options, implementations can consider a translation step where other line break characters are translated into LINE FEED in the text operated on.
+  * The subset is intended to be compatible with, but even further restricted than, the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
+    The compatibility with the JSON Schema standard is expressed here as "intended" since there is some room for interpretation of the precise features included in the recommendation given in that standard.
 
-  Compatibility with different regex implementations may change depending on the environment, implementation programming language versions, and options and has to be verified by implementations.
-  However, as a general guide, we have used third-party sources, e.g., the `Regular Expression Engine Comparison Chart <https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816>`__ to collect the following information for compatibility when operating on text using LINE FEED as the line break character:
+  * The definition tolerates (with undefined behavior) regexes that use tokens and features beyond the defined subset.
+    Hence, a regex can be directly handed over to a backend implementation compatible with the subset without needing validation or translation.
+    
+  * Additional consideration of how the ``.`` character operates in relation to line breaks may be required for multiline text.
+    If the regex is applied to strings containing only the LINE FEED (U+000A) character and none of the other Unicode line break characters, most regex backend implementations are compatible with the defined behavior.
+    If the regex is applied to string data containing arbitrary combinations of Unicode line break characters and the right behavior cannot be achieved via environmental settings and regex options, implementations can consider a translation step where other line break characters are translated into LINE FEED in the text operated on.
 
-  * `ECMAScript (also known as javascript) <https://262.ecma-international.org/>`__ and version 1 and 2 of `PCRE <https://www.pcre.org/>`__ are meant to be compatible by design.
+  * Compatibility with different regex implementations may change depending on the environment, implementation programming language versions, and options and has to be verified by implementations.
+    However, as a general guide, we have used third-party sources, e.g., the `Regular Expression Engine Comparison Chart <https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816>`__ to collect the following information for compatibility when operating on text using LINE FEED as the line break character:
 
-  * The following regex formats appear generally compatible when operating in Unicode mode: `Perl <https://perldoc.perl.org/perlre>`__, `Python <https://docs.python.org/3/library/re.html>`__, `Ruby <https://ruby-doc.org/3.2.2/Regexp.html>`__, `Rust <https://docs.rs/regex/latest/regex/>`__, `Java <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html>`__, `.NET <https://learn.microsoft.com/en-us/dotnet/standard/base-types/details-of-regular-expression-behavior>`__, `MySQL 8 <https://dev.mysql.com/doc/refman/8.0/en/regexp.html>`__, `MongoDB <https://www.mongodb.com/docs/manual/reference/operator/query/regex/>`__, `Oracle <https://docs.oracle.com/cd/B13789_01/appdev.101/b10795/adfns_re.htm>`__, `IBM Db2 <https://www.ibm.com/docs/en/db2/11.5?topic=reference-regular-expressions>`__, `Elasticsearch <https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html>`__, `DuckDB <https://duckdb.org/docs/sql/functions/patternmatching.html#regular-expressions>`__ (which uses the `re2 <https://github.com/google/re2/wiki/Syntax>`__ library).
-  * SQLite supports regexes via libraries and thus can use a compatible format (e.g., PCRE2).
-  * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
-  * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
-    POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
+      * `ECMAScript (also known as javascript) <https://262.ecma-international.org/>`__ and version 1 and 2 of `PCRE <https://www.pcre.org/>`__ are meant to be compatible by design when used with appropriate options.
+
+      * The following regex formats appear generally compatible when operating in Unicode mode: `Perl <https://perldoc.perl.org/perlre>`__, `Python <https://docs.python.org/3/library/re.html>`__, `Ruby <https://ruby-doc.org/3.2.2/Regexp.html>`__, `Rust <https://docs.rs/regex/latest/regex/>`__, `Java <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html>`__, `.NET <https://learn.microsoft.com/en-us/dotnet/standard/base-types/details-of-regular-expression-behavior>`__, `MySQL 8 <https://dev.mysql.com/doc/refman/8.0/en/regexp.html>`__, `MongoDB <https://www.mongodb.com/docs/manual/reference/operator/query/regex/>`__, `Oracle <https://docs.oracle.com/cd/B13789_01/appdev.101/b10795/adfns_re.htm>`__, `IBM Db2 <https://www.ibm.com/docs/en/db2/11.5?topic=reference-regular-expressions>`__, `Elasticsearch <https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html>`__, `DuckDB <https://duckdb.org/docs/sql/functions/patternmatching.html#regular-expressions>`__ (which uses the `re2 <https://github.com/google/re2/wiki/Syntax>`__ library).
+      * SQLite supports regexes via libraries and thus can use a compatible format (e.g., PCRE2).
+      * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
+      * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
+        POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
