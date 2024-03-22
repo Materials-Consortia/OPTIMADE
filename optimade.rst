@@ -4015,9 +4015,10 @@ The format defined in this section applies after such outer escape rules have be
 Likewise, if an OPTIMADE regex is embedded in a serialized data format (e.g., JSON), this section documents the format of the Unicode string resulting from the deserialization of that format.
 
 The format is a subset of the format described in `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__.
-The format is closely inspired by the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
-However, OPTIMADE has decided to restrict the subset further to better align it with the features available in common database backends and to clarify the limitations of character classes and character escapes.
-The intent is that the specified format is also a subset of the `PCRE2 regex format <https://www.pcre.org/current/doc/html/>`__ to make the format directly useful (without translation) in a wide range of regex implementations.
+The restrictions are chosen to match features commonly available in database backends.
+The subset is compatible with the `PCRE2 regex engine <https://www.pcre.org/current/doc/html/>`__ when it is configured accordingly.
+The subset is also intended to be compatible with, but even further restricted than, the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
+The compatibility with the JSON Schema standard is expressed as "intended" since there is some room for interpretation of the precise features included in the subset of regex features recommended in that standard.
 
 Hence, an OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__ with the additional restrictions described in the following.
 The regex is interpreted according to the processing rules that apply for an expression where only the Unicode variable is set to true of all variables set by the RegExp internal slot described by `ECMA-262, section 21.2.2.1 <https://262.ecma-international.org/11.0/#sec-notation>`__.
@@ -4025,22 +4026,21 @@ Furthermore, it can only use the following tokens and features (this list is par
 
 - Individual Unicode characters matching themselves, as defined by the `JSON specification <https://json-schema.org/draft/2020-12/json-schema-core#RFC8259>`__.
 - The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
-- A literal escape of one of the syntax characters, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
+- A literal escape of `one of the characters defined as syntax characters in the ECMA-262 standard <https://262.ecma-international.org/11.0/#prod-SyntaxCharacter>`__, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
   No other characters can be escaped.
   (This rule prevents other escapes that are interpreted differently depending on regex flavor.)
-- Simple character classes (e.g., ``[abc]``) and range character classes (e.g., ``[a-z]``) with the following constraints:
+- Simple character classes (e.g., ``[abc]``), complemented character classes (e.g. [^abc]) and their ranged versions (e.g., ``[a-z]``, ``[^a-z]``) with the following constraints:
 
-  * The character ``-`` designates ranges unless it is the first or last character of the class.
-  * The characters ``\ [ ]`` can only appear escaped with a preceeding backslash, e.g. ``\\`` designates that the class includes a literal ``\`` character.
+  * The character ``-`` designates ranges, unless it is the first or last character of the class in which case it represents a literal ``-`` character.
+  * If the first character is ``^`` then the expression matches all characters *except* the ones specified by the class as defined by the characters that follows.
+  * The characters ``\ [ ]`` can only appear escaped with a preceding backslash, e.g. ``\\`` designates that the class includes a literal ``\`` character.
     The other syntax characters may appear either escaped or unescaped to designate that the class includes them.
     (This rule prevents other escapes inside classes that are not the same across regex flavors and expressions that, in some flavors, are interpreted as nested classes.)
-  * Except for as specified above, all characters represent themselves literally (including syntax characters).
-  * Each literal character can appear in the class at most once.
-    (This rule prevents expressions interpreted as pre-defined classes in some regex flavors, e.g., ``[:alpha:]``).
-
-- Complemented character classes (e.g., ``[^abc]``, ``[^a-z]``).
+  * Except as specified above, all characters represent themselves literally (including syntax characters).
+  * Characters that represent themselves literally can only appear at most once.
+    (This rule prevents various kinds of extended character class syntax that differs between regex formats that assigns special meaning to duplicated characters, e.g., POSIX character classes, e.g., ``[:alpha:]``, equivalence classes, e.g., ``[=a=]``, set constructs, e.g. ``[A--B]``, ``[A&&B]``, etc.).
 - Simple quantifiers: ``+`` (one or more), ``*`` (zero or more), ``?`` (zero or one) that appear directly after a character, group, or character class.
-  (This rule prevents expressions with special meaning in some regex flavors, e.g., ``+?`` and ``(?`` ).)
+  (This rule prevents expressions with special meaning in some regex flavors, e.g., ``+?`` and ``(?...)``.)
 - The beginning-of-input (``^``) and end-of-input (``$``) anchors.
 - Simple grouping (``(...)``) and alternation (``|``).
 
@@ -4060,9 +4060,9 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
   Hence, a regex can be directly handed over to a backend implementation compatible with the subset without needing validation or translation.
   Additional consideration of how the ``.`` character operates in relation to line breaks may be required for multiline text.
   If the regex is applied to strings containing only the LINE FEED (U+000A) character and none of the other Unicode line break characters, most regex backend implementations are compatible with the defined behavior.
-  If the regex is applied to string data containing arbitrary combinations of line break characters and the right behavior cannot be achieved via environmental settings and regex options, implementations can consider a translation step where other line break characters are translated into LINE FEED in the text operated on.
+  If the regex is applied to string data containing arbitrary combinations of Unicode line break characters and the right behavior cannot be achieved via environmental settings and regex options, implementations can consider a translation step where other line break characters are translated into LINE FEED in the text operated on.
 
-  Compatibility with different regex implementations may change depending on the environment, language versions, and options and has to be verified by implementations.
+  Compatibility with different regex implementations may change depending on the environment, implementation programming language versions, and options and has to be verified by implementations.
   However, as a general guide, we have used third-party sources, e.g., the `Regular Expression Engine Comparison Chart <https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816>`__ to collect the following information for compatibility when operating on text using LINE FEED as the line break character:
 
   * `ECMAScript (also known as javascript) <https://262.ecma-international.org/>`__ and version 1 and 2 of `PCRE <https://www.pcre.org/>`__ are meant to be compatible by design.
