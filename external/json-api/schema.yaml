@@ -1,0 +1,287 @@
+$schema: http://json-schema.org/draft-06/schema#
+definitions:
+  attributes:
+    additionalProperties: false
+    description: Members of the attributes object ("attributes") represent information
+      about the resource object in which it's defined.
+    not:
+      anyOf:
+      - required:
+        - relationships
+      - required:
+        - links
+      - required:
+        - id
+      - required:
+        - type
+    patternProperties:
+      ^[a-zA-Z0-9](?:[-\w]*[a-zA-Z0-9])?$:
+        description: Attributes may contain any valid JSON value.
+    type: object
+  data:
+    description: The document's "primary data" is a representation of the resource
+      or collection of resources targeted by a request.
+    oneOf:
+    - $ref: '#/definitions/resource'
+    - description: An array of resource objects, an array of resource identifier objects,
+        or an empty array ([]), for requests that target resource collections.
+      items:
+        $ref: '#/definitions/resource'
+      type: array
+      uniqueItems: true
+    - description: null if the request is one that might correspond to a single resource,
+        but doesn't currently.
+      type: 'null'
+  empty:
+    description: Describes an empty to-one relationship.
+    type: 'null'
+  error:
+    additionalProperties: false
+    properties:
+      code:
+        description: An application-specific error code, expressed as a string value.
+        type: string
+      detail:
+        description: A human-readable explanation specific to this occurrence of the
+          problem.
+        type: string
+      id:
+        description: A unique identifier for this particular occurrence of the problem.
+        type: string
+      links:
+        $ref: '#/definitions/links'
+      meta:
+        $ref: '#/definitions/meta'
+      source:
+        properties:
+          parameter:
+            description: A string indicating which query parameter caused the error.
+            type: string
+          pointer:
+            description: A JSON Pointer [RFC6901] to the associated entity in the
+              request document [e.g. "/data" for a primary data object, or "/data/attributes/title"
+              for a specific attribute].
+            type: string
+        type: object
+      status:
+        description: The HTTP status code applicable to this problem, expressed as
+          a string value.
+        type: string
+      title:
+        description: A short, human-readable summary of the problem. It **SHOULD NOT**
+          change from occurrence to occurrence of the problem, except for purposes
+          of localization.
+        type: string
+    type: object
+  failure:
+    additionalProperties: false
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/error'
+        type: array
+        uniqueItems: true
+      jsonapi:
+        $ref: '#/definitions/jsonapi'
+      links:
+        $ref: '#/definitions/links'
+      meta:
+        $ref: '#/definitions/meta'
+    required:
+    - errors
+    type: object
+  info:
+    additionalProperties: false
+    properties:
+      jsonapi:
+        $ref: '#/definitions/jsonapi'
+      links:
+        $ref: '#/definitions/links'
+      meta:
+        $ref: '#/definitions/meta'
+    required:
+    - meta
+    type: object
+  jsonapi:
+    additionalProperties: false
+    description: An object describing the server's implementation
+    properties:
+      meta:
+        $ref: '#/definitions/meta'
+      version:
+        type: string
+    type: object
+  link:
+    description: 'A link **MUST** be represented as either: a string containing the
+      link''s URL or a link object.'
+    oneOf:
+    - description: A string containing the link's URL.
+      format: uri-reference
+      type: string
+    - properties:
+        href:
+          description: A string containing the link's URL.
+          format: uri-reference
+          type: string
+        meta:
+          $ref: '#/definitions/meta'
+      required:
+      - href
+      type: object
+  linkage:
+    additionalProperties: false
+    description: The "type" and "id" to non-empty members.
+    properties:
+      id:
+        type: string
+      meta:
+        $ref: '#/definitions/meta'
+      type:
+        type: string
+    required:
+    - type
+    - id
+    type: object
+  links:
+    additionalProperties:
+      $ref: '#/definitions/link'
+    type: object
+  meta:
+    additionalProperties: true
+    description: Non-standard meta-information that can not be represented as an attribute
+      or relationship.
+    type: object
+  pagination:
+    properties:
+      first:
+        description: The first page of data
+        oneOf:
+        - $ref: '#/definitions/link'
+        - type: 'null'
+      last:
+        description: The last page of data
+        oneOf:
+        - $ref: '#/definitions/link'
+        - type: 'null'
+      next:
+        description: The next page of data
+        oneOf:
+        - $ref: '#/definitions/link'
+        - type: 'null'
+      prev:
+        description: The previous page of data
+        oneOf:
+        - $ref: '#/definitions/link'
+        - type: 'null'
+    type: object
+  relationshipLinks:
+    additionalProperties: true
+    description: A resource object **MAY** contain references to other resource objects
+      ("relationships"). Relationships may be to-one or to-many. Relationships can
+      be specified by including a member in a resource's links object.
+    properties:
+      related:
+        $ref: '#/definitions/link'
+      self:
+        $ref: '#/definitions/link'
+        description: A `self` member, whose value is a URL for the relationship itself
+          (a "relationship URL"). This URL allows the client to directly manipulate
+          the relationship. For example, it would allow a client to remove an `author`
+          from an `article` without deleting the people resource itself.
+    type: object
+  relationshipToMany:
+    description: An array of objects each containing "type" and "id" members for to-many
+      relationships.
+    items:
+      $ref: '#/definitions/linkage'
+    type: array
+    uniqueItems: true
+  relationshipToOne:
+    anyOf:
+    - $ref: '#/definitions/empty'
+    - $ref: '#/definitions/linkage'
+    description: References to other resource objects in a to-one ("relationship").
+      Relationships can be specified by including a member in a resource's links object.
+  relationships:
+    additionalProperties: false
+    description: Members of the relationships object ("relationships") represent references
+      from the resource object in which it's defined to other resource objects.
+    patternProperties:
+      ^[a-zA-Z0-9](?:[-\w]*[a-zA-Z0-9])?$:
+        additionalProperties: false
+        anyOf:
+        - required:
+          - data
+        - required:
+          - meta
+        - required:
+          - links
+        not:
+          anyOf:
+          - required:
+            - id
+          - required:
+            - type
+        properties:
+          data:
+            description: Member, whose value represents "resource linkage".
+            oneOf:
+            - $ref: '#/definitions/relationshipToOne'
+            - $ref: '#/definitions/relationshipToMany'
+          links:
+            $ref: '#/definitions/relationshipLinks'
+          meta:
+            $ref: '#/definitions/meta'
+    type: object
+  resource:
+    additionalProperties: false
+    description: '"Resource objects" appear in a JSON:API document to represent resources.'
+    properties:
+      attributes:
+        $ref: '#/definitions/attributes'
+      id:
+        type: string
+      links:
+        $ref: '#/definitions/links'
+      meta:
+        $ref: '#/definitions/meta'
+      relationships:
+        $ref: '#/definitions/relationships'
+      type:
+        type: string
+    required:
+    - type
+    - id
+    type: object
+  success:
+    additionalProperties: false
+    properties:
+      data:
+        $ref: '#/definitions/data'
+      included:
+        description: To reduce the number of HTTP requests, servers **MAY** allow
+          responses that include related resources along with the requested primary
+          resources. Such responses are called "compound documents".
+        items:
+          $ref: '#/definitions/resource'
+        type: array
+        uniqueItems: true
+      jsonapi:
+        $ref: '#/definitions/jsonapi'
+      links:
+        allOf:
+        - $ref: '#/definitions/links'
+        - $ref: '#/definitions/pagination'
+        description: Link members related to the primary data.
+      meta:
+        $ref: '#/definitions/meta'
+    required:
+    - data
+    type: object
+description: This is a schema for responses in the JSON:API format. For more, see
+  http://jsonapi.org
+oneOf:
+- $ref: '#/definitions/success'
+- $ref: '#/definitions/failure'
+- $ref: '#/definitions/info'
+title: JSON:API Schema

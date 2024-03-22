@@ -595,7 +595,8 @@ Example of the corresponding metadata property definition contained in the field
            "$id": "https://properties.example.com/v1.2.0/elements_ratios_meta/_exmpl_originates_from_project",
            "description" : "A string naming the internal example.com project id where this property was added to the database.",
            "x-optimade-type": "string",
-           "x-optimade-unit" : "inapplicable"
+           "x-optimade-unit" : "inapplicable",
+           "type": ["string", "null"]
          }
        }
      }
@@ -1418,7 +1419,10 @@ The response for these endpoints MUST include the following information in the :
 
     **Note**: Future versions of the OPTIMADE API will deprecate this format and require all keys that are not :field:`type` or :field:`id` to be under the :field:`attributes` key.
 
-Example (note: the description strings have been wrapped for readability only):
+An example of the data part of the entry listing info endpoint response follows below, however, note that:
+
+- The description strings have been wrapped for readability only (newline characters are not allowed inside JSON strings)
+- The properties in the example, 'nelements' and 'lattice_vectors', mimick OPTIMADE standard properties, but are given here with simplified definitions compared to the standard definitions for these properties.
 
 .. code:: jsonc
 
@@ -1457,21 +1461,20 @@ Example (note: the description strings have been wrapped for readability only):
           },
           "lattice_vectors": {
             "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
-            "title": "Unit cell lattice vectors",
+            "title": "Lattice vectors",
+            "x-optimade-definition": {
+              "label": "lattice_vectors_optimade_structures",
+              "kind": "property",
+              "format": "1.2",
+              "version": "1.2.0",
+              "name": "lattice_vectors"
+            },
             "x-optimade-type": "list",
-            "type": ["array", "null"],
-            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
-            \n
-            - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
-              list of the vector's coordinates along the x, y, and z Cartesian coordinates.
-            ",
-            "examples": [
-              [[4.0, 0.0, 0.0], [0.0, 4.0, 0.0], [0.0, 1.0, 4.0]]
-            ],
-            "x-optimade-unit": "inapplicable",
-            "x-optimade-property": {
-              "property-format": "1.2",
-              "unit-definitions": [
+            "x-optimade-dimensions": {
+               "names": ["dim_lattice", "dim_spatial"],
+               "lengths": [3, 3]
+            },
+            "x-optimade-unit-definitions": [
                 {
                   "symbol": "angstrom",
                   "title": "ångström",
@@ -1482,8 +1485,8 @@ Example (note: the description strings have been wrapped for readability only):
                     "symbol": "angstrom"
                   }
                 }
-              ]
-            },
+              ],
+            "x-optimade-unit": "inapplicable",
             "x-optimade-implementation": {
               "sortable": false,
               "query-support": "none"
@@ -1493,14 +1496,23 @@ Example (note: the description strings have been wrapped for readability only):
               "sortable": false,
               "query-support": "none"
             },
-            "maxItems": 3,
-            "minItems": 3,
+            "type": ["array", "null"],
+            "description": "The three lattice vectors in Cartesian coordinates, in ångström (Å).\n
+            \n
+            - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a
+              list of the vector's coordinates along the x, y, and z Cartesian coordinates.
+            ",
+            "examples": [
+              [[4.0, 0.0, 0.0], [0.0, 4.0, 0.0], [0.0, 1.0, 4.0]]
+            ],
             "items": {
               "type": "array",
               "x-optimade-type": "list",
               "x-optimade-unit": "inapplicable",
-              "maxItems": 3,
-              "minItems": 3,
+              "x-optimade-dimensions": {
+                "names": ["dim_spatial"],
+                "lengths": [3]
+              },
               "items": {
                 "type": "number",
                 "x-optimade-type": "float",
@@ -2074,39 +2086,61 @@ The format of Property Definitions defined below allows nesting inner Property D
 To make a property definition expressible in any output format, the fields of the property definition below are specified using OPTIMADE data types.
 When a property definition is communicated using a specific data format (e.g., JSON), the property definition is implemented in that data format by mapping the OPTIMADE data types into the corresponding data types for that output format.
 
+Clients are meant to be able to rely on the fact that properties with the same :field:`$id` fields represents equivalently defined properties.
+Hence, when a Property Definition that has been published previously is updated, it is of major importance to decide if the updates merely amend, annotate, or clarify the definition in a way that leaves it functionally the same and thus can retain the :field:`$id`, or whether the property is redefined.
+An example of an update that does not functionally change the definition is the addition or modification of the examples given in the :field:`examples` field.
+If a property is redefined, the redefinition MUST change the :field:`$id`.
+The nature of an updated definition can also be reflected in the subfield :field:`version` of :field:`x-optimade-definition`, which allows definitions to be versioned using the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard where the update is categorized on the levels of a patch, minor, or major change.
+
 A Property Definition MUST be composed according to the combination of the requirements in the subsection `Property Definition keys from JSON Schema`_ below and the following additional requirements:
 
-**REQUIRED keys for the outermost level of the Property Definition:**
+**REQUIRED keys for the outermost level of the Property Definition and OPTIONAL for other levels:**
 
-- :field:`$id`: String, :field:`title`: String, and :field:`description`: String.
+- :field:`$id`: String, :field:`$schema`: String, :field:`title`: String, and :field:`description`: String.
   See the subsection `Property definition keys from JSON Schema`_ for the definitions of these fields.
   They are defined in that subsection as OPTIONAL on any level of the Property Definition, but are REQUIRED on the outermost level.
 
-- :field:`x-optimade-property`: Dictionary.
-  Additional information to define the property that is not covered by fields in the JSON Schema standard.
+.. _definition of the x-optimade-definition field:
+
+- :field:`x-optimade-definition`: Dictionary.
+  Additional information about the definition that is not covered by fields in the JSON Schema standard.
 
   **REQUIRED keys:**
 
-  - :field:`property-format`: String.
-    Specifies the minor version of the property definition format used.
+.. _definition of the property-format field:
+
+  - :field:`format`: String.
+    A string that declares the OPTIMADE definition format the definition adheres to.
+    Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
     The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
     The version number string MUST NOT be prefixed by, e.g., "v".
     In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
     A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
     This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
+  - :field:`kind`: String.
+    A string specifying what entity is being defined.
+    For Property Definitions this MUST be the string "property".
+
+  - :field:`name`: String.
+    An short identifier (as defined in `Definition of Terms`_) that provides a reasonable short non-unique name for the entity being defined.
+
+  - :field:`label`: String.
+    An extended identifier (as defined in `Definition of Terms`_) that describes the entity being defined in a way that is unique within a set of definitions provided together.
+    The label SHOULD start with the name.
+
+      Implementation notes:
+
+      The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as `RDF data <https://www.w3.org/TR/rdf-schema/>`__ (see, e.g., rdfs:label).
+
   **OPTIONAL keys:**
 
   - :field:`version`: String.
-    This string indicates the version of the property definition.
+    This string indicates the version of the definition.
     The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
+    When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
 
-  - :field:`unit-definitions`: List.
-    A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
-    This field MUST be included if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`.
-    See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
-
-  - :field:`resource-uris`: List.
+  - :field:`resources`: List.
     A list of dictionaries that references remote resources that describe the property.
     The format of each dictionary is:
 
@@ -2115,12 +2149,14 @@ A Property Definition MUST be composed according to the combination of the requi
     - :field:`relation`: String.
       A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
 
-    - :field:`uri`: String.
-      A URI of the external resource (which MAY be a resolvable URL).
+    - :field:`resource-id`: String.
+      An IRI of the external resource, which MAY be a resolvable URL.
 
 **REQUIRED keys for all levels of the Property Definition:**
 
-- :field:`x-optimade-type`: String
+.. _definition of the x-optimade-type field:
+
+- :field:`x-optimade-type`: String.
   Specifies the OPTIMADE data type for this level of the defined property.
   MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
 
@@ -2130,9 +2166,38 @@ A Property Definition MUST be composed according to the combination of the requi
 
 **OPTIONAL keys at all nested levels of the Property Definition:**
 
+- :field:`x-optimade-unit-definitions`: List.
+  A list of definitions of the symbols used in the Property Definition (including its nested levels) for physical units given as values of the :field:`x-optimade-unit` field.
+  This field **MUST be included at the outermost level of a property definition** if the defined property, at any level, includes an :field:`x-optimade-unit` with a value that is not :val:`dimensionless` or :val:`inapplicable`, and it MUST include definitions of all units used on all levels in the property definition.
+  The field MAY also occur at deeper nesting levels (but this is not required).
+  If it does, the unit definitions provided MUST be redundant with those provided at higher nesting levels.
+  See subsection `Physical Units in Property Definitions`_ for the details on how units are represented in OPTIMADE Property Definitions and the precise format of this dictionary.
+
+.. _definition of the x-optimade-dimensions field:
+
+- :field:`x-optimade-dimensions`: Dictionary.
+  Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
+  Each dimension is given a name and optionally a fixed size.
+
+  **REQUIRED keys:**
+
+    - :field:`names`: List of Strings.
+      A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+
+    - :field:`sizes`: List of Integers or :val:`null`.
+      A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+      The data only validates if the respective level consists of lists of exactly this length.
+      A value of `null` allows arbitrary-length lists at the corresponding level.
+
+    Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
+    Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
+
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
   If an implementation omits this field in its response, a client interacting with that implementation SHOULD NOT make any assumptions about the availability of these features.
+
   The dictionary has the following format:
 
   **OPTIONAL keys:**
@@ -2151,9 +2216,13 @@ A Property Definition MUST be composed according to the combination of the requi
     - :val:`partial`: the defined property MUST be queryable with support for a subset of the filter language operators as specified by the field :field:`query-support-operators`.
     - :val:`none`: the defined property does not need to be queryable with any features of the filter language.
 
+    Omitting the field or :val:`null` is equivalent to :val:`none`.
+
   - :field:`query-support-operators`: List of Strings.
     Defines the filter language features supported on this property.
-    Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`:, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
+    MUST be present and not :val:`null` if and only if :field:`query-support` is :val:`partial`.
+
+    Each string in the list MUST be one of :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`, :val:`CONTAINS`, :val:`STARTS WITH`, :val:`ENDS WITH`, :val:`HAS`, :val:`HAS ALL`, :val:`HAS ANY`, :val:`HAS ONLY`, :val:`IS KNOWN`, :val:`IS UNKNOWN` with the following meanings:
 
     - :val:`<`, :val:`<=`, :val:`>`, :val:`>=`, :val:`=`, :val:`!=`: indicating support for filtering this property using the respective operator.
       If the property is of Boolean type, support for :val:`=` also designates support for boolean comparisons with the property being true that omit ":filter-fragment:`= TRUE`", e.g., specifying that filtering for ":filter:`is_yellow = TRUE`" is supported also implies support for ":filter:`is_yellow`" (which means the same thing).
@@ -2167,14 +2236,20 @@ A Property Definition MUST be composed according to the combination of the requi
 
     - :val:`IS KNOWN`, :val:`IS UNKNOWN`: indicating support for filtering this property on unknown values using the respective operator.
 
+  - :field:`response-default`: Boolean.
+    The value :val:`TRUE` means the implementation includes the property in responses by default, i.e., when not specifically requested.
+    The value :val:`FALSE` means that the property is only included when requested.
+    Omitting the field or :val:`null` means the implementation does not declare if the property will be included in responses by default or not.
+
 - :field:`x-optimade-requirements`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality required by all implementations of this property.
   Omitting this field means the corresponding functionality is OPTIONAL.
-  The dictionary has the same format as :field:`x-optimade-implementation`, except that it also allows the following OPTIONAL field:
+  The dictionary has the same format as :field:`x-optimade-implementation`, *except that* the :field:`response-default` field SHOULD NOT appear, and the following additional OPTIONAL fields are allowed:
 
   - :field:`support`: String.
     Describes the minimal required level of support for the Property by an implementation.
-    This field SHOULD only appear in an :field:`x-optimade-requirements` that is at the outermost level of a Property Definition, as the meaning of its inclusion on other levels is not defined.
+    This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
+    Nevertheless, it MAY appear in other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
     The string MUST be one of the following:
 
     - :val:`must`: the defined property MUST be recognized by the implementation (e.g., in filter strings) and MUST NOT be :val:`null`.
@@ -2186,6 +2261,23 @@ A Property Definition MUST be composed according to the combination of the requi
     Note: the specification by this field of whether the defined property can be :val:`null` or not MUST match the value of the :field:`type` field.
     If :val:`null` values are allowed, that field must be a list where the string :val:`"null"` is the second element.
 
+  - :field:`response-default-level`: String.
+    Expresses if an implementation of this property is required to include or exclude it in responses when not specifically requested.
+    This field only has meaning for the defined property when appearing in the :field:`x-optimade-requirements` at the outermost level of the definition.
+    Nevertheless, it MAY appear in other places, e.g., if a nested property definition has been inserted that references its own :field:`$id`.
+
+    The string MUST be one of the following:
+
+    - :val:`always`: the defined property MUST always be included in responses and cannot be excluded even by request via, e.g., the :query-param:`response_fields` query parameter.
+      This is primarily intended for the :field:`id` and :field:`type` fields, which are required for the JSON:API response format to be valid.
+    - :val:`must`: the defined property MUST be included in responses unless specifically excluded.
+    - :val:`should`: the defined property SHOULD be included in responses unless specifically excluded.
+    - :val:`may`: it is OPTIONAL for the implementation to include the defined property in responses.
+    - :val:`should not`: the defined property SHOULD NOT be included in responses unless specifically requested.
+    - :val:`must not`: the defined property MUST NOT be included in responses unless specifically requested.
+
+    Omitting the field is equivalent to :val:`may`.
+
 Property Definition keys from JSON Schema
 -----------------------------------------
 
@@ -2194,25 +2286,27 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 **REQUIRED keys**
 
-- :field:`type`: String or List.
+.. _definition of the type field:
+
+- :field:`type`: List.
   Specifies the corresponding JSON type for this level of the defined property and whether the property can be :val:`null` or not.
-  The value is directly correlated with :field:`x-optimade-type` as explained below.
+  The value is directly correlated with :field:`x-optimade-type` (cf. the `definition of the x-optimade-type field`_).
 
-  It MUST be one of:
+  It MUST be a list of one or two elements where the first element is a string correlated with :field:`x-optimade-type` as follows; if :field:`x-optimade-type` is:
 
-  - A string correlated with :field:`x-optimade-type` as follows.
-    If :field:`x-optimade-type` is:
+  * :val:`"boolean"`, :val:`"string"`, or :val:`"integer"` then :field:`type` is the same string.
+  * :val:`"dictionary"` then :field:`type` is `"object"`.
+  * :val:`"list"` then :field:`type` is `"array"`.
+  * :val:`"float"` then :field:`type` is `"number"`.
+  * :val:`"timestamp"` then :field:`type` is `"string"`.
 
-    * :val:`"boolean"`, `"string"`, or `"integer"` then :field:`type` is the same string.
-    * :val:`"dictionary"` then :field:`type` is `"object"`.
-    * :val:`"list"` then :field:`type` is `"array"`.
-    * :val:`"float"` then :field:`type` is `"number"`.
-    * :val:`"timestamp"` then :field:`type` is `"string"`.
+  If the second element is included, it MUST be the string :val:`"null"`.
+  This two element form specifies that the defined property can be :val:`null`.
 
-  - A list where the first item MUST be the string described above (correlated to the field :field:`x-optimade-type` in the same way) and the second item MUST be the string :val:`"null"`.
-    This form specifies that the defined property can be :val:`null`.
-
-..
+  The inclusion or not of :val:`"null"` in the field :field:`type` for a subfield defined at a nested level by a Property Definition declares if that subfield is nullable.
+  Property Definitions for which the nullability of a subfield differs MUST NOT share the same :field:`$id`.
+  However, the nullability of the subfield SHOULD NOT be taken into account when comparing the nested Property Definition for that subfield with other definitions, i.e., a nullable and non-nullable subfield that are otherwise defined the same SHOULD share the same :field:`$id`.
+  Hence, formally OPTIMADE Property Definitions regard nullability of a subfield to belong one level *above* where it appears in the JSON Schema definition.
 
   **Implementation notes:**
 
@@ -2224,36 +2318,54 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
     Values can only be defined to be a single OPTIMADE data type or, optionally, :val:`null`.
     This restriction is intended to reduce the complexity of possible data types that implementations have to handle in different formats and database backends.
 
-**OPTIONAL keys**
+**Keys that are REQUIRED on the outermost level of a Property Definition, but otherwise OPTIONAL:**
+
+- :field:`$schema`: String.
+  A URL for a meta schema that describes the Property Definitions format.
+  For Property Definitions adhering to the format described in this document, it should be set to: :val:`https://schemas.optimade.org/meta/v1.2/optimade/property_definition.json`.
+
+.. _definition of the $id field:
 
 - :field:`$id`: String.
-  A static URI identifier that is a URN or URL representing the specific version of this level of the defined property.
-  It SHOULD NOT be changed as long as the property definition remains the same, and SHOULD be changed when the property definition changes.
+  A static IRI identifier that is a URN or URL representing the specific version of this level of the defined property.
   (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+  It SHOULD NOT be changed as long as the property definition remains the same, and MUST be changed when the property definition changes.
 
 - :field:`title`: String.
   A short single-line human-readable explanation of the defined property appropriate to show as part of a user interface.
 
+.. _definition of the description field:
+
 - :field:`description`: String.
   A human-readable multi-line description that explains the purpose, requirements, and conventions of the defined property.
   The format SHOULD be a one-line description, followed by a new paragraph (two newlines), followed by a more detailed description of all the requirements and conventions of the defined property.
-  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__.
+  Formatting in the text SHOULD use Markdown in the `CommonMark v0.3 format <https://spec.commonmark.org/0.30/>`__ format, with mathematical expressions written to render correctly with the LaTeX mode of `Mathjax 3.2 <https://docs.mathjax.org/en/v3.2-latest/>`__.
+  When possible, it is preferable for mathematical expressions to use as straightforward notation as possible to make them readable also when not rendered.
+
+**OPTIONAL keys**
+
+- :field:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should normally not be shown to the end users.
+  Comments pertaining to the Property Definition that are relevant to end users should go into the field :field:`description`.
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_.
 
 - :field:`deprecated`: Boolean.
   If :val:`TRUE`, implementations SHOULD not use the defined property, and it MAY be removed in the future.
   If :val:`FALSE`, the defined property is not deprecated.
   The field not being present means :val:`FALSE`.
+  A Property Definition marked as deprecated is generally considered to be the same as its non-deprecated counterpart, i.e., it SHOULD retain its :field:`$id`.
+
+- :field:`examples`: List.
+  A list of example values that the defined property can have.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
   The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
   If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
 
-- :field:`examples`: List.
-  A list of example values that the defined property can have.
-  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
-
-Depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
+Furthermore, depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
 
 - :val:`"object"`:
 
@@ -2293,17 +2405,12 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
 
   **OPTIONAL**
 
-  - :field:`maxItems`: Integer.
-    A non-negative integer.
-    The defined property is an array that MUST contain a number of items that is less than or equal to the given integer.
-
-  - :field:`minItems`: Integer.
-    A non-negative integer.
-    The defined property is an array that MUST contain a number of items that is greater than or equal to the given integer.
-
   - :field:`uniqueItems`: Boolean.
     If :val:`TRUE`, the defined property is an array that MUST only contain unique items.
     If :val:`FALSE`, this field sets no limitation on the defined property.
+
+  Furthermore, despite being defined in the JSON Schema standard, the fields :field:`minItems` and :field:`maxItems` MUST NOT be used to indicate limits of the number of items of a list.
+  See the `definition of the x-optimade-dimensions field`_ for more information.
 
 - :val:`"integer"`:
 
@@ -2367,7 +2474,15 @@ Depending on what string the :field:`type` is equal to, or contains as first ele
     - :val:`"time"`: the full-time production in :RFC:`3339` section 5.6.
     - :val:`"duration"`: the duration production in :RFC:`3339` Appendix A.
     - :val:`"email"`: the "Mailbox" ABNF rule in :RFC:`5321` section 4.1.2.
-    - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI, according to :RFC:`3986`.
+    - :val:`"uri"`: a string instance is valid against this attribute if it is a valid URI according to :RFC:`3986`.
+    - :val:`"iri"`: a string instance is valid against this attribute if it is a valid IRI according to :RFC:`3987`.
+
+  - :field:`pattern`: String.
+    This string SHOULD be a valid regular expression, according to the ECMA-262 regular expression dialect.
+    A string instance is considered valid if the regular expression matches the instance successfully.
+    The regular expression is not implicitly anchored, i.e., it can match the string at any position unless the expression contains a leading '^' or a trailing '$'.
+
+A complete example of a Property Definition is found in the appendix `Property Definition Example`_.
 
 Physical Units in Property Definitions
 --------------------------------------
@@ -2379,31 +2494,53 @@ Clients and servers that use other units internally thus have to do unit convers
 The physical unit of a property, the embedded items of a list, or values of a dictionary, are defined with the field :field:`x-optimade-unit` with the following requirements:
 
 - The field MUST be given with a non-:val:`null` value both at the highest level in the OPTIMADE Property Definition and all inner Property Definitions.
-- If the property refers to a physical quantity that is dimensionless (often also referred to as having the dimension 1) or refers to a dimensionless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+- If the property refers to a physical quantity that is dimensionless and unitless (often also referred to as having the dimension 1) or refers to a dimensionless and unitless count of something (e.g., the number of protons in a nucleus) the field MUST have the value :val:`dimensionless`.
+  However, quantities that use counting units, e.g., the mole, or quantities that use dimensionless units, e.g., the radian MUST NOT set the field to :val:`dimensionless`.
 - If the property refers to an entity for which the assignment of a unit would not make sense, e.g., a string representing a chemical formula or a serial number the field MUST have the value :val:`inapplicable`.
+- If the field does not take the value :val:`dimensionless` or :val:`inapplicable`, it MUST be set to a single unit symbol or a Compound Unit Expressions from a set of unit symbols using the format described in `Compound Unit Expressions`_.
+- All unit symbols used in :field:`x-optimade-unit` fields at any level in a Property Definition MUST be defined in the :field:`units` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition, or in the :field:`units` field in the Entry info endpoint (the latter is only possible for Property Definitions embedded in such a response).
+- The :field:`units` MUST be a list of dictionaries using the format for OPTIMADE Physical Unit Definitions described in `Physical Unit Definitions`_.
 
-A standard set of unit symbols for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database :val:`definitions.units` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
-If the unit is available in this database, or if it can be expressed as a compound unit expression using these units, the value of :field:`x-optimade-unit` SHOULD use the corresponding (compound) string symbol and a corresponding definition referring to the same symbol be given in the field :field:`standard`.
+Compound Unit Expressions
+-------------------------
 
-A compound unit expression based on the GNU Units symbols is created by a sequence of unit symbols separated by a single multiplication :val:`*` symbol.
-Each unit symbol can also be suffixed by a single :val:`^` symbol followed by a positive or negative integer to indicate the power of the preceding unit, e.g., :val:`m^3` for cubic meter, :val:`m^-3` for inverse cubic meter.
+A Compound Unit Expression is formed by a sequence of symbols for units or constants separated by a single multiplication ``*`` character.
+Each symbol can also be suffixed by a single ``^`` character followed by a positive or negative integer to indicate the power of the preceding symbol, e.g., ``m^3`` for cubic meter, ``m^-3`` for inverse cubic meter.
 (Positive integers MUST NOT be preceded by a plus sign.)
-The unit symbols MAY be prefixed by one (but not more than one) of the prefixes defined in the ``definitions.units`` file.
-A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
-If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
-If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
-For example :val:`"km"` for kilometers.
+Each unit or constant symbol MAY be directly prefixed by a prefix symbol.
+A prefix symbol MUST be directly followed by a unit symbol, i.e., it MUST NOT be used on its own, and MUST NOT be followed by ``^`` to indicate a power.
+When defining prefix symbols it is important to ensure that they do not introduce ambiguity.
+If there are ambiguous interpretations of a symbol as either having or not having a prefix, it MUST be interpreted as a unit without a prefix.
+
 Furthermore:
 
-- No whitespace, parenthesis, or other symbols than specified above are permitted.
-- If multiple string representations of the same unit exist in ``definitions.units``, the *first one* in that file consisting of only lowercase letters a-z and underscores, but no other symbols, SHOULD be used.
-- The unit symbols MUST appear in alphabetical order.
+- No whitespace, parentheses, or other symbols than specified above are permitted.
+- The (prefixed) unit and constant symbols MUST appear in alphabetical order.
 
-The string in :field:`x-optimade-unit` MUST be defined in the :field:`unit-definitions` field inside the :field:`x-optimade-property` field in the outermost level of the Property Definition.
+Physical Unit Definitions
+-------------------------
 
-If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST be a list of dictionaries, all adhering to the following format:
+An OPTIMADE Physical Unit Definition is a dictionary adhering to the following format:
 
 **REQUIRED keys:**
+
+- :field:`$schema`: String.
+  A URL for a meta schema that describes the Physical Unit Definitions format.
+  For Property Definitions adhering to the format described in this document, it should be set to: :val:`https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition.json`.
+
+- :field:`x-optimade-definition`: Dictionary.
+  The same field as defined in the `definition of the x-optimade-definition field`_ for Property Definitions but where the :field:`kind` subfield MUST be :val:`unit`.
+
+.. _definition of the $id field in Physical Unit Definitions:
+
+- :field:`$id`: String.
+  A static IRI identifier that is a URN or URL representing the specific version of the Physical Unit Definition.
+  (If it is a URL, clients SHOULD NOT assign any interpretation to the response when resolving that URL.)
+  It SHOULD NOT be changed as long as the Physical Unit Definition remains the same, and SHOULD be changed when the definition changes.
+  Physical Unit Definitions SHOULD be regarded as the same if they only differ by:
+
+  - Additions of annotating notes to end of the :field:`description` field.
+  - Changes to the following specific fields at any level: :field:`deprecated` and :field:`$comment`.
 
 - :field:`symbol`: String.
   Specifies the symbol to be used in :field:`x-optimade-unit` to reference this unit.
@@ -2414,8 +2551,15 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
 - :field:`description`: String.
   A human-readable multiple-line detailed description of the unit.
 
+  Additions appended to the end of the :field:`description` field that are clearly marked as notes that clarify the definition without changing it are viewed as annotations to the Physical Unit Definition rather than an integral part of it.
+  Such annotations SHOULD only be added to the end of an otherwise unmodified :field:`description` and MUST NOT change the meaning or interpretation of the text above them.
+  The purpose is to provide a way to add explanations and clarifications to a definition without having to regard it as a new definition.
+  For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
+
+**OPTIONAL keys:**
+
 - :field:`standard`: Dictionary.
-  This field is used to define the unit symbol using a preexisting standard.
+  This field is used to express that the unit is part of a preexisting standard.
   The dictionary has the following format:
 
   **REQUIRED keys:**
@@ -2424,23 +2568,54 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
     The abbreviated name of the standard being referenced.
     One of the following:
 
-    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__, created according to the scheme described above.
-    - :val:`"ucum"`: the symbol comes from `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
-    - :val:`"qudt"`: the symbol comes from the `QUDT <http://qudt.org/>`__ standard.
+    - :val:`"si"`: the symbol is defined as part of the SI standard of unit symbols and prefixes.
+    - :val:`"codata"`: the symbol is defined as part of one of the CODATA series of publications.
+    - :val:`"iso-iec-80000"`: the symbol is defined in the iso-iec-80000 standard.
+    - :val:`"gnu units"`: the symbol is a (compound) unit expression based on the symbols in the file ``definitions.units`` distributed with `GNU Units software <https://www.gnu.org/software/units/>`__.
+
+      A standard set of symbols for units and prefixes for OPTIMADE is taken from version 3.15 of the (separately versioned) unit database ``definitions.units`` included with the `source distribution <http://ftp.gnu.org/gnu/units/>`__ of `GNU Units <https://www.gnu.org/software/units/>`__ version 2.22.
+      A prefix is indicated in the file by a trailing ``-``, but that trailing character MUST NOT be included when using it as a prefix.
+      If the unit is available in this database, or if it can be expressed as a Compound Unit Expression using these units and prefixes, the value of :field:`x-optimade-unit` SHOULD use the (compound) string symbol.
+      If there are multiple prefixes in the file with the same meaning, an implementation SHOULD use the *shortest one* consisting of only lowercase letters a-z and underscores, but no other symbols.
+      If there are multiple ones with the same shortest length, then the first one of those SHOULD be used.
+      For example, the GNU Units database defines the symbol :val:`"km"` for kilometers by a combination of the ``k-`` SI kilo prefix and the ``m`` symbol for the SI meter unit.
+
+    - :val:`"ucum"`: the symbol is defined in `The Unified Code for Units of Measure <https://unitsofmeasure.org/ucum.html>`__ (UCUM) standard.
+    - :val:`"qudt"`: the symbol is defined in the `QUDT <http://qudt.org/>`__ standard.
       Not only symbols strictly defined within the standard are allowed, but also other compound unit expressions created according to the scheme for how new such symbols are formed in this standard.
+
+  - :field:`symbol`: String.
+    The symbol to use from the referenced standard, expressed according to that standard.
+    The field MAY use mathematical expressions written the same way as described in the `definition of the description field`_.
+    This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
+    However, if possible, the `symbol` fields SHOULD be the same.
+
+  **OPTIONAL keys:**
 
   - :field:`version`: String.
     The version string of the referenced standard.
 
-  - :field:`symbol`: String.
-    The symbol to use from the referenced standard, expressed according to that standard.
-    This field MAY be different from :field:`symbol` directly under :field:`unit-definitions`, meaning that the unit is referenced in :field:`x-optimade-unit` fields using a different symbol than the one used in the standard.
-    However, the :field:`symbol` fields SHOULD be the same unless multiple units sharing the same symbol need to be referenced.
+  - :field:`year`: Integer.
+    The year that the standard adopted the definition.
 
+  - :field:`category`
+    The category of the definition in case the standard uses categories to organize definitions.
 
-**OPTIONAL keys:**
+- :field:`alternate-symbols`: List of String.
+  A list of other symbols that are commonly associated with the unit.
+  The stings MAY use mathematical expressions written the same way as described in the `definition of the description field`_.
 
-- :field:`resource-uris`: List.
+- :field:`property-format`: String.
+  Specifies the minor version of the Property Definitions format that the Physical Units Definition is expressed in.
+  (The Physical Units Definition format is not versioned independently.)
+  The format is the same as described above for the `definition of the property-format field`_ in Property Definitions.
+  This field MUST be included when Physical Unit Definitions are used standalone, i.e., when they are not embedded inside a Property Definition that already declares a :field:`property-format` at the top level.
+
+- :field:`version`: String.
+  This string indicates the version of the Physical Unit Definition.
+  The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
+
+- :field:`resources`: List of Dictionaries.
   A list of dictionaries that reference remote resources that describe the unit.
   The format of each dictionary is:
 
@@ -2449,8 +2624,144 @@ If provided, the :field:`unit-definitions` in :field:`x-optimade-property` MUST 
   - :field:`relation`: String.
     A human-readable description of the relationship between the unit and the remote resource, e.g., a "natural language description".
 
-  - :field:`uri`: String.
-    A URI of the external resource (which MAY be a resolvable URL).
+  - :field:`resource-id`: String.
+    An IRI of the external resource (which MAY be a resolvable URL).
+
+.. _definition of defining-relation:
+
+- :field:`defining-relation`: Dictionary.
+  A dictionary that encodes a defining relation to another unit or set of units, with the primary intended use of relating a unit to its definition in SI units, if such a relationship exists.
+  Some units, e.g., the atomic mass unit (also known as dalton, commonly denoted ``u``), only has an approximate relationship to SI units, in which case the :field:`defining-relation` MUST be omitted or :val:`null`.
+  The dictionary MUST adhere to the following format:
+
+  **OPTIONAL keys:**
+
+  - :field:`base-units`: List of Dictionaries.
+    A list specifying the base IRIs and unit symbols for the units in which the dimensional formula for the defining relation is expressed.
+    Each item MUST be a dictionary that adheres to the following format:
+
+    **REQUIRED keys:**
+
+    - :field:`symbol`: String.
+      The symbol used to reference this unit in the dimensional formula.
+
+    - :field:`id`: String.
+      The IRI of one of the units referenced in the dimensional formula for the defining relation.
+
+  - :field:`base-units-expression`: String.
+    A string expressing the base units part of the defining relation for the unit being defined.
+    It MUST adhere to the format for compound unit expression described in `Physical Units in Property Definitions`_.
+    If the field is missing or :val:`null` the base-units-expression is taken to be equal to 1, i.e., the defining relation is dimensionless.
+
+  - :field:`scale`: Dictionary.
+    A dictionary specifying the scale in the defining relation, adhering to the following format:
+
+    **OPTIONAL keys:**
+
+    - :field:`numerator`: Integer.
+    - :field:`denominator`: Integer.
+    - :field:`base`: Integer.
+    - :field:`exponent`: Integer.
+
+    These four fields specify the value as the rational number :field:`numerator` / :field:`denominator`, multiplied by :field:`base` to the power of :field:`exponent`.
+    If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, :field:`base`, and :field:`exponent` are respectively 1, 1, 10, and 0.
+
+    - :field:`standard_uncertainty`: Float.
+      The standard uncertainty of the value used in the defining relation.
+      Some definitions define an entity (e.g. a constant) to a specific value along with an uncertainty of that value.
+
+  - :field:`offset`: Dictionary.
+    A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
+    If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
+
+  If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b``, where ``*`` designates multiplication and ``**`` designates exponentiation.
+  For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``x F = (x - 32) * (5/9) C = 5/9 x + (-160/9) C`` could be expressed as follows:
+
+  .. code:: jsonc
+
+    "defining-relation": {
+      "base-units": [
+        {
+          "symbol": "C",
+          "id": "https://units.example.com/celsius"
+        }
+      ],
+      "base-units-expression": "C",
+      "scale": {
+        "numerator": 5,
+        "denominator": 9
+      },
+      "offset": {
+        "numerator": -160,
+        "denominator": 9
+      }
+    }
+
+- :field:`approximate-relations`: List of Dictionary.
+  A list of dictionaries that encode approximate relations to another unit or set of units.
+  The intended use is to express one or a few approximate relationships from the unit being defined to other unit systems (primarily intended to be SI).
+  This field is useful for units not defined by such a relationship, in which case the :field:`defining-relation` field would be used.
+  For example, the atomic mass unit (also known as dalton, commonly denoted ``u``) is defined as one twelfth of the mass of a free carbon-12 atom at rest and only has an approximate relationship to the SI kilogram.
+  While this field allows expressing multiple relationships, the intent is only to provide the most relevant relationships (e.g., to an SI base unit) from which other relationships can be derived.
+
+  Each element in the list MUST be a dictionary adhering to the following format:
+
+  **OPTIONAL keys:**
+
+  - :field:`base-units`: List of Dictionaries, and :field:`base-units-expression`: String.
+    These fields take the same format and roles as in the `definition of defining-relation`_
+
+  - :field:`scale`: Dictionary.
+    A dictionary specifying the scale in the approximate relation.
+    It MUST adhere to the following format:
+
+    **REQUIRED keys:**
+
+    - :field:`value`: Float.
+      The value of the scale in the approximate relation.
+
+    **OPTIONAL keys:**
+
+    - :field:`standard_uncertainty`: Float.
+      The standard uncertainty of the value in the approximate relation.
+
+    - :field:`relative_standard_uncertainty`: Float.
+      The relative standard uncertainty of the value in the approximate relation.
+
+  - :field:`offset`: Dictionary.
+    A dictionary specifying the offset in the approximate relation.
+    It MUST adhere to the same format as the :field:`scale` field above.
+
+  The values for :field:`scale` and :field:`offset` take the same meaning as in the `definition of defining-relation`_ to express a relationship between the unit being defined and the compound unit expression in :field:`base-units-expression`.
+
+- :field:`deprecated`: Boolean.
+  If :val:`TRUE`, implementations SHOULD not use the unit defined in this Physical Unit Definition.
+  If :val:`FALSE`, the unit defined in this Physical Unit Definition is not deprecated.
+  The field not being present means :val:`FALSE`.
+
+- :field:`$comment`: String.
+  A human-readable comment relevant in the context of the raw definition data.
+  These comments should normally not be shown to the end users.
+  Comments pertaining to the Property Definition that are relevant to end users should go into the field :field:`description`.
+  Formatting in the text SHOULD use Markdown using the format described in the `definition of the description field`_ of Property Definitions.
+
+An example of a Physical Unit Definition, including a defining relation that involves more than one other unit, is embedded in the example of a Property Definition in the appendix `Property Definition Example`_.
+
+Prefixes and constants
+----------------------
+
+Prefixes and constants are defined in OPTIMADE using nearly identical schemas as the one for units in `Physical Unit Definitions`_.
+The only difference is that for prefixes:
+
+- The :field:`$schema` SHOULD be set to: "https://schemas.optimade.org/meta/v1.2/optimade/prefix_definition.json".
+
+- The subfield :field:`kind` of the field :field:`x-optimade-definition` MUST be :val:`prefix`.
+
+And for Constants:
+
+- The :field:`$schema` SHOULD be set to: "https://schemas.optimade.org/meta/v1.2/optimade/constant_definition.json".
+
+- The subfield :field:`kind` of the field :field:`x-optimade-definition` MUST be :val:`constant`.
 
 Unrecognized keys in property definitions
 -----------------------------------------
@@ -4002,6 +4313,106 @@ An example of the sparse layout for multidimensional lists with three aggregated
    [3,7,19, ["PARTIAL-DATA-REF", ["https://example.db.org/value2"]]]
    [4,5,19, [ [11, 110], ["PARTIAL-DATA-REF", ["https://example.db.org/value3"]], [550, 333]]]
    ["PARTIAL-DATA-END", [""]]
+
+Property Definition Example
+---------------------------
+
+This appendix provides a more complete example of a Property Definition in the format defined in `Property Definitions`_.
+(Note: the description strings have been wrapped for readability only.)
+
+.. code:: jsonc
+
+  {
+    "title": "Forces and atomic masses list",
+    "$id": "https://properties.example.com/v1.2.0/forces_and_masses",
+    "x-optimade-type": "list",
+    "x-optimade-property": {
+      "version": "1.2.0",
+      "property-format": "1.2",
+      "units": [
+        {
+          "title": "Newton",
+          "symbol": "N",
+          "$id": "https://units.example.com/v1.2.0/N",
+          "description": "The newton SI unit of force, defined as 1 kg m/s^2
+                          using the 2019 redefinition of the SI base units.",
+          "standard": {
+            "name": "gnu units",
+            "version": "3.15",
+            "symbol": "newton"
+          },
+          "defining-relation": {
+            "base-units": [
+              {
+                "symbol": "kg",
+                "id": "https://units.example.com/v1.2.0/kg"
+              },
+              {
+                "symbol": "m",
+                "id": "https://units.example.com/v1.2.0/m"
+              },
+              {
+                "symbol": "s",
+                "id": "https://units.example.com/v1.2.0/s"
+              }
+            ],
+            "base-units-expression": "kg*m*s^-2"
+          }
+        },
+        {
+          "title": "Dalton mass unit",
+          "symbol": "u",
+          "$id": "https://units.example.com/v1.2.0/u",
+          "description": "The dalton mass unit defined as 1/12 of the mass of an
+                          unbound neutral atom of carbon-12 in its nuclear and
+                          electronic ground state and at rest. Approximately
+                          equal to $1.66053906660(50)*10^{-27}$ kg",
+          "standard": {
+            "name": "gnu units",
+            "version": "3.15",
+            "symbol": "atomicmassunit"
+          }
+        }
+      ]
+    },
+    "type": ["array", "null"],
+    "description": "A list of forces and atomic masses",
+    "examples": [
+      [{"force": 42.0, "mass": 28.0855}, {"force": 44.2, "mass": 15.9994}],
+      [{"force": 12.0, "mass": 24.3050}]
+    ],
+    "x-optimade-unit": "inapplicable",
+    "x-optimade-requirements": {
+      "support": "should",
+      "sortable": false,
+      "query-support": "none"
+    },
+    "items": {
+      "title": "Force and atomic mass pair",
+      "x-optimade-type": "dictionary",
+      "description": "A dictionary containing a force and mass value",
+      "x-optimade-unit": "inapplicable",
+      "type": ["object"],
+      "properties": {
+        "force": {
+          "title": "Force",
+          "description": "A force value",
+          "x-optimade-type": "float",
+          "x-optimade-unit": "N",
+          "type": ["number"],
+          "examples": [42.0]
+        },
+        "mass": {
+          "title": "Mass",
+          "description": "An atomic mass",
+          "x-optimade-type": "float",
+          "x-optimade-unit": "u",
+          "type": ["number"],
+          "examples": [15.9994]
+        }
+      }
+    }
+  }
 
 OPTIMADE Regular Expression Format
 ----------------------------------
