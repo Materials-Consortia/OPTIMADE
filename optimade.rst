@@ -4033,7 +4033,7 @@ The subset includes only the following tokens and features:
     (This rule prevents other escapes inside classes that are not the same across regex flavors and expressions that, in some flavors, are interpreted as nested classes.)
   * Except as specified above, all characters represent themselves literally (including syntax characters).
   * Characters that represent themselves literally can only appear at most once.
-    (This rule prevents various kinds of extended character class syntax that differs between regex formats that assigns special meaning to duplicated characters, e.g., POSIX character classes, e.g., ``[:alpha:]``, equivalence classes, e.g., ``[=a=]``, set constructs, e.g. ``[A--B]``, ``[A&&B]``, etc.).
+    (This rule prevents various kinds of extended character class syntax that differs between regex formats that assigns special meaning to duplicated characters such as POSIX character classes, e.g., ``[:alpha:]``, equivalence classes, e.g., ``[=a=]``, set constructs, e.g. ``[A--B]``, ``[A&&B]``, etc.).
 - Simple quantifiers: ``+`` (one or more), ``*`` (zero or more), ``?`` (zero or one) that appear directly after a character, group, or character class.
   (This rule prevents expressions with special meaning in some regex flavors, e.g., ``+?`` and ``(?...)``.)
 - The beginning-of-input (``^``) and end-of-input (``$``) anchors.
