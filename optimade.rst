@@ -1265,12 +1265,12 @@ Single Entry URL Query Parameters
   The slices are 0-based, i.e. the first value has index 0, and inclusive i.e. for the range :val:`:10:20:1` the last value returned belongs to index 20.
 
   General support for :field:`property_ranges` is OPTIONAL, however particular property definitions may themselves deviate from this and place stricter requirements on implementations.
-  Databases MUST use these ranges for properties where the dimension is listed under :field:`indexable_dimensions`, if this is not the case, the database MAY return more data than was specified in the range.
+  Databases MUST use these ranges for properties where the dimension is listed under :field:`indexable_dim`, if this is not the case, the database MAY return more data than was specified in the range.
 
   If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
   If one or more values are not present at one of the requested combination of indexes, the server MAY either decide to return null or if possible adjust the returned range so the indexes for which no value is defined are no longer part of the range.
   The latter is only allowed when no defined values would be lost.
-  For dense arrays that may mean that the field :field:`returned_range` differs from the requested range.
+  For dense arrays that may mean that the field :field:`returned_ranges` differs from the requested range.
   However, when a value is explicitly set to :val:`null` to indicate that the underlying property has no defined values, then :val:`null` MUST be returned.
 
   Example: In this example the Cartesian site positions are requested for particles 30 through 70 for 1 out of every 10 frames of the first 1000 frames of a trajectory with ID :val:`id_12345`.
