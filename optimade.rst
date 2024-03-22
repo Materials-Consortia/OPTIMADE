@@ -2358,11 +2358,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`examples`: List.
   A list of example values that the defined property can have.
-  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Definition.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
-  The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+  The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Definition.
   If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
 
 Furthermore, depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
