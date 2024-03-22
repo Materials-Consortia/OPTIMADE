@@ -4019,7 +4019,7 @@ The regex is interpreted according to the ECMA-262 processing rules that apply f
 
 The subset includes only the following tokens and features:
 
-- Individual Unicode characters matching themselves, as defined by the `JSON specification <https://json-schema.org/draft/2020-12/json-schema-core#RFC8259>`__.
+- Individual Unicode characters matching themselves, as defined by the JSON specification (:RFC:`8259`).
 - The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
 - A literal escape of `one of the characters defined as syntax characters in the ECMA-262 standard <https://262.ecma-international.org/11.0/#prod-SyntaxCharacter>`__, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
   No other characters can be escaped.
