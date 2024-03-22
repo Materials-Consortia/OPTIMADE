@@ -1,0 +1,19 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/optimade/optimade"
+title: "OPTIMADE"
+description: |-
+  A combination of SI and non-SI units in common use suitable for use with OPTIMADE.
+
+  This unit system combines SI units (including units accepted for use with the SI), the bit, and the byte unit.
+$$inherit: "/v1.2/unitsystems/si/si_general"
+x-optimade-definition:
+  label: "optimade_unitsystem"
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "optimade"
+units:
+  bit:
+    $$inherit: "/v1.2/units/independent/1948/information/bit"
+  byte:
+    $$inherit: "/v1.2/units/iso-iec-80000/2008/information_science_and_technology/byte"

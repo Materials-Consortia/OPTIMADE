@@ -1,0 +1,60 @@
+{
+    "data": {
+        "attributes": {
+            "chemical_formula_descriptive": "As2Cd4I3P2",
+            "dimension_types": [
+                1,
+                1,
+                1
+            ],
+            "elements": [
+                "As",
+                "Cd",
+                "I",
+                "P"
+            ],
+            "lattice_vectors": [
+                [
+                    12.955,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    12.955,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    12.955
+                ]
+            ],
+            "nelements": 4,
+            "nperiodic_dimensions": 3,
+            "structure_features": []
+        },
+        "id": "747",
+        "type": "structures"
+    },
+    "meta": {
+        "api_version": "1.0.0",
+        "data_available": 68566,
+        "data_returned": 1,
+        "implementation": {
+            "homepage": "https://example.com/",
+            "name": "example",
+            "version": "1.0.0"
+        },
+        "more_data_available": false,
+        "provider": {
+            "description": "Example provider",
+            "name": "exmpl",
+            "prefix": "exmpl"
+        },
+        "query": {
+            "representation": "v1/structures/747"
+        },
+        "time_stamp": "2023-03-16T22:44:00.531930"
+    }
+}

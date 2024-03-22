@@ -1,0 +1,190 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_general"
+title: "SI general"
+description: |-
+  The SI unit system, using current or historical definitions of the SI units.
+
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
+  The si_general unit system includes all prefixes defined by SI (including the non-SI binary ones), and all units that have either been part of the SI unit system or categorized as accepted for use with the SI.
+x-optimade-definition:
+  label: "si_general_unitsystem"
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "si_general"
+units:
+  A:
+    $$inherit: "/v1.2/units/si/general/ampere"
+  angstrom:
+    $$inherit: "/v1.2/units/si/general/angstrom"
+  arcmin:
+    $$inherit: "/v1.2/units/si/general/arcminute"
+  arcsec:
+    $$inherit: "/v1.2/units/si/general/arcsecond"
+  are:
+    $$inherit: "/v1.2/units/si/general/are"
+  au:
+    $$inherit: "/v1.2/units/si/general/astronomicalunit"
+  atm:
+    $$inherit: "/v1.2/units/si/general/atmosphere"
+  u:
+    $$inherit: "/v1.2/units/si/general/atomicmassunit"
+  b:
+    $$inherit: "/v1.2/units/si/general/barn"
+  bar:
+    $$inherit: "/v1.2/units/si/general/bar"
+  Bq:
+    $$inherit: "/v1.2/units/si/general/becquerel"
+  cd:
+    $$inherit: "/v1.2/units/si/general/candela"
+  C:
+    $$inherit: "/v1.2/units/si/general/coulomb"
+  Ci:
+    $$inherit: "/v1.2/units/si/general/curie"
+  da:
+    $$inherit: "/v1.2/units/si/general/dalton"
+  day:
+    $$inherit: "/v1.2/units/si/general/day"
+  degC:
+    $$inherit: "/v1.2/units/si/general/degcelsius"
+  deg:
+    $$inherit: "/v1.2/units/si/general/degree"
+  eV:
+    $$inherit: "/v1.2/units/si/general/electronvolt"
+  F:
+    $$inherit: "/v1.2/units/si/general/farad"
+  Gal:
+    $$inherit: "/v1.2/units/si/general/gal"
+  Gy:
+    $$inherit: "/v1.2/units/si/general/gray"
+  ha:
+    $$inherit: "/v1.2/units/si/general/hectare"
+  H:
+    $$inherit: "/v1.2/units/si/general/henry"
+  Hz:
+    $$inherit: "/v1.2/units/si/general/hertz"
+  h:
+    $$inherit: "/v1.2/units/si/general/hour"
+  J:
+    $$inherit: "/v1.2/units/si/general/joule"
+  kat:
+    $$inherit: "/v1.2/units/si/general/katal"
+  K:
+    $$inherit: "/v1.2/units/si/general/kelvin"
+  kg:
+    $$inherit: "/v1.2/units/si/general/kilogram"
+  knot:
+    $$inherit: "/v1.2/units/si/general/knot"
+  l:
+    $$inherit: "/v1.2/units/si/general/litre"
+  lm:
+    $$inherit: "/v1.2/units/si/general/lumen"
+  lx:
+    $$inherit: "/v1.2/units/si/general/lux"
+  m:
+    $$inherit: "/v1.2/units/si/general/metre"
+  min:
+    $$inherit: "/v1.2/units/si/general/minute"
+  mol:
+    $$inherit: "/v1.2/units/si/general/mole"
+  nauticalmile:
+    $$inherit: "/v1.2/units/si/general/nauticalmile"
+  N:
+    $$inherit: "/v1.2/units/si/general/newton"
+  ohm:
+    $$inherit: "/v1.2/units/si/general/ohm"
+  pc:
+    $$inherit: "/v1.2/units/si/general/parsec"
+  Pa:
+    $$inherit: "/v1.2/units/si/general/pascal"
+  rad:
+    $$inherit: "/v1.2/units/si/general/radian"
+  radiationunit:
+    $$inherit: "/v1.2/units/si/general/radiationunit"
+  rem:
+    $$inherit: "/v1.2/units/si/general/rem"
+  R:
+    $$inherit: "/v1.2/units/si/general/roentgen"
+  s:
+    $$inherit: "/v1.2/units/si/general/second"
+  S:
+    $$inherit: "/v1.2/units/si/general/siemens"
+  Sv:
+    $$inherit: "/v1.2/units/si/general/sievert"
+  sr:
+    $$inherit: "/v1.2/units/si/general/steradian"
+  T:
+    $$inherit: "/v1.2/units/si/general/tesla"
+  t:
+    $$inherit: "/v1.2/units/si/general/tonne"
+  V:
+    $$inherit: "/v1.2/units/si/general/volt"
+  W:
+    $$inherit: "/v1.2/units/si/general/watt"
+  Wb:
+    $$inherit: "/v1.2/units/si/general/weber"
+prefixes:
+  Y:
+    $$inherit: "/v1.2/prefixes/si/yotta"
+  Z:
+    $$inherit: "/v1.2/prefixes/si/zetta"
+  E:
+    $$inherit: "/v1.2/prefixes/si/exa"
+  P:
+    $$inherit: "/v1.2/prefixes/si/peta"
+  T:
+    $$inherit: "/v1.2/prefixes/si/tera"
+  G:
+    $$inherit: "/v1.2/prefixes/si/giga"
+  M:
+    $$inherit: "/v1.2/prefixes/si/mega"
+  k:
+    $$inherit: "/v1.2/prefixes/si/kilo"
+  h:
+    $$inherit: "/v1.2/prefixes/si/hecto"
+  da:
+    $$inherit: "/v1.2/prefixes/si/deca"
+  d:
+    $$inherit: "/v1.2/prefixes/si/deci"
+  c:
+    $$inherit: "/v1.2/prefixes/si/centi"
+  m:
+    $$inherit: "/v1.2/prefixes/si/milli"
+  mc:
+    $$inherit: "/v1.2/prefixes/si/micro"
+  n:
+    $$inherit: "/v1.2/prefixes/si/nano"
+  p:
+    $$inherit: "/v1.2/prefixes/si/pico"
+  f:
+    $$inherit: "/v1.2/prefixes/si/femto"
+  a:
+    $$inherit: "/v1.2/prefixes/si/atto"
+  z:
+    $$inherit: "/v1.2/prefixes/si/zepto"
+  y:
+    $$inherit: "/v1.2/prefixes/si/yocto"
+  Q:
+    $$inherit: "/v1.2/prefixes/si/quetta"
+  R:
+    $$inherit: "/v1.2/prefixes/si/ronna"
+  r:
+    $$inherit: "/v1.2/prefixes/si/ronto"
+  q:
+    $$inherit: "/v1.2/prefixes/si/quecto"
+  Ei:
+    $$inherit: "/v1.2/prefixes/si/exbi"
+  Gi:
+    $$inherit: "/v1.2/prefixes/si/gibi"
+  Ki:
+    $$inherit: "/v1.2/prefixes/si/kibi"
+  Mi:
+    $$inherit: "/v1.2/prefixes/si/mebi"
+  Pi:
+    $$inherit: "/v1.2/prefixes/si/pebi"
+  Ti:
+    $$inherit: "/v1.2/prefixes/si/tebi"
+  Yi:
+    $$inherit: "/v1.2/prefixes/si/yobi"
+  Zi:
+    $$inherit: "/v1.2/prefixes/si/zebi"
