@@ -35,6 +35,7 @@ jobs:
 
     - name: Commit to gh-pages
       run: |
+        git pull origin gh-pages
         git checkout gh-pages
         git add optimade.html
         mkdir -p specification/develop
