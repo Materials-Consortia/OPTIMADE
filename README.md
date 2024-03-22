@@ -12,14 +12,11 @@ The Open Databases Integration for Materials Design (OPTIMADE) consortium aims t
 This repository contains the specification of the OPTIMADE API.
 
 * [optimade.rst](optimade.rst): The API specification.
+* [schemas.optimade.org](https://schemas.optimade.org): Machine-readable schemas for property and server definitions.
 * [AUTHORS](AUTHORS): List of contributors.
 * [CHANGELOG](CHANGELOG.md): The release notes for each version of the specification.
 * [optimade.org](https://www.optimade.org): Public OPTIMADE web site
 * [OPTIMADE wiki](https://github.com/Materials-Consortia/OPTIMADE/wiki): Information for developers
-
-The subdirectory `schemas/` contains OpenAPI schemas for the main OPTIMADE API and index meta-database as implemented by the [optimade-python-tools repository](https://github.com/Materials-Consortia/optimade-python-tools).
-_Note_: These schemas are an approximation of the full human-readable specification and may be missing certain constraints.
-Furthermore, they may not be up to date in the develop branch of this repository.
 
 ## For developers
 
