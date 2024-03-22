@@ -4024,7 +4024,7 @@ The subset includes only the following tokens and features:
 - A literal escape of `one of the characters defined as syntax characters in the ECMA-262 standard <https://262.ecma-international.org/11.0/#prod-SyntaxCharacter>`__, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
   No other characters can be escaped.
   (This rule prevents other escapes that are interpreted differently depending on regex flavor.)
-- Simple character classes (e.g., ``[abc]``), complemented character classes (e.g. [^abc]), and their ranged versions (e.g., ``[a-z]``, ``[^a-z]``) with the following constraints:
+- Simple character classes (e.g., ``[abc]``), complemented character classes (e.g. ``[^abc]``), and their ranged versions (e.g., ``[a-z]``, ``[^a-z]``) with the following constraints:
 
   * The character ``-`` designates ranges, unless it is the first or last character of the class in which case it represents a literal ``-`` character.
   * If the first character is ``^`` then the expression matches all characters *except* the ones specified by the class as defined by the characters that follows.
