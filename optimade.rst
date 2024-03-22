@@ -4101,7 +4101,7 @@ The regular expressions are recorded below in two forms, one in a more readable 
 - Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability and expressivity.
   The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
   The :val:`symops` section contains the REs themselves.
-  The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
+  The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE modifier.
   A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
 
 
