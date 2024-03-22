@@ -4056,7 +4056,7 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
 
   * The definition tolerates (with undefined behavior) regexes that use tokens and features beyond the defined subset.
     Hence, a regex can be directly handed over to a backend implementation compatible with the subset without needing validation or translation.
-    
+
   * Additional consideration of how the ``.`` character operates in relation to line breaks may be required for multiline text.
     If the regex is applied to strings containing only the LINE FEED (U+000A) character and none of the other Unicode line break characters, most regex backend implementations are compatible with the defined behavior.
     If the regex is applied to string data containing arbitrary combinations of Unicode line break characters and the right behavior cannot be achieved via environmental settings and regex options, implementations can consider a translation step where other line break characters are translated into LINE FEED in the text operated on.
