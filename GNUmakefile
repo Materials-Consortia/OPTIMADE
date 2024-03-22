@@ -55,6 +55,9 @@
 #   - tests/generated/identifiers.ere
 #   - tests/generated/numbers.ere
 #   - tests/generated/strings.ere
+#   - tests/generated/symops.pcre
+#   - tests/generated/symop_definitions.pcre
+#   - tests/generated/symops.ecma
 #
 #
 # Targets for testing / auditing the specification

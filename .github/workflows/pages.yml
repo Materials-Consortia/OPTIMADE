@@ -35,10 +35,11 @@ jobs:
 
     - name: Commit to gh-pages
       run: |
-        git branch -D gh-pages || true
-        git checkout -b gh-pages
+        git checkout gh-pages
         git add optimade.html
-        git commit -m "Deploy to GitHub Pages: ${SHA}"
+        mkdir -p specification/develop
+        mv optimade.html specification/develop/index.html
+        git commit -m "Deploy develop specification to GitHub Pages: ${SHA}"
         if git diff --cached --quiet; then
             exit 0
         fi

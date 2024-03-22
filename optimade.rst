@@ -4096,34 +4096,47 @@ The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
 Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operations\_xyz` property MUST conform to the following regular expressions.
-The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
-The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
-The :val:`symops` section contains the REs themselves.
-The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
-A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
+The regular expressions are recorded below in two forms, one in a more readable form using variables and the other as an explicit pattern compatible with the `OPTIMADE Regular Expression Format`_.
 
-.. code:: PCRE
+- Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability and expressivity.
+  The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
+  The :val:`symops` section contains the REs themselves.
+  The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE modifier.
+  A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
 
-    #BEGIN PCRE symop_definitions
 
-    $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
+  .. code:: PCRE
 
-    $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
-    $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
+     #BEGIN PCRE symop_definitions
 
-    $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
+     $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
-    #END PCRE symop_definitions
+     $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
+     $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
 
-.. code:: PCRE
+     $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
 
-    #BEGIN PCRE symops
+     #END PCRE symop_definitions
 
-    ^ # From the beginning of the string...
-    ($symop_re)(,$symop_re){2}
-    $ # ... match to the very end of the string
+  .. code:: PCRE
 
-    #END PCRE symops
+     #BEGIN PCRE symops
+
+     ^ # From the beginning of the string...
+     ($symop_re)(,$symop_re){2}
+     $ # ... match to the very end of the string
+
+     #END PCRE symops
+
+- The regular expression is also provided in an expanded form as an OPTIMADE regex:
+
+  .. code:: ECMA
+
+     #BEGIN ECMA symops
+
+     ^([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?),([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?),([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?)$
+
+     #END ECMA symops
 
 OPTIMADE JSON lines partial data format
 ---------------------------------------
@@ -4413,3 +4426,72 @@ This appendix provides a more complete example of a Property Definition in the f
       }
     }
   }
+
+OPTIMADE Regular Expression Format
+----------------------------------
+This section defines a Unicode string representation of regular expressions (regexes) to be referenced from other parts of the specification.
+The format will be referred to as an "OPTIMADE regex".
+
+Regexes are commonly embedded in a context where they need to be enclosed by delimiters (e.g., double quotes or slash characters).
+If this is the case, some outer-level escape rules likely apply to allow the end delimiter to appear within the regex.
+Such delimiters and escape rules are *not* included in the definition of the OPTIMADE regex format itself and need to be clarified when this format is referenced.
+The format defined in this section applies after such outer escape rules have been applied (e.g., when all occurrences of ``\/`` have been translated into ``/`` for a format where an unescaped slash character is the end delimiter).
+Likewise, if an OPTIMADE regex is embedded in a serialized data format (e.g., JSON), this section documents the format of the Unicode string resulting from the deserialization of that format.
+
+An OPTIMADE regex is a regular expression that adheres to `ECMA-262, section 21.2.1 <https://262.ecma-international.org/11.0/#sec-patterns>`__ with additional restrictions described below which define a subset of the ECMA-262 format chosen to match features commonly available in different database backends.
+The regex is interpreted according to the ECMA-262 processing rules that apply for an expression where only the Unicode variable is set to true of all variables set by the RegExp internal slot described by `ECMA-262, section 21.2.2.1 <https://262.ecma-international.org/11.0/#sec-notation>`__.
+
+The subset includes only the following tokens and features:
+
+- Individual Unicode characters matching themselves, as defined by the JSON specification (:RFC:`8259`).
+- The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
+- A literal escape of `one of the characters defined as syntax characters in the ECMA-262 standard <https://262.ecma-international.org/11.0/#prod-SyntaxCharacter>`__, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
+  No other characters can be escaped.
+  (This rule prevents other escapes that are interpreted differently depending on regex flavor.)
+- Simple character classes (e.g., ``[abc]``), complemented character classes (e.g. ``[^abc]``), and their ranged versions (e.g., ``[a-z]``, ``[^a-z]``) with the following constraints:
+
+  * The character ``-`` designates ranges, unless it is the first or last character of the class in which case it represents a literal ``-`` character.
+  * If the first character is ``^`` then the expression matches all characters *except* the ones specified by the class as defined by the characters that follows.
+  * The characters ``\ [ ]`` can only appear escaped with a preceding backslash, e.g. ``\\`` designates that the class includes a literal ``\`` character.
+    The other syntax characters may appear either escaped or unescaped to designate that the class includes them.
+    (This rule prevents other escapes inside classes that are not the same across regex flavors and expressions that, in some flavors, are interpreted as nested classes.)
+  * Except as specified above, all characters represent themselves literally (including syntax characters).
+  * Characters that represent themselves literally can only appear at most once.
+    (This rule prevents various kinds of extended character class syntax that differs between regex formats that assigns special meaning to duplicated characters such as POSIX character classes, e.g., ``[:alpha:]``, equivalence classes, e.g., ``[=a=]``, set constructs, e.g. ``[A--B]``, ``[A&&B]``, etc.).
+- Simple quantifiers: ``+`` (one or more), ``*`` (zero or more), ``?`` (zero or one) that appear directly after a character, group, or character class.
+  (This rule prevents expressions with special meaning in some regex flavors, e.g., ``+?`` and ``(?...)``.)
+- The beginning-of-input (``^``) and end-of-input (``$``) anchors.
+- Simple grouping (``(...)``) and alternation (``|``).
+
+Note that lazy quantifiers (``+?``, ``*?``, ``??``) are *not* included, nor are range quantifiers (``{x}``, ``{x,y}``, ``{x,}``).
+Furthermore, there is no support for escapes designating shorthand character classes as ``\`` and a letter or number, nor is there any way to represent a Unicode character by specifying a code point as a number, only via the Unicode character itself.
+(However, the regex can be embedded in a context that defines such escapes, e.g., in serialized JSON a string containing the character ``\u`` followed by four hexadecimal digits is deserialized into the corresponding Unicode character.)
+
+An OPTIMADE regex matches the string at any position unless it contains a leading beginning-of-input (``^``) or trailing end-of-input (``$``) anchor listed above, i.e., the anchors are not implicitly assumed.
+For example, the OPTIMADE regex "es" matches "expression".
+
+Regexes that utilize tokens and features beyond the designated subset are allowed to have an undefined behavior, i.e., they MAY match or not match *any* string or MAY produce an error.
+Implementations that do not produce errors in this situation are RECOMMENDED to generate warnings if possible.
+
+  Compatibility notes:
+
+  * The subset is intended to be compatible with, but even further restricted than, the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
+    The compatibility with the JSON Schema standard is expressed here as "intended" since there is some room for interpretation of the precise features included in the recommendation given in that standard.
+
+  * The definition tolerates (with undefined behavior) regexes that use tokens and features beyond the defined subset.
+    Hence, a regex can be directly handed over to a backend implementation compatible with the subset without needing validation or translation.
+
+  * Additional consideration of how the ``.`` character operates in relation to line breaks may be required for multiline text.
+    If the regex is applied to strings containing only the LINE FEED (U+000A) character and none of the other Unicode line break characters, most regex backend implementations are compatible with the defined behavior.
+    If the regex is applied to string data containing arbitrary combinations of Unicode line break characters and the right behavior cannot be achieved via environmental settings and regex options, implementations can consider a translation step where other line break characters are translated into LINE FEED in the text operated on.
+
+  * Compatibility with different regex implementations may change depending on the environment, implementation programming language versions, and options and has to be verified by implementations.
+    However, as a general guide, we have used third-party sources, e.g., the `Regular Expression Engine Comparison Chart <https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816>`__ to collect the following information for compatibility when operating on text using LINE FEED as the line break character:
+
+    * `ECMAScript (also known as javascript) <https://262.ecma-international.org/>`__ and version 1 and 2 of `PCRE <https://www.pcre.org/>`__ are meant to be compatible by design when used with appropriate options.
+
+    * The following regex formats appear generally compatible when operating in Unicode mode: `Perl <https://perldoc.perl.org/perlre>`__, `Python <https://docs.python.org/3/library/re.html>`__, `Ruby <https://ruby-doc.org/3.2.2/Regexp.html>`__, `Rust <https://docs.rs/regex/latest/regex/>`__, `Java <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html>`__, `.NET <https://learn.microsoft.com/en-us/dotnet/standard/base-types/details-of-regular-expression-behavior>`__, `MySQL 8 <https://dev.mysql.com/doc/refman/8.0/en/regexp.html>`__, `MongoDB <https://www.mongodb.com/docs/manual/reference/operator/query/regex/>`__, `Oracle <https://docs.oracle.com/cd/B13789_01/appdev.101/b10795/adfns_re.htm>`__, `IBM Db2 <https://www.ibm.com/docs/en/db2/11.5?topic=reference-regular-expressions>`__, `Elasticsearch <https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html>`__, `DuckDB <https://duckdb.org/docs/sql/functions/patternmatching.html#regular-expressions>`__ (which uses the `re2 <https://github.com/google/re2/wiki/Syntax>`__ library).
+    * SQLite supports regexes via libraries and thus can use a compatible format (e.g., PCRE2).
+    * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
+    * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
+      POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
