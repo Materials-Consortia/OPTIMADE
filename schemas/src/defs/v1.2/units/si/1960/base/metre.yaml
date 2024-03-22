@@ -1,0 +1,31 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
+title: "metre"
+symbol: "m"
+display-symbol: "m"
+alternate-symbols:
+  - "metre"
+  - "meter"
+description: |-
+  The metre, or meter, is the SI base unit of length defined in terms of the wavelength of the radiation for a specific transition in krypton 86 as redefined at the 11th CGPM Meeting in 1960.
+
+  "The metre is the length equal to 1650763.73 wavelengths in vacuum of the radiation corresponding to the transition between the levels 2p₁₀ and 5d₅ of the krypton 86 atom." [11th CGPM meeting (1960), resolution 6]
+  The metre was adopted into SI at the 11th CGPM Meeting in 1960, resolution 12.
+resources:
+  - relation: "Definition at the 11th CGPM meeting (1960), resolution 6."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-6"
+  - relation: "Establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Metre"
+standard:
+  name: "si"
+  year: 1960
+  category: "base"
+  symbol: "m"
+x-optimade-definition:
+  label: "metre_si_1960_base"
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "metre"

@@ -1,0 +1,94 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/unitsystems/si/si_1973"
+title: "SI 1973"
+description: |-
+  The SI unit system as represented in the 2nd edition of the International System of Units.
+
+  The International System of Units (SI) is established and maintained by the General Conference on Weights and Measures (CGPM).
+  This represents the SI unit system described in the 2nd edition of the International System of Units in 1973.
+x-optimade-definition:
+  label: "si_1973_unitsystem"
+  kind: "unitsystem"
+  format: "1.2"
+  version: "1.2.0"
+  name: "si_1973"
+units:
+  s:
+    $$inherit: "/v1.2/units/si/1960/base/second"
+  m:
+    $$inherit: "/v1.2/units/si/1960/base/metre"
+  kg:
+    $$inherit: "/v1.2/units/si/1960/base/kilogram"
+  A:
+    $$inherit: "/v1.2/units/si/1967/base/ampere"
+  K:
+    $$inherit: "/v1.2/units/si/1967/base/kelvin"
+  cd:
+    $$inherit: "/v1.2/units/si/1967/base/candela"
+  mol:
+    $$inherit: "/v1.2/units/si/1971/base/mole"
+  rad:
+    $$inherit: "/v1.2/units/si/1960/supplementary/radian"
+  sr:
+    $$inherit: "/v1.2/units/si/1960/supplementary/steradian"
+  Hz:
+    $$inherit: "/v1.2/units/si/1967/named/hertz"
+  N:
+    $$inherit: "/v1.2/units/si/1967/named/newton"
+  Pa:
+    $$inherit: "/v1.2/units/si/1971/named/pascal"
+  J:
+    $$inherit: "/v1.2/units/si/1967/named/joule"
+  W:
+    $$inherit: "/v1.2/units/si/1967/named/watt"
+  C:
+    $$inherit: "/v1.2/units/si/1967/named/coulomb"
+  V:
+    $$inherit: "/v1.2/units/si/1967/named/volt"
+  F:
+    $$inherit: "/v1.2/units/si/1967/named/farad"
+  ohm:
+    $$inherit: "/v1.2/units/si/1967/named/ohm"
+  S:
+    $$inherit: "/v1.2/units/si/1971/named/siemens"
+  Wb:
+    $$inherit: "/v1.2/units/si/1967/named/weber"
+  T:
+    $$inherit: "/v1.2/units/si/1967/named/tesla"
+  H:
+    $$inherit: "/v1.2/units/si/1967/named/henry"
+  degC:
+    $$inherit: "/v1.2/units/si/1967/named/degcelsius"
+  lm:
+    $$inherit: "/v1.2/units/si/1967/named/lumen"
+  lx:
+    $$inherit: "/v1.2/units/si/1967/named/lux"
+prefixes:
+  T:
+    $$inherit: "/v1.2/prefixes/si/tera"
+  G:
+    $$inherit: "/v1.2/prefixes/si/giga"
+  M:
+    $$inherit: "/v1.2/prefixes/si/mega"
+  k:
+    $$inherit: "/v1.2/prefixes/si/kilo"
+  h:
+    $$inherit: "/v1.2/prefixes/si/hecto"
+  da:
+    $$inherit: "/v1.2/prefixes/si/deca"
+  d:
+    $$inherit: "/v1.2/prefixes/si/deci"
+  c:
+    $$inherit: "/v1.2/prefixes/si/centi"
+  m:
+    $$inherit: "/v1.2/prefixes/si/milli"
+  mc:
+    $$inherit: "/v1.2/prefixes/si/micro"
+  n:
+    $$inherit: "/v1.2/prefixes/si/nano"
+  p:
+    $$inherit: "/v1.2/prefixes/si/pico"
+  f:
+    $$inherit: "/v1.2/prefixes/si/femto"
+  a:
+    $$inherit: "/v1.2/prefixes/si/atto"

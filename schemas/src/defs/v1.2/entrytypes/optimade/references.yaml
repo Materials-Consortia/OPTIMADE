@@ -1,0 +1,251 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/references"
+title: "references"
+description: "The references entry type describes a reference"
+x-optimade-definition:
+  label: "references_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.2.0"
+  name: "references"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.2/properties/optimade/references/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.2/properties/optimade/references/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.2/properties/optimade/references/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.2/properties/optimade/references/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
+
+  address:
+    $$inherit: "/v1.2/properties/optimade/references/address"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  annote:
+    $$inherit: "/v1.2/properties/optimade/references/annote"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  booktitle:
+    $$inherit: "/v1.2/properties/optimade/references/booktitle"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  chapter:
+    $$inherit: "/v1.2/properties/optimade/references/chapter"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  crossref:
+    $$inherit: "/v1.2/properties/optimade/references/crossref"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  edition:
+    $$inherit: "/v1.2/properties/optimade/references/edition"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  howpublished:
+    $$inherit: "/v1.2/properties/optimade/references/howpublished"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  institution:
+    $$inherit: "/v1.2/properties/optimade/references/institution"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  journal:
+    $$inherit: "/v1.2/properties/optimade/references/journal"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  key:
+    $$inherit: "/v1.2/properties/optimade/references/key"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  month:
+    $$inherit: "/v1.2/properties/optimade/references/month"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  note:
+    $$inherit: "/v1.2/properties/optimade/references/note"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  number:
+    $$inherit: "/v1.2/properties/optimade/references/number"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  organization:
+    $$inherit: "/v1.2/properties/optimade/references/organization"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  pages:
+    $$inherit: "/v1.2/properties/optimade/references/pages"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  publisher:
+    $$inherit: "/v1.2/properties/optimade/references/publisher"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  school:
+    $$inherit: "/v1.2/properties/optimade/references/school"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  series:
+    $$inherit: "/v1.2/properties/optimade/references/series"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  title:
+    $$inherit: "/v1.2/properties/optimade/references/title"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  volume:
+    $$inherit: "/v1.2/properties/optimade/references/volume"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  year:
+    $$inherit: "/v1.2/properties/optimade/references/year"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  bib_type:
+    $$inherit: "/v1.2/properties/optimade/references/bib_type"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  authors:
+    $$inherit: "/v1.2/properties/optimade/references/authors"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  editors:
+    $$inherit: "/v1.2/properties/optimade/references/editors"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  doi:
+    $$inherit: "/v1.2/properties/optimade/references/doi"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  url:
+    $$inherit: "/v1.2/properties/optimade/references/url"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"

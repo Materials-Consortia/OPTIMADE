@@ -1,0 +1,213 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/structures"
+title: "structures"
+description: "The structures entry type describes a crystal structure via its unit cell"
+x-optimade-definition:
+  label: "structures_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.2.0"
+  name: "structures"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.2/properties/optimade/structures/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.2/properties/optimade/structures/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.2/properties/optimade/structures/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.2/properties/optimade/structures/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
+
+  elements:
+    $$inherit: "/v1.2/properties/optimade/structures/elements"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  nelements:
+    $$inherit: "/v1.2/properties/optimade/structures/nelements"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  elements_ratios:
+    $$inherit: "/v1.2/properties/optimade/structures/elements_ratios"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  chemical_formula_descriptive:
+    $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_descriptive"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  chemical_formula_reduced:
+    $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_reduced"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "equality only"
+      response-level: "may"
+      $comment: "If the database store chemical formulas in another format, it may not be possible to search efficiently for anything except equality."
+
+  chemical_formula_hill:
+    $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_hill"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  chemical_formula_anonymous:
+    $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_anonymous"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "equality only"
+      response-level: "may"
+      $comment: "If the database store chemical formulas in another format, it may not be possible to search efficiently for anything except equality."
+
+  dimension_types:
+    $$inherit: "/v1.2/properties/optimade/structures/dimension_types"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  nperiodic_dimensions:
+    $$inherit: "/v1.2/properties/optimade/structures/nperiodic_dimensions"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "all mandatory"
+
+  lattice_vectors:
+    $$inherit: "/v1.2/properties/optimade/structures/lattice_vectors"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symmetry_operations_xyz:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symmetry_operations_xyz"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hall:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symbol_hall"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hermann_mauguin:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symbol_hermann_mauguin"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hermann_mauguin_extended:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_symbol_hermann_mauguin_extended"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_it_number:
+    $$inherit: "/v1.2/properties/optimade/structures/space_group_it_number"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  cartesian_site_positions:
+    $$inherit: "/v1.2/properties/optimade/structures/cartesian_site_positions"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  nsites:
+    $$inherit: "/v1.2/properties/optimade/structures/nsites"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "all mandatory"
+
+  species_at_sites:
+    $$inherit: "/v1.2/properties/optimade/structures/species_at_sites"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  species:
+    $$inherit: "/v1.2/properties/optimade/structures/species"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  assemblies:
+    $$inherit: "/v1.2/properties/optimade/structures/assemblies"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  structure_features:
+    $$inherit: "/v1.2/properties/optimade/structures/structure_features"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      response-level: "may"
+      query-support: "all mandatory"
