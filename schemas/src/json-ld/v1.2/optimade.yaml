@@ -1,0 +1,19 @@
+'@context':
+
+  id: "@id"
+  type: "@type"
+
+  data: "@graph"
+  attributes: "@nest"
+
+  structures:
+    '@id': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/structures"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/structures.json"
+
+  files:
+    '@id': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/files"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/files.json"
+
+  references:
+    '@id': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/references"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/references.json"

@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/annote"
+title: "annote"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "annote_optimade_references"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "annote"
+type:
+  - "string"
+  - "null"
+description: |-
+  Additional notes or comments on the reference (the annote field in the BibTeX specification).
+examples:
+  - "This article obtains structures via density-functional theory."
+x-optimade-unit: "inapplicable"

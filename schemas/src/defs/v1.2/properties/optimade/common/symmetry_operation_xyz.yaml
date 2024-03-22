@@ -1,0 +1,22 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/common/symmetry_operation_xyz"
+title: "symmetry operation"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "symmetry_operation_xyz_optimade_common"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "symmetry_operation_xyz"
+description: |-
+  A symmetry operation given as general position x, y, z coordinates in algebraic form.
+
+  **Requirements/Conventions:**
+
+  - The symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
+  - The letters `x`, `y` and `z` that are typesetted with overbars in printed text represent coordinate values multiplied by -1 and are encoded as `-x`, `-y` and `-z`, respectively.
+  - The syntax of the strings representing symmetry operations MUST conform to regular expressions given in appendix `The Symmetry Operation String Regular Expressions`_.
+x-optimade-unit: inapplicable
+type:
+  - "string"
+maxLength: 3

@@ -1,0 +1,51 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/checksums"
+title: "checksums"
+x-optimade-type: "dictionary"
+x-optimade-definition:
+  label: "checksums_optimade_files"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "checksums"
+type:
+  - "object"
+  - "null"
+description: |-
+  Dictionary providing checksums of file contents.
+
+  **Requirements/Conventions:**
+
+  - The keys in the dictionary identify checksum functions and the values are strings containing the corresponding checksum.
+
+  - Supported dictionary keys: `md5`, `sha1`, `sha224`, `sha256`, `sha384`, `sha512`.
+    Checksums outside this list MAY be used, but their names MUST be prefixed by database-provider-specific namespace prefix.
+examples:
+  - {"sha1": "8072f787eada2c50b60a27f3f098fbac7eea08cf"}
+x-optimade-unit: "inapplicable"
+properties:
+  md5:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - "string"
+  sha1:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - "string"
+  sha224:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - "string"
+  sha384:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - "string"
+  sha512:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - "string"

@@ -1,0 +1,36 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schemas.optimade.org/meta/v1.2/optimade/unitsystem_definition"
+title: "OPTIMADE unit system definition schema"
+type: object
+required: ["$id", "$schema", "x-optimade-definition", "title"]
+$$inherit: "physical_unit_definition"
+$$keep: ["$defs"]
+$defs:
+  id_field:
+    $$inherit: "/v1.2/common/id_field"
+properties:
+  "$id":
+    $ref: "#/$defs/id_field"
+  "$schema":
+    type: string
+  type:
+    type: [string, array]
+    enum: ["object", ["object"]]
+  x-optimade-definition:
+    $$inherit: "x-optimade-definition-field"
+    properties:
+      kind:
+        const: "unitsystem"
+  title:
+    type: string
+  description:
+    type: string
+  units:
+    type: object
+    additionalProperties:
+      $ref: "#/$defs/unit_entity_definition_field"
+  prefixes:
+    type: object
+    additionalProperties:
+      $ref: "#/$defs/unit_entity_definition_field"
+additionalProperties: false

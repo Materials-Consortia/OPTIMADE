@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/description"
+title: "description"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "description_optimade_files"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "description"
+type:
+  - "string"
+  - "null"
+description: |-
+  Free-form description of a file.
+examples:
+  - "POSCAR format file"
+x-optimade-unit: "inapplicable"
