@@ -4095,7 +4095,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
-Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operation\_xyz` property MUST conform to the following regular expressions.
+Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operations\_xyz` property MUST conform to the following regular expressions.
 The regular expressions are recorded below in two forms, one in a more readable form using variables and the other as an explicit pattern compatible with the `OPTIMADE Regular Expression Format`_.
 
 - Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability and expressivity.
