@@ -4128,7 +4128,7 @@ The regular expressions are recorded below in two forms, one in a more readable 
 
      #END PCRE symops
 
-- The regular expression is also provided in an expanded form:
+- The regular expression is also provided in an expanded form as an OPTIMADE regex:
 
   .. code:: ECMA
 
