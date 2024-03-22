@@ -4048,6 +4048,7 @@ For example, the OPTIMADE regex "es" matches "expression".
 
 Regexes that utilize tokens and features beyond the designated subset are allowed to have an undefined behavior, i.e., they MAY match or not match *any* string or MAY produce an error.
 Implementations that do not produce errors in this situation are RECOMMENDED to generate warnings if possible.
+
   Compatibility notes:
 
   * The subset is intended to be compatible with, but even further restricted than, the subset recommended in the JSON Schema standard, see `JSON Schema: A Media Type for Describing JSON Documents 2020-12, section 6.4 <https://json-schema.org/draft/2020-12/json-schema-core#section-6.4>`__.
