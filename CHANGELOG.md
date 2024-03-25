@@ -12,6 +12,8 @@ under [Versioning of this standard](https://github.com/Materials-Consortia/OPTIM
 
 For a more academic summary of the changes, please see our preprint: [arXiv:2402.00572](https://doi.org/10.48550/arXiv.2402.00572).
 
+In addition to the specification document itself, machine-readable schemas from this repository can now be found hosted at [schemas.optimade.org](https:///schemas.optimade.org), and HTML builds of the specification can be found at [specification.optimade.org](https://specification.optimade.org).
+
 ### New features
 
 - **Property definitions** ([#376](https://github.com/Materials-Consortia/OPTIMADE/pull/376)): A new section titled [Property Definitions](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.2.0/optimade.rst#property-definitions) has been added to the specification which significantly extends the way in which implementations can define and describe the custom properties they serve, including URIs, unit definitions, API support levels (for querying and sorting) as well as full support for JSON Schema constructs for describing the JSON representation of the property.
