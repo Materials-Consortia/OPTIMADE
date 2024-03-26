@@ -5,14 +5,19 @@ The OPTIMADE API has been developed with contributions by the participants of th
 - the CECAM in Lausanne, Switzerland (virtually) 2020-06-08 to 2020-06-12
 - the CECAM in Lausanne, Switzerland (virtually) 2021-06-07 to 2021-06-11
 - the CECAM in Lausanne, Switzerland 2022-05-30 to 2022-06-03
+- the CECAM in Lausanne, Switzerland 2023-06-05 to 2023-06-09
 
-Contributors to the development of the OPTIMADE specification and implementation in alphabetical order:
+Initial and major contributors to the development of the OPTIMADE specification and implementation in alphabetical order:
 Casper Andersen
+Oskar Andersson
 Thomas Archer
 Rickard Armiento
 Rossella Aversa
+Daniel Beltrán
 Johan Bergsma
 Evgeny Blokhin
+Tara Boland
+Sara Bonella
 Kamal Choudhary
 Pauline Colinet
 Gareth Conduit
@@ -21,6 +26,7 @@ Davide Di Stefano
 Alexander Dorsk
 Claudia Draxl
 Shyam Dwaraknath
+Kristjan Eimre
 Suleyman Er
 Marco Esters
 Matthew Evans
@@ -39,11 +45,14 @@ Jens Hummelshoej
 Karsten W. Jacobsen
 Ankit Kariryaa
 Boris Kozinsky
+Adam Krajewski
 Snehal Kumbhar
 Mohan Liu
+Zi-Kui Liu
 Nicola Marzari
 Andrius Merkys
 Fawzi Mohamed
+Jens Jørgen Mortensen
 Andrew Morris
 Arash Mostofi
 Corey Oses
@@ -68,3 +77,4 @@ Chris Wolverton
 Michael Wu
 Yibin Xu
 Xiaoyu Yang
+Jusong Yu
