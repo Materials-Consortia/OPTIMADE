@@ -50,6 +50,7 @@ body {
     margin-right: auto;
     margin-top: 0;
     margin-bottom: 0;
+    padding-top: 100px;
     color: var(--fg-color);
     background-color: var(--bg-color);
     --field-indent: 9em; /* default indent of fields in field lists */
@@ -546,12 +547,39 @@ pre.code, code {
   color: var(--code-fg-color);
 }
 
+.banner-container {
+    max-width: 60rem;
+    min-width: 60rem;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    color: var(--code-fg-color);
+    background: var(--code-bg-color);
+    border: solid 1px var(--tertiary);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.banner {
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5em;
+    display: table-cell;
+}
+
 sup, sub { line-height: 0.8; } /* do not add leading for lines with sup/sub */
 /* Hyperlink References */
 a { text-decoration: none; }
 
 </style>
 </head>
+<div class="banner-container">
+  <div class="banner">
+      This is a development version of the specification.
+  </div>
+</div>
 <body class="with-toc">
 <main id="optimade-api-specification-v1-2-0-develop">
 <h1 class="title">OPTIMADE API specification v1.2.0~develop</h1>
