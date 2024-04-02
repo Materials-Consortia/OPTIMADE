@@ -43,7 +43,7 @@ We hope that the machine-readable schemas and property definitions now available
 
 The mandatory format changes required to support v1.2 are limited to the following:
 
-- `/info/<entry_type>` endpoints MUST now have a top-level `id` and `type` field. This is for compliance with JSON:API and their previous omission should be treated as a specification bug.
+- `/info/<entry_type>` endpoints MUST now have a top-level `id` and `type` field, e.g., the `/info/structures` MUST now serve `{"id": "structures", "type": "info"}`. This is for compliance with JSON:API and their previous omission should be treated as a specification bug.
 - In cases where a server implementation treats filters on non-prefixed but unknown OPTIMADE fields as errors, implementations MUST update their known property list to handle new fields added to OPTIMADE in this version, such that they can continue to follow the expected behaviour for [Handling unknown property names](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.2.0/optimade.rst#handling-unknown-property-names).
 
 
