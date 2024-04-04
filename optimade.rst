@@ -1040,7 +1040,7 @@ The API implementation MAY provide other entry types than the ones standardized 
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
 Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
-Any custom entry listing endpoint MUST also be added to the :property:`available\_endpoints` and :property:`entry\_types\_by\_format` attributes of the `Base Info Endpoint`_.
+Any custom entry listing endpoint MUST also be added to the :property:`available_endpoints` and :property:`entry_types_by_format` attributes of the `Base Info Endpoint`_.
 
 For more on custom endpoints, see `Custom Extension Endpoints`_.
 
@@ -1125,7 +1125,7 @@ Examples:
 
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_key=A3242DSFJFEJE`
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_warning_verbosity=10`
-- :query-url:`http://example.com/optimade/v1/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
+- :query-url:`http://example.com/optimade/v1/structures?_exmpl_filter="elements all in [Al, Si, Ga]"`
 
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
@@ -3154,7 +3154,7 @@ space\_group\_symmetry\_operations\_xyz
   - Space group operations for the space group with ITC number 3 (H-M symbol :val:`P 2`, extended H-M symbol :val:`P 1 2 1`, Hall symbol :val:`P 2y`): :val:`["x,y,z", "-x,y,-z"]`
   - Space group operations for the space group with ITC number 5 (H-M symbol :val:`C 2`, extended H-M symbol :val:`C 1 2 1`, Hall symbol :val:`C 2y`): :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
-- **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
+- **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   This property is not meant to represent arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry.
 
@@ -3240,7 +3240,7 @@ space\_group\_symbol\_hermann\_mauguin\_extended
   - The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
   - The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
   - The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  - The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin` property.
+  - The same character string encoding conventions MUST be used as for the specification of the :property:`space_group_symbol_hermann_mauguin` property.
 
 - **Examples**:
 
@@ -4095,7 +4095,7 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
-Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operations\_xyz` property MUST conform to the following regular expressions.
+Symmetry operation strings that comprise the :property:`space_group_symmetry_operations_xyz` property MUST conform to the following regular expressions.
 The regular expressions are recorded below in two forms, one in a more readable form using variables and the other as an explicit pattern compatible with the `OPTIMADE Regular Expression Format`_.
 
 - Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability and expressivity.
