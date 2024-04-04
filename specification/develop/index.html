@@ -50,7 +50,6 @@ body {
     margin-right: auto;
     margin-top: 0;
     margin-bottom: 0;
-    padding-top: 100px;
     color: var(--fg-color);
     background-color: var(--bg-color);
     --field-indent: 9em; /* default indent of fields in field lists */
@@ -547,39 +546,12 @@ pre.code, code {
   color: var(--code-fg-color);
 }
 
-.banner-container {
-    max-width: 60rem;
-    min-width: 60rem;
-    height: 50px;
-    position: fixed;
-    top: 0;
-    color: var(--code-bg-color);
-    background: var(--code-fg-color);
-    border: outset 2px var(--tertiary);
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
-.banner {
-    text-transform: uppercase;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 1.5em;
-    display: table-cell;
-}
-
 sup, sub { line-height: 0.8; } /* do not add leading for lines with sup/sub */
 /* Hyperlink References */
 a { text-decoration: none; }
 
 </style>
 </head>
-<div class="banner-container">
-  <div class="banner">
-      This is a development version of the specification.
-  </div>
-</div>
 <body class="with-toc">
 <main id="optimade-api-specification-v1-2-0-develop">
 <h1 class="title">OPTIMADE API specification v1.2.0~develop</h1>
@@ -1146,7 +1118,7 @@ In particular, filters with <span class="filter-fragment docutils literal">IS UN
 </li>
 </ul>
 <p>The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.</p>
-<p>For example, the following query can be sent to API implementations <cite>exmpl1</cite> and <cite>exmpl2</cite> without generating any errors:</p>
+<p>For example, the following query can be sent to API implementations <span class="docutils literal">exmpl1</span> and <span class="docutils literal">exmpl2</span> without generating any errors:</p>
 <p><code class="filter">filter=_exmpl1_band_gap&lt;2.0 OR _exmpl2_band_gap&lt;2.5</code></p>
 </section>
 <section id="transmission-of-large-property-values">
@@ -1762,7 +1734,7 @@ In the default JSON response format every dictionary (<a class="reference extern
 <ul>
 <li><p><strong>type</strong>: field containing the Entry type as defined in section <a class="reference internal" href="#definition-of-terms">Definition of Terms</a></p></li>
 <li><p><strong>id</strong>: field containing the ID of entry as defined in section <a class="reference internal" href="#definition-of-terms">Definition of Terms</a>. This can be the local database ID.</p></li>
-<li><p><strong>attributes</strong>: a dictionary, containing key-value pairs representing the entry's properties, except for <cite>type</cite> and <cite>id</cite>.</p>
+<li><p><strong>attributes</strong>: a dictionary, containing key-value pairs representing the entry's properties, except for <span class="property docutils literal">type</span> and <span class="property docutils literal">id</span>.</p>
 <p>Database-provider-specific and definition-provider-specific properties MUST include the corresponding prefix (see section <a class="reference internal" href="#namespace-prefixes">Namespace Prefixes</a>).</p>
 </li>
 </ul>
@@ -2387,8 +2359,8 @@ This allows to tell OPTIMADE identifiers and operator keywords apart unambiguous
 <li><p><strong>Nested property names</strong> A nested property name is composed of at least two identifiers separated by periods (<span class="docutils literal">.</span>).</p></li>
 </ul>
 <ul id="string-values">
-<li><p><strong>String values</strong> MUST be surrounded by double quote characters (<cite>&quot;</cite>, ASCII symbol 34 dec, 0x22 hex).
-A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (<cite>\</cite>, ASCII symbol 92 dec, 0x5C hex).
+<li><p><strong>String values</strong> MUST be surrounded by double quote characters (<span class="docutils literal">&quot;</span>, ASCII symbol 34 dec, 0x22 hex).
+A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (<span class="docutils literal">\\</span>, ASCII symbol 92 dec, 0x5C hex).
 A backslash character that is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
 An example of an escaped string value, including the enclosing double quotes, is given below:</p>
 <ul class="simple">
@@ -2662,8 +2634,7 @@ Additional information about the definition that is not covered by fields in the
 <p><strong>REQUIRED keys:</strong></p>
 </li>
 </ul>
-<blockquote id="definition-of-the-property-format-field">
-<ul>
+<ul id="definition-of-the-property-format-field">
 <li><p><span class="field docutils literal">format</span>: String.
 A string that declares the OPTIMADE definition format the definition adheres to.
 Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
@@ -2704,7 +2675,6 @@ An IRI of the external resource, which MAY be a resolvable URL.</p></li>
 </ul>
 </li>
 </ul>
-</blockquote>
 <p><strong>REQUIRED keys for all levels of the Property Definition:</strong></p>
 <ul class="simple" id="definition-of-the-x-optimade-type-field">
 <li><p><span class="field docutils literal"><span class="pre">x-optimade-type</span></span>: String.
@@ -2728,8 +2698,7 @@ See subsection <a class="reference internal" href="#physical-units-in-property-d
 Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
 Each dimension is given a name and optionally a fixed size.</p>
 <p><strong>REQUIRED keys:</strong></p>
-<blockquote>
-<ul class="simple">
+<ul>
 <li><p><span class="field docutils literal">names</span>: List of Strings.
 A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
 The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.</p></li>
@@ -2737,11 +2706,11 @@ The order is that the the first name applies to the outermost list, the next nam
 A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
 The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
 The data only validates if the respective level consists of lists of exactly this length.
-A value of <cite>null</cite> allows arbitrary-length lists at the corresponding level.</p></li>
-</ul>
+A value of <span class="val docutils literal">null</span> allows arbitrary-length lists at the corresponding level.</p>
 <p>Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
 Instead, the length of lists can be validated against the length information provided in the <span class="field docutils literal">sizes</span> subfield of <span class="field docutils literal"><span class="pre">x-optimade-dimensions</span></span> (which, at this time, can only specify a fixed length requirement.)</p>
-</blockquote>
+</li>
+</ul>
 </li>
 <li><p><span class="field docutils literal"><span class="pre">x-optimade-implementation</span></span>: Dictionary.
 A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
@@ -3099,8 +3068,8 @@ Not only symbols strictly defined within the standard are allowed, but also othe
 <li><p><span class="field docutils literal">symbol</span>: String.
 The symbol to use from the referenced standard, expressed according to that standard.
 The field MAY use mathematical expressions written the same way as described in the <a class="reference internal" href="#definition-of-the-description-field">definition of the description field</a>.
-This field MAY be different from the symbol being defined via the definition if the unit will be referenced in <cite>x-optimade-unit</cite> fields using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
-However, if possible, the <cite>symbol</cite> fields SHOULD be the same.</p></li>
+This field MAY be different from the symbol being defined via the definition if the unit will be referenced in <span class="field docutils literal"><span class="pre">x-optimade-unit</span></span> field using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
+However, if possible, the <span class="field docutils literal">symbol</span> field SHOULD be the same.</p></li>
 </ul>
 <p><strong>OPTIONAL keys:</strong></p>
 <ul class="simple">
@@ -3178,7 +3147,7 @@ Some definitions define an entity (e.g. a constant) to a specific value along wi
 A dictionary specifying the offset value, adhering to the same format as <span class="field docutils literal">scale</span>.
 If omitted or <span class="val docutils literal">null</span>, the defaults for the <span class="field docutils literal">numerator</span>, <span class="field docutils literal">denominator</span>, and <span class="field docutils literal">exponent</span> are respectively 0, 1, and 0.</p></li>
 </ul>
-<p>If the fields in <span class="field docutils literal">scale</span> are designated as <cite>sn</cite>, <cite>sd</cite>, and <cite>se</cite>; and the fields in <span class="field docutils literal">offset</span> are designated as <span class="docutils literal">on</span>, <span class="docutils literal">od</span>, and <span class="docutils literal">oe</span>; and <span class="field docutils literal"><span class="pre">base-units-expression</span></span> is designated as <span class="docutils literal">b</span>, these fields state the following defining relation: a value <span class="docutils literal">v</span> multiplied by the unit being defined is equal to the following expression <span class="docutils literal">(v * (sn/sd) * <span class="pre">10**se</span> + (on/od) * <span class="pre">10**oe)*b</span></span>, where <span class="docutils literal">*</span> designates multiplication and <span class="docutils literal">**</span> designates exponentiation.
+<p>If the fields in <span class="field docutils literal">scale</span> are designated as <span class="docutils literal">sn</span>, <span class="docutils literal">sd</span>, and <span class="docutils literal">se</span>; and the fields in <span class="field docutils literal">offset</span> are designated as <span class="docutils literal">on</span>, <span class="docutils literal">od</span>, and <span class="docutils literal">oe</span>; and <span class="field docutils literal"><span class="pre">base-units-expression</span></span> is designated as <span class="docutils literal">b</span>, these fields state the following defining relation: a value <span class="docutils literal">v</span> multiplied by the unit being defined is equal to the following expression <span class="docutils literal">(v * (sn/sd) * <span class="pre">10**se</span> + (on/od) * <span class="pre">10**oe)*b</span></span>, where <span class="docutils literal">*</span> designates multiplication and <span class="docutils literal">**</span> designates exponentiation.
 For example, the defining relation of the temperature unit Fahrenheit <span class="docutils literal">F</span> in Celsius <span class="docutils literal">C</span>, that says that <span class="docutils literal">x F = (x - 32) * (5/9) C = 5/9 x + <span class="pre">(-160/9)</span> C</span> could be expressed as follows:</p>
 <pre class="code jsonc literal-block"><code>&quot;defining-relation&quot;: {
   &quot;base-units&quot;: [
@@ -3306,7 +3275,7 @@ Other unrecognized keys starting with <span class="field docutils literal">x-</s
 <li><p><strong>Query</strong>: MUST be a queryable property with support for all mandatory filter features.</p></li>
 <li><p><strong>Response</strong>: REQUIRED in the response.</p></li>
 <li><p>MUST be an existing entry type.</p></li>
-<li><p>The entry of type <cite>&lt;type&gt;</cite> and ID <cite>&lt;id&gt;</cite> MUST be returned in response to a request for <span class="endpoint docutils literal"><span class="pre">/&lt;type&gt;/&lt;id&gt;</span></span> under the versioned or unversioned base URL serving the API.</p></li>
+<li><p>The entry of type <span class="docutils literal">&lt;type&gt;</span> and ID <span class="docutils literal">&lt;id&gt;</span> MUST be returned in response to a request for <span class="endpoint docutils literal"><span class="pre">/&lt;type&gt;/&lt;id&gt;</span></span> under the versioned or unversioned base URL serving the API.</p></li>
 </ul>
 </li>
 <li><p><strong>Examples</strong>:</p>
@@ -3374,7 +3343,7 @@ Implementations SHOULD NOT include database-provider-specific properties when th
 <li><p>Implementations MUST add the properties to the list of <span class="property docutils literal">properties</span> under the respective entry listing <span class="endpoint docutils literal">info</span> endpoint (see <a class="reference internal" href="#entry-listing-info-endpoints">Entry Listing Info Endpoints</a>).</p></li>
 </ul>
 </li>
-<li><p><strong>Examples</strong>: A few examples of valid database-provided-specific property names, for a predefined prefix <cite>_exmpl</cite>, are as follows:</p>
+<li><p><strong>Examples</strong>: A few examples of valid database-provided-specific property names, for a predefined prefix <span class="docutils literal">_exmpl</span>, are as follows:</p>
 <ul>
 <li><p><span class="property docutils literal">_exmpl_formula_sum</span></p></li>
 <li><p><span class="property docutils literal">_exmpl_band_gap</span></p></li>
@@ -4195,13 +4164,13 @@ For example, if referring to a file on GitHub, a link should point to raw conten
 <section id="url-stable-until">
 <h4><a class="toc-backref" href="#toc-entry-100" role="doc-backlink"><span class="sectnum">8.5.2 </span>url_stable_until</a></h4>
 <ul class="simple">
-<li><p><strong>Description</strong>: Point in time until which the URL in <cite>url</cite> is guaranteed to stay stable.</p></li>
+<li><p><strong>Description</strong>: Point in time until which the URL in <span class="property docutils literal">url</span> is guaranteed to stay stable.</p></li>
 <li><p><strong>Type</strong>: timestamp</p></li>
 <li><p><strong>Requirements/Conventions</strong>:</p>
 <ul>
 <li><p><strong>Support</strong>: OPTIONAL support in implementations, i.e., MAY be <span class="val docutils literal">null</span>.</p></li>
 <li><p><strong>Query</strong>: Support for queries on this property is OPTIONAL.</p></li>
-<li><p><span class="val docutils literal">null</span> means that there is no stability guarantee for the URL in <cite>url</cite>.
+<li><p><span class="val docutils literal">null</span> means that there is no stability guarantee for the URL in <span class="property docutils literal">url</span>.
 Indefinite support could be communicated by providing a date sufficiently far in the future, for example, <span class="val docutils literal"><span class="pre">9999-12-31</span></span>.</p></li>
 </ul>
 </li>
@@ -5060,7 +5029,7 @@ POSIX Basic regexes also have further differences, e.g., the meaning of some esc
 </section>
 </main>
 <footer>
-<p>Generated on: 2024-03-23.
+<p>Generated on: 2024-04-04.
 </p>
 </footer>
 </body>
