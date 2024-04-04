@@ -2109,48 +2109,48 @@ A Property Definition MUST be composed according to the combination of the requi
 
 .. _definition of the property-format field:
 
-  - :field:`format`: String.
-    A string that declares the OPTIMADE definition format the definition adheres to.
-    Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
-    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
-    The version number string MUST NOT be prefixed by, e.g., "v".
-    In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
-    A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
-    This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
+- :field:`format`: String.
+  A string that declares the OPTIMADE definition format the definition adheres to.
+  Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
+  The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
+  The version number string MUST NOT be prefixed by, e.g., "v".
+  In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
+  A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+  This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
-  - :field:`kind`: String.
-    A string specifying what entity is being defined.
-    For Property Definitions this MUST be the string "property".
+- :field:`kind`: String.
+  A string specifying what entity is being defined.
+  For Property Definitions this MUST be the string "property".
 
-  - :field:`name`: String.
-    An short identifier (as defined in `Definition of Terms`_) that provides a reasonable short non-unique name for the entity being defined.
+- :field:`name`: String.
+  An short identifier (as defined in `Definition of Terms`_) that provides a reasonable short non-unique name for the entity being defined.
 
-  - :field:`label`: String.
-    An extended identifier (as defined in `Definition of Terms`_) that describes the entity being defined in a way that is unique within a set of definitions provided together.
-    The label SHOULD start with the name.
+- :field:`label`: String.
+  An extended identifier (as defined in `Definition of Terms`_) that describes the entity being defined in a way that is unique within a set of definitions provided together.
+  The label SHOULD start with the name.
 
-      Implementation notes:
+    Implementation notes:
 
-      The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as `RDF data <https://www.w3.org/TR/rdf-schema/>`__ (see, e.g., rdfs:label).
+    The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as `RDF data <https://www.w3.org/TR/rdf-schema/>`__ (see, e.g., rdfs:label).
 
-  **OPTIONAL keys:**
+**OPTIONAL keys:**
 
-  - :field:`version`: String.
-    This string indicates the version of the definition.
-    The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
-    When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
+- :field:`version`: String.
+  This string indicates the version of the definition.
+  The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
+  When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
 
-  - :field:`resources`: List.
-    A list of dictionaries that references remote resources that describe the property.
-    The format of each dictionary is:
+- :field:`resources`: List.
+  A list of dictionaries that references remote resources that describe the property.
+  The format of each dictionary is:
 
-    **REQUIRED keys:**
+  **REQUIRED keys:**
 
-    - :field:`relation`: String.
-      A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
+  - :field:`relation`: String.
+    A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
 
-    - :field:`resource-id`: String.
-      An IRI of the external resource, which MAY be a resolvable URL.
+  - :field:`resource-id`: String.
+    An IRI of the external resource, which MAY be a resolvable URL.
 
 **REQUIRED keys for all levels of the Property Definition:**
 
@@ -2181,15 +2181,15 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
-    - :field:`names`: List of Strings.
-      A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+  - :field:`names`: List of Strings.
+    A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
 
-    - :field:`sizes`: List of Integers or :val:`null`.
-      A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
-      The data only validates if the respective level consists of lists of exactly this length.
-      A value of `null` allows arbitrary-length lists at the corresponding level.
+  - :field:`sizes`: List of Integers or :val:`null`.
+    A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+    The data only validates if the respective level consists of lists of exactly this length.
+    A value of `null` allows arbitrary-length lists at the corresponding level.
 
     Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
     Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
