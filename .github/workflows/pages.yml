@@ -40,7 +40,7 @@ jobs:
         git checkout gh-pages
         mkdir -p specification/develop
         # patch dev specification to include banner
-        sed -i 's|</head>|</head><div class="banner-container"><div class="banner">This is a development version of the specification.</div></div>|g' optimade.html
+        sed -i 's|<body class="with-toc">|<body class="with-toc"><div class="banner-container"><div class="banner">This is a development version of the specification.</div></div>|g' optimade.html
         mv optimade.html specification/develop/index.html
         git add specification/develop/index.html
         git commit -m "Deploy develop specification to GitHub Pages: ${SHA}"
