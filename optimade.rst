@@ -471,7 +471,7 @@ When an implementation receives a request with a query filter that refers to an 
 
 The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.
 
-For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
+For example, the following query can be sent to API implementations ``exmpl1`` and ``exmpl2`` without generating any errors:
 
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
@@ -1139,7 +1139,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 
 - **type**: field containing the Entry type as defined in section `Definition of Terms`_
 - **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
-- **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for `type` and `id`.
+- **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for :property:`type` and :property:`id`.
 
   Database-provider-specific and definition-provider-specific properties MUST include the corresponding prefix (see section `Namespace Prefixes`_).
 
@@ -1806,8 +1806,8 @@ The following tokens are used in the filter query component:
 
 .. _string values:
 
-- **String values** MUST be surrounded by double quote characters (`"`, ASCII symbol 34 dec, 0x22 hex).
-  A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex).
+- **String values** MUST be surrounded by double quote characters (``"``, ASCII symbol 34 dec, 0x22 hex).
+  A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (``\\``, ASCII symbol 92 dec, 0x5C hex).
   A backslash character that is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
   An example of an escaped string value, including the enclosing double quotes, is given below:
 
@@ -2189,7 +2189,7 @@ A Property Definition MUST be composed according to the combination of the requi
     A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
     The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     The data only validates if the respective level consists of lists of exactly this length.
-    A value of `null` allows arbitrary-length lists at the corresponding level.
+    A value of :val:`null` allows arbitrary-length lists at the corresponding level.
 
     Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
     Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
@@ -2587,8 +2587,8 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - :field:`symbol`: String.
     The symbol to use from the referenced standard, expressed according to that standard.
     The field MAY use mathematical expressions written the same way as described in the `definition of the description field`_.
-    This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
-    However, if possible, the `symbol` fields SHOULD be the same.
+    This field MAY be different from the symbol being defined via the definition if the unit will be referenced in :field:`x-optimade-unit` field using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
+    However, if possible, the :field:`symbol` field SHOULD be the same.
 
   **OPTIONAL keys:**
 
@@ -2674,7 +2674,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
 
-  If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b``, where ``*`` designates multiplication and ``**`` designates exponentiation.
+  If the fields in :field:`scale` are designated as ``sn``, ``sd``, and ``se``; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b``, where ``*`` designates multiplication and ``**`` designates exponentiation.
   For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``x F = (x - 32) * (5/9) C = 5/9 x + (-160/9) C`` could be expressed as follows:
 
   .. code:: jsonc
@@ -2813,7 +2813,7 @@ type
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
-  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned or unversioned base URL serving the API.
+  - The entry of type ``<type>`` and ID ``<id>`` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned or unversioned base URL serving the API.
 
 - **Examples**:
 
@@ -2869,7 +2869,7 @@ Custom properties
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Namespace Prefixes`_).
   - Implementations MUST add the properties to the list of :property:`properties` under the respective entry listing :endpoint:`info` endpoint (see `Entry Listing Info Endpoints`_).
 
-- **Examples**: A few examples of valid database-provided-specific property names, for a predefined prefix `_exmpl`, are as follows:
+- **Examples**: A few examples of valid database-provided-specific property names, for a predefined prefix ``_exmpl``, are as follows:
 
   - :property:`_exmpl_formula_sum`
   - :property:`_exmpl_band_gap`
@@ -3608,13 +3608,13 @@ url
 url\_stable\_until
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
+- **Description**: Point in time until which the URL in :property:`url` is guaranteed to stay stable.
 - **Type**: timestamp
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - :val:`null` means that there is no stability guarantee for the URL in `url`.
+  - :val:`null` means that there is no stability guarantee for the URL in :property:`url`.
     Indefinite support could be communicated by providing a date sufficiently far in the future, for example, :val:`9999-12-31`.
 
 name
