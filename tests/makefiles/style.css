@@ -46,6 +46,29 @@ body {
     --field-indent: 9em; /* default indent of fields in field lists */
 }
 
+/*Banner for development version*/
+.banner-container {
+    max-width: 60rem;
+    min-width: 60rem;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    color: var(--code-bg-color);
+    background: var(--code-fg-color);
+    border: outset 2px var(--tertiary);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.banner {
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5em;
+    display: table-cell;
+}
+
 /* "page layout" */
 main, footer, header {
   line-height:1.6;
