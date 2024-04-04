@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.0 (March 2024)
+## v1.2.0 (April 2024)
 
 
 This release adds significant but optional new functionality to the specification, as well as providing several clarifications to existing behaviour.
@@ -27,14 +27,14 @@ In addition to the specification document itself, machine-readable schemas from 
 
 ### Patches
 
-- **Fuzzy comparisons on lists** ([#415](https://github.com/Materials-Consortia/OPTIMADE/pull/415))
+- **Fuzzy comparisons on lists** ([#415](https://github.com/Materials-Consortia/OPTIMADE/pull/415)):
 String comparisons like `CONTAINS`, `STARTS WITH` and `ENDS WITH` are now compatible with list filter operations like `HAS`, `HAS ALL` etc.
 - **Boolean values** ([#348](https://github.com/Materials-Consortia/OPTIMADE/pull/348)):
 [Boolean values](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.2.0/optimade.rst#comparisons-of-boolean-values) were overlooked in the first version of the filter grammar as no OPTIMADE fields required them.
 This functionality has been introduced for boolean fields using the syntax `TRUE` and `FALSE`.
 Only strict equality (`=`) and inequality (`!=`) comparisons on individual fields are supported.
 - **Compatibility with JSON:API v1.1** ([#461](https://github.com/Materials-Consortia/OPTIMADE/pull/461)): References to JSON:API v1.0 have been updated to v1.1.
-- Typo, formatting and code snippet fixes
+- Typo, formatting and code snippet fixes.
 
 ### Notes for implementations
 
