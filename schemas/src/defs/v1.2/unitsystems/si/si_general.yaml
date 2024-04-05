@@ -21,7 +21,7 @@ units:
     $$inherit: "/v1.2/units/si/general/arcminute"
   arcsec:
     $$inherit: "/v1.2/units/si/general/arcsecond"
-  are:
+  a:
     $$inherit: "/v1.2/units/si/general/are"
   au:
     $$inherit: "/v1.2/units/si/general/astronomicalunit"
@@ -41,13 +41,13 @@ units:
     $$inherit: "/v1.2/units/si/general/coulomb"
   Ci:
     $$inherit: "/v1.2/units/si/general/curie"
-  da:
+  Da:
     $$inherit: "/v1.2/units/si/general/dalton"
   day:
     $$inherit: "/v1.2/units/si/general/day"
   degC:
     $$inherit: "/v1.2/units/si/general/degcelsius"
-  deg:
+  degree:
     $$inherit: "/v1.2/units/si/general/degree"
   eV:
     $$inherit: "/v1.2/units/si/general/electronvolt"
@@ -87,7 +87,7 @@ units:
     $$inherit: "/v1.2/units/si/general/minute"
   mol:
     $$inherit: "/v1.2/units/si/general/mole"
-  nauticalmile:
+  M:
     $$inherit: "/v1.2/units/si/general/nauticalmile"
   N:
     $$inherit: "/v1.2/units/si/general/newton"

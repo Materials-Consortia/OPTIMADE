@@ -15,5 +15,5 @@ x-optimade-definition:
 units:
   bit:
     $$inherit: "/v1.2/units/independent/1948/information/bit"
-  byte:
+  B:
     $$inherit: "/v1.2/units/iso-iec-80000/2008/information_science_and_technology/byte"
