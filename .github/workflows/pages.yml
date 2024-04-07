@@ -9,6 +9,8 @@ on:
 jobs:
 
   build_html:
+    if: github.repository == 'Materials-Consortia/OPTIMADE'
+
     runs-on: ubuntu-latest
 
     env:
