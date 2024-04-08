@@ -11,7 +11,8 @@ The Open Databases Integration for Materials Design (OPTIMADE) consortium aims t
 
 This repository contains the specification of the OPTIMADE API.
 
-* [optimade.rst](optimade.rst): The API specification.
+* [optimade.rst](optimade.rst): The API specification document.
+* [specification.optimade.org](https://specification.optimade.org): HTML builds of the different specification versions.
 * [schemas.optimade.org](https://schemas.optimade.org): Machine-readable schemas for property and server definitions.
 * [AUTHORS](AUTHORS): List of contributors.
 * [CHANGELOG](CHANGELOG.md): The release notes for each version of the specification.
@@ -46,9 +47,10 @@ Alternatively, the software using the file could itself be licensed in a way com
 
 ## How to cite
 
-If you use OPTIMADE to access or host data, we kindly ask that you cite our paper:
+If you use OPTIMADE to access or host data, we kindly ask that you cite our papers accompanying the version 1.0 and 1.2 releases:
 
 - Andersen *et al*, OPTIMADE, an API for exchanging materials data, *Sci. Data* **8**, 217 (2021) [10.1038/s41597-021-00974-z](https://doi.org/10.1038/s41597-021-00974-z)
+- Evans *et al*, Developments and applications of the OPTIMADE API for materials discovery, design, and data exchange, *arXiv preprint* (2024) [10.48550/arXiv.2402.00572](https://doi.org/10.48550/arXiv.2402.00572)
 
 To cite an individual version of the specification, please use the versioned records on Zenodo:
 
