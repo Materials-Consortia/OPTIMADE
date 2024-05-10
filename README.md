@@ -50,7 +50,7 @@ Alternatively, the software using the file could itself be licensed in a way com
 If you use OPTIMADE to access or host data, we kindly ask that you cite our papers accompanying the version 1.0 and 1.2 releases:
 
 - Andersen *et al*, OPTIMADE, an API for exchanging materials data, *Sci. Data* **8**, 217 (2021) [10.1038/s41597-021-00974-z](https://doi.org/10.1038/s41597-021-00974-z)
-- Evans *et al*, Developments and applications of the OPTIMADE API for materials discovery, design, and data exchange, *arXiv preprint* (2024) [10.48550/arXiv.2402.00572](https://doi.org/10.48550/arXiv.2402.00572)
+- Evans *et al*, Developments and applications of the OPTIMADE API for materials discovery, design, and data exchange, *Digital Discovery* (2024) [10.1039/D4DD00039K](https://doi.org/10.1039/D4DD00039K)
 
 To cite an individual version of the specification, please use the versioned records on Zenodo:
 
