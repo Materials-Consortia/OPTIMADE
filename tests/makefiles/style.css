@@ -82,6 +82,7 @@ main, footer, header {
 main {
   counter-reset: table figure;
   background-color: var(--bg-color);
+  margin-top: 75px;
 }
 footer, header {
   font-size: smaller;
