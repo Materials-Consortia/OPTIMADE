@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.0 (April 2024)
+## v1.2.0 (June 2024)
 
 
 This release adds significant but optional new functionality to the specification; it also provides several clarifications to existing behaviour.
