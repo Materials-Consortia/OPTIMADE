@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.0 (April 2024)
+## v1.2.0 (June 2024)
 
 
 This release adds significant but optional new functionality to the specification; it also provides several clarifications to existing behaviour.
@@ -9,7 +9,7 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
 Although the majority of features added in this release are optional for servers, there are a couple of mandatory format additions that are discussed below in the notes for implementations.
 We have clarified our approach to versioning explicitly in the specification under [Versioning of this standard](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.2.0/optimade.rst#versioning-of-this-standard).
 
-For a more academic summary of the changes, please see our preprint: [arXiv:2402.00572](https://doi.org/10.48550/arXiv.2402.00572).
+For a more academic summary of the changes, please see our paper: [10.1039/D4DD00039K](https://doi.org/10.1039/D4DD00039K).
 
 In addition to the specification document itself, machine-readable schemas from this repository can now be found hosted at [schemas.optimade.org](https:///schemas.optimade.org), and HTML builds of the specification can be found at [specification.optimade.org](https://specification.optimade.org).
 
