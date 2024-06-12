@@ -2313,6 +2313,7 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
   E.g., if :filter-fragment:`identifier1` is the list :filter-fragment:`[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]`, then :filter-fragment:`identifier1.identifier2` is understood in the filter as the list :filter-fragment:`[42, 96]`.
 
 - :filter-fragment:`identifier1` references an entry type of a group of related entries each containing a property named after an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the values of :filter-fragment:`identifier2` properties for every related entry.
+  Support for such queries is OPTIONAL.
   E.g., :filter-fragment:`references.doi` is understood in the filter as the list containing values of :property:`doi` for all related entries of type :entry:`references`.
   This is explained in more detail in section `Filtering on relationships`_.
 
@@ -2323,23 +2324,22 @@ Filtering on relationships
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As described in the section `Relationships`_, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
-The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>` by using special nested property names:
+The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>`:
 
 - :filter-fragment:`<entry type>.id` references a list of IDs of relationships with entries of the type :filter-fragment:`<entry type>`.
-- :filter-fragment:`<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
+- :filter-fragment:`<entry type>.<property>` references a list of property :property:`<property>` values for related entries of type :filter-fragment:`<entry type>`.
 
-Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, :filter-fragment:`id` and :filter-fragment:`description`.
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with entry properties plus :property:`id`.
 For example: a client queries the :endpoint:`structures` endpoint with a filter that references :filter-fragment:`calculations.id`.
 For a specific structures entry, the nested property behaves as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
-    **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
-    For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
+Support for queries on fields of arbitrary depth is OPTIONAL.
+For example, search for all structures with bibliographic references where one of the authors has the last name "Schmidt" could be performed with the following query:
 
-    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
-    - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+    :query-url:`http://example.com/optimade/v1/structures?filter=references.authors.lastname HAS "Schmidt"`
 
-    (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
+Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.
 
 Filtering on Properties with an unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
