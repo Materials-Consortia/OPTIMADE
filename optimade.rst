@@ -3538,7 +3538,7 @@ They MAY be defined as either input or output files by the :field:`role` field i
 The allowed values are :val:`input` for input files and :val:`output` for output files.
 If the :field:`role` field is not provided or the value is set to :val:`null`, a default role SHOULD NOT be assumed.
 It is RECOMMENDED to order the output files in the list of calculation's relationships in a way that prioritizes the files most likely to contain details which could be used to automatically analyze the performed calculation.
-This way output parsing software would need to read in a small number of calculation output files to possibly identify the code, type and possibly parameters of calculation performed.
+Such an approach minimizes the number of calculation output files that need to be analyzed to possibly identify the code, type and parameters of the performed calculation.
 
 References Entries
 ------------------
