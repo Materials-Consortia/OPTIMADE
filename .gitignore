@@ -7,3 +7,5 @@ Makeconf*
 .DS_Store
 schemas/output
 schemas/example/output
+*.pdf
+*.html

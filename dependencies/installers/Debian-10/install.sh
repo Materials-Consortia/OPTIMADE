@@ -3,6 +3,7 @@
 sudo apt-get install -y \
     ant \
     default-jdk \
+    docutils-common \
     make \
     patch \
     python3-mdx-math \

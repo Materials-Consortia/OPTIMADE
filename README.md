@@ -11,15 +11,13 @@ The Open Databases Integration for Materials Design (OPTIMADE) consortium aims t
 
 This repository contains the specification of the OPTIMADE API.
 
-* [optimade.rst](optimade.rst): The API specification.
+* [optimade.rst](optimade.rst): The API specification document.
+* [specification.optimade.org](https://specification.optimade.org): HTML builds of the different specification versions.
+* [schemas.optimade.org](https://schemas.optimade.org): Machine-readable schemas for property and server definitions.
 * [AUTHORS](AUTHORS): List of contributors.
 * [CHANGELOG](CHANGELOG.md): The release notes for each version of the specification.
 * [optimade.org](https://www.optimade.org): Public OPTIMADE web site
 * [OPTIMADE wiki](https://github.com/Materials-Consortia/OPTIMADE/wiki): Information for developers
-
-The subdirectory `schemas/` contains OpenAPI schemas for the main OPTIMADE API and index meta-database as implemented by the [optimade-python-tools repository](https://github.com/Materials-Consortia/optimade-python-tools).
-_Note_: These schemas are an approximation of the full human-readable specification and may be missing certain constraints.
-Furthermore, they may not be up to date in the develop branch of this repository.
 
 ## For developers
 
@@ -49,9 +47,10 @@ Alternatively, the software using the file could itself be licensed in a way com
 
 ## How to cite
 
-If you use OPTIMADE to access or host data, we kindly ask that you cite our paper:
+If you use OPTIMADE to access or host data, we kindly ask that you cite our papers accompanying the version 1.0 and 1.2 releases:
 
 - Andersen *et al*, OPTIMADE, an API for exchanging materials data, *Sci. Data* **8**, 217 (2021) [10.1038/s41597-021-00974-z](https://doi.org/10.1038/s41597-021-00974-z)
+- Evans *et al*, Developments and applications of the OPTIMADE API for materials discovery, design, and data exchange, *Digital Discovery* (2024) [10.1039/D4DD00039K](https://doi.org/10.1039/D4DD00039K)
 
 To cite an individual version of the specification, please use the versioned records on Zenodo:
 

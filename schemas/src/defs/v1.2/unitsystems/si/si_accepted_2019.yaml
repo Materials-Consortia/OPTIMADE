@@ -24,7 +24,7 @@ units:
     $$inherit: "/v1.2/units/si/1970/accepted/day"
   au:
     $$inherit: "/v1.2/units/si/2019/accepted/astronomicalunit"
-  deg:
+  degree:
     $$inherit: "/v1.2/units/si/1970/accepted/degree"
   arcmin:
     $$inherit: "/v1.2/units/si/1970/accepted/arcminute"
@@ -36,7 +36,7 @@ units:
     $$inherit: "/v1.2/units/si/1983/accepted/litre"
   t:
     $$inherit: "/v1.2/units/si/2019/accepted/tonne"
-  da:
+  Da:
     $$inherit: "/v1.2/units/si/1998/accepted/dalton"
   eV:
     $$inherit: "/v1.2/units/si/2019/accepted/electronvolt"

@@ -60,15 +60,3 @@ jobs:
       with:
         submodules: 'true'
     - run: make audit_spelling
-
-  audit-schemas:
-    name: Audit OpenAPI schemas with swagger validator
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'true'
-    - name: Install dependencies
-      run: pip install markdown python-markdown-math
-    - run: make audit_schemas

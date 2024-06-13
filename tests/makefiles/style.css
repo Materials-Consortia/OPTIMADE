@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+/* This is an OPTIMADE adjustment of the minimal CSS for HTML output from Docutils. */
 
 :root {
     --bg-color: white;
@@ -10,10 +9,10 @@
     --secondary: #50fa7b;
     --tertiary: #ff414d;
     --quaternary: #7a2dd0;
-    --external-refs: var(--secondary);
+    --external-refs: var(--tertiary);
     --inline-refs: var(--primary);
-    --monospace-font-family: "JetBrains Mono", monospace;
-    --sans-serif-font-family: Roboto, Arial, Helvetica, 'Liberation Sans', sans-serif;
+    --monospace-font-family:  monospace;
+    --sans-serif-font-family: sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,10 +25,10 @@
         --secondary: #50fa7b;
         --tertiary: #ff414d;
         --quaternary: #7a2dd0;
-        --external-refs: var(--secondary);
-        --inline-refs: var(--tertiary);
-        --monospace-font-family: "JetBrains Mono", monospace;
-        --sans-serif-font-family: Roboto, Arial, Helvetica, 'Liberation Sans', sans-serif;
+        --external-refs: var(--tertiary);
+        --inline-refs: var(--primary);
+        --monospace-font-family: monospace;
+        --sans-serif-font-family: sans-serif;
 
     }
 }
@@ -37,15 +36,58 @@
 body {
     font-family: var(--sans-serif-font-family);
     font-size: 16px;
+    max-width: 60rem;
+    margin-left: 10rem;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
     color: var(--fg-color);
+    background-color: var(--bg-color);
+    --field-indent: 9em; /* default indent of fields in field lists */
 }
 
-div.document {
-    margin: 0 auto;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 900px;
-    background-color: var(--bg-color);
+/*Banner for development version*/
+.banner-container {
+    max-width: 60rem;
+    min-width: 60rem;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    color: var(--code-bg-color);
+    background: var(--code-fg-color);
+    border: outset 2px var(--tertiary);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.banner {
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5em;
+    display: table-cell;
+}
+
+/* "page layout" */
+main, footer, header {
+  line-height:1.6;
+  /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 60rem;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+}
+main {
+  counter-reset: table figure;
+  background-color: var(--bg-color);
+  margin-top: 75px;
+}
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
 }
 
 .reference.internal {
@@ -379,31 +421,6 @@ p img, p video, figure img, figure video {
 /* Document Structure */
 /* ****************** */
 
-/* "page layout" */
-body {
-  margin: 0;
-  max-width: 900px;
-  background-color: var(--bg-color);
-  --field-indent: 9em; /* default indent of fields in field lists */
-}
-main, footer, header {
-  line-height:1.6;
-  /* avoid long lines --> better reading */
-  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
-  /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 60rem;
-  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
-  margin: auto;
-}
-main {
-  counter-reset: table figure;
-  background-color: var(--bg-color);
-}
-footer, header {
-  font-size: smaller;
-  padding: 0.5em 2%;
-  border: none;
-}
 
 /* Table of Contents */
 ul.auto-toc > li > p {

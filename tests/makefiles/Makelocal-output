@@ -19,3 +19,10 @@ html: ${HTML_FILES}
 
 %.html: %.rst ./tests/makefiles/style.css
 	$(shell which rst2html5.py || which rst2html5 || echo "rst2html5.py") -d --syntax-highlight=none --stylesheet=$(word 2, $^) $< $@
+
+.PHONY: clean clean-output
+
+clean: clean-output
+
+clean-output:
+	rm -f  $(PDF_FILES) $(HTML_FILES)

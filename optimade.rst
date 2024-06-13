@@ -1,5 +1,5 @@
 =========================================
-OPTIMADE API specification v1.2.0~develop
+OPTIMADE API specification v1.3.0~develop
 =========================================
 
 .. comment
@@ -471,7 +471,7 @@ When an implementation receives a request with a query filter that refers to an 
 
 The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.
 
-For example, the following query can be sent to API implementations `exmpl1` and `exmpl2` without generating any errors:
+For example, the following query can be sent to API implementations ``exmpl1`` and ``exmpl2`` without generating any errors:
 
 :filter:`filter=_exmpl1_band_gap<2.0 OR _exmpl2_band_gap<2.5`
 
@@ -1114,7 +1114,7 @@ The API implementation MAY provide other entry types than the ones standardized 
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
 Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
-Any custom entry listing endpoint MUST also be added to the :property:`available\_endpoints` and :property:`entry\_types\_by\_format` attributes of the `Base Info Endpoint`_.
+Any custom entry listing endpoint MUST also be added to the :property:`available_endpoints` and :property:`entry_types_by_format` attributes of the `Base Info Endpoint`_.
 
 For more on custom endpoints, see `Custom Extension Endpoints`_.
 
@@ -1199,7 +1199,7 @@ Examples:
 
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_key=A3242DSFJFEJE`
 - :query-url:`http://example.com/optimade/v1/structures?_exmpl_warning_verbosity=10`
-- :query-url:`http://example.com/optimade/v1/structures?\_exmpl\_filter="elements all in [Al, Si, Ga]"`
+- :query-url:`http://example.com/optimade/v1/structures?_exmpl_filter="elements all in [Al, Si, Ga]"`
 
     **Note**: the specification presently makes no attempt to standardize access control mechanisms.
     There are security concerns with access control based on URL tokens, and the above example is not to be taken as a recommendation for such a mechanism.
@@ -1213,7 +1213,7 @@ In the default JSON response format every dictionary (`resource object <http://j
 
 - **type**: field containing the Entry type as defined in section `Definition of Terms`_
 - **id**: field containing the ID of entry as defined in section `Definition of Terms`_. This can be the local database ID.
-- **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for `type` and `id`.
+- **attributes**: a dictionary, containing key-value pairs representing the entry's properties, except for :property:`type` and :property:`id`.
 
   Database-provider-specific and definition-provider-specific properties MUST include the corresponding prefix (see section `Namespace Prefixes`_).
 
@@ -1913,8 +1913,8 @@ The following tokens are used in the filter query component:
 
 .. _string values:
 
-- **String values** MUST be surrounded by double quote characters (`"`, ASCII symbol 34 dec, 0x22 hex).
-  A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (`\\`, ASCII symbol 92 dec, 0x5C hex).
+- **String values** MUST be surrounded by double quote characters (``"``, ASCII symbol 34 dec, 0x22 hex).
+  A double quote that is a part of the value, not a delimiter, MUST be escaped by prepending it with a backslash character (``\\``, ASCII symbol 92 dec, 0x5C hex).
   A backslash character that is part of the value (i.e., not used to escape a double quote) MUST be escaped by prepending it with another backslash.
   An example of an escaped string value, including the enclosing double quotes, is given below:
 
@@ -2216,48 +2216,48 @@ A Property Definition MUST be composed according to the combination of the requi
 
 .. _definition of the property-format field:
 
-  - :field:`format`: String.
-    A string that declares the OPTIMADE definition format the definition adheres to.
-    Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
-    The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
-    The version number string MUST NOT be prefixed by, e.g., "v".
-    In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
-    A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
-    This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
+- :field:`format`: String.
+  A string that declares the OPTIMADE definition format the definition adheres to.
+  Currently, this is expressed as the minor version of the OPTIMADE specification that describes the property definition format used.
+  The string MUST be of the format "MAJOR.MINOR", referring to the version of the OPTIMADE standard that describes the format in which this property definition is expressed.
+  The version number string MUST NOT be prefixed by, e.g., "v".
+  In implementations of the present version of the standard, the value MUST be exactly :field-val:`1.2`.
+  A client MUST disregard the property definition if the field is not a string of the format MAJOR.MINOR or if the MAJOR version number is unrecognized.
+  This field allows future versions of this standard to support implementations keeping definitions that adhere to older versions of the property definition format.
 
-  - :field:`kind`: String.
-    A string specifying what entity is being defined.
-    For Property Definitions this MUST be the string "property".
+- :field:`kind`: String.
+  A string specifying what entity is being defined.
+  For Property Definitions this MUST be the string "property".
 
-  - :field:`name`: String.
-    An short identifier (as defined in `Definition of Terms`_) that provides a reasonable short non-unique name for the entity being defined.
+- :field:`name`: String.
+  An short identifier (as defined in `Definition of Terms`_) that provides a reasonable short non-unique name for the entity being defined.
 
-  - :field:`label`: String.
-    An extended identifier (as defined in `Definition of Terms`_) that describes the entity being defined in a way that is unique within a set of definitions provided together.
-    The label SHOULD start with the name.
+- :field:`label`: String.
+  An extended identifier (as defined in `Definition of Terms`_) that describes the entity being defined in a way that is unique within a set of definitions provided together.
+  The label SHOULD start with the name.
 
-      Implementation notes:
+    Implementation notes:
 
-      The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as `RDF data <https://www.w3.org/TR/rdf-schema/>`__ (see, e.g., rdfs:label).
+    The name and label fields ensure implementations will be able to give meaningful names to definitions if they are translated into other formats with various requirements on human-readable names, e.g., as `RDF data <https://www.w3.org/TR/rdf-schema/>`__ (see, e.g., rdfs:label).
 
-  **OPTIONAL keys:**
+**OPTIONAL keys:**
 
-  - :field:`version`: String.
-    This string indicates the version of the definition.
-    The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
-    When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
+- :field:`version`: String.
+  This string indicates the version of the definition.
+  The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
+  When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
 
-  - :field:`resources`: List.
-    A list of dictionaries that references remote resources that describe the property.
-    The format of each dictionary is:
+- :field:`resources`: List.
+  A list of dictionaries that references remote resources that describe the property.
+  The format of each dictionary is:
 
-    **REQUIRED keys:**
+  **REQUIRED keys:**
 
-    - :field:`relation`: String.
-      A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
+  - :field:`relation`: String.
+    A human-readable description of the relationship between the property and the remote resource, e.g., a "natural language description".
 
-    - :field:`resource-id`: String.
-      An IRI of the external resource, which MAY be a resolvable URL.
+  - :field:`resource-id`: String.
+    An IRI of the external resource, which MAY be a resolvable URL.
 
 **REQUIRED keys for all levels of the Property Definition:**
 
@@ -2288,18 +2288,18 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **REQUIRED keys:**
 
-    - :field:`names`: List of Strings.
-      A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
-      If, within one entry, dimensions for two or more properties share the same :field:`name` those dimensions should be thought of as the same dimension.
-      For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames` this means that the energy at index *i* (in the dimension labelled by this :field:`range_id`) belongs to the :field:`cartesian_site_positions` at the same index *i*.
+  - :field:`names`: List of Strings.
+    A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+    If, within one entry, dimensions for two or more properties share the same :field:`name` those dimensions represents the same dimension.
+    For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames` this means that the energy at index *i* (in the dimension labelled by this :field:`range_id`) belongs to the :field:`cartesian_site_positions` at the same index *i*.
 
-    - :field:`sizes`: List of Integers or :val:`null`.
-      A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-      The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
-      The data only validates if the respective level consists of lists of exactly this length.
-      A value of `null` allows arbitrary-length lists at the corresponding level.
-      
+  - :field:`sizes`: List of Integers or :val:`null`.
+    A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+    The data only validates if the respective level consists of lists of exactly this length.
+    A value of :val:`null` allows arbitrary-length lists at the corresponding level.
+
     Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
     Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
 
@@ -2475,11 +2475,11 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
 
 - :field:`examples`: List.
   A list of example values that the defined property can have.
-  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+  These examples MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Definition.
 
 - :field:`enum`: List.
   The defined property MUST take one of the values given in the provided list.
-  The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Description.
+  The items in the list MUST all be of a data type that matches the :field:`type` field and otherwise adhere to the rest of the Property Definition.
   If this key is given, for :val:`null` to be a valid value of the defined property, the list MUST contain a :val:`null` value and the :field:`type` MUST be a list where the second value is the string :val:`"null"`.
 
 Furthermore, depending on what string the :field:`type` is equal to, or contains as first element, the following additional requirements also apply:
@@ -2704,8 +2704,8 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
   - :field:`symbol`: String.
     The symbol to use from the referenced standard, expressed according to that standard.
     The field MAY use mathematical expressions written the same way as described in the `definition of the description field`_.
-    This field MAY be different from the symbol being defined via the definition if the unit will be referenced in `x-optimade-unit` fields using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
-    However, if possible, the `symbol` fields SHOULD be the same.
+    This field MAY be different from the symbol being defined via the definition if the unit will be referenced in :field:`x-optimade-unit` field using a different symbol than the one used in the standard or if the symbol is expressed in the standard in a way that requires mathematical notation.
+    However, if possible, the :field:`symbol` field SHOULD be the same.
 
   **OPTIONAL keys:**
 
@@ -2791,7 +2791,7 @@ An OPTIMADE Physical Unit Definition is a dictionary adhering to the following f
     A dictionary specifying the offset value, adhering to the same format as :field:`scale`.
     If omitted or :val:`null`, the defaults for the :field:`numerator`, :field:`denominator`, and :field:`exponent` are respectively 0, 1, and 0.
 
-  If the fields in :field:`scale` are designated as `sn`, `sd`, and `se`; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b``, where ``*`` designates multiplication and ``**`` designates exponentiation.
+  If the fields in :field:`scale` are designated as ``sn``, ``sd``, and ``se``; and the fields in :field:`offset` are designated as ``on``, ``od``, and ``oe``; and :field:`base-units-expression` is designated as ``b``, these fields state the following defining relation: a value ``v`` multiplied by the unit being defined is equal to the following expression ``(v * (sn/sd) * 10**se + (on/od) * 10**oe)*b``, where ``*`` designates multiplication and ``**`` designates exponentiation.
   For example, the defining relation of the temperature unit Fahrenheit ``F`` in Celsius ``C``, that says that ``x F = (x - 32) * (5/9) C = 5/9 x + (-160/9) C`` could be expressed as follows:
 
   .. code:: jsonc
@@ -2930,7 +2930,7 @@ type
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
   - **Response**: REQUIRED in the response.
   - MUST be an existing entry type.
-  - The entry of type `<type>` and ID `<id>` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned or unversioned base URL serving the API.
+  - The entry of type ``<type>`` and ID ``<id>`` MUST be returned in response to a request for :endpoint:`/<type>/<id>` under the versioned or unversioned base URL serving the API.
 
 - **Examples**:
 
@@ -2986,7 +2986,7 @@ Custom properties
   - These MUST be prefixed by a database-provider-specific prefix (see appendix `Namespace Prefixes`_).
   - Implementations MUST add the properties to the list of :property:`properties` under the respective entry listing :endpoint:`info` endpoint (see `Entry Listing Info Endpoints`_).
 
-- **Examples**: A few examples of valid database-provided-specific property names, for a predefined prefix `_exmpl`, are as follows:
+- **Examples**: A few examples of valid database-provided-specific property names, for a predefined prefix ``_exmpl``, are as follows:
 
   - :property:`_exmpl_formula_sum`
   - :property:`_exmpl_band_gap`
@@ -3271,7 +3271,7 @@ space\_group\_symmetry\_operations\_xyz
   - Space group operations for the space group with ITC number 3 (H-M symbol :val:`P 2`, extended H-M symbol :val:`P 1 2 1`, Hall symbol :val:`P 2y`): :val:`["x,y,z", "-x,y,-z"]`
   - Space group operations for the space group with ITC number 5 (H-M symbol :val:`C 2`, extended H-M symbol :val:`C 1 2 1`, Hall symbol :val:`C 2y`): :val:`["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]`
 
-- **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice\_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
+- **Notes:** The list of space group symmetry operations applies to the whole periodic array of atoms and together with the lattice translations given in the :property:`lattice_vectors` property provides the necessary information to reconstruct all atom site positions of the periodic material.
   Thus, the symmetry operations described in this property are only applicable to material models with at least one periodic dimension.
   This property is not meant to represent arbitrary symmetries of molecules, non-periodic (finite) collections of atoms or non-crystallographic symmetry.
 
@@ -3357,7 +3357,7 @@ space\_group\_symbol\_hermann\_mauguin\_extended
   - The change-of-basis operation SHOULD be provided for the non-standard axis and cell choices.
   - The extended H-M symbol does not unambiguously communicate the origin choice, and the given symbol SHOULD NOT be amended to convey this information.
   - The description of the change-of-basis SHOULD follow conventions of the ITC Vol. B, Sect. 1.4, Appendix A1.4.2 (IUCr, 2001).
-  - The same character string encoding conventions MUST be used as for the specification of the :property:`space\_group\_symbol\_hermann\_mauguin` property.
+  - The same character string encoding conventions MUST be used as for the specification of the :property:`space_group_symbol_hermann_mauguin` property.
 
 - **Examples**:
 
@@ -3725,13 +3725,13 @@ url
 url\_stable\_until
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Point in time until which the URL in `url` is guaranteed to stay stable.
+- **Description**: Point in time until which the URL in :property:`url` is guaranteed to stay stable.
 - **Type**: timestamp
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - :val:`null` means that there is no stability guarantee for the URL in `url`.
+  - :val:`null` means that there is no stability guarantee for the URL in :property:`url`.
     Indefinite support could be communicated by providing a date sufficiently far in the future, for example, :val:`9999-12-31`.
 
 name
@@ -4212,35 +4212,48 @@ The strings below contain Extended Regular Expressions (EREs) to recognize ident
 The Symmetry Operation String Regular Expressions
 -------------------------------------------------
 
-Symmetry operation strings that comprise the :property:`space\_group\_symmetry\_operations\_xyz` property MUST conform to the following regular expressions.
-The regular expressions are recorded in the Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability.
-The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
-The :val:`symops` section contains the REs themselves.
-The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE option.
-A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
+Symmetry operation strings that comprise the :property:`space_group_symmetry_operations_xyz` property MUST conform to the following regular expressions.
+The regular expressions are recorded below in two forms, one in a more readable form using variables and the other as an explicit pattern compatible with the `OPTIMADE Regular Expression Format`_.
 
-.. code:: PCRE
+- Perl Compatible Regular Expression (PCRE) syntax, with `Perl extensions <https://perldoc.perl.org/perlre>`__ used for readability and expressivity.
+  The :val:`symop_definitions` section defines several variables in Perl syntax that capture common parts of the regular expressions (REs) and need to be interpolated into the final REs used for matching.
+  The :val:`symops` section contains the REs themselves.
+  The whitespace characters in these definitions are not significant; if used in Perl programs, these expressions MUST be processed with the :code:`/x` RE modifier.
+  A working example of these REs in action can be found in the :code:`tests/cases/pcre_symops_001.sh` and other test cases.
 
-    #BEGIN PCRE symop_definitions
 
-    $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
+  .. code:: PCRE
 
-    $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
-    $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
+     #BEGIN PCRE symop_definitions
 
-    $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
+     $translations = '1\/2|[12]\/3|[1-3]\/4|[1-5]\/6';
 
-    #END PCRE symop_definitions
+     $symop_translation_appended = "[-+]? [xyz] ([-+][xyz])? ([-+] ($translations) )?";
+     $symop_translation_prepended = "[-+]? ($translations) ([-+] [xyz] ([-+][xyz])? )?";
 
-.. code:: PCRE
+     $symop_re = "($symop_translation_appended|$symop_translation_prepended)";
 
-    #BEGIN PCRE symops
+     #END PCRE symop_definitions
 
-    ^ # From the beginning of the string...
-    ($symop_re)(,$symop_re){2}
-    $ # ... match to the very end of the string
+  .. code:: PCRE
 
-    #END PCRE symops
+     #BEGIN PCRE symops
+
+     ^ # From the beginning of the string...
+     ($symop_re)(,$symop_re){2}
+     $ # ... match to the very end of the string
+
+     #END PCRE symops
+
+- The regular expression is also provided in an expanded form as an OPTIMADE regex:
+
+  .. code:: ECMA
+
+     #BEGIN ECMA symops
+
+     ^([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?),([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?),([-+]?[xyz]([-+][xyz])?([-+](1/2|[12]/3|[1-3]/4|[1-5]/6))?|[-+]?(1/2|[12]/3|[1-3]/4|[1-5]/6)([-+][xyz]([-+][xyz])?)?)$
+
+     #END ECMA symops
 
 OPTIMADE JSON lines partial data format
 ---------------------------------------

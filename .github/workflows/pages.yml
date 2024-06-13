@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+  workflow_dispatch:
 
 jobs:
 
@@ -16,9 +17,9 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -35,16 +36,20 @@ jobs:
 
     - name: Commit to gh-pages
       run: |
-        git branch -D gh-pages || true
-        git checkout -b gh-pages
-        git add optimade.html
-        git commit -m "Deploy to GitHub Pages: ${SHA}"
+        git fetch origin gh-pages
+        git checkout gh-pages
+        mkdir -p specification/develop
+        # patch dev specification to include banner
+        sed -i 's|<body class="with-toc">|<body class="with-toc"><div class="banner-container"><div class="banner">This is a development version of the specification.</div></div>|g' optimade.html
+        mv optimade.html specification/develop/index.html
+        git add specification/develop/index.html
+        git commit -m "Deploy develop specification to GitHub Pages: ${SHA}"
         if git diff --cached --quiet; then
             exit 0
         fi
 
     - name: Push changes
-      uses: ad-m/github-push-action@v0.6.0
+      uses: ad-m/github-push-action@v0.8.0
       with:
         branch: gh-pages
         force: true
