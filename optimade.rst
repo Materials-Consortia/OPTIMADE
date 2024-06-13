@@ -1345,6 +1345,7 @@ Example:
           "entry_types_by_format": {
             "json": [
               "structures",
+              "trajectories",
               "calculations"
             ],
             "xml": [
@@ -1353,6 +1354,7 @@ Example:
           },
           "available_endpoints": [
             "structures",
+            "trajectories",
             "calculations",
             "info",
             "links"
@@ -1799,7 +1801,6 @@ The following tokens are used in the filter query component:
   - :property:`_exmpl_formula_sum` (a property specific to that database)
   - :property:`_exmpl_band_gap`
   - :property:`_exmpl_supercell`
-  - :property:`_exmpl_trajectory`
   - :property:`_exmpl_workflow_id`
 
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
@@ -2818,6 +2819,7 @@ type
 - **Examples**:
 
   - :val:`"structures"`
+  - :val:`"trajectories"`
 
 immutable\_id
 ~~~~~~~~~~~~~
@@ -2874,7 +2876,6 @@ Custom properties
   - :property:`_exmpl_formula_sum`
   - :property:`_exmpl_band_gap`
   - :property:`_exmpl_supercell`
-  - :property:`_exmpl_trajectory`
   - :property:`_exmpl_workflow_id`
 
 Structures Entries
@@ -3528,6 +3529,199 @@ structure\_features
 - **Examples**:
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+
+Trajectories Entries
+--------------------
+
+- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, for example, from molecular dynamics or Monte Carlo simulations.
+
+  The individual steps of the trajectories are called frames.
+  Some examples of the data that can be shared are the particle positions, the pressure and the energies.
+  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frames`_.
+  Furthermore, :entry:`trajectories` can optionally have relationships and database-specific fields.
+  The properties defined for the structures endpoint can also be used for trajectories.
+  In this case the values of these properties are however lists of whatever type has been defined for the original structures property.
+  This allows these properties to change during the trajectory.
+  The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"` for that dimension in its property definition, See `Property Definition keys from JSON Schema`_.
+
+nframes
+~~~~~~~
+
+- **Description**: The number of frames in the trajectory as exposed by the API.
+  This value may deviate from the number of steps used to calculate the trajectory.
+  E.g., for a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, nframes = 200.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - The integer value MUST be equal to the length of the trajectory, that is, the number of frames.
+  - The integer MUST be a positive non-zero value.
+
+- **Querying**:
+
+  - A filter that matches trajectories that have exactly 100 frames:
+    - :filter:`nframes=100`
+  - A filter that matches trajectories that have between 100 and 1000 frames:
+    - :filter:`nframes>=100 AND nframes<=1000`
+
+- **Examples**:
+
+  -   :val:`42`
+
+reference_frames
+~~~~~~~~~~~~~~~~
+
+- **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
+  The first frame could for example be a starting configuration, the second a transition state and the third the final state.
+- **Type**: list of integers
+- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and less than nframes.
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+
+- **Examples**:
+
+  - :val:`[0, 397, 1000]`
+
+
+Examples of a returned trajectory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is an example of the data field of a JSON object that could be returned after the following query:
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001`
+
+.. code:: jsonc
+
+  {
+    "data":{
+      "id": "traj00000001",
+      "type": "trajectories",
+      "attributes": {
+        "last_modified":"2021-07-16T18:02:03Z",
+        "elements": [["H","O"]],
+        "nelements": [2],
+        "elements_ratios": [[0.666667,0.333333]],
+        "chemical_formula_descriptive": ["H2O"],
+        "chemical_formula_reduced": ["H2O"],
+        "chemical_formula_anonymous": ["A2B"],
+        "dimension_types":[[0,0,0]],
+        "nperiodic_dimensions": [0],
+        "lattice_vectors" : [[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
+        "cartesian_site_positions" : null,
+        "nsites":[3],
+        "species_at_sites":[["O1","H1","H2"]],
+        "species":[[
+          {
+            "name":"O1",
+            "chemical_symbols":["O"],
+            "concentration":[1.0]
+          },
+          {
+            "name":"H1",
+            "chemical_symbols":["H"],
+            "concentration":[1.0]
+          },
+          {
+            "name":"H2",
+            "chemical_symbols":["H"],
+            "concentration":[1.0]
+          }
+        ]],
+        "reference_frames": [1],
+        "nframes": [360],
+        "_exmpl_temperature": null,
+        "_exmpl_ekin": null
+      },
+      "meta":{
+        "property_metadata":{
+          "cartesian_site_positions":{
+            "range":{
+              "indexable_dim": ["frames"],
+              "data_range": [{
+                  "start": 1,
+                  "step": 1,
+                  "stop": 360,
+                },{
+                  "start": 1,
+                  "step": 1,
+                  "stop": 3,
+                },{
+                  "start": 1,
+                  "step": 1,
+                  "stop": 3,
+                }],
+              "layout":"dense",
+              "nvalues": 3240
+            },
+          },
+          "_exmpl_temperature":{
+            "range": {
+              "nvalues": 144,
+              "indexable_dim": ["frames"],
+              "data_range": [
+                {
+                  "start": 1,
+                  "stop": 360,
+                  "step": null
+                }
+              ],
+              "layout": "sparse"
+            }
+          },
+          "_exmpl_ekin":{
+            "range": {
+              "nvalues": 180,
+              "indexable_dim": ["frames"],
+              "data_range": [
+                {
+                  "start": 1,
+                  "stop": 360,
+                  "step": 2
+                }
+              ],
+              "layout":"dense",
+            }
+          }
+        },
+        "partial_data_links": {
+          "cartesian_site_positions": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/jsonlines"
+            },{
+              "format": "_exmpl_xyz",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/xyz"
+            },
+          ],
+          "_exmpl_temperature": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/temperature/jsonlines"
+            },
+          ],
+          "_exmpl_ekin": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/ekin/jsonlines"
+            },
+          ]
+        }
+      },
+      "relationships": {
+        "references": {
+          "data": [
+            {
+              "type": "references",
+              "id": "dummy/2019"
+            }
+          ]
+        }
+      }
+    }
+    //...
+  }
 
 Calculations Entries
 --------------------
