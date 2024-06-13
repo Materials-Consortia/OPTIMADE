@@ -539,8 +539,10 @@ Database providers are allowed to define their own metadata properties in :field
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
-Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
+Implementation of the :field:`meta` field is OPTIONAL, unless the server implements slicing, in which case it is MANDATORY (see `Slices of array properties`_).
+When an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
+If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata.
+Furthermore, if the server returns a metadata property, it must be included in its entirety, i.e., including all non-null fields.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project`:
 
@@ -607,8 +609,6 @@ Example of the corresponding metadata property definition contained in the field
 Slices of array properties
 --------------------------
 
-# response_fields=property_metadata means MUST RETURN ALL METADATA.
-
 The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
 The protocol for this functionality allows the server to allow slicing independently per entry, per array, and per array axis.
 This functionality is separate from the protocol described in `Transmission of large property values`_.
@@ -616,7 +616,9 @@ Slices are used for a client to ask the server to only provide a subset of items
 In contrast, the protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
 
 The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
-Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using metadata property fields (see `Metadata properties`_) of the array property as defined below:
+Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using metadata property field :field:`array_axes` (see `Metadata properties`_).
+When the client request includes the query parameter :query-param:`property_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`array_axes` is MANDATORY (see below).
+The field :field:`array_axes` is defined as follows:
 
 - :field:`array_axes`: List of Dictionary.
   A list of dictionaries which provide information related to the axes of an array property, which is relevant for slicing.
@@ -684,8 +686,7 @@ Information relating to the ability of the server to handle this query parameter
 
     - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0,1,2,4,6 and any index from 8 to the end of the array are :val:`null`.
 
-
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`cartisian_site_positions` contains 7 sites:
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`cartisian_site_positions` contains 7 sites. Furthermore, the :field:`_exmpl_temperature` contains only :val:`null` values except for items with indexes 1000, 1030, 1060, ..., 4000 (where the values can be either numeric or :val:`null`).
 
 .. code:: jsonc
 
@@ -716,21 +717,20 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
                    },
                    "sliceable": true,
                    "length": 432934,
-                 }
+                 },
                  {
                    "dimension_name": "dim_sites",
-                   "requested_slice": {
-                     "start": 3,
-                     "stop": 37,
-                     "step": 5
-                   },
                    "available_slice": {
                      "start": 0,
-                     "stop": 432933,
+                     "stop": 6,
                      "step": 1
                    },
-                   "sliceable": true,
-                   "length": 432934,
+                   "sliceable": false,
+                   "length": 7,
+                 },
+                 {
+                   "dimension_name": "dim_spatial",
+                   "length": 3,
                  }
                ],
              },
@@ -1277,11 +1277,12 @@ Standard OPTIONAL URL query parameters not in the JSON:API specification:
 
 
 *********
-  
+
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
 These names adhere to the requirements on implementation-specific query parameters of `JSON:API v1.1 <http://jsonapi.org/format/1.1>`__ since the database-provider-specific prefixes contain at least two underscores (a LOW LINE character '\_').
+If the server receives an unrecognized query parameter that does not adhere to this format it MUST return the error :http-error:`400 Bad Request`.
 
 Example uses of custom URL query parameters include providing an access token for the request, to tell the database to increase verbosity in error output, or providing a database-specific extended searching format.
 
@@ -2440,7 +2441,7 @@ A Property Definition MUST be composed according to the combination of the requi
     The value :val:`TRUE` means the implementation includes the property in responses by default, i.e., when not specifically requested.
     The value :val:`FALSE` means that the property is only included when requested.
     Omitting the field or :val:`null` means the implementation does not declare if the property will be included in responses by default or not.
-        
+
   - :field:`dimensions_supporting_ranges`: List of String or :val:`null`.
     A list of names of dimensions that appears in :field:`x-optimade-dimensions` fields within the property definition.
     A name appearing in the list means this dimension can be used in the :query-param:`property_ranges` query paramter to request subsets of the data along that dimension.
