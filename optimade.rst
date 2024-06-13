@@ -526,7 +526,6 @@ It communicates that the property value has been omitted from the response and i
       // ...
     }
 
-
 Metadata properties
 -------------------
 
@@ -1274,10 +1273,6 @@ Standard OPTIONAL URL query parameters not in the JSON:API specification:
   If provided, these fields MUST be returned along with the REQUIRED fields.
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
   Example: :query-url:`http://example.com/optimade/v1/structures?response_fields=last_modified,nsites`
-
-
-*********
-
 
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
