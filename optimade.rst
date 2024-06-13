@@ -607,37 +607,80 @@ Example of the corresponding metadata property definition contained in the field
 Slices of array properties
 --------------------------
 
-# respnse_fields=property_metadata means MUST RETURN ALL METADATA.
+# response_fields=property_metadata means MUST RETURN ALL METADATA.
 
 The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
-The protocol for this functionality allows the server to allow slicing on a per-entry basis.
-It is important to note that this functionality is separate from the protocol described in `Transmission of large property values`.
-Slices are used for a client to ask the server to only provide a subset of items, which may result in a small or large set of items.
-The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
+The protocol for this functionality allows the server to allow slicing independently per entry, per array, and per array dimension.
+This functionality is separate from the protocol described in `Transmission of large property values`_.
+Slices are used for a client to ask the server to only provide a subset of items of an array, which can result in a small or large set of items.
+In contrast, the protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
 
-If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present for each field for which the :query-param:`property_ranges` query parameter can be used.
-The client needs this metadata to be able to select only a part of the data of a property.
-This metadata is given in a dictionary field :field:`range` which stores per property metadata as described in section `Metadata properties`_
+The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
+Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using metadata property fields (see `Metadata properties`_) of the array property as defined below:
 
-- :field:`range`: Dictionary.
-  A dictionary that contains the data necessary for the client to select only a subset or slice of a property.
-  If the :query-param:`property_ranges` query parameter is supported for this property the following keys MUST be present:
+- :field:`dimensions`: List of Dictionary.
+  A list of dictionaries which provide information related to the extents of an array property, which is relevant for slicing.
+  Each item, in order, represents the array dimension as declared in the corresponding property definition.
 
-  - :field:`indexable_dim`: List of Strings.
-    The list of :field:`range_ids` of the dimensions for which slicing is supported, i.e. the client can request a slice in this dimension via the :query-param:`property_ranges` query parameter.
+  Each item MUST be a dictionary with the following REQUIRED fields:
 
-  - :field:`layout`: String.
-    A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
+  - :field:`name`: String.
+    The dimension name of the corresponding array dimension.
 
-  - :field:`data_range`: List of slice objects.
-    This field describes how the values are distributed in the different dimensions.
-    It consists of a `slice object`_ for each dimension of the property.
-    The order of the slice objects must be the same as in the :field:`range_ids` field in the property definition.
-    If the :field:`layout` field is set to :val:`"sparse"` the value of the :field:`step` sub-field has no meaning.
+  If the request specifies the :query-param:`property_slices` query parameter for any of the array dimensions of this array property the following key MUST be present:
 
-  - :field:`nvalues`: Integer.
-    The total number of values in the property.
-    SHOULD be a queryable property with support for all mandatory filter features.
+  - :field:`requested_slice`: Dictionary.
+    A field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
+    The subfields MUST reflect the values provided via the :query-param:`property_slices`.
+    The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent.
+    It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
+
+    - :field:`start`: Integer or :val:`null`.
+
+    - :field:`stop`: Integer or :val:`null`.
+
+    - :field:`step`: Integer or :val:`null`.
+
+    A :val:`null` value for any of these fields means it has the default value defined for a `slice object`_.
+    A missing value is equivalent to a :val:`null` value.
+    (Consequently, the dictionary MAY be empty if all fields take the default values.)
+
+    Examples:
+
+    - For :?:`property_slices=dim_frames:::` some of the equivalent valid representations are:
+
+      - ``{}``
+      - ``{"start": null, "stop": null, "step": null}``
+      - ``{"start": null}``
+      - ``{"stop": null, "step": null}``
+
+      Whereas, e.g., the following representation is not valid:
+
+      - ``{"start": 0}`` (despite that :val:`0` is the default value of the :field:`start` field.)
+        But it is instead a valid representation if the query parameter was :?:`property_slices=dim_frames:0::`.
+
+    - :?:`property_slices=dim_frames:3:5:2` the representation MUST be:
+
+      - ``{"start": 3, "stop": 5, "step": 2}``
+
+  The dictionary MAY contain the following fields:
+
+  - :field:`size`: Integer.
+    The length of this dimension for the specific entry that this metadata entry pertains to.
+
+  - :field:`sliceable`: Boolean.
+    If true, the server MUST handle slices for that dimension.
+    If false (which is the default), the server MAY handle slices for that dimension, or MAY return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.
+
+  - :field:`available_slice`: Dictionary or :val:`null`.
+    This field describes a `slice object`_ where there MAY be non-null values in the data.
+    By including this field, the server certifies that there are only :val:`null` values outside this slice.
+    If not provided, or equal to :val:`null` or an empty dictionary, the client cannot make any assumptions about what part of the array contains :val:`null` values.
+
+    Examples:
+
+    - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0,1,2,4,6 and any index from 8 to the end of the array are :val:`null`.
+
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format.
 It communicates that the property value has been omitted from the response and metadata that makes it possible to request only a part of the data for this property.
