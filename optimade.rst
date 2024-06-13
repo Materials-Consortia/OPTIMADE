@@ -610,7 +610,7 @@ Slices of array properties
 # response_fields=property_metadata means MUST RETURN ALL METADATA.
 
 The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
-The protocol for this functionality allows the server to allow slicing independently per entry, per array, and per array dimension.
+The protocol for this functionality allows the server to allow slicing independently per entry, per array, and per array axis.
 This functionality is separate from the protocol described in `Transmission of large property values`_.
 Slices are used for a client to ask the server to only provide a subset of items of an array, which can result in a small or large set of items.
 In contrast, the protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
@@ -618,16 +618,16 @@ In contrast, the protocol for large property values is used by the server implem
 The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
 Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using metadata property fields (see `Metadata properties`_) of the array property as defined below:
 
-- :field:`dimensions`: List of Dictionary.
-  A list of dictionaries which provide information related to the extents of an array property, which is relevant for slicing.
-  Each item, in order, represents the array dimension as declared in the corresponding property definition.
+- :field:`array_axes`: List of Dictionary.
+  A list of dictionaries which provide information related to the axes of an array property, which is relevant for slicing.
+  Each item, in order, represents the array axis as declared in the corresponding property definition.
 
   Each item MUST be a dictionary with the following REQUIRED fields:
 
-  - :field:`name`: String.
-    The dimension name of the corresponding array dimension.
+  - :field:`dimension_name`: String.
+    The dimension name of the corresponding array axis.
 
-  If the request specifies the :query-param:`property_slices` query parameter for any of the array dimensions of this array property the following key MUST be present:
+  If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present, otherwise it MUST be omitted or equal to :val:`null`:
 
   - :field:`requested_slice`: Dictionary.
     A field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
@@ -665,12 +665,15 @@ Information relating to the ability of the server to handle this query parameter
 
   The dictionary MAY contain the following fields:
 
-  - :field:`size`: Integer.
-    The length of this dimension for the specific entry that this metadata entry pertains to.
+  - :field:`length`: Integer.
+    The length of this array axis which MUST be the same as the length of the declared dimension for this axis in the corresponding property definition.
+    Note that the length of a dimension can be different for different entries if the length is not explicitly declared by the property definition.
+    For example, the number of frames, i.e., the length of the dimension named ``dim_frames``, is generally different for different trajectories.
 
   - :field:`sliceable`: Boolean.
-    If true, the server MUST handle slices for that dimension.
-    If false (which is the default), the server MAY handle slices for that dimension, or MAY return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.
+    If :val:`true`, the server MUST handle slices for that dimension.
+    If :val:`false`, the server MAY handle slices for that dimension, or MAY return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.
+    If the field is omitted or :val:`null`, it means the same thing as :val:`false`.
 
   - :field:`available_slice`: Dictionary or :val:`null`.
     This field describes a `slice object`_ where there MAY be non-null values in the data.
@@ -682,40 +685,73 @@ Information relating to the ability of the server to handle this query parameter
     - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0,1,2,4,6 and any index from 8 to the end of the array are :val:`null`.
 
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format.
-It communicates that the property value has been omitted from the response and metadata that makes it possible to request only a part of the data for this property.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`cartisian_site_positions` contains 7 sites:
 
 .. code:: jsonc
 
      {
        // ...
        "data": {
-         "type": "structures",
+         "type": "trajectories",
          "id": "2345678",
          "attributes": {
-           "a": null
-         }
+           "cartesian_site_positions": null,
+           "_exmpl_temperature": null
+         },
          "meta": {
            "property_metadata": {
-             "a": {
-               "range": {
-                 "range_ids": ["frames", "particles"],
-                 "indexable_dim": ["frames"],
-                 "data_range": [
-                   {
-                     "start": 1,
-                     "step": 1,
-                     "stop": 200,
+             "cartesian_site_positions": {
+               "array_axes": [
+                 {
+                   "dimension_name": "dim_frames",
+                   "requested_slice": {
+                     "start": 3,
+                     "stop": 37,
+                     "step": 5
                    },
-                   {
-                     "start": 1,
-                     "step": 1,
-                     "stop": 3,
-                   }
-                 ],
-                 "layout": "dense",
-                 "nvalues": 600
-               }
+                   "available_slice": {
+                     "start": 0,
+                     "stop": 432933,
+                     "step": 1
+                   },
+                   "sliceable": true,
+                   "length": 432934,
+                 }
+                 {
+                   "dimension_name": "dim_sites",
+                   "requested_slice": {
+                     "start": 3,
+                     "stop": 37,
+                     "step": 5
+                   },
+                   "available_slice": {
+                     "start": 0,
+                     "stop": 432933,
+                     "step": 1
+                   },
+                   "sliceable": true,
+                   "length": 432934,
+                 }
+               ],
+             },
+             "_exmpl_temperature": {
+               "array_axes": [
+                 {
+                   "dimension_name": "dim_frames",
+                   "requested_slice": {
+                     "start": 3,
+                     "stop": 37,
+                     "step": 5
+                   },
+                   "available_slice": {
+                     "start": 1000,
+                     "stop": 4000,
+                     "step": 30
+                   },
+                   "sliceable": true,
+                   "length": 432934,
+                 }
+               ]
              }
            },
            "partial_data_links": {
