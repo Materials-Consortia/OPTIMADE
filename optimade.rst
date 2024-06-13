@@ -527,78 +527,6 @@ It communicates that the property value has been omitted from the response and i
     }
 
 
-Metadata for :query-param:`property_ranges` query parameter
---------------------------------------------
-
-If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present for each field for which the :query-param:`property_ranges` query parameter can be used.
-The client needs this metadata to be able to select only a part of the data of a property.
-This metadata is given in a dictionary field :field:`range` which stores per property metadata as described in section `Metadata properties`_
-
-- :field:`range`: Dictionary.
-  A dictionary that contains the data necessary for the client to select only a subset or slice of a property.
-  If the :query-param:`property_ranges` query parameter is supported for this property the following keys MUST be present:
-
-  - :field:`indexable_dim`: List of Strings.
-    The list of :field:`range_ids` of the dimensions for which slicing is supported, i.e. the client can request a slice in this dimension via the :query-param:`property_ranges` query parameter.
-
-  - :field:`layout`: String.
-    A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
-
-  - :field:`data_range`: List of slice objects.
-    This field describes how the values are distributed in the different dimensions.
-    It consists of a `slice object`_ for each dimension of the property.
-    The order of the slice objects must be the same as in the :field:`range_ids` field in the property definition.
-    If the :field:`layout` field is set to :val:`"sparse"` the value of the :field:`step` sub-field has no meaning.
-
-  - :field:`nvalues`: Integer.
-    The total number of values in the property.
-    SHOULD be a queryable property with support for all mandatory filter features.
-
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format.
-It communicates that the property value has been omitted from the response and metadata that makes it possible to request only a part of the data for this property.
-
-.. code:: jsonc
-
-     {
-       // ...
-       "data": {
-         "type": "structures",
-         "id": "2345678",
-         "attributes": {
-           "a": null
-         }
-         "meta": {
-           "property_metadata": {
-             "a": {
-               "range": {
-                 "range_ids": ["frames", "particles"],
-                 "indexable_dim": ["frames"],
-                 "data_range": [
-                   {
-                     "start": 1,
-                     "step": 1,
-                     "stop": 200,
-                   },
-                   {
-                     "start": 1,
-                     "step": 1,
-                     "stop": 3,
-                   }
-                 ],
-                 "layout": "dense",
-                 "nvalues": 600
-               }
-             }
-           },
-           "partial_data_links": {
-             //...
-           }
-         }
-       }
-     // ...
-   }
-
-
 Metadata properties
 -------------------
 
@@ -675,6 +603,85 @@ Example of the corresponding metadata property definition contained in the field
        }
      }
      // ...
+
+Slices of array properties
+--------------------------
+
+# respnse_fields=property_metadata means MUST RETURN ALL METADATA.
+
+The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
+The protocol for this functionality allows the server to allow slicing on a per-entry basis.
+It is important to note that this functionality is separate from the protocol described in `Transmission of large property values`.
+Slices are used for a client to ask the server to only provide a subset of items, which may result in a small or large set of items.
+The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
+
+If the server supports the :query-param:`property_ranges` query parameter, as described in section `Single Entry URL Query Parameters`_, additional metadata SHOULD be present for each field for which the :query-param:`property_ranges` query parameter can be used.
+The client needs this metadata to be able to select only a part of the data of a property.
+This metadata is given in a dictionary field :field:`range` which stores per property metadata as described in section `Metadata properties`_
+
+- :field:`range`: Dictionary.
+  A dictionary that contains the data necessary for the client to select only a subset or slice of a property.
+  If the :query-param:`property_ranges` query parameter is supported for this property the following keys MUST be present:
+
+  - :field:`indexable_dim`: List of Strings.
+    The list of :field:`range_ids` of the dimensions for which slicing is supported, i.e. the client can request a slice in this dimension via the :query-param:`property_ranges` query parameter.
+
+  - :field:`layout`: String.
+    A string either equal to :val:`"dense"` or :val:`"sparse"` to indicate whether the property is returned in a dense or sparse layout.
+
+  - :field:`data_range`: List of slice objects.
+    This field describes how the values are distributed in the different dimensions.
+    It consists of a `slice object`_ for each dimension of the property.
+    The order of the slice objects must be the same as in the :field:`range_ids` field in the property definition.
+    If the :field:`layout` field is set to :val:`"sparse"` the value of the :field:`step` sub-field has no meaning.
+
+  - :field:`nvalues`: Integer.
+    The total number of values in the property.
+    SHOULD be a queryable property with support for all mandatory filter features.
+
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format.
+It communicates that the property value has been omitted from the response and metadata that makes it possible to request only a part of the data for this property.
+
+.. code:: jsonc
+
+     {
+       // ...
+       "data": {
+         "type": "structures",
+         "id": "2345678",
+         "attributes": {
+           "a": null
+         }
+         "meta": {
+           "property_metadata": {
+             "a": {
+               "range": {
+                 "range_ids": ["frames", "particles"],
+                 "indexable_dim": ["frames"],
+                 "data_range": [
+                   {
+                     "start": 1,
+                     "step": 1,
+                     "stop": 200,
+                   },
+                   {
+                     "start": 1,
+                     "step": 1,
+                     "stop": 3,
+                   }
+                 ],
+                 "layout": "dense",
+                 "nvalues": 600
+               }
+             }
+           },
+           "partial_data_links": {
+             //...
+           }
+         }
+       }
+     // ...
+   }
 
 Responses
 =========
@@ -1189,6 +1196,10 @@ Standard OPTIONAL URL query parameters not in the JSON:API specification:
   Other OPTIONAL fields MUST NOT be returned when this parameter is present.
   Example: :query-url:`http://example.com/optimade/v1/structures?response_fields=last_modified,nsites`
 
+
+*********
+  
+
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
 These names adhere to the requirements on implementation-specific query parameters of `JSON:API v1.1 <http://jsonapi.org/format/1.1>`__ since the database-provider-specific prefixes contain at least two underscores (a LOW LINE character '\_').
@@ -1278,7 +1289,16 @@ The rules for which properties are to be present for an entry in the response ar
 Single Entry URL Query Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **property\_ranges**: A set of slice objects which specify which sub-range of a property should be returned.
+The client MAY provide a set of additional URL query parameters for this endpoint type.
+URL query parameters not recognized MUST be ignored.
+While the following URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them:
+:query-param:`response_format`, :query-param:`email_address`, :query-param:`response_fields`.
+The URL query parameter :query-param:`include` is OPTIONAL for both clients and API implementations.
+The meaning of these URL query parameters are as defined above in section `Entry Listing URL Query Parameters`_.
+
+One additional query parameter :query-param:`property_slices` MUST be handled by the API implementation either as defined below or by returning the error :http-error:`501 Not Implemented`:
+
+- **property\_slices**: A set of slice objects which specify which sub-range of a property should be returned.
 
   The property to which this sub-range should be applied can be specified via the :query-param:`response_fields` query parameter.
   Each slice consists of the name of a dimension directly followed by the requested slice in this dimension.
@@ -1297,26 +1317,15 @@ Single Entry URL Query Parameters
   These ranges are separated by a comma (",", ASCII 44(0x2C)).
   The slices are 0-based, i.e. the first value has index 0, and inclusive i.e. for the dimension :val:`dim` the range :val:`dim:10:20:1` the last value returned belongs to index 20.
 
-  General support for :field:`property_ranges` is OPTIONAL, however particular property definitions may themselves deviate from this and place stricter requirements on implementations.
-  Databases MUST use these ranges for properties where the dimension is listed under :field:`indexable_dim`, if this is not the case, the database MAY return more data than was specified in the range.
+  If an array dimension is indicated as slicable, the response MUST include the items in the requested slice.
 
-  If a dimension is not specified, it is assumed that the whole range in that dimension is requested.
-  If one or more values are not present at one of the requested combination of indexes, the server MAY either decide to return :val:`null` or if possible adjust the returned range so the indexes for which no value is defined are no longer part of the range.
-  The latter is only allowed when no defined values would be omitted.
-  For dense arrays that may mean that the field :field:`returned_ranges` differs from the requested range.
-  However, when a value is explicitly set to :val:`null` to indicate that the underlying property has no defined values, then :val:`null` MUST be returned.
+  If an array dimension is not indicated as slicable, the response MUST be one of the following: (i) An error is returned; or (ii) the items in the requested slice is returned.
 
-  Example: In this example the Cartesian site positions are requested for particles 30 through 70 for 1 out of every 10 frames of the first 1000 frames of a trajectory with ID :val:`id_12345`.
+  If a dimension is not specified, it is assumed that all list items in that dimension is requested.
 
-  :query-url:`http://example.com/optimade/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=frames::1000:10,particles:30:70::`
+  Example: In the following example, items from the Cartesian site positions array is requested only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with index 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
 
-
-The client MAY provide a set of additional URL query parameters for this endpoint type.
-URL query parameters not recognized MUST be ignored.
-While the following URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them:
-:query-param:`response_format`, :query-param:`email_address`, :query-param:`response_fields`.
-The URL query parameter :query-param:`include` is OPTIONAL for both clients and API implementations.
-The meaning of these URL query parameters are as defined above in section `Entry Listing URL Query Parameters`_.
+  :query-url:`http://example.com/optimade/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=dim_frames::999:10,dim_sites:30:70::`
 
 Single Entry JSON Response Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2291,8 +2300,11 @@ A Property Definition MUST be composed according to the combination of the requi
   - :field:`names`: List of Strings.
     A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
     The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
-    If, within one entry, dimensions for two or more properties share the same :field:`name` those dimensions represents the same dimension.
-    For example, if both the :property:`energy` and :property:`cartesian_site_positions` of a molecular dynamics trajectory share a range_id of :val:`frames` this means that the energy at index *i* (in the dimension labelled by this :field:`range_id`) belongs to the :field:`cartesian_site_positions` at the same index *i*.
+    Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
+    Dimension names defined by database or definition providers MUST be prefixed by the corresponding namespace prefix and SHOULD also be prefixed with ``dim_``, e.g., ``_exmpl_dim_particles``.
+    If, within one entry, two or more array dimensions in one or more properties share the same :field:`name`, those represent the same dimension.
+    For example, in a trajectory entry there is a property :property:`cartesian_site_positions` where one of the dimension names is :val:`dim_frames`.
+    If there is another one-dimensional array property :property:`_exmpl_energy` that specifies the same dimension name in its property definition, then this declares that the energy and site positions at index *i* pertain to the same frame.
 
   - :field:`sizes`: List of Integers or :val:`null`.
     A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
