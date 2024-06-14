@@ -2367,13 +2367,13 @@ A Property Definition MUST be composed according to the combination of the requi
   **REQUIRED keys:**
 
   - :field:`names`: List of Strings.
-    A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
-    The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+    A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as multiple levels of lists.
+    The order is such that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
-    Dimension names defined by database or definition providers MUST be prefixed by the corresponding namespace prefix and SHOULD also be prefixed with ``dim_``, e.g., ``_exmpl_dim_particles``.
-    If, within one entry, two or more array dimensions in one or more properties share the same :field:`name`, those represent the same dimension.
-    For example, in a trajectory entry there is a property :property:`cartesian_site_positions` where one of the dimension names is :val:`dim_frames`.
-    If there is another one-dimensional array property :property:`_exmpl_energy` that specifies the same dimension name in its property definition, then this declares that the energy and site positions at index *i* pertain to the same frame.
+    Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, and SHOULD also be prefixed with ``dim_``, e.g., ``_exmpl_dim_particles``.
+    If, within one entry, two or more array axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
+    For example, let us consider the property :property:`cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
+    If there is another one-dimensional (i.e., with a single axis) array property :property:`_exmpl_energy` of the same trajectory entry that specifies in its property definition the same dimension name :val:`dim_frames` for its axis, then the values of :property:`_exmpl_energy` and of :property:`cartesian_site_positions` at index *i* pertain to the same frame.
 
   - :field:`sizes`: List of Integers or :val:`null`.
     A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
