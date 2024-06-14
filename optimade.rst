@@ -648,7 +648,7 @@ The field :field:`array_axes` is defined as follows:
 
     Examples:
 
-    - For :?:`property_slices=dim_frames:::` some of the equivalent valid representations are:
+    - For :query-string:`property_slices=dim_frames:::` some of the equivalent valid representations are:
 
       - ``{}``
       - ``{"start": null, "stop": null, "step": null}``
@@ -658,9 +658,9 @@ The field :field:`array_axes` is defined as follows:
       Whereas, e.g., the following representation is not valid:
 
       - ``{"start": 0}`` (despite that :val:`0` is the default value of the :field:`start` field.)
-        But it is instead a valid representation if the query parameter was :?:`property_slices=dim_frames:0::`.
+        But it is instead a valid representation if the query parameter was :query-string:`property_slices=dim_frames:0::`.
 
-    - :?:`property_slices=dim_frames:3:5:2` the representation MUST be:
+    - :query-string:`property_slices=dim_frames:3:5:2` the representation MUST be:
 
       - ``{"start": 3, "stop": 5, "step": 2}``
 
