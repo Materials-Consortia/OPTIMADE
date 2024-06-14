@@ -2164,7 +2164,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 - :field:`x-optimade-type`: String.
   Specifies the OPTIMADE data type for this level of the defined property.
-  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, :val:`"dictionary"` or a string naming database-provider-specific or definition-provider-specific data type starting with provider-specific prefix.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
