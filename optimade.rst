@@ -2070,6 +2070,10 @@ As the filter language syntax does not define a lexical token for timestamps, va
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
+Namespace providers MAY introduce custom types, representing them with string lexical tokens both in filters and responses.
+It is up to the namespace providers to decide which comparison operators to support and how the comparisons should be performed.
+For example, if a provider intoduces a set-valued property :property:`_exmpl_set`, it may decide to define operator :val:`CONTAINS` so that :filter:`identifier CONTAINS set` is true if :val:`set` is a subset of a property.
+
 Optional filter features
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
