@@ -215,7 +215,7 @@ Hence, entry properties are described in this proposal using
 context-independent types that are assumed to have some form of
 representation in all contexts. They are as follows:
 
-- Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
+- Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**, database-provider-specific or definition-provider-specific data type.
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
 - **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
@@ -627,6 +627,7 @@ In the JSON response format, property types translate as follows:
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
+- database-provider-specific or definition-provider-specific data types use string representations.
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
@@ -1816,6 +1817,7 @@ The following tokens are used in the filter query component:
   (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped.)
 
   String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
+  String value tokens as well are used to represent database-provider-specific or definition-provider-specific data types.
 
 - **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
@@ -2070,8 +2072,8 @@ As the filter language syntax does not define a lexical token for timestamps, va
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
-Namespace providers MAY introduce custom types, representing them with string lexical tokens both in filters and responses.
-It is up to the namespace providers to decide which comparison operators to support and how the comparisons should be performed.
+Database and definition providers MAY introduce custom types, representing them with string lexical tokens both in filters and responses.
+It is up to the providers to decide which comparison operators to support and how the comparisons should be performed.
 For example, if a provider intoduces a set-valued property :property:`_exmpl_set`, it may decide to define operator :val:`CONTAINS` so that :filter:`identifier CONTAINS set` is true if :val:`set` is a subset of a property.
 
 Optional filter features
