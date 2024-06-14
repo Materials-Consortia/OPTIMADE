@@ -2023,9 +2023,17 @@ For a specific structures entry, the nested property behaves as the list :filter
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
 Support for queries on fields of arbitrary depth is OPTIONAL.
-For example, search for all structures with bibliographic references where one of the authors has the last name "Schmidt" could be performed with the following query:
+For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:
 
-    :query-url:`http://example.com/optimade/v1/structures?filter=references.authors.lastname HAS "Schmidt"`
+    :query-url:`https://example.com/optimade/v1/structures?filter=references.doi=%2210.1234/1234%22`
+
+Search for all literature references for structures with tantalum:
+
+    :query-url:`https://example.com/optimade/v1/references?filter=structures.elements+HAS+%22Ta%22`
+
+Search for all structures of anonymous formula A2B from year 2024:
+
+    :query-url:`https://example.com/optimade/v1/structures?filter=references.year=2023+AND+chemical_formula_anonymous=%22A2B%22`
 
 Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.
 
