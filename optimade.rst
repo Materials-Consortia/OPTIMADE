@@ -1373,25 +1373,26 @@ The meaning of these URL query parameters are as defined above in section `Entry
 
 One additional query parameter :query-param:`property_slices` MUST be handled by the API implementation either as defined below or by returning the error :http-error:`501 Not Implemented`:
 
-- **property\_slices**: A number of slice specifications to specify parts of array properties for the functionality described in `Slices of array properties`_.
+- **property\_slices**: A number of slice specifications to request only parts of array properties for the functionality described in `Slices of array properties`_.
 
-  The query parameter contains a comma-separated (",", ASCII 44(0x2C)) list of slice specification.
-  Each slice specification consists of a dimension name and the start, stop and step values of the slice separated by the colon character (":", ASCII 58(0x3A))
-  Omitting the value between two colons specifies a default value.
-  The components of the slice are defined in the same way as for a `slice object`_.
-  The first integer specifies the start of the slice, i.e. the first index in that dimension for which values should be returned.
-  The default is the index of the first value.
-  The second integer specifies the end/stop of the slice, i.e. the last index for which values should be returned.
-  The default is the index of the last value of the property.
-  The third integer specifies the step size in that dimension.
-  The default is :val:`1`
-  The slices are 0-based, i.e. the first value has index 0, and inclusive i.e. for the dimension :val:`dim_frames` the range :val:`dim_frames:10:20:1` the last value returned belongs to index 20.
+  The query parameter contains a comma-separated (",", ASCII 44(0x2C)) list of slice specifications.
+  Each slice specification consists of an ordered sequence of four elements separated by the colon character (":", ASCII 58(0x3A)).
+  The elements in the sequence are the dimension name and the three components of the slice, i.e., the start, stop, and step values defined in the same way as for a `slice object`_.
+  Omitting the value for any of the components of the slice specifies a default value (however, all the colon separators MUST be included).
+  The start value specifies the first index in that dimension for which values should be returned (which is 0-based and inclusive).
+  The default is :val:`0`.
+  The stop value specifies the last index for which values should be returned (inclusive).
+  The default is the last index of the array along the specified dimension.
+  The step value specifies the step size in that dimension.
+  The default is :val:`1`.
+
+  An empty value of the :query-param:`property_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
 
   Requirements and conventions for the response when this query parameter is used are described in `Slices of array properties`_.
 
   Example:
 
-  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=dim_frames::999:10,dim_sites:30:70::`
+  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=dim_frames::999:10,dim_sites:30:70:`
 
     This query URL requests items from the array :field:`cartesian_site_positions` is requested only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with index 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
 
