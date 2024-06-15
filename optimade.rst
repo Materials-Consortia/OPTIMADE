@@ -218,7 +218,10 @@ representation in all contexts. They are as follows:
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
-- **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
+  Multidimensional collections of items are represented as nested lists.
+  The specification uses **array** as a more general term for structures of nested lists representing single or multidimensional data, and the term **array axes** for the levels of nesting.
+  Note that arrays are represented using lists and not as a separate data type.
+- **dictionary**: an associative set of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
 
 An entry property value that is not present in the database is **unknown**.
@@ -683,7 +686,7 @@ The field :field:`array_axes` is defined as follows:
 
     Examples:
 
-    - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0,1,2,4,6 and any index from 8 to the end of the array are :val:`null`.
+    - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the array are :val:`null`.
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`cartesian_site_positions` contains 7 sites. Furthermore, the :field:`_exmpl_temperature` contains only :val:`null` values except for items with indexes 1000, 1030, 1060, ..., 4000 (where the values can be either numeric or :val:`null`).
 
@@ -1392,9 +1395,9 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
 
   Example:
 
-  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=dim_frames::999:10,dim_sites:30:70:`
+  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&property_ranges=dim_frames::999:10,dim_sites:30:70:`
 
-    This query URL requests items from the array :field:`cartesian_site_positions` only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
+    This query URL requests items from the array :field:`frame_cartesian_site_positions` only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
 
 Single Entry JSON Response Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
