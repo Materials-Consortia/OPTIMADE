@@ -623,12 +623,12 @@ The field :field:`array_axes` is defined as follows:
   A list of dictionaries which provide information related to the axes of an array property, which is relevant for slicing.
   Each item, in order, represents the array axis as declared in the corresponding property definition.
 
-  Each item MUST be a dictionary with the following REQUIRED fields:
+  Each item MUST be a dictionary with the following REQUIRED field:
 
   - :field:`dimension_name`: String.
     The dimension name of the corresponding array axis.
 
-  If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present, otherwise it MUST be omitted or equal to :val:`null`:
+  If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present, otherwise the key MUST be omitted or equal to :val:`null`:
 
   - :field:`requested_slice`: Dictionary.
     A field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
@@ -685,7 +685,7 @@ The field :field:`array_axes` is defined as follows:
 
     - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0,1,2,4,6 and any index from 8 to the end of the array are :val:`null`.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`cartisian_site_positions` contains 7 sites. Furthermore, the :field:`_exmpl_temperature` contains only :val:`null` values except for items with indexes 1000, 1030, 1060, ..., 4000 (where the values can be either numeric or :val:`null`).
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`cartesian_site_positions` contains 7 sites. Furthermore, the :field:`_exmpl_temperature` contains only :val:`null` values except for items with indexes 1000, 1030, 1060, ..., 4000 (where the values can be either numeric or :val:`null`).
 
 .. code:: jsonc
 
@@ -715,7 +715,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
                      "step": 1
                    },
                    "sliceable": true,
-                   "length": 432934,
+                   "length": 432934
                  },
                  {
                    "dimension_name": "dim_sites",
@@ -725,13 +725,13 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
                      "step": 1
                    },
                    "sliceable": false,
-                   "length": 7,
+                   "length": 7
                  },
                  {
                    "dimension_name": "dim_spatial",
-                   "length": 3,
+                   "length": 3
                  }
-               ],
+               ]
              },
              "_exmpl_temperature": {
                "array_axes": [
@@ -748,7 +748,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
                      "step": 30
                    },
                    "sliceable": true,
-                   "length": 432934,
+                   "length": 432934
                  }
                ]
              }
@@ -1394,7 +1394,7 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
 
   - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=cartesian_site_positions&property_ranges=dim_frames::999:10,dim_sites:30:70:`
 
-    This query URL requests items from the array :field:`cartesian_site_positions` only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with index 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
+    This query URL requests items from the array :field:`cartesian_site_positions` only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
 
 Single Entry JSON Response Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2370,7 +2370,7 @@ A Property Definition MUST be composed according to the combination of the requi
     A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as multiple levels of lists.
     The order is such that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
-    Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, and SHOULD also be prefixed with ``dim_``, e.g., ``_exmpl_dim_particles``.
+    Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, and SHOULD also be prefixed by ``dim_``, e.g., ``_exmpl_dim_particles``.
     If, within one entry, two or more array axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
     For example, let us consider the property :property:`cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
     If there is another one-dimensional (i.e., with a single axis) array property :property:`_exmpl_energy` of the same trajectory entry that specifies in its property definition the same dimension name :val:`dim_frames` for its axis, then the values of :property:`_exmpl_energy` and of :property:`cartesian_site_positions` at index *i* pertain to the same frame.
