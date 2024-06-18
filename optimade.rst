@@ -1379,8 +1379,9 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
 
 - **property\_slices**: A number of slice specifications to request only parts of array properties for the functionality described in `Slices of array properties`_.
 
-  The query parameter contains a comma-separated (",", ASCII symbol 44 dec, 0x2C hex) list of slice specifications.
-  Each slice specification consists of an ordered sequence of four elements separated by the colon character (":", ASCII symbol 58 dec, 0x3A hex).
+  The query parameter contains a comma-separated (",", ASCII symbol 44 dec) list of slice specifications.
+  Each slice specification consists of a dimension name followed by the left square bracket character ("[", ASCII symbol 91 dec), a slice, and the right square bracket character ("]", ASCII symbol 93 dec).
+  The slice is given as an ordered sequence of three components separated by the colon character (":", ASCII symbol 58 dec).
   The elements in the sequence are the dimension name and the three components of the slice, i.e., the start, stop, and step values defined in the same way as for a `slice object`_.
   Omitting the value for any of the components of the slice specifies a default value (however, all the colon separators MUST be included).
   The start value specifies the first index in that dimension for which values should be returned (which is 0-based and inclusive).
