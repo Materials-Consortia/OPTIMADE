@@ -215,11 +215,12 @@ Hence, entry properties are described in this proposal using
 context-independent types that are assumed to have some form of
 representation in all contexts. They are as follows:
 
-- Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**, database-provider-specific or definition-provider-specific data type.
+- Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
 - **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
+- Database-provider-specific or definition-provider-specific data type.
 
 An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
