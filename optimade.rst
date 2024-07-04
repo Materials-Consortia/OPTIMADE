@@ -221,7 +221,7 @@ representation in all contexts. They are as follows:
   Multidimensional collections of items are represented as nested lists.
   The specification uses **array** as a more general term for structures of nested lists representing single or multidimensional data, and the term **array axes** for the levels of nesting.
   Note that arrays are represented using lists and not as a separate data type.
-- **dictionary**: an associative set of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
+- **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
 
 An entry property value that is not present in the database is **unknown**.
