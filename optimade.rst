@@ -639,11 +639,11 @@ The field :field:`array_axes` is defined as follows:
     The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent.
     It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
 
-    - :field:`start`: Integer or :val:`null`.
+    - :field:`start`: Non-negative integer or :val:`null`.
 
-    - :field:`stop`: Integer or :val:`null`.
+    - :field:`stop`: Non-negative integer or :val:`null`.
 
-    - :field:`step`: Integer or :val:`null`.
+    - :field:`step`: Positive integer or :val:`null`.
 
     A :val:`null` value for any of these fields means it has the default value defined for a `slice object`_.
     A missing value is equivalent to a :val:`null` value.
@@ -1379,8 +1379,8 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
 
 - **property\_slices**: A number of slice specifications to request only parts of array properties for the functionality described in `Slices of array properties`_.
 
-  The query parameter contains a comma-separated (",", ASCII 44(0x2C)) list of slice specifications.
-  Each slice specification consists of an ordered sequence of four elements separated by the colon character (":", ASCII 58(0x3A)).
+  The query parameter contains a comma-separated (",", ASCII symbol 44 dec, 0x2C hex) list of slice specifications.
+  Each slice specification consists of an ordered sequence of four elements separated by the colon character (":", ASCII symbol 58 dec, 0x3A hex).
   The elements in the sequence are the dimension name and the three components of the slice, i.e., the start, stop, and step values defined in the same way as for a `slice object`_.
   Omitting the value for any of the components of the slice specifies a default value (however, all the colon separators MUST be included).
   The start value specifies the first index in that dimension for which values should be returned (which is 0-based and inclusive).
