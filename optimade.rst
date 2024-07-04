@@ -3181,19 +3181,19 @@ This is an example of the data field of a JSON object that could be returned aft
               "data_range": [{
                   "start": 1,
                   "step": 1,
-                  "stop": 360,
+                  "stop": 360
                 },{
                   "start": 1,
                   "step": 1,
-                  "stop": 3,
+                  "stop": 3
                 },{
                   "start": 1,
                   "step": 1,
-                  "stop": 3,
+                  "stop": 3
                 }],
               "layout":"dense",
               "nvalues": 3240
-            },
+            }
           },
           "_exmpl_temperature":{
             "range": {
@@ -3220,7 +3220,7 @@ This is an example of the data field of a JSON object that could be returned aft
                   "step": 2
                 }
               ],
-              "layout":"dense",
+              "layout":"dense"
             }
           }
         },
@@ -3232,19 +3232,19 @@ This is an example of the data field of a JSON object that could be returned aft
             },{
               "format": "_exmpl_xyz",
               "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/xyz"
-            },
+            }
           ],
           "_exmpl_temperature": [
             {
               "format": "jsonlines",
               "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/temperature/jsonlines"
-            },
+            }
           ],
           "_exmpl_ekin": [
             {
               "format": "jsonlines",
               "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/ekin/jsonlines"
-            },
+            }
           ]
         }
       },
