@@ -4495,3 +4495,62 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
     * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
     * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
       POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
+
+
+The OPTIMADE JSON Lines Format for Database Exchange
+----------------------------------------------------
+
+There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
+This appendix describes a lightweight standardization for doing this via the `JSON Lines <https://jsonlines.org/>`__ format, with some additional OPTIMADE-specific conventions.
+
+The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
+
+- each line is a valid JSON object,
+- each line is separated by a newline character (``\n``), optionally ending the file with a newline.
+- each file must be UTF-8 encoded,
+- the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``jsonl.bz2`` for ``gzip`` and ``bzpi2`` compressed files, respectively.
+
+The OPTIMADE JSON Lines format then extends these rules with the following conventions:
+
+- The first line of the file is a JSON object that contains metadata about the file. 
+  It MUST comprise of a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
+  - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
+
+- The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
+- The next block of lines provides the ``info`` endpoint responses. 
+  - First the base info response MUST be provided, following the description at `Base Info Endpoint`_.
+  - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_. 
+    These MUST appear in alphabetical order by entry type name.
+- The remaining lines of the file contain data entries themselves, described in `Entry Listing JSON Response Schema`_.
+  Again, these MUST appear in block alphabetical order by entry type name, but can appear in any order within those blocks.
+- Finally, any custom extension endpoints (see `Custom Extension Endpoints`_), if present and desirable, MUST appear at the end of the file.
+
+This leaves the following overall file structure:
+
+.. code :: txt
+
+  <header>
+  <optional metadata>
+  <base info response>
+  <entry info responses>
+  <entries block ordered by entry type>
+  <optional custom extension endpoints>
+  
+
+This JSONL format can also be used to share provider-specific properties.
+These should be consistent with any external definitions, and where appropriate, prefixes tied to the tools used to generate the file should be used.
+It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
+
+Example OPTIMADE JSON Lines File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code :: jsonc
+
+  {"x-optimade": {"api_version": "1.2.0"}}
+  {"meta": {"time_stamp": "2024-07-19T11:47:10Z", "data_returned": 6, "provider": {"name": "Example JSONL", "description": "An example JSONL file.", "prefix": "_exmpl"}}}
+  {"type": "info", "id": "/", "attributes": {"api_version": "1.2.0", "available_api_versions": ["1.2.0"], "formats": ["json"], "entry_types_by_format": {"json": ["references", "structures"]}, "license": "https://example.com/licenses/example_license.html"}, "homepage": "https://example.com", "name": "Example API", "provider": {"description": "A simple example provider", "name": "Example Provider"}}}
+  {"type": "info", "id": "references", ...}
+  {"type": "info", "id": "structures", ...}
+  {"type": "structures", "id": "1", "attributes": {...}}
+  {"type": "references", "id": "2", "attributes": {...}}
+
