@@ -4512,16 +4512,15 @@ The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
 
 The OPTIMADE JSON Lines format then extends these rules with the following conventions:
 
-- The first line of the file is a JSON object that contains metadata about the file. 
+- The first line of the file is a JSON object that contains metadata about the file.
   It MUST comprise of a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
-  
+
   - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
 
 - The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
-- The next block of lines provides the ``info`` endpoint responses. 
+- The next block of lines provides the ``info`` endpoint responses.
   - First the base info response MUST be provided, following the description at `Base Info Endpoint`_.
-  - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_. 
-    These MUST appear in alphabetical order by entry type name.
+  - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_. These MUST appear in alphabetical order by entry type name.
 - The remaining lines of the file contain data entries themselves, described in `Entry Listing JSON Response Schema`_.
   Again, these MUST appear in block alphabetical order by entry type name, but can appear in any order within those blocks.
 - Finally, any custom extension endpoints (see `Custom Extension Endpoints`_), if present and desirable, MUST appear at the end of the file.
@@ -4536,7 +4535,7 @@ This leaves the following overall file structure:
   <entry info responses>
   <entries block ordered by entry type>
   <optional custom extension endpoints>
-  
+
 
 This JSONL format can also be used to share provider-specific properties.
 These should be consistent with any external definitions, and where appropriate, prefixes tied to the tools used to generate the file should be used.
