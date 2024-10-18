@@ -612,8 +612,8 @@ Slices of array properties
 --------------------------
 
 The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
-The protocol for this functionality allows the server to allow slicing independently per entry, per array, and per array axis.
-This functionality is separate from the protocol described in `Transmission of large property values`_.
+The protocol for this functionality specifies how a server MAY support slicing arrays independently per entry, per array, and per array axis.
+This functionality is separate from (but compatible with) the protocol described in `Transmission of large property values`_.
 Slices are used for a client to ask the server to only provide a subset of items of an array, which can result in a small or large set of items.
 In contrast, the protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
 
@@ -623,7 +623,7 @@ When the client request includes the query parameter :query-param:`property_slic
 The field :field:`array_axes` is defined as follows:
 
 - :field:`array_axes`: List of Dictionary.
-  A list of dictionaries which provide information related to the axes of an array property, which is relevant for slicing.
+  A list of dictionaries which provide information related to the axes of an array property, including sliceable axes.
   Each item, in order, represents the array axis as declared in the corresponding property definition.
 
   Each item MUST be a dictionary with the following REQUIRED field:
@@ -680,8 +680,9 @@ The field :field:`array_axes` is defined as follows:
     If the field is omitted or :val:`null`, it means the same thing as :val:`false`.
 
   - :field:`available_slice`: Dictionary or :val:`null`.
-    This field describes a `slice object`_ where there MAY be non-null values in the data.
-    By including this field, the server certifies that there are only :val:`null` values outside this slice.
+    This field describes a `slice object`_.
+    By including this field, the server certifies that there MUST only be :val:`null` values outside this slice.
+    Inside the slice there MAY be any combination of null and non-null values.
     If not provided, or equal to :val:`null` or an empty dictionary, the client cannot make any assumptions about what part of the array contains :val:`null` values.
 
     Examples:
@@ -2375,7 +2376,7 @@ A Property Definition MUST be composed according to the combination of the requi
     A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as multiple levels of lists.
     The order is such that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
-    Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, and SHOULD also be prefixed by ``dim_``, e.g., ``_exmpl_dim_particles``.
+    Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, which SHOULD then be immediately followed by ``dim_``, e.g., ``_exmpl_dim_particles``.
     If, within one entry, two or more array axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
     For example, let us consider the property :property:`frame_cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
     If there is another one-dimensional (i.e., with a single axis) array property :property:`_exmpl_energy` of the same trajectory entry that specifies in its property definition the same dimension name :val:`dim_frames` for its axis, then the values of :property:`_exmpl_energy` and of :property:`frame_cartesian_site_positions` at index *i* pertain to the same frame.
