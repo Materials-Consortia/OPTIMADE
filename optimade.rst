@@ -1989,6 +1989,28 @@ Further examples of various comparisons of list properties:
   (note: specifying the = operator after HAS ANY is redundant here, if no operator is given, the test is for equality.)
 - OPTIONAL: :filter:`elements:_exmpl_element_counts:_exmpl_element_weights HAS ANY > 3:"He":>55.3 , = 6:>"Ti":<37.6 , 8:<"Ga":0`
 
+Field-specific search semantics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Providers can expose custom search functionality for relevant fields via the :filter-fragment:`SEARCH` operator.
+This operator can act on any field and value type, and can be interpreted by the
+database provider in any way they desire.
+
+It is expected that results from a :filter-fragment:`SEARCH` filter will be ordered according by 'relevance' to the :filter-fragment:`SEARCH`, as interpreted, by default.
+The cutoff for 'relevance' can be entirely decided by the database; it is not
+necessary to rank and return all entries in the database according to the search
+criteria.
+Support for additional :query-param:`sort` operations on the API response from a :filter-fragment:`SEARCH` is OPTIONAL.
+
+Support for :filter-fragment:`SEARCH` is entirely OPTIONAL.
+Where implemented, it MAY be used in conjunction with other filters; in cases
+where this is not supported, the API should respond with a clear error message.
+It is RECOMMENDED that providers do not allow chaining together multiple :filter-fragment:`SEARCH` operations, but MAY allow e.g., a list value for the :filter-fragment:`SEARCH` which can be considered the equivalent :filter-fragment:`<property> SEARCH [x, y] === <property> SEARCH x AND property SEARCH y` 
+
+**Examples**:
+- Semantic search for "nearby" compositions according to some metric: :filter:`chemical_formula_reduced SEARCH "NaCl"`, which could return results for entries containing, e.g., :val:`"KCl"`, :val:`"NaBr"`.
+- Substructural search using `SMARTS <https://www.daylight.com/dayhtml/doc/theory/theory.smarts.html>`_, could be implemented on a SMILES representation of a molecular structure, e.g., :filter:`_provider_molecular_smiles SEARCH "[OH]c1ccccc1"`.
+
 Nested property names
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -3918,6 +3940,7 @@ The Filter Language EBNF Grammar
                                         | FuzzyStringOpRhs
                                         | SetOpRhs
                                         | SetZipOpRhs
+                                        | SearchOp
                                         | LengthOpRhs ] ;
     (* Note: support for SetZipOpRhs in Comparison is OPTIONAL *)
 
@@ -3939,6 +3962,8 @@ The Filter Language EBNF Grammar
     SetZipOpRhs = PropertyZipAddon, HAS, ( ValueZip | ONLY, ValueZipList | ALL, ValueZipList | ANY, ValueZipList ) ;
 
     PropertyZipAddon = Colon, Property, { Colon, Property } ;
+
+    SearchOp = SEARCH ;
 
     LengthOpRhs = LENGTH, [ Operator ], Value ;
     (* Note: support for [ Operator ] in LengthOpRhs is OPTIONAL *)
