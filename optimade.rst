@@ -2337,7 +2337,7 @@ This means that the structures entry has a relationship with the calculations en
 Support for queries on fields of arbitrary depth is OPTIONAL.
 For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:
 
-    :query-url:`https://example.com/optimade/v1/structures?filter=references.doi=%2210.1234/1234%22`
+    :query-url:`https://example.com/optimade/v1/structures?filter=references.target.doi=%2210.1234/1234%22`
 
 Search for all literature references for structures with tantalum:
 
