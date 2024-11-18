@@ -2328,9 +2328,10 @@ As described in the section `Relationships`_, it is possible for the API impleme
 The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>`:
 
 - :filter-fragment:`<entry type>.id` references a list of IDs of relationships with entries of the type :filter-fragment:`<entry type>`.
+- :filter-fragment:`<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
 - :filter-fragment:`<entry type>.target.<property>` references a list of property :property:`<property>` values for related entries (i.e., the :filter-fragment:`target` entry of the relationship) of type :filter-fragment:`<entry type>`.
 
-Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with entry properties plus :property:`id`.
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with entry properties plus :property:`id` and :property:`description`.
 For example: a client queries the :endpoint:`structures` endpoint with a filter that references :filter-fragment:`calculations.id`.
 For a specific structures entry, the nested property behaves as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
 This means that the structures entry has a relationship with the calculations entry of that ID.
