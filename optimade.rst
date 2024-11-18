@@ -2001,8 +2001,9 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
   E.g., if :filter-fragment:`identifier1` is the list :filter-fragment:`[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]`, then :filter-fragment:`identifier1.identifier2` is understood in the filter as the list :filter-fragment:`[42, 96]`.
 
 - :filter-fragment:`identifier1` references an entry type of a group of related entries each containing a property named after an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the values of :filter-fragment:`identifier2` properties for every related entry.
+  In this case, :filter-fragment:`identifier2` is restricted to either :property:`id`, when matching directly on the ID of the related entry, or :property:`target`, which can be further nested to enable queries on the related entry's property.
   Support for such queries is OPTIONAL.
-  E.g., :filter-fragment:`references.doi` is understood in the filter as the list containing values of :property:`doi` for all related entries of type :entry:`references`.
+  E.g., :filter-fragment:`references.target.doi` is understood in the filter as the list containing values of :property:`doi` for all related entries of type :entry:`references`.
   This is explained in more detail in section `Filtering on relationships`_.
 
 The API implementation MAY allow this notation to generalize to arbitrary depth.
