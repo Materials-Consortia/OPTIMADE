@@ -2341,7 +2341,7 @@ For example, search for all structures related to a publication having DOI 10.12
 
 Search for all literature references for structures with tantalum:
 
-    :query-url:`https://example.com/optimade/v1/references?filter=structures.elements+HAS+%22Ta%22`
+    :query-url:`https://example.com/optimade/v1/references?filter=structures.target.elements+HAS+%22Ta%22`
 
 Search for all structures of anonymous formula A2B from year 2024:
 
