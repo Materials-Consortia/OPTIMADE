@@ -2317,6 +2317,7 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
 
     - :field:`id`, when matching directly on the ID of the related entry.
     - :field:`description`, when matching on human-readable description of the relationship.
+    - :field:`role`, when matching on the role of the relationship between entries (possible relationships are defined per-entry type).
     - :field:`target`, which can be further nested to enable queries on the related entry's property.
 
   Support for such queries is OPTIONAL.
