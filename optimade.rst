@@ -2023,6 +2023,7 @@ The API implementation MAY support queries on relationships with an entry type :
 
 - :filter-fragment:`<entry type>.id` references a list of IDs of relationships with entries of the type :filter-fragment:`<entry type>`.
 - :filter-fragment:`<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
+- :filter-fragment:`<entry type>.role` references a correlated list of roles between entries in relationships.
 - :filter-fragment:`<entry type>.target.<property>` references a list of property :property:`<property>` values for related entries (i.e., the :filter-fragment:`target` entry of the relationship) of type :filter-fragment:`<entry type>`.
 
 Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with entry properties plus :property:`id` and :property:`description`.
