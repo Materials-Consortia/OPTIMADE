@@ -2315,8 +2315,8 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
 - :filter-fragment:`identifier1` references an entry type of a group of related entries each containing a property named after an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the values of :filter-fragment:`identifier2` properties for every related entry.
   In this case, :filter-fragment:`identifier2` is restricted to the following fields:
 
-    - :field:`id`, when matching directly on the ID of the related entry
-    - :field:`description`, when matching on human-readable description of the relationship
+    - :field:`id`, when matching directly on the ID of the related entry.
+    - :field:`description`, when matching on human-readable description of the relationship.
     - :field:`target`, which can be further nested to enable queries on the related entry's property.
 
   Support for such queries is OPTIONAL.
