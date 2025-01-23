@@ -4505,7 +4505,7 @@ This appendix describes a lightweight standardization for doing this via the `JS
 
 The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
 
-- each line is a valid JSON object,
+- each line is a valid JSON value,
 - each line is separated by a newline character (``\n``), optionally ending the file with a newline.
 - each file must be UTF-8 encoded,
 - the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``jsonl.bz2`` for ``gzip`` and ``bzip2`` compressed files, respectively.
