@@ -1,0 +1,31 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1981/temporary/rem"
+title: "roentgen equivalent man"
+symbol: "rem"
+display-symbol: "rem"
+description: |-
+  The "roentgen equivalent man" (rem) is a unit used in radioprotection meant to represent a dose of any ionizing radiation comparable in effect to one roentgen of high-voltage x-radiation, taken to be equal to 10⁻² Sv using the 1967 SI units.
+
+  The rem unit appears in the International System of Units (SI), 4th ed. (1981) defined as "1 rem = 1 cSv = 10⁻² Sv" with the footnote: "The rem is a special unit used in radioprotection to express the equivalent dose."
+resources:
+  - relation: "Definition in the International System of Units (SI), 4th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Roentgen_equivalent_man"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/kilogram"
+    - symbol: "m"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
+  base-units-expression: "kg*m^2*s^-2"
+  scale:
+    exponent: -2
+x-optimade-definition:
+  label: "rem_si_1981_temporary"
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "rem"

@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/year"
+title: "year"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "year_optimade_references"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "year"
+type:
+  - "string"
+  - "null"
+description: |-
+  The year of publication or writing.
+examples:
+  - "1984"
+x-optimade-unit: "inapplicable"

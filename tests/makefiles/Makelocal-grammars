@@ -20,7 +20,7 @@ EBNF_FILES    ?= ${GRAMMARS:%=${GRAMMAR_DIR}/%.ebnf}
 GRAMMAR_FILES ?= ${EBNF_FILES:%.ebnf=%.g}
 
 REGEXPS = $(sort $(shell awk '/^ *${RE_START_STRING}/{print $$3}' ${RST_FILES} | tr -d "\r"))
-REGEXP_FILES = ${REGEXPS:%=${GRAMMAR_DIR}/%.ere} ${REGEXPS:%=${GRAMMAR_DIR}/%.pcre}
+REGEXP_FILES = ${REGEXPS:%=${GRAMMAR_DIR}/%.ere} ${REGEXPS:%=${GRAMMAR_DIR}/%.pcre} ${REGEXPS:%=${GRAMMAR_DIR}/%.ecma}
 
 GRAMMAR_DEPENDENCIES = .grammars.d
 
@@ -47,6 +47,8 @@ ${GRAMMAR_DEPENDENCIES}: ${RST_FILES}
 		$^ | tr -d "\r" >> $@
 	awk '/^ *${RE_START_STRING} PCRE/{print "${GRAMMAR_DIR}/"$$3".pcre:", FILENAME}' \
 		$^ | tr -d "\r" >> $@
+	awk '/^ *${RE_START_STRING} ECMA/{print "${GRAMMAR_DIR}/"$$3".ecma:", FILENAME}' \
+		$^ | tr -d "\r" >> $@
 
 ${GRAMMAR_DIR}/%.ebnf:
 	awk '/^ *${GRAMMAR_START_STRING} $*/,/^ *${GRAMMAR_END_STRING} $*/' $< \
@@ -58,6 +60,10 @@ ${GRAMMAR_DIR}/%.ere:
 
 ${GRAMMAR_DIR}/%.pcre:
 	awk '/^ *${RE_START_STRING} PCRE $*/,/^ *${RE_END_STRING} PCRE $*/' $< \
+		| sed 's/^    //' | tr -d "\r" > $@
+
+${GRAMMAR_DIR}/%.ecma:
+	awk '/^ *${RE_START_STRING} ECMA $*/,/^ *${RE_END_STRING} ECMA $*/' $< \
 		| sed 's/^    //' | tr -d "\r" > $@
 
 .PHONY: tools

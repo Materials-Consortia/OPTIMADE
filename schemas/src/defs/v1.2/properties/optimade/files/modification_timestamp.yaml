@@ -1,0 +1,22 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/files/modification_timestamp"
+title: "modification timestamp"
+x-optimade-type: "timestamp"
+x-optimade-definition:
+  label: "modification_timestamp_optimade_files"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "modification_timestamp"
+type:
+  - "string"
+  - "null"
+description: |-
+  Timestamp of the last modification of file contents. A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.
+
+  **Requirements/Conventions:**
+
+  - Timestamps of subsequent file modifications SHOULD be increasing (not earlier than previous timestamps).
+examples:
+  - "2020-04-05T14:30:20Z"
+x-optimade-unit: "inapplicable"

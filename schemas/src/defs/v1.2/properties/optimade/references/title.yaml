@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/title"
+title: "title"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "title_optimade_references"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "title"
+type:
+  - "string"
+  - "null"
+description: |-
+  The title of the work (the title field in the BibTeX specification).
+examples:
+  - "A Study on the Effects of Sleep Deprivation on Cognitive Performance"
+x-optimade-unit: "inapplicable"

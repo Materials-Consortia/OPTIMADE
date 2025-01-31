@@ -1,0 +1,56 @@
+name: Build GitHub pages
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+
+  build_html:
+    runs-on: ubuntu-latest
+
+    env:
+      COMMIT_AUTHOR: OPTIMADE developers
+      COMMIT_AUTHOR_EMAIL: dev@optimade.org
+
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install docutils
+
+    - name: Run rst2html
+      run: make html
+
+    - name: Configure git
+      run: |
+        git config --global user.name "${COMMIT_AUTHOR}"
+        git config --global user.email "${COMMIT_AUTHOR_EMAIL}"
+
+    - name: Commit to gh-pages
+      run: |
+        git fetch origin gh-pages
+        git checkout gh-pages
+        mkdir -p specification/develop
+        # patch dev specification to include banner
+        sed -i 's|<body class="with-toc">|<body class="with-toc"><div class="banner-container"><div class="banner">This is a development version of the specification.</div></div>|g' optimade.html
+        mv optimade.html specification/develop/index.html
+        git add specification/develop/index.html
+        git commit -m "Deploy develop specification to GitHub Pages: ${SHA}"
+        if git diff --cached --quiet; then
+            exit 0
+        fi
+
+    - name: Push changes
+      uses: ad-m/github-push-action@v0.8.0
+      with:
+        branch: gh-pages
+        force: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
