@@ -3529,6 +3529,54 @@ structure\_features
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
 
+optimization\_type
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: A string that classifies the type of optimization that has resulted in the structural data.
+
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+  - If the property is :val:`null` or omitted, no information is provided about the type of optimization used to obtain the structural data.
+
+  - If present and not :val:`null`, the property SHOULD take one of the following values:
+
+    * :val:`experimental`: the structure results from an optimization or refinement process part of an experimental technique, e.g., minimization of the discrepancy between observed and predicted scattered amplitudes from diffraction data.
+
+    * :val:`hybrid`: the structure is the result of the combination of an experiment and further optimization based on a reasonable theoretical energy model so that it remains a fair representation of the original experimental structure.
+      For example, experimental structures relaxed using *ab initio* calculations are in this category.
+      Structures where the experimental coordinates are kept, but one or more elements are substituted for other elements, are not included in this category.
+
+    * :val:`global`: the structure has been optimized using a theoretical technique based on a reasonable energy model in a way that takes into account the global energy surface.
+      The structure has been optimized into the global energy minimum or into a local minimum within an energy range of the global minimum commonly considered for potential metastability (typically on the scale of 100 meV/atom).
+      A common technique for this type of optimization is to construct the convex hull of thermodynamical stability from the known minima and dismiss structures outside the relevant energy range.
+
+    * :val:`local`: the structure has been optimized using a theoretical technique based on a reasonable energy model into a local minimum of the energy surface.
+      For example, structures relaxed using *ab initio* calculations without consideration of the energy of other minima in configuration space qualify for this category.
+
+    * :val:`none`: the structure has not undergone an optimization process and is thus, in some sense, arbitrary.
+      Structures of this kind can come from, e.g., randomly generated coordinates or non-equilibrium snapshots.
+
+    * :val:`indeterminate`: the database declares that the type of optimization used for this specific entry cannot be determined, e.g., because that information is missing.
+      This value represents a stronger statement (that the database knows that the type of optimization is not known) than an omitted classification (i.e., the field is missing or has the value :val:`null`) which communicates that the property is unknown only in the sense discussed in the section `Properties with an unknown value`_.)
+
+    * :val:`other`: the structure is the result of some optimization process, but none of the other categories correctly represents the type of optimization used.
+
+    Other strings prefixed by a database-specific prefix, e.g., `_exmpl_optimized_on_fixed_grid`, SHOULD NOT be used.
+    Other non-standard strings MUST NOT be used.
+    Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
+
+    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent to structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used.
+
+- **Examples**:
+
+  - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
+
+  - For a structure entry that encodes the structural information from a theoretical relaxation of an :val:`"experimental"` entry using computational software that implements density functional theory: :val:`"hybrid"`.
+
 Calculations Entries
 --------------------
 
