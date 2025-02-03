@@ -4561,7 +4561,7 @@ The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
 The OPTIMADE JSON Lines format then extends these rules with the following conventions:
 
 - The first line of the file is a JSON object that contains metadata about the file.
-  It MUST comprise of a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
+  It MUST be a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
 
   - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
 
