@@ -4600,5 +4600,5 @@ Example OPTIMADE JSON Lines File
   {"type": "info", "id": "references", ...}
   {"type": "info", "id": "structures", ...}
   {"type": "references", "id": "2", "attributes": {...}}
-  {"type": "structures", "id": "1", "attributes": {...}}
+  {"type": "structures", "id": "1", "attributes": {...}, "relationships": {"references": {"data": [{"id": "2", "type": "references"}]}}}
 
