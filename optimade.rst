@@ -220,7 +220,7 @@ representation in all contexts. They are as follows:
   A list can be empty, i.e., contain no items.
 - **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
-- Database-provider-specific or definition-provider-specific data type.
+- Namespace-specific data type.
 
 An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
@@ -628,7 +628,7 @@ In the JSON response format, property types translate as follows:
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
-- database-provider-specific or definition-provider-specific data types use string representations.
+- namespace-specific data types use string representations.
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
@@ -1818,7 +1818,7 @@ The following tokens are used in the filter query component:
   (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped.)
 
   String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
-  String value tokens as well are used to represent database-provider-specific or definition-provider-specific data types.
+  String value tokens as well are used to represent namespace-specific data types.
 
 - **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
@@ -2073,7 +2073,7 @@ As the filter language syntax does not define a lexical token for timestamps, va
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
-Database and definition providers MAY introduce custom types, representing them with string lexical tokens both in filters and responses.
+Namespace providers MAY introduce custom types, representing them with string lexical tokens both in filters and responses.
 It is up to the providers to decide which comparison operators to support and how the comparisons should be performed.
 For example, a provider that introduces a set-valued property :property:`_exmpl_set`, may decide to override the :val:`CONTAINS` operator so that :filter:`identifier CONTAINS set` is true when :val:`set` is a subset of a property.
 
@@ -2165,7 +2165,7 @@ A Property Definition MUST be composed according to the combination of the requi
 
 - :field:`x-optimade-type`: String.
   Specifies the OPTIMADE data type for this level of the defined property.
-  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, :val:`"dictionary"` or a string naming database-provider-specific or definition-provider-specific data type starting with provider-specific prefix.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, :val:`"dictionary"` or a string naming namespace-specific data type starting with provider-specific prefix.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
