@@ -628,7 +628,7 @@ In the JSON response format, property types translate as follows:
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
-- namespace-specific data types use string representations.
+- Namespace-specific data types use string representations.
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
