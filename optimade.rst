@@ -4549,7 +4549,7 @@ The OPTIMADE JSON Lines Format for Database Exchange
 ----------------------------------------------------
 
 There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
-This appendix describes a lightweight standardization for doing this via the `JSON Lines <https://jsonlines.org/>`__ format, with some additional OPTIMADE-specific conventions.
+This appendix describes a lightweight standardization for doing this via the `JSON Lines <https://jsonlines.org/>`__ (JSONL) format, with some additional OPTIMADE-specific conventions.
 
 The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
 
