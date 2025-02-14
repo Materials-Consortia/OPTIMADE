@@ -3013,7 +3013,7 @@ chemical\_formula\_reduced
 chemical\_formula\_hill
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: The chemical formula for a structure in `Hill form <https://dx.doi.org/10.1021/ja02046a005>`__ with element symbols followed by integer chemical proportion numbers.
+- **Description**: The chemical formula for a structure in `Hill form <https://doi.org/10.1021/ja02046a005>`__ with element symbols followed by integer chemical proportion numbers.
   The proportion number MUST be omitted if it is 1.
 - **Type**: string
 - **Requirements/Conventions**:
@@ -3025,7 +3025,7 @@ chemical\_formula\_hill
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
   - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
-  - Elements MUST be placed in `Hill order <https://dx.doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
+  - Elements MUST be placed in `Hill order <https://doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
     Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
     After that, all other elements are ordered alphabetically.
     If carbon is not present, all elements are ordered alphabetically.
