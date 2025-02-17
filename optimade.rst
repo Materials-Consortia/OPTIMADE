@@ -4566,11 +4566,16 @@ The OPTIMADE JSON Lines format then extends these rules with the following conve
   - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
 
 - The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
-- The next block of lines provides the ``info`` endpoint responses.
+
+- The next block of lines provides the ``info`` endpoint responses:
+
   - First the base info response MUST be provided, following the description at `Base Info Endpoint`_.
+
   - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_.
+
 - The remaining lines of the file contain data entries themselves, described in `Entry Listing JSON Response Schema`_.
   These entries can be provided in any order.
+
 - Finally, any custom extension endpoints (see `Custom Extension Endpoints`_), if present and desirable, MUST appear at the end of the file.
 
 This leaves the following overall file structure:
