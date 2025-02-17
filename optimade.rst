@@ -4581,7 +4581,7 @@ This leaves the following overall file structure:
   <optional metadata>
   <base info response>
   <entry info responses>
-  <entries block ordered by entry type>
+  <unordered entries>
   <optional custom extension endpoints>
 
 
