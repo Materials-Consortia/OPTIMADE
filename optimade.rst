@@ -4585,8 +4585,10 @@ This leaves the following overall file structure:
   <optional custom extension endpoints>
 
 
-This JSONL format can also be used to share provider-specific properties.
-These should be consistent with any external definitions, and where appropriate, prefixes tied to the tools used to generate the file should be used.
+This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in `Namespace Prefixes`_.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSONLines files should not use an existing prefix unless the desired definitions match exactly.
+Where appropriate, prefixes tied to the tools used to generate the file can be used, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).
+
 It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
 
 Example OPTIMADE JSON Lines File
