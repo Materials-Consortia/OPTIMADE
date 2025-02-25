@@ -4596,7 +4596,7 @@ Where appropriate, a provider prefix can be chosen to represent the tool used to
 
 It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
 
-Example OPTIMADE JSON Lines File
+Example file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code :: jsonc
