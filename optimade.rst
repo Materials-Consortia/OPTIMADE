@@ -4565,7 +4565,7 @@ The OPTIMADE JSON Lines format then extends these rules with the following conve
 
   - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
 
-- The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
+- The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule. For example, `meta.data_returned` can be omitted, or otherwise used to provide the total number of entries in the file.
 
 - The next block of lines provides the ``info`` endpoint responses:
 
