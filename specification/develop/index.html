@@ -813,6 +813,11 @@ Below follows the definitions of the text roles used:
 </li>
 <li><p><a class="reference internal" href="#property-definition-example" id="toc-entry-123"><span class="sectnum">9.5 </span>Property Definition Example</a></p></li>
 <li><p><a class="reference internal" href="#optimade-regular-expression-format" id="toc-entry-124"><span class="sectnum">9.6 </span>OPTIMADE Regular Expression Format</a></p></li>
+<li><p><a class="reference internal" href="#the-optimade-json-lines-format-for-database-exchange" id="toc-entry-125"><span class="sectnum">9.7 </span>The OPTIMADE JSON Lines Format for Database Exchange</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#example-file" id="toc-entry-126"><span class="sectnum">9.7.1 </span>Example file</a></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -5093,10 +5098,63 @@ POSIX Basic regexes also have further differences, e.g., the meaning of some esc
 </ul>
 </blockquote>
 </section>
+<section id="the-optimade-json-lines-format-for-database-exchange">
+<h3><a class="toc-backref" href="#toc-entry-125" role="doc-backlink"><span class="sectnum">9.7 </span>The OPTIMADE JSON Lines Format for Database Exchange</a></h3>
+<p>There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
+This appendix describes a lightweight standardization for doing this via the <a class="reference external" href="https://jsonlines.org/">JSON Lines</a> (JSONL) format, with some additional OPTIMADE-specific conventions.</p>
+<p>The <a class="reference external" href="https://jsonlines.org/">JSON Lines</a> format enforces the following rules:</p>
+<ul class="simple">
+<li><p>each line is a valid JSON value,</p></li>
+<li><p>each line is separated by a newline character (<span class="docutils literal">\n</span>), optionally ending the file with a newline.</p></li>
+<li><p>each file must be UTF-8 encoded,</p></li>
+<li><p>the recommended file extension is <span class="docutils literal">.jsonl</span>, with natural extensions to <span class="docutils literal">.jsonl.gz</span> and <span class="docutils literal">jsonl.bz2</span> for <span class="docutils literal">gzip</span> and <span class="docutils literal">bzip2</span> compressed files, respectively.</p></li>
+</ul>
+<p>The OPTIMADE JSON Lines format then extends these rules with the following conventions:</p>
+<ul class="simple">
+<li><p>The first line of the file is a JSON object that contains metadata about the file.
+It MUST be a dictionary with the key <span class="docutils literal"><span class="pre">x-optimade</span></span>, under which the following key MUST be defined:</p>
+<ul>
+<li><p><span class="docutils literal">api_version</span>: The OPTIMADE API version used when generating the file, as described in the <span class="docutils literal">meta</span> member in <a class="reference internal" href="#json-response-schema-common-fields">JSON Response Schema: Common Fields</a>.</p></li>
+</ul>
+</li>
+<li><p>The next line MAY contain a standard OPTIMADE <span class="docutils literal">meta</span> object, following the same rules described in <a class="reference internal" href="#json-response-schema-common-fields">JSON Response Schema: Common Fields</a>, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
+For example, <span class="docutils literal">meta.data_returned</span> can be omitted, or otherwise used to provide the total number of entries in the file.</p></li>
+<li><p>The next block of lines provides the <span class="docutils literal">info</span> endpoint responses:</p>
+<ul>
+<li><p>First the base info response MUST be provided, following the description at <a class="reference internal" href="#base-info-endpoint">Base Info Endpoint</a>.</p></li>
+<li><p>The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in <a class="reference internal" href="#entry-listing-info-endpoints">Entry Listing Info Endpoints</a>.</p></li>
+</ul>
+</li>
+<li><p>The remaining lines of the file contain data entries themselves, described in <a class="reference internal" href="#entry-listing-json-response-schema">Entry Listing JSON Response Schema</a>.
+These entries can be provided in any order.</p></li>
+<li><p>Finally, any custom extension endpoints (see <a class="reference internal" href="#custom-extension-endpoints">Custom Extension Endpoints</a>), if present and desirable, MUST appear at the end of the file.</p></li>
+</ul>
+<p>This leaves the following overall file structure:</p>
+<pre class="code txt literal-block"><code>&lt;header&gt;
+&lt;optional metadata&gt;
+&lt;base info response&gt;
+&lt;entry info responses&gt;
+&lt;unordered entries&gt;
+&lt;optional custom extension endpoints&gt;</code></pre>
+<p>This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in <a class="reference internal" href="#namespace-prefixes">Namespace Prefixes</a>.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSONLines files should not use an existing prefix unless the desired definitions match exactly.
+Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).</p>
+<p>It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.</p>
+<section id="example-file">
+<h4><a class="toc-backref" href="#toc-entry-126" role="doc-backlink"><span class="sectnum">9.7.1 </span>Example file</a></h4>
+<pre class="code jsonc literal-block"><code>{&quot;x-optimade&quot;: {&quot;api_version&quot;: &quot;1.2.0&quot;}}
+{&quot;meta&quot;: {&quot;time_stamp&quot;: &quot;2024-07-19T11:47:10Z&quot;, &quot;data_returned&quot;: 6, &quot;provider&quot;: {&quot;name&quot;: &quot;Example JSONL&quot;, &quot;description&quot;: &quot;An example JSONL file.&quot;, &quot;prefix&quot;: &quot;_exmpl&quot;}}}
+{&quot;type&quot;: &quot;info&quot;, &quot;id&quot;: &quot;/&quot;, &quot;attributes&quot;: {&quot;api_version&quot;: &quot;1.2.0&quot;, &quot;available_api_versions&quot;: [&quot;1.2.0&quot;], &quot;formats&quot;: [&quot;json&quot;], &quot;entry_types_by_format&quot;: {&quot;json&quot;: [&quot;references&quot;, &quot;structures&quot;]}, &quot;license&quot;: &quot;https://example.com/licenses/example_license.html&quot;}, &quot;homepage&quot;: &quot;https://example.com&quot;, &quot;name&quot;: &quot;Example API&quot;, &quot;provider&quot;: {&quot;description&quot;: &quot;A simple example provider&quot;, &quot;name&quot;: &quot;Example Provider&quot;}}}
+{&quot;type&quot;: &quot;info&quot;, &quot;id&quot;: &quot;references&quot;, ...}
+{&quot;type&quot;: &quot;info&quot;, &quot;id&quot;: &quot;structures&quot;, ...}
+{&quot;type&quot;: &quot;references&quot;, &quot;id&quot;: &quot;2&quot;, &quot;attributes&quot;: {...}}
+{&quot;type&quot;: &quot;structures&quot;, &quot;id&quot;: &quot;1&quot;, &quot;attributes&quot;: {...}, &quot;relationships&quot;: {&quot;references&quot;: {&quot;data&quot;: [{&quot;id&quot;: &quot;2&quot;, &quot;type&quot;: &quot;references&quot;}]}}}</code></pre>
+</section>
+</section>
 </section>
 </main>
 <footer>
-<p>Generated on: 2025-02-03.
+<p>Generated on: 2025-03-07.
 </p>
 </footer>
 </body>
