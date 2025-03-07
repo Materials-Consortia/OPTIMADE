@@ -4543,3 +4543,70 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
     * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
     * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
       POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
+
+
+The OPTIMADE JSON Lines Format for Database Exchange
+----------------------------------------------------
+
+There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
+This appendix describes a lightweight standardization for doing this via the `JSON Lines <https://jsonlines.org/>`__ (JSONL) format, with some additional OPTIMADE-specific conventions.
+
+The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
+
+- each line is a valid JSON value,
+- each line is separated by a newline character (``\n``), optionally ending the file with a newline.
+- each file must be UTF-8 encoded,
+- the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``jsonl.bz2`` for ``gzip`` and ``bzip2`` compressed files, respectively.
+
+The OPTIMADE JSON Lines format then extends these rules with the following conventions:
+
+- The first line of the file is a JSON object that contains metadata about the file.
+  It MUST be a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
+
+  - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
+
+- The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
+  For example, ``meta.data_returned`` can be omitted, or otherwise used to provide the total number of entries in the file.
+
+- The next block of lines provides the ``info`` endpoint responses:
+
+  - First the base info response MUST be provided, following the description at `Base Info Endpoint`_.
+
+  - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_.
+
+- The remaining lines of the file contain data entries themselves, described in `Entry Listing JSON Response Schema`_.
+  These entries can be provided in any order.
+
+- Finally, any custom extension endpoints (see `Custom Extension Endpoints`_), if present and desirable, MUST appear at the end of the file.
+
+This leaves the following overall file structure:
+
+.. code :: txt
+
+  <header>
+  <optional metadata>
+  <base info response>
+  <entry info responses>
+  <unordered entries>
+  <optional custom extension endpoints>
+
+
+This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in `Namespace Prefixes`_.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSONLines files should not use an existing prefix unless the desired definitions match exactly.
+Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).
+
+It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
+
+Example file
+~~~~~~~~~~~~
+
+.. code :: jsonc
+
+  {"x-optimade": {"api_version": "1.2.0"}}
+  {"meta": {"time_stamp": "2024-07-19T11:47:10Z", "data_returned": 6, "provider": {"name": "Example JSONL", "description": "An example JSONL file.", "prefix": "_exmpl"}}}
+  {"type": "info", "id": "/", "attributes": {"api_version": "1.2.0", "available_api_versions": ["1.2.0"], "formats": ["json"], "entry_types_by_format": {"json": ["references", "structures"]}, "license": "https://example.com/licenses/example_license.html"}, "homepage": "https://example.com", "name": "Example API", "provider": {"description": "A simple example provider", "name": "Example Provider"}}}
+  {"type": "info", "id": "references", ...}
+  {"type": "info", "id": "structures", ...}
+  {"type": "references", "id": "2", "attributes": {...}}
+  {"type": "structures", "id": "1", "attributes": {...}, "relationships": {"references": {"data": [{"id": "2", "type": "references"}]}}}
+
