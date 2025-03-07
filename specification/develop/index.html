@@ -1340,7 +1340,7 @@ The dictionary can contain the following OPTIONAL fields:</p>
 <li><p><strong>name</strong>: a human-readable name for the database, e.g., for use in clients.</p></li>
 <li><p><strong>version</strong>: a string describing the version of the database.</p></li>
 <li><p><strong>description</strong>: a human-readable description of the database, e.g., for use in clients.</p></li>
-<li><p><strong>homepage</strong>: a <a class="reference external" href="http://jsonapi.org/format/1.0/#document-links">JSON API link</a>, pointing to a homepage for the particular database.</p></li>
+<li><p><strong>homepage</strong>: a <a class="reference external" href="https://jsonapi.org/format/1.1/#document-links">JSON API link</a>, pointing to a homepage for the particular database.</p></li>
 <li><p><strong>maintainer</strong>: a dictionary providing details about the maintainer of the database, which MUST contain the single field:</p>
 <ul>
 <li><p><strong>email</strong> with the maintainer's email address.</p></li>
@@ -1446,7 +1446,7 @@ Each value is a list of objects that MUST have the following keys:</p>
 The name of the format provided via this link.
 For one of the objects this <span class="field docutils literal">format</span> field SHOULD have the value &quot;jsonlines&quot;, which refers to the format in <a class="reference internal" href="#optimade-json-lines-partial-data-format">OPTIMADE JSON lines partial data format</a>.</p></li>
 <li><p><strong>link</strong>: String.
-A <a class="reference external" href="http://jsonapi.org/format/1.0/#document-links">JSON API link</a> that points to a location from which the omitted data can be fetched.
+A <a class="reference external" href="https://jsonapi.org/format/1.1/#document-links">JSON API link</a> that points to a location from which the omitted data can be fetched.
 There is no requirement on the syntax or format for the link URL.</p></li>
 </ul>
 <p>For more information about the mechanism to transmit large property values, including an example of the format of <span class="field docutils literal">partial_data_links</span>, see <a class="reference internal" href="#transmission-of-large-property-values">Transmission of large property values</a>.</p>
@@ -3544,7 +3544,7 @@ Intricate queries on formula components are instead suggested to be formulated u
 <section id="chemical-formula-hill">
 <h4><a class="toc-backref" href="#toc-entry-80" role="doc-backlink"><span class="sectnum">8.2.6 </span>chemical_formula_hill</a></h4>
 <ul class="simple">
-<li><p><strong>Description</strong>: The chemical formula for a structure in <a class="reference external" href="https://dx.doi.org/10.1021/ja02046a005">Hill form</a> with element symbols followed by integer chemical proportion numbers.
+<li><p><strong>Description</strong>: The chemical formula for a structure in <a class="reference external" href="https://doi.org/10.1021/ja02046a005">Hill form</a> with element symbols followed by integer chemical proportion numbers.
 The proportion number MUST be omitted if it is 1.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
 <li><p><strong>Requirements/Conventions</strong>:</p>
@@ -3556,7 +3556,7 @@ If supported, only a subset of the filter features MAY be supported.</p></li>
 For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, <span class="property docutils literal">chemical_formula_hill</span> is <span class="val docutils literal">&quot;H2O2&quot;</span> (i.e., not <span class="val docutils literal">&quot;HO&quot;</span>, nor <span class="val docutils literal">&quot;H4O4&quot;</span>).</p></li>
 <li><p>If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.</p></li>
 <li><p>Element symbols MUST have proper capitalization (e.g., <span class="val docutils literal">&quot;Si&quot;</span>, not <span class="val docutils literal">&quot;SI&quot;</span> for &quot;silicon&quot;).</p></li>
-<li><p>Elements MUST be placed in <a class="reference external" href="https://dx.doi.org/10.1021/ja02046a005">Hill order</a>, followed by their integer chemical proportion number.
+<li><p>Elements MUST be placed in <a class="reference external" href="https://doi.org/10.1021/ja02046a005">Hill order</a>, followed by their integer chemical proportion number.
 Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
 After that, all other elements are ordered alphabetically.
 If carbon is not present, all elements are ordered alphabetically.</p></li>
