@@ -2359,7 +2359,7 @@ Search for all literature references for structures with tantalum:
 
 Search for all structures of anonymous formula A2B from year 2024:
 
-    :query-url:`https://example.com/optimade/v1/structures?filter=references.target.year=2023+AND+chemical_formula_anonymous=%22A2B%22`
+    :query-url:`https://example.com/optimade/v1/structures?filter=references.target.year=2024+AND+chemical_formula_anonymous=%22A2B%22`
 
 Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.
 
