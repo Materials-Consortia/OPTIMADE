@@ -1,0 +1,23 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schemas.optimade.org/meta/v1.2/common/resource_list"
+title: "resource list"
+description: "A list of dictionaries that describe and reference remote resources."
+type: array
+items:
+  patternProperties:
+    "^x-(?!optimade-)": {}
+  additionalProperties: False
+  properties:
+    relation:
+      description: |-
+        A human-readable description of the resource and what is being referenced in the resource, e.g., a "natural language description".
+      type: string
+    resource-id:
+      description: |-
+        An IRI of the external resource (which MAY be a resolvable URL).
+      type: string
+      format: "iri"
+  required:
+  - relation
+  - resource-id
+  type: object

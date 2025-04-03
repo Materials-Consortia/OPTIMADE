@@ -19,6 +19,26 @@
 # - spell: runs an interactive spellchecker
 #
 #
+# Targets for generating schemas
+################################
+#
+# - schemas <schemas_html_pretty=true> <schemas_html_ext=true>
+#
+#     compile YAML-formatted source files for schemas,
+#     including property definitions, units, and constants
+#     in the schemas/src directory into JSON schema format
+#     placed in the output directory: schemas/output
+#
+#     parameters:
+#        - schemas_html_pretty=true applies OPTIMADE styling to the html output
+#        - schemas_html_ext=true generates html files with .html extensions also
+#              for files meant to be served without extensions, which is useful
+#              for hosting, e.g., on GitHub that automatically redirects URLs without extensions.
+#
+#     For documentation pages hosted on schema.optimade.org use:
+#         make schemas schemas_html_pretty=true schemas_html_ext=true
+#
+#
 # Extracting machine-readable parts of the specification
 ########################################################
 #
@@ -35,6 +55,9 @@
 #   - tests/generated/identifiers.ere
 #   - tests/generated/numbers.ere
 #   - tests/generated/strings.ere
+#   - tests/generated/symops.pcre
+#   - tests/generated/symop_definitions.pcre
+#   - tests/generated/symops.ecma
 #
 #
 # Targets for testing / auditing the specification

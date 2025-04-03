@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/note"
+title: "note"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "note_optimade_references"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "note"
+type:
+  - "string"
+  - "null"
+description: |-
+  Additional information about the reference (the note field in the BibTeX specification).
+examples:
+  - "Accessed: 2022-11-04"
+x-optimade-unit: "inapplicable"

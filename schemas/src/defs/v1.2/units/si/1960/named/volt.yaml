@@ -1,0 +1,38 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/named/volt"
+title: "volt"
+symbol: "V"
+display-symbol: "V"
+description: |-
+  The volt is a derived SI unit for electric potential, voltage, and electromotive force equal to kg·m²·s⁻³·A⁻¹ in the 1960 SI base units.
+
+  "The volt is the electric potential difference that exists between two points of a conducting wire carrying a constant current of one ampere when the power dissipated between these points is equal to one watt." [9th CGPM meeting in 1946]
+resources:
+  - relation: "Definition at the 9th CGPM meeting (1948)"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/9-1948"
+  - relation: "Definition and establishment of the SI unit system at the 11th CGPM meeting (1960), resolution 12."
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-12"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Volt"
+defining-relation:
+  base-units:
+    - symbol: "kg"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/kilogram"
+    - symbol: "m"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/second"
+    - symbol: "A"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/ampere"
+  base-units-expression: "A^-1*kg*m^2*s^-3"
+standard:
+  name: "si"
+  year: 1960
+  category: "named"
+  symbol: "V"
+x-optimade-definition:
+  label: "volt_si_1960_named"
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "volt"

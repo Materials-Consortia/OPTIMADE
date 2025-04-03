@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/crossref"
+title: "crossref"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "crossref_optimade_references"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "crossref"
+type:
+  - "string"
+  - "null"
+description: |-
+  The database key of the entry being cross referenced (the crossref field in the BibTeX specification).
+examples:
+  - "smith2022"
+x-optimade-unit: "inapplicable"

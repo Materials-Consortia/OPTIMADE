@@ -1,0 +1,5 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schemas.optimade.org/meta/v1.2/optimade/constant_definition"
+title: "OPTIMADE constant definition schema"
+description: "Meta-schema for OPTIMADE definitions of mathematical and physical constants."
+$$inherit: unit_entity_definition
