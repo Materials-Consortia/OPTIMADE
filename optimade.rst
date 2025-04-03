@@ -683,7 +683,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     - **name**: a human-readable name for the database, e.g., for use in clients.
     - **version**: a string describing the version of the database.
     - **description**: a human-readable description of the database, e.g., for use in clients.
-    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage for the particular database.
+    - **homepage**: a `JSON API link <https://jsonapi.org/format/1.1/#document-links>`__, pointing to a homepage for the particular database.
     - **maintainer**: a dictionary providing details about the maintainer of the database, which MUST contain the single field:
 
       - **email** with the maintainer's email address.
@@ -795,7 +795,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
       For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
 
     - **link**: String.
-      A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
+      A `JSON API link <https://jsonapi.org/format/1.1/#document-links>`__ that points to a location from which the omitted data can be fetched.
       There is no requirement on the syntax or format for the link URL.
 
     For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_links`, see `Transmission of large property values`_.
@@ -3039,7 +3039,7 @@ chemical\_formula\_reduced
 chemical\_formula\_hill
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: The chemical formula for a structure in `Hill form <https://dx.doi.org/10.1021/ja02046a005>`__ with element symbols followed by integer chemical proportion numbers.
+- **Description**: The chemical formula for a structure in `Hill form <https://doi.org/10.1021/ja02046a005>`__ with element symbols followed by integer chemical proportion numbers.
   The proportion number MUST be omitted if it is 1.
 - **Type**: string
 - **Requirements/Conventions**:
@@ -3051,7 +3051,7 @@ chemical\_formula\_hill
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
   - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
-  - Elements MUST be placed in `Hill order <https://dx.doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
+  - Elements MUST be placed in `Hill order <https://doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
     Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
     After that, all other elements are ordered alphabetically.
     If carbon is not present, all elements are ordered alphabetically.
@@ -4569,3 +4569,70 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
     * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
     * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
       POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
+
+
+The OPTIMADE JSON Lines Format for Database Exchange
+----------------------------------------------------
+
+There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
+This appendix describes a lightweight standardization for doing this via the `JSON Lines <https://jsonlines.org/>`__ (JSONL) format, with some additional OPTIMADE-specific conventions.
+
+The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
+
+- each line is a valid JSON value,
+- each line is separated by a newline character (``\n``), optionally ending the file with a newline.
+- each file must be UTF-8 encoded,
+- the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``jsonl.bz2`` for ``gzip`` and ``bzip2`` compressed files, respectively.
+
+The OPTIMADE JSON Lines format then extends these rules with the following conventions:
+
+- The first line of the file is a JSON object that contains metadata about the file.
+  It MUST be a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
+
+  - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
+
+- The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
+  For example, ``meta.data_returned`` can be omitted, or otherwise used to provide the total number of entries in the file.
+
+- The next block of lines provides the ``info`` endpoint responses:
+
+  - First the base info response MUST be provided, following the description at `Base Info Endpoint`_.
+
+  - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_.
+
+- The remaining lines of the file contain data entries themselves, described in `Entry Listing JSON Response Schema`_.
+  These entries can be provided in any order.
+
+- Finally, any custom extension endpoints (see `Custom Extension Endpoints`_), if present and desirable, MUST appear at the end of the file.
+
+This leaves the following overall file structure:
+
+.. code :: txt
+
+  <header>
+  <optional metadata>
+  <base info response>
+  <entry info responses>
+  <unordered entries>
+  <optional custom extension endpoints>
+
+
+This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in `Namespace Prefixes`_.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSONLines files should not use an existing prefix unless the desired definitions match exactly.
+Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).
+
+It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
+
+Example file
+~~~~~~~~~~~~
+
+.. code :: jsonc
+
+  {"x-optimade": {"api_version": "1.2.0"}}
+  {"meta": {"time_stamp": "2024-07-19T11:47:10Z", "data_returned": 6, "provider": {"name": "Example JSONL", "description": "An example JSONL file.", "prefix": "_exmpl"}}}
+  {"type": "info", "id": "/", "attributes": {"api_version": "1.2.0", "available_api_versions": ["1.2.0"], "formats": ["json"], "entry_types_by_format": {"json": ["references", "structures"]}, "license": "https://example.com/licenses/example_license.html"}, "homepage": "https://example.com", "name": "Example API", "provider": {"description": "A simple example provider", "name": "Example Provider"}}}
+  {"type": "info", "id": "references", ...}
+  {"type": "info", "id": "structures", ...}
+  {"type": "references", "id": "2", "attributes": {...}}
+  {"type": "structures", "id": "1", "attributes": {...}, "relationships": {"references": {"data": [{"id": "2", "type": "references"}]}}}
+
