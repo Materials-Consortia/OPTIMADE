@@ -2317,7 +2317,7 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   However, the nullability of the subfield SHOULD NOT be taken into account when comparing the nested Property Definition for that subfield with other definitions, i.e., a nullable and non-nullable subfield that are otherwise defined the same SHOULD share the same :field:`$id`.
   Hence, formally OPTIMADE Property Definitions regard nullability of a subfield to belong one level *above* where it appears in the JSON Schema definition.
 
-  For namespace-specific data types, value of :field:`type` MUST be either :val:`['string']` or `['string', 'null']`.
+  For namespace-specific data types, value of :field:`type` MUST be either :val:`['string']` or :val:`['string', 'null']`.
 
   **Implementation notes:**
 
