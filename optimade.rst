@@ -3282,6 +3282,24 @@ cartesian\_site\_positions
 
   - :val:`[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 
+fractional\_site\_positions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: fractional coordinates (positions) of each site in the structure. Site coordinates are specified as fractions of unit cell vectors given by the `lattice_vectors`_ property.
+  A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
+  Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
+
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the unit angstrom (Å).
+  - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
+  - **Note**: Since both `cartesian_site_positions`_ and the `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
+
+- **Examples**:
+
+  - :val:`[[0,0,0],[0,0,0.2]]` indicates a structure with two sites, one sitting at the origin and one along the third unit cell axis (*c*-axis), 1/5-th (0.2) of the vector *c* in the direction of the vector *c* from the origin.
+
 nsites
 ~~~~~~
 
@@ -3304,7 +3322,7 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_ or `fractional_site_positons`_).
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_ or `fractional_site_positions`_).
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
