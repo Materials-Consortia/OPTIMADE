@@ -3335,6 +3335,8 @@ site\_coordinate\_span\_description
 
   - **Type**: string
 
+- **Example**: :val:`"Two fullerene molecules with a VdW contact.`
+
 nsites
 ~~~~~~
 
