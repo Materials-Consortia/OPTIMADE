@@ -3310,8 +3310,8 @@ site\_coordinate\_span
 - **Type**: enumerator string
 - **Requirements/conventions**:
 
-  - **Support**: MUST be supported by all implementations if coordinates in `cartesian_site_positions`_ or `fractional_site_positions`_ are returned.
-  - **Query**: Support for queries on this property is OPTIONAL.
+  - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned.
+  - **Query**: Support for queries on this property is OPTIONAL. SHOLJD be supported if coordinates in `cartesian_site_positions`_ are returned. If the implemenatation returns `cartesian_site_positions`_ without also returning the `site_coordinate_span`, coordinates MUST span the unit cell (i.e. the default value for the `site_coordinate_span` MUST be :val"`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
   - The value of this property must be one of the following:
   - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
   - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
