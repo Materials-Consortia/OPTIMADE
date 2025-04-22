@@ -3306,7 +3306,9 @@ site\_coordinate\_span
 
 - **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain atoms _within_ the described extent. The value of the property is an enumerator with the following options:
 
-  - **Type**: enumerator string
+- **Type**: enumerator string
+
+- **Requirements/conventions**: The value of this property must be one of the following:
 
   - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
 
@@ -3331,11 +3333,18 @@ site\_coordinate\_span
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Human-readable semi-formal characterisation of the coordinate span when the `site\_coordinate\_span` property has value :val:`"other"`.
+- **Description** Human-readable semi-formal characterisation of the coordinate span when the `site\_coordinate\_span`_ property has value :val:`"other"`.
 
-  - **Type**: string
+- **Type**: string
 
 - **Example**: :val:`"Two fullerene molecules with a VdW contact.`
+
+site\_span\_extents
+~~~~~~~~~~~~~~~~~~~
+
+- **Description**: Specifies ranges of cells present in a supercell.
+
+- **Type**: list of lists of floats.
 
 nsites
 ~~~~~~
