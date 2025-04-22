@@ -3317,8 +3317,8 @@ site\_coordinate\_span
   - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
   - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
   - :val:`"molecular_asymmetric_unit"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
-  - :val:`unit_cell`: A full unit cell of a periodic system (crystal). The set of sites in the response that spans the unit cell can by used to generate any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
-  - :val:`molecular_unit_cell`: same as :val:`"unit_cell"`, but in addition places atoms that are connected by covalent or coordination bonds at a bond distance from each other.
+  - :val:`"unit_cell"`: A full unit cell of a periodic system (crystal). The set of sites in the response that spans the unit cell can by used to generate any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
+  - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are connected by covalent or coordination bonds at a bond distance from each other.
   - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'. MAY be larger than a fundamental domain.
   - :val:`"supercell"`: The response contains more than one unit cell of the described system. The unit cell vectors are still given as `lattice_vectors`_, therefore sites will be inevitably positioned outside the unit cell spanned by vectors *a*, *b* and *c*. The extent of the supercell is given by the property `site_span_extents`_.
   - :val:`"other"`: Any other collection of sites that does not fit the enumerated values above.
