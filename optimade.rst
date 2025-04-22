@@ -3285,15 +3285,19 @@ cartesian\_site\_positions
 fractional\_site\_positions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: fractional coordinates (positions) of each site in the structure. Site coordinates are specified as fractions of unit cell vectors given by the `lattice_vectors`_ property.
+- **Description**: fractional coordinates (positions) of each site in the structure.
   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
   Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
   When symmetry operations given in `space_group_symmetry_operations_xyz`_ property are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
 
-  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+- **Type**: list of list of floats
+
+- **Requirements/Conventions**:
+
+- **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the unit angstrom (Å).
+  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors`_ property.
   - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
   - **Note**: Since both `cartesian_site_positions`_ and the `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
 
