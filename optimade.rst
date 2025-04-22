@@ -3288,6 +3288,7 @@ fractional\_site\_positions
 - **Description**: fractional coordinates (positions) of each site in the structure. Site coordinates are specified as fractions of unit cell vectors given by the `lattice_vectors`_ property.
   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
   Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
+  When symmetry operations given in `space_group_symmetry_operations_xyz`_ property are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
 
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
@@ -3299,6 +3300,40 @@ fractional\_site\_positions
 - **Examples**:
 
   - :val:`[[0,0,0],[0,0,0.2]]` indicates a structure with two sites, one sitting at the origin and one along the third unit cell axis (*c*-axis), 1/5-th (0.2) of the vector *c* in the direction of the vector *c* from the origin.
+
+site\_coordinate\_span
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `_cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain atoms _within_ the described extent. The value of the property is an enumerator with the following options:
+
+  - **Type**: enumerator string
+
+  - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
+
+  - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
+
+  - :val:`"molecular_fundamental_domain"`: A fundamenal domain where all atoms connected by covalent or donor-accetor coordination bonds are adjacent to each other, placed at a bond distance.
+
+  - :val:`"molecular_asymmetric_unit"`: A fundamenal domain where all atoms connected by covalent or donor-accetor coordination bonds are adjacent to each other, placed at a bond distance.
+
+  - :val:`unit_cell`: A full unit cell of a periodic system (crystal). The set of sites in the response that spans the unit cell can by used to generate any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
+
+  - :val:`molecular_unit_cell`: same as `unit_cell`, but in addition places atoms that are connect by covalent or coordination bonds at a bond distance from each other.
+
+  - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'. MAY be larger than a fundamental domain.
+
+  - :val:`"supercell"`: The response contains more than one unit cell of the described system. The unit cell vectors are still given as `lattice_vectors`_, therefore sites will be inevitably positioned outside the unit cell spanned by vectors *a*, *b* and *c*. The extent of the supercell is given by the property `site_span_extents`_.
+
+  - :val:`"other"`: Any other collection of sites that does not fit the enumerated values above.
+
+  - :val:`null`: The span is not specified. Defaults may be applicable.
+
+site\_coordinate\_span\_description
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description** Human-readable semi-formal characterisation of the coordinate span when the `site\_coordinate\_span` property has value :val:`"other"`.
+
+  - **Type**: string
 
 nsites
 ~~~~~~
