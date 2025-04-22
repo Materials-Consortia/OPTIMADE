@@ -3307,7 +3307,7 @@ site\_coordinate\_span
 ~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites _belonging_ the described extent, and only those sites.
-- **Type**: enumerator string
+- **Type**: string
 - **Requirements/conventions**:
 
   - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned. SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned. If the implemenatation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
