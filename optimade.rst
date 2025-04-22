@@ -3306,14 +3306,14 @@ fractional\_site\_positions
 site\_coordinate\_span
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites _belonging_ the described extent, and only thos sites. The value of the property is an enumerator with the following options:
+- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites _belonging_ the described extent, and only those sites. The value of the property is an enumerator with the following options:
 - **Type**: enumerator string
 - **Requirements/conventions**: The value of this property must be one of the following:
 
-  - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
+  - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
   - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
-  - :val:`"molecular_fundamental_domain"`: A fundamenal domain where all atoms connected by covalent or donor-accetor coordination bonds are adjacent to each other, placed at a bond distance.
-  - :val:`"molecular_asymmetric_unit"`: A fundamenal domain where all atoms connected by covalent or donor-accetor coordination bonds are adjacent to each other, placed at a bond distance.
+  - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+  - :val:`"molecular_asymmetric_unit"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
   - :val:`unit_cell`: A full unit cell of a periodic system (crystal). The set of sites in the response that spans the unit cell can by used to generate any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
   - :val:`molecular_unit_cell`: same as `unit_cell`, but in addition places atoms that are connect by covalent or coordination bonds at a bond distance from each other.
   - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'. MAY be larger than a fundamental domain.
@@ -3324,7 +3324,7 @@ site\_coordinate\_span
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Human-readable semi-formal characterisation of the coordinate span when the `site\_coordinate\_span`_ property has value :val:`"other"`.
+- **Description** Human-readable semi-formal characterization of the coordinate span when the `site\_coordinate\_span`_ property has value :val:`"other"`.
 - **Type**: string
 - **Example**: :val:`"Two fullerene molecules with a VdW contact.`
 
@@ -3335,7 +3335,7 @@ site\_span\_extents
 - **Type**: list of list of floats.
 - **Requirements/Conventions**:
   - The value MUST be a list of three elements. These elements correspond to the elements in the `lattice_vectors`_ array. Each element MUST be a list of two elements, both are either numbers or :val:`null` values. The integer parts of numeric values specifies the minimal and maximal translations of the corresponding unit cell vectors by which the sites _were_ translated from the `[0;1),[0;1),[0;1)` box to obtain the provided coordinates. The fractional part, if non-zero, specifies the part of the last and the first additional unit cell added to the integer-translated unit cells. Together, the values describe the box that MUST contain all atom site coordinates of the structure in the response.
-  - Values of the `site_span_extents` inner lists SHOULD be null for non-periodic domensions.
+  - Values of the `site_span_extents` inner lists SHOULD be null for non-periodic dimensions.
 
 nsites
 ~~~~~~
