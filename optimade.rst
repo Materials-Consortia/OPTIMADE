@@ -3304,7 +3304,7 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_ or `fractional_site_positons`_).
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
