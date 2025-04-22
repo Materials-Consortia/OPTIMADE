@@ -3337,6 +3337,9 @@ site\_span\_extents
 - **Description**: Specifies ranges of cells present in a supercell.
 - **Type**: list of list of floats.
 - **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations if coordinates in `cartesian_site_positions`_ or `fractional_site_positions`_ are returned with the `site_coordinate_span`_ value :val:`supercell`.
+  - **Query**: Support for queries on this property is OPTIONAL.
   - The value MUST be a list of three elements. These elements correspond to the elements in the `lattice_vectors`_ array. Each element MUST be a list of two elements, both are either numbers or :val:`null` values. The integer parts of numeric values specifies the minimal and maximal translations of the corresponding unit cell vectors by which the sites _were_ translated from the `[0;1),[0;1),[0;1)` box to obtain the provided coordinates. The fractional part, if non-zero, specifies the part of the last and the first additional unit cell added to the integer-translated unit cells. Together, the values describe the box that MUST contain all atom site coordinates of the structure in the response.
   - Values of the `site_span_extents` inner lists SHOULD be null for non-periodic dimensions.
 
