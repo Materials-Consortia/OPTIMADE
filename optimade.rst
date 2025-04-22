@@ -3304,7 +3304,7 @@ fractional\_site\_positions
 site\_coordinate\_span
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `_cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain atoms _within_ the described extent. The value of the property is an enumerator with the following options:
+- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain atoms _within_ the described extent. The value of the property is an enumerator with the following options:
 
   - **Type**: enumerator string
 
