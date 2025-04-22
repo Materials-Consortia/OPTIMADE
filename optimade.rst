@@ -3343,6 +3343,14 @@ site\_span\_extents
   - The value MUST be a list of three elements. These elements correspond to the elements in the `lattice_vectors`_ array. Each element MUST be a list of two elements, both are either numbers or :val:`null` values. The integer parts of numeric values specifies the minimal and maximal translations of the corresponding unit cell vectors by which the sites _were_ translated from the :val:`[0;1),[0;1),[0;1)` box to obtain the provided coordinates. The fractional part, if non-zero, specifies the part of the last and the first additional unit cell added to the integer-translated unit cells. Together, the values describe the box that MUST contain all atom site coordinates of the structure in the response.
   - Values of the :property:`site_span_extents` inner lists SHOULD be null for non-periodic dimensions.
 
+- **Examples**:
+
+  - :val:`[[0,1],[0,1],[0,1]]` indicates the response with the structure in the "first octant";
+
+  - :val:`[[3.0,4.0],[2.0,3.0],[5.0,6.0]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
+
+  - :val:`[[-0.5,1.5],[-0.5,1.5],[-0.5,1.5]]` indicates a unit cel with 1/2 of the additional unit cell added as a border;
+
 nsites
 ~~~~~~
 
