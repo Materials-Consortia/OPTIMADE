@@ -3309,9 +3309,9 @@ site\_coordinate\_span
 - **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites _belonging_ the described extent, and only those sites. The value of the property is an enumerator with the following options:
 - **Type**: enumerator string
 - **Requirements/conventions**:
+
   - **Support**: MUST be supported by all implementations if coordinates in `cartesian_site_positions`_ or `fractional_site_positions`_ are returned.
   - **Query**: Support for queries on this property is OPTIONAL.
-
   - The value of this property must be one of the following:
   - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
   - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
