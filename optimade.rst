@@ -3306,7 +3306,7 @@ fractional\_site\_positions
 site\_coordinate\_span
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites _belonging_ the described extent, and only those sites.
+- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites *belonging* to the described extent, and only those sites.
 - **Type**: string
 - **Requirements/conventions**:
 
