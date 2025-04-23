@@ -3356,7 +3356,7 @@ site\_span\_extents
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
+- **Description**: An integer specifying the length of the :property:`species_at_sites` property.
 - **Type**: integer
 - **Requirements/Conventions**:
 
