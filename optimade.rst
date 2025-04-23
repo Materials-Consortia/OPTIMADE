@@ -3342,7 +3342,11 @@ site\_span\_extents
 
   - **Support**: MUST be supported by all implementations if coordinates in `cartesian_site_positions`_ or `fractional_site_positions`_ are returned with the `site_coordinate_span`_ value :val:`"supercell"`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - The value MUST be a list of three elements. These elements correspond to the elements in the `lattice_vectors`_ array. Each element MUST be a list of two elements, both are either numbers or :val:`null` values. The numeric values specify the minimal and maximal translations of the corresponding unit cells by which the sites *were* translated from the :val:`[0;1),[0;1),[0;1)` box to obtain the provided coordinates. Translations are specified as multiples of the :property:`lattice_vectors` *a*, *b* and *c*; the first inner 2-element list corresponds to the minimum and maximum translations along *a*, the second – along *b*, and the third – along *c*.
+  - The value MUST be a list of three elements.
+    These elements correspond to the elements in the `lattice_vectors`_ array.
+    Each element MUST be a list of two elements, both are either numbers or :val:`null` values.
+    The numeric values specify the minimal and maximal translations of the corresponding unit cells by which the sites *were* translated from the :val:`[0;1),[0;1),[0;1)` box to obtain the provided coordinates.
+    Translations are specified as multiples of the :property:`lattice_vectors` *a*, *b* and *c*; the first inner 2-element list corresponds to the minimum and maximum translations along *a*, the second – along *b*, and the third – along *c*.
   - Values of the :property:`site_span_extents` inner lists SHOULD be null for non-periodic dimensions.
 
 - **Examples**:
