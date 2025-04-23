@@ -3351,7 +3351,7 @@ site\_span\_extents
 
   - :val:`[[3.0,4.0],[2.0,3.0],[5.0,6.0]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
 
-  - :val:`[[-0.5,1.5],[-0.5,1.5],[-0.5,1.5]]` indicates a unit cel with 1/2 of the additional unit cell added as a border;
+  - :val:`[[-0.5,1.5],[-0.5,1.5],[-0.5,1.5]]` indicates a unit cell with 1/2 of the additional unit cell added as a border;
 
 nsites
 ~~~~~~
