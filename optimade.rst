@@ -3312,17 +3312,19 @@ site\_coordinate\_span
 
   - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned. SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned. If the implemenatation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
   - **Query**: Support for queries on this property is OPTIONAL.
+
   - The value of this property must be one of the following:
-  - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
-  - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
-  - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
-  - :val:`"molecular_asymmetric_unit"`: An asymmetric unit (a connected fundamental domain) where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
-  - :val:`"unit_cell"`: A full unit cell of a periodic system (crystal). The set of sites in the response that spans the unit cell can by used to generate any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
-  - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are connected by covalent or coordination bonds at a bond distance from each other.
-  - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'. MAY be larger than a fundamental domain.
-  - :val:`"supercell"`: The response contains more than one unit cell of the described system. The unit cell vectors are still given as `lattice_vectors`_, therefore sites will be inevitably positioned outside the unit cell spanned by vectors *a*, *b* and *c*. The extent of the supercell is given by the property `site_span_extents`_.
-  - :val:`"other"`: Any other collection of sites that does not fit the enumerated values above.
-  - :val:`null`: The span is not specified. Defaults may be applicable.
+
+    - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system. The whole periodic system can be completely reconstructed from these sites by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_. The fundamental domain does not need to be a connected space region.
+    - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
+    - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+    - :val:`"molecular_asymmetric_unit"`: An asymmetric unit (a connected fundamental domain) where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+    - :val:`"unit_cell"`: A full unit cell of a periodic system (crystal). The set of sites in the response that spans the unit cell can by used to generate any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
+    - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are connected by covalent or coordination bonds at a bond distance from each other.
+    - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'. MAY be larger than a fundamental domain.
+    - :val:`"supercell"`: The response contains more than one unit cell of the described system. The unit cell vectors are still given as `lattice_vectors`_, therefore sites will be inevitably positioned outside the unit cell spanned by vectors *a*, *b* and *c*. The extent of the supercell is given by the property `site_span_extents`_.
+    - :val:`"other"`: Any other collection of sites that does not fit the enumerated values above.
+    - :val:`null`: The span is not specified. Defaults may be applicable.
 
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
