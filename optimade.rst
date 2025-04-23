@@ -3345,7 +3345,7 @@ site\_span\_extents
 
 - **Examples**:
 
-  - :val:`[[0,1],[0,1],[0,1]]` indicates the response with the structure in the "first octant";
+  - :val:`[[0,0],[0,0],[0,0]]` indicates the response with the structure in the "first octant", i.e. with fractional coordinates in the range :val:`[0;1),[0;1),[0;1)`;
 
   - :val:`[[3.0,4.0],[2.0,3.0],[5.0,6.0]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
 
