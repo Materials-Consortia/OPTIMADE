@@ -3349,6 +3349,8 @@ site\_span\_extents
 
   - :val:`[[0,0],[0,0],[0,0]]` indicates the response with the structure in the "first octant", i.e. with fractional coordinates in the range :val:`[0;1),[0;1),[0;1)`;
 
+  - :val:`[[-1,1],[-1,1],[-1,1]]` a 3x3 box around the origin;
+
   - :val:`[[3,4],[2,3],[5,6]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
 
 - **Note**: there is no provision in this property to define supercells that are not integer multiples of a crystal unit cell.
