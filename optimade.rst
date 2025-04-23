@@ -3337,21 +3337,21 @@ site\_span\_extents
 ~~~~~~~~~~~~~~~~~~~
 
 - **Description**: Specifies ranges of cells present in a supercell.
-- **Type**: list of list of floats.
+- **Type**: list of list of integer.
 - **Requirements/Conventions**:
 
   - **Support**: MUST be supported by all implementations if coordinates in `cartesian_site_positions`_ or `fractional_site_positions`_ are returned with the `site_coordinate_span`_ value :val:`"supercell"`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - The value MUST be a list of three elements. These elements correspond to the elements in the `lattice_vectors`_ array. Each element MUST be a list of two elements, both are either numbers or :val:`null` values. The integer parts of numeric values specifies the minimal and maximal translations of the corresponding unit cells by which the sites *were* translated from the :val:`[0;1),[0;1),[0;1)` box to obtain the provided coordinates. The fractional part, if non-zero, specifies the part of the last and the first additional unit cell added to the integer-translated unit cells. Together, the values describe the box that MUST contain all atom site coordinates of the structure in the response.
+  - The value MUST be a list of three elements. These elements correspond to the elements in the `lattice_vectors`_ array. Each element MUST be a list of two elements, both are either numbers or :val:`null` values. The numeric values specify the minimal and maximal translations of the corresponding unit cells by which the sites *were* translated from the :val:`[0;1),[0;1),[0;1)` box to obtain the provided coordinates.
   - Values of the :property:`site_span_extents` inner lists SHOULD be null for non-periodic dimensions.
 
 - **Examples**:
 
   - :val:`[[0,0],[0,0],[0,0]]` indicates the response with the structure in the "first octant", i.e. with fractional coordinates in the range :val:`[0;1),[0;1),[0;1)`;
 
-  - :val:`[[3.0,4.0],[2.0,3.0],[5.0,6.0]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
+  - :val:`[[3,4],[2,3],[5,6]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
 
-  - :val:`[[-0.5,1.5],[-0.5,1.5],[-0.5,1.5]]` indicates a unit cell with 1/2 of the additional unit cell added as a border;
+- **Note**: there is no provision in this property to define supercells that are not integer multiples of a crystal unit cell.
 
 nsites
 ~~~~~~
