@@ -487,7 +487,7 @@ A list of one or more data URLs together with their respective partial data form
 How this list is provided is response format-dependent.
 For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
 
-The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
+The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON Lines partial data format`_.
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
@@ -502,7 +502,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
         "id": "2345678",
         "attributes": {
             "a": null
-        }
+        },
         "meta": {
           "partial_data_links": {
             "a": [
@@ -792,7 +792,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
     - **format**: String.
       The name of the format provided via this link.
-      For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+      For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON Lines partial data format`_.
 
     - **link**: String.
       A `JSON API link <https://jsonapi.org/format/1.1/#document-links>`__ that points to a location from which the omitted data can be fetched.
@@ -2138,7 +2138,7 @@ A Property Definition MUST be composed according to the combination of the requi
 - :field:`version`: String.
   This string indicates the version of the definition.
   The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
-  When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
+  When a definition is changed in a way that constitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
 
 - :field:`resources`: List.
   A list of dictionaries that references remote resources that describe the property.
@@ -2182,11 +2182,11 @@ A Property Definition MUST be composed according to the combination of the requi
   **REQUIRED keys:**
 
   - :field:`names`: List of Strings.
-    A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    A list of names of the dimensions of the underlying one or multi-dimensional data represented as multiple levels of lists.
     The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
 
   - :field:`sizes`: List of Integers or :val:`null`.
-    A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    A list of fixed length requirements on the underlying one or multi-dimensional data represented as multiple levels of lists.
     The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     The data only validates if the respective level consists of lists of exactly this length.
     A value of :val:`null` allows arbitrary-length lists at the corresponding level.
@@ -4186,9 +4186,9 @@ The regular expressions are recorded below in two forms, one in a more readable 
 
      #END ECMA symops
 
-OPTIMADE JSON lines partial data format
+OPTIMADE JSON Lines partial data format
 ---------------------------------------
-The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
+The OPTIMADE JSON Lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
 The format is based on `JSON Lines <https://jsonlines.org/>`__, which enables streaming of JSON data.
 Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., "array" and "object" and for OPTIMADE properties they are, e.g., "list" and "dictionary".
 
@@ -4208,7 +4208,7 @@ The dictionary has the following OPTIONAL fields:
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the array.
 
-For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
+For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "stop": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
@@ -4218,7 +4218,7 @@ Furthermore, we also define the following special markers:
 - A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
-When data is fetched from these URLs the response MUST use the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+When data is fetched from these URLs the response MUST use the JSON Lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
 The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
@@ -4492,7 +4492,7 @@ The regex is interpreted according to the ECMA-262 processing rules that apply f
 The subset includes only the following tokens and features:
 
 - Individual Unicode characters matching themselves, as defined by the JSON specification (:RFC:`8259`).
-- The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
+- The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRIAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
 - A literal escape of `one of the characters defined as syntax characters in the ECMA-262 standard <https://262.ecma-international.org/11.0/#prod-SyntaxCharacter>`__, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
   No other characters can be escaped.
   (This rule prevents other escapes that are interpreted differently depending on regex flavor.)
@@ -4556,7 +4556,7 @@ The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
 - each line is a valid JSON value,
 - each line is separated by a newline character (``\n``), optionally ending the file with a newline.
 - each file must be UTF-8 encoded,
-- the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``jsonl.bz2`` for ``gzip`` and ``bzip2`` compressed files, respectively.
+- the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``.jsonl.bz2`` for ``gzip`` and ``bzip2`` compressed files, respectively.
 
 The OPTIMADE JSON Lines format then extends these rules with the following conventions:
 
@@ -4592,7 +4592,7 @@ This leaves the following overall file structure:
 
 
 This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in `Namespace Prefixes`_.
-Such static property definitions should be consistent with any externally defined prefixes, that is, JSONLines files should not use an existing prefix unless the desired definitions match exactly.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSON Lines files should not use an existing prefix unless the desired definitions match exactly.
 Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).
 
 It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
