@@ -806,7 +806,7 @@ Below follows the definitions of the text roles used:
 <li><p><a class="reference internal" href="#the-filter-language-ebnf-grammar" id="toc-entry-118"><span class="sectnum">9.1 </span>The Filter Language EBNF Grammar</a></p></li>
 <li><p><a class="reference internal" href="#regular-expressions-for-optimade-filter-tokens" id="toc-entry-119"><span class="sectnum">9.2 </span>Regular Expressions for OPTIMADE Filter Tokens</a></p></li>
 <li><p><a class="reference internal" href="#the-symmetry-operation-string-regular-expressions" id="toc-entry-120"><span class="sectnum">9.3 </span>The Symmetry Operation String Regular Expressions</a></p></li>
-<li><p><a class="reference internal" href="#optimade-json-lines-partial-data-format" id="toc-entry-121"><span class="sectnum">9.4 </span>OPTIMADE JSON lines partial data format</a></p>
+<li><p><a class="reference internal" href="#optimade-json-lines-partial-data-format" id="toc-entry-121"><span class="sectnum">9.4 </span>OPTIMADE JSON Lines partial data format</a></p>
 <ul class="auto-toc">
 <li><p><a class="reference internal" href="#examples" id="toc-entry-122"><span class="sectnum">9.4.1 </span>Examples</a></p></li>
 </ul>
@@ -1160,7 +1160,7 @@ It is up to the implementation to decide which values are too large to represent
 A list of one or more data URLs together with their respective partial data formats are given in the response.
 How this list is provided is response format-dependent.
 For the JSON response format, see the description of the <span class="field docutils literal">partial_data_links</span> field, nested under <span class="field docutils literal">data</span> and then <span class="field docutils literal">meta</span>, in the section <a class="reference internal" href="#json-response-schema-common-fields">JSON Response Schema: Common Fields</a>.</p>
-<p>The default partial data format is named &quot;jsonlines&quot; and is described in the Appendix <a class="reference internal" href="#optimade-json-lines-partial-data-format">OPTIMADE JSON lines partial data format</a>.
+<p>The default partial data format is named &quot;jsonlines&quot; and is described in the Appendix <a class="reference internal" href="#optimade-json-lines-partial-data-format">OPTIMADE JSON Lines partial data format</a>.
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.</p>
 <p>Below follows an example of the <span class="field docutils literal">data</span> and <span class="field docutils literal">meta</span> parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.</p>
@@ -1171,7 +1171,7 @@ Implementations MAY provide links to their own non-standard formats, but non-sta
     &quot;id&quot;: &quot;2345678&quot;,
     &quot;attributes&quot;: {
         &quot;a&quot;: null
-    }
+    },
     &quot;meta&quot;: {
       &quot;partial_data_links&quot;: {
         &quot;a&quot;: [
@@ -1444,7 +1444,7 @@ Each value is a list of objects that MUST have the following keys:</p>
 <ul class="simple">
 <li><p><strong>format</strong>: String.
 The name of the format provided via this link.
-For one of the objects this <span class="field docutils literal">format</span> field SHOULD have the value &quot;jsonlines&quot;, which refers to the format in <a class="reference internal" href="#optimade-json-lines-partial-data-format">OPTIMADE JSON lines partial data format</a>.</p></li>
+For one of the objects this <span class="field docutils literal">format</span> field SHOULD have the value &quot;jsonlines&quot;, which refers to the format in <a class="reference internal" href="#optimade-json-lines-partial-data-format">OPTIMADE JSON Lines partial data format</a>.</p></li>
 <li><p><strong>link</strong>: String.
 A <a class="reference external" href="https://jsonapi.org/format/1.1/#document-links">JSON API link</a> that points to a location from which the omitted data can be fetched.
 There is no requirement on the syntax or format for the link URL.</p></li>
@@ -2692,7 +2692,7 @@ The label SHOULD start with the name.</p>
 <li><p><span class="field docutils literal">version</span>: String.
 This string indicates the version of the definition.
 The string SHOULD be in the format described by the <a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning v2</a> standard.
-When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.</p></li>
+When a definition is changed in a way that constitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.</p></li>
 <li><p><span class="field docutils literal">resources</span>: List.
 A list of dictionaries that references remote resources that describe the property.
 The format of each dictionary is:</p>
@@ -2730,10 +2730,10 @@ Each dimension is given a name and optionally a fixed size.</p>
 <p><strong>REQUIRED keys:</strong></p>
 <ul>
 <li><p><span class="field docutils literal">names</span>: List of Strings.
-A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+A list of names of the dimensions of the underlying one or multi-dimensional data represented as multiple levels of lists.
 The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.</p></li>
 <li><p><span class="field docutils literal">sizes</span>: List of Integers or <span class="val docutils literal">null</span>.
-A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+A list of fixed length requirements on the underlying one or multi-dimensional data represented as multiple levels of lists.
 The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
 The data only validates if the respective level consists of lists of exactly this length.
 A value of <span class="val docutils literal">null</span> allows arbitrary-length lists at the corresponding level.</p>
@@ -4773,8 +4773,8 @@ $ # ... match to the very end of the string
 </ul>
 </section>
 <section id="optimade-json-lines-partial-data-format">
-<h3><a class="toc-backref" href="#toc-entry-121" role="doc-backlink"><span class="sectnum">9.4 </span>OPTIMADE JSON lines partial data format</a></h3>
-<p>The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
+<h3><a class="toc-backref" href="#toc-entry-121" role="doc-backlink"><span class="sectnum">9.4 </span>OPTIMADE JSON Lines partial data format</a></h3>
+<p>The OPTIMADE JSON Lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
 The format is based on <a class="reference external" href="https://jsonlines.org/">JSON Lines</a>, which enables streaming of JSON data.
 Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., &quot;array&quot; and &quot;object&quot; and for OPTIMADE properties they are, e.g., &quot;list&quot; and &quot;dictionary&quot;.</p>
 <p id="slice-object">To aid the definition of the format below, we first define a &quot;slice object&quot; to be a JSON object describing slices of arrays.
@@ -4791,7 +4791,7 @@ The absolute difference in index between two subsequent values that are included
 The default is 1, i.e., every value in the range indicated by <span class="field docutils literal">start</span> and <span class="field docutils literal">stop</span> is included in the slice.
 Hence, a value of 2 denotes a slice of every second value in the array.</p></li>
 </ul>
-<p>For example, for the array <span class="val docutils literal">[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;]</span> the slice object <span class="val docutils literal">{&quot;start&quot;: 1, &quot;end&quot;: 7, &quot;step&quot;: 3}</span> refers to the items <span class="val docutils literal">[&quot;b&quot;, &quot;e&quot;, &quot;h&quot;]</span>.</p>
+<p>For example, for the array <span class="val docutils literal">[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;]</span> the slice object <span class="val docutils literal">{&quot;start&quot;: 1, &quot;stop&quot;: 7, &quot;step&quot;: 3}</span> refers to the items <span class="val docutils literal">[&quot;b&quot;, &quot;e&quot;, &quot;h&quot;]</span>.</p>
 <p>Furthermore, we also define the following special markers:</p>
 <ul class="simple">
 <li><p>The <em>end-of-data-marker</em> is this exact JSON: <span class="val docutils literal"><span class="pre">[&quot;PARTIAL-DATA-END&quot;,</span> <span class="pre">[&quot;&quot;]]</span></span>.</p></li>
@@ -4800,7 +4800,7 @@ A reference-marker MUST only occur in a place where the property being communica
 <li><p>A <em>next-marker</em> is this exact JSON: <span class="val docutils literal"><span class="pre">[&quot;PARTIAL-DATA-NEXT&quot;,</span> <span class="pre">[&quot;&lt;url&gt;&quot;]]</span></span>, where <span class="val docutils literal">&quot;&lt;url&gt;&quot;</span> is to be replaced with the target URL for the next link.</p></li>
 </ul>
 <p>There is no requirement on the syntax or format of the URLs provided in these markers.
-When data is fetched from these URLs the response MUST use the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+When data is fetched from these URLs the response MUST use the JSON Lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
 The markers have been deliberately designed to be valid JSON objects but <em>not</em> valid OPTIMADE property values.
 Since the OPTIMADE list data type is defined as a list of values of the same data type or <span class="val docutils literal">null</span>, the above markers cannot be encountered inside the actual data of an OPTIMADE property.</p>
 <blockquote>
@@ -5046,7 +5046,7 @@ The regex is interpreted according to the ECMA-262 processing rules that apply f
 <p>The subset includes only the following tokens and features:</p>
 <ul class="simple">
 <li><p>Individual Unicode characters matching themselves, as defined by the JSON specification (<a class="reference external" href="https://tools.ietf.org/html/rfc8259.html">RFC 8259</a>).</p></li>
-<li><p>The <span class="docutils literal">.</span> character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see <a class="reference external" href="https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom">ECMA-262 section 2.2.2.7</a>).</p></li>
+<li><p>The <span class="docutils literal">.</span> character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRIAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see <a class="reference external" href="https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom">ECMA-262 section 2.2.2.7</a>).</p></li>
 <li><p>A literal escape of <a class="reference external" href="https://262.ecma-international.org/11.0/#prod-SyntaxCharacter">one of the characters defined as syntax characters in the ECMA-262 standard</a>, i.e., the escape character (<span class="docutils literal">\</span>) followed by one of the following characters <span class="docutils literal">^ $ \ . * + ? ( ) [ ] { } |</span> to represent that literal character.
 No other characters can be escaped.
 (This rule prevents other escapes that are interpreted differently depending on regex flavor.)</p></li>
@@ -5107,7 +5107,7 @@ This appendix describes a lightweight standardization for doing this via the <a 
 <li><p>each line is a valid JSON value,</p></li>
 <li><p>each line is separated by a newline character (<span class="docutils literal">\n</span>), optionally ending the file with a newline.</p></li>
 <li><p>each file must be UTF-8 encoded,</p></li>
-<li><p>the recommended file extension is <span class="docutils literal">.jsonl</span>, with natural extensions to <span class="docutils literal">.jsonl.gz</span> and <span class="docutils literal">jsonl.bz2</span> for <span class="docutils literal">gzip</span> and <span class="docutils literal">bzip2</span> compressed files, respectively.</p></li>
+<li><p>the recommended file extension is <span class="docutils literal">.jsonl</span>, with natural extensions to <span class="docutils literal">.jsonl.gz</span> and <span class="docutils literal">.jsonl.bz2</span> for <span class="docutils literal">gzip</span> and <span class="docutils literal">bzip2</span> compressed files, respectively.</p></li>
 </ul>
 <p>The OPTIMADE JSON Lines format then extends these rules with the following conventions:</p>
 <ul class="simple">
@@ -5137,7 +5137,7 @@ These entries can be provided in any order.</p></li>
 &lt;unordered entries&gt;
 &lt;optional custom extension endpoints&gt;</code></pre>
 <p>This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in <a class="reference internal" href="#namespace-prefixes">Namespace Prefixes</a>.
-Such static property definitions should be consistent with any externally defined prefixes, that is, JSONLines files should not use an existing prefix unless the desired definitions match exactly.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSON Lines files should not use an existing prefix unless the desired definitions match exactly.
 Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).</p>
 <p>It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.</p>
 <section id="example-file">
@@ -5154,7 +5154,7 @@ Where appropriate, a provider prefix can be chosen to represent the tool used to
 </section>
 </main>
 <footer>
-<p>Generated on: 2025-03-07.
+<p>Generated on: 2025-04-24.
 </p>
 </footer>
 </body>
