@@ -3318,7 +3318,7 @@ site\_coordinate\_span
   - The value of this property MUST be one of the following:
 
     - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system.
-      When a server indicates this span in the response, it MUST pride thos and only thtos sites that enable to reconstruct whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
+      When a server indicates this span in the response, it MUST provide those and only those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
       The fundamental domain does not need to be a connected space region.
     - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
     - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
