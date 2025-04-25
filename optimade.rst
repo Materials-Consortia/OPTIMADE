@@ -3331,7 +3331,7 @@ site\_coordinate\_span
     - :val:`"supercell"`: The response contains more than one unit cell of the described system. The unit cell vectors are still given as `lattice_vectors`_, therefore sites will be inevitably positioned outside the unit cell spanned by vectors *a*, *b* and *c*.
       The extent of the supercell is given by the property `site_span_extents`_.
     - :val:`"other"`: Any other collection of sites that does not fit the enumerated values above.
-    - :val:`null`: The span is not specified. Defaults may be applicable.
+    - :val:`null`: The span is not specified.
 
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
