@@ -3324,7 +3324,7 @@ site\_coordinate\_span
     - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
     - :val:`"molecular_asymmetric_unit"`: An asymmetric unit (a connected fundamental domain) where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
     - :val:`"unit_cell"`: A full unit cell of a periodic system (crystal).
-      For this span, the server MUST provide a set of sites in the response can by used to generate sites in any spacial region of the material system (crystal) by simply applying translations from the `lattice_vectors`_ property.
+      For this span, the server MUST provide a set of sites in the response that can be used to reconstruct the whole periodic system (crystal) by simply applying translations from the `lattice_vectors`_ property to those sites.
     - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are connected by covalent or coordination bonds at a bond distance from each other.
     - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'.
       This set of sites MAY be larger than a fundamental domain.
