@@ -3315,7 +3315,7 @@ site\_coordinate\_span
     If the implemenatation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
   - **Query**: Support for queries on this property is OPTIONAL.
 
-  - The value of this property must be one of the following:
+  - The value of this property MUST be one of the following:
 
     - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system.
       When a server indicates this span in the response, it MUST pride thos and only thtos sites that enable to reconstruct whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
