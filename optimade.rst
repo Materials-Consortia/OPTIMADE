@@ -3306,13 +3306,14 @@ fractional\_site\_positions
 site\_coordinate\_span
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Indicates the extent of the material (crystal) described in the response. In particular, properties `cartesian_site_positions`_ and `fractional\_site\_positions`_ MUST contain all sites *belonging* to the described extent, and only those sites.
+- **Description** Indicates the extent of the material (crystal) described in the response.
+  In particular, properties `cartesian_site_positions`_ and `fractional_site_positions`_ MUST contain all sites *belonging* to the described extent, and only those sites.
 - **Type**: string
 - **Requirements/conventions**:
 
   - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned.
     It SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned.
-    If the implemenatation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
+    If the implementation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
   - **Query**: Support for queries on this property is OPTIONAL.
 
   - The value of this property MUST be one of the following:
@@ -3320,23 +3321,24 @@ site\_coordinate\_span
     - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system.
       When a server indicates this span in the response, it MUST provide those and only those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
       The fundamental domain does not need to be a connected space region.
-    - :val:`"asymmetric_unit"`: All sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
-    - :val:`"molecular_fundamental_domain"`: A fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
-    - :val:`"molecular_asymmetric_unit"`: An asymmetric unit (a connected fundamental domain) where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
-    - :val:`"unit_cell"`: A full unit cell of a periodic system (crystal).
+    - :val:`"asymmetric_unit"`: all sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
+    - :val:`"molecular_fundamental_domain"`: a fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+    - :val:`"molecular_asymmetric_unit"`: an asymmetric unit (a connected fundamental domain) where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+    - :val:`"unit_cell"`: a full unit cell of a periodic system (crystal).
       For this span, the server MUST provide a set of sites in the response that can be used to reconstruct the whole periodic system (crystal) by simply applying translations from the `lattice_vectors`_ property to those sites.
     - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are connected by covalent or coordination bonds at a bond distance from each other.
-    - :val:`"molecular_entities"`: Sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of the 'molecular entity'.
+    - :val:`"molecular_entities"`: sets of atoms that are connected by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
       This set of sites MAY be larger than a fundamental domain.
-    - :val:`"supercell"`: The response contains more than one unit cell of the described system. The unit cell vectors are still given as `lattice_vectors`_, therefore sites will be inevitably positioned outside the unit cell spanned by vectors *a*, *b* and *c*.
+    - :val:`"supercell"`: the response contains more than one unit cell of the described system.
+      The unit cell vectors are still given as `lattice_vectors`_, therefore sites will inevitably be positioned outside the unit cell spanned by vectors *a*, *b* and *c*.
       The extent of the supercell is given by the property `site_span_extents`_.
-    - :val:`"other"`: Any other collection of sites that does not fit the enumerated values above.
-    - :val:`null`: The span is not specified.
+    - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
+    - :val:`null`: the span is not specified.
 
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description** Human-readable semi-formal characterization of the coordinate span when the `site\_coordinate\_span`_ property has value :val:`"other"`.
+- **Description** Human-readable semi-formal characterization of the coordinate span when the `site_coordinate_span`_ property has value :val:`"other"`.
 - **Type**: string
 - **Example**: :val:`"Two fullerene molecules with a VdW contact.`
 
@@ -3358,11 +3360,11 @@ site\_span\_extents
 
 - **Examples**:
 
-  - :val:`[[0,0],[0,0],[0,0]]` indicates the response with the structure in the "first octant", i.e. with fractional coordinates in the range :val:`[0;1),[0;1),[0;1)`;
+  - :val:`[[0,0],[0,0],[0,0]]` indicates the response with the structure in the "first octant", i.e. with fractional coordinates in the range :val:`[0;1),[0;1),[0;1)`.
 
-  - :val:`[[-1,1],[-1,1],[-1,1]]` a 3x3 box around the origin;
+  - :val:`[[-1,1],[-1,1],[-1,1]]` a 3x3 box around the origin.
 
-  - :val:`[[3,4],[2,3],[5,6]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`;
+  - :val:`[[3,4],[2,3],[5,6]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`.
 
 - **Note**: there is no provision in this property to define supercells that are not integer multiples of a crystal unit cell.
 
