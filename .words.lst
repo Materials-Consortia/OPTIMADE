@@ -1,4 +1,4 @@
-personal_ws-1.1 en 269 
+personal_ws-1.1 en 273 
 ABNF
 ACM
 APIs
@@ -92,6 +92,7 @@ ValueRelCompRhs
 ValueZip
 ValueZipList
 VdW
+Vinberg
 Za
 Zeolitic
 aax
@@ -200,6 +201,7 @@ nsites
 nullability
 nullable
 occupancies
+octant
 od
 oe
 ok
@@ -238,6 +240,7 @@ subfields
 substring
 substrings
 supercell
+supercells
 symop
 symops
 testdb
@@ -268,3 +271,4 @@ yacc
 yb
 zeo
 zeolites
+ångström
