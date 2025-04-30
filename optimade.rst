@@ -3318,10 +3318,10 @@ site\_coordinate\_span
 
   - The value of this property MUST be one of the following:
 
-    - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain of a periodic system.
+    - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain (Vinberg, 1994; European Mathematical Society, 2020) of a periodic system.
       When a server indicates this span in the response, it MUST provide those and only those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
       The fundamental domain does not need to be a connected space region.
-    - :val:`"asymmetric_unit"`: all sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition.
+    - :val:`"asymmetric_unit"`: all sites are in a connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition (IUCr, 2017).
     - :val:`"molecular_fundamental_domain"`: a fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
     - :val:`"molecular_asymmetric_unit"`: an asymmetric unit (a connected fundamental domain) where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
     - :val:`"unit_cell"`: a full unit cell of a periodic system (crystal).
@@ -3334,6 +3334,14 @@ site\_coordinate\_span
       The extent of the supercell is given by the property `site_span_extents`_.
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
     - :val:`null`: the span is not specified.
+
+- **Bibliographic References**:
+
+E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN `1402006098 <https://isbnsearch.org/isbn/1402006098>`__, URL: https://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=13590 [accessed 2025-04-30T08:55+03:00].
+
+European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: http://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=47023 [accessed 2025-04-30T08:53+03:00].
+
+IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
 
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
