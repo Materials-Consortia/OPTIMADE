@@ -3313,7 +3313,7 @@ site\_coordinate\_span
 
   - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned.
     It SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned.
-    If the implementation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the 1.1 OPTIMADE implementations.
+    If the implementation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the v1.2.0 and earlier OPTIMADE implementations.
   - **Query**: Support for queries on this property is OPTIONAL.
 
   - The value of this property MUST be one of the following:
