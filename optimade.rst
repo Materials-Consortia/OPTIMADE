@@ -3337,11 +3337,11 @@ site\_coordinate\_span
 
 - **Bibliographic References**:
 
-E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN `1402006098 <https://isbnsearch.org/isbn/1402006098>`__, URL: https://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=13590 [accessed 2025-04-30T08:55+03:00].
+  E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN `1402006098 <https://isbnsearch.org/isbn/1402006098>`__, URL: https://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=13590 [accessed 2025-04-30T08:55+03:00].
 
-European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: http://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=47023 [accessed 2025-04-30T08:53+03:00].
+  European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: http://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=47023 [accessed 2025-04-30T08:53+03:00].
 
-IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
+  IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
 
 site\_coordinate\_span\_description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
