@@ -3348,7 +3348,7 @@ site\_coordinate\_span\_description
 
 - **Description** Human-readable semi-formal characterization of the coordinate span when the `site_coordinate_span`_ property has value :val:`"other"`.
 - **Type**: string
-- **Example**: :val:`"Two fullerene molecules with a VdW contact.`
+- **Example**: :val:`"Two fullerene molecules with a VdW contact."`
 
 site\_span\_extents
 ~~~~~~~~~~~~~~~~~~~
