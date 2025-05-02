@@ -3346,32 +3346,6 @@ site\_coordinate\_span\_description
 - **Type**: string
 - **Example**: :val:`"Two fullerene molecules with a VdW contact."`
 
-site\_span\_extents
-~~~~~~~~~~~~~~~~~~~
-
-- **Description**: Specifies ranges of cells present in a supercell.
-- **Type**: list of list of integer.
-- **Requirements/Conventions**:
-
-  - **Support**: MUST be supported by all implementations if coordinates in `cartesian_site_positions`_ or `fractional_site_positions`_ are returned with the `site_coordinate_span`_ value :val:`"supercell"`.
-  - **Query**: Support for queries on this property is OPTIONAL.
-  - The value MUST be a list of three elements.
-    These elements correspond to the elements in the `lattice_vectors`_ array.
-    Each element MUST be a list of two elements, both are either numbers or :val:`null` values.
-    The numeric values specify the minimal and maximal translations of the corresponding unit cells by which the sites *were* translated from the :val:`[0;1),[0;1),[0;1)` box to obtain the provided coordinates.
-    Translations MUST be specified as multiples of the :property:`lattice_vectors` *a*, *b* and *c*; the first inner 2-element list corresponds to the minimum and maximum translations along *a*, the second – along *b*, and the third – along *c*.
-  - Values of the :property:`site_span_extents` inner lists SHOULD be null for non-periodic dimensions.
-
-- **Examples**:
-
-  - :val:`[[0,0],[0,0],[0,0]]` indicates the response with the structure in the "first octant", i.e. with fractional coordinates in the range :val:`[0;1),[0;1),[0;1)`.
-
-  - :val:`[[-1,1],[-1,1],[-1,1]]` a 3x3 box around the origin.
-
-  - :val:`[[3,4],[2,3],[5,6]]` indicates a :val:`2x2x2` supercell with the origin shifted to the point :val:`(3,2,5)`.
-
-- **Note**: there is no provision in this property to define supercells that are not integer multiples of a crystal unit cell.
-
 nsites
 ~~~~~~
 
