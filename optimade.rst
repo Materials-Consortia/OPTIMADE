@@ -3328,9 +3328,6 @@ site\_coordinate\_span
     - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are bound by covalent or coordination bonds at a bond distance from each other.
     - :val:`"molecular_entities"`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
       This set of sites MAY be larger than a fundamental domain.
-    - :val:`"supercell"`: the response contains more than one unit cell of the described system.
-      The unit cell vectors are still given as `lattice_vectors`_, therefore sites will inevitably be positioned outside the unit cell spanned by vectors *a*, *b* and *c*.
-      The extent of the supercell is given by the property `site_span_extents`_.
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
     - :val:`null`: the span is not specified. In this case the best that the client can assume is that the sites span the whole unit cell (i.e. the `site_coordinate_span` is `"unit_cell"`). This is the assumed behavior of all main implentations before the `site_coordinate_span` definition was introduced.
 
