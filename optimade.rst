@@ -3313,7 +3313,6 @@ site\_coordinate\_span
 
   - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned.
     It SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned.
-    If the implementation returns `cartesian_site_positions`_ without also returning the :property:`site_coordinate_span`, the coordinates MUST span the unit cell (i.e. the default value for the :property:`site_coordinate_span` MUST be :val:`"unit_cell"`), to maintain compatibility with the v1.2.0 and earlier OPTIMADE implementations.
   - **Query**: Support for queries on this property is OPTIONAL.
 
   - The value of this property MUST be one of the following:
@@ -3333,7 +3332,7 @@ site\_coordinate\_span
       The unit cell vectors are still given as `lattice_vectors`_, therefore sites will inevitably be positioned outside the unit cell spanned by vectors *a*, *b* and *c*.
       The extent of the supercell is given by the property `site_span_extents`_.
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
-    - :val:`null`: the span is not specified.
+    - :val:`null`: the span is not specified. In this case the best that the client can assume is that the sites span the whole unit cell (i.e. the `site_coordinate_span` is `"unit_cell"`). This is the assumed behavior of all main implentations before the `site_coordinate_span` definition was introduced.
 
 - **Bibliographic References**:
 
