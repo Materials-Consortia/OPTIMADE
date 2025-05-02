@@ -3349,7 +3349,7 @@ site\_coordinate\_span\_description
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the length of the :property:`species_at_sites` property.
+- **Description**: An integer specifying the number of sites in a unit cell.
 - **Type**: integer
 - **Requirements/Conventions**:
 
