@@ -3349,7 +3349,7 @@ site\_coordinate\_span\_description
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the number of sites in a unit cell.
+- **Description**: An integer specifying the number of sites in a unit cell defined by the field :property:`lattice_vectors`.
 - **Type**: integer
 - **Requirements/Conventions**:
 
