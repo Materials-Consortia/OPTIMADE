@@ -2599,6 +2599,7 @@ For example, to find all structures with bibliographic references where one of t
 <p>Filters that match when the property is known, or unknown, respectively can be constructed using the following syntax:</p>
 <pre class="literal-block">identifier IS KNOWN
 identifier IS UNKNOWN</pre>
+<p>For properties having other than boolean values, <code class="filter">identifier IS KNOWN</code> MAY be written as <code class="filter">identifier</code>.</p>
 <p>Except for the above constructs, filters that use any form of comparison that involve properties of unknown values MUST NOT match.
 Hence, by definition, an <span class="filter-fragment docutils literal">identifier</span> of value <span class="filter-fragment docutils literal">null</span> never matches equality (<span class="filter-op docutils literal">=</span>), inequality (<span class="filter-op docutils literal">&lt;</span>, <span class="filter-op docutils literal">&lt;=</span>, <span class="filter-op docutils literal">&gt;</span>, <span class="filter-op docutils literal">&gt;=</span>, <span class="filter-op docutils literal">!=</span>) or other comparison operators besides <code class="filter">identifier IS UNKNOWN</code> and <code class="filter">NOT identifier IS KNOWN</code>.
 In particular, a filter that compares two properties that are both <span class="val docutils literal">null</span> for equality or inequality does not match.</p>
@@ -5154,7 +5155,7 @@ Where appropriate, a provider prefix can be chosen to represent the tool used to
 </section>
 </main>
 <footer>
-<p>Generated on: 2025-06-09.
+<p>Generated on: 2025-06-10.
 </p>
 </footer>
 </body>
