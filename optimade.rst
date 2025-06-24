@@ -3329,7 +3329,7 @@ site\_coordinate\_span
     - :val:`"molecular_entities"`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
       This set of sites MAY be larger than a fundamental domain.
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
-    - :val:`null`: if omitted or :val:`null`, the default value of :field:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implentations before the `site_coordinate_span` definition was introduced.
+    - :val:`null`: if omitted or :val:`null`, the default value of :field:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implentations before the `site_coordinate_span`_ definition was introduced.
 
 - **Bibliographic References**:
 
