@@ -3331,6 +3331,8 @@ site\_coordinate\_span
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
     - :val:`null`: if omitted or :val:`null`, the default value of :property:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implentations before the :property:`site_coordinate_span` definition was introduced.
 
+- **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided. For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in :property:`lattice_vectors`; onlu a non-redundant set of sites SHOULD be provided.
+
 - **Bibliographic References**:
 
   E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN `1402006098 <https://isbnsearch.org/isbn/1402006098>`__, URL: https://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=13590 [accessed 2025-04-30T08:55+03:00].
