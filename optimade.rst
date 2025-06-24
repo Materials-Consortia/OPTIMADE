@@ -3329,9 +3329,9 @@ site\_coordinate\_span
     - :val:`"molecular_entities"`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
       This set of sites MAY be larger than a fundamental domain.
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
-    - :val:`null`: if omitted or :val:`null`, the default value of :property:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implentations before the :property:`site_coordinate_span` definition was introduced.
+    - :val:`null`: if omitted or :val:`null`, the default value of :property:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implementations before the :property:`site_coordinate_span` definition was introduced.
 
-- **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided. For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in :property:`lattice_vectors`; onlu a non-redundant set of sites SHOULD be provided.
+- **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided. For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in :property:`lattice_vectors`; only a non-redundant set of sites SHOULD be provided.
 
 - **Bibliographic References**:
 
