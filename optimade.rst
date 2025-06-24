@@ -3323,7 +3323,7 @@ site\_coordinate\_span
     - :val:`"asymmetric_unit"`: all sites are in a simply connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition (IUCr, 2017).
     - :val:`"molecular_fundamental_domain"`: a fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
     - :val:`"molecular_asymmetric_unit"`: an asymmetric unit (a simply connected fundamental domain) where all atoms bound by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
-    - :val:`"unit_cell"`: a full unit cell of a periodic system (crystal).
+    - :val:`"unit_cell"`: a full unit cell of a periodic system (crystal), i.e., any repeating unit chosen by the server defined by the property :property:`lattice_vectors`.
       For this span, the server MUST provide a set of sites in the response that can be used to reconstruct the whole periodic system (crystal) by simply applying translations from the `lattice_vectors`_ property to those sites.
     - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are bound by covalent or coordination bonds at a bond distance from each other.
     - :val:`"molecular_entities"`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
