@@ -2035,6 +2035,8 @@ Filters that match when the property is known, or unknown, respectively can be c
     identifier IS KNOWN
     identifier IS UNKNOWN
 
+For properties having other than boolean values, :filter:`identifier IS KNOWN` MAY be written as :filter:`identifier`.
+
 Except for the above constructs, filters that use any form of comparison that involve properties of unknown values MUST NOT match.
 Hence, by definition, an :filter-fragment:`identifier` of value :filter-fragment:`null` never matches equality (:filter-op:`=`), inequality (:filter-op:`<`, :filter-op:`<=`, :filter-op:`>`, :filter-op:`>=`, :filter-op:`!=`) or other comparison operators besides :filter:`identifier IS UNKNOWN` and :filter:`NOT identifier IS KNOWN`.
 In particular, a filter that compares two properties that are both :val:`null` for equality or inequality does not match.
