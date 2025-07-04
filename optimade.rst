@@ -3307,7 +3307,7 @@ site\_coordinate\_span
 ~~~~~~~~~~~~~~~~~~~~~~
 
 - **Description** Indicates the extent of the material (crystal) described in the response.
-  In particular, properties `cartesian_site_positions`_ and `fractional_site_positions`_ MUST contain all sites *belonging* to the described extent, and only those sites.
+  In particular, properties `cartesian_site_positions`_ and `fractional_site_positions`_ MUST contain all sites *belonging* to the described extent.
 - **Type**: string
 - **Requirements/conventions**:
 
@@ -3318,7 +3318,7 @@ site\_coordinate\_span
   - The value of this property MUST be one of the following:
 
     - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain (Vinberg, 1994; European Mathematical Society, 2020) of a periodic system.
-      When a server indicates this span in the response, it MUST provide those and only those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
+      When a server indicates this span in the response, it MUST provide those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
       The fundamental domain does not need to be a connected space region.
     - :val:`"asymmetric_unit"`: all sites are in a simply connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition (IUCr, 2017).
     - :val:`"molecular_fundamental_domain"`: a fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
