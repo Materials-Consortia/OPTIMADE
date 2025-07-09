@@ -3380,7 +3380,7 @@ species\_at\_sites
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and `fractional_site_positions`_).
+  - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and/or `fractional_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
