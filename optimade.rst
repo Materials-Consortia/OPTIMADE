@@ -3290,7 +3290,7 @@ fractional\_site\_positions
 - **Description**: fractional coordinates (positions) of each site in the structure.
   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
   Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
-  When symmetry operations given in `space_group_symmetry_operations_xyz`_ property are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
+  When symmetry operations given in `space_group_symmetry_operations_xyz`_ are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
 - **Type**: list of list of floats
 - **Requirements/Conventions**:
 
