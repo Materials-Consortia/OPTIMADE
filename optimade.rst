@@ -628,7 +628,7 @@ In the JSON response format, property types translate as follows:
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
-- Namespace-specific data types use string representations.
+- Namespace-specific data types can use any of the above.
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
@@ -1817,10 +1817,7 @@ The following tokens are used in the filter query component:
 
   (Note that at the end of the string value above the four final backslashes represent the two terminal backslashes in the value, and the final double quote is a terminator, it is not escaped.)
 
-  String value tokens are also used to represent:
-
-  - **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
-  - Namespace-specific data types.
+  String value tokens are also used to represent **timestamps** in form of the `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 
 - **Numeric values** are represented as decimal integers or in scientific notation, using the usual programming language conventions.
   A regular expression giving the number syntax is given below as a `POSIX Extended Regular Expression (ERE) <https://en.wikipedia.org/w/index.php?title=Regular_expression&oldid=786659796#Standards>`__ or as a `Perl-Compatible Regular Expression (PCRE) <http://www.pcre.org>`__:
@@ -2077,7 +2074,7 @@ As the filter language syntax does not define a lexical token for timestamps, va
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
-Namespace providers MAY introduce namespace-specific data types, representing them with string lexical tokens both in filters and responses.
+Namespace providers MAY introduce namespace-specific data types.
 It is up to the providers to decide which comparison operators to support and how the comparisons should be performed.
 For example, a provider that introduces a set-valued property :property:`_exmpl_set`, may decide to override the :val:`CONTAINS` operator so that :filter:`identifier CONTAINS set` is true when :val:`set` is a subset of a property.
 
@@ -2318,8 +2315,6 @@ The format described in this subsection forms a subset of the `JSON Schema Valid
   Property Definitions for which the nullability of a subfield differs MUST NOT share the same :field:`$id`.
   However, the nullability of the subfield SHOULD NOT be taken into account when comparing the nested Property Definition for that subfield with other definitions, i.e., a nullable and non-nullable subfield that are otherwise defined the same SHOULD share the same :field:`$id`.
   Hence, formally OPTIMADE Property Definitions regard nullability of a subfield to belong one level *above* where it appears in the JSON Schema definition.
-
-  For namespace-specific data types, value of :field:`type` MUST be either :val:`['string']` or :val:`['string', 'null']`.
 
   **Implementation notes:**
 
