@@ -618,7 +618,7 @@ The protocol for large property values is used by the server implementation to t
 Slices, on the other hand, are used for a client to request a subset of any size of the items of an array, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
 
 The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
-Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using metadata property field :field:`array_axes` (see `Metadata properties`_).
+Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using the metadata property field :field:`array_axes` (see `Metadata properties`_).
 When the client request includes the query parameter :query-param:`property_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`array_axes` is MANDATORY (see below).
 The field :field:`array_axes` is defined as follows:
 
