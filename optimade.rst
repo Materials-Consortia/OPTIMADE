@@ -650,22 +650,17 @@ The field :field:`array_axes` is defined as follows:
     (Consequently, the dictionary MAY be empty if all fields take the default values.)
 
     Examples:
+    Query Type | Query Formulation | Valid Representations
+    ----------------|---------------------------|------------------------------
+    fully formed | :query-string:`property_slices=dim_frames:3:5:2` | ``{"start": 3, "stop": 5, "step": 2}``
+    empty query with start | :query-string:`property_slices=dim_frames:0::` | ``{"start": 0}``
+    empty query | :query-string:`property_slices=dim_frames:::` | ``{}``
+                         |                                                                         | ``{"start": null, "stop": null, "step": null}``
+                         |                                                                         | ``{"start": null}``
+                         |                                                                         | ``{"stop": null, "step": null}``
 
-    - For :query-string:`property_slices=dim_frames:::` some of the equivalent valid representations are:
-
-      - ``{}``
-      - ``{"start": null, "stop": null, "step": null}``
-      - ``{"start": null}``
-      - ``{"stop": null, "step": null}``
-
-      Whereas, e.g., the following representation is not valid:
-
-      - ``{"start": 0}`` (despite that :val:`0` is the default value of the :field:`start` field.)
-        But it is instead a valid representation if the query parameter was :query-string:`property_slices=dim_frames:0::`.
-
-    - :query-string:`property_slices=dim_frames:3:5:2` the representation MUST be:
-
-      - ``{"start": 3, "stop": 5, "step": 2}``
+   Note that any of the representations for the "empty query" are valid.
+   Even though, semantically, it means the same as the "empty query with start" at index zero, both differ in representation. This is due to the starting index being explicitely specified now. The reason becomes apparent once the starting index takes on a value different from the default.
 
   The dictionary MAY contain the following fields:
 
