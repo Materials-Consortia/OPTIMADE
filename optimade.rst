@@ -614,8 +614,8 @@ Slices of array properties
 The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
 The protocol for this functionality specifies how a server MAY support slicing arrays independently per entry, per array, and per array axis.
 This functionality is separate from (but compatible with) the protocol described in `Transmission of large property values`_.
-Slices are used for a client to ask the server to only provide a subset of items of an array, which can result in a small or large set of items.
-In contrast, the protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
+The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
+Slices, on the other hand, are used for a client to request a subset of any size of the items of an array, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
 
 The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
 Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using metadata property field :field:`array_axes` (see `Metadata properties`_).
