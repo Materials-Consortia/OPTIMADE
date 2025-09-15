@@ -1396,7 +1396,9 @@ As a consequence, the server will not slice any properties.
 
   - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&property_slices=dim_frames::999:10,dim_sites:30:70:`
 
-    This query URL requests items from the array :field:`frame_cartesian_site_positions` only for the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990) of a trajectory with ID :val:`id_12345`.
+    This query URL requests items from the trajectory with ID :val:`id_12345`.
+    It requests items from the array :field:`frame_cartesian_site_positions` for this trajectory.
+    The items that are requested are for only the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990).
 
 Single Entry JSON Response Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
