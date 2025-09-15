@@ -1388,6 +1388,7 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
   The default is :val:`1`.
 
   An empty value of the :query-param:`property_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
+As a consequence, the server will not slice any properties. 
 
   Requirements and conventions for the response when this query parameter is used are described in `Slices of array properties`_.
 
