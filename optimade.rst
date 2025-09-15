@@ -1383,7 +1383,7 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
   The start value specifies the first index in that dimension for which values should be returned (which is 0-based and inclusive).
   The default is :val:`0`.
   The stop value specifies the last index for which values should be returned (inclusive).
-  The default is the last index of the array along the specified dimension.
+  The default is :val:`null`, which represents the last index of the array along the specified dimension.
   The step value specifies the step size in that dimension.
   The default is :val:`1`.
 
