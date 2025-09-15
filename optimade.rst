@@ -631,7 +631,7 @@ The field :field:`array_axes` is defined as follows:
   - :field:`dimension_name`: String.
     The dimension name of the corresponding array axis.
 
-  If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present, otherwise the key MUST be omitted or equal to :val:`null`:
+  If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
 
   - :field:`requested_slice`: Dictionary.
     A field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
