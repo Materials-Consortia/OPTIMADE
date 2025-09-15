@@ -636,7 +636,7 @@ The field :field:`array_axes` is defined as follows:
   - :field:`requested_slice`: Dictionary.
     A field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
     The subfields MUST reflect the values provided via the :query-param:`property_slices`.
-    The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent.
+    The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent (see example below).
     It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
 
     - :field:`start`: Non-negative integer or :val:`null`.
