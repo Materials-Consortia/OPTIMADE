@@ -623,7 +623,7 @@ When the client request includes the query parameter :query-param:`property_slic
 The field :field:`array_axes` is defined as follows:
 
 - :field:`array_axes`: List of Dictionary.
-  A list of dictionaries which provide information related to the axes of an array property, including sliceable axes.
+  A list of dictionaries which provide descriptive information related to the axes of an array property, including sliceable axes.
   Each item, in order, represents the array axis as declared in the corresponding property definition.
 
   Each item MUST be a dictionary with the following REQUIRED field:
@@ -634,7 +634,7 @@ The field :field:`array_axes` is defined as follows:
   If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
 
   - :field:`requested_slice`: Dictionary.
-    A field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
+    A metadata field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
     The subfields MUST reflect the values provided via the :query-param:`property_slices`.
     The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent (see example below).
     It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
@@ -675,7 +675,7 @@ The field :field:`array_axes` is defined as follows:
     If the field is omitted or :val:`null`, it means the same thing as :val:`false`.
 
   - :field:`available_slice`: Dictionary or :val:`null`.
-    This field describes a `slice object`_.
+    This metadata field describes a `slice object`_.
     By including this field, the server certifies that there MUST only be :val:`null` values outside this slice.
     Inside the slice there MAY be any combination of null and non-null values.
     If not provided, or equal to :val:`null` or an empty dictionary, the client cannot make any assumptions about what part of the array contains :val:`null` values.
