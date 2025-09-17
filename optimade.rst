@@ -569,7 +569,11 @@ Database providers are allowed to define their own metadata properties in :field
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
-Implementation of the :field:`meta` field is OPTIONAL, unless the server implements slicing, in which case it is MANDATORY (see `Slices of list properties`_).
+Implementation of the :field:`meta` field is OPTIONAL.
+However, it becomes MANDATORY when some of subfields included in the :field:`meta` field are MANDATORY according to other parts of the OPTIMADE specification.
+This happens, for instance, if a server supports slicing and receives a request containing the :query-param:`property_slices` query parameter.
+In this case, the inclusion of the :field:`requested_slices` subfield of the :field:`list_axes` field is MANDATORY, see `Slices of list properties`_.
+
 When an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata.
 Furthermore, if the server returns metadata for a property, it must be included in its entirety, i.e., including all non-null fields.
@@ -637,7 +641,7 @@ Example of the corresponding metadata property definition contained in the field
      // ...
 
 Slices of list properties
---------------------------
+-------------------------
 
 The OPTIMADE standard defines a way for a client to request only a subset of the items of a list, referred to as a slice.
 The protocol for this functionality specifies how a server MAY support slicing lists independently per list axis.
@@ -664,6 +668,7 @@ The field :field:`list_axes` is defined as follows:
   - :field:`requested_slice`: Dictionary.
     A metadata field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
     The subfields MUST reflect the values provided via the :query-param:`property_slices`.
+    In particular, the field is MANDATORY if the client request includes the :query-param:`property_slices` query parameter for this list axis.
     The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent (see example below).
     It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
 
@@ -725,7 +730,7 @@ The field :field:`list_axes` is defined as follows:
     - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the list are :val:`null`.
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames[3:37:5]` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
-Furthermore, the metadata subfield :field:`available_slice` in :field:`list_axes` in :field:`_exmpl_temperature` certifies that all values of the data field :field:`_exmpl_temperature` are :val:`null` except at indexes 1000, 1030, 1060, ..., 4000, where values can be either numeric or :val:`null`).
+Furthermore, the metadata subfield :field:`available_slice` in :field:`list_axes` in :field:`_exmpl_temperature` certifies that all values of the data field :field:`_exmpl_temperature` are :val:`null` except at indexes 1000, 1030, 1060, ..., 4000, where values can be either numeric or :val:`null`.
 
 .. code:: jsonc
 
@@ -2305,7 +2310,7 @@ Optional filter features
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Some features of the filtering language are marked OPTIONAL.
-An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error ``501 Not Implemented`` with an explanation of which OPTIONAL construct the error refers to.
+An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error :http-error:`501 Not Implemented` with an explanation of which OPTIONAL construct the error refers to.
 
 Property Definitions
 ====================
@@ -4502,13 +4507,18 @@ To aid the definition of the format below, we first define a "slice object" to b
 The dictionary has the following OPTIONAL fields:
 
 - :field:`"start"`: Integer.
-  The slice starts at the value with the given index (inclusive).
+  The slice starts at the value with the given index (inclusive, meaning the item at the start index is included).
+  It MUST be a non-negative integer.
   The default is 0, i.e., the value at the start of the list.
 - :field:`"stop"`: Integer.
-  The slice ends at the value with the given index (inclusive).
+  The slice ends at the value with the given index (inclusive, meaning the item at the stop index is included).
+  It MUST be a non-negative integer.
   If omitted, the end of the slice is the last index of the list.
+
+  Note: The fact the stop index is inclusive differs from common slicing conventions in many programming languages, where the stop index is typically exclusive. Care should be taken to avoid off-by-one errors.
 - :field:`"step"`: Integer.
   The absolute difference in index between two subsequent values that are included in the slice.
+  It MUST be a non-zero positive integer.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the list.
 
@@ -4625,7 +4635,8 @@ Examples
 ~~~~~~~~
 
 Below follows an example of a dense response for a partial list data of integer values.
-The request returns the first three items and provides the next-marker link to continue fetching data:
+The request returns a slice of data starting from index 10 up to and including index 20, with a step of 2.
+This response provides the first three values of that slice (corresponding to indices 10, 12, and 14) and includes a next-marker link to fetch subsequent data:
 
 .. code:: jsonl
 
