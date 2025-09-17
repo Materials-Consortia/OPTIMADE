@@ -219,8 +219,7 @@ representation in all contexts. They are as follows:
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
   Multidimensional collections of items are represented as nested lists.
-  The specification uses **array** as a more general term for structures of nested lists representing single or multidimensional data, and the term **array axes** for the levels of nesting.
-  Note that arrays are represented using lists and not as a separate data type.
+  The term **list axes** refers to the levels of nesting.
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
 
@@ -541,7 +540,7 @@ Database providers are allowed to define their own metadata properties in :field
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
-Implementation of the :field:`meta` field is OPTIONAL, unless the server implements slicing, in which case it is MANDATORY (see `Slices of array properties`_).
+Implementation of the :field:`meta` field is OPTIONAL, unless the server implements slicing, in which case it is MANDATORY (see `Slices of list properties`_).
 When an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata.
 Furthermore, if the server returns metadata for a property, it must be included in its entirety, i.e., including all non-null fields.
@@ -608,30 +607,30 @@ Example of the corresponding metadata property definition contained in the field
      }
      // ...
 
-Slices of array properties
+Slices of list properties
 --------------------------
 
-The OPTIMADE standard defines a way for a client to request only a subset of the items of an array, referred to as a slice.
-The protocol for this functionality specifies how a server MAY support slicing arrays independently per entry, per array, and per array axis.
+The OPTIMADE standard defines a way for a client to request only a subset of the items of a list, referred to as a slice.
+The protocol for this functionality specifies how a server MAY support slicing lists independently per list axis.
 This functionality is separate from (but compatible with) the protocol described in `Transmission of large property values`_.
 The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
-Slices, on the other hand, are used for a client to request a subset of any size of the items of an array, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
+Slices, on the other hand, are used for a client to request a subset of any size of the items of a list, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
 
 The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
-Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using the metadata property field :field:`array_axes` (see `Metadata properties`_).
-When the client request includes the query parameter :query-param:`property_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`array_axes` is MANDATORY (see below).
-The field :field:`array_axes` is defined as follows:
+Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using the metadata property field :field:`list_axes` (see `Metadata properties`_).
+When the client request includes the query parameter :query-param:`property_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`list_axes` is MANDATORY (see below).
+The field :field:`list_axes` is defined as follows:
 
-- :field:`array_axes`: List of Dictionary.
-  A list of dictionaries which provide descriptive information related to the axes of an array property, including sliceable axes.
-  Each item, in order, represents the array axis as declared in the corresponding property definition.
+- :field:`list_axes`: List of Dictionary.
+  A list of dictionaries which provide descriptive information related to the axes of a list property, including sliceable axes.
+  Each item, in order, represents the list axis as declared in the corresponding property definition.
 
   Each item MUST be a dictionary with the following REQUIRED field:
 
   - :field:`dimension_name`: String.
-    The dimension name of the corresponding array axis.
+    The dimension name of the corresponding list axis.
 
-  If the request specifies the :query-param:`property_slices` query parameter for any of the array axes of this array property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
+  If the request specifies the :query-param:`property_slices` query parameter for any of the list axes of this list property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
 
   - :field:`requested_slice`: Dictionary.
     A metadata field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
@@ -665,7 +664,7 @@ The field :field:`array_axes` is defined as follows:
   The dictionary MAY contain the following fields:
 
   - :field:`length`: Integer.
-    The length of this array axis which MUST be the same as the length of the declared dimension for this axis in the corresponding property definition.
+    The length of this list axis which MUST be the same as the length of the declared dimension for this axis in the corresponding property definition.
     Note that the length of a dimension can be different for different entries if the length is not explicitly declared by the property definition.
     For example, the number of frames, i.e., the length of the dimension named ``dim_frames``, is generally different for different trajectories.
 
@@ -678,11 +677,11 @@ The field :field:`array_axes` is defined as follows:
     This metadata field describes a `slice object`_.
     By including this field, the server certifies that there MUST only be :val:`null` values outside this slice.
     Inside the slice there MAY be any combination of null and non-null values.
-    If not provided, or equal to :val:`null` or an empty dictionary, the client cannot make any assumptions about what part of the array contains :val:`null` values.
+    If not provided, or equal to :val:`null` or an empty dictionary, the client cannot make any assumptions about what part of the list contains :val:`null` values.
 
     Examples:
 
-    - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the array are :val:`null`.
+    - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the list are :val:`null`.
 
 Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames[3:37:5]` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
 Furthermore, the metadata subfield :field:`available_slice` in :field:`array_axes` in :field:`_exmpl_temperature` certifies that all values of the data field :field:`_exmpl_temperature` are :val:`null` except at indexes 1000, 1030, 1060, ..., 4000, where values can be either numeric or :val:`null`).
@@ -701,7 +700,7 @@ Furthermore, the metadata subfield :field:`available_slice` in :field:`array_axe
          "meta": {
            "property_metadata": {
              "frame_cartesian_site_positions": {
-               "array_axes": [
+               "list_axes": [
                  {
                    "dimension_name": "dim_frames",
                    "requested_slice": {
@@ -734,7 +733,7 @@ Furthermore, the metadata subfield :field:`available_slice` in :field:`array_axe
                ]
              },
              "_exmpl_temperature": {
-               "array_axes": [
+               "list_axes": [
                  {
                    "dimension_name": "dim_frames",
                    "requested_slice": {
@@ -1373,7 +1372,7 @@ The meaning of these URL query parameters are as defined above in section `Entry
 
 One additional query parameter :query-param:`property_slices` MUST be handled by the API implementation either as defined below or by returning the error :http-error:`501 Not Implemented`:
 
-- **property\_slices**: A number of slice specifications to request only parts of array properties for the functionality described in `Slices of array properties`_.
+- **property\_slices**: A number of slice specifications to request only parts of list properties for the functionality described in `Slices of list properties`_.
 
   The query parameter contains a comma-separated (",", ASCII symbol 44 dec) list of slice specifications.
   Each slice specification consists of a dimension name followed by the left square bracket character ("[", ASCII symbol 91 dec), a slice, and the right square bracket character ("]", ASCII symbol 93 dec).
@@ -1383,21 +1382,21 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
   The start value specifies the first index in that dimension for which values should be returned (which is 0-based and inclusive).
   The default is :val:`0`.
   The stop value specifies the last index for which values should be returned (inclusive).
-  The default is :val:`null`, which represents the last index of the array along the specified dimension.
+  The default is :val:`null`, which represents the last index of the list along the specified dimension.
   The step value specifies the step size in that dimension.
   The default is :val:`1`.
 
   An empty value of the :query-param:`property_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
 As a consequence, the server will not slice any properties. 
 
-  Requirements and conventions for the response when this query parameter is used are described in `Slices of array properties`_.
+  Requirements and conventions for the response when this query parameter is used are described in `Slices of list properties`_.
 
   Example:
 
   - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&property_slices=dim_frames::999:10,dim_sites:30:70:`
 
     This query URL requests items from the trajectory with ID :val:`id_12345`.
-    It requests items from the array :field:`frame_cartesian_site_positions` for this trajectory.
+    It requests items from the list :field:`frame_cartesian_site_positions` for this trajectory.
     The items that are requested are for only the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990).
 
 Single Entry JSON Response Schema
@@ -2377,9 +2376,9 @@ A Property Definition MUST be composed according to the combination of the requi
     The order is such that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
     Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, which SHOULD then be immediately followed by ``dim_``, e.g., ``_exmpl_dim_particles``.
-    If, within one entry, two or more array axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
+    If, within one entry, two or more list axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
     For example, let us consider the property :property:`frame_cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
-    Let the trajectory entry in this example have another, one-dimensional, array property :property:`_exmpl_energy`, which in its property definition specifies *the same name*, :val:`dim_frames`, as the name of the axis corresponding to its single dimension.
+    Let the trajectory entry in this example have another, one-dimensional, list property :property:`_exmpl_energy`, which in its property definition specifies *the same name*, :val:`dim_frames`, as the name of the axis corresponding to its single dimension.
     The joint dimension name means the values of :property:`_exmpl_energy` and of :property:`frame_cartesian_site_positions` at index *i* pertain to the same frame.
     If slicing is used to request only parts of the data along the :val:`dim_frames` dimension, that is a request to slice both the properties according to the specified slice.
 
