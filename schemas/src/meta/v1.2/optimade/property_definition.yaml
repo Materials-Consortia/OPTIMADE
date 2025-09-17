@@ -267,6 +267,8 @@ $defs:
           It was decided that OPTIMADE Property Definitions cannot use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests asking for only parts of the data in the lists.
           Instead, list length information that an implementation can use to validate the length of lists is communicated in the `sizes` subfield of this field (however, at this time, it can only specify a fixed length requirement.)
         type: object
+        patternProperties:
+          "^x-(?!optimade-)": {}
         additionalProperties: false
         properties:
           names:
@@ -306,6 +308,7 @@ $defs:
       x-optimade-unit:
         type: string
       x-optimade-implementation:
+        additionalProperties: false
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:
@@ -348,9 +351,9 @@ $defs:
         type: object
       x-optimade-requirements:
         additionalProperties: false
+        patternProperties:
+          "^x-(?!optimade-)": {}
         properties:
-          patternProperties:
-            "^x-(?!optimade-)": {}
           query-support:
             enum:
             - all mandatory
