@@ -10,7 +10,7 @@ x-optimade-definition:
 x-optimade-type: "list"
 x-optimade-dimensions:
   names: ["dim_lattice", "dim_spatial"]
-  lengths: [3, 3]
+  sizes: [3, 3]
 x-optimade-unit-definitions:
   - $$inherit: "/v1.2/units/si/general/angstrom"
 type:
@@ -40,7 +40,7 @@ items:
   x-optimade-type: "list"
   x-optimade-dimensions:
     names: ["dim_spatial"]
-    lengths: [3]
+    sizes: [3]
   type:
     - "array"
   x-optimade-unit: "inapplicable"
