@@ -1405,7 +1405,7 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
 
   Example:
 
-  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&property_slices=dim_frames::999:10,dim_sites:30:70:`
+  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&property_slices=dim_frames[:999:10],dim_sites[30:70:]`
 
     This query URL requests items from the trajectory with ID :val:`id_12345`.
     It requests items from the list :field:`frame_cartesian_site_positions` for this trajectory.
