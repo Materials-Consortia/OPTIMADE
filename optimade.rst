@@ -645,6 +645,8 @@ This functionality is separate from (but compatible with) the protocol described
 The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
 Slices, on the other hand, are used for a client to request a subset of any size of the items of a list, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
 
+**Client implementation note**: To determine which properties expose sliceable dimensions (and, more generally, the names of such dimensions), clients can request the corresponding property metadata by including ``property_metadata`` in the ``response_fields`` query parameter, together with the names of the properties of interest (see comments in `Metadata properties`_).
+
 The main mechanism is provided through the query parameter :query-param:`dimension_slices` defined in section `Single Entry URL Query Parameters`_.
 Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using the metadata property field :field:`list_axes` (see `Metadata properties`_).
 When the client request includes the query parameter :query-param:`dimension_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`list_axes` is MANDATORY (see below).
