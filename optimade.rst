@@ -1472,7 +1472,7 @@ An example of the data part of the entry listing info endpoint response follows 
             "x-optimade-type": "list",
             "x-optimade-dimensions": {
                "names": ["dim_lattice", "dim_spatial"],
-               "lengths": [3, 3]
+               "sizes": [3, 3]
             },
             "x-optimade-unit-definitions": [
                 {
@@ -1511,7 +1511,7 @@ An example of the data part of the entry listing info endpoint response follows 
               "x-optimade-unit": "inapplicable",
               "x-optimade-dimensions": {
                 "names": ["dim_spatial"],
-                "lengths": [3]
+                "sizes": [3]
               },
               "items": {
                 "type": "number",
