@@ -575,7 +575,7 @@ This happens, for instance, if a server supports slicing and receives a request 
 In this case, the inclusion of the :field:`requested_slices` subfield of the :field:`list_axes` field is MANDATORY, see `Slices of list properties`_.
 
 When an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
-If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata.
+If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata and are part of the response fields.
 Furthermore, if the server returns metadata for a property, it MUST be included in its entirety, i.e., including all non-null fields.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project`:
