@@ -569,11 +569,7 @@ Database providers are allowed to define their own metadata properties in :field
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
-Implementation of the :field:`meta` field is OPTIONAL.
-However, it becomes MANDATORY when some of subfields included in the :field:`meta` field are MANDATORY according to other parts of the OPTIMADE specification.
-This happens, for instance, if a server supports slicing and receives a request containing the :query-param:`property_slices` query parameter.
-In this case, the inclusion of the :field:`requested_slices` subfield of the :field:`list_axes` field is MANDATORY, see `Slices of list properties`_.
-
+Implementation of the :field:`meta` field is OPTIONAL, unless the server implements slicing, in which case it is MANDATORY (see `Slices of list properties`_).
 When an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
 If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata and are part of the response fields.
 Furthermore, if the server returns metadata for a property, it MUST be included in its entirety, i.e., including all non-null fields.
