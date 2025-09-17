@@ -218,8 +218,37 @@ representation in all contexts. They are as follows:
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
-  Multidimensional collections of items are represented as nested lists.
+  Multidimensional collections of items are represented as nested lists, and are still referred to simply as "lists" in this document.
+
+  We note that the term "array" is often used in programming languages to refer to similar data structures.
+  However, the term "array" is avoided in this specification to prevent confusion with the meaning of the term "array" in the JSON specification.
+
   The term **list axes** refers to the levels of nesting.
+  We note that it is valid for a list to have elements of different lengths along a given axis, i.e., the list does not need to be rectangular.
+  However, the dimensionality of a list, defined as the number of axes (i.e., the number of levels of nesting) must be the same for all entries of a given entry type.
+
+  Valid examples:
+
+    - ``[1.0, 2.0, 3.0]`` is a one-dimensional list of three floats (only one axis).
+
+    - ``[]`` is a one-dimensional empty list.
+
+    - ``[1.0, null, 3.0]`` is a one-dimensional list of floats. The ``null`` value is valid as it represents an unknown value.
+
+    - ``[[1, 2], [3, 4], [5, 6]]`` is a two-dimensional list of three lists, each containing two integers. The first list axis has length 3 and the second list axis has length 2.
+
+    - ``[[1, 2], [3, 4, 5], [6]]`` is a two-dimensional list of three lists, each containing a different number of integers. It can be interpreted as a 3x3 (or 3x4, 4x4, ...) list, where the missing elements have implicitly the value :val:`null`.
+
+  Invalid examples:
+
+    - ``[3.0, "string"]`` is invalid since the two elements have different types.
+
+  Further invalid examples (since they cannot be described via an OPTIMADE property specification):
+
+    - ``[[1.0, 2.0], ["string", "string"]]`` is invalid since, while each of the two sublists is a valid list ([1.0, 2.0] is a list of integers, and ["string", "string"] is a list of strings), the two sublists have different types.
+
+    - ``[[1.0, 2.0], [3.0, [4.0]], [5.0]]`` is invalid since the second sublist contains a nested list, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
+
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
 
