@@ -649,17 +649,29 @@ The field :field:`list_axes` is defined as follows:
     (Consequently, the dictionary MAY be empty if all fields take the default values.)
 
     Examples:
-    Query Type | Query Formulation | Valid Representations
-    ----------------|---------------------------|------------------------------
-    fully formed | :query-string:`property_slices=dim_frames:3:5:2` | ``{"start": 3, "stop": 5, "step": 2}``
-    empty query with start | :query-string:`property_slices=dim_frames:0::` | ``{"start": 0}``
-    empty query | :query-string:`property_slices=dim_frames:::` | ``{}``
-                         |                                                                         | ``{"start": null, "stop": null, "step": null}``
-                         |                                                                         | ``{"start": null}``
-                         |                                                                         | ``{"stop": null, "step": null}``
 
-   Note that any of the representations for the "empty query" are valid.
-   Even though, semantically, it means the same as the "empty query with start" at index zero, both differ in representation. This is due to the starting index being explicitely specified now. The reason becomes apparent once the starting index takes on a value different from the default.
+    +------------------+---------------------------------------------------+----------------------------------------------+
+    | Query Type       | Query Formulation                                 | Valid Representations                        |
+    +==================+===================================================+==============================================+
+    | fully formed     | :query-string:`property_slices=dim_frames[3:5:2]` | ``{"start": 3, "stop": 5, "step": 2}``       |
+    +------------------+---------------------------------------------------+----------------------------------------------+
+    | empty query with | :query-string:`property_slices=dim_frames[0::]`   | ``{"start": 0}``                             |
+    | start            |                                                   |                                              |
+    +------------------+---------------------------------------------------+----------------------------------------------+
+    | empty query      | :query-string:`property_slices=dim_frames[::]`    | ``{}``                                       |
+    |                  |                                                   |                                              |
+    |                  |                                                   | ``{"start": null, "stop": null, "step":      |
+    |                  |                                                   | null}``                                      |
+    |                  |                                                   |                                              |
+    |                  |                                                   | ``{"start": null}``                          |
+    |                  |                                                   |                                              |
+    |                  |                                                   | ``{"stop": null, "step": null}``             |
+    +------------------+---------------------------------------------------+----------------------------------------------+
+
+    Note that any of the representations displayed above for the "empty query" are valid.
+    Semantically, the two examples above "empty query" and the "empty query with start" are equivalent, but differ in representation.
+    This is due to the starting index being explicitely specified in the "empty query with start" example.
+    The need for this difference becomes apparent if the starting index takes on a value different from the default.
 
   The dictionary MAY contain the following fields:
 
@@ -1387,7 +1399,7 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
   The default is :val:`1`.
 
   An empty value of the :query-param:`property_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
-As a consequence, the server will not slice any properties. 
+  As a consequence, the server will not slice any properties.
 
   Requirements and conventions for the response when this query parameter is used are described in `Slices of list properties`_.
 
@@ -3485,7 +3497,7 @@ fractional\_site\_positions
 - **Description**: fractional coordinates (positions) of each site in the structure.
   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
   Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
-  When symmetry operations given in `space_group_symmetry_operations_xyz`_ are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
+  When symmetry operations given in `space_group_symmetry_operations_xyz`_ are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ list.
 - **Type**: list of list of floats
 - **Requirements/Conventions**:
 
@@ -3494,7 +3506,7 @@ fractional\_site\_positions
     If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors`_ property.
   - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
-  - **Note**: Since both `cartesian_site_positions`_ and the `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
+  - **Note**: Since both `cartesian_site_positions`_ and the `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ list.
 
 - **Examples**:
 
@@ -4457,21 +4469,21 @@ Note: since the below definition references both JSON fields and OPTIMADE proper
 
 .. _slice object:
 
-To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of arrays.
+To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of lists.
 The dictionary has the following OPTIONAL fields:
 
 - :field:`"start"`: Integer.
   The slice starts at the value with the given index (inclusive).
-  The default is 0, i.e., the value at the start of the array.
+  The default is 0, i.e., the value at the start of the list.
 - :field:`"stop"`: Integer.
   The slice ends at the value with the given index (inclusive).
-  If omitted, the end of the slice is the last index of the array.
+  If omitted, the end of the slice is the last index of the list.
 - :field:`"step"`: Integer.
   The absolute difference in index between two subsequent values that are included in the slice.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
-  Hence, a value of 2 denotes a slice of every second value in the array.
+  Hence, a value of 2 denotes a slice of every second value in the list.
 
-For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "stop": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
+For example, for the list :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "stop": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
@@ -4514,9 +4526,9 @@ The header object MUST contain the keys:
 
 The following key is RECOMMENDED in the header object:
 
-- :field:`"returned_ranges"`: Array of Object.
-  For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  In the specific case of a hierarchy of list properties represented as a sparse multidimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional array, representing slices for each dimension that cover the data given in the response.
+- :field:`"returned_ranges"`: Array of object.
+  For dense layout, and sparse layout of one dimensional list properties, the :field:`"returned_ranges"` array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multidimensional list, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional list, representing slices for each dimension that cover the data given in the response.
 
 The header object MAY also contain the keys:
 
@@ -4557,19 +4569,19 @@ The format of data lines of the response (i.e., all lines except the first and t
 - **Dense layout:** In the dense partial data layout, each data line reproduces one item from the OPTIMADE list property being transmitted in the JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
-  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the list up to the number of elements given until reaching the end-of-data-marker or next-marker.
 
 - **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array of the format:
 
-  - The first item of the array is the zero-based index of list property item being provided by this line.
-  - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
+  - The first item of the array is the zero-based index of the list property item being provided by this line.
+  - The second item of the array is the value of the list property item located at the indicated index, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
-- **Sparse layout for multidimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+- **Sparse layout for multidimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse list).
   In this case, each data line contains a JSON array of the format:
 
-  - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
-  - The last item of the array is the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
+  - All array items except the last one are zero-based integer indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
+  - The last item of the array is the value of the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
 If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retrieving another partial data response from the provided URL.
@@ -4583,7 +4595,7 @@ In that case the values shall remain as assigned, i.e., they are not overwritten
 Examples
 ~~~~~~~~
 
-Below follows an example of a dense response for a partial array data of integer values.
+Below follows an example of a dense response for a partial list data of integer values.
 The request returns the first three items and provides the next-marker link to continue fetching data:
 
 .. code:: jsonl
@@ -4594,7 +4606,7 @@ The request returns the first three items and provides the next-marker link to c
    -12.6
    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
-Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
+Below follows an example of a dense response for a list property as a partial list of multidimensional list values.
 The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
 The item with index 12 in the list, the second data item provided since start=10 and step=2, is not included only referenced.
 The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
