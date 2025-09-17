@@ -684,7 +684,7 @@ The field :field:`array_axes` is defined as follows:
 
     - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the array are :val:`null`.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames:3:37:5` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames[3:37:5]` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
 Furthermore, the metadata subfield :field:`available_slice` in :field:`array_axes` in :field:`_exmpl_temperature` certifies that all values of the data field :field:`_exmpl_temperature` are :val:`null` except at indexes 1000, 1030, 1060, ..., 4000, where values can be either numeric or :val:`null`).
 
 .. code:: jsonc
