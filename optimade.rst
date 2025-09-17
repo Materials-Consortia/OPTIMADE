@@ -218,8 +218,7 @@ representation in all contexts. They are as follows:
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 - **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
   A list can be empty, i.e., contain no items.
-  Multidimensional collections of items are represented as nested lists, and are still referred to simply as "lists" in this document.
-
+  Multidimensional collections of items are represented as nested lists, and are still simply referred to as "lists" in this document.
   We note that the term "array" is often used in programming languages to refer to similar data structures.
   However, the term "array" is avoided in this specification to prevent confusion with the meaning of the term "array" in the JSON specification.
 
@@ -245,9 +244,9 @@ representation in all contexts. They are as follows:
 
   Further invalid examples (since they cannot be described via an OPTIMADE property specification):
 
-    - ``[[1.0, 2.0], ["string", "string"]]`` is invalid since, while each of the two sublists is a valid list ([1.0, 2.0] is a list of integers, and ["string", "string"] is a list of strings), the two sublists have different types.
+    - ``[[1.0, 2.0], ["string", "string"]]`` is invalid since, while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists have different types.
 
-    - ``[[1.0, 2.0], [3.0, [4.0]], [5.0]]`` is invalid since the second sublist contains a nested list, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
+    - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]`` is invalid since the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
 
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
@@ -702,7 +701,7 @@ The field :field:`list_axes` is defined as follows:
 
     Note that any of the representations displayed above for the "empty query" are valid.
     Semantically, the two examples above "empty query" and the "empty query with start" are equivalent, but differ in representation.
-    This is due to the starting index being explicitely specified in the "empty query with start" example.
+    This is due to the starting index being explicitly specified in the "empty query with start" example.
     The need for this difference becomes apparent if the starting index takes on a value different from the default.
 
   The dictionary MAY contain the following fields:
@@ -4563,7 +4562,7 @@ The header object MUST contain the keys:
 
 The following key is RECOMMENDED in the header object:
 
-- :field:`"returned_ranges"`: Array of object.
+- :field:`"returned_ranges"`: Array of Object.
   For dense layout, and sparse layout of one dimensional list properties, the :field:`"returned_ranges"` array contains a single element which is a `slice object`_ representing the range of data present in the response.
   In the specific case of a hierarchy of list properties represented as a sparse multidimensional list, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional list, representing slices for each dimension that cover the data given in the response.
 
