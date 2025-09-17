@@ -645,9 +645,9 @@ This functionality is separate from (but compatible with) the protocol described
 The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
 Slices, on the other hand, are used for a client to request a subset of any size of the items of a list, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
 
-The main mechanism is provided through the query parameter :query-param:`property_slices` defined in section `Single Entry URL Query Parameters`_.
+The main mechanism is provided through the query parameter :query-param:`dimension_slices` defined in section `Single Entry URL Query Parameters`_.
 Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using the metadata property field :field:`list_axes` (see `Metadata properties`_).
-When the client request includes the query parameter :query-param:`property_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`list_axes` is MANDATORY (see below).
+When the client request includes the query parameter :query-param:`dimension_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`list_axes` is MANDATORY (see below).
 The field :field:`list_axes` is defined as follows:
 
 - :field:`list_axes`: List of Dictionary.
@@ -659,12 +659,12 @@ The field :field:`list_axes` is defined as follows:
   - :field:`dimension_name`: String.
     The dimension name of the corresponding list axis.
 
-  If the request specifies the :query-param:`property_slices` query parameter for any of the list axes of this list property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
+  If the request specifies the :query-param:`dimension_slices` query parameter for any of the list axes of this list property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
 
   - :field:`requested_slice`: Dictionary.
-    A metadata field that describes the requested slice that was provided via the query parameter :query-param:`property_slices`.
-    The subfields MUST reflect the values provided via the :query-param:`property_slices`.
-    In particular, the field is MANDATORY if the client request includes the :query-param:`property_slices` query parameter for this list axis.
+    A metadata field that describes the requested slice that was provided via the query parameter :query-param:`dimension_slices`.
+    The subfields MUST reflect the values provided via the :query-param:`dimension_slices`.
+    In particular, the field is MANDATORY if the client request includes the :query-param:`dimension_slices` query parameter for this list axis.
     The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent (see example below).
     It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
 
@@ -680,23 +680,23 @@ The field :field:`list_axes` is defined as follows:
 
     Examples:
 
-    +------------------+---------------------------------------------------+----------------------------------------------+
-    | Query Type       | Query Formulation                                 | Valid Representations                        |
-    +==================+===================================================+==============================================+
-    | fully formed     | :query-string:`property_slices=dim_frames[3:5:2]` | ``{"start": 3, "stop": 5, "step": 2}``       |
-    +------------------+---------------------------------------------------+----------------------------------------------+
-    | empty query with | :query-string:`property_slices=dim_frames[0::]`   | ``{"start": 0}``                             |
-    | start            |                                                   |                                              |
-    +------------------+---------------------------------------------------+----------------------------------------------+
-    | empty query      | :query-string:`property_slices=dim_frames[::]`    | ``{}``                                       |
-    |                  |                                                   |                                              |
-    |                  |                                                   | ``{"start": null, "stop": null, "step":      |
-    |                  |                                                   | null}``                                      |
-    |                  |                                                   |                                              |
-    |                  |                                                   | ``{"start": null}``                          |
-    |                  |                                                   |                                              |
-    |                  |                                                   | ``{"stop": null, "step": null}``             |
-    +------------------+---------------------------------------------------+----------------------------------------------+
+    +------------------+----------------------------------------------------+----------------------------------------------+
+    | Query Type       | Query Formulation                                  | Valid Representations                        |
+    +==================+====================================================+==============================================+
+    | fully formed     | :query-string:`dimension_slices=dim_frames[3:5:2]` | ``{"start": 3, "stop": 5, "step": 2}``       |
+    +------------------+----------------------------------------------------+----------------------------------------------+
+    | empty query with | :query-string:`dimension_slices=dim_frames[0::]`   | ``{"start": 0}``                             |
+    | start            |                                                    |                                              |
+    +------------------+----------------------------------------------------+----------------------------------------------+
+    | empty query      | :query-string:`dimension_slices=dim_frames[::]`    | ``{}``                                       |
+    |                  |                                                    |                                              |
+    |                  |                                                    | ``{"start": null, "stop": null, "step":      |
+    |                  |                                                    | null}``                                      |
+    |                  |                                                    |                                              |
+    |                  |                                                    | ``{"start": null}``                          |
+    |                  |                                                    |                                              |
+    |                  |                                                    | ``{"stop": null, "step": null}``             |
+    +------------------+----------------------------------------------------+----------------------------------------------+
 
     Note that any of the representations displayed above for the "empty query" are valid.
     Semantically, the two examples above "empty query" and the "empty query with start" are equivalent, but differ in representation.
@@ -725,7 +725,7 @@ The field :field:`list_axes` is defined as follows:
 
     - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the list are :val:`null`.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`property_slices=dim_frames[3:37:5]` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`dimension_slices=dim_frames[3:37:5]` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
 Furthermore, the metadata subfield :field:`available_slice` in :field:`list_axes` in :field:`_exmpl_temperature` certifies that all values of the data field :field:`_exmpl_temperature` are :val:`null` except at indexes 1000, 1030, 1060, ..., 4000, where values can be either numeric or :val:`null`.
 
 .. code:: jsonc
@@ -1412,9 +1412,9 @@ While the following URL query parameters are OPTIONAL for clients, API implement
 The URL query parameter :query-param:`include` is OPTIONAL for both clients and API implementations.
 The meaning of these URL query parameters are as defined above in section `Entry Listing URL Query Parameters`_.
 
-One additional query parameter :query-param:`property_slices` MUST be handled by the API implementation either as defined below or by returning the error :http-error:`501 Not Implemented`:
+One additional query parameter :query-param:`dimension_slices` MUST be handled by the API implementation either as defined below or by returning the error :http-error:`501 Not Implemented`:
 
-- **property\_slices**: A number of slice specifications to request only parts of list properties for the functionality described in `Slices of list properties`_.
+- **dimension\_slices**: A number of slice specifications to request only parts of list properties for the functionality described in `Slices of list properties`_.
 
   The query parameter contains a comma-separated (",", ASCII symbol 44 dec) list of slice specifications.
   Each slice specification consists of a dimension name followed by the left square bracket character ("[", ASCII symbol 91 dec), a slice, and the right square bracket character ("]", ASCII symbol 93 dec).
@@ -1428,14 +1428,14 @@ One additional query parameter :query-param:`property_slices` MUST be handled by
   The step value specifies the step size in that dimension.
   The default is :val:`1`.
 
-  An empty value of the :query-param:`property_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
+  An empty value of the :query-param:`dimension_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
   As a consequence, the server will not slice any properties.
 
   Requirements and conventions for the response when this query parameter is used are described in `Slices of list properties`_.
 
   Example:
 
-  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&property_slices=dim_frames[:999:10],dim_sites[30:70:]`
+  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=frame_cartesian_site_positions&dimension_slices=dim_frames[:999:10],dim_sites[30:70:]`
 
     This query URL requests items from the trajectory with ID :val:`id_12345`.
     It requests items from the list :field:`frame_cartesian_site_positions` for this trajectory.
