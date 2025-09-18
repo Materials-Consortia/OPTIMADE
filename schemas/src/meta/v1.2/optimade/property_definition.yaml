@@ -122,6 +122,7 @@ $defs:
             * `"list"` then `type` is `"array"`.
             * `"float"` then `type` is `"number"`.
             * `"timestamp"` then `type` is `"string"`.
+            * provider-specific data type, then `type` is the JSON type used as a carrier for this data type.
 
             If the second element is included, it MUST be the string `"null"`.
             This two element form specifies that the defined property can be `null`.
@@ -296,14 +297,7 @@ $defs:
             - required: ['title', 'symbol', 'display-symbol', 'description']
       x-optimade-type:
         type: string
-        enum:
-        - string
-        - integer
-        - float
-        - boolean
-        - timestamp
-        - list
-        - dictionary
+        pattern: "^(string|integer|float|boolean|timestamp|list|dictionary|_\\S+_\\S+)$"
       x-optimade-unit:
         type: string
       x-optimade-implementation:
