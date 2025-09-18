@@ -487,7 +487,7 @@ A list of one or more data URLs together with their respective partial data form
 How this list is provided is response format-dependent.
 For the JSON response format, see the description of the :field:`partial_data_links` field, nested under :field:`data` and then :field:`meta`, in the section `JSON Response Schema: Common Fields`_.
 
-The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON lines partial data format`_.
+The default partial data format is named "jsonlines" and is described in the Appendix `OPTIMADE JSON Lines partial data format`_.
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
@@ -502,7 +502,7 @@ Below follows an example of the :field:`data` and :field:`meta` parts of a respo
         "id": "2345678",
         "attributes": {
             "a": null
-        }
+        },
         "meta": {
           "partial_data_links": {
             "a": [
@@ -683,7 +683,7 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
     - **name**: a human-readable name for the database, e.g., for use in clients.
     - **version**: a string describing the version of the database.
     - **description**: a human-readable description of the database, e.g., for use in clients.
-    - **homepage**: a `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__, pointing to a homepage for the particular database.
+    - **homepage**: a `JSON API link <https://jsonapi.org/format/1.1/#document-links>`__, pointing to a homepage for the particular database.
     - **maintainer**: a dictionary providing details about the maintainer of the database, which MUST contain the single field:
 
       - **email** with the maintainer's email address.
@@ -792,10 +792,10 @@ Every response SHOULD contain the following fields, and MUST contain at least :f
 
     - **format**: String.
       The name of the format provided via this link.
-      For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON lines partial data format`_.
+      For one of the objects this :field:`format` field SHOULD have the value "jsonlines", which refers to the format in `OPTIMADE JSON Lines partial data format`_.
 
     - **link**: String.
-      A `JSON API link <http://jsonapi.org/format/1.0/#document-links>`__ that points to a location from which the omitted data can be fetched.
+      A `JSON API link <https://jsonapi.org/format/1.1/#document-links>`__ that points to a location from which the omitted data can be fetched.
       There is no requirement on the syntax or format for the link URL.
 
     For more information about the mechanism to transmit large property values, including an example of the format of :field:`partial_data_links`, see `Transmission of large property values`_.
@@ -2035,6 +2035,8 @@ Filters that match when the property is known, or unknown, respectively can be c
     identifier IS KNOWN
     identifier IS UNKNOWN
 
+For properties having other than boolean values, :filter:`identifier IS KNOWN` MAY be written as :filter:`identifier`.
+
 Except for the above constructs, filters that use any form of comparison that involve properties of unknown values MUST NOT match.
 Hence, by definition, an :filter-fragment:`identifier` of value :filter-fragment:`null` never matches equality (:filter-op:`=`), inequality (:filter-op:`<`, :filter-op:`<=`, :filter-op:`>`, :filter-op:`>=`, :filter-op:`!=`) or other comparison operators besides :filter:`identifier IS UNKNOWN` and :filter:`NOT identifier IS KNOWN`.
 In particular, a filter that compares two properties that are both :val:`null` for equality or inequality does not match.
@@ -2138,7 +2140,7 @@ A Property Definition MUST be composed according to the combination of the requi
 - :field:`version`: String.
   This string indicates the version of the definition.
   The string SHOULD be in the format described by the `semantic versioning v2 <https://semver.org/spec/v2.0.0.html>`__ standard.
-  When a definition is changed in a way that consitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
+  When a definition is changed in a way that constitutes a redefinition it SHOULD indicate this by incrementing the MAJOR version number.
 
 - :field:`resources`: List.
   A list of dictionaries that references remote resources that describe the property.
@@ -2182,11 +2184,11 @@ A Property Definition MUST be composed according to the combination of the requi
   **REQUIRED keys:**
 
   - :field:`names`: List of Strings.
-    A list of names of the dimensions of the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    A list of names of the dimensions of the underlying one or multi-dimensional data represented as multiple levels of lists.
     The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
 
   - :field:`sizes`: List of Integers or :val:`null`.
-    A list of fixed length requirements on the underlying one or multi-dimensionsional data represented as mutiple levels of lists.
+    A list of fixed length requirements on the underlying one or multi-dimensional data represented as multiple levels of lists.
     The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
     The data only validates if the respective level consists of lists of exactly this length.
     A value of :val:`null` allows arbitrary-length lists at the corresponding level.
@@ -3013,7 +3015,7 @@ chemical\_formula\_reduced
 chemical\_formula\_hill
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Description**: The chemical formula for a structure in `Hill form <https://dx.doi.org/10.1021/ja02046a005>`__ with element symbols followed by integer chemical proportion numbers.
+- **Description**: The chemical formula for a structure in `Hill form <https://doi.org/10.1021/ja02046a005>`__ with element symbols followed by integer chemical proportion numbers.
   The proportion number MUST be omitted if it is 1.
 - **Type**: string
 - **Requirements/Conventions**:
@@ -3025,7 +3027,7 @@ chemical\_formula\_hill
     For example, if the structure is a repeating unit cell with four hydrogens and four oxygens that represents two hydroperoxide molecules, :property:`chemical_formula_hill` is :val:`"H2O2"` (i.e., not :val:`"HO"`, nor :val:`"H4O4"`).
   - If the chemical insight needed to ascribe a Hill formula to the system is not present, the property MUST be handled as unset.
   - Element symbols MUST have proper capitalization (e.g., :val:`"Si"`, not :VAL:`"SI"` for "silicon").
-  - Elements MUST be placed in `Hill order <https://dx.doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
+  - Elements MUST be placed in `Hill order <https://doi.org/10.1021/ja02046a005>`__, followed by their integer chemical proportion number.
     Hill order means: if carbon is present, it is placed first, and if also present, hydrogen is placed second.
     After that, all other elements are ordered alphabetically.
     If carbon is not present, all elements are ordered alphabetically.
@@ -3136,7 +3138,7 @@ space\_group\_symmetry\_operations\_xyz
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
 
     - The property is RECOMMENDED if coordinates are returned in a form to which these operations can or must be applied (e.g. fractional atom coordinates of an asymmetric unit).
-    - The property is REQUIRED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
+    - It is also RECOMMENDED if symmetry operations are necessary to reconstruct the full model of the material and no other symmetry information (e.g., the Hall symbol) is provided that would allow the user to derive symmetry operations unambiguously.
   - **Query**: Support for queries on this property is not required and in fact is NOT RECOMMENDED.
   - MUST be :val:`null` if :property:`nperiodic_dimensions` is equal to 0.
   - Each symmetry operation is described by a string that gives that symmetry operation in Jones' faithful representation (Bradley & Cracknell, 1972: pp. 35-37), adapted for computer string notation.
@@ -3282,10 +3284,76 @@ cartesian\_site\_positions
 
   - :val:`[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
 
+fractional\_site\_positions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description**: fractional coordinates (positions) of each site in the structure.
+  A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
+  Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
+  When symmetry operations given in `space_group_symmetry_operations_xyz`_ are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
+- **Type**: list of list of floats
+- **Requirements/Conventions**:
+
+  - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors`_ property.
+  - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
+  - **Note**: Since both `cartesian_site_positions`_ and the `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
+
+- **Examples**:
+
+  - :val:`[[0,0,0],[0,0,0.2]]` indicates a structure with two sites, one sitting at the origin and one along the third unit cell axis (*c*-axis), 1/5-th (0.2) of the vector *c* in the direction of the vector *c* from the origin.
+
+site\_coordinate\_span
+~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description** Indicates the extent of the material (crystal) described in the response.
+  In particular, properties `cartesian_site_positions`_ and `fractional_site_positions`_ MUST contain all sites *belonging* to the described extent.
+- **Type**: string
+- **Requirements/conventions**:
+
+  - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned.
+    It SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+  - The value of this property MUST be one of the following:
+
+    - :val:`"fundamental_domain"`: means that sites described in the response span a fundamental domain (Vinberg, 1994; European Mathematical Society, 2020) of a periodic system.
+      When a server indicates this span in the response, it MUST provide those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz`_ property and then applying translations given by `lattice_vectors`_.
+      The fundamental domain does not need to be a connected space region.
+    - :val:`"asymmetric_unit"`: all sites are in a simply connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition (IUCr, 2017).
+    - :val:`"molecular_fundamental_domain"`: a fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+    - :val:`"molecular_asymmetric_unit"`: an asymmetric unit (a simply connected fundamental domain) where all atoms bound by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+    - :val:`"unit_cell"`: a full unit cell of a periodic system (crystal), i.e., any repeating unit chosen by the server defined by the property :property:`lattice_vectors`.
+      For this span, the server MUST provide a set of sites in the response that can be used to reconstruct the whole periodic system (crystal) by simply applying translations from the `lattice_vectors`_ property to those sites.
+    - :val:`"molecular_unit_cell"`: same as :val:`"unit_cell"`, but in addition places atoms that are bound by covalent or coordination bonds at a bond distance from each other.
+    - :val:`"molecular_entities"`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
+      This set of sites MAY be larger than a fundamental domain.
+    - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
+    - :val:`null`: if omitted or :val:`null`, the default value of :property:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implementations before the :property:`site_coordinate_span` definition was introduced.
+
+- **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided. For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in :property:`lattice_vectors`; only a non-redundant set of sites SHOULD be provided.
+
+- **Bibliographic References**:
+
+  E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN `1402006098 <https://isbnsearch.org/isbn/1402006098>`__, URL: https://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=13590 [accessed 2025-04-30T08:55+03:00].
+
+  European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: http://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=47023 [accessed 2025-04-30T08:53+03:00].
+
+  IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
+
+site\_coordinate\_span\_description
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Description** Human-readable semi-formal characterization of the coordinate span when the `site_coordinate_span`_ property has value :val:`"other"`.
+- **Type**: string
+- **Example**: :val:`"Two fullerene molecules with a VdW contact."`
+
 nsites
 ~~~~~~
 
-- **Description**: An integer specifying the length of the :property:`cartesian_site_positions` property.
+- **Description**: An integer specifying the number of sites in a unit cell defined by the field :property:`lattice_vectors`.
 - **Type**: integer
 - **Requirements/Conventions**:
 
@@ -3304,7 +3372,7 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_).
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_ or `fractional_site_positions`_).
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
@@ -3312,7 +3380,7 @@ species\_at\_sites
   - **Support**: SHOULD be supported by all implementations, i.e., SHOULD NOT be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
-  - MUST have length equal to the number of sites in the structure (first dimension of the list property `cartesian_site_positions`_).
+  - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and/or `fractional_site_positions`_).
   - Each species name mentioned in the :property:`species_at_sites` list MUST be described in the list property `species`_ (i.e. for each value in the :property:`species_at_sites` list there MUST exist exactly one dictionary in the :property:`species` list with the :property:`name` attribute equal to the corresponding :property:`species_at_sites` value).
   - Each site MUST be associated only to a single species.
     **Note**: However, species can represent mixtures of atoms, and multiple species MAY be defined for the same chemical element.
@@ -3528,6 +3596,54 @@ structure\_features
 - **Examples**:
 
   - A structure having implicit atoms and using assemblies: :val:`["assemblies", "implicit_atoms"]`
+
+optimization\_type
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: A string that classifies the type of optimization that has resulted in the structural data.
+
+- **Type**: string
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+
+  - If the property is :val:`null` or omitted, no information is provided about the type of optimization used to obtain the structural data.
+
+  - If present and not :val:`null`, the property SHOULD take one of the following values:
+
+    * :val:`experimental`: the structure results from an optimization or refinement process part of an experimental technique, e.g., minimization of the discrepancy between observed and predicted scattered amplitudes from diffraction data.
+
+    * :val:`hybrid`: the structure is the result of the combination of an experiment and further optimization based on a reasonable theoretical energy model so that it remains a fair representation of the original experimental structure.
+      For example, experimental structures relaxed using *ab initio* calculations are in this category.
+      Structures where the experimental coordinates are kept, but one or more elements are substituted for other elements, are not included in this category.
+
+    * :val:`global`: the structure has been optimized using a theoretical technique based on a reasonable energy model in a way that takes into account the global energy surface.
+      The structure has been optimized into the global energy minimum or into a local minimum within an energy range of the global minimum commonly considered for potential metastability (typically on the scale of 100 meV/atom).
+      A common technique for this type of optimization is to construct the convex hull of thermodynamical stability from the known minima and dismiss structures outside the relevant energy range.
+
+    * :val:`local`: the structure has been optimized using a theoretical technique based on a reasonable energy model into a local minimum of the energy surface.
+      For example, structures relaxed using *ab initio* calculations without consideration of the energy of other minima in configuration space qualify for this category.
+
+    * :val:`none`: the structure has not undergone an optimization process and is thus, in some sense, arbitrary.
+      Structures of this kind can come from, e.g., randomly generated coordinates or non-equilibrium snapshots.
+
+    * :val:`indeterminate`: the database declares that the type of optimization used for this specific entry cannot be determined, e.g., because that information is missing.
+      This value represents a stronger statement (that the database knows that the type of optimization is not known) than an omitted classification (i.e., the field is missing or has the value :val:`null`) which communicates that the property is unknown only in the sense discussed in the section `Properties with an unknown value`_.)
+
+    * :val:`other`: the structure is the result of some optimization process, but none of the other categories correctly represents the type of optimization used.
+
+    Other strings prefixed by a database-specific prefix, e.g., `_exmpl_optimized_on_fixed_grid`, SHOULD NOT be used.
+    Other non-standard strings MUST NOT be used.
+    Clients encountering unrecognized strings SHOULD treat them to mean the same as the field having the value :val:`"other"`.
+
+    Structures produced by AI models and other techniques that have been reasonably tested to reliably generate results equivalent to structural optimization using energy models SHOULD be classified the same as if that type of energy model had been used.
+
+- **Examples**:
+
+  - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
+
+  - For a structure entry that encodes the structural information from a theoretical relaxation of an :val:`"experimental"` entry using computational software that implements density functional theory: :val:`"hybrid"`.
 
 Calculations Entries
 --------------------
@@ -4144,9 +4260,9 @@ The regular expressions are recorded below in two forms, one in a more readable 
 
      #END ECMA symops
 
-OPTIMADE JSON lines partial data format
+OPTIMADE JSON Lines partial data format
 ---------------------------------------
-The OPTIMADE JSON lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
+The OPTIMADE JSON Lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
 The format is based on `JSON Lines <https://jsonlines.org/>`__, which enables streaming of JSON data.
 Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., "array" and "object" and for OPTIMADE properties they are, e.g., "list" and "dictionary".
 
@@ -4166,7 +4282,7 @@ The dictionary has the following OPTIONAL fields:
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
   Hence, a value of 2 denotes a slice of every second value in the array.
 
-For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "end": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
+For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "stop": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
@@ -4176,7 +4292,7 @@ Furthermore, we also define the following special markers:
 - A *next-marker* is this exact JSON: :val:`["PARTIAL-DATA-NEXT", ["<url>"]]`, where :val:`"<url>"` is to be replaced with the target URL for the next link.
 
 There is no requirement on the syntax or format of the URLs provided in these markers.
-When data is fetched from these URLs the response MUST use the JSON lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
+When data is fetched from these URLs the response MUST use the JSON Lines partial data format, i.e., the markers cannot be used to link to partial data provided in other formats.
 The markers have been deliberately designed to be valid JSON objects but *not* valid OPTIMADE property values.
 Since the OPTIMADE list data type is defined as a list of values of the same data type or :val:`null`, the above markers cannot be encountered inside the actual data of an OPTIMADE property.
 
@@ -4450,7 +4566,7 @@ The regex is interpreted according to the ECMA-262 processing rules that apply f
 The subset includes only the following tokens and features:
 
 - Individual Unicode characters matching themselves, as defined by the JSON specification (:RFC:`8259`).
-- The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
+- The ``.`` character to match any one Unicode character except the line break characters LINE FEED (LF) (U+000A), CARRIAGE RETURN (U+000D), LINE SEPARATOR (U+2028), PARAGRAPH SEPARATOR (U+2029) (see `ECMA-262 section 2.2.2.7 <https://262.ecma-international.org/14.0/?_gl=1*yqtzjq*_ga*MjEzNTE2ODEyNi4xNzA0NTQ1NTk5*_ga_TDCK4DWEPP*MTcwNzk5ODA1My43LjEuMTcwNzk5OTYxNC4wLjAuMA..#sec-compileatom>`__).
 - A literal escape of `one of the characters defined as syntax characters in the ECMA-262 standard <https://262.ecma-international.org/11.0/#prod-SyntaxCharacter>`__, i.e., the escape character (``\``) followed by one of the following characters ``^ $ \ . * + ? ( ) [ ] { } |`` to represent that literal character.
   No other characters can be escaped.
   (This rule prevents other escapes that are interpreted differently depending on regex flavor.)
@@ -4501,3 +4617,70 @@ Implementations that do not produce errors in this situation are RECOMMENDED to 
     * XML Schema appears to use a compatible regex format, except it is implicitly anchored: i.e., the beginning-of-input ``^`` and end-of-input ``$`` anchors must be removed, and missing anchors replaced by ``.*``.
     * POSIX Extended regexes (and their extended GNU implementations) are incompatible because ``\`` is not a special character in character classes.
       POSIX Basic regexes also have further differences, e.g., the meaning of some escaped syntax characters is reversed.
+
+
+The OPTIMADE JSON Lines Format for Database Exchange
+----------------------------------------------------
+
+There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
+This appendix describes a lightweight standardization for doing this via the `JSON Lines <https://jsonlines.org/>`__ (JSONL) format, with some additional OPTIMADE-specific conventions.
+
+The `JSON Lines <https://jsonlines.org/>`__ format enforces the following rules:
+
+- each line is a valid JSON value,
+- each line is separated by a newline character (``\n``), optionally ending the file with a newline.
+- each file must be UTF-8 encoded,
+- the recommended file extension is ``.jsonl``, with natural extensions to ``.jsonl.gz`` and ``.jsonl.bz2`` for ``gzip`` and ``bzip2`` compressed files, respectively.
+
+The OPTIMADE JSON Lines format then extends these rules with the following conventions:
+
+- The first line of the file is a JSON object that contains metadata about the file.
+  It MUST be a dictionary with the key ``x-optimade``, under which the following key MUST be defined:
+
+  - ``api_version``: The OPTIMADE API version used when generating the file, as described in the ``meta`` member in `JSON Response Schema: Common Fields`_.
+
+- The next line MAY contain a standard OPTIMADE ``meta`` object, following the same rules described in `JSON Response Schema: Common Fields`_, where every MUST and SHOULD rule can be reinterpreted as a MAY rule.
+  For example, ``meta.data_returned`` can be omitted, or otherwise used to provide the total number of entries in the file.
+
+- The next block of lines provides the ``info`` endpoint responses:
+
+  - First the base info response MUST be provided, following the description at `Base Info Endpoint`_.
+
+  - The next lines MUST contain the entry info endpoint responses for the all entry types present later in the file, as described in `Entry Listing Info Endpoints`_.
+
+- The remaining lines of the file contain data entries themselves, described in `Entry Listing JSON Response Schema`_.
+  These entries can be provided in any order.
+
+- Finally, any custom extension endpoints (see `Custom Extension Endpoints`_), if present and desirable, MUST appear at the end of the file.
+
+This leaves the following overall file structure:
+
+.. code :: txt
+
+  <header>
+  <optional metadata>
+  <base info response>
+  <entry info responses>
+  <unordered entries>
+  <optional custom extension endpoints>
+
+
+This JSONL format can also be used to share provider-specific or namespace-specific properties, following the normal rules defined in `Namespace Prefixes`_.
+Such static property definitions should be consistent with any externally defined prefixes, that is, JSON Lines files should not use an existing prefix unless the desired definitions match exactly.
+Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).
+
+It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.
+
+Example file
+~~~~~~~~~~~~
+
+.. code :: jsonc
+
+  {"x-optimade": {"api_version": "1.2.0"}}
+  {"meta": {"time_stamp": "2024-07-19T11:47:10Z", "data_returned": 6, "provider": {"name": "Example JSONL", "description": "An example JSONL file.", "prefix": "_exmpl"}}}
+  {"type": "info", "id": "/", "attributes": {"api_version": "1.2.0", "available_api_versions": ["1.2.0"], "formats": ["json"], "entry_types_by_format": {"json": ["references", "structures"]}, "license": "https://example.com/licenses/example_license.html"}, "homepage": "https://example.com", "name": "Example API", "provider": {"description": "A simple example provider", "name": "Example Provider"}}}
+  {"type": "info", "id": "references", ...}
+  {"type": "info", "id": "structures", ...}
+  {"type": "references", "id": "2", "attributes": {...}}
+  {"type": "structures", "id": "1", "attributes": {...}, "relationships": {"references": {"data": [{"id": "2", "type": "references"}]}}}
+
