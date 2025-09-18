@@ -1,7 +1,14 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
 title: "OPTIMADE property definition schema"
 type: object
+x-optimade-definition:
+  $$inherit: "x-optimade-definition-field"
+  label: "property_definition_meta"
+  kind: "meta"
+  version: "1.3.0"
+  format: "1.2"
+  name: "property_definition"
 allOf:
   - $ref: "#/$defs/property_definition_field"
   - required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
