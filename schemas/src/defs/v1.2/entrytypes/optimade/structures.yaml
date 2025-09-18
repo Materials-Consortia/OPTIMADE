@@ -172,6 +172,14 @@ properties:
       response-level: "may"
       query-support: "none"
 
+  fractional_site_positions:
+    $$inherit: "/v1.2/properties/optimade/structures/fractional_site_positions"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
   nsites:
     $$inherit: "/v1.2/properties/optimade/structures/nsites"
     x-optimade-requirements:

@@ -1,0 +1,48 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/fractional_site_positions"
+title: "Fractional site positions"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "fractional_site_positions_optimade_structures"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "fractional_site_positions"
+x-optimade-dimensions:
+  names: ["dim_sites", "dim_spatial"]
+  sizes: [null, 3]
+type:
+  - "array"
+  - "null"
+description: |-
+  Fractional coordinates (positions) of each site in the structure.
+
+  A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.
+  Site coordinates MAY be given as `cartesian_site_positions`, `fractional_site_positions`, or both.
+  When symmetry operations given in `space_group_symmetry_operations_xyz` are applied, they MUST be applied to coordinates given in the `fractional_site_positions` array.
+
+  **Requirements/Conventions**:
+
+  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors` property.
+  - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`).
+  - Since both `cartesian_site_positions` and the `fractional_site_positions` always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites` array.
+
+  **Explained examples**:
+
+  - `[[0,0,0],[0,0,0.2]]` indicates a structure with two sites, one sitting at the origin and one along the third unit cell axis (*c*-axis), 1/5-th (0.2) of the vector *c* in the direction of the vector *c* from the origin.
+examples:
+  - [[0,0,0],[0,0,0.2]]
+x-optimade-unit: "inapplicable"
+items:
+  x-optimade-type: "list"
+  x-optimade-dimensions:
+    names: ["dim_spatial"]
+    sizes: [3]
+  type:
+    - "array"
+  x-optimade-unit: "inapplicable"
+  items:
+    x-optimade-type: "float"
+    type:
+      - "number"
+    x-optimade-unit: "dimensionless"
