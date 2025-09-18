@@ -3299,7 +3299,7 @@ fractional\_site\_positions
     If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors`_ property.
   - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
-  - **Note**: Since both `cartesian_site_positions`_ and`fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
+  - **Note**: Since both `cartesian_site_positions`_ and `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
 
 - **Examples**:
 
