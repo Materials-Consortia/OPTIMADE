@@ -605,43 +605,44 @@ Example of the corresponding metadata property definition contained in the field
 Compact list representation
 ---------------------------
 
-There are cases in which the response includes lists that can be expressed in a more compact
-form than explicitly providing each value.
-One particular example are lists with equal values along a given list axis (e.g., in the case
-of a trajectory with a fixed unit cell for all frames).
-To allow for efficient data transfer, a compact list representation MAY be adopted by the server.
+There are cases in which the response includes lists that can be expressed in a more compact form than explicitly providing each value.
+One particular example are lists with equal values along a given list axis (e.g., in the case of a trajectory with a fixed unit cell for all frames).
 
-In such case, the server MUST indicate that that dimension is compactable, by setting to :val:`TRUE`
-the corresponding element of the list :field:`compactable` in the property metadata of the corresponding
-list property (see `Metadata Properties`_).
+To allow for efficient data transfer, some dimensions of selected properties are thus marked as **compactable** in the corresponding property definitions.
+This is achieved using the :field:`compactable` field inside the `x-optimade-dimensions` dictionary of the property definition.
+This field is a list of strings of the same length as the property dimension.
+Each string indicates if a dimension can be compacted and, if so, in which compact format, as detailed in the section of the `Property Definitions`_ describing the :field:`compactable` field.
 
-If a list is declared compactable in one given dimension, it MUST be expressed in one of the two following ways:
+If a property has at least one dimension declared as compactable, the server MUST return it in the response in one of the two following ways:
 
-1. using the standard rules to represent lists. This means either giving the values (which can possibly be `null`)
-   at each position along that dimension directly in the :field:`data` field of the response, or using the large
-   property values protocol (see `Transmission of large property values`_);
+  1. using the standard rules. This means either giving the values (which can possibly be :val:`null`) at each position directly in the :field:`data` field of the response, or using the large property values protocol (see `Transmission of large property values`_);
 
-2. using a **compact format** in the :field:`data` field of the response.
+  2. using the **compact format** specified in the corresponding :field:`compactable` field (limited to the dimensions set as compactable).
 
-Currently, only one **compact format** is defined, supporting lists with equal values along a given list axis.
-In this case, the list MUST include only one value for that list axis. The latter MUST be interpreted as the constant
-value of the list along that dimension.
+If none of the property dimensions are set as compactable, the server MUST always use the standard rules to represent the property.
 
-We highlight two advantages of the design of this compact format representation:
+Clients MUST be able to handle responses with both compact and non-compact property formats in the same response.
+If a client finds a string in the :field:`compactable` that it does not recognize (this might happen with major changes of the property definition), it MUST return an error to the user.
+
+Compact formats
+~~~~~~~~~~~~~~~
+
+Currently, only one **compact format** is defined, represented by the string :val:`"constant"`, supporting lists with equal values along a given list axis.
+If the server adopts this compact format, the list MUST include only one value for that list axis.
+This value MUST be interpreted as the constant value of the list along that dimension.
+
+Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).
+An appropriate way to communicate the format of the compact representation will then be defined.
+
+We highlight two advantages of the design of the :val:`"constant"` compact format representation:
 
 - it is still possible to use the same schemas to validate the list property, since the list dimensionality and the
   data type of its items are the same, both when explicitly writing all list items (using the standard rules)
-  and when using the compact format.
+  and when using the compact format;
 
-- It avoids having to resort to the transmission of large property values for each constant (but potentially large)
+- it avoids having to resort to the transmission of large property values for each constant (but potentially large)
   property, thus reducing the amount of data transferred and avoiding to perform separate HTTP requests for each
   individual property.
-
-Other compact formats might be defined in future versions of this specification (e.g., constant values only in a
-range of indices, or linearly varying values), and an appropriate way to communicate the format of the
-compact representation will be defined.
-
-The client MUST be able to handle responses with both compact and non-compact property formats.
 
 Examples:
 
@@ -668,41 +669,12 @@ Examples:
       //...
     }
 
-  In this example, the properties :field:`elements`, :field:`nelements`, and :field:`lattice_vectors` are compacted along the first dimension (`dim_frames`).
+  In this example, the properties :field:`elements`, :field:`nelements`, and :field:`lattice_vectors` are compacted along the first dimension (`dim_frames`) using the ``constant`` format.
   Since all these arrays have a size of 5 along this dimension (see value of :field:`nframes`), the client MUST interpret them as if the specified value is repeated 5 times.
   Instead the :field:`_exmpl_timestep` property is not compacted, since it has different values for each frame.
   Moreover, the value of the :field:`cartesian_site_positions` property is omitted (with value :val:`null`, as the server deems it to be too large for a single response, e.g. because the number of atoms is too large) and its content is instead transferred using the large property values protocol (see section `Transmission of large property values`_; for brevity we do not show here the content of the :field:`meta` field).
 
   We note that the value to be repeated can be either a single item (as it is the case for :field:`nelements`, to be interpreted as ``[2, 2, 2, 2, 2]``) or a list. In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as ``[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]``) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix ``[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]`` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
-
-  In order to be able to use a compact format for a list property, the server MUST also declare it as compactable in the corresponding property metadata. For instance, for the :field:`lattice_vectors` property:
-
-  .. code:: jsonc
-
-    {
-      "data": [
-        {
-          "type": "trajectories",
-          "id": "example.db:traj:0001",
-          "attributes": {
-            "lattice_vectors":
-              [
-                [[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]
-              ],
-            "nframes": 10,
-            // ...
-          },
-          "meta": {
-            "property_metadata": {
-              "lattice_vectors": {
-                "compactable": [true, false, false] // compactable along dim_frames (and not along the other two dimensions)
-              }
-            }
-          }
-        },
-        // ...
-      ]
-    }
 
 Responses
 =========
@@ -2301,14 +2273,40 @@ A Property Definition MUST be composed according to the combination of the requi
 
   **OPTIONAL keys:**
 
-  - :field:`compactable`: List of Booleans.
+  - :field:`compactable`: List of Strings.
     For each dimension, defines whether the data can be written in a compact form along that dimension.
-    If the value is :val:`TRUE` for one given dimension, the data MAY be expressed in the response using a
-    compact format as specified in `Compact list representation`_.
-    If the value is :val:`FALSE` for one given dimension, the standard rules to represent lists apply (i.e.,
-    the data CANNOT be expressed using a compact format).
+    If the value is :val:`"no"` for one given dimension, the standard rules to represent lists apply (i.e., the server CANNOT express that property using a compact format).
+    If the value is any other string for one given dimension (currently, only the string :val:`"constant"` is supported), the server MAY decide to express the data in the response using the compact format defined by that string, as specified in `Compact list representation`_. If it decides not to do so, then it MUST use the standard rules to represent lists.
     If :field:`compactable` is provided, then a value MUST be given for each dimension.
-    If :field:`compactable` is not provided, then the default value is :val:`FALSE` for each dimension.
+    If :field:`compactable` is not provided, then the default value is :val:`"no"` for each dimension.
+
+    For instance, for the :field:`lattice_vectors` property:
+
+    .. code:: jsonc
+
+      {
+        "data": {
+          "type": "info",
+          "id": "trajectories",
+          // ...
+          "properties": {
+            // ...
+            "lattice_vectors": {
+              "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "title": "Lattice vectors",
+              // ...
+              "x-optimade-type": "list",
+              "x-optimade-dimensions": {
+                  "names": ["dim_frames", "dim_lattice", "dim_spatial"],
+                  "sizes": [null, 3, 3] // size along dim_frames is variable, so not specified here
+                  "compactable": ["constant", "no", "no"] // compactable (using the constant compact format) only along dim_frames
+              }
+            }
+          }
+        }
+      }
+
+    This means that the :field:`lattice_vectors` property MAY be expressed in a compact format along the outermost dimension (``dim_frames``) using the :val:`"constant"` compact format (but MUST be expressed as standard lists along the other two dimensions ``dim_lattice`` and ``dim_spatial``).
 
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
