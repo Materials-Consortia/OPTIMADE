@@ -260,6 +260,11 @@ $defs:
         type: string
       x-optimade-definition:
         $$inherit: "x-optimade-definition-field"
+        label: "property_definition_meta"
+        kind: "meta"
+        version: "1.2.1"
+        format: "1.2"
+        name: "property_definition"
       x-optimade-dimensions:
         description: |-
           Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
