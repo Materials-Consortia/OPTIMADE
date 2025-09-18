@@ -3772,7 +3772,7 @@ Trajectories Entries
 
     - the properties `nframes`_ and `reference_frames`_, described below;
 
-    - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference: each property is extended by wrapping it in a list, so that they each custom property of a Structure becomes a list with an additional first dimension `dim_frames` (of size `nframes`).
+    - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference; each property is extended by wrapping it in a list, so that each custom property of a :entry:`structures` resource becomes a list with an additional first dimension `dim_frames`_ (of size `nframes`_).
 
   This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
   For example, the property `lattice_vectors`_ for a trajectory with 100 frames would be a three-dimensional list of floats, where the first dimension has a size of 100 (the number of frames), and the second and third dimensions have a size of 3 (representing the lattice vectors at each frame).
