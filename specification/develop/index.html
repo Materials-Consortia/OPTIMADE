@@ -3880,7 +3880,7 @@ When symmetry operations given in <a class="reference internal" href="#space-gro
 If supported, filters MAY support only a subset of comparison operators.</p></li>
 <li><p>It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the <a class="reference internal" href="#lattice-vectors">lattice_vectors</a> property.</p></li>
 <li><p>An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property <a class="reference internal" href="#assemblies">assemblies</a>).</p></li>
-<li><p><strong>Note</strong>: Since both <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> and the <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a> always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the <a class="reference internal" href="#species-at-sites">species_at_sites</a> array.</p></li>
+<li><p><strong>Note</strong>: Since both <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> and <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a> always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the <a class="reference internal" href="#species-at-sites">species_at_sites</a> array.</p></li>
 </ul>
 </li>
 <li><p><strong>Examples</strong>:</p>
@@ -3898,7 +3898,7 @@ In particular, properties <a class="reference internal" href="#cartesian-site-po
 <li><p><strong>Type</strong>: string</p></li>
 <li><p><strong>Requirements/conventions</strong>:</p>
 <ul class="simple">
-<li><p><strong>Support</strong>: MUST be supported by all implementations if coordinates <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a> are returned.
+<li><p><strong>Support</strong>: MUST be supported by all implementations if coordinates in <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a> are returned.
 It SHOULD be supported if coordinates in <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> are returned.</p></li>
 <li><p><strong>Query</strong>: Support for queries on this property is OPTIONAL.</p></li>
 <li><p>The value of this property MUST be one of the following:</p>
@@ -3915,12 +3915,14 @@ For this span, the server MUST provide a set of sites in the response that can b
 <li><p><span class="val docutils literal">&quot;molecular_entities&quot;</span>: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
 This set of sites MAY be larger than a fundamental domain.</p></li>
 <li><p><span class="val docutils literal">&quot;other&quot;</span>: any other collection of sites that does not fit the enumerated values above.</p></li>
-<li><p><span class="val docutils literal">null</span>: if omitted or <span class="val docutils literal">null</span>, the default value of <span class="property docutils literal">site_coordinate_span</span> is <span class="val docutils literal">unit_cell</span>. This is the assumed behavior of all main implementations before the <span class="property docutils literal">site_coordinate_span</span> definition was introduced.</p></li>
+<li><p><span class="val docutils literal">null</span>: if omitted or <span class="val docutils literal">null</span>, the default value of <span class="property docutils literal">site_coordinate_span</span> is <span class="val docutils literal">unit_cell</span>.
+This is the assumed behavior of all main implementations before the <span class="property docutils literal">site_coordinate_span</span> definition was introduced.</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><strong>Note</strong>: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided. For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in <span class="property docutils literal">lattice_vectors</span>; only a non-redundant set of sites SHOULD be provided.</p></li>
+<li><p><strong>Note</strong>: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided.
+For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in <span class="property docutils literal">lattice_vectors</span>; only a non-redundant set of sites SHOULD be provided.</p></li>
 <li><p><strong>Bibliographic References</strong>:</p>
 <p>E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN <a class="reference external" href="https://isbnsearch.org/isbn/1402006098">1402006098</a>, URL: <a class="reference external" href="https://encyclopediaofmath.org/index.php?title=Fundamental_domain&amp;oldid=13590">https://encyclopediaofmath.org/index.php?title=Fundamental_domain&amp;oldid=13590</a> [accessed 2025-04-30T08:55+03:00].</p>
 <p>European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: <a class="reference external" href="http://encyclopediaofmath.org/index.php?title=Fundamental_domain&amp;oldid=47023">http://encyclopediaofmath.org/index.php?title=Fundamental_domain&amp;oldid=47023</a> [accessed 2025-04-30T08:53+03:00].</p>
@@ -3963,7 +3965,7 @@ This set of sites MAY be larger than a fundamental domain.</p></li>
 <section id="species-at-sites">
 <h4><a class="toc-backref" href="#toc-entry-95" role="doc-backlink"><span class="sectnum">8.2.21 </span>species_at_sites</a></h4>
 <ul class="simple">
-<li><p><strong>Description</strong>: Name of the species at each site (where values for sites are specified with the same order of the property <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> or <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a>).
+<li><p><strong>Description</strong>: Name of the species at each site (where values for sites are specified with the same order of the property <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> and/or <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a>).
 The properties of the species are found in the property <a class="reference internal" href="#species">species</a>.</p></li>
 <li><p><strong>Type</strong>: list of strings.</p></li>
 <li><p><strong>Requirements/Conventions</strong>:</p>
