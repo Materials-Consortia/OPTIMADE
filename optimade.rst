@@ -606,7 +606,7 @@ Compact list representation
 ---------------------------
 
 There are cases in which the response includes lists that can be expressed in a more compact form than explicitly providing each value.
-One particular example are lists with equal values along a given list axis (e.g., in the case of a trajectory with a fixed unit cell for all frames).
+For example, lists with constant values along a given axis (e.g., in the case of a trajectory with a fixed unit cell for all frames).
 
 To allow for efficient data transfer, some dimensions of selected properties are thus marked as **compactable** in the corresponding property definitions.
 This is achieved using the :field:`compactable` field inside the `x-optimade-dimensions` dictionary of the property definition.
@@ -627,7 +627,7 @@ If a client finds a string in the :field:`compactable` that it does not recogniz
 Compact formats
 ~~~~~~~~~~~~~~~
 
-Currently, only one **compact format** is defined, represented by the string :val:`"constant"`, supporting lists with equal values along a given list axis.
+Currently, only one **compact format** is defined, represented by the string :val:`"constant"`, supporting lists consisting of constant values along a given axis.
 If the server adopts this compact format, the list MUST include only one value for that list axis.
 This value MUST be interpreted as the constant value of the list along that dimension.
 
@@ -671,7 +671,7 @@ Example:
   On the other hand, the :field:`_exmpl_timestep` property is not compacted, since it has different values for each frame.
   Moreover, the value of the :field:`cartesian_site_positions` property is omitted (with value :val:`null`, as the server deems it to be too large for a single response) and its content is instead transferred using the large property values protocol (see section `Transmission of large property values`_; for brevity we do not show here the content of the :field:`meta` field).
 
-  The value to be repeated can either be a single item (as it is the case for :field:`nelements`, to be interpreted as :val:`[2, 2, 2, 2, 2]`) or a list. 
+  The value to be repeated can either be a single item (as it is the case for :field:`nelements`, to be interpreted as :val:`[2, 2, 2, 2, 2]`) or a list.
   In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as :val:`[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]`) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix :val:`[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
 
 Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).
@@ -3768,17 +3768,19 @@ Trajectories Entries
 
   :entry:`trajectories` entries have:
 
-    - the properties described in the section `Properties Used by Multiple Entry Types`_;
+  - the properties described in the section `Properties Used by Multiple Entry Types`_;
 
-    - the properties `nframes`_ and `reference_frames`_, described below;
+  - the properties `nframes`_ and `reference_frames`_, described below;
 
-    - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference; each property is extended by wrapping it in a list, so that each custom property of a :entry:`structures` resource becomes a list with an additional first dimension `dim_frames`_ (of size `nframes`_).
+  - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference; each property is extended by wrapping it in a list, so that each custom property of a :entry:`structures` resource becomes a list with an additional first dimension of size `nframes`_ (with dimension name ``dim_frames``, as defined in the property definition). This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
 
-  This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
+    Moreover, for data-transfer efficiency reasons, all these properties have their first dimension ``dim_frames`` defined as compactable in the :field:`compactable` field of their property definition. The server MAY thus return the corresponding data using the `Compact list representation`_ format, if the property values are not changing over the trajectory.
+
   For example, the property `lattice_vectors`_ for a trajectory with 100 frames would be a three-dimensional list of floats, where the first dimension has a size of 100 (the number of frames), and the second and third dimensions have a size of 3 (representing the lattice vectors at each frame).
-  For data-transfer efficiency reasons, the server MAY define as :field:`compactable` the additional first dimension `dim_frames` for some of these properties, so as to return them in the `Compact list representation`_ format, e.g., if these are not changing during the trajectory.
 
   Other database-specific properties MAY also be provided. These might include properties computed for all or some frames, such as the energy, the pressure or the temperature.
+
+  We stress that, in general, if any property consists of a very large amount of data (which might be a common case for trajectories), the server MAY decide to not return the data directly in the response, but using instead the large-property transfer protocol described in the section `Transmission of large property values`_.
 
 nframes
 ~~~~~~~
