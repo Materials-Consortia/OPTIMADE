@@ -220,6 +220,7 @@ representation in all contexts. They are as follows:
   A list can be empty, i.e., contain no items.
 - **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
+- Namespace-specific data type (described in `Type handling and conversions in comparisons`_).
 
 An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
@@ -627,6 +628,7 @@ In the JSON response format, property types translate as follows:
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
+- Namespace-specific data types can use any of the above.
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
@@ -2072,6 +2074,10 @@ As the filter language syntax does not define a lexical token for timestamps, va
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
+Namespace providers MAY introduce namespace-specific data types.
+It is up to the providers to decide which comparison operators to support and how the comparisons should be performed.
+For example, a provider that introduces a set-valued property :property:`_exmpl_set`, may decide to override the :val:`CONTAINS` operator so that :filter:`identifier CONTAINS set` is true when :val:`set` is a subset of a property.
+
 Optional filter features
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2160,7 +2166,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
 - :field:`x-optimade-type`: String.
   Specifies the OPTIMADE data type for this level of the defined property.
-  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, :val:`"dictionary"` or the name of a namespace-specific data type that starts with an underscore followed by the provider-specific prefix.
+  When a namespace-specific data type is used, the human-readable property description should be used to describe its usage and format.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
