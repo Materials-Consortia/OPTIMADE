@@ -50,6 +50,30 @@ properties:
       query-support: "all mandatory"
       response-level: "always"
 
+  is_a:
+    $$inherit: "/v1.2/properties/optimade/workflows/is_a"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  workflow_input:
+    $$inherit: "/v1.2/properties/optimade/workflows/workflow_input"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  workflow_output:
+    $$inherit: "/v1.2/properties/optimade/workflows/workflow_output"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
   method:
     $$inherit: "/v1.2/properties/optimade/workflows/method"
     x-optimade-requirements:

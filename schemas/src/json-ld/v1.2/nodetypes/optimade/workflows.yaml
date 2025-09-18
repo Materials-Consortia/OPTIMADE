@@ -13,3 +13,6 @@
   version: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/version"
   parameters: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/parameters"
   description: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/description"
+  workflow_input: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/workflow_input"
+  workflow_output: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/workflow_output"
+  is_a: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/is_a"
