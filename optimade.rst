@@ -3764,7 +3764,7 @@ Trajectories Entries
 
 - **Description**: The :entry:`trajectories` entry is used to share data belonging to ordered sequences of structures such as, for example, those originating from molecular dynamics or Monte Carlo simulations.
 
-  The individual steps of the trajectories are called frames.
+  Individual steps of trajectories are referred to as frames.
 
   :entry:`trajectories` entries have:
 
