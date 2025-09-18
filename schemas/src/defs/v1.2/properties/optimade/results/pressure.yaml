@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/pressure"
+title: "pressure"
+x-optimade-type: "float"
+x-optimade-definition:
+  label: "pressure_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "pressure"
+type:
+  - "number"
+  - "null"
+description: |-
+  Pressure at which the result was obtained. For computational results, represents simulation pressure; for experimental results, represents measurement conditions. Essential for equation of state studies and high-pressure phase transitions.
+
+  **Requirements/Conventions**:
+
+  - The pressure SHOULD be provided in Pa (pascals).
+  - For computational results, this represents the simulation pressure.
+  - For experimental results, this represents the measurement pressure.
+  - Standard atmospheric pressure is approximately 101325 Pa.
+
+  **Query examples**:
+
+  - Filter for atmospheric pressure results: `pressure>=100000 AND pressure<=105000`.
+  - Filter for high pressure results: `pressure>1e9`.
+examples:
+  - 101325.0
+  - 1e9
+  - 5e10
+x-optimade-unit: "Pa"

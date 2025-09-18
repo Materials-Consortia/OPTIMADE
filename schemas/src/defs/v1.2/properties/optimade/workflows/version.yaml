@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/version"
+title: "version"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "version_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "version"
+type:
+  - "string"
+  - "null"
+description: |-
+  Version of the software or protocol used in the workflow.
+
+  **Requirements/Conventions**:
+
+  - For computational software, this should be the version number.
+  - For experimental protocols, this might be the protocol version or standard.
+  - Examples: "6.3.0", "7.1", "v5.4.4", "ASTM D638-14", etc.
+
+  **Query examples**:
+
+  - Filter by version: `version="6.3.0"`.
+  - Filter by major version: `version STARTS WITH "6"`.
+examples:
+  - "6.3.0"
+  - "7.1"
+  - "v5.4.4"
+  - "ASTM D638-14"
+x-optimade-unit: "inapplicable"

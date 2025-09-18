@@ -90,6 +90,14 @@ properties:
       query-support: "all mandatory"
       response-level: "may"
 
+  optical_band_gap:
+    $$inherit: "/v1.2/properties/optimade/results/optical_band_gap"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
   properties:
     $$inherit: "/v1.2/properties/optimade/results/properties"
     x-optimade-requirements:

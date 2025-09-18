@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/parameters"
+title: "parameters"
+x-optimade-type: "dictionary"
+x-optimade-definition:
+  label: "parameters_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "parameters"
+type:
+  - "object"
+  - "null"
+description: |-
+  A dictionary containing the key parameters and settings used in the workflow.
+
+  **Requirements/Conventions**:
+
+  - This field provides a flexible way to store workflow-specific parameters.
+  - Keys SHOULD be descriptive parameter names (e.g., "cutoff_energy", "k_points", "temperature", "strain_rate").
+  - Values can be numbers, strings, arrays, or objects depending on the parameter.
+  - For computational workflows, this might include convergence criteria, grid settings, etc.
+  - For experimental workflows, this might include measurement conditions, rates, etc.
+
+  **Query examples**:
+
+  - Querying specific parameters: `parameters.cutoff_energy > 400`.
+  - Checking for parameter existence: `parameters HAS "k_points"`.
+examples:
+  - {"cutoff_energy": 500, "k_points": [4, 4, 4], "smearing": 0.01}
+  - {"strain_rate": 0.01, "temperature": 298.15, "max_strain": 0.05}
+x-optimade-unit: "inapplicable"

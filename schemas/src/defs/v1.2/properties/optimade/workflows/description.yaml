@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/description"
+title: "description"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "description_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "description"
+type:
+  - "string"
+  - "null"
+description: |-
+  A human-readable description of the workflow and its purpose.
+
+  **Requirements/Conventions**:
+
+  - This field should provide a clear explanation of what the workflow does.
+  - Should include the scientific goal or objective of the workflow.
+  - May include details about the approach, methodology, or special considerations.
+
+  **Query examples**:
+
+  - Search for workflows by description: `description CONTAINS "optimization"`.
+  - Find specific types of calculations: `description CONTAINS "band structure"`.
+examples:
+  - "Geometry optimization of crystal structure using DFT"
+  - "Mechanical tensile testing at room temperature"
+  - "Electronic band structure calculation with hybrid functionals"
+  - "High-pressure X-ray diffraction measurement"
+x-optimade-unit: "inapplicable"

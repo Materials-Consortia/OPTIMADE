@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/bulk_modulus"
+title: "bulk modulus"
+x-optimade-type: "float"
+x-optimade-definition:
+  label: "bulk_modulus_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "bulk_modulus"
+type:
+  - "number"
+  - "null"
+description: |-
+  Bulk modulus - resistance to uniform compression under hydrostatic pressure. Higher values indicate incompressible materials important for high-pressure applications. Often calculated using Hill, Reuss, or Voigt averaging methods from elastic constants.
+
+  **Query examples**:
+
+  - Filter for high bulk modulus materials: `bulk_modulus>100e9`.
+  - Filter within a range: `bulk_modulus>=50e9 AND bulk_modulus<=200e9`.
+examples:
+  - 142.5e9
+  - 67.3e9
+  - 205.1e9
+x-optimade-unit: "Pa"

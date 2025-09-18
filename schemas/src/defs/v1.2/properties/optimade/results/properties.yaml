@@ -1,0 +1,31 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/properties"
+title: "properties"
+x-optimade-type: "dictionary"
+x-optimade-definition:
+  label: "properties_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "properties"
+type:
+  - "object"
+  - "null"
+description: |-
+  A dictionary containing additional computed or measured properties from the result.
+
+  **Requirements/Conventions**:
+
+  - This field provides a flexible way to store various calculated or measured properties.
+  - Keys SHOULD be descriptive property names (e.g., "band_gap", "formation_energy", "elastic_modulus").
+  - Values can be numbers, strings, arrays, or objects depending on the property.
+  - Units SHOULD be specified in the property name or as metadata when possible.
+
+  **Query examples**:
+
+  - Querying specific properties: `properties.band_gap > 1.0`.
+  - Checking for property existence: `properties HAS "formation_energy"`.
+examples:
+  - {"band_gap": 1.23, "formation_energy": -0.45, "magnetic_moment": 2.1}
+  - {"elastic_modulus": 150.0, "poisson_ratio": 0.3}
+x-optimade-unit: "inapplicable"

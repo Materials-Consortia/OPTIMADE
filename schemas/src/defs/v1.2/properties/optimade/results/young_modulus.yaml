@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/young_modulus"
+title: "young modulus"
+x-optimade-type: "float"
+x-optimade-definition:
+  label: "young_modulus_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "young_modulus"
+type:
+  - "number"
+  - "null"
+description: |-
+  Young's modulus - stiffness under tensile or compressive stress, defined as stress divided by strain. Higher values indicate stiffer materials that deform less under applied force. Measured via tensile testing, calculated from elastic constants.
+
+  **Query examples**:
+
+  - Filter for high stiffness materials: `young_modulus>200e9`.
+  - Filter within a range: `young_modulus>=70e9 AND young_modulus<=300e9`.
+examples:
+  - 210.5e9
+  - 70.3e9
+  - 400.1e9
+x-optimade-unit: "Pa"

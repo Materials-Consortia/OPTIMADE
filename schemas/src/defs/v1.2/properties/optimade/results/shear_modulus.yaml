@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/shear_modulus"
+title: "shear modulus"
+x-optimade-type: "float"
+x-optimade-definition:
+  label: "shear_modulus_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "shear_modulus"
+type:
+  - "number"
+  - "null"
+description: |-
+  Shear modulus - resistance to shape change under shear stress while preserving volume. Critical for mechanical stability and ductility of materials. Often calculated using Hill, Reuss, or Voigt averaging methods from elastic tensor components.
+
+  **Query examples**:
+
+  - Filter for high shear modulus materials: `shear_modulus>80e9`.
+  - Filter within a range: `shear_modulus>=30e9 AND shear_modulus<=150e9`.
+examples:
+  - 85.2e9
+  - 42.1e9
+  - 125.7e9
+x-optimade-unit: "Pa"

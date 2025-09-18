@@ -1,0 +1,33 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/software"
+title: "software"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "software_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "software"
+type:
+  - "string"
+  - "null"
+description: |-
+  Name of the software package or instrument used to execute the workflow.
+
+  **Requirements/Conventions**:
+
+  - For computational workflows, this should be the software package name.
+  - For experimental workflows, this might be the instrument or measurement system.
+  - Examples: "VASP", "Quantum ESPRESSO", "LAMMPS", "Rigaku MiniFlex", "Instron 5966", etc.
+
+  **Query examples**:
+
+  - Filter by software: `software="VASP"`.
+  - Filter by vendor: `software CONTAINS "Rigaku"`.
+examples:
+  - "VASP"
+  - "Quantum ESPRESSO"
+  - "LAMMPS"
+  - "Rigaku MiniFlex"
+  - "Instron 5966"
+x-optimade-unit: "inapplicable"

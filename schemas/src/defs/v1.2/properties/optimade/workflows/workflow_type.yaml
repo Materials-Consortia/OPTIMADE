@@ -1,0 +1,34 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/workflow_type"
+title: "workflow type"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "workflow_type_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "workflow_type"
+type:
+  - "string"
+description: |-
+  Machine-readable specification of the workflow type defining its computational or experimental nature and methodology.
+
+  **Requirements/Conventions**:
+
+  - This SHOULD be a standardized, machine-readable identifier for the workflow type.
+  - Values SHOULD follow a consistent naming convention or controlled vocabulary.
+  - More specific than general categories, focusing on the precise methodology employed.
+  - Examples: "DFT_geometry_optimization", "XRD_powder_diffraction", "MD_NPT_ensemble", "tensile_testing_ASTM_D638".
+
+  **Query examples**:
+
+  - Filter for DFT workflows: `workflow_type CONTAINS "DFT"`.
+  - Filter for experimental workflows: `workflow_type CONTAINS "experimental"`.
+  - Filter for specific methods: `workflow_type="DFT_geometry_optimization"`.
+examples:
+  - "DFT_geometry_optimization"
+  - "XRD_powder_diffraction" 
+  - "MD_NPT_ensemble"
+  - "tensile_testing_ASTM_D638"
+  - "photoemission_spectroscopy"
+x-optimade-unit: "inapplicable"

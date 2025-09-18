@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/temperature"
+title: "temperature"
+x-optimade-type: "float"
+x-optimade-definition:
+  label: "temperature_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "temperature"
+type:
+  - "number"
+  - "null"
+description: |-
+  Temperature at which the result was obtained. For computational results, represents simulation temperature; for experimental results, represents measurement conditions. Critical for thermodynamic properties and phase behavior.
+
+  **Requirements/Conventions**:
+
+  - The temperature SHOULD be provided in K (kelvin).
+  - For computational results, this represents the simulation temperature.
+  - For experimental results, this represents the measurement temperature.
+  - Standard room temperature is approximately 298.15 K.
+
+  **Query examples**:
+
+  - Filter for room temperature results: `temperature>=295 AND temperature<=305`.
+  - Filter for high temperature results: `temperature>1000`.
+examples:
+  - 298.15
+  - 77.0
+  - 1273.0
+x-optimade-unit: "K"

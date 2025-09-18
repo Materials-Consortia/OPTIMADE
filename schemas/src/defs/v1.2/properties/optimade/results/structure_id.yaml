@@ -1,0 +1,30 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/structure_id"
+title: "structure ID"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "structure_id_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "structure_id"
+type:
+  - "string"
+  - "null"
+description: |-
+  Reference to the structure entry associated with this result.
+
+  **Requirements/Conventions**:
+
+  - This SHOULD be the ID of a structure entry in the same or related database.
+  - Used to establish relationships between results and the structures they pertain to.
+  - MAY be null if the result is not associated with a specific structure entry.
+
+  **Query examples**:
+
+  - Find results for a specific structure: `structure_id="struct-456"`.
+  - Find results with associated structures: `structure_id IS KNOWN`.
+examples:
+  - "struct-123456"
+  - "mp-567890"
+x-optimade-unit: "inapplicable"

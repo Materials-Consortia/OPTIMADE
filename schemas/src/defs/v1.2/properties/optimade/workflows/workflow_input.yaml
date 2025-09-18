@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/workflow_input"
+title: "workflow input"
+x-optimade-type: "dictionary"
+x-optimade-definition:
+  label: "workflow_input_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "workflow_input"
+type:
+  - "object"
+  - "null"
+description: |-
+  A dictionary describing the input types and specifications required by the workflow.
+
+  **Requirements/Conventions**:
+
+  - This field specifies what types of data, structures, or conditions the workflow expects as input.
+  - Keys SHOULD describe input categories (e.g., "structures", "parameters", "conditions").
+  - Values can describe the input type, format, or requirements.
+  - For computational workflows, this might specify structure types, parameter ranges, etc.
+  - For experimental workflows, this might specify sample requirements, environmental conditions, etc.
+
+  **Query examples**:
+
+  - Find workflows accepting structures: `workflow_input HAS "structures"`.
+  - Find workflows with specific input types: `workflow_input.structures CONTAINS "crystal"`.
+examples:
+  - {"structures": "crystal", "parameters": {"temperature": "numeric", "pressure": "numeric"}}
+  - {"sample": "powder", "conditions": {"atmosphere": "inert", "temperature_range": "300-1000K"}}
+x-optimade-unit: "inapplicable"

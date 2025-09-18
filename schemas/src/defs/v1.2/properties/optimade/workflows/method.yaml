@@ -1,0 +1,34 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/method"
+title: "method"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "method_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "method"
+type:
+  - "string"
+  - "null"
+description: |-
+  A string describing the specific computational or experimental method used in the workflow.
+
+  **Requirements/Conventions**:
+
+  - For computational workflows, this might include the level of theory, functional, basis set, etc.
+  - For experimental workflows, this might describe the specific technique or protocol.
+  - Examples: "DFT+PBE", "DFT+HSE06", "MP2", "CCSD(T)", "XRD", "neutron_scattering", "tensile_testing", etc.
+
+  **Query examples**:
+
+  - Filter workflows using DFT: `method CONTAINS "DFT"`.
+  - Filter by specific functional: `method="DFT+PBE"`.
+examples:
+  - "DFT+PBE"
+  - "DFT+HSE06"
+  - "MP2"
+  - "CCSD(T)"
+  - "XRD"
+  - "tensile_testing"
+x-optimade-unit: "inapplicable"

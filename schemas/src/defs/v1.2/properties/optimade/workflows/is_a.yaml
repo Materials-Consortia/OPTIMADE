@@ -1,0 +1,38 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/is_a"
+title: "is a"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "is_a_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "is_a"
+x-optimade-dimensions:
+  names: ["dim_categories"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of category identifiers that classify or categorize this workflow in a hierarchical or ontological manner.
+
+  **Requirements/Conventions**:
+
+  - This field provides taxonomic or ontological classification of the workflow.
+  - Values SHOULD be standardized category identifiers from a controlled vocabulary.
+  - Can represent multiple levels of classification (e.g., domain, subdomain, method type).
+  - Enables hierarchical querying and classification of workflows.
+  - Examples: ["computational", "electronic_structure", "DFT"], ["experimental", "characterization", "diffraction"].
+
+  **Query examples**:
+
+  - Find computational workflows: `is_a HAS "computational"`.
+  - Find electronic structure methods: `is_a HAS "electronic_structure"`.
+  - Find characterization techniques: `is_a HAS ALL "experimental", "characterization"`.
+examples:
+  - ["computational", "electronic_structure", "DFT"]
+  - ["experimental", "characterization", "diffraction", "X-ray"]
+  - ["computational", "molecular_dynamics", "classical"]
+x-optimade-unit: "inapplicable"
+items:
+  type: "string"

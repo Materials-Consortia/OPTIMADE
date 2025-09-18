@@ -1,0 +1,27 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/band_gap"
+title: "band gap"
+x-optimade-type: "float"
+x-optimade-definition:
+  label: "band_gap_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "band_gap"
+type:
+  - "number"
+  - "null"
+description: |-
+  Electronic band gap - energy difference between valence and conduction bands determining electrical properties. Metals have zero gap, semiconductors 0-4 eV, insulators >4 eV. Can be direct (same k-point) or indirect (different k-points), affecting optical properties.
+
+  **Query examples**:
+
+  - Filter for semiconductors: `band_gap>0 AND band_gap<4`.
+  - Filter for insulators: `band_gap>4`.
+  - Filter for metals: `band_gap=0`.
+examples:
+  - 1.1
+  - 3.4
+  - 0.0
+  - 5.6
+x-optimade-unit: "eV"

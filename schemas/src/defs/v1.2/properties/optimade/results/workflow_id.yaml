@@ -1,0 +1,30 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/results/workflow_id"
+title: "workflow ID"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "workflow_id_optimade_results"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "workflow_id"
+type:
+  - "string"
+description: |-
+  Reference to the workflow entry that produced this result.
+
+  **Requirements/Conventions**:
+
+  - This MUST be the ID of a workflow entry in the same or related database.
+  - Used to establish relationships between results and the workflows that generated them.
+  - The workflow entry should contain details about the methodology, parameters, and conditions used.
+
+  **Query examples**:
+
+  - Find results from a specific workflow: `workflow_id="workflow-123"`.
+  - Find results with associated workflows: `workflow_id IS KNOWN`.
+examples:
+  - "workflow-123456"
+  - "exp-mech-test-789"
+  - "dft-optimization-001"
+x-optimade-unit: "inapplicable"

@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/workflows/workflow_output"
+title: "workflow output"
+x-optimade-type: "dictionary"
+x-optimade-definition:
+  label: "workflow_output_optimade_workflows"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "workflow_output"
+type:
+  - "object"
+  - "null"
+description: |-
+  A dictionary describing the output types and specifications produced by the workflow.
+
+  **Requirements/Conventions**:
+
+  - This field specifies what types of data, properties, or results the workflow generates as output.
+  - Keys SHOULD describe output categories (e.g., "properties", "structures", "spectra").
+  - Values can describe the output type, format, or characteristics.
+  - For computational workflows, this might specify calculated properties, optimized structures, etc.
+  - For experimental workflows, this might specify measured properties, spectra, or material characteristics.
+
+  **Query examples**:
+
+  - Find workflows producing properties: `workflow_output HAS "properties"`.
+  - Find workflows generating specific outputs: `workflow_output.properties CONTAINS "elastic_moduli"`.
+examples:
+  - {"properties": ["elastic_moduli", "electronic_band_gap"], "structures": "optimized_geometry"}
+  - {"spectra": "XRD_pattern", "properties": ["crystallite_size", "phase_composition"]}
+x-optimade-unit: "inapplicable"
