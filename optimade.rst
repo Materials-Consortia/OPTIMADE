@@ -223,7 +223,7 @@ representation in all contexts. They are as follows:
 
   The term **list axes** refers to the levels of nesting of a list.
   A list can have elements of different lengths along a given axis, i.e., the list does not need to be rectangular.
-  However, the dimensionality of a list, defined as the number of axes (i.e., the number of levels of nesting) must be the same for all entries of a given entry type.
+  However, the dimensionality of a list, defined as the number of axes (i.e., the number of levels of nesting) MUST be the same for all entries of a given entry type.
   Hence, each item in the list can be indexed by a number of indices equal to the dimensionality of the list.
 
   Valid examples:
@@ -236,17 +236,22 @@ representation in all contexts. They are as follows:
 
     - ``[[1, 2], [3, 4], [5, 6]]`` is a two-dimensional list of three lists, each containing two integers. The first list axis has length 3 and the second list axis has length 2.
 
-    - ``[[1, 2], [3, 4, 5], [6]]`` is a two-dimensional list of three lists, each containing a different number of integers. It can be interpreted as a 3x3 (or 3x4, 4x4, ...) list, where the missing elements have implicitly the value :val:`null`.
+    - ``[[1, 2], [3, 4, 5], [6]]`` is a two-dimensional list of three lists, each containing a different number of integers, and each sublist has a different length.
+
+    - ``[[1, 2], [null], [3]]`` and ``[[1, 2], [], [3]]`` are both valid two-dimensional lists, since all items can be indexed by two list indices.
 
   Invalid examples:
 
     - ``[3.0, "string"]`` is invalid since the two elements have different types.
 
-  Further invalid examples (since they cannot be described via an OPTIMADE property specification):
-
     - ``[[1.0, 2.0], ["string", "string"]]`` is invalid since, while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists have different types.
 
     - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]`` is invalid since the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
+
+    - ``[[1, 2], null, [3]]`` is invalid since the second item is ``null`` and not a one-dimensional list.
+      Therefore, using two indices to address elements of the list is not always valid (i.e., if we call the list ``exmpl``, it is undefined what ``exmpl[1,2]`` represents).
+      We note however that there are situations where the OPTIMADE property definition could allow this datastructure to be valid (as a list of optional lists), even if this would not be a two-dimensional list for which dimensions and axes can be defined.
+
 
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
