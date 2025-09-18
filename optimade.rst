@@ -671,7 +671,8 @@ Example:
   On the other hand, the :field:`_exmpl_timestep` property is not compacted, since it has different values for each frame.
   Moreover, the value of the :field:`cartesian_site_positions` property is omitted (with value :val:`null`, as the server deems it to be too large for a single response) and its content is instead transferred using the large property values protocol (see section `Transmission of large property values`_; for brevity we do not show here the content of the :field:`meta` field).
 
-  We note that the value to be repeated can be either a single item (as it is the case for :field:`nelements`, to be interpreted as ``[2, 2, 2, 2, 2]``) or a list. In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as ``[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]``) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix ``[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]`` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
+  The value to be repeated can either be a single item (as it is the case for :field:`nelements`, to be interpreted as :val:`[2, 2, 2, 2, 2]`) or a list. 
+  In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as :val:`[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]`) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix :val:`[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
 
 Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).
 An appropriate way to communicate the format of the compact representation will then be defined.
