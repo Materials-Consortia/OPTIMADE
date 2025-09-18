@@ -307,6 +307,7 @@ $defs:
       x-optimade-unit:
         type: string
       x-optimade-implementation:
+        additionalProperties: false
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:
@@ -349,9 +350,9 @@ $defs:
         type: object
       x-optimade-requirements:
         additionalProperties: false
+        patternProperties:
+          "^x-(?!optimade-)": {}
         properties:
-          patternProperties:
-            "^x-(?!optimade-)": {}
           query-support:
             enum:
             - all mandatory
