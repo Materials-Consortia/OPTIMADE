@@ -3785,7 +3785,7 @@ nframes
 
 - **Description**: The number of frames in the trajectory as exposed in the resource.
   This value may deviate from the number of steps used to calculate the trajectory.
-  E.g., for a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, nframes = 200.
+  For example, a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, `nframes`_ will be 200.
 - **Type**: integer
 - **Requirements/Conventions**:
 
