@@ -222,9 +222,10 @@ representation in all contexts. They are as follows:
   We note that the term "array" is often used in programming languages to refer to similar data structures.
   However, the term "array" is avoided in this specification to prevent confusion with the meaning of the term "array" in the JSON specification.
 
-  The term **list axes** refers to the levels of nesting.
-  We note that it is valid for a list to have elements of different lengths along a given axis, i.e., the list does not need to be rectangular.
+  The term **list axes** refers to the levels of nesting of a list.
+  A list can have elements of different lengths along a given axis, i.e., the list does not need to be rectangular.
   However, the dimensionality of a list, defined as the number of axes (i.e., the number of levels of nesting) must be the same for all entries of a given entry type.
+  Hence, each item in the list can be indexed by a number of indices equal to the dimensionality of the list.
 
   Valid examples:
 
