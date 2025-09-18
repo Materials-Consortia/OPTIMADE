@@ -602,6 +602,106 @@ Example of the corresponding metadata property definition contained in the field
      }
      // ...
 
+Compact list representation
+---------------------------
+
+There are cases in which the response includes lists that can be expressed in a more compact
+form than explicitly providing each value.
+One particular example are lists with equal values along a given list axis (e.g., in the case
+of a trajectory with a fixed unit cell for all frames).
+To allow for efficient data transfer, a compact list representation MAY be adopted by the server.
+
+In such case, the server MUST indicate that that dimension is compactable, by setting to :val:`TRUE`
+the corresponding element of the list :field:`compactable` in the `x-optimade-dimensions` dictionary
+of the property definition (see `Property Definitions`_).
+
+If a list is declared compactable in one given dimension, it MUST be expressed in one of the two following ways:
+
+1. using the standard rules to represent lists. This means either giving the values (which can possibly be `null`)
+   at each position along that dimension directly in the :field:`data` field of the response, or using the large
+   property values protocol (see `Transmission of large property values`_);
+
+2. using a **compact format** in the :field:`data` field of the response.
+
+Currently, only one **compact format** is defined, supporting lists with equal values along a given list axis.
+In this case, the list MUST include only one value for that list axis. The latter MUST be interpreted as the constant
+value of the list along that dimension.
+
+We highlight two advantages of the design of this compact format representation:
+
+- it is still possible to use the same schemas to validate the list property, since the list dimensionality and the
+  data type of its items are the same, both when explicitly writing all list items (using the standard rules)
+  and when using the compact format.
+
+- It avoids having to resort to the transmission of large property values for each constant (but potentially large)
+  property, thus reducing the amount of data transferred and avoiding to perform separate HTTP requests for each
+  individual property.
+
+Other compact formats might be defined in future versions of this specification (e.g., constant values only in a
+range of indices, or linearly varying values), and an appropriate way to communicate the format of the
+compact representation will be defined.
+
+The client MUST be able to handle responses with both compact and non-compact property formats.
+
+Examples:
+
+- A trajectory with a fixed unit cell for all frames could be represented as:
+
+  .. code:: jsonc
+
+    {
+      "data":{
+        "id": "traj00000001",
+        "type": "trajectories",
+        "attributes": {
+          "nframes": 5,
+          "last_modified":"2021-07-16T18:02:03Z",
+          "elements": [["H","O"]],
+          "nelements": [2],
+          "lattice_vectors" : [
+            [[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]
+          ],
+          "_exmpl_timestep": [0.0, 1.0, 2.0, 3.0, 4.0],
+          "cartesian_site_positions" : null,
+          // ...
+        },
+      //...
+    }
+
+  In this example, the properties :field:`elements`, :field:`nelements`, and :field:`lattice_vectors` are compacted along the first dimension (`dim_frames`).
+  Since all these arrays have length 5 along this dimension (see value of :field:`nframes`), the client MUST interpret them as if the specified value is repeated 5 times.
+  Instead the :field:`_exmpl_timestep` property is not compacted, since it has different values for each frame.
+  Moreover, the value of the :field:`cartesian_site_positions` property is omitted (with value :val:`null`, as the server deems it to be too large for a single response, e.g. because the number of atoms is too large) and its content is instead transferred using the large property values protocol (see section `Transmission of large property values`_; for brevity we do not show here the content of the :field:`meta` field).
+
+  We note that the value to be repeated can not only be a single item, as it is the case for :field:`nelements`, to be interpreted as ``[2, 2, 2, 2, 2]``, but it can also be a list. Then, the whole list is repeated, as it is the case for :field:`elements`, to be interpreted as ``[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]`` and the :field:`lattice_vectors`, to be interpreted as the repetition of the 3x3 matrix ``[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]`` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames.
+
+  In order to be able to use a compact format, the server MUST have also declared the corresponding properties as compactable in their property definitions. For instance, for the :field:`lattice_vectors` property:
+
+  .. code:: jsonc
+
+   {
+      "data": {
+        "type": "info",
+        "id": "trajectories",
+        // ...
+        "properties": {
+          // ...
+          "lattice_vectors": {
+            "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+            "title": "Lattice vectors",
+            // ...
+            "x-optimade-type": "list",
+            "x-optimade-dimensions": {
+                "names": ["dim_frames", "dim_lattice", "dim_spatial"],
+                "sizes": [null, 3, 3] // size along dim_frames is variable, so not specified here
+                "compactable": [true, false, false] // compactable along dim_frames
+            }
+          }
+        }
+      }
+    }
+
+
 Responses
 =========
 
@@ -2196,6 +2296,17 @@ A Property Definition MUST be composed according to the combination of the requi
 
     Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
     Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
+
+  **OPTIONAL keys:**
+
+  - :field:`compactable`: List of Booleans.
+    For each dimension, defines whether the data can be written in a compact form along that dimension.
+    If the value is :val:`TRUE` for one given dimension, the data MAY be expressed in the response using a
+    compact format as specified in `Compact list representation`_.
+    If the value is :val:`FALSE` for one given dimension, the standard rules to represent lists apply (i.e.,
+    the data CANNOT be expressed using a compact format).
+    If :field:`compactable` is provided, then a value MUST be given for each dimension.
+    If :field:`compactable` is not provided, then the default value is :val:`FALSE` for each dimension.
 
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
