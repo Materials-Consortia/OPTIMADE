@@ -216,9 +216,8 @@ context-independent types that are assumed to have some form of
 representation in all contexts. They are as follows:
 
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
-- **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
+- **list**: a collection of items organized as nested ordered one-dimensional arrangements. All items are of the same type, unless unknown.
   A list can be empty, i.e., contain no items.
-  Multidimensional collections of items are represented as nested lists, and are still simply referred to as "lists" in this document.
   We note that the term "array" is often used in programming languages to refer to similar data structures.
   However, the term "array" is avoided in this specification to prevent confusion with the meaning of the term "array" in the JSON specification.
 
