@@ -612,8 +612,8 @@ of a trajectory with a fixed unit cell for all frames).
 To allow for efficient data transfer, a compact list representation MAY be adopted by the server.
 
 In such case, the server MUST indicate that that dimension is compactable, by setting to :val:`TRUE`
-the corresponding element of the list :field:`compactable` in the `x-optimade-dimensions` dictionary
-of the property definition (see `Property Definitions`_).
+the corresponding element of the list :field:`compactable` in the property metadata of the corresponding
+list property (see `Metadata Properties`_).
 
 If a list is declared compactable in one given dimension, it MUST be expressed in one of the two following ways:
 
@@ -669,38 +669,40 @@ Examples:
     }
 
   In this example, the properties :field:`elements`, :field:`nelements`, and :field:`lattice_vectors` are compacted along the first dimension (`dim_frames`).
-  Since all these arrays have length 5 along this dimension (see value of :field:`nframes`), the client MUST interpret them as if the specified value is repeated 5 times.
+  Since all these arrays have a size of 5 along this dimension (see value of :field:`nframes`), the client MUST interpret them as if the specified value is repeated 5 times.
   Instead the :field:`_exmpl_timestep` property is not compacted, since it has different values for each frame.
   Moreover, the value of the :field:`cartesian_site_positions` property is omitted (with value :val:`null`, as the server deems it to be too large for a single response, e.g. because the number of atoms is too large) and its content is instead transferred using the large property values protocol (see section `Transmission of large property values`_; for brevity we do not show here the content of the :field:`meta` field).
 
   We note that the value to be repeated can be either a single item (as it is the case for :field:`nelements`, to be interpreted as ``[2, 2, 2, 2, 2]``) or a list. In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as ``[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]``) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix ``[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]`` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
 
-  In order to be able to use a compact format, the server MUST have also declared the corresponding properties as compactable in their property definitions. For instance, for the :field:`lattice_vectors` property:
+  In order to be able to use a compact format for a list property, the server MUST also declare it as compactable in the corresponding property metadata. For instance, for the :field:`lattice_vectors` property:
 
   .. code:: jsonc
 
-   {
-      "data": {
-        "type": "info",
-        "id": "trajectories",
-        // ...
-        "properties": {
-          // ...
-          "lattice_vectors": {
-            "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
-            "title": "Lattice vectors",
+    {
+      "data": [
+        {
+          "type": "trajectories",
+          "id": "example.db:traj:0001",
+          "attributes": {
+            "lattice_vectors":
+              [
+                [[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]
+              ],
+            "nframes": 10,
             // ...
-            "x-optimade-type": "list",
-            "x-optimade-dimensions": {
-                "names": ["dim_frames", "dim_lattice", "dim_spatial"],
-                "sizes": [null, 3, 3] // size along dim_frames is variable, so not specified here
-                "compactable": [true, false, false] // compactable along dim_frames
+          },
+          "meta": {
+            "property_metadata": {
+              "lattice_vectors": {
+                "compactable": [true, false, false] // compactable along dim_frames (and not along the other two dimensions)
+              }
             }
           }
-        }
-      }
+        },
+        // ...
+      ]
     }
-
 
 Responses
 =========
@@ -3761,16 +3763,23 @@ optimization\_type
 Trajectories Entries
 --------------------
 
-- **Description**: The :entry:`trajectories` entry is used to share data belonging to sequences of structures, for example, from molecular dynamics or Monte Carlo simulations.
+- **Description**: The :entry:`trajectories` entry is used to share data belonging to ordered sequences of structures such as, for example, those originating from molecular dynamics or Monte Carlo simulations.
 
   The individual steps of the trajectories are called frames.
-  Some examples of the data that can be shared are the particle positions, the pressure and the energies.
-  :entry:`trajectories` entries have the properties described in the section `Properties Used by Multiple Entry Types`_ as well as the property `nframes`_ and `reference_frames`_.
-  Furthermore, :entry:`trajectories` can optionally have relationships and database-specific fields.
-  The properties defined for the structures endpoint can also be used for trajectories.
-  In this case the values of these properties are however lists of whatever type has been defined for the original structures property.
-  This allows these properties to change during the trajectory.
-  The dimension that corresponds to the steps of the trajectory MUST have :field:`range_id` = :val:`"frames"` for that dimension in its property definition, See `Property Definition keys from JSON Schema`_.
+
+  :entry:`trajectories` entries have:
+
+    - the properties described in the section `Properties Used by Multiple Entry Types`_;
+
+    - the properties `nframes`_ and `reference_frames`_, described below;
+
+    - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference: each property is extended by wrapping it in a list, so that they each custom property of a Structure becomes a list with an additional first dimension `dim_frames` (of size `nframes`).
+
+  This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
+  For example, the property `lattice_vectors`_ for a trajectory with 100 frames would be a three-dimensional list of floats, where the first dimension has a size of 100 (the number of frames), and the second and third dimensions have a size of 3 (representing the lattice vectors at each frame).
+  For data-transfer efficiency reasons, the server MAY define as :field:`compactable` the additional first dimension `dim_frames` for some of these properties, so as to return them in the `Compact list representation`_ format, e.g., if these are not changing during the trajectory.
+
+  Other database-specific properties MAY also be provided. These might include properties computed for all or some frames, such as the energy, the pressure or the temperature.
 
 nframes
 ~~~~~~~
@@ -3783,7 +3792,7 @@ nframes
 
   - **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be equal to the length of the trajectory, that is, the number of frames.
+  - The integer value MUST be equal to the number of frames in the trajectory.
   - The integer MUST be a positive non-zero value.
 
 - **Querying**:
