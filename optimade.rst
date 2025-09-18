@@ -638,7 +638,7 @@ We highlight two advantages of the design of the :val:`"constant"` compact forma
   and when using the compact format;
 
 - it avoids having to resort to the transmission of large property values for each constant (but potentially large)
-  property, thus reducing the amount of data transferred and avoiding to perform separate HTTP requests for each
+  property, thus reducing the amount of data transferred and avoiding the need to perform separate requests for each
   individual property.
 
 Example:
