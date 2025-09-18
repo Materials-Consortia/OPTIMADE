@@ -3747,7 +3747,7 @@ This is an example of the data field of a JSON object that could be returned aft
           }
         ]],
         "reference_frames": [1],
-        "nframes": [360],
+        "nframes": 360,
         "_exmpl_temperature": null,
         "_exmpl_ekin": null
       },
