@@ -1,0 +1,91 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/workflows"
+title: "workflows"
+description: "The workflows entry type describes computational or experimental workflows down to arbitrary precision. Workflows are defined in terms of their input and output types, with a human/machine-readable string that captures the strategy connecting both."
+x-optimade-definition:
+  label: "workflows_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.2.0"
+  name: "workflows"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.2/properties/optimade/workflows/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.2/properties/optimade/workflows/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.2/properties/optimade/workflows/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.2/properties/optimade/workflows/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
+
+  workflow_type:
+    $$inherit: "/v1.2/properties/optimade/workflows/workflow_type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  method:
+    $$inherit: "/v1.2/properties/optimade/workflows/method"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  software:
+    $$inherit: "/v1.2/properties/optimade/workflows/software"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  version:
+    $$inherit: "/v1.2/properties/optimade/workflows/version"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  parameters:
+    $$inherit: "/v1.2/properties/optimade/workflows/parameters"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  description:
+    $$inherit: "/v1.2/properties/optimade/workflows/description"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"

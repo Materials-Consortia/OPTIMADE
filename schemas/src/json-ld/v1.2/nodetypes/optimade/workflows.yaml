@@ -1,0 +1,15 @@
+'@context':
+
+  # Standard properties
+  id: "@id"
+  type: "@type"
+  immutable_id: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/immutable_id"
+  last_modified: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/last_modified"
+
+  # Workflow-specific properties
+  workflow_type: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/workflow_type"
+  method: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/method"
+  software: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/software"
+  version: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/version"
+  parameters: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/parameters"
+  description: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/workflows/description"

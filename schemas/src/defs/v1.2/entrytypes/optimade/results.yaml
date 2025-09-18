@@ -1,0 +1,116 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/results"
+title: "results"
+description: "The results entry type describes outcomes from workflows"
+x-optimade-definition:
+  label: "results_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.2.0"
+  name: "results"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.2/properties/optimade/results/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.2/properties/optimade/results/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.2/properties/optimade/results/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.2/properties/optimade/results/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
+
+  bulk_modulus:
+    $$inherit: "/v1.2/properties/optimade/results/bulk_modulus"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
+  shear_modulus:
+    $$inherit: "/v1.2/properties/optimade/results/shear_modulus"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
+  young_modulus:
+    $$inherit: "/v1.2/properties/optimade/results/young_modulus"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
+  temperature:
+    $$inherit: "/v1.2/properties/optimade/results/temperature"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
+  pressure:
+    $$inherit: "/v1.2/properties/optimade/results/pressure"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
+  band_gap:
+    $$inherit: "/v1.2/properties/optimade/results/band_gap"
+    x-optimade-requirements:
+      support: "may"
+      sortable: true
+      query-support: "all mandatory"
+      response-level: "may"
+
+  properties:
+    $$inherit: "/v1.2/properties/optimade/results/properties"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "none"
+      response-level: "may"
+
+  structure_id:
+    $$inherit: "/v1.2/properties/optimade/results/structure_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  workflow_id:
+    $$inherit: "/v1.2/properties/optimade/results/workflow_id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+

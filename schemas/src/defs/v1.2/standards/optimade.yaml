@@ -21,3 +21,11 @@ entrytypes:
     $$inherit: "/v1.2/entrytypes/optimade/references"
     x-optimade-requirements:
       support: "may"
+  results:
+    $$inherit: "/v1.2/entrytypes/optimade/results"
+    x-optimade-requirements:
+      support: "should"
+  workflows:
+    $$inherit: "/v1.2/entrytypes/optimade/workflows"
+    x-optimade-requirements:
+      support: "should"

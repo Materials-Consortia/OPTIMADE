@@ -1,0 +1,21 @@
+'@context':
+
+  # Standard properties
+  id: "@id"
+  type: "@type"
+  immutable_id: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/immutable_id"
+  last_modified: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/last_modified"
+
+  # Results-specific properties
+  workflow_id: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/workflow_id"
+  bulk_modulus: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/bulk_modulus"
+  shear_modulus: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/shear_modulus"
+  young_modulus: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/young_modulus"
+  temperature: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/temperature"
+  pressure: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/pressure"
+  band_gap: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/band_gap"
+  properties: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/properties"
+
+  # Relationship properties
+  workflow_id: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/workflow_id"
+  structure_id: "https://schemas.optimade.org/json-ld/v1.2/properties/optimade/results/structure_id"

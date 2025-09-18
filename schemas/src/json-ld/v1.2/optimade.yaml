@@ -17,3 +17,11 @@
   references:
     '@id': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/references"
     '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/references.json"
+
+  results:
+    '@id': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/results"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/results.json"
+
+  workflows:
+    '@id': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/workflows"
+    '@context': "https://schemas.optimade.org/json-ld/v1.2/nodetypes/optimade/workflows.json"

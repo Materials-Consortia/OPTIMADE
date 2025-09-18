@@ -23,5 +23,17 @@ definitions:
             const: "references"
           attributes:
             $ref: "#endpoints/entrytypes/references"
+      - type: "object"
+        properties:
+          type:
+            const: "results"
+          attributes:
+            $ref: "#endpoints/entrytypes/results"
+      - type: "object"
+        properties:
+          type:
+            const: "workflows"
+          attributes:
+            $ref: "#endpoints/entrytypes/workflows"
 endpoints:
   $$inherit: "/v1.2/standards/optimade"
