@@ -3785,15 +3785,15 @@ Trajectories Entries
 nframes
 ~~~~~~~
 
-- **Description**: The number of frames in the trajectory as exposed in the resource.
-  This value may deviate from the number of steps used to calculate the trajectory.
+- **Description**: The number of frames in the trajectory.
+  This value indicated the number of frames stored in the data, and may deviate from the number of steps used to calculate the trajectory.
   For example, a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, `nframes`_ will be 200.
 - **Type**: integer
 - **Requirements/Conventions**:
 
   - **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
   - **Query**: MUST be a queryable property with support for all mandatory filter features.
-  - The integer value MUST be equal to the number of frames in the trajectory.
+  - The integer value MUST be equal to the number of frames in the trajectory (i.e., the length of the `dim_frames` dimension).
   - The integer MUST be a positive non-zero value.
 
 - **Querying**:
@@ -3813,7 +3813,7 @@ reference_frames
 - **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
   The first frame could for example be a starting configuration, the second a transition state and the third the final state.
 - **Type**: list of integers
-- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and less than nframes.
+- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and less than :val:`nframes`.
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
@@ -3867,62 +3867,12 @@ This is an example of the data field of a JSON object that could be returned aft
             "concentration":[1.0]
           }
         ]],
-        "reference_frames": [1],
+        "reference_frames": [0],
         "nframes": 360,
         "_exmpl_temperature": null,
         "_exmpl_ekin": null
       },
       "meta":{
-        "property_metadata":{
-          "cartesian_site_positions":{
-            "range":{
-              "indexable_dim": ["frames"],
-              "data_range": [{
-                  "start": 1,
-                  "step": 1,
-                  "stop": 360
-                },{
-                  "start": 1,
-                  "step": 1,
-                  "stop": 3
-                },{
-                  "start": 1,
-                  "step": 1,
-                  "stop": 3
-                }],
-              "layout":"dense",
-              "nvalues": 3240
-            }
-          },
-          "_exmpl_temperature":{
-            "range": {
-              "nvalues": 144,
-              "indexable_dim": ["frames"],
-              "data_range": [
-                {
-                  "start": 1,
-                  "stop": 360,
-                  "step": null
-                }
-              ],
-              "layout": "sparse"
-            }
-          },
-          "_exmpl_ekin":{
-            "range": {
-              "nvalues": 180,
-              "indexable_dim": ["frames"],
-              "data_range": [
-                {
-                  "start": 1,
-                  "stop": 360,
-                  "step": 2
-                }
-              ],
-              "layout":"dense"
-            }
-          }
-        },
         "partial_data_links": {
           "cartesian_site_positions": [
             {
@@ -3961,6 +3911,8 @@ This is an example of the data field of a JSON object that could be returned aft
     //...
   }
 
+Note how, in this example, several properties use the constant compact format, such as :field:`elements`, :field:`nelements`, :field:`elements_ratios`, ...
+Furthermore, other properties (:field:`cartesian_site_positions`, :field:`_exmpl_temperature`, and :field:`_exmpl_ekin`) are not included directly in the response, but are instead made available via the large-property transfer protocol using the links in the :field:`partial_data_links` section of the :field:`meta` field.
 
 Calculations Entries
 --------------------
