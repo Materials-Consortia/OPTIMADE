@@ -2363,6 +2363,10 @@ Search for all structures of anonymous formula A2B from year 2024:
 
 Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.
 
+Search for all structures whose primary citation was from year 2024:
+
+    :query-url:`https://example.com/optimade/v1/structures?filter=references.role:references.target.year+HAS+%22_exmpl_primary%22:2024`
+
 Filtering on Properties with an unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
