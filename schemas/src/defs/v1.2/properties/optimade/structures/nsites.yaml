@@ -1,0 +1,27 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites"
+title: "number of sites"
+x-optimade-type: "integer"
+x-optimade-definition:
+  label: "nsites_optimade_structures"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "nsites"
+type:
+  - "integer"
+  - "null"
+description: |-
+  An integer specifying the length of the `cartesian_site_positions` property.
+
+  **Requirements/Conventions**:
+
+  - MUST be equal to the lengths of the list properties elements and elements_ratios, if they are provided.
+
+  **Query examples**:
+
+  - Match only structures with exactly 4 sites: `nsites=4`
+  - Match structures that have between 2 and 7 sites: `nsites>=2 AND nsites<=7`
+examples:
+  - 42
+x-optimade-unit: "dimensionless"

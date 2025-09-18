@@ -7,7 +7,9 @@ repos:
       (?x)^(
         tests/inputs/various-whitespace.filter|
         tests/inputs/fuzzystring-leading-trailing-spaces.filter|
-        units/definitions.units
+        external/GNU_Units/definitions.units|
+        units/definitions.units|
+        .words.lst
       )$
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
@@ -16,3 +18,9 @@ repos:
   - id: remove-tabs
     args: [ '--whitespaces-count', '2']
     files: \.rst$
+
+- repo: https://github.com/rstcheck/rstcheck
+  rev: v6.2.0
+  hooks:
+  - id: rstcheck
+    args: [ '--config', '.rstcheck.cfg' ]

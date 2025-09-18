@@ -1,0 +1,35 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/2019/base/candela"
+title: "candela"
+symbol: "cd"
+display-symbol: "cd"
+description: |-
+  The SI base unit of luminous intensity in a given direction defined by fixing the value of the luminous efficacy of radiation of a specific frequency precisely matching the definition at the 16th CGPM Meeting in 1979 using the 2019 SI units.
+
+  "The candela is the luminous intensity, in a given direction, of a source that emits monochromatic radiation of frequency 540×10¹² hertz and that has a radiant intensity in that direction of 1/683 watt per steradian." [16th CGPM Meeting (1979), resolution 3].
+
+  At the 26th CGPM Meeting in 2018, resolution 1 the definition was rephrased to: "The candela, symbol cd, is the SI unit of luminous intensity in a given direction. It is defined by taking the fixed numerical value of the luminous efficacy of monochromatic radiation of frequency 540×10¹² Hz, \(K_\mathrm{cd}\), to be 683 when expressed in the unit lm⋅W⁻¹, which is equal to cd⋅sr⋅W⁻¹, or cd⋅sr⋅kg⁻¹⋅m⁻²⋅s³, where the kilogram, metre and second are defined in terms of \(h\), \(c\) and \(\Delta \nu_\textrm{Cs}\)." [26th CGPM Meeting (2018), resolution 1].
+
+  Following the redefinition of the metre at the 17th CGPM Meeting in 1983, resolution 1, and the redefinition of the kilogram at the 26th CGPM Meeting (2018), resolution 1, the implicitly redefined candela references:
+
+  - the SI 1967 derived hertz unit (https://schemas.optimade.org/defs/v1.2/units/si/1967/named/hertz) equal to second⁻¹, referencing the SI 1967 base unit second (https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second).
+  - the SI 2019 derived watt unit (https://schemas.optimade.org/defs/v1.2/units/si/2019/named/watt) equal to kilogram·meter²·second⁻³, referencing the SI 2019 base unit kilogram (https://schemas.optimade.org/defs/v1.2/units/si/2019/base/kilogram), the SI 1983 base unit metre (https://schemas.optimade.org/defs/v1.2/units/si/1983/base/metre); and the 1967 base unit second (https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second).
+  - the SI 1960 supplementary unit steradian (https://schemas.optimade.org/defs/v1.2/units/si/1960/supplementary/steradian).
+resources:
+  - relation: "Definition in the 26th CGPM Meeting in 2018, resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1"
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Candela"
+standard:
+  name: "si"
+  year: 2019
+  category: "base"
+  symbol: "cd"
+x-optimade-definition:
+  label: "candela_si_2019_base"
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "candela"

@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1979/named/sievert"
+title: "sievert"
+symbol: "Sv"
+display-symbol: "Sv"
+description: |-
+  A derived SI unit for equivalent dose of ionizing radiation equal to J·kg⁻¹ (m²·s⁻²) using the 1967 SI base units, defined at the 16th CGPM meeting in 1979.
+
+  "The 16th Conférence Générale des Poids et Mesures, [...] adopts the special name sievert, symbol Sv, for the SI unit of dose equivalent in the field of radioprotection. The sievert is equal to the joule per kilogram." [16th CGPM meeting (1979), resolution 5]
+resources:
+  - relation: "Definition at the 16th CGPM Meeting (1979), resolution 5"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/16-1979/resolution-5"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Sievert"
+defining-relation:
+  base-units:
+    - symbol: "m"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1960/base/metre"
+    - symbol: "s"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1967/base/second"
+  base-units-expression: "m^2*s^-2"
+standard:
+  name: "si"
+  year: 1979
+  category: "named"
+  symbol: "Sv"
+x-optimade-definition:
+  label: "sievert_si_1979_named"
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "sievert"

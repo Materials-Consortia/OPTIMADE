@@ -1,0 +1,19 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/core/last_modified"
+title: "last modified"
+x-optimade-type: "timestamp"
+x-optimade-definition:
+  label: "last_modified_core"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "last_modified"
+type:
+  - "string"
+  - "null"
+format: "date-time"
+description: |-
+  Date and time representing when the entry was last modified.
+examples:
+  - "2007-04-05T14:30:20Z"
+x-optimade-unit: "inapplicable"

@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/references/doi"
+title: "doi"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "doi_optimade_references"
+  kind: "property"
+  version: "1.2.0"
+  format: "1.2"
+  name: "doi"
+type:
+  - "string"
+  - "null"
+description: |-
+  The doi identifier of the object being referenced.
+examples:
+  - "10.1103/PhysRev.136.B864"
+x-optimade-unit: "inapplicable"

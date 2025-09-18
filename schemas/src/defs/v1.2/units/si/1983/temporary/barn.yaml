@@ -1,0 +1,37 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/physical_unit_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/temporary/barn"
+title: "barn"
+symbol: "b"
+display-symbol: "b"
+description: |-
+  A unit of area used in nuclear physics to express cross sections equal to 100 fm², with meter defined according to the 1983 SI units.
+
+  The International System of Units (SI), 1st ed. (1970) states: "1 b = 100 fm² = 10⁻²⁸ m" with a footnote "The barn is a special unit used in nuclear physics to express cross sections."
+
+  - The International System of Units (SI), 1st ed. (1970) categorizes the unit as "Units in use temporarily with the International System."
+  - The International System of Units (SI), 8th ed. (2006) categorizes the unit as "Other non-SI units currently accepted for use with the International System."
+  - The International System of Units (SI), 9th ed. (2019) categorizes the unit as "Other non-SI units."
+
+  The are unit was implicitly redefined via the redefinition of the metre at the 17th CGPM meeting (1983), resolution 1.
+resources:
+  - relation: "Definition in the International System of Units (SI), 9th Edition"
+    resource-id: "https://www.bipm.org/en/publications/si-brochure"
+  - relation: "Redefinition of the metre at the 17th CGPM meeting (1983), resolution 1"
+    resource-id: "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1"
+  - relation: "Wikipedia article describing the unit"
+    resource-id: "https://en.wikipedia.org/wiki/Barn_(unit)"
+defining-relation:
+  base-units:
+    - symbol: "m"
+      id: "https://schemas.optimade.org/defs/v1.2/units/si/1983/base/metre"
+  scale:
+    - exponent: -28
+  base-units-expression: "m^2"
+  scale:
+    exponent: 4
+x-optimade-definition:
+  label: "barn_si_1983_temporary"
+  kind: "unit"
+  format: "1.2"
+  version: "1.2.0"
+  name: "barn"
