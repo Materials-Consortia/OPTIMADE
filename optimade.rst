@@ -218,15 +218,17 @@ representation in all contexts. They are as follows:
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 - **list**: a collection of items organized as nested ordered one-dimensional arrangements. All items are of the same type, unless unknown.
   A list can be empty, i.e., contain no items.
-  We note that the term "array" is often used in programming languages to refer to similar data structures.
-  However, the term "array" is avoided in this specification to prevent confusion with the meaning of the term "array" in the JSON specification.
+- **list**: an ordered indexed collection of items that are either (i) all of the same basic type, (ii) only dictionaries, or (iii) only lists.
+  In each case, (i)-(iii), unknown values (i.e., ``null``) are also allowed at any of the positions.
+  Furthermore, a list can also be empty, i.e., contain no items.
+  An empty list has a distinct meaning from ``null``: a list of no items (see `Properties with an unknown value`_).
+  
+  Multidimensional collections of items are represented as nested lists.
+  This specification uses the term **list axis** to refer to the levels of nesting in nested lists, and **dimensionality** as the deepest nesting level of the list and its sublists.
+  A list can have items of different lengths along a given axis, i.e., nested lists are **not** limited to representing rectangular arrangement of items.
+  While this definition allows for complex structures of nested lists of varying nesting level, only those variants that can be validated by OPTIMADE `Property definitions`_ can be used for properties.
 
-  The term **list axes** refers to the levels of nesting of a list.
-  A list can have elements of different lengths along a given axis, i.e., the list does not need to be rectangular.
-  However, the dimensionality of a list, defined as the number of axes (i.e., the number of levels of nesting) MUST be the same for all entries of a given entry type.
-  Hence, each item in the list can be indexed by a number of indices equal to the dimensionality of the list.
-
-  Valid examples:
+  Examples of valid lists:
 
     - ``[1.0, 2.0, 3.0]`` is a one-dimensional list of three floats (only one axis).
 
@@ -240,18 +242,17 @@ representation in all contexts. They are as follows:
 
     - ``[[1, 2], [null], [3]]`` and ``[[1, 2], [], [3]]`` are both valid two-dimensional lists, since all items can be indexed by two list indices.
 
-  Invalid examples:
+    - ``[[1, 2], null, [3]]`` is valid since ``null`` can substitute items of any type, including sublists.
 
-    - ``[3.0, "string"]`` is invalid since the two elements have different types.
+  Examples of invalid lists:
 
-    - ``[[1.0, 2.0], ["string", "string"]]`` is invalid since, while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists have different types.
+    - ``[3.0, "string"]`` is not a valid list, since the two elements have different types.
+    
+  Examples of lists that are valid, but cannot be used for properties in OPTIMADE due to limits imposed by OPTIMADE property definitions: 
 
-    - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]`` is invalid since the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
+    - ``[[1.0, 2.0], ["string", "string"]]``: while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists cannot will not be able to be validated by the same item subschema in a Property definition.
 
-    - ``[[1, 2], null, [3]]`` is invalid since the second item is ``null`` and not a one-dimensional list.
-      Therefore, using two indices to address elements of the list is not always valid (i.e., if we call the list ``exmpl``, it is undefined what ``exmpl[1,2]`` represents).
-      We note however that there are situations where the OPTIMADE property definition could allow this datastructure to be valid (as a list of optional lists), even if this would not be a two-dimensional list for which dimensions and axes can be defined.
-
+    - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]``: the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
 
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
