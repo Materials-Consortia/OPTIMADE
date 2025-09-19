@@ -5,7 +5,7 @@ type: object
 allOf:
   - $ref: "#/$defs/property_definition_field"
   - required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
-$$inherit: "physical_unit_definition"
+$$inherit: "/v1.2/optimade/physical_unit_definition"
 $defs:
   id_field:
     $$inherit: "/v1.2/common/id_field"
@@ -260,7 +260,7 @@ $defs:
           For example, these annotations to the description MAY be used to explain why a definition has been deprecated.
         type: string
       x-optimade-definition:
-        $$inherit: "x-optimade-definition-field"
+        $$inherit: "/v1.2/optimade/x-optimade-definition-field"
         label: "property_definition_meta"
         kind: "meta"
         version: "1.2.1"
