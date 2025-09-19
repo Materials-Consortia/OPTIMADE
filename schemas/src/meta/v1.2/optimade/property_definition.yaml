@@ -270,7 +270,7 @@ $defs:
           Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
           Each dimension is given a name and optionally a fixed size.
           It was decided that OPTIMADE Property Definitions cannot use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests asking for only parts of the data in the lists.
-          Instead, provide information on the length of a list for an implementation to validate. This is communicated in the `sizes` subfield of this field. At this time, `sizes` can only specify a fixed length requirement.)
+          Instead, provide information on the length of a list for an implementation to validate. This is communicated in the `sizes` subfield of this field. At this time, `sizes` can only specify a fixed length requirement.
         type: object
         additionalProperties: false
         patternProperties:
