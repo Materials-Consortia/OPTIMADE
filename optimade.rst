@@ -641,6 +641,78 @@ Example of the corresponding metadata property definition contained in the field
      }
      // ...
 
+Compact list representation
+---------------------------
+
+There are cases in which the response includes lists that can be expressed in a more compact form than explicitly providing each value.
+For example, lists with constant values along a given axis (e.g., in the case of a trajectory with a fixed unit cell for all frames).
+
+To allow for efficient data transfer, some dimensions of selected properties are thus marked as **compactable** in the corresponding property definitions.
+This is achieved using the :field:`compactable` field inside the `x-optimade-dimensions` dictionary of the property definition.
+This field is a list of strings of the same length as the property dimension.
+Each string indicates if a dimension can be compacted and, if so, in which compact format, as detailed in the section of the `Property Definitions`_ describing the :field:`compactable` field.
+
+If a property has at least one dimension declared as compactable, the server MUST return it in the response in one of the two following ways:
+
+1. using the standard rules. This means either giving the values (which can possibly be :val:`null`) at each position directly in the :field:`data` field of the response, or using the large property values protocol (see `Transmission of large property values`_);
+
+2. using the **compact format** specified in the corresponding :field:`compactable` field (limited to the dimensions set as compactable).
+
+If none of the property dimensions are set as compactable, the server MUST always use the standard rules to represent the property.
+
+Clients MUST be able to handle responses with both compact and non-compact property formats in the same response.
+If a client finds a string in the :field:`compactable` field that it does not recognize (which may be defined by future versions of this specification), it MUST NOT attempt to interpret the corresponding property value.
+
+Compact formats
+~~~~~~~~~~~~~~~
+
+Currently, only one **compact format** is defined, represented by the string :val:`"constant"`, supporting lists consisting of constant values along a given axis.
+If the server adopts this compact format, the list MUST include only one value for that list axis.
+This value MUST be interpreted as the constant value of the list along that dimension.
+
+We highlight two advantages of the design of the :val:`"constant"` compact format representation:
+
+- it is still possible to use the same schemas to validate the list property, since the list dimensionality and the
+  data type of its items are the same, both when explicitly writing all list items (using the standard rules)
+  and when using the compact format;
+
+- even if in the future a compact format is implemented also in the large-property transfer protocol (described in the section `Transmission of large property values`_), using the approach described here (where data is directly provided in the :field:`data` section) avoids unnecessary separate requests for each individual property.
+
+Example:
+
+- A trajectory with a fixed unit cell for all frames could be represented as:
+
+  .. code:: jsonc
+
+    {
+      "data":{
+        "id": "traj00000001",
+        "type": "trajectories",
+        "attributes": {
+          "nframes": 5,
+          "last_modified":"2021-07-16T18:02:03Z",
+          "elements": [["H","O"]],
+          "nelements": [2],
+          "lattice_vectors" : [
+            [[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]
+          ],
+          "_exmpl_timestep": [0.0, 1.0, 2.0, 3.0, 4.0],
+          "cartesian_site_positions" : null,
+          // ...
+        },
+      //...
+    }
+
+  In this example, the properties :field:`elements`, :field:`nelements`, and :field:`lattice_vectors` are compacted along the first dimension (`dim_frames`) using the ``constant`` format.
+  Since all these arrays have a size of 5 along this dimension (see value of :field:`nframes`), the client MUST interpret them as if the specified value is repeated 5 times.
+  On the other hand, the :field:`_exmpl_timestep` property is not compacted, since it has different values for each frame.
+  Moreover, the value of the :field:`cartesian_site_positions` property is omitted (with value :val:`null`, as the server deems it to be too large for a single response) and its content is instead transferred using the large property values protocol (see section `Transmission of large property values`_; for brevity we do not show here the content of the :field:`meta` field).
+
+  The value to be repeated can either be a single item (as it is the case for :field:`nelements`, to be interpreted as :val:`[2, 2, 2, 2, 2]`) or a list.
+  In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as :val:`[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]`) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix :val:`[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
+
+Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).
+
 Slices of list properties
 -------------------------
 
@@ -1584,6 +1656,7 @@ Example:
           "entry_types_by_format": {
             "json": [
               "structures",
+              "trajectories",
               "calculations"
             ],
             "xml": [
@@ -1592,6 +1665,7 @@ Example:
           },
           "available_endpoints": [
             "structures",
+            "trajectories",
             "calculations",
             "info",
             "links"
@@ -2038,7 +2112,6 @@ The following tokens are used in the filter query component:
   - :property:`_exmpl_formula_sum` (a property specific to that database)
   - :property:`_exmpl_band_gap`
   - :property:`_exmpl_supercell`
-  - :property:`_exmpl_trajectory`
   - :property:`_exmpl_workflow_id`
 
 - **Nested property names** A nested property name is composed of at least two identifiers separated by periods (``.``).
@@ -2446,6 +2519,43 @@ A Property Definition MUST be composed according to the combination of the requi
 
     Note: OPTIMADE Property Definitions use this field, and MUST NOT use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests using the OPTIMADE features that requests partial data in lists.
     Instead, the length of lists can be validated against the length information provided in the :field:`sizes` subfield of :field:`x-optimade-dimensions` (which, at this time, can only specify a fixed length requirement.)
+
+  **OPTIONAL keys:**
+
+  - :field:`compactable`: List of Strings.
+    For each dimension, defines whether the data can be written in a compact form along that dimension.
+    If the value is :val:`"no"` for one given dimension, the standard rules to represent lists apply (i.e., the server CANNOT express that property using a compact format).
+    If the value is any other string for one given dimension (currently, only the string :val:`"constant"` is supported), the server MAY decide to express the data in the response using the compact format defined by that string, as specified in `Compact list representation`_. If it decides not to do so, then it MUST use the standard rules to represent lists.
+    If :field:`compactable` is provided, then a value MUST be given for each dimension.
+    If :field:`compactable` is not provided, then the default value is :val:`"no"` for each dimension.
+
+    For instance, for the :field:`lattice_vectors` property of an entry of type :entry:`trajectories`:
+
+    .. code:: jsonc
+
+      {
+        "data": {
+          "type": "info",
+          "id": "trajectories",
+          // ...
+          "properties": {
+            // ...
+            "lattice_vectors": {
+              "$id": "urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834",
+              "title": "Lattice vectors",
+              // ...
+              "x-optimade-type": "list",
+              "x-optimade-dimensions": {
+                  "names": ["dim_frames", "dim_lattice", "dim_spatial"],
+                  "sizes": [null, 3, 3] // size along dim_frames is variable, so not specified here
+                  "compactable": ["constant", "no", "no"] // compactable (using the constant compact format) only along dim_frames
+              }
+            }
+          }
+        }
+      }
+
+    This means that the :field:`lattice_vectors` property MAY be expressed in a compact format along the outermost dimension (``dim_frames``) using the :val:`"constant"` compact format (but MUST be expressed as standard lists along the other two dimensions ``dim_lattice`` and ``dim_spatial``).
 
 - :field:`x-optimade-implementation`: Dictionary.
   A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
@@ -3071,6 +3181,7 @@ type
 - **Examples**:
 
   - :val:`"structures"`
+  - :val:`"trajectories"`
 
 immutable\_id
 ~~~~~~~~~~~~~
@@ -3127,7 +3238,6 @@ Custom properties
   - :property:`_exmpl_formula_sum`
   - :property:`_exmpl_band_gap`
   - :property:`_exmpl_supercell`
-  - :property:`_exmpl_trajectory`
   - :property:`_exmpl_workflow_id`
 
 Structures Entries
@@ -3897,6 +4007,162 @@ optimization\_type
   - For a structure entry directly encoding structural information obtained from a neutron diffraction experiment: :val:`"experimental"`.
 
   - For a structure entry that encodes the structural information from a theoretical relaxation of an :val:`"experimental"` entry using computational software that implements density functional theory: :val:`"hybrid"`.
+
+
+Trajectories Entries
+--------------------
+
+- **Description**: The :entry:`trajectories` entry is used to share data belonging to ordered sequences of structures such as, for example, those originating from molecular dynamics or Monte Carlo simulations.
+
+  Individual steps of trajectories are referred to as frames.
+
+  :entry:`trajectories` entries have:
+
+  - the properties described in the section `Properties Used by Multiple Entry Types`_;
+
+  - the properties `nframes`_ and `reference_frames`_, described below;
+
+  - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference: each property is extended by wrapping it in a list, so that each custom property of a :entry:`structures` resource becomes a list with an additional first dimension of size `nframes`_ (with dimension name ``dim_frames``, as defined in the property definition). This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
+
+    Moreover, for data-transfer efficiency reasons, all these properties have their first dimension ``dim_frames`` defined as compactable in the :field:`compactable` field of their property definition. The server MAY thus return the corresponding data using the `Compact list representation`_ format, if the property values are not changing over the trajectory.
+
+  For example, the property `lattice_vectors`_ for a trajectory with 100 frames would be a three-dimensional list of floats, where the first dimension has a size of 100 (the number of frames), and the second and third dimensions have a size of 3 (representing the lattice vectors at each frame).
+
+  Other database-specific properties MAY also be provided. These might include properties computed for all or some frames, such as the energy, the pressure or the temperature.
+
+  We stress that, in general, if any property consists of a very large amount of data (which might be a common case for trajectories), the server MAY decide to not return the data directly in the response, but using instead the large-property transfer protocol described in the section `Transmission of large property values`_.
+
+nframes
+~~~~~~~
+
+- **Description**: The number of frames in the trajectory.
+  This value indicated the number of frames stored in the data, and may deviate from the number of steps used to calculate the trajectory.
+  For example, a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, `nframes`_ will be 200.
+- **Type**: integer
+- **Requirements/Conventions**:
+
+  - **Support**: MUST be supported by all implementations, i.e., MUST NOT be :val:`null`.
+  - **Query**: MUST be a queryable property with support for all mandatory filter features.
+  - The integer value MUST be equal to the number of frames in the trajectory (i.e., the length of the `dim_frames` dimension).
+  - The integer MUST be a positive non-zero value.
+
+- **Querying**:
+
+  - A filter that matches trajectories that have exactly 100 frames:
+    - :filter:`nframes=100`
+  - A filter that matches trajectories that have between 100 and 1000 frames:
+    - :filter:`nframes>=100 AND nframes<=1000`
+
+- **Examples**:
+
+  -   :val:`42`
+
+reference_frames
+~~~~~~~~~~~~~~~~
+
+- **Description**: The indices of a set of frames that give a good but very brief overview of the trajectory.
+  The first reference frame could for example be a starting configuration, the second a transition state and the third the final state.
+- **Type**: list of integers
+- **Requirements/Conventions**: The values MUST be larger than or equal to 0 and less than :val:`nframes`.
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+
+- **Examples**:
+
+  - :val:`[0, 397, 1000]`
+
+
+Examples of a returned trajectory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is an example of the data field of a JSON object that could be returned after the following query:
+:query-url:`http://example.com/optimade/v1/trajectories/traj00000001`
+
+.. code:: jsonc
+
+  {
+    "data":{
+      "id": "traj00000001",
+      "type": "trajectories",
+      "attributes": {
+        "last_modified":"2021-07-16T18:02:03Z",
+        "elements": [["H","O"]],
+        "nelements": [2],
+        "elements_ratios": [[0.666667,0.333333]],
+        "chemical_formula_descriptive": ["H2O"],
+        "chemical_formula_reduced": ["H2O"],
+        "chemical_formula_anonymous": ["A2B"],
+        "dimension_types":[[0,0,0]],
+        "nperiodic_dimensions": [0],
+        "lattice_vectors" : [[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
+        "cartesian_site_positions" : null,
+        "nsites":[3],
+        "species_at_sites":[["O1","H1","H2"]],
+        "species":[[
+          {
+            "name":"O1",
+            "chemical_symbols":["O"],
+            "concentration":[1.0]
+          },
+          {
+            "name":"H1",
+            "chemical_symbols":["H"],
+            "concentration":[1.0]
+          },
+          {
+            "name":"H2",
+            "chemical_symbols":["H"],
+            "concentration":[1.0]
+          }
+        ]],
+        "reference_frames": [0],
+        "nframes": 360,
+        "_exmpl_temperature": null,
+        "_exmpl_ekin": null
+      },
+      "meta":{
+        "partial_data_links": {
+          "cartesian_site_positions": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/jsonlines"
+            },{
+              "format": "_exmpl_xyz",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/xyz"
+            }
+          ],
+          "_exmpl_temperature": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/temperature/jsonlines"
+            }
+          ],
+          "_exmpl_ekin": [
+            {
+              "format": "jsonlines",
+              "link": "https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/ekin/jsonlines"
+            }
+          ]
+        }
+      },
+      "relationships": {
+        "references": {
+          "data": [
+            {
+              "type": "references",
+              "id": "dummy/2019"
+            }
+          ]
+        }
+      }
+    }
+    //...
+  }
+
+Note how, in this example, several properties use the constant compact format, such as :field:`elements`, :field:`nelements`, :field:`elements_ratios`, ...
+Furthermore, other properties (:field:`cartesian_site_positions`, :field:`_exmpl_temperature`, and :field:`_exmpl_ekin`) are not included directly in the response, but are instead made available via the large-property transfer protocol using the links in the :field:`partial_data_links` section of the :field:`meta` field.
 
 Calculations Entries
 --------------------
