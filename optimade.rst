@@ -3771,7 +3771,7 @@ Trajectories Entries
 
   - the properties `nframes`_ and `reference_frames`_, described below;
 
-  - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference; each property is extended by wrapping it in a list, so that each custom property of a :entry:`structures` resource becomes a list with an additional first dimension of size `nframes`_ (with dimension name ``dim_frames``, as defined in the property definition). This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
+  - all custom properties defined in the `Structures Entries`_ endpoint are also used for trajectories, with the following difference: each property is extended by wrapping it in a list, so that each custom property of a :entry:`structures` resource becomes a list with an additional first dimension of size `nframes`_ (with dimension name ``dim_frames``, as defined in the property definition). This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
 
     Moreover, for data-transfer efficiency reasons, all these properties have their first dimension ``dim_frames`` defined as compactable in the :field:`compactable` field of their property definition. The server MAY thus return the corresponding data using the `Compact list representation`_ format, if the property values are not changing over the trajectory.
 
