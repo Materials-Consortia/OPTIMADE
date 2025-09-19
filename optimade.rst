@@ -719,7 +719,7 @@ The field :field:`list_axes` is defined as follows:
 
   - :field:`sliceable`: Boolean.
     If :val:`true`, the server MUST handle slices for that dimension.
-    If :val:`false`, the server MAY handle slices for that dimension, but if it receives a slice request it cannot handle, it MUST return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.    
+    If :val:`false`, the server MAY handle slices for that dimension, but if it receives a slice request it cannot handle, it MUST return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.
     If a server is capable of handling slicing for a particular dimension, the server SHOULD indicate this by setting :field:`sliceable` to :val:`true` in its responses.
     If the field is omitted or :val:`null`, it means the same thing as :val:`false`.
 
@@ -4936,4 +4936,3 @@ Example file
   {"type": "info", "id": "structures", ...}
   {"type": "references", "id": "2", "attributes": {...}}
   {"type": "structures", "id": "1", "attributes": {...}, "relationships": {"references": {"data": [{"id": "2", "type": "references"}]}}}
-
