@@ -51,11 +51,11 @@ description: |-
 
   - For a structure entry that encodes the structural information from a theoretical relaxation of an `"experimental"` entry using computational software that implements density functional theory: `"hybrid"`.
 examples:
-  - experiment
+  - experimental
   - hybrid
 x-optimade-unit: "inapplicable"
 enum:
-  - experiment
+  - experimental
   - hybrid
   - global
   - local
