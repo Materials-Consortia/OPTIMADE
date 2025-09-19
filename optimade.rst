@@ -661,7 +661,7 @@ If a property has at least one dimension declared as compactable, the server MUS
 If none of the property dimensions are set as compactable, the server MUST always use the standard rules to represent the property.
 
 Clients MUST be able to handle responses with both compact and non-compact property formats in the same response.
-If a client finds a string in the :field:`compactable` that it does not recognize (this might happen with major changes of the property definition), it MUST return an error to the user.
+If a client finds a string in the :field:`compactable` field that it does not recognize (which may be defined by future versions of this specification), it MUST NOT attempt to interpret the corresponding property value.
 
 Compact formats
 ~~~~~~~~~~~~~~~
