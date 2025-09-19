@@ -677,7 +677,7 @@ The field :field:`list_axes` is defined as follows:
 
     - :field:`start`: Non-negative integer or :val:`null`.
 
-    - :field:`stop`: Non-negative integer or :val:`null`.
+    - :field:`stop`: Non-negative integer equal or greater to the :field:`start` value or :val:`null`.
 
     - :field:`step`: Positive integer or :val:`null`.
 
