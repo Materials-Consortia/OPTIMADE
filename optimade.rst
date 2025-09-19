@@ -216,9 +216,44 @@ context-independent types that are assumed to have some form of
 representation in all contexts. They are as follows:
 
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
-- **list**: an ordered collection of items, where all items are of the same type, unless they are unknown.
-  A list can be empty, i.e., contain no items.
-- **dictionary**: an associative array of **keys** and **values**, where **keys** are pre-determined strings, i.e., for the same entry property, the **keys** remain the same among different entries whereas the **values** change.
+- **list**: an ordered indexed collection of items that are either (i) all of the same basic type, (ii) only dictionaries, or (iii) only lists.
+  In each case, (i)-(iii), unknown values (i.e., ``null``) are also allowed at any of the positions.
+  A list can also be empty, i.e., contain no items.
+  An empty list has a distinct meaning from ``null``, namely, it is a list with no items (see `Properties with an unknown value`_).
+
+  Multidimensional collections of items are represented as nested lists.
+  This specification uses the term **list axis** to refer to the levels of nesting in nested lists, and **dimensionality** as the deepest nesting level of the list and its sublists.
+  A list can have items of different lengths along a given axis, i.e., nested lists are **not** limited to representing rectangular arrangement of items.
+  While this definition allows for complex structures of nested lists of varying nesting level, only those variants that can be validated by OPTIMADE `Property definitions`_ can be used for properties.
+
+  Examples of valid lists:
+
+    - ``[1.0, 2.0, 3.0]`` is a one-dimensional list of three floats (only one axis).
+
+    - ``[]`` is a one-dimensional empty list.
+
+    - ``[1.0, null, 3.0]`` is a one-dimensional list of floats. The ``null`` value is valid as it represents an unknown value.
+
+    - ``[[1, 2], [3, 4], [5, 6]]`` is a two-dimensional list of three lists, each containing two integers. The first list axis has length 3 and the second list axis has length 2.
+
+    - ``[[1, 2], [3, 4, 5], [6]]`` is a two-dimensional list of three lists, each containing a different number of integers, and each sublist has a different length.
+
+    - ``[[1, 2], [null], [3]]`` and ``[[1, 2], [], [3]]`` are both valid two-dimensional lists, since all items can be indexed by two list indices.
+
+    - ``[[1, 2], null, [3]]`` is valid since ``null`` can substitute items of any type, including sublists.
+
+  Examples of invalid lists:
+
+    - ``[3.0, "string"]`` is not a valid list, since the two elements have different types.
+
+  Examples of lists that are valid, but cannot be used for properties in OPTIMADE due to limits imposed by OPTIMADE property definitions:
+
+    - ``[[1.0, 2.0], ["string", "string"]]``: while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists cannot be validated by the same item subschema in a Property definition.
+
+    - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]``: the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
+      As of OPTIMADE v1.2, such lists are excluded by Property definitions.
+
+- **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
 - Namespace-specific data type (described in `Type handling and conversions in comparisons`_).
 
@@ -492,7 +527,8 @@ The default partial data format is named "jsonlines" and is described in the App
 An implementation SHOULD always include this format as one of the partial data formats provided for a property that has been omitted from the response to the initial query.
 Implementations MAY provide links to their own non-standard formats, but non-standard format names MUST be prefixed by a database-provider-specific prefix.
 
-Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format that communicates that the property value has been omitted from the response, with three different links for different partial data formats provided.
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format.
+It communicates that the property value has been omitted from the response and includes three different links for different partial data formats provided.
 
 .. code:: jsonc
 
@@ -538,8 +574,10 @@ Database providers are allowed to define their own metadata properties in :field
 For example, the metadata property definition of the field :field:`_exmpl_example_field` MUST NOT define a metadata field named, e.g., :field:`accuracy`; the field rather needs to be named, e.g., :field:`_exmpl_accuracy`.
 The reason for this limitation is to avoid name collisions with metadata fields defined by the OPTIMADE standard in the future that apply also to database-specific data fields.
 
-Implementation of the :field:`meta` field is OPTIONAL.
-However, when an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
+Implementation of the :field:`meta` field is OPTIONAL, unless the server implements slicing, in which case it is MANDATORY (see `Slices of list properties`_).
+When an implementation supports the :field:`property_metadata` field, it SHOULD include metadata fields for all properties which have metadata and are present in the data part of the response.
+If the client includes the string ``property_metadata`` in the query parameter :query-param:`response_fields`, the server MUST include metadata fields for all properties which have metadata and are part of the response fields.
+Furthermore, if the server returns metadata for a property, it MUST be included in its entirety, i.e., including all non-null fields.
 
 Example of a response in the JSON response format with two structure entries that each include a metadata property for the attribute field :field:`elements_ratios` and the database-specific per entry metadata field :field:`_exmpl_originates_from_project`:
 
@@ -676,6 +714,175 @@ Example:
   In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as :val:`[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]`) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix :val:`[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
 
 Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).
+
+Slices of list properties
+-------------------------
+
+The OPTIMADE standard defines a way for a client to request only a subset of the items of a list, referred to as a slice.
+The protocol for this functionality specifies how a server MAY support slicing lists independently per list axis.
+This functionality is separate from (but compatible with) the protocol described in `Transmission of large property values`_.
+The protocol for large property values is used by the server implementation to transmit a set of items that it deems too large to provide inside the normal OPTIMADE response.
+Slices, on the other hand, are used for a client to request a subset of any size of the items of a list, which can possibly (but not necessarily) result in such a large amount of values that the protocol for large property values is required to transmit them.
+
+**Client implementation note**: To determine which properties expose sliceable dimensions (and, more generally, the names of such dimensions), clients can request the corresponding property metadata by including ``property_metadata`` in the ``response_fields`` query parameter, together with the names of the properties of interest (see comments in `Metadata properties`_).
+
+The main mechanism is provided through the query parameter :query-param:`dimension_slices` defined in section `Single Entry URL Query Parameters`_.
+Information relating to the ability of the server to handle this query parameter and the relevant ranges of indexes is provided using the metadata property field :field:`list_axes` (see `Metadata properties`_).
+When the client request includes the query parameter :query-param:`dimension_slices`, the server MUST provide metadata for all properties for which including the subfield :field:`requested_slice` of the :field:`list_axes` is MANDATORY (see below).
+The field :field:`list_axes` is defined as follows:
+
+- :field:`list_axes`: List of Dictionary.
+  A list of dictionaries which provide descriptive information related to the axes of a list property, including sliceable axes.
+  Each item, in order, represents the list axis as declared in the corresponding property definition.
+
+  Each item MUST be a dictionary with the following REQUIRED field:
+
+  - :field:`dimension_name`: String.
+    The dimension name of the corresponding list axis.
+
+  If the request specifies the :query-param:`dimension_slices` query parameter for any of the list axes of this list property the following key MUST be present. However, if that query parameter is not specified, the key MUST either be omitted or set equal to :val:`null`:
+
+  - :field:`requested_slice`: Dictionary.
+    A metadata field that describes the requested slice that was provided via the query parameter :query-param:`dimension_slices`.
+    The subfields MUST reflect the values provided via the :query-param:`dimension_slices`.
+    In particular, the field is MANDATORY if the client request includes the :query-param:`dimension_slices` query parameter for this list axis.
+    The implementation MUST preserve the values as given in the query parameter, including the distinction between specific values and default values even when they are equivalent (see example below).
+    It MAY contain the following subfields that are defined according to the specification of a `slice object`_.
+
+    - :field:`start`: Non-negative integer or :val:`null`.
+
+    - :field:`stop`: Non-negative integer equal or greater to the :field:`start` value or :val:`null`.
+
+    - :field:`step`: Positive integer or :val:`null`.
+
+    A :val:`null` value for any of these fields means it has the default value defined for a `slice object`_.
+    A missing value is equivalent to a :val:`null` value.
+    (Consequently, the dictionary MAY be empty if all fields take the default values.)
+
+    Examples:
+
+    +------------------+----------------------------------------------------+----------------------------------------------+
+    | Query Type       | Query Formulation                                  | Valid Representations                        |
+    +==================+====================================================+==============================================+
+    | fully formed     | :query-string:`dimension_slices=dim_frames[3:5:2]` | ``{"start": 3, "stop": 5, "step": 2}``       |
+    +------------------+----------------------------------------------------+----------------------------------------------+
+    | empty query with | :query-string:`dimension_slices=dim_frames[0::]`   | ``{"start": 0}``                             |
+    | start            |                                                    |                                              |
+    +------------------+----------------------------------------------------+----------------------------------------------+
+    | empty query      | :query-string:`dimension_slices=dim_frames[::]`    | ``{}``                                       |
+    |                  |                                                    |                                              |
+    |                  |                                                    | ``{"start": null, "stop": null, "step":      |
+    |                  |                                                    | null}``                                      |
+    |                  |                                                    |                                              |
+    |                  |                                                    | ``{"start": null}``                          |
+    |                  |                                                    |                                              |
+    |                  |                                                    | ``{"stop": null, "step": null}``             |
+    +------------------+----------------------------------------------------+----------------------------------------------+
+
+    Note that any of the representations displayed above for the "empty query" are valid.
+    Semantically, the two examples above "empty query" and the "empty query with start" are equivalent, but differ in representation.
+    This is due to the starting index being explicitly specified in the "empty query with start" example.
+    The need for this difference becomes apparent if the starting index takes on a value different from the default.
+
+  The dictionary MAY contain the following fields:
+
+  - :field:`length`: Integer.
+    The length of this list axis which MUST be the same as the length of the declared dimension for this axis in the corresponding property definition.
+    Note that the length of a dimension can be different for different entries if the length is not explicitly declared by the property definition.
+    For example, the number of frames, i.e., the length of the dimension named ``dim_frames``, is generally different for different trajectories.
+
+  - :field:`sliceable`: Boolean.
+    If :val:`true`, the server MUST handle slices for that dimension.
+    If :val:`false`, the server MAY handle slices for that dimension, but if it receives a slice request it cannot handle, it MUST return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.
+    If a server is capable of handling slicing for a particular dimension, the server SHOULD indicate this by setting :field:`sliceable` to :val:`true` in its responses.
+    If the field is omitted or :val:`null`, it means the same thing as :val:`false`.
+
+  - :field:`available_slice`: Dictionary or :val:`null`.
+    This metadata field describes a `slice object`_.
+    By including this field, the server certifies that there MUST only be :val:`null` values outside this slice.
+    Inside the slice there MAY be any combination of null and non-null values.
+    If not provided, or equal to :val:`null` or an empty dictionary, the client cannot make any assumptions about what part of the list contains :val:`null` values.
+
+    Examples:
+
+    - ``{"start": 3, "stop": 7, "step": 2}`` means the server certifies that values at indexes 0, 1, 2, 4, 6 and any index from 8 to the end of the list are :val:`null`.
+
+Below follows an example of the :field:`data` and :field:`meta` parts of a response using the JSON response format for a request to the trajectory endpoint with the query parameter :query-param:`dimension_slices=dim_frames[3:37:5]` and :query-param:`response_fields=frame_cartesian_site_positions,_exmpl_temperature` where the trajectory consists of 432934 frames (with indexes 0 to 432933) and where the :field:`frame_cartesian_site_positions` contains 7 sites.
+Furthermore, the metadata subfield :field:`available_slice` in :field:`list_axes` in :field:`_exmpl_temperature` certifies that all values of the data field :field:`_exmpl_temperature` are :val:`null` except at indexes 1000, 1030, 1060, ..., 4000, where values can be either numeric or :val:`null`.
+
+.. code:: jsonc
+
+     {
+       // ...
+       "data": {
+         "type": "trajectories",
+         "id": "2345678",
+         "attributes": {
+           "frame_cartesian_site_positions": null,
+           "_exmpl_temperature": null
+         },
+         "meta": {
+           "property_metadata": {
+             "frame_cartesian_site_positions": {
+               "list_axes": [
+                 {
+                   "dimension_name": "dim_frames",
+                   "requested_slice": {
+                     "start": 3,
+                     "stop": 37,
+                     "step": 5
+                   },
+                   "available_slice": {
+                     "start": 0,
+                     "stop": 432933,
+                     "step": 1
+                   },
+                   "sliceable": true,
+                   "length": 432934
+                 },
+                 {
+                   "dimension_name": "dim_sites",
+                   "available_slice": {
+                     "start": 0,
+                     "stop": 6,
+                     "step": 1
+                   },
+                   "sliceable": false,
+                   "length": 7
+                 },
+                 {
+                   "dimension_name": "dim_spatial",
+                   "length": 3
+                 }
+               ]
+             },
+             "_exmpl_temperature": {
+               "list_axes": [
+                 {
+                   "dimension_name": "dim_frames",
+                   "requested_slice": {
+                     "start": 3,
+                     "stop": 37,
+                     "step": 5
+                   },
+                   "available_slice": {
+                     "start": 1000,
+                     "stop": 4000,
+                     "step": 30
+                   },
+                   "sliceable": true,
+                   "length": 432934
+                 }
+               ]
+             }
+           },
+           "partial_data_links": {
+             //...
+           }
+         }
+       }
+     // ...
+   }
 
 Responses
 =========
@@ -1194,6 +1401,7 @@ Standard OPTIONAL URL query parameters not in the JSON:API specification:
 Additional OPTIONAL URL query parameters not described above are not considered to be part of this standard, and are instead considered to be "custom URL query parameters".
 These custom URL query parameters MUST be of the format "<database-provider-specific prefix><url\_query\_parameter\_name>".
 These names adhere to the requirements on implementation-specific query parameters of `JSON:API v1.1 <http://jsonapi.org/format/1.1>`__ since the database-provider-specific prefixes contain at least two underscores (a LOW LINE character '\_').
+If the server receives an unrecognized query parameter that does not adhere to this format it MUST return the error :http-error:`400 Bad Request`.
 
 Example uses of custom URL query parameters include providing an access token for the request, to tell the database to increase verbosity in error output, or providing a database-specific extended searching format.
 
@@ -1286,6 +1494,35 @@ While the following URL query parameters are OPTIONAL for clients, API implement
 :query-param:`response_format`, :query-param:`email_address`, :query-param:`response_fields`.
 The URL query parameter :query-param:`include` is OPTIONAL for both clients and API implementations.
 The meaning of these URL query parameters are as defined above in section `Entry Listing URL Query Parameters`_.
+
+One additional query parameter :query-param:`dimension_slices` MUST be handled by the API implementation either as defined below or by returning the error :http-error:`501 Not Implemented`:
+
+- **dimension\_slices**: A number of slice specifications to request only parts of list properties for the functionality described in `Slices of list properties`_.
+
+  The query parameter contains a comma-separated (",", ASCII symbol 44 dec) list of slice specifications.
+  Each slice specification consists of a dimension name followed by the left square bracket character ("[", ASCII symbol 91 dec), a slice, and the right square bracket character ("]", ASCII symbol 93 dec).
+  The slice is given as an ordered sequence of three components separated by the colon character (":", ASCII symbol 58 dec).
+  The elements in the sequence are the start, stop, and step values defined in the same way as for a `slice object`_.
+  Omitting the value for any of the components of the slice specifies a default value (however, all the colon separators MUST be included).
+  The start value specifies the first index in that dimension for which values should be returned (which is 0-based and inclusive).
+  The default is :val:`0`.
+  The stop value specifies the last index for which values should be returned (inclusive).
+  The default is :val:`null`, which represents the last index of the list along the specified dimension.
+  The step value specifies the step size in that dimension.
+  The default is :val:`1`.
+
+  An empty value of the :query-param:`dimension_slices` query parameter MUST be interpreted as equivalent to the query parameter not being included in the request.
+  As a consequence, the server will not slice any properties.
+
+  Requirements and conventions for the response when this query parameter is used are described in `Slices of list properties`_.
+
+  Example:
+
+  - :query-url:`http://optimade.example.com/v1/trajectories/id_12345?response_fields=cartesian_site_positions&dimension_slices=dim_frames[:999:10],dim_sites[30:70:]`
+
+    This query URL requests items from the trajectory with ID :val:`id_12345`.
+    It requests items from the list :field:`cartesian_site_positions` for this trajectory.
+    The items that are requested are for only the 31st to 71st sites (i.e., with indexes 30 through 70 inclusive) for 1 out of every 10 frames of the first 1000 frames (i.e., taking steps of 10 over indexes 0 through 999 inclusive, which requests the frames with indexes 0, 10, 20, 30, ..., 990).
 
 Single Entry JSON Response Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2157,7 +2394,7 @@ Optional filter features
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Some features of the filtering language are marked OPTIONAL.
-An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error ``501 Not Implemented`` with an explanation of which OPTIONAL construct the error refers to.
+An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error :http-error:`501 Not Implemented` with an explanation of which OPTIONAL construct the error refers to.
 
 Property Definitions
 ====================
@@ -2267,7 +2504,14 @@ A Property Definition MUST be composed according to the combination of the requi
 
   - :field:`names`: List of Strings.
     A list of names of the dimensions of the underlying one or multi-dimensional data represented as multiple levels of lists.
-    The order is that the the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+    The order is such that the first name applies to the outermost list, the next name to the lists embedded in that list, etc.
+    Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
+    Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, which SHOULD then be immediately followed by ``dim_``, e.g., ``_exmpl_dim_particles``.
+    If, within one entry, two or more list axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
+    For example, let us consider the property :property:`cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
+    Let the trajectory entry in this example have another, one-dimensional, list property :property:`_exmpl_energy`, which in its property definition specifies *the same name*, :val:`dim_frames`, as the name of the axis corresponding to its single dimension.
+    The joint dimension name means the values of :property:`_exmpl_energy` and of :property:`cartesian_site_positions` at index *i* pertain to the same frame.
+    If slicing is used to request only parts of the data along the :val:`dim_frames` dimension, that is a request to slice both the properties according to the specified slice.
 
   - :field:`sizes`: List of Integers or :val:`null`.
     A list of fixed length requirements on the underlying one or multi-dimensional data represented as multiple levels of lists.
@@ -3409,7 +3653,7 @@ fractional\_site\_positions
 - **Description**: fractional coordinates (positions) of each site in the structure.
   A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the :property:`species_at_sites` property, and the species themselves are described in the :property:`species` property.
   Site coordinates MAY be given as `cartesian_site_positions`_, `fractional_site_positions`_, or both.
-  When symmetry operations given in `space_group_symmetry_operations_xyz`_ are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ array.
+  When symmetry operations given in `space_group_symmetry_operations_xyz`_ are applied, they MUST be applied to coordinates given in the `fractional_site_positions`_ list.
 - **Type**: list of list of floats
 - **Requirements/Conventions**:
 
@@ -3418,7 +3662,7 @@ fractional\_site\_positions
     If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors`_ property.
   - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
-  - **Note**: Since both `cartesian_site_positions`_ and `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ array.
+  - **Note**: Since both `cartesian_site_positions`_ and `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ list.
 
 - **Examples**:
 
@@ -4539,21 +4783,26 @@ Note: since the below definition references both JSON fields and OPTIMADE proper
 
 .. _slice object:
 
-To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of arrays.
+To aid the definition of the format below, we first define a "slice object" to be a JSON object describing slices of lists.
 The dictionary has the following OPTIONAL fields:
 
 - :field:`"start"`: Integer.
-  The slice starts at the value with the given index (inclusive).
-  The default is 0, i.e., the value at the start of the array.
+  The slice starts at the value with the given index (inclusive, meaning the item at the start index is included).
+  It MUST be a non-negative integer.
+  The default is 0, i.e., the value at the start of the list.
 - :field:`"stop"`: Integer.
-  The slice ends at the value with the given index (inclusive).
-  If omitted, the end of the slice is the last index of the array.
+  The slice ends at the value with the given index (inclusive, meaning the item at the stop index is included).
+  It MUST be a non-negative integer.
+  If omitted, the end of the slice is the last index of the list.
+
+  Note: The fact the stop index is inclusive differs from common slicing conventions in many programming languages, where the stop index is typically exclusive. Care should be taken to avoid off-by-one errors.
 - :field:`"step"`: Integer.
   The absolute difference in index between two subsequent values that are included in the slice.
+  It MUST be a non-zero positive integer.
   The default is 1, i.e., every value in the range indicated by :field:`start` and :field:`stop` is included in the slice.
-  Hence, a value of 2 denotes a slice of every second value in the array.
+  Hence, a value of 2 denotes a slice of every second value in the list.
 
-For example, for the array :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "stop": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
+For example, for the list :val:`["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]` the slice object :val:`{"start": 1, "stop": 7, "step": 3}` refers to the items :val:`["b", "e", "h"]`.
 
 Furthermore, we also define the following special markers:
 
@@ -4597,8 +4846,8 @@ The header object MUST contain the keys:
 The following key is RECOMMENDED in the header object:
 
 - :field:`"returned_ranges"`: Array of Object.
-  For dense layout, and sparse layout of one dimensional list properties, the array contains a single element which is a `slice object`_ representing the range of data present in the response.
-  In the specific case of a hierarchy of list properties represented as a sparse multidimensional array, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional array, representing slices for each dimension that cover the data given in the response.
+  For dense layout, and sparse layout of one dimensional list properties, the :field:`"returned_ranges"` array contains a single element which is a `slice object`_ representing the range of data present in the response.
+  In the specific case of a hierarchy of list properties represented as a sparse multidimensional list, if the field :field:`"returned_ranges"` is given, it MUST contain one slice object per dimension of the multidimensional list, representing slices for each dimension that cover the data given in the response.
 
 The header object MAY also contain the keys:
 
@@ -4639,19 +4888,19 @@ The format of data lines of the response (i.e., all lines except the first and t
 - **Dense layout:** In the dense partial data layout, each data line reproduces one item from the OPTIMADE list property being transmitted in the JSON format.
   If OPTIMADE list properties are embedded inside the item, they can either be included in full or replaced with a reference-marker.
   If a list is replaced by a reference marker, the client MAY use the provided URL to obtain the list items.
-  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the array up to the number of elements given until reaching the end-of-data-marker or next-marker.
+  If the field :field:`"returned_ranges"` is omitted, then the client MUST assume that the data is a continuous range of data from the start of the list up to the number of elements given until reaching the end-of-data-marker or next-marker.
 
 - **Sparse layout for one-dimensional list:** When the response sparsely communicates items for a one-dimensional OPTIMADE list property, each data line contains a JSON array of the format:
 
-  - The first item of the array is the zero-based index of list property item being provided by this line.
-  - The second item of the array is the list property item located at the indicated index, represented using the same format as each line in the dense layout.
+  - The first item of the array is the zero-based index of the list property item being provided by this line.
+  - The second item of the array is the value of the list property item located at the indicated index, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
-- **Sparse layout for multidimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse array).
+- **Sparse layout for multidimensional lists:** the server MAY use a specific sparse layout for the case that the OPTIMADE property represents a series of directly hierarchically embedded lists (i.e., a multidimensional sparse list).
   In this case, each data line contains a JSON array of the format:
 
-  - All array items except the last one are integer zero-based indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
-  - The last item of the array is the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
+  - All array items except the last one are zero-based integer indices of the list property item being provided by this line; these indices refer to the aggregated dimensions in the order of outermost to innermost.
+  - The last item of the array is the value of the list property item located at the indicated coordinates, represented using the same format as each line in the dense layout.
     In the same way as for the dense layout, reference-markers are allowed inside the item data for embedded lists that do not fit in the response (see example below).
 
 If the final line of the response is a next-marker, the client MAY continue fetching the data for the property by retrieving another partial data response from the provided URL.
@@ -4665,8 +4914,9 @@ In that case the values shall remain as assigned, i.e., they are not overwritten
 Examples
 ~~~~~~~~
 
-Below follows an example of a dense response for a partial array data of integer values.
-The request returns the first three items and provides the next-marker link to continue fetching data:
+Below follows an example of a dense response for a partial list data of integer values.
+The request returns a slice of data starting from index 10 up to and including index 20, with a step of 2.
+This response provides the first three values of that slice (corresponding to indices 10, 12, and 14) and includes a next-marker link to fetch subsequent data:
 
 .. code:: jsonl
 
@@ -4676,7 +4926,7 @@ The request returns the first three items and provides the next-marker link to c
    -12.6
    ["PARTIAL-DATA-NEXT", ["https://example.db.org/value4"]]
 
-Below follows an example of a dense response for a list property as a partial array of multidimensional array values.
+Below follows an example of a dense response for a list property as a partial list of multidimensional list values.
 The item with index 10 in the original list is provided explicitly in the response and is the first one provided in the response since start=10.
 The item with index 12 in the list, the second data item provided since start=10 and step=2, is not included only referenced.
 The third provided item (index 14 in the original list) is only partially returned: it is a list of three items, the first and last are explicitly provided, the second one is only referenced.
@@ -4954,4 +5204,3 @@ Example file
   {"type": "info", "id": "structures", ...}
   {"type": "references", "id": "2", "attributes": {...}}
   {"type": "structures", "id": "1", "attributes": {...}, "relationships": {"references": {"data": [{"id": "2", "type": "references"}]}}}
-
