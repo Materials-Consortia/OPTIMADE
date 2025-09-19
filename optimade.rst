@@ -2349,6 +2349,12 @@ For a specific structures entry, the nested property behaves as the list :filter
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
 Support for queries on fields of arbitrary depth is OPTIONAL.
+
+    **Note**: without this support, formulating queries on relationships with entries that have specific property values is a multi-step process.
+        For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
+
+        - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
+        - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:
 
     ``/structures?filter=references.target.doi="10.1234/1234"``
