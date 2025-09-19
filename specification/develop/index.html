@@ -660,166 +660,178 @@ Below follows the definitions of the text roles used:
 <li><p><a class="reference internal" href="#handling-unknown-property-names" id="toc-entry-17"><span class="sectnum">3.9 </span>Handling unknown property names</a></p></li>
 <li><p><a class="reference internal" href="#transmission-of-large-property-values" id="toc-entry-18"><span class="sectnum">3.10 </span>Transmission of large property values</a></p></li>
 <li><p><a class="reference internal" href="#metadata-properties" id="toc-entry-19"><span class="sectnum">3.11 </span>Metadata properties</a></p></li>
-<li><p><a class="reference internal" href="#slices-of-list-properties" id="toc-entry-20"><span class="sectnum">3.12 </span>Slices of list properties</a></p></li>
+<li><p><a class="reference internal" href="#compact-list-representation" id="toc-entry-20"><span class="sectnum">3.12 </span>Compact list representation</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#compact-formats" id="toc-entry-21"><span class="sectnum">3.12.1 </span>Compact formats</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#responses" id="toc-entry-21"><span class="sectnum">4 </span>Responses</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#response-format" id="toc-entry-22"><span class="sectnum">4.1 </span>Response Format</a></p></li>
-<li><p><a class="reference internal" href="#json-response-schema-common-fields" id="toc-entry-23"><span class="sectnum">4.2 </span>JSON Response Schema: Common Fields</a></p></li>
-<li><p><a class="reference internal" href="#http-response-status-codes" id="toc-entry-24"><span class="sectnum">4.3 </span>HTTP Response Status Codes</a></p></li>
-<li><p><a class="reference internal" href="#http-response-headers" id="toc-entry-25"><span class="sectnum">4.4 </span>HTTP Response Headers</a></p></li>
-<li><p><a class="reference internal" href="#warnings" id="toc-entry-26"><span class="sectnum">4.5 </span>Warnings</a></p></li>
+<li><p><a class="reference internal" href="#slices-of-list-properties" id="toc-entry-22"><span class="sectnum">3.13 </span>Slices of list properties</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#api-endpoints" id="toc-entry-27"><span class="sectnum">5 </span>API Endpoints</a></p>
+<li><p><a class="reference internal" href="#responses" id="toc-entry-23"><span class="sectnum">4 </span>Responses</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#query-parameters" id="toc-entry-28"><span class="sectnum">5.1 </span>Query parameters</a></p></li>
-<li><p><a class="reference internal" href="#versions-endpoint" id="toc-entry-29"><span class="sectnum">5.2 </span>Versions Endpoint</a></p></li>
-<li><p><a class="reference internal" href="#entry-listing-endpoints" id="toc-entry-30"><span class="sectnum">5.3 </span>Entry Listing Endpoints</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#entry-listing-url-query-parameters" id="toc-entry-31"><span class="sectnum">5.3.1 </span>Entry Listing URL Query Parameters</a></p></li>
-<li><p><a class="reference internal" href="#entry-listing-json-response-schema" id="toc-entry-32"><span class="sectnum">5.3.2 </span>Entry Listing JSON Response Schema</a></p></li>
+<li><p><a class="reference internal" href="#response-format" id="toc-entry-24"><span class="sectnum">4.1 </span>Response Format</a></p></li>
+<li><p><a class="reference internal" href="#json-response-schema-common-fields" id="toc-entry-25"><span class="sectnum">4.2 </span>JSON Response Schema: Common Fields</a></p></li>
+<li><p><a class="reference internal" href="#http-response-status-codes" id="toc-entry-26"><span class="sectnum">4.3 </span>HTTP Response Status Codes</a></p></li>
+<li><p><a class="reference internal" href="#http-response-headers" id="toc-entry-27"><span class="sectnum">4.4 </span>HTTP Response Headers</a></p></li>
+<li><p><a class="reference internal" href="#warnings" id="toc-entry-28"><span class="sectnum">4.5 </span>Warnings</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#single-entry-endpoints" id="toc-entry-33"><span class="sectnum">5.4 </span>Single Entry Endpoints</a></p>
+<li><p><a class="reference internal" href="#api-endpoints" id="toc-entry-29"><span class="sectnum">5 </span>API Endpoints</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#single-entry-url-query-parameters" id="toc-entry-34"><span class="sectnum">5.4.1 </span>Single Entry URL Query Parameters</a></p></li>
-<li><p><a class="reference internal" href="#single-entry-json-response-schema" id="toc-entry-35"><span class="sectnum">5.4.2 </span>Single Entry JSON Response Schema</a></p></li>
+<li><p><a class="reference internal" href="#query-parameters" id="toc-entry-30"><span class="sectnum">5.1 </span>Query parameters</a></p></li>
+<li><p><a class="reference internal" href="#versions-endpoint" id="toc-entry-31"><span class="sectnum">5.2 </span>Versions Endpoint</a></p></li>
+<li><p><a class="reference internal" href="#entry-listing-endpoints" id="toc-entry-32"><span class="sectnum">5.3 </span>Entry Listing Endpoints</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#entry-listing-url-query-parameters" id="toc-entry-33"><span class="sectnum">5.3.1 </span>Entry Listing URL Query Parameters</a></p></li>
+<li><p><a class="reference internal" href="#entry-listing-json-response-schema" id="toc-entry-34"><span class="sectnum">5.3.2 </span>Entry Listing JSON Response Schema</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#info-endpoints" id="toc-entry-36"><span class="sectnum">5.5 </span>Info Endpoints</a></p>
+<li><p><a class="reference internal" href="#single-entry-endpoints" id="toc-entry-35"><span class="sectnum">5.4 </span>Single Entry Endpoints</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#base-info-endpoint" id="toc-entry-37"><span class="sectnum">5.5.1 </span>Base Info Endpoint</a></p></li>
-<li><p><a class="reference internal" href="#entry-listing-info-endpoints" id="toc-entry-38"><span class="sectnum">5.5.2 </span>Entry Listing Info Endpoints</a></p></li>
+<li><p><a class="reference internal" href="#single-entry-url-query-parameters" id="toc-entry-36"><span class="sectnum">5.4.1 </span>Single Entry URL Query Parameters</a></p></li>
+<li><p><a class="reference internal" href="#single-entry-json-response-schema" id="toc-entry-37"><span class="sectnum">5.4.2 </span>Single Entry JSON Response Schema</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#links-endpoint" id="toc-entry-39"><span class="sectnum">5.6 </span>Links Endpoint</a></p>
+<li><p><a class="reference internal" href="#info-endpoints" id="toc-entry-38"><span class="sectnum">5.5 </span>Info Endpoints</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#link-types" id="toc-entry-40"><span class="sectnum">5.6.1 </span>Link Types</a></p></li>
-<li><p><a class="reference internal" href="#links-endpoint-json-response-schema" id="toc-entry-41"><span class="sectnum">5.6.2 </span>Links Endpoint JSON Response Schema</a></p></li>
-<li><p><a class="reference internal" href="#internal-links-root-and-child-links" id="toc-entry-42"><span class="sectnum">5.6.3 </span>Internal Links: Root and Child Links</a></p></li>
-<li><p><a class="reference internal" href="#list-of-providers-links" id="toc-entry-43"><span class="sectnum">5.6.4 </span>List of Providers Links</a></p></li>
-<li><p><a class="reference internal" href="#index-meta-database-links-endpoint" id="toc-entry-44"><span class="sectnum">5.6.5 </span>Index Meta-Database Links Endpoint</a></p></li>
-<li><p><a class="reference internal" href="#link-aggregate-options" id="toc-entry-45"><span class="sectnum">5.6.6 </span>Link Aggregate Options</a></p></li>
+<li><p><a class="reference internal" href="#base-info-endpoint" id="toc-entry-39"><span class="sectnum">5.5.1 </span>Base Info Endpoint</a></p></li>
+<li><p><a class="reference internal" href="#entry-listing-info-endpoints" id="toc-entry-40"><span class="sectnum">5.5.2 </span>Entry Listing Info Endpoints</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#custom-extension-endpoints" id="toc-entry-46"><span class="sectnum">5.7 </span>Custom Extension Endpoints</a></p></li>
+<li><p><a class="reference internal" href="#links-endpoint" id="toc-entry-41"><span class="sectnum">5.6 </span>Links Endpoint</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#link-types" id="toc-entry-42"><span class="sectnum">5.6.1 </span>Link Types</a></p></li>
+<li><p><a class="reference internal" href="#links-endpoint-json-response-schema" id="toc-entry-43"><span class="sectnum">5.6.2 </span>Links Endpoint JSON Response Schema</a></p></li>
+<li><p><a class="reference internal" href="#internal-links-root-and-child-links" id="toc-entry-44"><span class="sectnum">5.6.3 </span>Internal Links: Root and Child Links</a></p></li>
+<li><p><a class="reference internal" href="#list-of-providers-links" id="toc-entry-45"><span class="sectnum">5.6.4 </span>List of Providers Links</a></p></li>
+<li><p><a class="reference internal" href="#index-meta-database-links-endpoint" id="toc-entry-46"><span class="sectnum">5.6.5 </span>Index Meta-Database Links Endpoint</a></p></li>
+<li><p><a class="reference internal" href="#link-aggregate-options" id="toc-entry-47"><span class="sectnum">5.6.6 </span>Link Aggregate Options</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#api-filtering-format-specification" id="toc-entry-47"><span class="sectnum">6 </span>API Filtering Format Specification</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#lexical-tokens" id="toc-entry-48"><span class="sectnum">6.1 </span>Lexical Tokens</a></p></li>
-<li><p><a class="reference internal" href="#the-filter-language-syntax" id="toc-entry-49"><span class="sectnum">6.2 </span>The Filter Language Syntax</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#basic-boolean-operations" id="toc-entry-50"><span class="sectnum">6.2.1 </span>Basic boolean operations</a></p></li>
-<li><p><a class="reference internal" href="#numeric-and-string-comparisons" id="toc-entry-51"><span class="sectnum">6.2.2 </span>Numeric and String comparisons</a></p></li>
-<li><p><a class="reference internal" href="#substring-comparisons" id="toc-entry-52"><span class="sectnum">6.2.3 </span>Substring comparisons</a></p></li>
-<li><p><a class="reference internal" href="#comparisons-of-boolean-values" id="toc-entry-53"><span class="sectnum">6.2.4 </span>Comparisons of boolean values</a></p></li>
-<li><p><a class="reference internal" href="#comparisons-of-list-properties" id="toc-entry-54"><span class="sectnum">6.2.5 </span>Comparisons of list properties</a></p></li>
-<li><p><a class="reference internal" href="#nested-property-names" id="toc-entry-55"><span class="sectnum">6.2.6 </span>Nested property names</a></p></li>
-<li><p><a class="reference internal" href="#filtering-on-relationships" id="toc-entry-56"><span class="sectnum">6.2.7 </span>Filtering on relationships</a></p></li>
-<li><p><a class="reference internal" href="#filtering-on-properties-with-an-unknown-value" id="toc-entry-57"><span class="sectnum">6.2.8 </span>Filtering on Properties with an unknown value</a></p></li>
-<li><p><a class="reference internal" href="#precedence" id="toc-entry-58"><span class="sectnum">6.2.9 </span>Precedence</a></p></li>
-<li><p><a class="reference internal" href="#type-handling-and-conversions-in-comparisons" id="toc-entry-59"><span class="sectnum">6.2.10 </span>Type handling and conversions in comparisons</a></p></li>
-<li><p><a class="reference internal" href="#optional-filter-features" id="toc-entry-60"><span class="sectnum">6.2.11 </span>Optional filter features</a></p></li>
+<li><p><a class="reference internal" href="#custom-extension-endpoints" id="toc-entry-48"><span class="sectnum">5.7 </span>Custom Extension Endpoints</a></p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#property-definitions" id="toc-entry-61"><span class="sectnum">7 </span>Property Definitions</a></p>
+<li><p><a class="reference internal" href="#api-filtering-format-specification" id="toc-entry-49"><span class="sectnum">6 </span>API Filtering Format Specification</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#property-definition-keys-from-json-schema" id="toc-entry-62"><span class="sectnum">7.1 </span>Property Definition keys from JSON Schema</a></p></li>
-<li><p><a class="reference internal" href="#physical-units-in-property-definitions" id="toc-entry-63"><span class="sectnum">7.2 </span>Physical Units in Property Definitions</a></p></li>
-<li><p><a class="reference internal" href="#compound-unit-expressions" id="toc-entry-64"><span class="sectnum">7.3 </span>Compound Unit Expressions</a></p></li>
-<li><p><a class="reference internal" href="#physical-unit-definitions" id="toc-entry-65"><span class="sectnum">7.4 </span>Physical Unit Definitions</a></p></li>
-<li><p><a class="reference internal" href="#prefixes-and-constants" id="toc-entry-66"><span class="sectnum">7.5 </span>Prefixes and constants</a></p></li>
-<li><p><a class="reference internal" href="#unrecognized-keys-in-property-definitions" id="toc-entry-67"><span class="sectnum">7.6 </span>Unrecognized keys in property definitions</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#entry-list" id="toc-entry-68"><span class="sectnum">8 </span>Entry List</a></p>
+<li><p><a class="reference internal" href="#lexical-tokens" id="toc-entry-50"><span class="sectnum">6.1 </span>Lexical Tokens</a></p></li>
+<li><p><a class="reference internal" href="#the-filter-language-syntax" id="toc-entry-51"><span class="sectnum">6.2 </span>The Filter Language Syntax</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#properties-used-by-multiple-entry-types" id="toc-entry-69"><span class="sectnum">8.1 </span>Properties Used by Multiple Entry Types</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#id" id="toc-entry-70"><span class="sectnum">8.1.1 </span>id</a></p></li>
-<li><p><a class="reference internal" href="#type" id="toc-entry-71"><span class="sectnum">8.1.2 </span>type</a></p></li>
-<li><p><a class="reference internal" href="#immutable-id" id="toc-entry-72"><span class="sectnum">8.1.3 </span>immutable_id</a></p></li>
-<li><p><a class="reference internal" href="#last-modified" id="toc-entry-73"><span class="sectnum">8.1.4 </span>last_modified</a></p></li>
-<li><p><a class="reference internal" href="#custom-properties" id="toc-entry-74"><span class="sectnum">8.1.5 </span>Custom properties</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#structures-entries" id="toc-entry-75"><span class="sectnum">8.2 </span>Structures Entries</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#elements" id="toc-entry-76"><span class="sectnum">8.2.1 </span>elements</a></p></li>
-<li><p><a class="reference internal" href="#nelements" id="toc-entry-77"><span class="sectnum">8.2.2 </span>nelements</a></p></li>
-<li><p><a class="reference internal" href="#elements-ratios" id="toc-entry-78"><span class="sectnum">8.2.3 </span>elements_ratios</a></p></li>
-<li><p><a class="reference internal" href="#chemical-formula-descriptive" id="toc-entry-79"><span class="sectnum">8.2.4 </span>chemical_formula_descriptive</a></p></li>
-<li><p><a class="reference internal" href="#chemical-formula-reduced" id="toc-entry-80"><span class="sectnum">8.2.5 </span>chemical_formula_reduced</a></p></li>
-<li><p><a class="reference internal" href="#chemical-formula-hill" id="toc-entry-81"><span class="sectnum">8.2.6 </span>chemical_formula_hill</a></p></li>
-<li><p><a class="reference internal" href="#chemical-formula-anonymous" id="toc-entry-82"><span class="sectnum">8.2.7 </span>chemical_formula_anonymous</a></p></li>
-<li><p><a class="reference internal" href="#dimension-types" id="toc-entry-83"><span class="sectnum">8.2.8 </span>dimension_types</a></p></li>
-<li><p><a class="reference internal" href="#nperiodic-dimensions" id="toc-entry-84"><span class="sectnum">8.2.9 </span>nperiodic_dimensions</a></p></li>
-<li><p><a class="reference internal" href="#lattice-vectors" id="toc-entry-85"><span class="sectnum">8.2.10 </span>lattice_vectors</a></p></li>
-<li><p><a class="reference internal" href="#space-group-symmetry-operations-xyz" id="toc-entry-86"><span class="sectnum">8.2.11 </span>space_group_symmetry_operations_xyz</a></p></li>
-<li><p><a class="reference internal" href="#space-group-symbol-hall" id="toc-entry-87"><span class="sectnum">8.2.12 </span>space_group_symbol_hall</a></p></li>
-<li><p><a class="reference internal" href="#space-group-symbol-hermann-mauguin" id="toc-entry-88"><span class="sectnum">8.2.13 </span>space_group_symbol_hermann_mauguin</a></p></li>
-<li><p><a class="reference internal" href="#space-group-symbol-hermann-mauguin-extended" id="toc-entry-89"><span class="sectnum">8.2.14 </span>space_group_symbol_hermann_mauguin_extended</a></p></li>
-<li><p><a class="reference internal" href="#space-group-it-number" id="toc-entry-90"><span class="sectnum">8.2.15 </span>space_group_it_number</a></p></li>
-<li><p><a class="reference internal" href="#cartesian-site-positions" id="toc-entry-91"><span class="sectnum">8.2.16 </span>cartesian_site_positions</a></p></li>
-<li><p><a class="reference internal" href="#fractional-site-positions" id="toc-entry-92"><span class="sectnum">8.2.17 </span>fractional_site_positions</a></p></li>
-<li><p><a class="reference internal" href="#site-coordinate-span" id="toc-entry-93"><span class="sectnum">8.2.18 </span>site_coordinate_span</a></p></li>
-<li><p><a class="reference internal" href="#site-coordinate-span-description" id="toc-entry-94"><span class="sectnum">8.2.19 </span>site_coordinate_span_description</a></p></li>
-<li><p><a class="reference internal" href="#nsites" id="toc-entry-95"><span class="sectnum">8.2.20 </span>nsites</a></p></li>
-<li><p><a class="reference internal" href="#species-at-sites" id="toc-entry-96"><span class="sectnum">8.2.21 </span>species_at_sites</a></p></li>
-<li><p><a class="reference internal" href="#species" id="toc-entry-97"><span class="sectnum">8.2.22 </span>species</a></p></li>
-<li><p><a class="reference internal" href="#assemblies" id="toc-entry-98"><span class="sectnum">8.2.23 </span>assemblies</a></p></li>
-<li><p><a class="reference internal" href="#structure-features" id="toc-entry-99"><span class="sectnum">8.2.24 </span>structure_features</a></p></li>
-<li><p><a class="reference internal" href="#optimization-type" id="toc-entry-100"><span class="sectnum">8.2.25 </span>optimization_type</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#calculations-entries" id="toc-entry-101"><span class="sectnum">8.3 </span>Calculations Entries</a></p></li>
-<li><p><a class="reference internal" href="#references-entries" id="toc-entry-102"><span class="sectnum">8.4 </span>References Entries</a></p></li>
-<li><p><a class="reference internal" href="#files-entries" id="toc-entry-103"><span class="sectnum">8.5 </span>Files Entries</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#url" id="toc-entry-104"><span class="sectnum">8.5.1 </span>url</a></p></li>
-<li><p><a class="reference internal" href="#url-stable-until" id="toc-entry-105"><span class="sectnum">8.5.2 </span>url_stable_until</a></p></li>
-<li><p><a class="reference internal" href="#name" id="toc-entry-106"><span class="sectnum">8.5.3 </span>name</a></p></li>
-<li><p><a class="reference internal" href="#size" id="toc-entry-107"><span class="sectnum">8.5.4 </span>size</a></p></li>
-<li><p><a class="reference internal" href="#media-type" id="toc-entry-108"><span class="sectnum">8.5.5 </span>media_type</a></p></li>
-<li><p><a class="reference internal" href="#version" id="toc-entry-109"><span class="sectnum">8.5.6 </span>version</a></p></li>
-<li><p><a class="reference internal" href="#modification-timestamp" id="toc-entry-110"><span class="sectnum">8.5.7 </span>modification_timestamp</a></p></li>
-<li><p><a class="reference internal" href="#description" id="toc-entry-111"><span class="sectnum">8.5.8 </span>description</a></p></li>
-<li><p><a class="reference internal" href="#checksums" id="toc-entry-112"><span class="sectnum">8.5.9 </span>checksums</a></p></li>
-<li><p><a class="reference internal" href="#atime" id="toc-entry-113"><span class="sectnum">8.5.10 </span>atime</a></p></li>
-<li><p><a class="reference internal" href="#ctime" id="toc-entry-114"><span class="sectnum">8.5.11 </span>ctime</a></p></li>
-<li><p><a class="reference internal" href="#mtime" id="toc-entry-115"><span class="sectnum">8.5.12 </span>mtime</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#custom-entry-types" id="toc-entry-116"><span class="sectnum">8.6 </span>Custom Entry Types</a></p></li>
-<li><p><a class="reference internal" href="#relationships-used-by-multiple-entry-types" id="toc-entry-117"><span class="sectnum">8.7 </span>Relationships Used by Multiple Entry Types</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#references" id="toc-entry-118"><span class="sectnum">8.7.1 </span>References</a></p></li>
-<li><p><a class="reference internal" href="#calculations" id="toc-entry-119"><span class="sectnum">8.7.2 </span>Calculations</a></p></li>
-<li><p><a class="reference internal" href="#files" id="toc-entry-120"><span class="sectnum">8.7.3 </span>Files</a></p></li>
+<li><p><a class="reference internal" href="#basic-boolean-operations" id="toc-entry-52"><span class="sectnum">6.2.1 </span>Basic boolean operations</a></p></li>
+<li><p><a class="reference internal" href="#numeric-and-string-comparisons" id="toc-entry-53"><span class="sectnum">6.2.2 </span>Numeric and String comparisons</a></p></li>
+<li><p><a class="reference internal" href="#substring-comparisons" id="toc-entry-54"><span class="sectnum">6.2.3 </span>Substring comparisons</a></p></li>
+<li><p><a class="reference internal" href="#comparisons-of-boolean-values" id="toc-entry-55"><span class="sectnum">6.2.4 </span>Comparisons of boolean values</a></p></li>
+<li><p><a class="reference internal" href="#comparisons-of-list-properties" id="toc-entry-56"><span class="sectnum">6.2.5 </span>Comparisons of list properties</a></p></li>
+<li><p><a class="reference internal" href="#nested-property-names" id="toc-entry-57"><span class="sectnum">6.2.6 </span>Nested property names</a></p></li>
+<li><p><a class="reference internal" href="#filtering-on-relationships" id="toc-entry-58"><span class="sectnum">6.2.7 </span>Filtering on relationships</a></p></li>
+<li><p><a class="reference internal" href="#filtering-on-properties-with-an-unknown-value" id="toc-entry-59"><span class="sectnum">6.2.8 </span>Filtering on Properties with an unknown value</a></p></li>
+<li><p><a class="reference internal" href="#precedence" id="toc-entry-60"><span class="sectnum">6.2.9 </span>Precedence</a></p></li>
+<li><p><a class="reference internal" href="#type-handling-and-conversions-in-comparisons" id="toc-entry-61"><span class="sectnum">6.2.10 </span>Type handling and conversions in comparisons</a></p></li>
+<li><p><a class="reference internal" href="#optional-filter-features" id="toc-entry-62"><span class="sectnum">6.2.11 </span>Optional filter features</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#appendices" id="toc-entry-121"><span class="sectnum">9 </span>Appendices</a></p>
+<li><p><a class="reference internal" href="#property-definitions" id="toc-entry-63"><span class="sectnum">7 </span>Property Definitions</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#the-filter-language-ebnf-grammar" id="toc-entry-122"><span class="sectnum">9.1 </span>The Filter Language EBNF Grammar</a></p></li>
-<li><p><a class="reference internal" href="#regular-expressions-for-optimade-filter-tokens" id="toc-entry-123"><span class="sectnum">9.2 </span>Regular Expressions for OPTIMADE Filter Tokens</a></p></li>
-<li><p><a class="reference internal" href="#the-symmetry-operation-string-regular-expressions" id="toc-entry-124"><span class="sectnum">9.3 </span>The Symmetry Operation String Regular Expressions</a></p></li>
-<li><p><a class="reference internal" href="#optimade-json-lines-partial-data-format" id="toc-entry-125"><span class="sectnum">9.4 </span>OPTIMADE JSON Lines partial data format</a></p>
-<ul class="auto-toc">
-<li><p><a class="reference internal" href="#examples" id="toc-entry-126"><span class="sectnum">9.4.1 </span>Examples</a></p></li>
+<li><p><a class="reference internal" href="#property-definition-keys-from-json-schema" id="toc-entry-64"><span class="sectnum">7.1 </span>Property Definition keys from JSON Schema</a></p></li>
+<li><p><a class="reference internal" href="#physical-units-in-property-definitions" id="toc-entry-65"><span class="sectnum">7.2 </span>Physical Units in Property Definitions</a></p></li>
+<li><p><a class="reference internal" href="#compound-unit-expressions" id="toc-entry-66"><span class="sectnum">7.3 </span>Compound Unit Expressions</a></p></li>
+<li><p><a class="reference internal" href="#physical-unit-definitions" id="toc-entry-67"><span class="sectnum">7.4 </span>Physical Unit Definitions</a></p></li>
+<li><p><a class="reference internal" href="#prefixes-and-constants" id="toc-entry-68"><span class="sectnum">7.5 </span>Prefixes and constants</a></p></li>
+<li><p><a class="reference internal" href="#unrecognized-keys-in-property-definitions" id="toc-entry-69"><span class="sectnum">7.6 </span>Unrecognized keys in property definitions</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#property-definition-example" id="toc-entry-127"><span class="sectnum">9.5 </span>Property Definition Example</a></p></li>
-<li><p><a class="reference internal" href="#optimade-regular-expression-format" id="toc-entry-128"><span class="sectnum">9.6 </span>OPTIMADE Regular Expression Format</a></p></li>
-<li><p><a class="reference internal" href="#the-optimade-json-lines-format-for-database-exchange" id="toc-entry-129"><span class="sectnum">9.7 </span>The OPTIMADE JSON Lines Format for Database Exchange</a></p>
+<li><p><a class="reference internal" href="#entry-list" id="toc-entry-70"><span class="sectnum">8 </span>Entry List</a></p>
 <ul class="auto-toc">
-<li><p><a class="reference internal" href="#example-file" id="toc-entry-130"><span class="sectnum">9.7.1 </span>Example file</a></p></li>
+<li><p><a class="reference internal" href="#properties-used-by-multiple-entry-types" id="toc-entry-71"><span class="sectnum">8.1 </span>Properties Used by Multiple Entry Types</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#id" id="toc-entry-72"><span class="sectnum">8.1.1 </span>id</a></p></li>
+<li><p><a class="reference internal" href="#type" id="toc-entry-73"><span class="sectnum">8.1.2 </span>type</a></p></li>
+<li><p><a class="reference internal" href="#immutable-id" id="toc-entry-74"><span class="sectnum">8.1.3 </span>immutable_id</a></p></li>
+<li><p><a class="reference internal" href="#last-modified" id="toc-entry-75"><span class="sectnum">8.1.4 </span>last_modified</a></p></li>
+<li><p><a class="reference internal" href="#custom-properties" id="toc-entry-76"><span class="sectnum">8.1.5 </span>Custom properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#structures-entries" id="toc-entry-77"><span class="sectnum">8.2 </span>Structures Entries</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#elements" id="toc-entry-78"><span class="sectnum">8.2.1 </span>elements</a></p></li>
+<li><p><a class="reference internal" href="#nelements" id="toc-entry-79"><span class="sectnum">8.2.2 </span>nelements</a></p></li>
+<li><p><a class="reference internal" href="#elements-ratios" id="toc-entry-80"><span class="sectnum">8.2.3 </span>elements_ratios</a></p></li>
+<li><p><a class="reference internal" href="#chemical-formula-descriptive" id="toc-entry-81"><span class="sectnum">8.2.4 </span>chemical_formula_descriptive</a></p></li>
+<li><p><a class="reference internal" href="#chemical-formula-reduced" id="toc-entry-82"><span class="sectnum">8.2.5 </span>chemical_formula_reduced</a></p></li>
+<li><p><a class="reference internal" href="#chemical-formula-hill" id="toc-entry-83"><span class="sectnum">8.2.6 </span>chemical_formula_hill</a></p></li>
+<li><p><a class="reference internal" href="#chemical-formula-anonymous" id="toc-entry-84"><span class="sectnum">8.2.7 </span>chemical_formula_anonymous</a></p></li>
+<li><p><a class="reference internal" href="#dimension-types" id="toc-entry-85"><span class="sectnum">8.2.8 </span>dimension_types</a></p></li>
+<li><p><a class="reference internal" href="#nperiodic-dimensions" id="toc-entry-86"><span class="sectnum">8.2.9 </span>nperiodic_dimensions</a></p></li>
+<li><p><a class="reference internal" href="#lattice-vectors" id="toc-entry-87"><span class="sectnum">8.2.10 </span>lattice_vectors</a></p></li>
+<li><p><a class="reference internal" href="#space-group-symmetry-operations-xyz" id="toc-entry-88"><span class="sectnum">8.2.11 </span>space_group_symmetry_operations_xyz</a></p></li>
+<li><p><a class="reference internal" href="#space-group-symbol-hall" id="toc-entry-89"><span class="sectnum">8.2.12 </span>space_group_symbol_hall</a></p></li>
+<li><p><a class="reference internal" href="#space-group-symbol-hermann-mauguin" id="toc-entry-90"><span class="sectnum">8.2.13 </span>space_group_symbol_hermann_mauguin</a></p></li>
+<li><p><a class="reference internal" href="#space-group-symbol-hermann-mauguin-extended" id="toc-entry-91"><span class="sectnum">8.2.14 </span>space_group_symbol_hermann_mauguin_extended</a></p></li>
+<li><p><a class="reference internal" href="#space-group-it-number" id="toc-entry-92"><span class="sectnum">8.2.15 </span>space_group_it_number</a></p></li>
+<li><p><a class="reference internal" href="#cartesian-site-positions" id="toc-entry-93"><span class="sectnum">8.2.16 </span>cartesian_site_positions</a></p></li>
+<li><p><a class="reference internal" href="#fractional-site-positions" id="toc-entry-94"><span class="sectnum">8.2.17 </span>fractional_site_positions</a></p></li>
+<li><p><a class="reference internal" href="#site-coordinate-span" id="toc-entry-95"><span class="sectnum">8.2.18 </span>site_coordinate_span</a></p></li>
+<li><p><a class="reference internal" href="#site-coordinate-span-description" id="toc-entry-96"><span class="sectnum">8.2.19 </span>site_coordinate_span_description</a></p></li>
+<li><p><a class="reference internal" href="#nsites" id="toc-entry-97"><span class="sectnum">8.2.20 </span>nsites</a></p></li>
+<li><p><a class="reference internal" href="#species-at-sites" id="toc-entry-98"><span class="sectnum">8.2.21 </span>species_at_sites</a></p></li>
+<li><p><a class="reference internal" href="#species" id="toc-entry-99"><span class="sectnum">8.2.22 </span>species</a></p></li>
+<li><p><a class="reference internal" href="#assemblies" id="toc-entry-100"><span class="sectnum">8.2.23 </span>assemblies</a></p></li>
+<li><p><a class="reference internal" href="#structure-features" id="toc-entry-101"><span class="sectnum">8.2.24 </span>structure_features</a></p></li>
+<li><p><a class="reference internal" href="#optimization-type" id="toc-entry-102"><span class="sectnum">8.2.25 </span>optimization_type</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#trajectories-entries" id="toc-entry-103"><span class="sectnum">8.3 </span>Trajectories Entries</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#nframes" id="toc-entry-104"><span class="sectnum">8.3.1 </span>nframes</a></p></li>
+<li><p><a class="reference internal" href="#reference-frames" id="toc-entry-105"><span class="sectnum">8.3.2 </span>reference_frames</a></p></li>
+<li><p><a class="reference internal" href="#examples-of-a-returned-trajectory" id="toc-entry-106"><span class="sectnum">8.3.3 </span>Examples of a returned trajectory</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#calculations-entries" id="toc-entry-107"><span class="sectnum">8.4 </span>Calculations Entries</a></p></li>
+<li><p><a class="reference internal" href="#references-entries" id="toc-entry-108"><span class="sectnum">8.5 </span>References Entries</a></p></li>
+<li><p><a class="reference internal" href="#files-entries" id="toc-entry-109"><span class="sectnum">8.6 </span>Files Entries</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#url" id="toc-entry-110"><span class="sectnum">8.6.1 </span>url</a></p></li>
+<li><p><a class="reference internal" href="#url-stable-until" id="toc-entry-111"><span class="sectnum">8.6.2 </span>url_stable_until</a></p></li>
+<li><p><a class="reference internal" href="#name" id="toc-entry-112"><span class="sectnum">8.6.3 </span>name</a></p></li>
+<li><p><a class="reference internal" href="#size" id="toc-entry-113"><span class="sectnum">8.6.4 </span>size</a></p></li>
+<li><p><a class="reference internal" href="#media-type" id="toc-entry-114"><span class="sectnum">8.6.5 </span>media_type</a></p></li>
+<li><p><a class="reference internal" href="#version" id="toc-entry-115"><span class="sectnum">8.6.6 </span>version</a></p></li>
+<li><p><a class="reference internal" href="#modification-timestamp" id="toc-entry-116"><span class="sectnum">8.6.7 </span>modification_timestamp</a></p></li>
+<li><p><a class="reference internal" href="#description" id="toc-entry-117"><span class="sectnum">8.6.8 </span>description</a></p></li>
+<li><p><a class="reference internal" href="#checksums" id="toc-entry-118"><span class="sectnum">8.6.9 </span>checksums</a></p></li>
+<li><p><a class="reference internal" href="#atime" id="toc-entry-119"><span class="sectnum">8.6.10 </span>atime</a></p></li>
+<li><p><a class="reference internal" href="#ctime" id="toc-entry-120"><span class="sectnum">8.6.11 </span>ctime</a></p></li>
+<li><p><a class="reference internal" href="#mtime" id="toc-entry-121"><span class="sectnum">8.6.12 </span>mtime</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#custom-entry-types" id="toc-entry-122"><span class="sectnum">8.7 </span>Custom Entry Types</a></p></li>
+<li><p><a class="reference internal" href="#relationships-used-by-multiple-entry-types" id="toc-entry-123"><span class="sectnum">8.8 </span>Relationships Used by Multiple Entry Types</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#references" id="toc-entry-124"><span class="sectnum">8.8.1 </span>References</a></p></li>
+<li><p><a class="reference internal" href="#calculations" id="toc-entry-125"><span class="sectnum">8.8.2 </span>Calculations</a></p></li>
+<li><p><a class="reference internal" href="#files" id="toc-entry-126"><span class="sectnum">8.8.3 </span>Files</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#appendices" id="toc-entry-127"><span class="sectnum">9 </span>Appendices</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#the-filter-language-ebnf-grammar" id="toc-entry-128"><span class="sectnum">9.1 </span>The Filter Language EBNF Grammar</a></p></li>
+<li><p><a class="reference internal" href="#regular-expressions-for-optimade-filter-tokens" id="toc-entry-129"><span class="sectnum">9.2 </span>Regular Expressions for OPTIMADE Filter Tokens</a></p></li>
+<li><p><a class="reference internal" href="#the-symmetry-operation-string-regular-expressions" id="toc-entry-130"><span class="sectnum">9.3 </span>The Symmetry Operation String Regular Expressions</a></p></li>
+<li><p><a class="reference internal" href="#optimade-json-lines-partial-data-format" id="toc-entry-131"><span class="sectnum">9.4 </span>OPTIMADE JSON Lines partial data format</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#examples" id="toc-entry-132"><span class="sectnum">9.4.1 </span>Examples</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#property-definition-example" id="toc-entry-133"><span class="sectnum">9.5 </span>Property Definition Example</a></p></li>
+<li><p><a class="reference internal" href="#optimade-regular-expression-format" id="toc-entry-134"><span class="sectnum">9.6 </span>OPTIMADE Regular Expression Format</a></p></li>
+<li><p><a class="reference internal" href="#the-optimade-json-lines-format-for-database-exchange" id="toc-entry-135"><span class="sectnum">9.7 </span>The OPTIMADE JSON Lines Format for Database Exchange</a></p>
+<ul class="auto-toc">
+<li><p><a class="reference internal" href="#example-file" id="toc-entry-136"><span class="sectnum">9.7.1 </span>Example file</a></p></li>
 </ul>
 </li>
 </ul>
@@ -1301,8 +1313,68 @@ Furthermore, if the server returns metadata for a property, it MUST be included 
 }
 // ...</code></pre>
 </section>
+<section id="compact-list-representation">
+<h3><a class="toc-backref" href="#toc-entry-20" role="doc-backlink"><span class="sectnum">3.12 </span>Compact list representation</a></h3>
+<p>There are cases in which the response includes lists that can be expressed in a more compact form than explicitly providing each value.
+For example, lists with constant values along a given axis (e.g., in the case of a trajectory with a fixed unit cell for all frames).</p>
+<p>To allow for efficient data transfer, some dimensions of selected properties are thus marked as <strong>compactable</strong> in the corresponding property definitions.
+This is achieved using the <span class="field docutils literal">compactable</span> field inside the <cite>x-optimade-dimensions</cite> dictionary of the property definition.
+This field is a list of strings of the same length as the property dimension.
+Each string indicates if a dimension can be compacted and, if so, in which compact format, as detailed in the section of the <a class="reference internal" href="#property-definitions">Property Definitions</a> describing the <span class="field docutils literal">compactable</span> field.</p>
+<p>If a property has at least one dimension declared as compactable, the server MUST return it in the response in one of the two following ways:</p>
+<ol class="arabic simple">
+<li><p>using the standard rules. This means either giving the values (which can possibly be <span class="val docutils literal">null</span>) at each position directly in the <span class="field docutils literal">data</span> field of the response, or using the large property values protocol (see <a class="reference internal" href="#transmission-of-large-property-values">Transmission of large property values</a>);</p></li>
+<li><p>using the <strong>compact format</strong> specified in the corresponding <span class="field docutils literal">compactable</span> field (limited to the dimensions set as compactable).</p></li>
+</ol>
+<p>If none of the property dimensions are set as compactable, the server MUST always use the standard rules to represent the property.</p>
+<p>Clients MUST be able to handle responses with both compact and non-compact property formats in the same response.
+If a client finds a string in the <span class="field docutils literal">compactable</span> field that it does not recognize (which may be defined by future versions of this specification), it MUST NOT attempt to interpret the corresponding property value.</p>
+<section id="compact-formats">
+<h4><a class="toc-backref" href="#toc-entry-21" role="doc-backlink"><span class="sectnum">3.12.1 </span>Compact formats</a></h4>
+<p>Currently, only one <strong>compact format</strong> is defined, represented by the string <span class="val docutils literal">&quot;constant&quot;</span>, supporting lists consisting of constant values along a given axis.
+If the server adopts this compact format, the list MUST include only one value for that list axis.
+This value MUST be interpreted as the constant value of the list along that dimension.</p>
+<p>We highlight two advantages of the design of the <span class="val docutils literal">&quot;constant&quot;</span> compact format representation:</p>
+<ul class="simple">
+<li><p>it is still possible to use the same schemas to validate the list property, since the list dimensionality and the
+data type of its items are the same, both when explicitly writing all list items (using the standard rules)
+and when using the compact format;</p></li>
+<li><p>even if in the future a compact format is implemented also in the large-property transfer protocol (described in the section <a class="reference internal" href="#transmission-of-large-property-values">Transmission of large property values</a>), using the approach described here (where data is directly provided in the <span class="field docutils literal">data</span> section) avoids unnecessary separate requests for each individual property.</p></li>
+</ul>
+<p>Example:</p>
+<ul>
+<li><p>A trajectory with a fixed unit cell for all frames could be represented as:</p>
+<pre class="code jsonc literal-block"><code>{
+  &quot;data&quot;:{
+    &quot;id&quot;: &quot;traj00000001&quot;,
+    &quot;type&quot;: &quot;trajectories&quot;,
+    &quot;attributes&quot;: {
+      &quot;nframes&quot;: 5,
+      &quot;last_modified&quot;:&quot;2021-07-16T18:02:03Z&quot;,
+      &quot;elements&quot;: [[&quot;H&quot;,&quot;O&quot;]],
+      &quot;nelements&quot;: [2],
+      &quot;lattice_vectors&quot; : [
+        [[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]
+      ],
+      &quot;_exmpl_timestep&quot;: [0.0, 1.0, 2.0, 3.0, 4.0],
+      &quot;cartesian_site_positions&quot; : null,
+      // ...
+    },
+  //...
+}</code></pre>
+<p>In this example, the properties <span class="field docutils literal">elements</span>, <span class="field docutils literal">nelements</span>, and <span class="field docutils literal">lattice_vectors</span> are compacted along the first dimension (<cite>dim_frames</cite>) using the <span class="docutils literal">constant</span> format.
+Since all these arrays have a size of 5 along this dimension (see value of <span class="field docutils literal">nframes</span>), the client MUST interpret them as if the specified value is repeated 5 times.
+On the other hand, the <span class="field docutils literal">_exmpl_timestep</span> property is not compacted, since it has different values for each frame.
+Moreover, the value of the <span class="field docutils literal">cartesian_site_positions</span> property is omitted (with value <span class="val docutils literal">null</span>, as the server deems it to be too large for a single response) and its content is instead transferred using the large property values protocol (see section <a class="reference internal" href="#transmission-of-large-property-values">Transmission of large property values</a>; for brevity we do not show here the content of the <span class="field docutils literal">meta</span> field).</p>
+<p>The value to be repeated can either be a single item (as it is the case for <span class="field docutils literal">nelements</span>, to be interpreted as <span class="val docutils literal">[2, 2, 2, 2, 2]</span>) or a list.
+In the latter case, the whole list is repeated, as it is the case for <span class="field docutils literal">elements</span> (to be interpreted as <span class="val docutils literal"><span class="pre">[[&quot;H&quot;,&quot;O&quot;],</span> <span class="pre">[&quot;H&quot;,&quot;O&quot;],</span> <span class="pre">[&quot;H&quot;,&quot;O&quot;],</span> <span class="pre">[&quot;H&quot;,&quot;O&quot;],</span> <span class="pre">[&quot;H&quot;,&quot;O&quot;]]</span></span>) and the <span class="field docutils literal">lattice_vectors</span> (to be interpreted as the repetition of the 3x3 matrix <span class="val docutils literal">[[4.0, 0.0, <span class="pre">0.0],[0.0,</span> 4.0, <span class="pre">0.0],[0.0,</span> 0.0, 4.0]]</span> 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).</p>
+</li>
+</ul>
+<p>Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).</p>
+</section>
+</section>
 <section id="slices-of-list-properties">
-<h3><a class="toc-backref" href="#toc-entry-20" role="doc-backlink"><span class="sectnum">3.12 </span>Slices of list properties</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-22" role="doc-backlink"><span class="sectnum">3.13 </span>Slices of list properties</a></h3>
 <p>The OPTIMADE standard defines a way for a client to request only a subset of the items of a list, referred to as a slice.
 The protocol for this functionality specifies how a server MAY support slicing lists independently per list axis.
 This functionality is separate from (but compatible with) the protocol described in <a class="reference internal" href="#transmission-of-large-property-values">Transmission of large property values</a>.
@@ -1472,9 +1544,9 @@ Furthermore, the metadata subfield <span class="field docutils literal">availabl
 </section>
 </section>
 <section id="responses">
-<h2><a class="toc-backref" href="#toc-entry-21" role="doc-backlink"><span class="sectnum">4 </span>Responses</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-23" role="doc-backlink"><span class="sectnum">4 </span>Responses</a></h2>
 <section id="response-format">
-<h3><a class="toc-backref" href="#toc-entry-22" role="doc-backlink"><span class="sectnum">4.1 </span>Response Format</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-24" role="doc-backlink"><span class="sectnum">4.1 </span>Response Format</a></h3>
 <p>This section defines a JSON response format that complies with the <a class="reference external" href="http://jsonapi.org/format/1.1">JSON:API v1.1</a> specification.
 All endpoints of an API implementation MUST be able to provide responses in the JSON format specified below and MUST respond in this format by default.</p>
 <p>Each endpoint MAY support additional formats, and SHOULD declare these formats under the endpoint <span class="endpoint docutils literal"><span class="pre">/info/&lt;entry</span> type&gt;</span> (see section <a class="reference internal" href="#entry-listing-info-endpoints">Entry Listing Info Endpoints</a>).
@@ -1483,7 +1555,7 @@ Specifying a <span class="query-param docutils literal">response_format</span> d
 <p>Database-provider-specific and definition-provider-specific <span class="query-param docutils literal">response_format</span> identifiers MUST include the corresponding prefix (see section <a class="reference internal" href="#namespace-prefixes">Namespace Prefixes</a>).</p>
 </section>
 <section id="json-response-schema-common-fields">
-<h3><a class="toc-backref" href="#toc-entry-23" role="doc-backlink"><span class="sectnum">4.2 </span>JSON Response Schema: Common Fields</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-25" role="doc-backlink"><span class="sectnum">4.2 </span>JSON Response Schema: Common Fields</a></h3>
 <p>In the JSON response format, property types translate as follows:</p>
 <ul class="simple">
 <li><p><strong>string</strong>, <strong>boolean</strong>, <strong>list</strong> are represented by their similarly named counterparts in JSON.</p></li>
@@ -1799,19 +1871,19 @@ This MAY be the version indicated at the top of this document, but MAY also be a
 </ul>
 </section>
 <section id="http-response-status-codes">
-<h3><a class="toc-backref" href="#toc-entry-24" role="doc-backlink"><span class="sectnum">4.3 </span>HTTP Response Status Codes</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-26" role="doc-backlink"><span class="sectnum">4.3 </span>HTTP Response Status Codes</a></h3>
 <p>All HTTP response status codes MUST conform to <a class="reference external" href="http://tools.ietf.org/html/rfc7231">RFC 7231: HTTP Semantics</a>.
 The code registry is maintained by IANA and can be found <a class="reference external" href="http://www.iana.org/assignments/http-status-codes">here</a>.</p>
 <p>See also the JSON:API definitions of responses when <a class="reference external" href="https://jsonapi.org/format/1.1/#fetching">fetching</a> data, i.e., sending an HTTP GET request.</p>
 <p><strong>Important</strong>: If a client receives an unexpected 404 error when making a query to a base URL, and is aware of the index meta-database that belongs to the database provider (as described in section <a class="reference internal" href="#index-meta-database">Index Meta-Database</a>), the next course of action SHOULD be to fetch the resource objects under the <span class="endpoint docutils literal">links</span> endpoint of the index meta-database and redirect the original query to the corresponding database ID that was originally queried, using the object's <span class="field docutils literal">base_url</span> value.</p>
 </section>
 <section id="http-response-headers">
-<h3><a class="toc-backref" href="#toc-entry-25" role="doc-backlink"><span class="sectnum">4.4 </span>HTTP Response Headers</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-27" role="doc-backlink"><span class="sectnum">4.4 </span>HTTP Response Headers</a></h3>
 <p>There are relevant use-cases for allowing data served via OPTIMADE to be accessed from in-browser JavaScript, e.g. to enable server-less data aggregation.
 For such use, many browsers need the server to include the header <span class="http-header docutils literal"><span class="pre">Access-Control-Allow-Origin:</span> *</span> in its responses, which indicates that in-browser JavaScript access is allowed from any site.</p>
 </section>
 <section id="warnings">
-<h3><a class="toc-backref" href="#toc-entry-26" role="doc-backlink"><span class="sectnum">4.5 </span>Warnings</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-28" role="doc-backlink"><span class="sectnum">4.5 </span>Warnings</a></h3>
 <p>Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.</p>
 <p>Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes (currently, none are specified).
@@ -1819,7 +1891,7 @@ For implementation-specific warnings, they MUST start with <span class="docutils
 </section>
 </section>
 <section id="api-endpoints">
-<h2><a class="toc-backref" href="#toc-entry-27" role="doc-backlink"><span class="sectnum">5 </span>API Endpoints</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-29" role="doc-backlink"><span class="sectnum">5 </span>API Endpoints</a></h2>
 <p>Access to API endpoints as described in the subsections below are to be provided under the versioned and/or the unversioned base URL as explained in the section <a class="reference internal" href="#base-url">Base URL</a>.</p>
 <p>The endpoints are:</p>
 <ul class="simple">
@@ -1833,12 +1905,12 @@ For implementation-specific warnings, they MUST start with <span class="docutils
 </ul>
 <p>These endpoints are documented below.</p>
 <section id="query-parameters">
-<h3><a class="toc-backref" href="#toc-entry-28" role="doc-backlink"><span class="sectnum">5.1 </span>Query parameters</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-30" role="doc-backlink"><span class="sectnum">5.1 </span>Query parameters</a></h3>
 <p>Query parameters to the endpoints are documented in the respective subsections below.
 However, in addition, all API endpoints MUST accept the <span class="query-param docutils literal">api_hint</span> parameter described under <a class="reference internal" href="#version-negotiation">Version Negotiation</a>.</p>
 </section>
 <section id="versions-endpoint">
-<h3><a class="toc-backref" href="#toc-entry-29" role="doc-backlink"><span class="sectnum">5.2 </span>Versions Endpoint</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-31" role="doc-backlink"><span class="sectnum">5.2 </span>Versions Endpoint</a></h3>
 <p>The <span class="endpoint docutils literal">versions</span> endpoint aims at providing a stable and future-proof way for a client to discover the major versions of the API that the implementation provides.
 This endpoint is special in that it MUST be provided directly on the unversioned base URL at <span class="query-url docutils literal">/versions</span> and MUST NOT be provided under the versioned base URLs.</p>
 <p>The response to a query to this endpoint is in a restricted subset of the <a class="reference external" href="https://tools.ietf.org/html/rfc4180.html">RFC 4180</a> CSV (<cite>text/csv; header=present</cite>) format.
@@ -1859,7 +1931,7 @@ The order of the versions indicates that the API implementation regards version 
 If the API implementation allows access to the API on the unversioned base URL, this access has to be to version 1, since the number 1 appears in the first (non-header) line.</p>
 </section>
 <section id="entry-listing-endpoints">
-<h3><a class="toc-backref" href="#toc-entry-30" role="doc-backlink"><span class="sectnum">5.3 </span>Entry Listing Endpoints</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-32" role="doc-backlink"><span class="sectnum">5.3 </span>Entry Listing Endpoints</a></h3>
 <p>Entry listing endpoints return a list of resource objects representing entries of a specific type.
 For example, a list of structures, or a list of calculations.</p>
 <p>Each entry in the list includes a set of properties and their corresponding values.
@@ -1887,7 +1959,7 @@ It is RECOMMENDED to align with the OPTIMADE API specification practice of using
 Any custom entry listing endpoint MUST also be added to the <span class="property docutils literal">available_endpoints</span> and <span class="property docutils literal">entry_types_by_format</span> attributes of the <a class="reference internal" href="#base-info-endpoint">Base Info Endpoint</a>.</p>
 <p>For more on custom endpoints, see <a class="reference internal" href="#custom-extension-endpoints">Custom Extension Endpoints</a>.</p>
 <section id="entry-listing-url-query-parameters">
-<h4><a class="toc-backref" href="#toc-entry-31" role="doc-backlink"><span class="sectnum">5.3.1 </span>Entry Listing URL Query Parameters</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-33" role="doc-backlink"><span class="sectnum">5.3.1 </span>Entry Listing URL Query Parameters</a></h4>
 <p>The client MAY provide a set of URL query parameters in order to alter the response and provide usage information. While these URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them.
 To adhere to the requirement on implementation-specific URL query parameters of <a class="reference external" href="http://jsonapi.org/format/1.1">JSON:API v1.1</a>, query parameters that are not standardized by that specification have been given names that consist of at least two words separated by an underscore (a LOW LINE character '_').</p>
 <p>Standard OPTIONAL URL query parameters standardized by the JSON:API specification:</p>
@@ -1969,7 +2041,7 @@ There are security concerns with access control based on URL tokens, and the abo
 </ul>
 </section>
 <section id="entry-listing-json-response-schema">
-<h4><a class="toc-backref" href="#toc-entry-32" role="doc-backlink"><span class="sectnum">5.3.2 </span>Entry Listing JSON Response Schema</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-34" role="doc-backlink"><span class="sectnum">5.3.2 </span>Entry Listing JSON Response Schema</a></h4>
 <p>&quot;Entry listing&quot; endpoint response dictionaries MUST have a <span class="field docutils literal">data</span> key.
 The value of this key MUST be a list containing dictionaries that represent individual entries.
 In the default JSON response format every dictionary (<a class="reference external" href="http://jsonapi.org/format/1.1/#document-resource-objects">resource object</a>) MUST have the following fields:</p>
@@ -2023,7 +2095,7 @@ All relationships to entries of the same entry type MUST be grouped into the sam
 </section>
 </section>
 <section id="single-entry-endpoints">
-<h3><a class="toc-backref" href="#toc-entry-33" role="doc-backlink"><span class="sectnum">5.4 </span>Single Entry Endpoints</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-35" role="doc-backlink"><span class="sectnum">5.4 </span>Single Entry Endpoints</a></h3>
 <p>A client can request a specific entry by appending a URL-encoded ID path segment to the URL of an entry listing endpoint. This will return properties for the entry with that ID.</p>
 <p>In the default JSON response format, the ID component MUST be the content of the <span class="field docutils literal">id</span> field.</p>
 <p>Examples:</p>
@@ -2033,7 +2105,7 @@ All relationships to entries of the same entry type MUST be grouped into the sam
 </ul>
 <p>The rules for which properties are to be present for an entry in the response are the same as defined in section <a class="reference internal" href="#entry-listing-endpoints">Entry Listing Endpoints</a>.</p>
 <section id="single-entry-url-query-parameters">
-<h4><a class="toc-backref" href="#toc-entry-34" role="doc-backlink"><span class="sectnum">5.4.1 </span>Single Entry URL Query Parameters</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-36" role="doc-backlink"><span class="sectnum">5.4.1 </span>Single Entry URL Query Parameters</a></h4>
 <p>The client MAY provide a set of additional URL query parameters for this endpoint type.
 URL query parameters not recognized MUST be ignored.
 While the following URL query parameters are OPTIONAL for clients, API implementations MUST accept and handle them:
@@ -2069,7 +2141,7 @@ The items that are requested are for only the 31st to 71st sites (i.e., with ind
 </ul>
 </section>
 <section id="single-entry-json-response-schema">
-<h4><a class="toc-backref" href="#toc-entry-35" role="doc-backlink"><span class="sectnum">5.4.2 </span>Single Entry JSON Response Schema</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-37" role="doc-backlink"><span class="sectnum">5.4.2 </span>Single Entry JSON Response Schema</a></h4>
 <p>The response for a 'single entry' endpoint is the same as for 'entry listing' endpoint responses, except that the value of the <span class="field docutils literal">data</span> field MUST have only one or zero entries.
 In the default JSON response format, this means the value of the <span class="field docutils literal">data</span> field MUST be a single response object or <span class="field-val docutils literal">null</span> if there is no response object to return.</p>
 <p>Example:</p>
@@ -2095,7 +2167,7 @@ In the default JSON response format, this means the value of the <span class="fi
 </section>
 </section>
 <section id="info-endpoints">
-<h3><a class="toc-backref" href="#toc-entry-36" role="doc-backlink"><span class="sectnum">5.5 </span>Info Endpoints</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-38" role="doc-backlink"><span class="sectnum">5.5 </span>Info Endpoints</a></h3>
 <p>Info endpoints provide introspective information, either about the API implementation itself, or about specific entry types.</p>
 <p>There are two types of info endpoints:</p>
 <ol class="arabic simple">
@@ -2106,7 +2178,7 @@ In the default JSON response format, this means the value of the <span class="fi
 Common for them all are that the <span class="field docutils literal">data</span> field SHOULD return only a single resource object.
 If no resource object is provided, the value of the <span class="field docutils literal">data</span> field MUST be <span class="field-val docutils literal">null</span>.</p>
 <section id="base-info-endpoint">
-<h4><a class="toc-backref" href="#toc-entry-37" role="doc-backlink"><span class="sectnum">5.5.1 </span>Base Info Endpoint</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-39" role="doc-backlink"><span class="sectnum">5.5.1 </span>Base Info Endpoint</a></h4>
 <p>The Info endpoint under a versioned or unversioned base URL serving the API (e.g. <a class="reference external" href="http://example.com/optimade/v1/info">http://example.com/optimade/v1/info</a> or <a class="reference external" href="http://example.com/optimade/info">http://example.com/optimade/info</a>) returns information relating to the API implementation.</p>
 <p>The single resource object's response dictionary MUST include the following fields:</p>
 <ul>
@@ -2195,6 +2267,7 @@ MUST be equal to a valid child object's <span class="field docutils literal">id<
       &quot;entry_types_by_format&quot;: {
         &quot;json&quot;: [
           &quot;structures&quot;,
+          &quot;trajectories&quot;,
           &quot;calculations&quot;
         ],
         &quot;xml&quot;: [
@@ -2203,6 +2276,7 @@ MUST be equal to a valid child object's <span class="field docutils literal">id<
       },
       &quot;available_endpoints&quot;: [
         &quot;structures&quot;,
+        &quot;trajectories&quot;,
         &quot;calculations&quot;,
         &quot;info&quot;,
         &quot;links&quot;
@@ -2250,7 +2324,7 @@ MUST be equal to a valid child object's <span class="field docutils literal">id<
 }</code></pre>
 </section>
 <section id="entry-listing-info-endpoints">
-<h4><a class="toc-backref" href="#toc-entry-38" role="doc-backlink"><span class="sectnum">5.5.2 </span>Entry Listing Info Endpoints</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-40" role="doc-backlink"><span class="sectnum">5.5.2 </span>Entry Listing Info Endpoints</a></h4>
 <p>Entry listing info endpoints are accessed under the versioned or unversioned base URL serving the API as <span class="endpoint docutils literal"><span class="pre">/info/&lt;entry_type&gt;</span></span> (e.g., <a class="reference external" href="http://example.com/optimade/v1/info/structures">http://example.com/optimade/v1/info/structures</a> or <a class="reference external" href="http://example.com/optimade/info/structures">http://example.com/optimade/info/structures</a>).
 They return information related to the specific entry types served by the API.
 The response for these endpoints MUST include the following information in the <span class="field docutils literal">data</span> field:</p>
@@ -2390,11 +2464,11 @@ The response for these endpoints MUST include the following information in the <
 </section>
 </section>
 <section id="links-endpoint">
-<h3><a class="toc-backref" href="#toc-entry-39" role="doc-backlink"><span class="sectnum">5.6 </span>Links Endpoint</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-41" role="doc-backlink"><span class="sectnum">5.6 </span>Links Endpoint</a></h3>
 <p>This endpoint exposes information on other OPTIMADE API implementations that are related to the current implementation.
 The links endpoint MUST be provided under the versioned or unversioned base URL serving the API at <span class="endpoint docutils literal">/links</span>.</p>
 <section id="link-types">
-<h4><a class="toc-backref" href="#toc-entry-40" role="doc-backlink"><span class="sectnum">5.6.1 </span>Link Types</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-42" role="doc-backlink"><span class="sectnum">5.6.1 </span>Link Types</a></h4>
 <p>Each link has a <span class="property docutils literal">link_type</span> attribute that specifies the type of the linked relation.</p>
 <p>The <span class="property docutils literal">link_type</span> MUST be one of the following values:</p>
 <ul class="simple">
@@ -2413,7 +2487,7 @@ This MAY be used to point to any other implementation, also in a different provi
 Alternatively, it MAY handle the parameters specified in section <a class="reference internal" href="#entry-listing-url-query-parameters">Entry Listing URL Query Parameters</a> for entry listing endpoints.</p>
 </section>
 <section id="links-endpoint-json-response-schema">
-<h4><a class="toc-backref" href="#toc-entry-41" role="doc-backlink"><span class="sectnum">5.6.2 </span>Links Endpoint JSON Response Schema</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-43" role="doc-backlink"><span class="sectnum">5.6.2 </span>Links Endpoint JSON Response Schema</a></h4>
 <p>The resource objects' response dictionaries MUST include the following fields:</p>
 <ul>
 <li><p><strong>type</strong>: MUST be <span class="field-val docutils literal">&quot;links&quot;</span>.</p></li>
@@ -2539,7 +2613,7 @@ A client MAY follow the link anyway if it has reason to do so (e.g., if the clie
 }</code></pre>
 </section>
 <section id="internal-links-root-and-child-links">
-<h4><a class="toc-backref" href="#toc-entry-42" role="doc-backlink"><span class="sectnum">5.6.3 </span>Internal Links: Root and Child Links</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-44" role="doc-backlink"><span class="sectnum">5.6.3 </span>Internal Links: Root and Child Links</a></h4>
 <p>Any number of resource objects with <span class="property docutils literal">link_type</span> equal to <span class="val docutils literal">child</span> MAY be present as part of the <span class="field docutils literal">data</span> list.
 A <span class="val docutils literal">child</span> object represents a &quot;link&quot; to an OPTIMADE implementation within the same provider exactly one layer <strong>below</strong> the current implementation's layer.</p>
 <p>Exactly one resource object with <span class="property docutils literal">link_type</span> equal to <span class="val docutils literal">root</span> MUST be present as part of the <span class="field docutils literal">data</span> list.
@@ -2550,19 +2624,19 @@ By following <span class="val docutils literal">child</span> links from the <spa
 <strong>Note</strong>: The RECOMMENDED number of layers is two.</p>
 </section>
 <section id="list-of-providers-links">
-<h4><a class="toc-backref" href="#toc-entry-43" role="doc-backlink"><span class="sectnum">5.6.4 </span>List of Providers Links</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-45" role="doc-backlink"><span class="sectnum">5.6.4 </span>List of Providers Links</a></h4>
 <p>Resource objects with <span class="property docutils literal">link_type</span> equal to <span class="val docutils literal">providers</span> MUST point to an <a class="reference internal" href="#index-meta-database">Index Meta-Database</a> that supplies a list of OPTIMADE database providers.
 The intention is to be able to auto-discover all providers of OPTIMADE implementations.</p>
 <p>A list of known database providers can be retrieved as described in section <a class="reference internal" href="#namespace-prefixes">Namespace Prefixes</a>.
 This section also describes where to find information for how a provider can be added to this list.</p>
 </section>
 <section id="index-meta-database-links-endpoint">
-<h4><a class="toc-backref" href="#toc-entry-44" role="doc-backlink"><span class="sectnum">5.6.5 </span>Index Meta-Database Links Endpoint</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-46" role="doc-backlink"><span class="sectnum">5.6.5 </span>Index Meta-Database Links Endpoint</a></h4>
 <p>If the provider implements an <a class="reference internal" href="#index-meta-database">Index Meta-Database</a>, it is RECOMMENDED to adopt a structure where the index meta-database is the <span class="val docutils literal">root</span> implementation of the provider.</p>
 <p>This will make all OPTIMADE databases and implementations by the provider discoverable as links with <span class="val docutils literal">child</span> link type, under the <span class="endpoint docutils literal">links</span> endpoint of the <a class="reference internal" href="#index-meta-database">Index Meta-Database</a>.</p>
 </section>
 <section id="link-aggregate-options">
-<h4><a class="toc-backref" href="#toc-entry-45" role="doc-backlink"><span class="sectnum">5.6.6 </span>Link Aggregate Options</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-47" role="doc-backlink"><span class="sectnum">5.6.6 </span>Link Aggregate Options</a></h4>
 <p>If specified, the <span class="property docutils literal">aggregate</span> attributed MUST have one of the following values:</p>
 <ul class="simple">
 <li><p><span class="val docutils literal">ok</span> (default value, if unspecified): it is ok to follow this link when aggregating OPTIMADE results.</p></li>
@@ -2573,14 +2647,14 @@ This section also describes where to find information for how a provider can be 
 </section>
 </section>
 <section id="custom-extension-endpoints">
-<h3><a class="toc-backref" href="#toc-entry-46" role="doc-backlink"><span class="sectnum">5.7 </span>Custom Extension Endpoints</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-48" role="doc-backlink"><span class="sectnum">5.7 </span>Custom Extension Endpoints</a></h3>
 <p>API implementations MAY provide custom endpoints under the Extensions endpoint.
 Custom extension endpoints MUST be placed under the versioned or unversioned base URL serving the API at <span class="endpoint docutils literal">/extensions</span>.
 The API implementation is free to define roles of further URL path segments under this URL.</p>
 </section>
 </section>
 <section id="api-filtering-format-specification">
-<h2><a class="toc-backref" href="#toc-entry-47" role="doc-backlink"><span class="sectnum">6 </span>API Filtering Format Specification</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-49" role="doc-backlink"><span class="sectnum">6 </span>API Filtering Format Specification</a></h2>
 <p>An OPTIMADE filter expression is passed in the parameter <span class="query-param docutils literal">filter</span> as a URL query parameter as <a class="reference external" href="https://jsonapi.org/format/1.1/#fetching-filtering">specified by JSON:API</a>.
 The filter expression allows desired properties to be compared against search values; several such comparisons can be combined using the logical conjunctions AND, OR, NOT, and parentheses, with their usual semantics.</p>
 <p>All properties marked as REQUIRED in section <a class="reference internal" href="#entry-list">Entry list</a> MUST be queryable with all mandatory filter features.
@@ -2596,7 +2670,7 @@ In particular, this means the client MUST escape special characters in string va
 <li><p><span class="query-url docutils literal"><span class="pre">http://example.org/optimade/v1/structures?filter=_exmpl_melting_point%3C300+AND+nelements%3D4+AND+chemical_formula_descriptive%3D%22SiO2%22&amp;response_format=xml</span></span></p></li>
 </ul>
 <section id="lexical-tokens">
-<h3><a class="toc-backref" href="#toc-entry-48" role="doc-backlink"><span class="sectnum">6.1 </span>Lexical Tokens</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-50" role="doc-backlink"><span class="sectnum">6.1 </span>Lexical Tokens</a></h3>
 <p>The following tokens are used in the filter query component:</p>
 <ul>
 <li><p><strong>Property names</strong>: the first character MUST be a lowercase letter, the subsequent symbols MUST be composed of lowercase letters or digits; the underscore (&quot;_&quot;, ASCII 95 dec (0x5F)) is considered to  be a lower-case letter when defining identifiers.
@@ -2621,7 +2695,6 @@ This allows to tell OPTIMADE identifiers and operator keywords apart unambiguous
 <li><p><span class="property docutils literal">_exmpl_formula_sum</span> (a property specific to that database)</p></li>
 <li><p><span class="property docutils literal">_exmpl_band_gap</span></p></li>
 <li><p><span class="property docutils literal">_exmpl_supercell</span></p></li>
-<li><p><span class="property docutils literal">_exmpl_trajectory</span></p></li>
 <li><p><span class="property docutils literal">_exmpl_workflow_id</span></p></li>
 </ul>
 </li>
@@ -2674,11 +2747,11 @@ This requirement guarantees that no operator token will ever clash with a proper
 </ul>
 </section>
 <section id="the-filter-language-syntax">
-<h3><a class="toc-backref" href="#toc-entry-49" role="doc-backlink"><span class="sectnum">6.2 </span>The Filter Language Syntax</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-51" role="doc-backlink"><span class="sectnum">6.2 </span>The Filter Language Syntax</a></h3>
 <p>All filtering expressions MUST follow the <a class="reference external" href="http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip">EBNF</a> grammar of appendix <a class="reference internal" href="#the-filter-language-ebnf-grammar">The Filter Language EBNF Grammar</a> of this specification.
 The appendix contains a complete machine-readable EBNF, including the definition of the lexical tokens described above in section <a class="reference internal" href="#lexical-tokens">Lexical Tokens</a>. The EBNF is enclosed in special strings constructed as <span class="docutils literal">BEGIN</span> and <span class="docutils literal">END</span>, both followed by <span class="docutils literal">EBNF GRAMMAR Filter</span>, to enable automatic extraction.</p>
 <section id="basic-boolean-operations">
-<h4><a class="toc-backref" href="#toc-entry-50" role="doc-backlink"><span class="sectnum">6.2.1 </span>Basic boolean operations</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-52" role="doc-backlink"><span class="sectnum">6.2.1 </span>Basic boolean operations</a></h4>
 <p>The filter language supports conjunctions of comparisons using the boolean algebra operators &quot;AND&quot;, &quot;OR&quot;, and &quot;NOT&quot; and parentheses to group conjunctions.
 A comparison clause prefixed by NOT matches entries for which the comparison is false.</p>
 <p>Examples:</p>
@@ -2687,7 +2760,7 @@ A comparison clause prefixed by NOT matches entries for which the comparison is 
 </ul>
 </section>
 <section id="numeric-and-string-comparisons">
-<h4><a class="toc-backref" href="#toc-entry-51" role="doc-backlink"><span class="sectnum">6.2.2 </span>Numeric and String comparisons</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-53" role="doc-backlink"><span class="sectnum">6.2.2 </span>Numeric and String comparisons</a></h4>
 <p>Comparisons involving Numeric and String properties can be expressed using the usual comparison operators: '&lt;', '&gt;', '&lt;=', '&gt;=', '=', '!='.
 Implementations MUST support comparisons in the forms:</p>
 <pre class="literal-block">identifier &lt;operator&gt; constant
@@ -2717,7 +2790,7 @@ The OPTIMADE specification will strive to address this issue in a future version
 </ul>
 </section>
 <section id="substring-comparisons">
-<h4><a class="toc-backref" href="#toc-entry-52" role="doc-backlink"><span class="sectnum">6.2.3 </span>Substring comparisons</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-54" role="doc-backlink"><span class="sectnum">6.2.3 </span>Substring comparisons</a></h4>
 <p>In addition to the standard equality and inequality operators, matching of partial strings is provided by keyword operators:</p>
 <ul class="simple">
 <li><p><code class="filter">identifier CONTAINS x</code>: Is true if the substring value x is found anywhere within the property.</p></li>
@@ -2735,7 +2808,7 @@ The OPTIMADE specification will strive to address this issue in a future version
 </ul>
 </section>
 <section id="comparisons-of-boolean-values">
-<h4><a class="toc-backref" href="#toc-entry-53" role="doc-backlink"><span class="sectnum">6.2.4 </span>Comparisons of boolean values</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-55" role="doc-backlink"><span class="sectnum">6.2.4 </span>Comparisons of boolean values</a></h4>
 <p>Straightforward comparisons ('=' and '!=') MUST be supported for boolean values.
 Other comparison operators ('&lt;', '&gt;', '&lt;=', '&gt;=') MUST NOT be supported.
 Boolean values are only supposed to be used in direct comparisons with properties, but not compound comparisons.
@@ -2750,7 +2823,7 @@ Conversely, it MAY be compared with <span class="filter-fragment docutils litera
 </ul>
 </section>
 <section id="comparisons-of-list-properties">
-<h4><a class="toc-backref" href="#toc-entry-54" role="doc-backlink"><span class="sectnum">6.2.5 </span>Comparisons of list properties</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-56" role="doc-backlink"><span class="sectnum">6.2.5 </span>Comparisons of list properties</a></h4>
 <p>In the following, <span class="property docutils literal">list</span> is a list-type property, and <span class="filter-fragment docutils literal">values</span> is one or more <span class="filter-fragment docutils literal">value</span> separated by commas (&quot;,&quot;), i.e., strings or numbers.
 An implementation MAY also support property names and nested property names in <span class="filter-fragment docutils literal">values</span>.</p>
 <p>The following constructs MUST be supported:</p>
@@ -2799,7 +2872,7 @@ Strictly, the definitions of the <span class="filter-fragment docutils literal">
 </ul>
 </section>
 <section id="nested-property-names">
-<h4><a class="toc-backref" href="#toc-entry-55" role="doc-backlink"><span class="sectnum">6.2.6 </span>Nested property names</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-57" role="doc-backlink"><span class="sectnum">6.2.6 </span>Nested property names</a></h4>
 <p>Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in section <a class="reference internal" href="#lexical-tokens">Lexical Tokens</a>, consisting of identifiers separated by periods ('.').
 A filter on a nested property name consisting of two identifiers <span class="filter-fragment docutils literal">identifier1.identifier2</span> matches if either one of these points are true:</p>
 <ul class="simple">
@@ -2811,7 +2884,7 @@ E.g., if <span class="filter-fragment docutils literal">identifier1</span> is th
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.</p>
 </section>
 <section id="filtering-on-relationships">
-<h4><a class="toc-backref" href="#toc-entry-56" role="doc-backlink"><span class="sectnum">6.2.7 </span>Filtering on relationships</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-58" role="doc-backlink"><span class="sectnum">6.2.7 </span>Filtering on relationships</a></h4>
 <p>As described in the section <a class="reference internal" href="#relationships">Relationships</a>, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
 The API implementation MAY support queries on relationships with an entry type <span class="filter-fragment docutils literal">&lt;entry type&gt;</span> by using special nested property names:</p>
 <ul class="simple">
@@ -2833,7 +2906,7 @@ For example, to find all structures with bibliographic references where one of t
 </blockquote>
 </section>
 <section id="filtering-on-properties-with-an-unknown-value">
-<h4><a class="toc-backref" href="#toc-entry-57" role="doc-backlink"><span class="sectnum">6.2.8 </span>Filtering on Properties with an unknown value</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-59" role="doc-backlink"><span class="sectnum">6.2.8 </span>Filtering on Properties with an unknown value</a></h4>
 <p>Properties can have an unknown value, see section <a class="reference internal" href="#properties-with-an-unknown-value">Properties with an unknown value</a>.</p>
 <p>Filters that match when the property is known, or unknown, respectively can be constructed using the following syntax:</p>
 <pre class="literal-block">identifier IS KNOWN
@@ -2848,7 +2921,7 @@ In particular, a filter that compares two properties that are both <span class="
 </ul>
 </section>
 <section id="precedence">
-<h4><a class="toc-backref" href="#toc-entry-58" role="doc-backlink"><span class="sectnum">6.2.9 </span>Precedence</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-60" role="doc-backlink"><span class="sectnum">6.2.9 </span>Precedence</a></h4>
 <p>The precedence (priority) of the operators MUST be as indicated in the list below:</p>
 <ol class="arabic simple">
 <li><p>Comparison and keyword operators (<span class="filter-op docutils literal">&lt;</span>, <span class="filter-op docutils literal">&lt;=</span>, <span class="filter-op docutils literal">=</span>, <span class="filter-op docutils literal">HAS</span>, <span class="filter-op docutils literal">STARTS</span>, etc.) -- highest priority;</p></li>
@@ -2863,7 +2936,7 @@ In particular, a filter that compares two properties that are both <span class="
 </ul>
 </section>
 <section id="type-handling-and-conversions-in-comparisons">
-<h4><a class="toc-backref" href="#toc-entry-59" role="doc-backlink"><span class="sectnum">6.2.10 </span>Type handling and conversions in comparisons</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-61" role="doc-backlink"><span class="sectnum">6.2.10 </span>Type handling and conversions in comparisons</a></h4>
 <p>The definitions of specific properties in this standard define their types.
 Similarly, for <a class="reference internal" href="#custom-properties">custom properties</a>, the database provider decides their types.
 In the syntactic constructs that can accommodate values of more than one type, types of all participating values are REQUIRED to match, with a single exception of timestamps (see below).
@@ -2876,14 +2949,14 @@ It is up to the providers to decide which comparison operators to support and ho
 For example, a provider that introduces a set-valued property <span class="property docutils literal">_exmpl_set</span>, may decide to override the <span class="val docutils literal">CONTAINS</span> operator so that <code class="filter">identifier CONTAINS set</code> is true when <span class="val docutils literal">set</span> is a subset of a property.</p>
 </section>
 <section id="optional-filter-features">
-<h4><a class="toc-backref" href="#toc-entry-60" role="doc-backlink"><span class="sectnum">6.2.11 </span>Optional filter features</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-62" role="doc-backlink"><span class="sectnum">6.2.11 </span>Optional filter features</a></h4>
 <p>Some features of the filtering language are marked OPTIONAL.
 An implementation that encounters an OPTIONAL feature that it does not support MUST respond with error <span class="http-error docutils literal">501 Not Implemented</span> with an explanation of which OPTIONAL construct the error refers to.</p>
 </section>
 </section>
 </section>
 <section id="property-definitions">
-<h2><a class="toc-backref" href="#toc-entry-61" role="doc-backlink"><span class="sectnum">7 </span>Property Definitions</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-63" role="doc-backlink"><span class="sectnum">7 </span>Property Definitions</a></h2>
 <p>An OPTIMADE <em>Property Definition</em> defines a specific property, which will be referred to as <em>the defined property</em> throughout this section.
 The definition uses a dictionary-based construct that, when represented in the JSON output format, is compatible with the JSON Schema standard (for more information, see <a class="reference internal" href="#property-definition-keys-from-json-schema">Property Definition keys from JSON Schema</a>).
 The format of Property Definitions defined below allows nesting inner Property Definitions to define properties that are comprised by values organized in lists and dictionaries to arbitrary depth.</p>
@@ -2992,6 +3065,39 @@ A value of <span class="val docutils literal">null</span> allows arbitrary-lengt
 Instead, the length of lists can be validated against the length information provided in the <span class="field docutils literal">sizes</span> subfield of <span class="field docutils literal"><span class="pre">x-optimade-dimensions</span></span> (which, at this time, can only specify a fixed length requirement.)</p>
 </li>
 </ul>
+<p><strong>OPTIONAL keys:</strong></p>
+<ul>
+<li><p><span class="field docutils literal">compactable</span>: List of Strings.
+For each dimension, defines whether the data can be written in a compact form along that dimension.
+If the value is <span class="val docutils literal">&quot;no&quot;</span> for one given dimension, the standard rules to represent lists apply (i.e., the server CANNOT express that property using a compact format).
+If the value is any other string for one given dimension (currently, only the string <span class="val docutils literal">&quot;constant&quot;</span> is supported), the server MAY decide to express the data in the response using the compact format defined by that string, as specified in <a class="reference internal" href="#compact-list-representation">Compact list representation</a>. If it decides not to do so, then it MUST use the standard rules to represent lists.
+If <span class="field docutils literal">compactable</span> is provided, then a value MUST be given for each dimension.
+If <span class="field docutils literal">compactable</span> is not provided, then the default value is <span class="val docutils literal">&quot;no&quot;</span> for each dimension.</p>
+<p>For instance, for the <span class="field docutils literal">lattice_vectors</span> property of an entry of type <span class="entry docutils literal">trajectories</span>:</p>
+<pre class="code jsonc literal-block"><code>{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;info&quot;,
+    &quot;id&quot;: &quot;trajectories&quot;,
+    // ...
+    &quot;properties&quot;: {
+      // ...
+      &quot;lattice_vectors&quot;: {
+        &quot;$id&quot;: &quot;urn:uuid:81edf372-7b1b-4518-9c14-7d482bd67834&quot;,
+        &quot;title&quot;: &quot;Lattice vectors&quot;,
+        // ...
+        &quot;x-optimade-type&quot;: &quot;list&quot;,
+        &quot;x-optimade-dimensions&quot;: {
+            &quot;names&quot;: [&quot;dim_frames&quot;, &quot;dim_lattice&quot;, &quot;dim_spatial&quot;],
+            &quot;sizes&quot;: [null, 3, 3] // size along dim_frames is variable, so not specified here
+            &quot;compactable&quot;: [&quot;constant&quot;, &quot;no&quot;, &quot;no&quot;] // compactable (using the constant compact format) only along dim_frames
+        }
+      }
+    }
+  }
+}</code></pre>
+<p>This means that the <span class="field docutils literal">lattice_vectors</span> property MAY be expressed in a compact format along the outermost dimension (<span class="docutils literal">dim_frames</span>) using the <span class="val docutils literal">&quot;constant&quot;</span> compact format (but MUST be expressed as standard lists along the other two dimensions <span class="docutils literal">dim_lattice</span> and <span class="docutils literal">dim_spatial</span>).</p>
+</li>
+</ul>
 </li>
 <li><p><span class="field docutils literal"><span class="pre">x-optimade-implementation</span></span>: Dictionary.
 A dictionary describing the level of OPTIMADE API functionality provided by the present implementation.
@@ -3073,7 +3179,7 @@ This is primarily intended for the <span class="field docutils literal">id</span
 </li>
 </ul>
 <section id="property-definition-keys-from-json-schema">
-<h3><a class="toc-backref" href="#toc-entry-62" role="doc-backlink"><span class="sectnum">7.1 </span>Property Definition keys from JSON Schema</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-64" role="doc-backlink"><span class="sectnum">7.1 </span>Property Definition keys from JSON Schema</a></h3>
 <p>In addition to the requirements on the format of a Property Definition in the previous section, it MUST also adhere to the OPTIONAL and REQUIRED keys described in this subsection.
 The format described in this subsection forms a subset of the <a class="reference external" href="https://json-schema.org/draft/2020-12/json-schema-validation.html">JSON Schema Validation Draft 2020-12</a> and <a class="reference external" href="https://json-schema.org/draft/2020-12/json-schema-core.html">JSON Schema Core Draft 2020-12</a> standards.</p>
 <p><strong>REQUIRED keys</strong></p>
@@ -3255,7 +3361,7 @@ The regular expression is not implicitly anchored, i.e., it can match the string
 <p>A complete example of a Property Definition is found in the appendix <a class="reference internal" href="#property-definition-example">Property Definition Example</a>.</p>
 </section>
 <section id="physical-units-in-property-definitions">
-<h3><a class="toc-backref" href="#toc-entry-63" role="doc-backlink"><span class="sectnum">7.2 </span>Physical Units in Property Definitions</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-65" role="doc-backlink"><span class="sectnum">7.2 </span>Physical Units in Property Definitions</a></h3>
 <p>In OPTIMADE, there is no facility to allow a property to be represented in a choice of units, e.g., either ångström (Å) or meter (m).
 The unit is always permanently fixed by the Property Definition.
 Clients and servers that use other units internally thus have to do unit conversions as part of preparing and processing OPTIMADE responses.</p>
@@ -3271,7 +3377,7 @@ However, quantities that use counting units, e.g., the mole, or quantities that 
 </ul>
 </section>
 <section id="compound-unit-expressions">
-<h3><a class="toc-backref" href="#toc-entry-64" role="doc-backlink"><span class="sectnum">7.3 </span>Compound Unit Expressions</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-66" role="doc-backlink"><span class="sectnum">7.3 </span>Compound Unit Expressions</a></h3>
 <p>A Compound Unit Expression is formed by a sequence of symbols for units or constants separated by a single multiplication <span class="docutils literal">*</span> character.
 Each symbol can also be suffixed by a single <span class="docutils literal">^</span> character followed by a positive or negative integer to indicate the power of the preceding symbol, e.g., <span class="docutils literal">m^3</span> for cubic meter, <span class="docutils literal"><span class="pre">m^-3</span></span> for inverse cubic meter.
 (Positive integers MUST NOT be preceded by a plus sign.)
@@ -3286,7 +3392,7 @@ If there are ambiguous interpretations of a symbol as either having or not havin
 </ul>
 </section>
 <section id="physical-unit-definitions">
-<h3><a class="toc-backref" href="#toc-entry-65" role="doc-backlink"><span class="sectnum">7.4 </span>Physical Unit Definitions</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-67" role="doc-backlink"><span class="sectnum">7.4 </span>Physical Unit Definitions</a></h3>
 <p>An OPTIMADE Physical Unit Definition is a dictionary adhering to the following format:</p>
 <p><strong>REQUIRED keys:</strong></p>
 <ul class="simple">
@@ -3494,7 +3600,7 @@ Formatting in the text SHOULD use Markdown using the format described in the <a 
 <p>An example of a Physical Unit Definition, including a defining relation that involves more than one other unit, is embedded in the example of a Property Definition in the appendix <a class="reference internal" href="#property-definition-example">Property Definition Example</a>.</p>
 </section>
 <section id="prefixes-and-constants">
-<h3><a class="toc-backref" href="#toc-entry-66" role="doc-backlink"><span class="sectnum">7.5 </span>Prefixes and constants</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-68" role="doc-backlink"><span class="sectnum">7.5 </span>Prefixes and constants</a></h3>
 <p>Prefixes and constants are defined in OPTIMADE using nearly identical schemas as the one for units in <a class="reference internal" href="#physical-unit-definitions">Physical Unit Definitions</a>.
 The only difference is that for prefixes:</p>
 <ul class="simple">
@@ -3508,7 +3614,7 @@ The only difference is that for prefixes:</p>
 </ul>
 </section>
 <section id="unrecognized-keys-in-property-definitions">
-<h3><a class="toc-backref" href="#toc-entry-67" role="doc-backlink"><span class="sectnum">7.6 </span>Unrecognized keys in property definitions</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-69" role="doc-backlink"><span class="sectnum">7.6 </span>Unrecognized keys in property definitions</a></h3>
 <p>Implementations MAY add their own keys in Property Definitions, both inside and outside of the fields <span class="field docutils literal"><span class="pre">x-optimade-property</span></span>, <span class="field docutils literal"><span class="pre">x-optimade-implementation</span></span>, and <span class="field docutils literal"><span class="pre">x-optimade-requirements</span></span> in the form of <span class="field docutils literal"><span class="pre">x-exmpl-name</span></span> where <span class="field docutils literal">exmpl</span> is the database-specific prefix (without underscore characters) and <span class="field docutils literal">name</span> is the part of the key chosen by the implementation.
 Implementations MUST NOT add keys to property definitions on other formats.</p>
 <p>Client and server implementations that interpret an OPTIMADE Property Definition and encounter unrecognized keys starting with <span class="field docutils literal"><span class="pre">x-exmpl-</span></span> where <span class="field docutils literal">exmpl</span> is a recognized database prefix MAY issue errors or warnings.
@@ -3517,12 +3623,12 @@ Other unrecognized keys starting with <span class="field docutils literal">x-</s
 </section>
 </section>
 <section id="entry-list">
-<h2><a class="toc-backref" href="#toc-entry-68" role="doc-backlink"><span class="sectnum">8 </span>Entry List</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-70" role="doc-backlink"><span class="sectnum">8 </span>Entry List</a></h2>
 <p>This section defines standard entry types and their properties.</p>
 <section id="properties-used-by-multiple-entry-types">
-<h3><a class="toc-backref" href="#toc-entry-69" role="doc-backlink"><span class="sectnum">8.1 </span>Properties Used by Multiple Entry Types</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-71" role="doc-backlink"><span class="sectnum">8.1 </span>Properties Used by Multiple Entry Types</a></h3>
 <section id="id">
-<h4><a class="toc-backref" href="#toc-entry-70" role="doc-backlink"><span class="sectnum">8.1.1 </span>id</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-72" role="doc-backlink"><span class="sectnum">8.1.1 </span>id</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: An entry's ID as defined in section <a class="reference internal" href="#definition-of-terms">Definition of Terms</a>.</p></li>
 <li><p><strong>Type</strong>: string.</p></li>
@@ -3546,7 +3652,7 @@ Other unrecognized keys starting with <span class="field docutils literal">x-</s
 </ul>
 </section>
 <section id="type">
-<h4><a class="toc-backref" href="#toc-entry-71" role="doc-backlink"><span class="sectnum">8.1.2 </span>type</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-73" role="doc-backlink"><span class="sectnum">8.1.2 </span>type</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The name of the type of an entry.</p></li>
 <li><p><strong>Type</strong>: string.</p></li>
@@ -3562,12 +3668,13 @@ Other unrecognized keys starting with <span class="field docutils literal">x-</s
 <li><p><strong>Examples</strong>:</p>
 <ul>
 <li><p><span class="val docutils literal">&quot;structures&quot;</span></p></li>
+<li><p><span class="val docutils literal">&quot;trajectories&quot;</span></p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="immutable-id">
-<h4><a class="toc-backref" href="#toc-entry-72" role="doc-backlink"><span class="sectnum">8.1.3 </span>immutable_id</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-74" role="doc-backlink"><span class="sectnum">8.1.3 </span>immutable_id</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The entry's immutable ID (e.g., a UUID). This is important for databases having preferred IDs that point to &quot;the latest version&quot; of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.</p></li>
 <li><p><strong>Type</strong>: string.</p></li>
@@ -3586,7 +3693,7 @@ Other unrecognized keys starting with <span class="field docutils literal">x-</s
 </ul>
 </section>
 <section id="last-modified">
-<h4><a class="toc-backref" href="#toc-entry-73" role="doc-backlink"><span class="sectnum">8.1.4 </span>last_modified</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-75" role="doc-backlink"><span class="sectnum">8.1.4 </span>last_modified</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Date and time representing when the entry was last modified.</p></li>
 <li><p><strong>Type</strong>: timestamp.</p></li>
@@ -3605,7 +3712,7 @@ Other unrecognized keys starting with <span class="field docutils literal">x-</s
 </ul>
 </section>
 <section id="custom-properties">
-<h4><a class="toc-backref" href="#toc-entry-74" role="doc-backlink"><span class="sectnum">8.1.5 </span>Custom properties</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-76" role="doc-backlink"><span class="sectnum">8.1.5 </span>Custom properties</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Providers are able to add database-provider-specific and definition-provider-specific properties in the output of both standard entry types and custom entry types.
 Similarly, an implementation MAY add keys with a namespace prefix to dictionary properties and their sub-dictionaries.
@@ -3629,7 +3736,6 @@ Implementations SHOULD NOT include database-provider-specific properties when th
 <li><p><span class="property docutils literal">_exmpl_formula_sum</span></p></li>
 <li><p><span class="property docutils literal">_exmpl_band_gap</span></p></li>
 <li><p><span class="property docutils literal">_exmpl_supercell</span></p></li>
-<li><p><span class="property docutils literal">_exmpl_trajectory</span></p></li>
 <li><p><span class="property docutils literal">_exmpl_workflow_id</span></p></li>
 </ul>
 </li>
@@ -3637,10 +3743,10 @@ Implementations SHOULD NOT include database-provider-specific properties when th
 </section>
 </section>
 <section id="structures-entries">
-<h3><a class="toc-backref" href="#toc-entry-75" role="doc-backlink"><span class="sectnum">8.2 </span>Structures Entries</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-77" role="doc-backlink"><span class="sectnum">8.2 </span>Structures Entries</a></h3>
 <p><span class="entry docutils literal">structures</span> entries (or objects) have the properties described above in section <a class="reference internal" href="#properties-used-by-multiple-entry-types">Properties Used by Multiple Entry Types</a>, as well as the following properties:</p>
 <section id="elements">
-<h4><a class="toc-backref" href="#toc-entry-76" role="doc-backlink"><span class="sectnum">8.2.1 </span>elements</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-78" role="doc-backlink"><span class="sectnum">8.2.1 </span>elements</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The chemical symbols of the different elements present in the structure.</p></li>
 <li><p><strong>Type</strong>: list of strings.</p></li>
@@ -3670,7 +3776,7 @@ Implementations SHOULD NOT include database-provider-specific properties when th
 </ul>
 </section>
 <section id="nelements">
-<h4><a class="toc-backref" href="#toc-entry-77" role="doc-backlink"><span class="sectnum">8.2.2 </span>nelements</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-79" role="doc-backlink"><span class="sectnum">8.2.2 </span>nelements</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Number of different elements in the structure as an integer.</p></li>
 <li><p><strong>Type</strong>: integer</p></li>
@@ -3696,7 +3802,7 @@ Implementations SHOULD NOT include database-provider-specific properties when th
 </ul>
 </section>
 <section id="elements-ratios">
-<h4><a class="toc-backref" href="#toc-entry-78" role="doc-backlink"><span class="sectnum">8.2.3 </span>elements_ratios</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-80" role="doc-backlink"><span class="sectnum">8.2.3 </span>elements_ratios</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Relative proportions of different elements in the structure.</p></li>
 <li><p><strong>Type</strong>: list of floats</p></li>
@@ -3725,7 +3831,7 @@ However, since the values are floating point values, the use of equality compari
 </ul>
 </section>
 <section id="chemical-formula-descriptive">
-<h4><a class="toc-backref" href="#toc-entry-79" role="doc-backlink"><span class="sectnum">8.2.4 </span>chemical_formula_descriptive</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-81" role="doc-backlink"><span class="sectnum">8.2.4 </span>chemical_formula_descriptive</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The chemical formula for a structure as a string in a form chosen by the API implementation.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -3760,7 +3866,7 @@ The order of elements and any groupings indicated by parentheses or brackets are
 </ul>
 </section>
 <section id="chemical-formula-reduced">
-<h4><a class="toc-backref" href="#toc-entry-80" role="doc-backlink"><span class="sectnum">8.2.5 </span>chemical_formula_reduced</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-82" role="doc-backlink"><span class="sectnum">8.2.5 </span>chemical_formula_reduced</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
 The proportion number MUST be omitted if it is 1.</p></li>
@@ -3793,7 +3899,7 @@ Intricate queries on formula components are instead suggested to be formulated u
 </ul>
 </section>
 <section id="chemical-formula-hill">
-<h4><a class="toc-backref" href="#toc-entry-81" role="doc-backlink"><span class="sectnum">8.2.6 </span>chemical_formula_hill</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-83" role="doc-backlink"><span class="sectnum">8.2.6 </span>chemical_formula_hill</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The chemical formula for a structure in <a class="reference external" href="https://doi.org/10.1021/ja02046a005">Hill form</a> with element symbols followed by integer chemical proportion numbers.
 The proportion number MUST be omitted if it is 1.</p></li>
@@ -3828,7 +3934,7 @@ If carbon is not present, all elements are ordered alphabetically.</p></li>
 </ul>
 </section>
 <section id="chemical-formula-anonymous">
-<h4><a class="toc-backref" href="#toc-entry-82" role="doc-backlink"><span class="sectnum">8.2.7 </span>chemical_formula_anonymous</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-84" role="doc-backlink"><span class="sectnum">8.2.7 </span>chemical_formula_anonymous</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The anonymous formula is the <span class="property docutils literal">chemical_formula_reduced</span>, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -3853,7 +3959,7 @@ However, support for filters using partial string matching with this property is
 </ul>
 </section>
 <section id="dimension-types">
-<h4><a class="toc-backref" href="#toc-entry-83" role="doc-backlink"><span class="sectnum">8.2.8 </span>dimension_types</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-85" role="doc-backlink"><span class="sectnum">8.2.8 </span>dimension_types</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: List of three integers describing the periodicity of the boundaries of the unit cell.
 For each direction indicated by the three <a class="reference internal" href="#lattice-vectors">lattice_vectors</a>, this list indicates if the direction is periodic (value <span class="val docutils literal">1</span>) or non-periodic (value <span class="val docutils literal">0</span>).
@@ -3878,7 +3984,7 @@ Note: the elements in this list each refer to the direction of the corresponding
 </ul>
 </section>
 <section id="nperiodic-dimensions">
-<h4><a class="toc-backref" href="#toc-entry-84" role="doc-backlink"><span class="sectnum">8.2.9 </span>nperiodic_dimensions</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-86" role="doc-backlink"><span class="sectnum">8.2.9 </span>nperiodic_dimensions</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in <a class="reference internal" href="#dimension-types">dimension_types</a>.</p></li>
 <li><p><strong>Type</strong>: integer</p></li>
@@ -3904,7 +4010,7 @@ Note: the elements in this list each refer to the direction of the corresponding
 </ul>
 </section>
 <section id="lattice-vectors">
-<h4><a class="toc-backref" href="#toc-entry-85" role="doc-backlink"><span class="sectnum">8.2.10 </span>lattice_vectors</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-87" role="doc-backlink"><span class="sectnum">8.2.10 </span>lattice_vectors</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The three lattice vectors in Cartesian coordinates, in ångström (Å).</p></li>
 <li><p><strong>Type</strong>: list of list of floats or unknown values.</p></li>
@@ -3931,7 +4037,7 @@ If a lattice vector contains the value <span class="val docutils literal">null</
 </ul>
 </section>
 <section id="space-group-symmetry-operations-xyz">
-<h4><a class="toc-backref" href="#toc-entry-86" role="doc-backlink"><span class="sectnum">8.2.11 </span>space_group_symmetry_operations_xyz</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-88" role="doc-backlink"><span class="sectnum">8.2.11 </span>space_group_symmetry_operations_xyz</a></h4>
 <ul>
 <li><p><strong>Description</strong>: a list of symmetry operations given as general position x, y and z coordinates in algebraic form.</p></li>
 <li><p><strong>Type</strong> list of strings</p></li>
@@ -3972,7 +4078,7 @@ This property is not meant to represent arbitrary symmetries of molecules, non-p
 </ul>
 </section>
 <section id="space-group-symbol-hall">
-<h4><a class="toc-backref" href="#toc-entry-87" role="doc-backlink"><span class="sectnum">8.2.12 </span>space_group_symbol_hall</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-89" role="doc-backlink"><span class="sectnum">8.2.12 </span>space_group_symbol_hall</a></h4>
 <ul>
 <li><p><strong>Description</strong>: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4010,7 +4116,7 @@ This property is not meant to represent arbitrary symmetries of molecules, non-p
 </ul>
 </section>
 <section id="space-group-symbol-hermann-mauguin">
-<h4><a class="toc-backref" href="#toc-entry-88" role="doc-backlink"><span class="sectnum">8.2.13 </span>space_group_symbol_hermann_mauguin</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-90" role="doc-backlink"><span class="sectnum">8.2.13 </span>space_group_symbol_hermann_mauguin</a></h4>
 <ul>
 <li><p><strong>Description</strong> A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4043,7 +4149,7 @@ This property is not meant to represent arbitrary symmetries of molecules, non-p
 </ul>
 </section>
 <section id="space-group-symbol-hermann-mauguin-extended">
-<h4><a class="toc-backref" href="#toc-entry-89" role="doc-backlink"><span class="sectnum">8.2.14 </span>space_group_symbol_hermann_mauguin_extended</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-91" role="doc-backlink"><span class="sectnum">8.2.14 </span>space_group_symbol_hermann_mauguin_extended</a></h4>
 <ul>
 <li><p><strong>Description</strong> A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4070,7 +4176,7 @@ This property is not meant to represent arbitrary symmetries of molecules, non-p
 </ul>
 </section>
 <section id="space-group-it-number">
-<h4><a class="toc-backref" href="#toc-entry-90" role="doc-backlink"><span class="sectnum">8.2.15 </span>space_group_it_number</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-92" role="doc-backlink"><span class="sectnum">8.2.15 </span>space_group_it_number</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Space group number which specifies the space group of the structure as defined in the International Tables for Crystallography Vol. A. (IUCr, 2005).</p></li>
 <li><p><strong>Type</strong>: integer</p></li>
@@ -4085,7 +4191,7 @@ This property is not meant to represent arbitrary symmetries of molecules, non-p
 </ul>
 </section>
 <section id="cartesian-site-positions">
-<h4><a class="toc-backref" href="#toc-entry-91" role="doc-backlink"><span class="sectnum">8.2.16 </span>cartesian_site_positions</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-93" role="doc-backlink"><span class="sectnum">8.2.16 </span>cartesian_site_positions</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Cartesian positions of each site in the structure.
 A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the <span class="property docutils literal">species_at_sites</span> property, and the species themselves are described in the <span class="property docutils literal">species</span> property.</p></li>
@@ -4107,7 +4213,7 @@ If supported, filters MAY support only a subset of comparison operators.</p></li
 </ul>
 </section>
 <section id="fractional-site-positions">
-<h4><a class="toc-backref" href="#toc-entry-92" role="doc-backlink"><span class="sectnum">8.2.17 </span>fractional_site_positions</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-94" role="doc-backlink"><span class="sectnum">8.2.17 </span>fractional_site_positions</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: fractional coordinates (positions) of each site in the structure.
 A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the <span class="property docutils literal">species_at_sites</span> property, and the species themselves are described in the <span class="property docutils literal">species</span> property.
@@ -4132,7 +4238,7 @@ If supported, filters MAY support only a subset of comparison operators.</p></li
 </ul>
 </section>
 <section id="site-coordinate-span">
-<h4><a class="toc-backref" href="#toc-entry-93" role="doc-backlink"><span class="sectnum">8.2.18 </span>site_coordinate_span</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-95" role="doc-backlink"><span class="sectnum">8.2.18 </span>site_coordinate_span</a></h4>
 <ul>
 <li><p><strong>Description</strong> Indicates the extent of the material (crystal) described in the response.
 In particular, properties <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> and <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a> MUST contain all sites <em>belonging</em> to the described extent.</p></li>
@@ -4172,7 +4278,7 @@ For example, for the 'unit_cell' span the server SHOULD NOT return sites that ca
 </ul>
 </section>
 <section id="site-coordinate-span-description">
-<h4><a class="toc-backref" href="#toc-entry-94" role="doc-backlink"><span class="sectnum">8.2.19 </span>site_coordinate_span_description</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-96" role="doc-backlink"><span class="sectnum">8.2.19 </span>site_coordinate_span_description</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong> Human-readable semi-formal characterization of the coordinate span when the <a class="reference internal" href="#site-coordinate-span">site_coordinate_span</a> property has value <span class="val docutils literal">&quot;other&quot;</span>.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4180,7 +4286,7 @@ For example, for the 'unit_cell' span the server SHOULD NOT return sites that ca
 </ul>
 </section>
 <section id="nsites">
-<h4><a class="toc-backref" href="#toc-entry-95" role="doc-backlink"><span class="sectnum">8.2.20 </span>nsites</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-97" role="doc-backlink"><span class="sectnum">8.2.20 </span>nsites</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: An integer specifying the number of sites in a unit cell defined by the field <span class="property docutils literal">lattice_vectors</span>.</p></li>
 <li><p><strong>Type</strong>: integer</p></li>
@@ -4204,7 +4310,7 @@ For example, for the 'unit_cell' span the server SHOULD NOT return sites that ca
 </ul>
 </section>
 <section id="species-at-sites">
-<h4><a class="toc-backref" href="#toc-entry-96" role="doc-backlink"><span class="sectnum">8.2.21 </span>species_at_sites</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-98" role="doc-backlink"><span class="sectnum">8.2.21 </span>species_at_sites</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Name of the species at each site (where values for sites are specified with the same order of the property <a class="reference internal" href="#cartesian-site-positions">cartesian_site_positions</a> and/or <a class="reference internal" href="#fractional-site-positions">fractional_site_positions</a>).
 The properties of the species are found in the property <a class="reference internal" href="#species">species</a>.</p></li>
@@ -4230,7 +4336,7 @@ This latter case is useful when different atoms of the same type need to be grou
 </ul>
 </section>
 <section id="species">
-<h4><a class="toc-backref" href="#toc-entry-97" role="doc-backlink"><span class="sectnum">8.2.22 </span>species</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-99" role="doc-backlink"><span class="sectnum">8.2.22 </span>species</a></h4>
 <ul>
 <li><p><strong>Description</strong>: A list describing the species of the sites of this structure.
 Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).</p></li>
@@ -4300,7 +4406,7 @@ This means that a species <span class="val docutils literal">{&quot;name&quot;: 
 </ul>
 </section>
 <section id="assemblies">
-<h4><a class="toc-backref" href="#toc-entry-98" role="doc-backlink"><span class="sectnum">8.2.23 </span>assemblies</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-100" role="doc-backlink"><span class="sectnum">8.2.23 </span>assemblies</a></h4>
 <ul>
 <li><p><strong>Description</strong>: A description of groups of sites that are statistically correlated.</p></li>
 <li><p><strong>Type</strong>: list of dictionary with keys:</p>
@@ -4409,7 +4515,7 @@ However, the presence or absence of sites 0 and 1 is not correlated with the pre
 </ul>
 </section>
 <section id="structure-features">
-<h4><a class="toc-backref" href="#toc-entry-99" role="doc-backlink"><span class="sectnum">8.2.24 </span>structure_features</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-101" role="doc-backlink"><span class="sectnum">8.2.24 </span>structure_features</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: A list of strings that flag which special features are used by the structure.</p></li>
 <li><p><strong>Type</strong>: list of strings</p></li>
@@ -4442,7 +4548,7 @@ When this flag is present, the properties related to the chemical formula will l
 </ul>
 </section>
 <section id="optimization-type">
-<h4><a class="toc-backref" href="#toc-entry-100" role="doc-backlink"><span class="sectnum">8.2.25 </span>optimization_type</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-102" role="doc-backlink"><span class="sectnum">8.2.25 </span>optimization_type</a></h4>
 <ul>
 <li><p><strong>Description</strong>: A string that classifies the type of optimization that has resulted in the structural data.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4484,8 +4590,162 @@ Clients encountering unrecognized strings SHOULD treat them to mean the same as 
 </ul>
 </section>
 </section>
+<section id="trajectories-entries">
+<h3><a class="toc-backref" href="#toc-entry-103" role="doc-backlink"><span class="sectnum">8.3 </span>Trajectories Entries</a></h3>
+<ul>
+<li><p><strong>Description</strong>: The <span class="entry docutils literal">trajectories</span> entry is used to share data belonging to ordered sequences of structures such as, for example, those originating from molecular dynamics or Monte Carlo simulations.</p>
+<p>Individual steps of trajectories are referred to as frames.</p>
+<p><span class="entry docutils literal">trajectories</span> entries have:</p>
+<ul>
+<li><p>the properties described in the section <a class="reference internal" href="#properties-used-by-multiple-entry-types">Properties Used by Multiple Entry Types</a>;</p></li>
+<li><p>the properties <a class="reference internal" href="#nframes">nframes</a> and <a class="reference internal" href="#reference-frames">reference_frames</a>, described below;</p></li>
+<li><p>all custom properties defined in the <a class="reference internal" href="#structures-entries">Structures Entries</a> endpoint are also used for trajectories, with the following difference: each property is extended by wrapping it in a list, so that each custom property of a <span class="entry docutils literal">structures</span> resource becomes a list with an additional first dimension of size <a class="reference internal" href="#nframes">nframes</a> (with dimension name <span class="docutils literal">dim_frames</span>, as defined in the property definition). This allows these properties to be defined for each frame, and thus possibly change during the trajectory.</p>
+<p>Moreover, for data-transfer efficiency reasons, all these properties have their first dimension <span class="docutils literal">dim_frames</span> defined as compactable in the <span class="field docutils literal">compactable</span> field of their property definition. The server MAY thus return the corresponding data using the <a class="reference internal" href="#compact-list-representation">Compact list representation</a> format, if the property values are not changing over the trajectory.</p>
+</li>
+</ul>
+<p>For example, the property <a class="reference internal" href="#lattice-vectors">lattice_vectors</a> for a trajectory with 100 frames would be a three-dimensional list of floats, where the first dimension has a size of 100 (the number of frames), and the second and third dimensions have a size of 3 (representing the lattice vectors at each frame).</p>
+<p>Other database-specific properties MAY also be provided. These might include properties computed for all or some frames, such as the energy, the pressure or the temperature.</p>
+<p>We stress that, in general, if any property consists of a very large amount of data (which might be a common case for trajectories), the server MAY decide to not return the data directly in the response, but using instead the large-property transfer protocol described in the section <a class="reference internal" href="#transmission-of-large-property-values">Transmission of large property values</a>.</p>
+</li>
+</ul>
+<section id="nframes">
+<h4><a class="toc-backref" href="#toc-entry-104" role="doc-backlink"><span class="sectnum">8.3.1 </span>nframes</a></h4>
+<ul class="simple">
+<li><p><strong>Description</strong>: The number of frames in the trajectory.
+This value indicated the number of frames stored in the data, and may deviate from the number of steps used to calculate the trajectory.
+For example, a 10 ps simulation with calculation steps of 1 fs where data is stored once every 50 fs, <a class="reference internal" href="#nframes">nframes</a> will be 200.</p></li>
+<li><p><strong>Type</strong>: integer</p></li>
+<li><p><strong>Requirements/Conventions</strong>:</p>
+<ul>
+<li><p><strong>Support</strong>: MUST be supported by all implementations, i.e., MUST NOT be <span class="val docutils literal">null</span>.</p></li>
+<li><p><strong>Query</strong>: MUST be a queryable property with support for all mandatory filter features.</p></li>
+<li><p>The integer value MUST be equal to the number of frames in the trajectory (i.e., the length of the <cite>dim_frames</cite> dimension).</p></li>
+<li><p>The integer MUST be a positive non-zero value.</p></li>
+</ul>
+</li>
+<li><p><strong>Querying</strong>:</p>
+<ul>
+<li><p>A filter that matches trajectories that have exactly 100 frames:
+- <code class="filter">nframes=100</code></p></li>
+<li><p>A filter that matches trajectories that have between 100 and 1000 frames:
+- <code class="filter">nframes&gt;=100 AND nframes&lt;=1000</code></p></li>
+</ul>
+</li>
+<li><p><strong>Examples</strong>:</p>
+<ul>
+<li><p><span class="val docutils literal">42</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="reference-frames">
+<h4><a class="toc-backref" href="#toc-entry-105" role="doc-backlink"><span class="sectnum">8.3.2 </span>reference_frames</a></h4>
+<ul class="simple">
+<li><p><strong>Description</strong>: The indices of a set of frames that give a good but very brief overview of the trajectory.
+The first reference frame could for example be a starting configuration, the second a transition state and the third the final state.</p></li>
+<li><p><strong>Type</strong>: list of integers</p></li>
+<li><p><strong>Requirements/Conventions</strong>: The values MUST be larger than or equal to 0 and less than <span class="val docutils literal">nframes</span>.</p>
+<ul>
+<li><p><strong>Support</strong>: OPTIONAL support in implementations, i.e., MAY be <span class="val docutils literal">null</span>.</p></li>
+<li><p><strong>Query</strong>: Support for queries on this property is OPTIONAL.
+If supported, filters MAY support only a subset of comparison operators.</p></li>
+</ul>
+</li>
+<li><p><strong>Examples</strong>:</p>
+<ul>
+<li><p><span class="val docutils literal">[0, 397, 1000]</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="examples-of-a-returned-trajectory">
+<h4><a class="toc-backref" href="#toc-entry-106" role="doc-backlink"><span class="sectnum">8.3.3 </span>Examples of a returned trajectory</a></h4>
+<p>This is an example of the data field of a JSON object that could be returned after the following query:
+<span class="query-url docutils literal"><span class="pre">http://example.com/optimade/v1/trajectories/traj00000001</span></span></p>
+<pre class="code jsonc literal-block"><code>{
+  &quot;data&quot;:{
+    &quot;id&quot;: &quot;traj00000001&quot;,
+    &quot;type&quot;: &quot;trajectories&quot;,
+    &quot;attributes&quot;: {
+      &quot;last_modified&quot;:&quot;2021-07-16T18:02:03Z&quot;,
+      &quot;elements&quot;: [[&quot;H&quot;,&quot;O&quot;]],
+      &quot;nelements&quot;: [2],
+      &quot;elements_ratios&quot;: [[0.666667,0.333333]],
+      &quot;chemical_formula_descriptive&quot;: [&quot;H2O&quot;],
+      &quot;chemical_formula_reduced&quot;: [&quot;H2O&quot;],
+      &quot;chemical_formula_anonymous&quot;: [&quot;A2B&quot;],
+      &quot;dimension_types&quot;:[[0,0,0]],
+      &quot;nperiodic_dimensions&quot;: [0],
+      &quot;lattice_vectors&quot; : [[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,0.0,4.0]]],
+      &quot;cartesian_site_positions&quot; : null,
+      &quot;nsites&quot;:[3],
+      &quot;species_at_sites&quot;:[[&quot;O1&quot;,&quot;H1&quot;,&quot;H2&quot;]],
+      &quot;species&quot;:[[
+        {
+          &quot;name&quot;:&quot;O1&quot;,
+          &quot;chemical_symbols&quot;:[&quot;O&quot;],
+          &quot;concentration&quot;:[1.0]
+        },
+        {
+          &quot;name&quot;:&quot;H1&quot;,
+          &quot;chemical_symbols&quot;:[&quot;H&quot;],
+          &quot;concentration&quot;:[1.0]
+        },
+        {
+          &quot;name&quot;:&quot;H2&quot;,
+          &quot;chemical_symbols&quot;:[&quot;H&quot;],
+          &quot;concentration&quot;:[1.0]
+        }
+      ]],
+      &quot;reference_frames&quot;: [0],
+      &quot;nframes&quot;: 360,
+      &quot;_exmpl_temperature&quot;: null,
+      &quot;_exmpl_ekin&quot;: null
+    },
+    &quot;meta&quot;:{
+      &quot;partial_data_links&quot;: {
+        &quot;cartesian_site_positions&quot;: [
+          {
+            &quot;format&quot;: &quot;jsonlines&quot;,
+            &quot;link&quot;: &quot;https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/jsonlines&quot;
+          },{
+            &quot;format&quot;: &quot;_exmpl_xyz&quot;,
+            &quot;link&quot;: &quot;https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/cartesian_site_positions/xyz&quot;
+          }
+        ],
+        &quot;_exmpl_temperature&quot;: [
+          {
+            &quot;format&quot;: &quot;jsonlines&quot;,
+            &quot;link&quot;: &quot;https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/temperature/jsonlines&quot;
+          }
+        ],
+        &quot;_exmpl_ekin&quot;: [
+          {
+            &quot;format&quot;: &quot;jsonlines&quot;,
+            &quot;link&quot;: &quot;https://example.org/optimade/v1.2/extensions/partial_data/trajectories/traj00000001/ekin/jsonlines&quot;
+          }
+        ]
+      }
+    },
+    &quot;relationships&quot;: {
+      &quot;references&quot;: {
+        &quot;data&quot;: [
+          {
+            &quot;type&quot;: &quot;references&quot;,
+            &quot;id&quot;: &quot;dummy/2019&quot;
+          }
+        ]
+      }
+    }
+  }
+  //...
+}</code></pre>
+<p>Note how, in this example, several properties use the constant compact format, such as <span class="field docutils literal">elements</span>, <span class="field docutils literal">nelements</span>, <span class="field docutils literal">elements_ratios</span>, ...
+Furthermore, other properties (<span class="field docutils literal">cartesian_site_positions</span>, <span class="field docutils literal">_exmpl_temperature</span>, and <span class="field docutils literal">_exmpl_ekin</span>) are not included directly in the response, but are instead made available via the large-property transfer protocol using the links in the <span class="field docutils literal">partial_data_links</span> section of the <span class="field docutils literal">meta</span> field.</p>
+</section>
+</section>
 <section id="calculations-entries">
-<h3><a class="toc-backref" href="#toc-entry-101" role="doc-backlink"><span class="sectnum">8.3 </span>Calculations Entries</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-107" role="doc-backlink"><span class="sectnum">8.4 </span>Calculations Entries</a></h3>
 <p>The <span class="entry docutils literal">calculations</span> entries have the properties described above in section <a class="reference internal" href="#properties-used-by-multiple-entry-types">Properties Used by Multiple Entry Types</a>.
 Related <span class="entry docutils literal">files</span> entries specified as relationships (as described in section <a class="reference internal" href="#relationships">Relationships</a>) list files used or produced by a calculation.
 They MAY be defined as either input or output files by the <span class="field docutils literal">role</span> field inside the <span class="field docutils literal">meta</span> dictionary of the JSON:API resource identifier object.
@@ -4495,7 +4755,7 @@ It is RECOMMENDED to order the output files in the list of calculation's relatio
 Such an approach minimizes the number of calculation output files that need to be analyzed to possibly identify the code, type and parameters of the performed calculation.</p>
 </section>
 <section id="references-entries">
-<h3><a class="toc-backref" href="#toc-entry-102" role="doc-backlink"><span class="sectnum">8.4 </span>References Entries</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-108" role="doc-backlink"><span class="sectnum">8.5 </span>References Entries</a></h3>
 <p>The <span class="entry docutils literal">references</span> entries describe bibliographic references.
 The following properties are used to provide the bibliographic details:</p>
 <ul class="simple">
@@ -4539,11 +4799,11 @@ If supported, filters MAY support only a subset of comparison operators.</p></li
 }</code></pre>
 </section>
 <section id="files-entries">
-<h3><a class="toc-backref" href="#toc-entry-103" role="doc-backlink"><span class="sectnum">8.5 </span>Files Entries</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-109" role="doc-backlink"><span class="sectnum">8.6 </span>Files Entries</a></h3>
 <p>The <span class="entry docutils literal">files</span> entries describe files.
 The following properties are used to do so:</p>
 <section id="url">
-<h4><a class="toc-backref" href="#toc-entry-104" role="doc-backlink"><span class="sectnum">8.5.1 </span>url</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-110" role="doc-backlink"><span class="sectnum">8.6.1 </span>url</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: The URL to get the contents of a file.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4564,7 +4824,7 @@ For example, if referring to a file on GitHub, a link should point to raw conten
 </ul>
 </section>
 <section id="url-stable-until">
-<h4><a class="toc-backref" href="#toc-entry-105" role="doc-backlink"><span class="sectnum">8.5.2 </span>url_stable_until</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-111" role="doc-backlink"><span class="sectnum">8.6.2 </span>url_stable_until</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Point in time until which the URL in <span class="property docutils literal">url</span> is guaranteed to stay stable.</p></li>
 <li><p><strong>Type</strong>: timestamp</p></li>
@@ -4579,7 +4839,7 @@ Indefinite support could be communicated by providing a date sufficiently far in
 </ul>
 </section>
 <section id="name">
-<h4><a class="toc-backref" href="#toc-entry-106" role="doc-backlink"><span class="sectnum">8.5.3 </span>name</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-112" role="doc-backlink"><span class="sectnum">8.6.3 </span>name</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Base name of a file.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4598,7 +4858,7 @@ Indefinite support could be communicated by providing a date sufficiently far in
 </ul>
 </section>
 <section id="size">
-<h4><a class="toc-backref" href="#toc-entry-107" role="doc-backlink"><span class="sectnum">8.5.4 </span>size</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-113" role="doc-backlink"><span class="sectnum">8.6.4 </span>size</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Size of a file in bytes.</p></li>
 <li><p><strong>Type</strong>: integer</p></li>
@@ -4614,7 +4874,7 @@ Such provision is included to allow the providers to serve on-the-fly compressed
 </ul>
 </section>
 <section id="media-type">
-<h4><a class="toc-backref" href="#toc-entry-108" role="doc-backlink"><span class="sectnum">8.5.5 </span>media_type</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-114" role="doc-backlink"><span class="sectnum">8.6.5 </span>media_type</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Media type identifier (also known as MIME type), for a file as per <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6838">RFC 6838 Media Type Specifications and Registration Procedures</a>.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4632,7 +4892,7 @@ Such provision is included to allow the providers to serve on-the-fly compressed
 </ul>
 </section>
 <section id="version">
-<h4><a class="toc-backref" href="#toc-entry-109" role="doc-backlink"><span class="sectnum">8.5.6 </span>version</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-115" role="doc-backlink"><span class="sectnum">8.6.6 </span>version</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Version information of a file (e.g. commit, revision, timestamp).</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4646,7 +4906,7 @@ Such provision is included to allow the providers to serve on-the-fly compressed
 </ul>
 </section>
 <section id="modification-timestamp">
-<h4><a class="toc-backref" href="#toc-entry-110" role="doc-backlink"><span class="sectnum">8.5.7 </span>modification_timestamp</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-116" role="doc-backlink"><span class="sectnum">8.6.7 </span>modification_timestamp</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Timestamp of the last modification of file contents.
 A modification is understood as an addition, change or deletion of one or more bytes, resulting in file contents different from the previous.</p></li>
@@ -4661,7 +4921,7 @@ A modification is understood as an addition, change or deletion of one or more b
 </ul>
 </section>
 <section id="description">
-<h4><a class="toc-backref" href="#toc-entry-111" role="doc-backlink"><span class="sectnum">8.5.8 </span>description</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-117" role="doc-backlink"><span class="sectnum">8.6.8 </span>description</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Free-form description of a file.</p></li>
 <li><p><strong>Type</strong>: string</p></li>
@@ -4679,7 +4939,7 @@ A modification is understood as an addition, change or deletion of one or more b
 </ul>
 </section>
 <section id="checksums">
-<h4><a class="toc-backref" href="#toc-entry-112" role="doc-backlink"><span class="sectnum">8.5.9 </span>checksums</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-118" role="doc-backlink"><span class="sectnum">8.6.9 </span>checksums</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Dictionary providing checksums of file contents.</p></li>
 <li><p><strong>Type</strong>: dictionary with keys identifying checksum functions and values (strings) giving the actual checksums</p></li>
@@ -4694,7 +4954,7 @@ Checksums outside this list MAY be used, but their names MUST be prefixed by a d
 </ul>
 </section>
 <section id="atime">
-<h4><a class="toc-backref" href="#toc-entry-113" role="doc-backlink"><span class="sectnum">8.5.10 </span>atime</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-119" role="doc-backlink"><span class="sectnum">8.6.10 </span>atime</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Time of last access of a file as per POSIX standard.</p></li>
 <li><p><strong>Type</strong>: timestamp</p></li>
@@ -4707,7 +4967,7 @@ Checksums outside this list MAY be used, but their names MUST be prefixed by a d
 </ul>
 </section>
 <section id="ctime">
-<h4><a class="toc-backref" href="#toc-entry-114" role="doc-backlink"><span class="sectnum">8.5.11 </span>ctime</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-120" role="doc-backlink"><span class="sectnum">8.6.11 </span>ctime</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Time of last status change of a file as per POSIX standard.</p></li>
 <li><p><strong>Type</strong>: timestamp</p></li>
@@ -4720,7 +4980,7 @@ Checksums outside this list MAY be used, but their names MUST be prefixed by a d
 </ul>
 </section>
 <section id="mtime">
-<h4><a class="toc-backref" href="#toc-entry-115" role="doc-backlink"><span class="sectnum">8.5.12 </span>mtime</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-121" role="doc-backlink"><span class="sectnum">8.6.12 </span>mtime</a></h4>
 <ul class="simple">
 <li><p><strong>Description</strong>: Time of last modification of a file as per POSIX standard.</p></li>
 <li><p><strong>Type</strong>: timestamp</p></li>
@@ -4737,7 +4997,7 @@ For example, appending an empty string to a file would result in the change of <
 </section>
 </section>
 <section id="custom-entry-types">
-<h3><a class="toc-backref" href="#toc-entry-116" role="doc-backlink"><span class="sectnum">8.6 </span>Custom Entry Types</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-122" role="doc-backlink"><span class="sectnum">8.7 </span>Custom Entry Types</a></h3>
 <p>Database and definition providers can define custom entry types.
 The names of such entry types MUST start with corresponding namespace prefix (see appendix <a class="reference internal" href="#namespace-prefixes">Namespace Prefixes</a>).
 Custom entry types MUST have all properties described above in section <a class="reference internal" href="#properties-used-by-multiple-entry-types">Properties Used by Multiple Entry Types</a>.</p>
@@ -4752,10 +5012,10 @@ If supported, only a subset of the filter features MAY be supported.</p></li>
 </ul>
 </section>
 <section id="relationships-used-by-multiple-entry-types">
-<h3><a class="toc-backref" href="#toc-entry-117" role="doc-backlink"><span class="sectnum">8.7 </span>Relationships Used by Multiple Entry Types</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-123" role="doc-backlink"><span class="sectnum">8.8 </span>Relationships Used by Multiple Entry Types</a></h3>
 <p>In accordance with section <a class="reference internal" href="#relationships">Relationships</a>, all entry types MAY use relationships to describe relations to other entries.</p>
 <section id="references">
-<h4><a class="toc-backref" href="#toc-entry-118" role="doc-backlink"><span class="sectnum">8.7.1 </span>References</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-124" role="doc-backlink"><span class="sectnum">8.8.1 </span>References</a></h4>
 <p>The references relationship is used to provide bibliographic references for any of the entry types.
 It relates an entry with any number of <span class="entry docutils literal">references</span> entries.</p>
 <p>If the response format supports inclusion of entries of a different type in the response, then the response SHOULD include all references-type entries mentioned in the response.</p>
@@ -4814,7 +5074,7 @@ It relates an entry with any number of <span class="entry docutils literal">refe
 }</code></pre>
 </section>
 <section id="calculations">
-<h4><a class="toc-backref" href="#toc-entry-119" role="doc-backlink"><span class="sectnum">8.7.2 </span>Calculations</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-125" role="doc-backlink"><span class="sectnum">8.8.2 </span>Calculations</a></h4>
 <p>Relationships with calculations MAY be used to indicate provenance where a structure is either an input to or an output of calculations.</p>
 <blockquote>
 <p><strong>Note</strong>: We intend to implement in a future version of this API a standardized mechanism to differentiate these two cases, thus allowing databases a common way of exposing the full provenance tree with inputs and outputs between structures and calculations.</p>
@@ -4822,7 +5082,7 @@ It relates an entry with any number of <span class="entry docutils literal">refe
 </blockquote>
 </section>
 <section id="files">
-<h4><a class="toc-backref" href="#toc-entry-120" role="doc-backlink"><span class="sectnum">8.7.3 </span>Files</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-126" role="doc-backlink"><span class="sectnum">8.8.3 </span>Files</a></h4>
 <p>Relationships with files may be used to relate an entry with any number of <span class="entry docutils literal">files</span> entries.</p>
 <pre class="code jsonc literal-block"><code>{
   &quot;data&quot;: {
@@ -4854,9 +5114,9 @@ It relates an entry with any number of <span class="entry docutils literal">refe
 </section>
 </section>
 <section id="appendices">
-<h2><a class="toc-backref" href="#toc-entry-121" role="doc-backlink"><span class="sectnum">9 </span>Appendices</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-127" role="doc-backlink"><span class="sectnum">9 </span>Appendices</a></h2>
 <section id="the-filter-language-ebnf-grammar">
-<h3><a class="toc-backref" href="#toc-entry-122" role="doc-backlink"><span class="sectnum">9.1 </span>The Filter Language EBNF Grammar</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-128" role="doc-backlink"><span class="sectnum">9.1 </span>The Filter Language EBNF Grammar</a></h3>
 <pre class="code ebnf literal-block"><code>(* BEGIN EBNF GRAMMAR Filter *)
 (* The top-level 'filter' rule: *)
 
@@ -5039,7 +5299,7 @@ UnicodeHighChar = ? [^\x00-\x7F] ? ;
 In that case, it can be beneficial to remove the '[Spaces]' element from the <span class="docutils literal">Filter = [Spaces], Expression</span> definition as well and use the remaining grammar rules as a parser generator input (e.g., for yacc, bison, antlr).</p>
 </section>
 <section id="regular-expressions-for-optimade-filter-tokens">
-<h3><a class="toc-backref" href="#toc-entry-123" role="doc-backlink"><span class="sectnum">9.2 </span>Regular Expressions for OPTIMADE Filter Tokens</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-129" role="doc-backlink"><span class="sectnum">9.2 </span>Regular Expressions for OPTIMADE Filter Tokens</a></h3>
 <p>The string below contains Perl-Compatible Regular Expressions to recognize identifiers, number, and string values as specified in this specification.</p>
 <pre class="code literal-block"><code>#BEGIN PCRE identifiers
 [a-z_][a-z_0-9]*
@@ -5066,7 +5326,7 @@ In that case, it can be beneficial to remove the '[Spaces]' element from the <sp
 #END ERE strings</code></pre>
 </section>
 <section id="the-symmetry-operation-string-regular-expressions">
-<h3><a class="toc-backref" href="#toc-entry-124" role="doc-backlink"><span class="sectnum">9.3 </span>The Symmetry Operation String Regular Expressions</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-130" role="doc-backlink"><span class="sectnum">9.3 </span>The Symmetry Operation String Regular Expressions</a></h3>
 <p>Symmetry operation strings that comprise the <span class="property docutils literal">space_group_symmetry_operations_xyz</span> property MUST conform to the following regular expressions.
 The regular expressions are recorded below in two forms, one in a more readable form using variables and the other as an explicit pattern compatible with the <a class="reference internal" href="#optimade-regular-expression-format">OPTIMADE Regular Expression Format</a>.</p>
 <ul>
@@ -5103,7 +5363,7 @@ $ # ... match to the very end of the string
 </ul>
 </section>
 <section id="optimade-json-lines-partial-data-format">
-<h3><a class="toc-backref" href="#toc-entry-125" role="doc-backlink"><span class="sectnum">9.4 </span>OPTIMADE JSON Lines partial data format</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-131" role="doc-backlink"><span class="sectnum">9.4 </span>OPTIMADE JSON Lines partial data format</a></h3>
 <p>The OPTIMADE JSON Lines partial data format is a lightweight format for transmitting property data that are too large to fit in a single OPTIMADE response.
 The format is based on <a class="reference external" href="https://jsonlines.org/">JSON Lines</a>, which enables streaming of JSON data.
 Note: since the below definition references both JSON fields and OPTIMADE properties, the data type names depend on context: for JSON they are, e.g., &quot;array&quot; and &quot;object&quot; and for OPTIMADE properties they are, e.g., &quot;list&quot; and &quot;dictionary&quot;.</p>
@@ -5233,7 +5493,7 @@ Since the remaining values are not assigned a value, they will be <span class="v
 (Since there is no requirement that values are assigned in a specific order between responses, it is possible that the omitted values are already assigned.
 In that case the values shall remain as assigned, i.e., they are not overwritten by <span class="val docutils literal">null</span> in this situation.)</p>
 <section id="examples">
-<h4><a class="toc-backref" href="#toc-entry-126" role="doc-backlink"><span class="sectnum">9.4.1 </span>Examples</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-132" role="doc-backlink"><span class="sectnum">9.4.1 </span>Examples</a></h4>
 <p>Below follows an example of a dense response for a partial list data of integer values.
 The request returns a slice of data starting from index 10 up to and including index 20, with a step of 2.
 This response provides the first three values of that slice (corresponding to indices 10, 12, and 14) and includes a next-marker link to fetch subsequent data:</p>
@@ -5273,7 +5533,7 @@ The response below communicates the first item explicitly; the second one by def
 </section>
 </section>
 <section id="property-definition-example">
-<h3><a class="toc-backref" href="#toc-entry-127" role="doc-backlink"><span class="sectnum">9.5 </span>Property Definition Example</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-133" role="doc-backlink"><span class="sectnum">9.5 </span>Property Definition Example</a></h3>
 <p>This appendix provides a more complete example of a Property Definition in the format defined in <a class="reference internal" href="#property-definitions">Property Definitions</a>.
 (Note: the description strings have been wrapped for readability only.)</p>
 <pre class="code jsonc literal-block"><code>{
@@ -5369,7 +5629,7 @@ The response below communicates the first item explicitly; the second one by def
 }</code></pre>
 </section>
 <section id="optimade-regular-expression-format">
-<h3><a class="toc-backref" href="#toc-entry-128" role="doc-backlink"><span class="sectnum">9.6 </span>OPTIMADE Regular Expression Format</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-134" role="doc-backlink"><span class="sectnum">9.6 </span>OPTIMADE Regular Expression Format</a></h3>
 <p>This section defines a Unicode string representation of regular expressions (regexes) to be referenced from other parts of the specification.
 The format will be referred to as an &quot;OPTIMADE regex&quot;.</p>
 <p>Regexes are commonly embedded in a context where they need to be enclosed by delimiters (e.g., double quotes or slash characters).
@@ -5435,7 +5695,7 @@ POSIX Basic regexes also have further differences, e.g., the meaning of some esc
 </blockquote>
 </section>
 <section id="the-optimade-json-lines-format-for-database-exchange">
-<h3><a class="toc-backref" href="#toc-entry-129" role="doc-backlink"><span class="sectnum">9.7 </span>The OPTIMADE JSON Lines Format for Database Exchange</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-135" role="doc-backlink"><span class="sectnum">9.7 </span>The OPTIMADE JSON Lines Format for Database Exchange</a></h3>
 <p>There are many use cases for which it is beneficial to share all of the data served by an OPTIMADE API as a single file, for example, archival, transfer of entire databases and local-first clients.
 This appendix describes a lightweight standardization for doing this via the <a class="reference external" href="https://jsonlines.org/">JSON Lines</a> (JSONL) format, with some additional OPTIMADE-specific conventions.</p>
 <p>The <a class="reference external" href="https://jsonlines.org/">JSON Lines</a> format enforces the following rules:</p>
@@ -5477,7 +5737,7 @@ Such static property definitions should be consistent with any externally define
 Where appropriate, a provider prefix can be chosen to represent the tool used to generate the file, in cases where an external property definition is not provided (for example, a property that only applies to the current dataset).</p>
 <p>It is RECOMMENDED that custom properties are defined in full within the JSONL file, or pointed to a specific versioned property definition.</p>
 <section id="example-file">
-<h4><a class="toc-backref" href="#toc-entry-130" role="doc-backlink"><span class="sectnum">9.7.1 </span>Example file</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-136" role="doc-backlink"><span class="sectnum">9.7.1 </span>Example file</a></h4>
 <pre class="code jsonc literal-block"><code>{&quot;x-optimade&quot;: {&quot;api_version&quot;: &quot;1.2.0&quot;}}
 {&quot;meta&quot;: {&quot;time_stamp&quot;: &quot;2024-07-19T11:47:10Z&quot;, &quot;data_returned&quot;: 6, &quot;provider&quot;: {&quot;name&quot;: &quot;Example JSONL&quot;, &quot;description&quot;: &quot;An example JSONL file.&quot;, &quot;prefix&quot;: &quot;_exmpl&quot;}}}
 {&quot;type&quot;: &quot;info&quot;, &quot;id&quot;: &quot;/&quot;, &quot;attributes&quot;: {&quot;api_version&quot;: &quot;1.2.0&quot;, &quot;available_api_versions&quot;: [&quot;1.2.0&quot;], &quot;formats&quot;: [&quot;json&quot;], &quot;entry_types_by_format&quot;: {&quot;json&quot;: [&quot;references&quot;, &quot;structures&quot;]}, &quot;license&quot;: &quot;https://example.com/licenses/example_license.html&quot;}, &quot;homepage&quot;: &quot;https://example.com&quot;, &quot;name&quot;: &quot;Example API&quot;, &quot;provider&quot;: {&quot;description&quot;: &quot;A simple example provider&quot;, &quot;name&quot;: &quot;Example Provider&quot;}}}
