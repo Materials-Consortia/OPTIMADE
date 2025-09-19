@@ -675,7 +675,6 @@ Example:
   In the latter case, the whole list is repeated, as it is the case for :field:`elements` (to be interpreted as :val:`[["H","O"], ["H","O"], ["H","O"], ["H","O"], ["H","O"]]`) and the :field:`lattice_vectors` (to be interpreted as the repetition of the 3x3 matrix :val:`[[4.0, 0.0, 0.0],[0.0, 4.0, 0.0],[0.0, 0.0, 4.0]]` 5 times, i.e., a trajectory with the same lattice vectors for all 5 frames).
 
 Other compact formats might be introduced in future versions of this specification (e.g., constant values only in a range of indices, or linearly varying values).
-An appropriate way to communicate the format of the compact representation will then be defined.
 
 Responses
 =========
