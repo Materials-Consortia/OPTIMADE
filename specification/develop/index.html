@@ -4486,7 +4486,13 @@ Clients encountering unrecognized strings SHOULD treat them to mean the same as 
 </section>
 <section id="calculations-entries">
 <h3><a class="toc-backref" href="#toc-entry-101" role="doc-backlink"><span class="sectnum">8.3 </span>Calculations Entries</a></h3>
-<p>The <span class="entry docutils literal">calculations</span> entries have the properties described above in section <a class="reference internal" href="#properties-used-by-multiple-entry-types">Properties Used by Multiple Entry Types</a>.</p>
+<p>The <span class="entry docutils literal">calculations</span> entries have the properties described above in section <a class="reference internal" href="#properties-used-by-multiple-entry-types">Properties Used by Multiple Entry Types</a>.
+Related <span class="entry docutils literal">files</span> entries specified as relationships (as described in section <a class="reference internal" href="#relationships">Relationships</a>) list files used or produced by a calculation.
+They MAY be defined as either input or output files by the <span class="field docutils literal">role</span> field inside the <span class="field docutils literal">meta</span> dictionary of the JSON:API resource identifier object.
+The allowed values are <span class="val docutils literal">input</span> for input files and <span class="val docutils literal">output</span> for output files.
+If the <span class="field docutils literal">role</span> field is not provided or the value is set to <span class="val docutils literal">null</span>, a default role SHOULD NOT be assumed.
+It is RECOMMENDED to order the output files in the list of calculation's relationships in a way that prioritizes the files most likely to contain details which could be used to automatically analyze the performed calculation.
+Such an approach minimizes the number of calculation output files that need to be analyzed to possibly identify the code, type and parameters of the performed calculation.</p>
 </section>
 <section id="references-entries">
 <h3><a class="toc-backref" href="#toc-entry-102" role="doc-backlink"><span class="sectnum">8.4 </span>References Entries</a></h3>
