@@ -4,13 +4,13 @@ title: "lattice vectors"
 x-optimade-definition:
   label: "lattice_vectors_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "lattice_vectors"
 x-optimade-type: "list"
 x-optimade-dimensions:
   names: ["dim_lattice", "dim_spatial"]
-  lengths: [3, 3]
+  sizes: [3, 3]
 x-optimade-unit-definitions:
   - $$inherit: "/v1.2/units/si/general/angstrom"
 type:
@@ -40,7 +40,7 @@ items:
   x-optimade-type: "list"
   x-optimade-dimensions:
     names: ["dim_spatial"]
-    lengths: [3]
+    sizes: [3]
   type:
     - "array"
   x-optimade-unit: "inapplicable"

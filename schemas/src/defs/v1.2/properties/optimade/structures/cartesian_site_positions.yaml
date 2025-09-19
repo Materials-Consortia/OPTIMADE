@@ -5,7 +5,7 @@ x-optimade-type: "list"
 x-optimade-definition:
   label: "cartesian_site_positions_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "cartesian_site_positions"
 x-optimade-unit-definitions:
