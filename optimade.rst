@@ -2280,7 +2280,7 @@ A Property Definition MUST be composed according to the combination of the requi
     If :field:`compactable` is provided, then a value MUST be given for each dimension.
     If :field:`compactable` is not provided, then the default value is :val:`"no"` for each dimension.
 
-    For instance, for the :field:`lattice_vectors` property:
+    For instance, for the :field:`lattice_vectors` property of an entry of type :entry:`trajectories`:
 
     .. code:: jsonc
 
