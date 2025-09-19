@@ -676,9 +676,7 @@ We highlight two advantages of the design of the :val:`"constant"` compact forma
   data type of its items are the same, both when explicitly writing all list items (using the standard rules)
   and when using the compact format;
 
-- it avoids having to resort to the transmission of large property values for each constant (but potentially large)
-  property, thus reducing the amount of data transferred and avoiding the need to perform separate requests for each
-  individual property.
+- even if in the future a compact format is implemented also in the large-property transfer protocol (described in the section `Transmission of large property values`_), using the approach described here (where data is directly provided in the :field:`data` section) avoids unnecessary separate requests for each individual property.
 
 Example:
 
