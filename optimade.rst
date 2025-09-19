@@ -248,7 +248,7 @@ representation in all contexts. They are as follows:
 
   Examples of lists that are valid, but cannot be used for properties in OPTIMADE due to limits imposed by OPTIMADE property definitions:
 
-    - ``[[1.0, 2.0], ["string", "string"]]``: while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists will not be able to be validated by the same item subschema in a Property definition.
+    - ``[[1.0, 2.0], ["string", "string"]]``: while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists cannot be validated by the same item subschema in a Property definition.
 
     - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]``: the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
       As of OPTIMADE v1.2, such lists are excluded by Property definitions.
