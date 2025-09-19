@@ -2,13 +2,6 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
 title: "OPTIMADE property definition schema"
 type: object
-x-optimade-definition:
-  $$inherit: "x-optimade-definition-field"
-  label: "property_definition_meta"
-  kind: "meta"
-  version: "1.3.0"
-  format: "1.2"
-  name: "property_definition"
 allOf:
   - $ref: "#/$defs/property_definition_field"
   - required: ["$id", "$schema", "title", "description", "x-optimade-definition"]
@@ -268,13 +261,19 @@ $defs:
         type: string
       x-optimade-definition:
         $$inherit: "x-optimade-definition-field"
+        label: "property_definition_meta"
+        kind: "meta"
+        version: "1.2.1"
+        format: "1.2"
+        name: "property_definition"
       x-optimade-dimensions:
         description: |-
           Specification of the dimensions of one or multi-dimensional data represented as multiple levels of lists.
           Each dimension is given a name and optionally a fixed size.
           It was decided that OPTIMADE Property Definitions cannot use the JSON Schema validating fields minItems and maxItems since that would require reprocessing the schema to handle requests asking for only parts of the data in the lists.
-          Instead, list length information that an implementation can use to validate the length of lists is communicated in the `length` subfiled of this field (however, at this time, it can only specify a fixed length requirement.)
+          Instead, provide information on the length of a list for an implementation to validate. This is communicated in the `sizes` subfield of this field. At this time, `sizes` can only specify a fixed length requirement.
         type: object
+        additionalProperties: false
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:
@@ -308,6 +307,7 @@ $defs:
       x-optimade-unit:
         type: string
       x-optimade-implementation:
+        additionalProperties: false
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:
@@ -350,9 +350,9 @@ $defs:
         type: object
       x-optimade-requirements:
         additionalProperties: false
+        patternProperties:
+          "^x-(?!optimade-)": {}
         properties:
-          patternProperties:
-            "^x-(?!optimade-)": {}
           query-support:
             enum:
             - all mandatory
@@ -428,6 +428,6 @@ $defs:
            Property Definitions that only differ by fields that are considered annotations are to be considered the same, and as explained in the definition of the $id field SHOULD share the same $id.
         type: boolean
     # Allow database-specific fields
+    additionalProperties: false
     patternProperties:
       "^x-(?!optimade-)": {}
-    additionalProperties: false
