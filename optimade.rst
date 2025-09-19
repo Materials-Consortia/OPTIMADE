@@ -3809,7 +3809,7 @@ nframes
 reference_frames
 ~~~~~~~~~~~~~~~~
 
-- **Description**: The indexes of a set of frames that give a good but very brief overview of the trajectory.
+- **Description**: The indices of a set of frames that give a good but very brief overview of the trajectory.
   The first frame could for example be a starting configuration, the second a transition state and the third the final state.
 - **Type**: list of integers
 - **Requirements/Conventions**: The values MUST be larger than or equal to 0 and less than :val:`nframes`.
