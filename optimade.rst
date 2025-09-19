@@ -2425,9 +2425,9 @@ A Property Definition MUST be composed according to the combination of the requi
     Dimension names defined by the OPTIMADE standard are prefixed by ``dim_``.
     Dimension names defined by database or definition providers MUST be prefixed by the corresponding database or namespace prefix, which SHOULD then be immediately followed by ``dim_``, e.g., ``_exmpl_dim_particles``.
     If, within one entry, two or more list axes in one or more properties share the same dimension :field:`name`, those represent the same dimension.
-    For example, let us consider the property :property:`frame_cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
+    For example, let us consider the property :property:`cartesian_site_positions` of the trajectory entry, where the first dimension name is :val:`dim_frames`.
     Let the trajectory entry in this example have another, one-dimensional, list property :property:`_exmpl_energy`, which in its property definition specifies *the same name*, :val:`dim_frames`, as the name of the axis corresponding to its single dimension.
-    The joint dimension name means the values of :property:`_exmpl_energy` and of :property:`frame_cartesian_site_positions` at index *i* pertain to the same frame.
+    The joint dimension name means the values of :property:`_exmpl_energy` and of :property:`cartesian_site_positions` at index *i* pertain to the same frame.
     If slicing is used to request only parts of the data along the :val:`dim_frames` dimension, that is a request to slice both the properties according to the specified slice.
 
   - :field:`sizes`: List of Integers or :val:`null`.
