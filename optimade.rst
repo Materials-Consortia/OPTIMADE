@@ -256,6 +256,7 @@ representation in all contexts. They are as follows:
 
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
+- Namespace-specific data type (described in `Type handling and conversions in comparisons`_).
 
 An entry property value that is not present in the database is **unknown**.
 This is equivalently expressed by the statement that the value of that entry property is :val:`null`.
@@ -834,6 +835,7 @@ In the JSON response format, property types translate as follows:
 - **timestamp** uses a string representation of date and time as defined in `RFC 3339 Internet Date/Time Format <https://tools.ietf.org/html/rfc3339#section-5.6>`__.
 - **dictionary** is represented by the JSON object type.
 - **unknown** properties are represented by either omitting the property or by a JSON :field-val:`null` value.
+- Namespace-specific data types can use any of the above.
 
 Every response SHOULD contain the following fields, and MUST contain at least :field:`meta`:
 
@@ -1709,7 +1711,7 @@ An example of the data part of the entry listing info endpoint response follows 
             "x-optimade-type": "list",
             "x-optimade-dimensions": {
                "names": ["dim_lattice", "dim_spatial"],
-               "lengths": [3, 3]
+               "sizes": [3, 3]
             },
             "x-optimade-unit-definitions": [
                 {
@@ -1748,7 +1750,7 @@ An example of the data part of the entry listing info endpoint response follows 
               "x-optimade-unit": "inapplicable",
               "x-optimade-dimensions": {
                 "names": ["dim_spatial"],
-                "lengths": [3]
+                "sizes": [3]
               },
               "items": {
                 "type": "number",
@@ -2309,6 +2311,10 @@ As the filter language syntax does not define a lexical token for timestamps, va
 In a comparison with a timestamp property, a string token represents a timestamp value that would result from parsing the string according to RFC 3339 Internet Date/Time Format.
 Interpretation failures MUST be reported with error :http-error:`400 Bad Request`.
 
+Namespace providers MAY introduce namespace-specific data types.
+It is up to the providers to decide which comparison operators to support and how the comparisons should be performed.
+For example, a provider that introduces a set-valued property :property:`_exmpl_set`, may decide to override the :val:`CONTAINS` operator so that :filter:`identifier CONTAINS set` is true when :val:`set` is a subset of a property.
+
 Optional filter features
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2397,7 +2403,8 @@ A Property Definition MUST be composed according to the combination of the requi
 
 - :field:`x-optimade-type`: String.
   Specifies the OPTIMADE data type for this level of the defined property.
-  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, or :val:`"dictionary"`.
+  MUST be one of :val:`"string"`, :val:`"integer"`, :val:`"float"`, :val:`"boolean"`, :val:`"timestamp"`, :val:`"list"`, :val:`"dictionary"` or the name of a namespace-specific data type that starts with an underscore followed by the provider-specific prefix.
+  When a namespace-specific data type is used, the human-readable property description should be used to describe its usage and format.
 
 - :field:`x-optimade-unit`: String.
   A (compound) symbol for the physical unit in which the value of the defined property is given or one of the strings :val:`dimensionless` or :val:`inapplicable`.
@@ -3543,7 +3550,7 @@ fractional\_site\_positions
     If supported, filters MAY support only a subset of comparison operators.
   - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three fractional coordinates of a site expressed as float values in the fractions of the unit cell vectors given by the `lattice_vectors`_ property.
   - An entry MAY have multiple sites at the same site position (for a relevant use of this, see e.g., the property `assemblies`_).
-  - **Note**: Since both `cartesian_site_positions`_ and the `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ list.
+  - **Note**: Since both `cartesian_site_positions`_ and `fractional_site_positions`_ always describe the same sites, they MUST always have the same number of elements, equal to the number of elements in the `species_at_sites`_ list.
 
 - **Examples**:
 
@@ -3557,7 +3564,7 @@ site\_coordinate\_span
 - **Type**: string
 - **Requirements/conventions**:
 
-  - **Support**: MUST be supported by all implementations if coordinates `fractional_site_positions`_ are returned.
+  - **Support**: MUST be supported by all implementations if coordinates in `fractional_site_positions`_ are returned.
     It SHOULD be supported if coordinates in `cartesian_site_positions`_ are returned.
   - **Query**: Support for queries on this property is OPTIONAL.
 
@@ -3575,9 +3582,11 @@ site\_coordinate\_span
     - :val:`"molecular_entities"`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
       This set of sites MAY be larger than a fundamental domain.
     - :val:`"other"`: any other collection of sites that does not fit the enumerated values above.
-    - :val:`null`: if omitted or :val:`null`, the default value of :property:`site_coordinate_span` is :val:`unit_cell`. This is the assumed behavior of all main implementations before the :property:`site_coordinate_span` definition was introduced.
+    - :val:`null`: if omitted or :val:`null`, the default value of :property:`site_coordinate_span` is :val:`unit_cell`.
+      This is the assumed behavior of all main implementations before the :property:`site_coordinate_span` definition was introduced.
 
-- **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided. For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in :property:`lattice_vectors`; only a non-redundant set of sites SHOULD be provided.
+- **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided.
+  For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in :property:`lattice_vectors`; only a non-redundant set of sites SHOULD be provided.
 
 - **Bibliographic References**:
 
@@ -3616,7 +3625,7 @@ nsites
 species\_at\_sites
 ~~~~~~~~~~~~~~~~~~
 
-- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_ or `fractional_site_positions`_).
+- **Description**: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`_ and/or `fractional_site_positions`_).
   The properties of the species are found in the property `species`_.
 - **Type**: list of strings.
 - **Requirements/Conventions**:
