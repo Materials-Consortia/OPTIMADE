@@ -2055,7 +2055,7 @@ Note: the type of query discussed here corresponds to a "join"-type operation in
 
 Search for all structures with primary citation from year 2024:
 
-    :query-url:`https://example.com/optimade/v1/structures?filter=references.role:references.target.year+HAS+%22_exmpl_primary%22:2024`
+    :filter:`/structures?filter=references.role:references.target.year HAS "_exmpl_primary":2024`
 
 Filtering on Properties with an unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
