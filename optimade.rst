@@ -216,13 +216,11 @@ context-independent types that are assumed to have some form of
 representation in all contexts. They are as follows:
 
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
-- **list**: a collection of items organized as nested ordered one-dimensional arrangements. All items are of the same type, unless unknown.
-  A list can be empty, i.e., contain no items.
 - **list**: an ordered indexed collection of items that are either (i) all of the same basic type, (ii) only dictionaries, or (iii) only lists.
   In each case, (i)-(iii), unknown values (i.e., ``null``) are also allowed at any of the positions.
   Furthermore, a list can also be empty, i.e., contain no items.
   An empty list has a distinct meaning from ``null``: a list of no items (see `Properties with an unknown value`_).
-  
+
   Multidimensional collections of items are represented as nested lists.
   This specification uses the term **list axis** to refer to the levels of nesting in nested lists, and **dimensionality** as the deepest nesting level of the list and its sublists.
   A list can have items of different lengths along a given axis, i.e., nested lists are **not** limited to representing rectangular arrangement of items.
@@ -247,8 +245,8 @@ representation in all contexts. They are as follows:
   Examples of invalid lists:
 
     - ``[3.0, "string"]`` is not a valid list, since the two elements have different types.
-    
-  Examples of lists that are valid, but cannot be used for properties in OPTIMADE due to limits imposed by OPTIMADE property definitions: 
+
+  Examples of lists that are valid, but cannot be used for properties in OPTIMADE due to limits imposed by OPTIMADE property definitions:
 
     - ``[[1.0, 2.0], ["string", "string"]]``: while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists cannot will not be able to be validated by the same item subschema in a Property definition.
 
