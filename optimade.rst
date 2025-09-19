@@ -218,8 +218,8 @@ representation in all contexts. They are as follows:
 - Basic types: **string**, **integer**, **float**, **boolean**, **timestamp**.
 - **list**: an ordered indexed collection of items that are either (i) all of the same basic type, (ii) only dictionaries, or (iii) only lists.
   In each case, (i)-(iii), unknown values (i.e., ``null``) are also allowed at any of the positions.
-  Furthermore, a list can also be empty, i.e., contain no items.
-  An empty list has a distinct meaning from ``null``: a list of no items (see `Properties with an unknown value`_).
+  A list can also be empty, i.e., contain no items.
+  An empty list has a distinct meaning from ``null``, namely, it is a list with no items (see `Properties with an unknown value`_).
 
   Multidimensional collections of items are represented as nested lists.
   This specification uses the term **list axis** to refer to the levels of nesting in nested lists, and **dimensionality** as the deepest nesting level of the list and its sublists.
@@ -251,6 +251,7 @@ representation in all contexts. They are as follows:
     - ``[[1.0, 2.0], ["string", "string"]]``: while each of the two sublists is a valid list ([1.0, 2.0] is a list of floats, and ["string", "string"] is a list of strings), the two sublists will not be able to be validated by the same item subschema in a Property definition.
 
     - ``[[1.0, 2.0], [[3.0], [4.0]], [5.0]]``: the second sublist contains nested lists, whereas the other two sublists do not, thus not allowing a consistent definition of the dimensions and axes of the list.
+      As of OPTIMADE v1.2, such lists are excluded by Property definitions.
 
 - **dictionary**: a collection of **key**-**value** pairs, where **keys** are pre-determined strings, i.e., for the same entry property the **keys** remain the same among different entries whereas the **values** change.
   The **values** of a dictionary can be any basic type, list, dictionary, or unknown.
@@ -718,7 +719,8 @@ The field :field:`list_axes` is defined as follows:
 
   - :field:`sliceable`: Boolean.
     If :val:`true`, the server MUST handle slices for that dimension.
-    If :val:`false`, the server MAY handle slices for that dimension, or MAY return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.
+    If :val:`false`, the server MAY handle slices for that dimension, but if it receives a slice request it cannot handle, it MUST return the error :http-error:`501 Not Implemented` when a client requests a slice involving this dimension.    
+    If a server is capable of handling slicing for a particular dimension, the server SHOULD indicate this by setting :field:`sliceable` to :val:`true` in its responses.
     If the field is omitted or :val:`null`, it means the same thing as :val:`false`.
 
   - :field:`available_slice`: Dictionary or :val:`null`.
