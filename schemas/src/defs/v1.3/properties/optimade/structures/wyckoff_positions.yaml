@@ -19,7 +19,7 @@ description: |-
   **Requirements/Conventions**:
 
   - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions` and/or `fractional_site_positions`).
-  - If provided, MUST list a single letter Wyckoff position for each site in the structure.
+  - If provided, MUST list a single letter (`a`-`z`) Wyckoff position for each site in the structure.
 x-optimade-unit: "inapplicable"
 items:
   $$inherit: "/v1.3/properties/optimade/common/wyckoff_position"

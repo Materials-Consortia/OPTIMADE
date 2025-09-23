@@ -3944,7 +3944,7 @@ wyckoff\_positions
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and/or `fractional_site_positions`_).
-  - If provided, MUST list a single letter Wyckoff position for each site in the structure.
+  - If provided, MUST list a single letter (`a`-`z`) Wyckoff position for each site in the structure.
 
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
