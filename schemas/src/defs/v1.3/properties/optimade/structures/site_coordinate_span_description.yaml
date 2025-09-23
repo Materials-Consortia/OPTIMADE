@@ -1,0 +1,18 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/structures/site_coordinate_span_description"
+title: "Site coordinate span description"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "site_coordinate_span_description_optimade_structures"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.2"
+  name: "site_coordinate_span_description"
+type:
+  - "string"
+  - "null"
+description: |-
+  Human-readable semi-formal characterization of the coordinate span when the `site_coordinate_span` property has value `other`.
+examples:
+  - "Two fullerene molecules with a VdW contact."
+x-optimade-unit: "inapplicable"
