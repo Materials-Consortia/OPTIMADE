@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/structures/wyckoff_positions"
+title: "Wyckoff positions"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "wyckoff_positions_optimade_structures"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.2"
+  name: "wyckoff_positions"
+x-optimade-dimensions:
+  names: ["dim_sites"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of Wyckoff symbols of sites (where values for sites are specified with the same order of the property `cartesian_site_positions` and/or `fractional_site_positions`).
+
+  **Requirements/Conventions**:
+
+  - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions` and/or `fractional_site_positions`).
+  - If provided, MUST list a single letter Wyckoff position for each site in the structure.
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.3/properties/optimade/common/wyckoff_position"
