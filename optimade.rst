@@ -3933,6 +3933,38 @@ assemblies
     These two sites are correlated (either site 2 or 3 is present).
     However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 % probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with 0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
+bonds
+~~~~~
+
+- **Description**: A list describing the chemical connectivity of the structure.
+- **Type**: list of dictionary with keys:
+
+  - :property:`sites`: a list of integers (REQUIRED)
+  - :property:`translations`: a list of list of integers (OPTIONAL)
+  - :property:`distance`: float (OPTIONAL)
+
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - The property SHOULD be :val:`null` for structures for which the chemical connectivity is unknown to the implementation.
+  - If present, it MUST be a list of dictionaries, each of which represents a chemical bond and MUST have the following key:
+
+    - *sites*: a non-decreasing list of 0-based indexes of the two sites that form a chemical bond.
+
+  - If translations are needed by at least one of the sites of a bond, the following key SHOULD be used:
+
+    - *translations*: a list of two lists of three integers each, defining translations of the sites.
+      Omitting this key means that both translation vectors are :val:`[0, 0, 0]`.
+
+  - OPTIONAL key :property:`distance` MAY be used to provide the distance in ångströms (Å) between the two sites after applying the appropriate translation vectors.
+
+- **Examples**:
+
+  - :val:`[ {"sites": [0, 1]} ]`: a structure with a bond between sites 0 and 1.
+  - :val:`[ {"sites": [0, 0], "translations": [ [0, 0, 0], [0, 0, 1] ]} ]`: a 1D polymer.
+
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
 
