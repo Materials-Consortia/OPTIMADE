@@ -3933,6 +3933,23 @@ assemblies
     These two sites are correlated (either site 2 or 3 is present).
     However, the presence or absence of sites 0 and 1 is not correlated with the presence or absence of sites 2 and 3 (in the specific example, the pair of sites (0, 2) can occur with 0.2\*0.3 = 6 % probability; the pair (0, 3) with 0.2\*0.7 = 14 % probability; the pair (1, 2) with 0.8\*0.3 = 24 % probability; and the pair (1, 3) with 0.8\*0.7 = 56 % probability).
 
+wyckoff\_positions
+~~~~~~~~~~~~~~~~~~
+
+- **Description**: A list of Wyckoff symbols of sites (where values for sites are specified with the same order of the property `cartesian_site_positions`_ and/or `fractional_site_positions`_).
+- **Type**: list of strings
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
+  - **Query**: Support for queries on this property is OPTIONAL.
+    If supported, filters MAY support only a subset of comparison operators.
+  - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and/or `fractional_site_positions`_).
+  - If provided, MUST list a single letter (`a`-`z` or `α`) Wyckoff position for each site in the structure according to the International Tables for Crystallography vol. A (IUCr, 2016).
+
+- **Bibliographic References**:
+
+  IUCr (2016). International Tables for Crystallography vol. A. Space-group Symmetry, Ed. M. I. Aroyo, 6-th edition. Chichester, John Wiley & Sons.
+
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
 
