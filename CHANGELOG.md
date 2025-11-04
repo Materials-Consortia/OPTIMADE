@@ -8,14 +8,14 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
 
 ## New features
 
-- **Trajectories endpoint**
-  ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377))
-- **JSONLines standardization for serializing OPTIMADE APIs to disk**
-  ([#531](https://github.com/Materials-Consortia/OPTIMADE/pull/531))
-- **New fields for structures (fractional_site_positions, optimziation_type)**
-  ([#539](https://github.com/Materials-Consortia/OPTIMADE/pull/539), [#562](https://github.com/Materials-Consortia/OPTIMADE/pull/562))
+- **Trajectories endpoint** ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377)): A new trajectories entry type has been added to the specification to share data belonging to ordered sequences of structures, such as those arising from molecular dynamics simulations or geometry optimizations.
+    In order to handle large individual entries, this endpoint makes use of the partial data protocol introduced in v1.2, with additional specialisations for slicing and representing dimensions that remain constant throughout a trajectory, whilst retaining the ability to filter using the normal OPTIMADE syntax via the `reference_frame` field.
 - **Provider-specific data types**
   ([#560](https://github.com/Materials-Consortia/OPTIMADE/pull/560))
+- **New fields for structures entries (`fractional_site_positions`, `optimization_type`)**
+  ([#539](https://github.com/Materials-Consortia/OPTIMADE/pull/539), [#562](https://github.com/Materials-Consortia/OPTIMADE/pull/562))
+- **JSONLines standardization for serializing OPTIMADE APIs to disk**
+  ([#531](https://github.com/Materials-Consortia/OPTIMADE/pull/531))
 - **Roles for files**
   ([#523](https://github.com/Materials-Consortia/OPTIMADE/pull/523))
 
