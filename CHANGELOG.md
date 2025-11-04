@@ -11,8 +11,9 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
 
 ## New features
 
-- **Trajectories endpoint** ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377)): A new trajectories entry type has been added to the specification to share data belonging to ordered sequences of structures, such as those arising from molecular dynamics simulations or geometry optimizations.
-    In order to handle large individual entries, this endpoint makes use of the partial data protocol introduced in v1.2, with additional specialisations for slicing (`query_slices` URL parameter) and representing dimensions that remain constant throughout a trajectory, whilst retaining the ability to filter using the normal OPTIMADE syntax via the `reference_frame` field.
+- **Trajectories endpoint** ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377), [#481](https://github.com/Materials-Consortia/OPTIMADE/pull/481))
+): A new trajectories entry type has been added to the specification to share data belonging to ordered sequences of structures, such as those arising from molecular dynamics simulations or geometry optimizations.
+    In order to handle large individual entries, this endpoint makes use of the partial data protocol introduced in v1.2, with additional specialisations for slicing (e.g., the `dimension_slices` URL parameter) and representing dimensions that remain constant throughout a trajectory, whilst retaining the ability to filter using the normal OPTIMADE syntax via the `reference_frame` field.
 - **Provider-specific data types** ([#560](https://github.com/Materials-Consortia/OPTIMADE/pull/560)): Providers and namespaces can now define custom data types for their properties that let them use specific query semantics that differ from the standard OPTIMADE data types.
   For example, a provider could define a field that uses a string format for a field, but a custom data type that allows for e.g., `CONTAINS` queries to do something other than pure substring matching.
 - **New fields for structures entries (`fractional_site_positions`, `site_coordinate_span`, `site_coordinate_span_description`, `optimization_type`, `wyckoff_positions`)**
@@ -26,9 +27,9 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
   This format is already in-use by several tools in the ecosystem and is RECOMMENDED for interoperability.
 - **Extended filtering on relationships** ([#524](https://github.com/Materials-Consortia/OPTIMADE/pulls/524), [#523](https://github.com/Materials-Consortia/OPTIMADE/pull/523)):
   Additional metadata fields describing relationships between entries (`description` and `role`) have been added between all entry types.
-  An addititional dummy field `target` has been added to enable direct querying
-  (i.e., without requiring a join) on properties of the target of a relationship, for example: `/structures?filter=references.target.doi="10.1234/56789"`.
+  An addititional dummy field `target` has been added to enable direct querying (i.e., without requiring a join) on properties of the target of a relationship, for example: `/structures?filter=references.target.doi="10.1234/56789"`.
   In addition, relationships specifically between `files` and `calculations` entries can now specify a `role` that describes whether the file is an `input`, `output`.
+
 
 ## v1.2.0 (June 2024)
 
