@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.3.0 (November 2025)
+
+This release extends the OPTIMADE specification with new entry types and properties with an emphasis on applying the partial data protocol from v1.2 to the new trajectories endpoint, for which each resource is likely to be too large to be served in a single response.
+
+Minor OPTIMADE releases are always intended to be backwards-compatible for clients, meaning that any client code written for v1.x should continue to work, and any breaking changes should be reported as bugs to be fixed in a patch v1.3.x release.
+
+## New features
+
+- **Trajectories endpoint**
+  ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377))
+- **JSONLines standardization for serializing OPTIMADE APIs to disk**
+  ([#531](https://github.com/Materials-Consortia/OPTIMADE/pull/531))
+- **New fields for structures (fractional_site_positions, optimziation_type)**
+  ([#539](https://github.com/Materials-Consortia/OPTIMADE/pull/539), [#562](https://github.com/Materials-Consortia/OPTIMADE/pull/562))
+- **Provider-specific data types**
+  ([#560](https://github.com/Materials-Consortia/OPTIMADE/pull/560))
+- **Roles for files**
+  ([#523](https://github.com/Materials-Consortia/OPTIMADE/pull/523))
+
 ## v1.2.0 (June 2024)
 
 
