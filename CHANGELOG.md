@@ -10,10 +10,28 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
 
 - **Trajectories endpoint** ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377)): A new trajectories entry type has been added to the specification to share data belonging to ordered sequences of structures, such as those arising from molecular dynamics simulations or geometry optimizations.
     In order to handle large individual entries, this endpoint makes use of the partial data protocol introduced in v1.2, with additional specialisations for slicing and representing dimensions that remain constant throughout a trajectory, whilst retaining the ability to filter using the normal OPTIMADE syntax via the `reference_frame` field.
-- **Provider-specific data types**
-  ([#560](https://github.com/Materials-Consortia/OPTIMADE/pull/560))
-- **New fields for structures entries (`fractional_site_positions`, `optimization_type`)**
-  ([#539](https://github.com/Materials-Consortia/OPTIMADE/pull/539), [#562](https://github.com/Materials-Consortia/OPTIMADE/pull/562))
+- **Provider-specific data types** ([#560](https://github.com/Materials-Consortia/OPTIMADE/pull/560)): Providers and namespaces can now define custom data types for their properties that let
+  them use specific query semantics that differ from the standard OPTIMADE data
+  types.
+  For example, a provider could define a field that uses a string format for a
+  field, but a custom data type that allows for e.g., `CONTAINS` queries to do
+  something other than pure substring matching.
+- **New fields for structures entries (`fractional_site_positions`, `site_coordinate_span`, `site_coordinate_span_description`, `optimization_type`, `wyckoff_positions`)**
+  ([#539](https://github.com/Materials-Consortia/OPTIMADE/pull/539), [#562](https://github.com/Materials-Consortia/OPTIMADE/pull/562), [#570](https://github.com/Materials-Consortia/OPTIMADE/pull/570)): Several new fields have been added to the structures entry type to improve symmetry representation and to provide information about the provenance of the structure:
+  - `fractional_site_positions`, `site_coordinate_span`,
+    `site_coordinate_span_description`: New fields that can be used to describe positions of atoms as an alternative to `cartesian_site_positions`, to be used in conjunction with `space_group_symmetry_operations_xyz` when providing only the asymmetric unit of a structure.
+    The additional `site_coordinate_span` and `site_coordinate_span_description` fields can be used to describe the extent of the atoms that have been provided as fractional coordinates and can take values such as `asymmetric_unit`, `unit_cell`, `molecular_entities`, etc.
+  - `wyckoff_positions`: This field can be used to provide the Wyckoff positions
+    of each site in the structure, if known, following the IUCr definitions of
+    labelling.
+  - `optimization_type`: This field can be used to describer the type of
+    optimization that has been performed on a structure, if any.
+    For example, the optimization could be relative to experimental evidence
+    (`experimental`) (e.g., minimising discrepancy with a diffraction pattern), relative to some
+    kind of Hamiltonian (e.g., density-funtional theory or a force-field), and
+    whether the optimisation scope was `local` or in some sense `global`
+    (minimised relative to a global energy surface of possible decompositions
+    and other structural configurations).
 - **JSONLines standardization for serializing OPTIMADE APIs to disk**
   ([#531](https://github.com/Materials-Consortia/OPTIMADE/pull/531))
 - **Roles for files**
