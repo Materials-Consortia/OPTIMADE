@@ -4,12 +4,15 @@
 
 This release extends the OPTIMADE specification with new entry types and properties with an emphasis on applying the partial data protocol from v1.2 to the new trajectories endpoint, for which each resource is likely to be too large to be served in a single response.
 
+As part of this release, the OPTIMADE consortium also adopts the Contributor Covenant (3.0) Code of Conduct for all community interactions.
+Please see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details of the contributor expectations, as well as reporting and enforcement procedures.
+
 Minor OPTIMADE releases are always intended to be backwards-compatible for clients, meaning that any client code written for v1.x should continue to work, and any breaking changes should be reported as bugs to be fixed in a patch v1.3.x release.
 
 ## New features
 
 - **Trajectories endpoint** ([#377](https://github.com/Materials-Consortia/OPTIMADE/pull/377)): A new trajectories entry type has been added to the specification to share data belonging to ordered sequences of structures, such as those arising from molecular dynamics simulations or geometry optimizations.
-    In order to handle large individual entries, this endpoint makes use of the partial data protocol introduced in v1.2, with additional specialisations for slicing and representing dimensions that remain constant throughout a trajectory, whilst retaining the ability to filter using the normal OPTIMADE syntax via the `reference_frame` field.
+    In order to handle large individual entries, this endpoint makes use of the partial data protocol introduced in v1.2, with additional specialisations for slicing (`query_slices` URL parameter) and representing dimensions that remain constant throughout a trajectory, whilst retaining the ability to filter using the normal OPTIMADE syntax via the `reference_frame` field.
 - **Provider-specific data types** ([#560](https://github.com/Materials-Consortia/OPTIMADE/pull/560)): Providers and namespaces can now define custom data types for their properties that let
   them use specific query semantics that differ from the standard OPTIMADE data
   types.
@@ -33,9 +36,12 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
     (minimised relative to a global energy surface of possible decompositions
     and other structural configurations).
 - **JSONLines standardization for serializing OPTIMADE APIs to disk**
-  ([#531](https://github.com/Materials-Consortia/OPTIMADE/pull/531))
-- **Roles for files**
-  ([#523](https://github.com/Materials-Consortia/OPTIMADE/pull/523))
+  ([#531](https://github.com/Materials-Consortia/OPTIMADE/pull/531)): An
+  appendix has been added to the specification with a suggestion for how to serialize OPTIMADE entries, or full APIs (including e.g., info endpoints) to a single file using the [JSONLines format](https://jsonlines.org/).
+  This format is already in-use by several tools in the ecosystem and is
+  RECOMMENDED for interoperability.
+- **Roles for files** ([#523](https://github.com/Materials-Consortia/OPTIMADE/pull/523)):
+  Relationships with `files` entries can now specify a `role` that describes whether the file is an `input`, `output` with respect to an existing `calculations` entry.
 
 ## v1.2.0 (June 2024)
 
