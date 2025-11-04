@@ -3944,7 +3944,11 @@ wyckoff\_positions
   - **Query**: Support for queries on this property is OPTIONAL.
     If supported, filters MAY support only a subset of comparison operators.
   - MUST have length equal to the number of sites in the structure (first dimension of the list properties `cartesian_site_positions`_ and/or `fractional_site_positions`_).
-  - If provided, MUST list a single letter (`a`-`z` or `α`) Wyckoff position for each site in the structure.
+  - If provided, MUST list a single letter (`a`-`z` or `α`) Wyckoff position for each site in the structure according to the International Tables for Crystallography vol. A (IUCr, 2016).
+
+- **Bibliographic References**:
+
+  IUCr (2016). International Tables for Crystallography vol. A. Space-group Symmetry, Ed. M. I. Aroyo, 6-th edition. Chichester, John Wiley & Sons.
 
 structure\_features
 ~~~~~~~~~~~~~~~~~~~
