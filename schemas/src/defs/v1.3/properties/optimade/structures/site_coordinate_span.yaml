@@ -1,0 +1,62 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/structures/site_coordinate_span"
+title: "Site coordinate span"
+x-optimade-type: "string"
+x-optimade-definition:
+  label: "site_coordinate_span_optimade_structures"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.2"
+  name: "site_coordinate_span"
+type:
+  - "string"
+  - "null"
+description: |-
+  Indicates the extent of the material (crystal) described in the response.
+  In particular, properties `cartesian_site_positions` and `fractional_site_positions` MUST contain all sites *belonging* to the described extent.
+
+  The value of this property MUST be one of the following:
+
+    * `fundamental_domain`: means that sites described in the response span a fundamental domain (Vinberg, 1994; European Mathematical Society, 2020) of a periodic system.
+      When a server indicates this span in the response, it MUST provide those sites that enable reconstruction of the whole periodic system by applying symmetry operations from `space_group_symmetry_operations_xyz` property and then applying translations given by `lattice_vectors`.
+      The fundamental domain does not need to be a connected space region.
+
+    * `asymmetric_unit`: all sites are in a simply connected space region that is a fundamental domain, as per IUCr Online Dictionary of Crystallography definition (IUCr, 2017).
+
+    * `molecular_fundamental_domain`: a fundamental domain where all atoms connected by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+
+    * `molecular_asymmetric_unit`: an asymmetric unit (a simply connected fundamental domain) where all atoms bound by covalent or donor-acceptor coordination bonds are adjacent to each other, placed at a bond distance.
+
+    * `unit_cell`: a full unit cell of a periodic system (crystal), i.e., any repeating unit chosen by the server defined by the property `lattice_vectors`.
+      For this span, the server MUST provide a set of sites in the response that can be used to reconstruct the whole periodic system (crystal) by simply applying translations from the `lattice_vectors` property to those sites.
+
+    * `molecular_unit_cell`: same as `unit_cell`, but in addition places atoms that are bound by covalent or coordination bonds at a bond distance from each other.
+
+    * `molecular_entities`: sets of atoms that are bound by covalent or coordination bonds, as per IUPAC definition of a 'molecular entity'.
+      This set of sites MAY be larger than a fundamental domain.
+
+    * `other`: any other collection of sites that does not fit the enumerated values above.
+
+    * `null`: if omitted or `null`, the default value of `site_coordinate_span` is `unit_cell`.
+      This is the assumed behavior of all main implementations before the `site_coordinate_span` definition was introduced.
+
+  **Note**: In all cases it is RECOMMENDED that only the minimal set of the sites that is needed to reconstruct the whole material is provided.
+  For example, for the 'unit_cell' span the server SHOULD NOT return sites that can be obtained from other returned sites through the translations given in `lattice_vectors`; only a non-redundant set of sites SHOULD be provided.
+
+  **Bibliographic References**:
+
+  E.B. Vinberg (originator). (1994) Encyclopedia of Mathematics. ISBN `1402006098 <https://isbnsearch.org/isbn/1402006098>`__, URL: https://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=13590 [accessed 2025-04-30T08:55+03:00].
+
+  European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: http://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=47023 [accessed 2025-04-30T08:53+03:00].
+
+  IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
+x-optimade-unit: "inapplicable"
+enum:
+  - fundamental_domain
+  - asymmetric_unit
+  - molecular_fundamental_domain
+  - molecular_asymmetric_unit
+  - unit_cell
+  - molecular_unit_cell
+  - molecular_entities
+  - other
