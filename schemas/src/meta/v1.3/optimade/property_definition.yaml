@@ -274,6 +274,7 @@ $defs:
           Instead, provide information on the length of a list for an implementation to validate. This is communicated in the `sizes` subfield of this field. At this time, `sizes` can only specify a fixed length requirement.
         type: object
         additionalProperties: false
+        required: ['names', 'sizes']
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:
@@ -295,6 +296,21 @@ $defs:
               type:
                 - "integer"
                 - "null"
+          compactable:
+            description: |-
+              For each dimension, defines whether the data can be written in a compact form along that dimension.
+              If the value is `"no"` for one given dimension, the standard rules to represent lists apply (i.e., the server CANNOT express that property using a compact format).
+              If the value is any other string for one given dimension (currently, only the string `"constant"` is supported), the server MAY decide to express the data in the response using the compact format defined by that string.
+              If it decides not to do so, then it MUST use the standard rules to represent lists.
+              If `compactable` is provided, then a value MUST be given for each dimension.
+              If `compactable` is not provided, then the default value is `"no"` for each dimension.
+            type: array
+              items:
+                type:
+                  - string
+                enum:
+                  - "constant"
+                  - "no"
       x-optimade-unit-definitions:
         type: array
         items:
