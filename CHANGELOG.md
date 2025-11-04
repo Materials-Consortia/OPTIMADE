@@ -27,7 +27,7 @@ Minor OPTIMADE releases are always intended to be backwards-compatible for clien
   This format is already in-use by several tools in the ecosystem and is RECOMMENDED for interoperability.
 - **Extended filtering on relationships** ([#524](https://github.com/Materials-Consortia/OPTIMADE/pulls/524), [#523](https://github.com/Materials-Consortia/OPTIMADE/pull/523)):
   Additional metadata fields describing relationships between entries (`description` and `role`) have been added between all entry types.
-  An addititional dummy field `target` has been added to enable direct querying (i.e., without requiring a join) on properties of the target of a relationship, for example: `/structures?filter=references.target.doi="10.1234/56789"`.
+  An additional dummy field `target` has been added to enable direct querying (i.e., without requiring a join) on properties of the target of a relationship, for example: `/structures?filter=references.target.doi="10.1234/56789"`.
   In addition, relationships specifically between `files` and `calculations` entries can now specify a `role` that describes whether the file is an `input`, `output`.
 
 
