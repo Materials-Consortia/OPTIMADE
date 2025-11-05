@@ -2063,8 +2063,14 @@ In the default JSON response format every dictionary (<a class="reference extern
 <li><p><strong>meta</strong>: a <a class="reference external" href="https://jsonapi.org/format/1.1/#document-meta">JSON API meta object</a> that is used to communicate metadata.
 See <a class="reference internal" href="#json-response-schema-common-fields">JSON Response Schema: Common Fields</a> for more information about this field.</p></li>
 <li><p><strong>relationships</strong>: a dictionary containing references to other entries according to the description in section <a class="reference internal" href="#relationships">Relationships</a> encoded as <a class="reference external" href="https://jsonapi.org/format/1.1/#document-resource-object-relationships">JSON:API Relationships</a>.
-The OPTIONAL human-readable description of the relationship MAY be provided in the <span class="field docutils literal">description</span> field inside the <span class="field docutils literal">meta</span> dictionary of the JSON:API resource identifier object.
-All relationships to entries of the same entry type MUST be grouped into the same JSON:API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., <span class="entry docutils literal">structures</span>).</p></li>
+All relationships to entries of the same entry type MUST be grouped into the same JSON:API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., <span class="entry docutils literal">structures</span>).
+Every JSON:API resource identifier object MAY contain the following OPTIONAL keys inside its <span class="field docutils literal">meta</span> dictionary:</p>
+<ul>
+<li><p><span class="field docutils literal">description</span>: a human-readable description of the relationship</p></li>
+<li><p><span class="field docutils literal">role</span>: a string defining the kind of relationship between the related entries.
+Possible roles between each pair of entry types are defined under <a class="reference internal" href="#entry-list">Entry List</a>.</p></li>
+</ul>
+</li>
 </ul>
 <p>Example:</p>
 <pre class="code jsonc literal-block"><code>{
@@ -2876,10 +2882,24 @@ Strictly, the definitions of the <span class="filter-fragment docutils literal">
 <h4><a class="toc-backref" href="#toc-entry-57" role="doc-backlink"><span class="sectnum">6.2.6 </span>Nested property names</a></h4>
 <p>Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in section <a class="reference internal" href="#lexical-tokens">Lexical Tokens</a>, consisting of identifiers separated by periods ('.').
 A filter on a nested property name consisting of two identifiers <span class="filter-fragment docutils literal">identifier1.identifier2</span> matches if either one of these points are true:</p>
-<ul class="simple">
+<ul>
 <li><p><span class="filter-fragment docutils literal">identifier1</span> references a dictionary-type property that contains as an identifier <span class="filter-fragment docutils literal">identifier2</span> and the filter matches for the content of <span class="filter-fragment docutils literal">identifier2</span>.</p></li>
 <li><p><span class="filter-fragment docutils literal">identifier1</span> references a list of dictionaries that contain as an identifier <span class="filter-fragment docutils literal">identifier2</span> and the filter matches for a flat list containing only the contents of <span class="filter-fragment docutils literal">identifier2</span> for every dictionary in the list.
 E.g., if <span class="filter-fragment docutils literal">identifier1</span> is the list <span class="filter-fragment docutils literal"><span class="pre">[{&quot;identifier2&quot;:42,</span> <span class="pre">&quot;identifier3&quot;:36},</span> <span class="pre">{&quot;identifier2&quot;:96,</span> <span class="pre">&quot;identifier3&quot;:66}]</span></span>, then <span class="filter-fragment docutils literal">identifier1.identifier2</span> is understood in the filter as the list <span class="filter-fragment docutils literal">[42, 96]</span>.</p></li>
+<li><p><span class="filter-fragment docutils literal">identifier1</span> references an entry type of a group of related entries each containing a property named after an identifier <span class="filter-fragment docutils literal">identifier2</span> and the filter matches for a flat list containing only the values of <span class="filter-fragment docutils literal">identifier2</span> properties for every related entry.
+In this case, <span class="filter-fragment docutils literal">identifier2</span> is restricted to the following fields:</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="field docutils literal">id</span>, when matching directly on the ID of the related entry.</p></li>
+<li><p><span class="field docutils literal">description</span>, when matching on human-readable description of the relationship.</p></li>
+<li><p><span class="field docutils literal">role</span>, when matching on the role of the relationship between entries (possible relationships are defined per-entry type).</p></li>
+<li><p><span class="field docutils literal">target</span>, which can be further nested to enable queries on the related entry's property.</p></li>
+</ul>
+</blockquote>
+<p>Support for such queries is OPTIONAL.
+E.g., <span class="filter-fragment docutils literal">references.target.doi</span> is understood in the filter as the list containing values of <span class="property docutils literal">doi</span> for all related entries of type <span class="entry docutils literal">references</span>.
+This is explained in more detail in section <a class="reference internal" href="#filtering-on-relationships">Filtering on relationships</a>.</p>
+</li>
 </ul>
 <p>The API implementation MAY allow this notation to generalize to arbitrary depth.
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.</p>
@@ -2887,23 +2907,44 @@ A nested property name that combines more than one list MUST, if accepted, be in
 <section id="filtering-on-relationships">
 <h4><a class="toc-backref" href="#toc-entry-58" role="doc-backlink"><span class="sectnum">6.2.7 </span>Filtering on relationships</a></h4>
 <p>As described in the section <a class="reference internal" href="#relationships">Relationships</a>, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
-The API implementation MAY support queries on relationships with an entry type <span class="filter-fragment docutils literal">&lt;entry type&gt;</span> by using special nested property names:</p>
+The API implementation MAY support queries on relationships with an entry type <span class="filter-fragment docutils literal">&lt;entry type&gt;</span>:</p>
 <ul class="simple">
 <li><p><span class="filter-fragment docutils literal">&lt;entry <span class="pre">type&gt;.id</span></span> references a list of IDs of relationships with entries of the type <span class="filter-fragment docutils literal">&lt;entry type&gt;</span>.</p></li>
 <li><p><span class="filter-fragment docutils literal">&lt;entry <span class="pre">type&gt;.description</span></span> references a correlated list of the human-readable descriptions of these relationships.</p></li>
+<li><p><span class="filter-fragment docutils literal">&lt;entry <span class="pre">type&gt;.role</span></span> references a correlated list of roles between entries in relationships.</p></li>
+<li><p><span class="filter-fragment docutils literal">&lt;entry <span class="pre">type&gt;.target.&lt;property&gt;</span></span> references a list of property <span class="property docutils literal">&lt;property&gt;</span> values for related entries (i.e., the <span class="filter-fragment docutils literal">target</span> entry of the relationship) of type <span class="filter-fragment docutils literal">&lt;entry type&gt;</span>.</p></li>
 </ul>
-<p>Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, <span class="filter-fragment docutils literal">id</span> and <span class="filter-fragment docutils literal">description</span>.
+<p>Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with keys <span class="property docutils literal">id</span>, <span class="property docutils literal">description</span>, <span class="property docutils literal">role</span> and <span class="property docutils literal">target</span>.
 For example: a client queries the <span class="endpoint docutils literal">structures</span> endpoint with a filter that references <span class="filter-fragment docutils literal">calculations.id</span>.
 For a specific structures entry, the nested property behaves as the list <span class="filter-fragment docutils literal"><span class="pre">[&quot;calc-id-43&quot;,</span> <span class="pre">&quot;calc-id-96&quot;]</span></span> and would then, e.g., match the filter <code class="filter">calculations.id HAS &quot;calc-id-96&quot;</code>.
 This means that the structures entry has a relationship with the calculations entry of that ID.</p>
+<p>Support for queries on fields of arbitrary depth is OPTIONAL.</p>
 <blockquote>
-<p><strong>Note</strong>: formulating queries on relationships with entries that have specific property values is a multi-step process.
+<p><strong>Note</strong>: without this support, formulating queries on relationships with entries that have specific property values is a multi-step process.
 For example, to find all structures with bibliographic references where one of the authors has the last name &quot;Schmidt&quot; is performed by the following two steps:</p>
+<blockquote>
 <ul class="simple">
 <li><p>Query the <span class="endpoint docutils literal">references</span> endpoint with a filter <code class="filter">authors.lastname HAS &quot;Schmidt&quot;</code> and store the <span class="filter-fragment docutils literal">id</span> values of the returned entries.</p></li>
 <li><p>Query the <span class="endpoint docutils literal">structures</span> endpoint with a filter <span class="filter-fragment docutils literal">references.id HAS ANY <span class="pre">&lt;list-of-IDs&gt;</span></span>, where <span class="filter-fragment docutils literal"><span class="pre">&lt;list-of-IDs&gt;</span></span> are the IDs retrieved from the first query separated by commas.</p></li>
 </ul>
-<p>(Note: the type of query discussed here corresponds to a &quot;join&quot;-type operation in a relational data model.)</p>
+</blockquote>
+</blockquote>
+<p>For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:</p>
+<blockquote>
+<p><span class="docutils literal"><span class="pre">/structures?filter=references.target.doi=&quot;10.1234/1234&quot;</span></span></p>
+</blockquote>
+<p>Search for all literature references for structures with tantalum:</p>
+<blockquote>
+<p><span class="docutils literal"><span class="pre">/references?filter=structures.target.elements</span> HAS &quot;Ta&quot;</span></p>
+</blockquote>
+<p>Search for all structures of anonymous formula A2B from year 2024:</p>
+<blockquote>
+<p><span class="docutils literal"><span class="pre">/structures?filter=references.target.year=2024</span> AND <span class="pre">chemical_formula_anonymous=&quot;A2B&quot;</span></span></p>
+</blockquote>
+<p>Note: the type of query discussed here corresponds to a &quot;join&quot;-type operation in a relational data model.</p>
+<p>Search for all structures with primary citation from year 2024:</p>
+<blockquote>
+<p><span class="docutils literal"><span class="pre">/structures?filter=references.role:references.target.year</span> HAS <span class="pre">&quot;_exmpl_primary&quot;:2024</span></span></p>
 </blockquote>
 </section>
 <section id="filtering-on-properties-with-an-unknown-value">
