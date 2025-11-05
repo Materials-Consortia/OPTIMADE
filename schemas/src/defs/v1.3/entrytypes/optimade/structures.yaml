@@ -180,6 +180,22 @@ properties:
       response-level: "may"
       query-support: "none"
 
+  site_coordinate_span:
+    $$inherit: "/v1.3/properties/optimade/structures/site_coordinate_span"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  site_coordinate_span_description:
+    $$inherit: "/v1.3/properties/optimade/structures/site_coordinate_span_description"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
   nsites:
     $$inherit: "/v1.2/properties/optimade/structures/nsites"
     x-optimade-requirements:
@@ -206,6 +222,14 @@ properties:
 
   assemblies:
     $$inherit: "/v1.2/properties/optimade/structures/assemblies"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  wyckoff_positions:
+    $$inherit: "/v1.3/properties/optimade/structures/wyckoff_positions"
     x-optimade-requirements:
       support: "may"
       sortable: false
