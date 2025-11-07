@@ -69,6 +69,8 @@ OPTIMADE API specification v1.3.0-rc.1
 
 .. role:: type(literal)
 
+.. role:: property-example(literal)
+
 .. role:: property-fail(literal)
 
 .. role:: endpoint(literal)
@@ -1321,7 +1323,7 @@ The API implementation MAY provide other entry types than the ones standardized 
 Such entry types MUST be prefixed by a database-provider-specific prefix (i.e., the resource objects' :property:`type` value should start with the database-provider-specific prefix, e.g., :property:`type` = :val:`_exmpl_workflows`).
 Each custom entry type SHOULD be served at a corresponding entry listing endpoint under the versioned or unversioned base URL that serves the API with the same name (i.e., equal to the resource objects' :property:`type` value, e.g., :endpoint:`/_exmpl_workflows`).
 It is RECOMMENDED to align with the OPTIMADE API specification practice of using a plural for entry resource types and entry type endpoints.
-Any custom entry listing endpoint MUST also be added to the :property:`available_endpoints` and :property:`entry_types_by_format` attributes of the `Base Info Endpoint`_.
+Any custom entry listing endpoint MUST also be added to the :field:`available_endpoints` and :field:`entry_types_by_format` attributes of the `Base Info Endpoint`_.
 
 For more on custom endpoints, see `Custom Extension Endpoints`_.
 
@@ -1870,9 +1872,9 @@ The links endpoint MUST be provided under the versioned or unversioned base URL 
 Link Types
 ~~~~~~~~~~
 
-Each link has a :property:`link_type` attribute that specifies the type of the linked relation.
+Each link has a :field:`link_type` attribute that specifies the type of the linked relation.
 
-The :property:`link_type` MUST be one of the following values:
+The :field:`link_type` MUST be one of the following values:
 
 - :field-val:`child`: a link to another OPTIMADE implementation that MUST be within the same provider.
   This allows the creation of a tree-like structure of databases by pointing to children sub-databases.
@@ -1914,17 +1916,17 @@ The resource objects' response dictionaries MUST include the following fields:
   - **link\_type**: a string containing the link type.
     It MUST be one of the values listed above in section `Link Types`_.
 
-  - **aggregate**: a string indicating whether a client that is following links to aggregate results from different OPTIMADE implementations should follow this link or not. This flag SHOULD NOT be indicated for links where :property:`link_type` is not :val:`child`.
+  - **aggregate**: a string indicating whether a client that is following links to aggregate results from different OPTIMADE implementations should follow this link or not. This flag SHOULD NOT be indicated for links where :field:`link_type` is not :val:`child`.
 
     If not specified, clients MAY assume that the value is :val:`ok`.
     If specified, and the value is anything different than :val:`ok`, the client MUST assume that the server is suggesting not to follow the link during aggregation by default (also if the value is not among the known ones, in case a future specification adds new accepted values).
 
     Specific values indicate the reason why the server is providing the suggestion.
-    A client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links where :property:`aggregate` has value :val:`test`).
+    A client MAY follow the link anyway if it has reason to do so (e.g., if the client is looking for all test databases, it MAY follow the links where :field:`aggregate` has value :val:`test`).
 
     If specified, it MUST be one of the values listed in section `Link Aggregate Options`_.
 
-  - **no_aggregate_reason**: an OPTIONAL human-readable string indicating the reason for suggesting not to aggregate results following the link. It SHOULD NOT be present if :property:`aggregate` has value :val:`ok`.
+  - **no_aggregate_reason**: an OPTIONAL human-readable string indicating the reason for suggesting not to aggregate results following the link. It SHOULD NOT be present if :field:`aggregate` has value :val:`ok`.
 
 Example:
 
@@ -2023,11 +2025,11 @@ Example:
 Internal Links: Root and Child Links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Any number of resource objects with :property:`link_type` equal to :val:`child` MAY be present as part of the :field:`data` list.
+Any number of resource objects with :field:`link_type` equal to :val:`child` MAY be present as part of the :field:`data` list.
 A :val:`child` object represents a "link" to an OPTIMADE implementation within the same provider exactly one layer **below** the current implementation's layer.
 
-Exactly one resource object with :property:`link_type` equal to :val:`root` MUST be present as part of the :field:`data` list.
-Note: the same implementation may of course be linked by other implementations via a :endpoint:`/links` endpoint with :property:`link_type` equal to :val:`external`.
+Exactly one resource object with :field:`link_type` equal to :val:`root` MUST be present as part of the :field:`data` list.
+Note: the same implementation may of course be linked by other implementations via a :endpoint:`/links` endpoint with :field:`link_type` equal to :val:`external`.
 
 The :val:`root` resource object represents a link to the topmost OPTIMADE implementation of the current provider.
 By following :val:`child` links from the :val:`root` object recursively, it MUST be possible to reach the current OPTIMADE implementation.
@@ -2038,7 +2040,7 @@ In practice, this forms a tree structure for the OPTIMADE implementations of a p
 List of Providers Links
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Resource objects with :property:`link_type` equal to :val:`providers` MUST point to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
+Resource objects with :field:`link_type` equal to :val:`providers` MUST point to an `Index Meta-Database`_ that supplies a list of OPTIMADE database providers.
 The intention is to be able to auto-discover all providers of OPTIMADE implementations.
 
 A list of known database providers can be retrieved as described in section `Namespace Prefixes`_.
@@ -2054,12 +2056,12 @@ This will make all OPTIMADE databases and implementations by the provider discov
 Link Aggregate Options
 ~~~~~~~~~~~~~~~~~~~~~~
 
-If specified, the :property:`aggregate` attributed MUST have one of the following values:
+If specified, the :field:`aggregate` attributed MUST have one of the following values:
 
 - :val:`ok` (default value, if unspecified): it is ok to follow this link when aggregating OPTIMADE results.
 - :val:`test`: the linked database is a test database,  whose content might not be correct or might not represent physically-meaningful data. Therefore by default the link should not be followed.
 - :val:`staging`: the linked database is almost production-ready, but final checks on its content are being performed, so the content might still contain errors. Therefore by default the link should not be followed.
-- :val:`no`: any other reason to suggest not to follow the link during aggregation of OPTIMADE results. The implementation MAY provide mode details in a human-readable form via the attribute :property:`no-aggregate-reason`.
+- :val:`no`: any other reason to suggest not to follow the link during aggregation of OPTIMADE results. The implementation MAY provide mode details in a human-readable form via the attribute :field:`no_aggregate_reason`.
 
 Custom Extension Endpoints
 --------------------------
@@ -2100,9 +2102,9 @@ The following tokens are used in the filter query component:
 
   Examples of valid property names:
 
-  - :property:`band_gap`
-  - :property:`cell_length_a`
-  - :property:`cell_volume`
+  - :property-example:`band_gap`
+  - :property-example:`cell_length_a`
+  - :property-example:`cell_volume`
 
   Examples of incorrect property names:
 
@@ -4401,7 +4403,7 @@ checksums
 
   - **Support**: OPTIONAL support in implementations, i.e., MAY be :val:`null`.
   - **Query**: Support for queries on this property is OPTIONAL.
-  - Supported dictionary keys: :property:`md5`, :property:`sha1`, :property:`sha224`, :property:`sha256`, :property:`sha384`, :property:`sha512`.
+  - Supported dictionary keys: :field:`md5`, :field:`sha1`, :field:`sha224`, :field:`sha256`, :field:`sha384`, :field:`sha512`.
     Checksums outside this list MAY be used, but their names MUST be prefixed by a database-provider-specific namespace prefix (see appendix `Namespace Prefixes`_).
 
 atime
