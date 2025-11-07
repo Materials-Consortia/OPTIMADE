@@ -73,6 +73,8 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: true
-    - run:
-        pip install -r dependencies/submodules/optimade-property-tools/requirements.txt
-        make schemas
+    - name: Install dependencies 
+      run: pip install -r dependencies/submodules/optimade-property-tools/requirements.txt
+
+    - name: Validate schemas
+      run: make schemas
