@@ -145,7 +145,7 @@ for entry_type in structures files references calculations trajectories; do
                     echo -e "  ${GREEN}✓${NC} $entry_type/$property"
                     continue
                 fi
-            else  
+            else
                 echo -e "  ${YELLOW}⚠${NC} $entry_type/$property - Schema exists but not in specification (or uses different formatting)"
                 ((warnings++))
             fi

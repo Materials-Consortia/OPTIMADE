@@ -78,7 +78,7 @@ jobs:
 
     - name: Validate schemas
       run: make schemas
-    
+
     - name: Validate schemas
       run: make audit_schemas
 
