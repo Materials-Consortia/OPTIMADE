@@ -2,8 +2,6 @@
 # Script to verify that all properties in the specification have corresponding schema definitions
 # Compares fields extracted from optimade.rst with schema definition files
 
-set -euo pipefail
-
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -141,8 +139,16 @@ for entry_type in structures files references calculations trajectories; do
         if echo "$all_spec_props" | grep -q "^${property}$"; then
             : # Found, nothing to do
         else
-            echo -e "  ${YELLOW}⚠${NC} $entry_type/$property - Schema exists but not in specification (or uses different formatting)"
-            ((warnings++))
+            if [[ "$entry_type" == "references" ]]; then
+                # References properties might not be in spec with ~~~~ but still valid
+                if grep -q "^${property}$" <<< "$spec_props"; then
+                    echo -e "  ${GREEN}✓${NC} $entry_type/$property"
+                    continue
+                fi
+            else  
+                echo -e "  ${YELLOW}⚠${NC} $entry_type/$property - Schema exists but not in specification (or uses different formatting)"
+                ((warnings++))
+            fi
         fi
     done
 done

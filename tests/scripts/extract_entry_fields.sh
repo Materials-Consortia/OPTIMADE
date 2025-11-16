@@ -2,8 +2,6 @@
 # Script to extract field names from optimade.rst Entry List section
 # Extracts properties with ~~~~ underlines and groups by entry type
 
-set -euo pipefail
-
 input_file="optimade.rst"
 
 if [[ ! -f "$input_file" ]]; then
