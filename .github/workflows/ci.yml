@@ -78,3 +78,9 @@ jobs:
 
     - name: Validate schemas
       run: make schemas
+    
+    - name: Validate schemas
+      run: make audit_schemas
+
+    - name: Validate that all properties have schemas
+      run: make audit_property_definitions
