@@ -56,7 +56,7 @@ for entry_type in $entry_types; do
             else
                 # Check if it exists in any entry type
                 found=false
-                for et in structures files references calculations; do
+                for et in $entry_types; do
                     if check_property "$et" "$property"; then
                         echo -e "  ${GREEN}✓${NC} $property (in $et)"
                         found=true
