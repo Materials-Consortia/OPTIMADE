@@ -5,7 +5,7 @@ x-optimade-type: "string"
 x-optimade-definition:
   label: "space_group_symbol_hermann_mauguin_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "space_group_symbol_hermann_mauguin"
 type:
@@ -32,4 +32,4 @@ description: |-
 examples:
   - "C 2"
   - "P 21 21 21"
-x-optimade-unit: "unapplicable"
+x-optimade-unit: "inapplicable"
