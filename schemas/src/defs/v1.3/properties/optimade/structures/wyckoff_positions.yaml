@@ -10,6 +10,7 @@ x-optimade-definition:
   name: "wyckoff_positions"
 x-optimade-dimensions:
   names: ["dim_sites"]
+  sizes: [null]
 type:
   - "array"
   - "null"

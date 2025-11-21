@@ -305,12 +305,12 @@ $defs:
               If `compactable` is provided, then a value MUST be given for each dimension.
               If `compactable` is not provided, then the default value is `"no"` for each dimension.
             type: array
-              items:
-                type:
-                  - string
-                enum:
-                  - "constant"
-                  - "no"
+            items:
+              type:
+                - string
+              enum:
+                - "constant"
+                - "no"
       x-optimade-unit-definitions:
         type: array
         items:

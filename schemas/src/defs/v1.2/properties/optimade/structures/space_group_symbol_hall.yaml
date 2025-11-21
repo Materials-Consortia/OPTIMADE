@@ -43,4 +43,4 @@ examples:
   - "-I 4db 2ab 3"
   - "P 2yb (-1/2*x+z,1/2*x,y)"
   - "-I 4 2 (1/2*x+1/2*y,-1/2*x+1/2*y,z)"
-x-optimade-unit: "unapplicable"
+x-optimade-unit: "inapplicable"
