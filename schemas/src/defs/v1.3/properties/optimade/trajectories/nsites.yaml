@@ -1,18 +1,25 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
-$id: "https://schemas.optimade.org/defs/v1.2/properties/optimade/structures/nsites"
-title: "number of sites"
-x-optimade-type: "integer"
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/nsites"
+title: "list of number of sites"
+x-optimade-type: "list"
 x-optimade-definition:
-  label: "nsites_optimade_structures"
+  label: "nsites_optimade_trajectories"
   kind: "property"
-  version: "1.2.0"
-  format: "1.2"
+  version: "1.3.0"
+  format: "1.3"
   name: "nsites"
+x-optimade-dimensions:
+  names: ["dim_frames"]
+  compactable: ["constant"]
+  sizes: [null]
 type:
-  - "integer"
+  - "array"
   - "null"
 description: |-
-  An integer specifying the length of the `cartesian_site_positions` property.
+  A list of nsites items.
+  An nsites item is an integer specifying the length of a corresponding `cartesian_site_positions` property (usually in reference to a parallel list of other structure properties).
+
+  For each nsites item the following applies:
 
   **Requirements/Conventions**:
 
@@ -23,5 +30,8 @@ description: |-
   - Match only structures with exactly 4 sites: `nsites=4`
   - Match structures that have between 2 and 7 sites: `nsites>=2 AND nsites<=7`
 examples:
-  - 42
-x-optimade-unit: "dimensionless"
+  - [42]
+  - [42, 4711]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/nsites"
