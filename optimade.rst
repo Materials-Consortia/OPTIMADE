@@ -1,6 +1,6 @@
-=========================================
-OPTIMADE API specification v1.3.0~develop
-=========================================
+======================================
+OPTIMADE API specification v1.3.0-rc.1
+======================================
 
 .. comment
 
@@ -1435,8 +1435,13 @@ OPTIONALLY it can also contain the following fields:
   See `JSON Response Schema: Common Fields`_ for more information about this field.
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON:API Relationships <https://jsonapi.org/format/1.1/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON:API resource identifier object.
   All relationships to entries of the same entry type MUST be grouped into the same JSON:API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
+  Every JSON:API resource identifier object MAY contain the following OPTIONAL keys inside its :field:`meta` dictionary:
+
+  - :field:`description`: a human-readable description of the relationship
+
+  - :field:`role`: a string defining the kind of relationship between the related entries.
+    Possible roles between each pair of entry types are defined under `Entry List`_.
 
 Example:
 
@@ -2312,6 +2317,18 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
 - :filter-fragment:`identifier1` references a list of dictionaries that contain as an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the contents of :filter-fragment:`identifier2` for every dictionary in the list.
   E.g., if :filter-fragment:`identifier1` is the list :filter-fragment:`[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]`, then :filter-fragment:`identifier1.identifier2` is understood in the filter as the list :filter-fragment:`[42, 96]`.
 
+- :filter-fragment:`identifier1` references an entry type of a group of related entries each containing a property named after an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the values of :filter-fragment:`identifier2` properties for every related entry.
+  In this case, :filter-fragment:`identifier2` is restricted to the following fields:
+
+    - :field:`id`, when matching directly on the ID of the related entry.
+    - :field:`description`, when matching on human-readable description of the relationship.
+    - :field:`role`, when matching on the role of the relationship between entries (possible relationships are defined per-entry type).
+    - :field:`target`, which can be further nested to enable queries on the related entry's property.
+
+  Support for such queries is OPTIONAL.
+  E.g., :filter-fragment:`references.target.doi` is understood in the filter as the list containing values of :property:`doi` for all related entries of type :entry:`references`.
+  This is explained in more detail in section `Filtering on relationships`_.
+
 The API implementation MAY allow this notation to generalize to arbitrary depth.
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
 
@@ -2319,23 +2336,44 @@ Filtering on relationships
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As described in the section `Relationships`_, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
-The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>` by using special nested property names:
+The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>`:
 
 - :filter-fragment:`<entry type>.id` references a list of IDs of relationships with entries of the type :filter-fragment:`<entry type>`.
 - :filter-fragment:`<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
+- :filter-fragment:`<entry type>.role` references a correlated list of roles between entries in relationships.
+- :filter-fragment:`<entry type>.target.<property>` references a list of property :property:`<property>` values for related entries (i.e., the :filter-fragment:`target` entry of the relationship) of type :filter-fragment:`<entry type>`.
 
-Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, :filter-fragment:`id` and :filter-fragment:`description`.
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with keys :property:`id`, :property:`description`, :property:`role` and :property:`target`.
 For example: a client queries the :endpoint:`structures` endpoint with a filter that references :filter-fragment:`calculations.id`.
 For a specific structures entry, the nested property behaves as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
-    **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
+Support for queries on fields of arbitrary depth is OPTIONAL.
+
+    **Note**: without this support, formulating queries on relationships with entries that have specific property values is a multi-step process.
     For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
 
-    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
-    - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+      - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
 
-    (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
+      - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+
+For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:
+
+    ``/structures?filter=references.target.doi="10.1234/1234"``
+
+Search for all literature references for structures with tantalum:
+
+    ``/references?filter=structures.target.elements HAS "Ta"``
+
+Search for all structures of anonymous formula A2B from year 2024:
+
+    ``/structures?filter=references.target.year=2024 AND chemical_formula_anonymous="A2B"``
+
+Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.
+
+Search for all structures with primary citation from year 2024:
+
+    ``/structures?filter=references.role:references.target.year HAS "_exmpl_primary":2024``
 
 Filtering on Properties with an unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

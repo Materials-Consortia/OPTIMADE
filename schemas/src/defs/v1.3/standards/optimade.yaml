@@ -13,6 +13,10 @@ entrytypes:
     $$inherit: "/v1.3/entrytypes/optimade/structures"
     x-optimade-requirements:
       support: "must"
+  calculations:
+    $$inherit: "/v1.3/entrytypes/optimade/calculations"
+    x-optimade-requirements:
+      support: "may"
   files:
     $$inherit: "/v1.2/entrytypes/optimade/files"
     x-optimade-requirements:
