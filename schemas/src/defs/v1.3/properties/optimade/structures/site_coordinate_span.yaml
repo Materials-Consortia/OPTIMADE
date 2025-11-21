@@ -50,6 +50,9 @@ description: |-
   European Mathematical Society (2020). Fundamental domain. Encyclopedia of Mathematics. URL: http://encyclopediaofmath.org/index.php?title=Fundamental_domain&oldid=47023 [accessed 2025-04-30T08:53+03:00].
 
   IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
+examples:
+  - asymmetric_unit
+  - unit_cell
 x-optimade-unit: "inapplicable"
 enum:
   - fundamental_domain
