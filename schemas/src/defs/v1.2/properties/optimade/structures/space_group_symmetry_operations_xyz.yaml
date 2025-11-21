@@ -10,6 +10,7 @@ x-optimade-definition:
   name: "space_group_symmetry_operations_xyz"
 x-optimade-dimensions:
   names: ["dim_symops"]
+  sizes: [null]
 type:
   - "array"
   - "null"
