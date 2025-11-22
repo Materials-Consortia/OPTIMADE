@@ -1,0 +1,34 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/elements"
+title: "list of elements"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "elements_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "elements"
+x-optimade-dimensions:
+  names: ["dim_frames","dim_elements"]
+  sizes: [null, null]
+  compactable: ["constant","no"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of elements items, where an elements item is a list of the chemical symbols of the different elements present in a structure.
+
+  For each elements item the following applies:
+
+  **Requirements/Conventions**:
+
+  - The strings are the chemical symbols, i.e., either a single uppercase letter or an uppercase letter followed by a number of lowercase letters.
+  - The order MUST be alphabetical.
+  - MUST refer to the same elements in the same order, and therefore be of the same length, as `elements_ratios`, if the latter is provided.
+  - Note: This property SHOULD NOT contain the string "X" to indicate non-chemical elements or "vacancy" to indicate vacancies (in contrast to the field `chemical_symbols` for the species property).
+examples:
+  - [['Al', 'Si', 'O'], ['Al', 'Si', 'O'], ['Al', 'F'], ['Al', 'Si', 'O', 'He']]
+  - [['He']]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structure/elements"

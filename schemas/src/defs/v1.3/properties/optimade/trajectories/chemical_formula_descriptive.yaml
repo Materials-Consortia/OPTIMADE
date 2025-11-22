@@ -1,0 +1,43 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/chemical_formula_descriptive"
+title: "list of descriptive chemical formula"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "chemical_formula_descriptive_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "chemical_formula_descriptive"
+x-optimade-dimensions:
+  names: ["dim_frames"]
+  sizes: [null]
+  compactable: ["constant"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of chemical_formula_descriptive items.
+  A chemical_formula_descriptive item is the chemical formula for a structure as a string in a form chosen by the API implementation.
+
+  For each chemical_formula_descriptive item the following applies:
+
+  **Requirements/Conventions**:
+
+  - The chemical formula is given as a string consisting of properly capitalized element symbols followed by integers or decimal numbers, balanced parentheses, square, and curly brackets `(`,\ `)`, `[`,\ `]`, `{`, `}`, commas, the `+`, `-`, `:` and `=` symbols.
+    The parentheses are allowed to be followed by a number.
+    Spaces are allowed anywhere except within chemical symbols.
+    The order of elements and any groupings indicated by parentheses or brackets are chosen freely by the API implementation.
+  - The string SHOULD be arithmetically consistent with the element ratios in the `chemical_formula_reduced` property.
+  - It is RECOMMENDED, but not mandatory, that symbols, parentheses and brackets, if used, are used with the meanings prescribed by [IUPAC's Nomenclature of Organic Chemistry](https://www.qmul.ac.uk/sbcs/iupac/bibliog/blue.html).
+
+  **Query examples**:
+
+  - Note: the free-form nature of this property is likely to make queries on it across different databases inconsistent.
+  - A filter that matches an exactly given formula: `chemical_formula_descriptive="(H2O)2 Na"`.
+  - A filter that does a partial match: `chemical_formula_descriptive CONTAINS "H2O"`.
+examples:
+  - ["NaCl"]
+  - ["(H2O)2 Na","NaCl","CaCO3","CCaO3","(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structure/chemical_formula_descriptive"

@@ -1,0 +1,44 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/lattice_vectors"
+title: "list of lattice vectors"
+x-optimade-definition:
+  label: "lattice_vectors_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "lattice_vectors"
+x-optimade-type: "list"
+x-optimade-dimensions:
+  names: ["dim_frames","dim_lattice", "dim_spatial"]
+  sizes: [null, 3, 3]
+  compactable: ["constant", "no", "no"]
+x-optimade-unit-definitions:
+  - $$inherit: "/v1.2/units/si/general/angstrom"
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of lattice_vectors items.
+  A lattice_vectors item is a list of three lattice vectors in Cartesian coordinates, in ångström (Å).
+
+  For each lattice_vectors item the following applies:
+
+  **Requirements/Conventions**:
+
+  - MUST be a list of three vectors *a*, *b*, and *c*, where each of the vectors MUST BE a list of the vector's coordinates along the x, y, and z Cartesian coordinates.
+    (Therefore, the first index runs over the three lattice vectors and the second index runs over the x, y, z Cartesian coordinates).
+  - For databases that do not define an absolute Cartesian system (e.g., only defining the length and angles between vectors), the first lattice vector SHOULD be set along *x* and the second on the *xy*-plane.
+  - MUST always contain three vectors of three coordinates each, independently of the elements of property `dimension_types`.
+    The vectors SHOULD by convention be chosen so the determinant of the `lattice_vectors` matrix is different from zero.
+    The vectors in the non-periodic directions have no significance beyond fulfilling these requirements.
+  - The coordinates of the lattice vectors of non-periodic dimensions (i.e., those dimensions for which `dimension_types` is `0`) MAY be given as a list of all `null` values.
+    If a lattice vector contains the value `null`, all coordinates of that lattice vector MUST be `null`.
+
+  **Explained examples**:
+
+  - `[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]]` represents a cell, where the first vector is (4, 0, 0), i.e., a vector aligned along the x axis of length 4 Å; the second vector is (0, 4, 0); and the third vector is (0, 1, 4).
+examples:
+  - [[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]],[[3.9,0.0,0.0],[0.0,4.1,0.0],[0.0,1.1,4.2]]]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structure/lattice_vectors"
