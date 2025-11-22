@@ -12,6 +12,7 @@ type:
   - "array"
 x-optimade-dimensions:
   names: ["dim_features"]
+  sizes: [null]
 description: |-
   A list of strings that flag which special features are used by the entry.
 
