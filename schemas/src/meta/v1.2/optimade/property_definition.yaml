@@ -1,6 +1,12 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 title: "OPTIMADE property definition schema"
+x-optimade-definition:
+  label: "property_definition_optimade_meta"
+  kind: "property"
+  version: "1.2.1"
+  format: "1.2"
+  name: "property_definition"
 type: object
 allOf:
   - $ref: "#/$defs/property_definition_field"
@@ -273,6 +279,7 @@ $defs:
           Instead, provide information on the length of a list for an implementation to validate. This is communicated in the `sizes` subfield of this field. At this time, `sizes` can only specify a fixed length requirement.
         type: object
         additionalProperties: false
+        required: ['names', 'sizes']
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:
