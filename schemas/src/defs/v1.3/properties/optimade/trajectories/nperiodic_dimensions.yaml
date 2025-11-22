@@ -39,4 +39,4 @@ examples:
   - [2, 2, 1]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/nperiodic_dimensions"
+  $$inherit: "/v1.2/properties/optimade/structures/nperiodic_dimensions"

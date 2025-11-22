@@ -22,4 +22,4 @@ examples:
   - ["A2B", "A42B42C16D12E10F9G5"]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/chemical_formula_anonymous"
+  $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_anonymous"

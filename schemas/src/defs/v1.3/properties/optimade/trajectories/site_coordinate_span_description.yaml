@@ -22,4 +22,4 @@ examples:
   - ["Two fullerene molecules with a VdW contact.", "One fullerene molecule"]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structures/site_coordinate_span"
+  $$inherit: "/v1.3/properties/optimade/structures/site_coordinate_span"

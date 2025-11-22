@@ -38,5 +38,6 @@ description: |-
   - A structure having implicit atoms and using assemblies: `["assemblies", "implicit_atoms"]`
 examples:
   - [["assemblies", "implicit_atoms"], ["assemblies"]]
+x-optimade-unit: "inapplicable"
 items:
   $$inherit: "/v1.2/properties/optimade/structures/structure_features"

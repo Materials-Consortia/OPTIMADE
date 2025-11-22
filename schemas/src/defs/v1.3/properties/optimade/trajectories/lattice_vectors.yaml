@@ -41,4 +41,4 @@ examples:
   - [[[4.0,0.0,0.0],[0.0,4.0,0.0],[0.0,1.0,4.0]],[[3.9,0.0,0.0],[0.0,4.1,0.0],[0.0,1.1,4.2]]]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/lattice_vectors"
+  $$inherit: "/v1.2/properties/optimade/structures/lattice_vectors"

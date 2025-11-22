@@ -43,4 +43,4 @@ examples:
   - ["H2O2"]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/chemical_formula_hill"
+  $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_hill"

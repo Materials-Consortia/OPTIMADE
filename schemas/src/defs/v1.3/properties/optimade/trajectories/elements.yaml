@@ -31,4 +31,4 @@ examples:
   - [['He']]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/elements"
+  $$inherit: "/v1.2/properties/optimade/structures/elements"

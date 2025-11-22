@@ -11,7 +11,7 @@ x-optimade-definition:
 x-optimade-dimensions:
   names: ["dim_frames", "dim_sites"]
   sizes: [null, null]
-  compatable: ["constant", "no"]
+  compactable: ["constant", "no"]
 type:
   - "array"
   - "null"

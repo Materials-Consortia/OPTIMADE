@@ -39,4 +39,4 @@ examples:
   - [[1, 0, 1]]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/dimension_types"
+  $$inherit: "/v1.2/properties/optimade/structures/dimension_types"

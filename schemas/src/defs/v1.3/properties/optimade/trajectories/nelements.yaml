@@ -29,4 +29,4 @@ examples:
   - [3]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/nelements"
+  $$inherit: "/v1.2/properties/optimade/structures/nelements"

@@ -40,4 +40,4 @@ examples:
   - ["(H2O)2 Na","NaCl","CaCO3","CCaO3","(CH3)3N+ - [CH2]2-OH = Me3N+ - CH2 - CH2OH"]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/chemical_formula_descriptive"
+  $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_descriptive"

@@ -37,4 +37,4 @@ examples:
   - [0.3333333333333333, 0.2222222222222222, 0.4444444444444444]
 x-optimade-unit: "inapplicable"
 items:
-  $$inherit: "/v1.2/properties/optimade/structure/elements_ratios"
+  $$inherit: "/v1.2/properties/optimade/structures/elements_ratios"
