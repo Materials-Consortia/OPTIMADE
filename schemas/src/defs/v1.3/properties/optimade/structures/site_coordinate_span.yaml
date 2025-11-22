@@ -51,8 +51,8 @@ description: |-
 
   IUCr (2017). Asymmetric unit. Online Dictionary of Crystallography, URL: https://dictionary.iucr.org/Asymmetric_unit [accessed 2025-04-30T09:01+03:00].
 examples:
-  - [fundamental_domain, fundamental_domain, asymmetric_unit]
-  - [unit_cell]
+  - asymmetric_unit
+  - unit_cell
 x-optimade-unit: "inapplicable"
 enum:
   - fundamental_domain
