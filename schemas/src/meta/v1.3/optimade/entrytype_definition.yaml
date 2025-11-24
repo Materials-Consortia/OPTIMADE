@@ -1,0 +1,44 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schemas.optimade.org/meta/v1.3/optimade/entrytype_definition"
+title: "OPTIMADE entry type definition schema"
+required: ["$id", "$schema", "x-optimade-definition", "title", "type", "properties"]
+allOf:
+  - $ref: "#/$defs/entrytype_definition_field"
+  - required: ["$id", "$schema"]
+$$inherit: "/v1.3/optimade/property_definition"
+$$keep: ['$defs']
+$defs:
+  id_field:
+    $$inherit: "/v1.2/common/id_field"
+  entrytype_definition_field:
+    type: object
+    additionalProperties: false
+    required: ["type", "x-optimade-definition", "properties"]
+    properties:
+      "$id":
+        $ref: "#/$defs/id_field"
+      "$schema":
+        type: string
+      type:
+        type: [string, array]
+        enum: ["object", ["object"]]
+      x-optimade-definition:
+        $$inherit: "/v1.2/optimade/x-optimade-definition-field"
+        properties:
+          kind:
+            const: "entrytype"
+      x-optimade-requirements:
+        additionalProperties: False
+        properties:
+          support:
+            type: string
+      title:
+        type: string
+      description:
+        type: string
+      properties:
+        type: object
+        additionalProperties:
+          allOf:
+            - $ref: "#/$defs/property_definition_field"
+            - required: ["title", "description"]
