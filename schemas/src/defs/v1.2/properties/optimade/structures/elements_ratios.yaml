@@ -5,11 +5,12 @@ x-optimade-type: "list"
 x-optimade-definition:
   label: "elements_ratios_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "elements_ratios"
 x-optimade-dimensions:
   names: ["dim_elements"]
+  sizes: [null]
 type:
   - "array"
   - "null"

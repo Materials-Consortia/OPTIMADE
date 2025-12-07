@@ -273,6 +273,7 @@ $defs:
           Instead, provide information on the length of a list for an implementation to validate. This is communicated in the `sizes` subfield of this field. At this time, `sizes` can only specify a fixed length requirement.
         type: object
         additionalProperties: false
+        required: ['names', 'sizes']
         patternProperties:
           "^x-(?!optimade-)": {}
         properties:

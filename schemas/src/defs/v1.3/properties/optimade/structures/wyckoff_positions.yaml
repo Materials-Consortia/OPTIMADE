@@ -1,4 +1,4 @@
-$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/structures/wyckoff_positions"
 title: "Wyckoff positions"
 x-optimade-type: "list"
@@ -10,6 +10,7 @@ x-optimade-definition:
   name: "wyckoff_positions"
 x-optimade-dimensions:
   names: ["dim_sites"]
+  sizes: [null]
 type:
   - "array"
   - "null"

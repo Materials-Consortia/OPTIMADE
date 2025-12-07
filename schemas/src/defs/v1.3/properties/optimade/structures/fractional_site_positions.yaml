@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/structures/fractional_site_positions"
-title: "Fractional site positions"
+title: "fractional site positions"
 x-optimade-type: "list"
 x-optimade-definition:
   label: "fractional_site_positions_optimade_structures"
