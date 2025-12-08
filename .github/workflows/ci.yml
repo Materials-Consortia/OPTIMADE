@@ -64,3 +64,17 @@ jobs:
       with:
         submodules: true
     - run: make audit_spelling
+
+  schema-validation:
+    name: Audit the schemas provided with the specification
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: Install dependencies
+      run: pip install -r dependencies/submodules/optimade-property-tools/requirements.txt
+
+    - name: Validate schemas
+      run: make schemas
