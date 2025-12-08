@@ -26,6 +26,6 @@ entrytypes:
     x-optimade-requirements:
       support: "may"
   trajectories:
-    $$inherit: "/v1.3/entrytypes/optimade/structures"
+    $$inherit: "/v1.3/entrytypes/optimade/trajectories"
     x-optimade-requirements:
       support: "may"
