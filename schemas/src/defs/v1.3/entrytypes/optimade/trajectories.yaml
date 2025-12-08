@@ -257,3 +257,19 @@ properties:
       sortable: false
       response-level: "may"
       query-support: "none"
+
+  nframes:
+    $$inherit: "/v1.3/properties/optimade/trajectories/nframes"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  reference_frames:
+    $$inherit: "/v1.3/properties/optimade/trajectories/reference_frames"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
