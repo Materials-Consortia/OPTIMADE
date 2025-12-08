@@ -10,7 +10,7 @@ x-optimade-definition:
   name: "dimension_types"
 x-optimade-dimensions:
   names: ["dim_lattice"]
-  sizes: [null]
+  sizes: [3]
 type:
   - "array"
   - "null"
