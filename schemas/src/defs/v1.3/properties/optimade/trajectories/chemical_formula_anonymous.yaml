@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/chemical_formula_anonymous"
+title: "anonymous chemical formula"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "chemical_formula_anonymous_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "chemical_formula_anonymous"
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of chemical_formula_anonymous items.
+  A chemical_formula_anonymous item is a string with element symbols and integer chemical proportion numbers.
+
+  For each chemical_formula_anonymous item the following applies:
+
+  The anonymous formula is the chemical_formula_reduced, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+examples:
+  - ["A2B", "A42B42C16D12E10F9G5"]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/chemical_formula_anonymous"

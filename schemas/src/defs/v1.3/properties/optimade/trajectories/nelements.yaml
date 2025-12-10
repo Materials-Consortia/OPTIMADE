@@ -1,0 +1,32 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/nelements"
+title: "list of number of elements"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "nelements_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "nelements"
+x-optimade-dimensions:
+  names: ["dim_frames"]
+  sizes: [null]
+  compactable: ["constant"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of nelment items.
+  An nelement item is the number of different elements in a structure as an integer.
+
+  For each nelement item the following applies:
+
+  **Requirements/Conventions**:
+
+  - MUST be equal to the lengths of the list properties elements and elements_ratios, if they are provided.
+examples:
+  - [4, 5, 7, 2]
+  - [3]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/nelements"

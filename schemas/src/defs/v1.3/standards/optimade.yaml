@@ -1,11 +1,11 @@
-$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/standard_definition"
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/standard_definition"
 $id: "https://schemas.optimade.org/defs/v1.3/standards/optimade"
 title: "OPTIMADE standard"
 description: "The OPTIMADE standard node types and properties"
 x-optimade-definition:
   label: "optimade_standard"
   kind: "standard"
-  format: "1.2"
+  format: "1.3"
   version: "1.3.0"
   name: "optimade"
 entrytypes:
@@ -23,5 +23,9 @@ entrytypes:
       support: "may"
   references:
     $$inherit: "/v1.2/entrytypes/optimade/references"
+    x-optimade-requirements:
+      support: "may"
+  trajectories:
+    $$inherit: "/v1.3/entrytypes/optimade/trajectories"
     x-optimade-requirements:
       support: "may"

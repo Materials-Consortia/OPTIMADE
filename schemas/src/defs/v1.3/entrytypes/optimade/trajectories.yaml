@@ -1,0 +1,275 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/entrytypes/optimade/trajectories"
+title: "trajectories"
+description: |-
+  The trajectories entry type is used to share data belonging to ordered sequences of structures such as, for example, those originating from molecular dynamics or Monte Carlo simulations.
+
+  Note that `trajectories` entries have all the custom properties of the OPTIMADE structures entry type, with the following difference: each property is extended by wrapping it in a list, so that each custom property of a `structures` entry type becomes a list with an additional first dimension of size `nframes` (with dimension name ``dim_frames``, as defined in the property definition). This allows these properties to be defined for each frame, and thus possibly change during the trajectory.
+
+  Moreover, for data-transfer efficiency reasons, all these properties have their first dimension ``dim_frames`` defined as compactable in the `compactable` field of their property definition.
+
+  For example, the property `lattice_vectors` for a trajectory with 100 frames would be a three-dimensional list of floats, where the first dimension has a size of 100 (the number of frames), and the second and third dimensions have a size of 3 (representing the lattice vectors at each frame).
+
+x-optimade-definition:
+  label: "trajectories_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.3"
+  version: "1.3.0"
+  name: "trajectories"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.3/properties/optimade/trajectories/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.3/properties/optimade/trajectories/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.3/properties/optimade/trajectories/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.3/properties/optimade/trajectories/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"
+
+  elements:
+    $$inherit: "/v1.3/properties/optimade/trajectories/elements"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  nelements:
+    $$inherit: "/v1.3/properties/optimade/trajectories/nelements"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  elements_ratios:
+    $$inherit: "/v1.3/properties/optimade/trajectories/elements_ratios"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  chemical_formula_descriptive:
+    $$inherit: "/v1.3/properties/optimade/trajectories/chemical_formula_descriptive"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  chemical_formula_reduced:
+    $$inherit: "/v1.3/properties/optimade/trajectories/chemical_formula_reduced"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  chemical_formula_hill:
+    $$inherit: "/v1.3/properties/optimade/trajectories/chemical_formula_hill"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  chemical_formula_anonymous:
+    $$inherit: "/v1.3/properties/optimade/trajectories/chemical_formula_anonymous"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  dimension_types:
+    $$inherit: "/v1.3/properties/optimade/trajectories/dimension_types"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  nperiodic_dimensions:
+    $$inherit: "/v1.3/properties/optimade/trajectories/nperiodic_dimensions"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  lattice_vectors:
+    $$inherit: "/v1.3/properties/optimade/trajectories/lattice_vectors"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symmetry_operations_xyz:
+    $$inherit: "/v1.3/properties/optimade/trajectories/space_group_symmetry_operations_xyz"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hall:
+    $$inherit: "/v1.3/properties/optimade/trajectories/space_group_symbol_hall"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hermann_mauguin:
+    $$inherit: "/v1.3/properties/optimade/trajectories/space_group_symbol_hermann_mauguin"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_symbol_hermann_mauguin_extended:
+    $$inherit: "/v1.3/properties/optimade/trajectories/space_group_symbol_hermann_mauguin_extended"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  space_group_it_number:
+    $$inherit: "/v1.3/properties/optimade/trajectories/space_group_it_number"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  cartesian_site_positions:
+    $$inherit: "/v1.3/properties/optimade/trajectories/cartesian_site_positions"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  fractional_site_positions:
+    $$inherit: "/v1.3/properties/optimade/trajectories/fractional_site_positions"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  site_coordinate_span:
+    $$inherit: "/v1.3/properties/optimade/trajectories/site_coordinate_span"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  site_coordinate_span_description:
+    $$inherit: "/v1.3/properties/optimade/trajectories/site_coordinate_span_description"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  nsites:
+    $$inherit: "/v1.3/properties/optimade/trajectories/nsites"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  species_at_sites:
+    $$inherit: "/v1.3/properties/optimade/trajectories/species_at_sites"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  species:
+    $$inherit: "/v1.3/properties/optimade/trajectories/species"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  assemblies:
+    $$inherit: "/v1.3/properties/optimade/trajectories/assemblies"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  wyckoff_positions:
+    $$inherit: "/v1.3/properties/optimade/trajectories/wyckoff_positions"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  structure_features:
+    $$inherit: "/v1.3/properties/optimade/trajectories/structure_features"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  optimization_type:
+    $$inherit: "/v1.3/properties/optimade/trajectories/optimization_type"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  nframes:
+    $$inherit: "/v1.3/properties/optimade/trajectories/nframes"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
+
+  reference_frames:
+    $$inherit: "/v1.3/properties/optimade/trajectories/reference_frames"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      response-level: "may"
+      query-support: "none"
