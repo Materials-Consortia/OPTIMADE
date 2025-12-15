@@ -2357,7 +2357,7 @@ Support for queries on fields of arbitrary depth is OPTIONAL.
 
       - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
-For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:
+For example, search for all structures related to a publication (described in a related `references` entry) having DOI 10.1234/1234 could be performed with the following query:
 
     ``/structures?filter=references.target.doi="10.1234/1234"``
 
