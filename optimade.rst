@@ -2317,18 +2317,6 @@ A filter on a nested property name consisting of two identifiers :filter-fragmen
 - :filter-fragment:`identifier1` references a list of dictionaries that contain as an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the contents of :filter-fragment:`identifier2` for every dictionary in the list.
   E.g., if :filter-fragment:`identifier1` is the list :filter-fragment:`[{"identifier2":42, "identifier3":36}, {"identifier2":96, "identifier3":66}]`, then :filter-fragment:`identifier1.identifier2` is understood in the filter as the list :filter-fragment:`[42, 96]`.
 
-- :filter-fragment:`identifier1` references an entry type of a group of related entries each containing a property named after an identifier :filter-fragment:`identifier2` and the filter matches for a flat list containing only the values of :filter-fragment:`identifier2` properties for every related entry.
-  In this case, :filter-fragment:`identifier2` is restricted to the following fields:
-
-    - :field:`id`, when matching directly on the ID of the related entry.
-    - :field:`description`, when matching on human-readable description of the relationship.
-    - :field:`role`, when matching on the role of the relationship between entries (possible relationships are defined per-entry type).
-    - :field:`target`, which can be further nested to enable queries on the related entry's property.
-
-  Support for such queries is OPTIONAL.
-  E.g., :filter-fragment:`references.target.doi` is understood in the filter as the list containing values of :property:`doi` for all related entries of type :entry:`references`.
-  This is explained in more detail in section `Filtering on relationships`_.
-
 The API implementation MAY allow this notation to generalize to arbitrary depth.
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.
 
@@ -2357,7 +2345,7 @@ Support for queries on fields of arbitrary depth is OPTIONAL.
 
       - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
 
-For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:
+For example, search for all structures related to a publication (described in a related references entry) having DOI 10.1234/1234 could be performed with the following query:
 
     ``/structures?filter=references.target.doi="10.1234/1234"``
 
