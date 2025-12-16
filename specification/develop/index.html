@@ -2882,24 +2882,10 @@ Strictly, the definitions of the <span class="filter-fragment docutils literal">
 <h4><a class="toc-backref" href="#toc-entry-57" role="doc-backlink"><span class="sectnum">6.2.6 </span>Nested property names</a></h4>
 <p>Everywhere in a filter string where a property name is accepted, the API implementation MAY accept nested property names as described in section <a class="reference internal" href="#lexical-tokens">Lexical Tokens</a>, consisting of identifiers separated by periods ('.').
 A filter on a nested property name consisting of two identifiers <span class="filter-fragment docutils literal">identifier1.identifier2</span> matches if either one of these points are true:</p>
-<ul>
+<ul class="simple">
 <li><p><span class="filter-fragment docutils literal">identifier1</span> references a dictionary-type property that contains as an identifier <span class="filter-fragment docutils literal">identifier2</span> and the filter matches for the content of <span class="filter-fragment docutils literal">identifier2</span>.</p></li>
 <li><p><span class="filter-fragment docutils literal">identifier1</span> references a list of dictionaries that contain as an identifier <span class="filter-fragment docutils literal">identifier2</span> and the filter matches for a flat list containing only the contents of <span class="filter-fragment docutils literal">identifier2</span> for every dictionary in the list.
 E.g., if <span class="filter-fragment docutils literal">identifier1</span> is the list <span class="filter-fragment docutils literal"><span class="pre">[{&quot;identifier2&quot;:42,</span> <span class="pre">&quot;identifier3&quot;:36},</span> <span class="pre">{&quot;identifier2&quot;:96,</span> <span class="pre">&quot;identifier3&quot;:66}]</span></span>, then <span class="filter-fragment docutils literal">identifier1.identifier2</span> is understood in the filter as the list <span class="filter-fragment docutils literal">[42, 96]</span>.</p></li>
-<li><p><span class="filter-fragment docutils literal">identifier1</span> references an entry type of a group of related entries each containing a property named after an identifier <span class="filter-fragment docutils literal">identifier2</span> and the filter matches for a flat list containing only the values of <span class="filter-fragment docutils literal">identifier2</span> properties for every related entry.
-In this case, <span class="filter-fragment docutils literal">identifier2</span> is restricted to the following fields:</p>
-<blockquote>
-<ul class="simple">
-<li><p><span class="field docutils literal">id</span>, when matching directly on the ID of the related entry.</p></li>
-<li><p><span class="field docutils literal">description</span>, when matching on human-readable description of the relationship.</p></li>
-<li><p><span class="field docutils literal">role</span>, when matching on the role of the relationship between entries (possible relationships are defined per-entry type).</p></li>
-<li><p><span class="field docutils literal">target</span>, which can be further nested to enable queries on the related entry's property.</p></li>
-</ul>
-</blockquote>
-<p>Support for such queries is OPTIONAL.
-E.g., <span class="filter-fragment docutils literal">references.target.doi</span> is understood in the filter as the list containing values of <span class="property docutils literal">doi</span> for all related entries of type <span class="entry docutils literal">references</span>.
-This is explained in more detail in section <a class="reference internal" href="#filtering-on-relationships">Filtering on relationships</a>.</p>
-</li>
 </ul>
 <p>The API implementation MAY allow this notation to generalize to arbitrary depth.
 A nested property name that combines more than one list MUST, if accepted, be interpreted as a completely flattened list.</p>
@@ -2929,7 +2915,7 @@ For example, to find all structures with bibliographic references where one of t
 </ul>
 </blockquote>
 </blockquote>
-<p>For example, search for all structures related to a publication having DOI 10.1234/1234 could be performed with the following query:</p>
+<p>For example, search for all structures related to a publication (described in a related references entry) having DOI 10.1234/1234 could be performed with the following query:</p>
 <blockquote>
 <p><span class="docutils literal"><span class="pre">/structures?filter=references.target.doi=&quot;10.1234/1234&quot;</span></span></p>
 </blockquote>
@@ -5811,7 +5797,7 @@ Where appropriate, a provider prefix can be chosen to represent the tool used to
 </section>
 </main>
 <footer>
-<p>Generated on: 2025-12-10.
+<p>Generated on: 2025-12-16.
 </p>
 </footer>
 </body>
