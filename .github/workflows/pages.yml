@@ -5,6 +5,8 @@ on:
     branches:
       - develop
   workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
 
@@ -34,7 +36,8 @@ jobs:
         git config --global user.name "${COMMIT_AUTHOR}"
         git config --global user.email "${COMMIT_AUTHOR_EMAIL}"
 
-    - name: Commit to gh-pages
+    - name: Commit development version to gh-pages
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
       run: |
         git fetch origin gh-pages
         git checkout gh-pages
@@ -44,6 +47,22 @@ jobs:
         mv optimade.html specification/develop/index.html
         git add specification/develop/index.html
         git commit -m "Deploy develop specification to GitHub Pages: ${SHA}"
+        if git diff --cached --quiet; then
+            exit 0
+        fi
+
+    - name: Commit tagged version to gh-pages
+      if: github.event_name == 'release'
+      run: |
+        TAG=${{ github.event.release.tag_name }}
+        git fetch origin gh-pages
+        git checkout gh-pages
+        mkdir -p specification/${TAG}
+        mv optimade.html specification/${TAG}/index.html
+        git add specification/${TAG}/index.html
+        # Set latest symlink
+        rm specification/latest && ln -s specification/${TAG} specification/latest
+        git commit -m "Deploy ${TAG} specification to GitHub Pages: ${SHA}"
         if git diff --cached --quiet; then
             exit 0
         fi
