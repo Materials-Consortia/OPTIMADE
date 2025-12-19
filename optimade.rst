@@ -492,20 +492,15 @@ OPTIONAL properties with an unknown value, if requested explicitly via the :quer
 The interaction of properties with an unknown value with query filters is described in the section `Filtering on Properties with an unknown value`_.
 In particular, filters with :filter-fragment:`IS UNKNOWN` and :filter-fragment:`IS KNOWN` can be used to match entries with values that are, or are not, unknown for some property, respectively.
 
-Handling unknown property names
--------------------------------
+Handling unrecognized property names
+------------------------------------
 
-When an implementation receives a request with a query filter that refers to an unknown property name it is handled differently depending on the database-specific prefix:
+When an implementation receives a request with a query filter or other mechanism (e.g., :query-param:`response_fields`) that refers to a property name that is not recognized, it MUST NOT treat this as an error but rather MUST issue a warning with :field:`code` set to :field-val:`unrecognized_property`.
+Queries MUST be evaluated with the property treated as unknown, meaning comparisons are evaluated as if the property has the value :val:`null`.
+If the unrecognized property is requested to be included in the response, it MUST be included with :val:`null` value.
 
-* If the property name has no database-specific prefix, or if it has the database-specific prefix that belongs to the implementation itself, the error :http-error:`400 Bad Request` MUST be returned with a message indicating the offending property name.
-
-* If the property name has a database-specific prefix that does *not* belong to the implementation itself, it MUST NOT treat this as an error, but rather MUST evaluate the query with the property treated as unknown, i.e., comparisons are evaluated as if the property has the value :val:`null`.
-
-  * Furthermore, if the implementation does not recognize the prefix at all, it SHOULD return a warning that indicates that the property has been handled as unknown.
-
-  * On the other hand, if the prefix is recognized, i.e., as belonging to a known database provider, the implementation SHOULD NOT issue a warning but MAY issue diagnostic output with a note explaining how the request was handled.
-
-The rationale for treating properties from other databases as unknown rather than triggering an error is for OPTIMADE to support queries using database-specific properties that can be sent to multiple databases.
+The rationale for not triggering errors for unrecognized properties is to enable clients to perform queries that reference properties defined in future versions of the OPTIMADE standard or database-specific properties, and have them handled only by the databases that recognize them.
+Database-specific properties (as well as properties defined in future versions of this standard) SHOULD be defined in such a way that returning them with the value :val:`null` and treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
 
 For example, the following query can be sent to API implementations ``exmpl1`` and ``exmpl2`` without generating any errors:
 
@@ -1234,7 +1229,14 @@ Warnings
 Non-critical exceptional situations occurring in the implementation SHOULD be reported to the referrer as warnings.
 Warnings MUST be expressed as a human-readable message, OPTIONALLY coupled with a warning code.
 
-Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes (currently, none are specified).
+Warning codes starting with an alphanumeric character are reserved for general OPTIMADE error codes.
+The following are defined:
+
+- :field-val:`unrecognized_property`: the request refers to an unrecognized property in the query parameters :query-parameter:`filter`, :query_parameter:`response_fields`, or in some other way.
+  Implementations SHOULD indicate in the warning field :field:`detail` which properties are unrecognized.
+  For future compatibility, unrecognized properties are handled as having value :val:`null`.
+  For more information, see `Handling unrecognized property names`_.
+
 For implementation-specific warnings, they MUST start with ``_`` and the database-provider-specific prefix of the implementation (see section `Database-Provider-Specific Namespace Prefixes`_).
 
 API Endpoints
@@ -3246,6 +3248,9 @@ Custom properties
   Similarly, an implementation MAY add keys with a namespace prefix to dictionary properties and their sub-dictionaries.
   For example, the database-provider-specific property :property:`_exmpl_oxidation_state`, can be placed within the OPTIMADE property :property:`species`.
 
+  Database-specific properties SHOULD be defined in such a way that returning them with the value :val:`null` and treating them as :val:`null` in comparisons is a reasonable behavior for providers that do not support the property.
+  See `Handling unrecognized property names`_ for more information.
+
 - **Type**: Decided by the API implementation.
   MUST be one of the OPTIMADE `Data types`_.
 - **Requirements/Conventions**:
@@ -3991,6 +3996,8 @@ structure\_features
   - MUST be sorted alphabetically.
   - If a special feature listed below is used, the list MUST contain the corresponding string.
   - If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
+  - Clients SHOULD NOT assume they can represent the structure correctly if the :field:`structure_features` field indicates a feature not supported by the client or contains any unrecognized items.
+  - Implementations that use database-specific properties that must be supported by the client to correctly interpret the structural information MUST define a string with a database-provider-specific prefix and place it in this list for those entries that would be incorrectly interpreted by ignoring the property.
   - **List of strings used to indicate special structure features**:
 
     - :val:`disorder`: this flag MUST be present if any one entry in the `species`_ list has a :field:`chemical_symbols` list that is longer than 1 element.
