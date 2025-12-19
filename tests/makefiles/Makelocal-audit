@@ -4,7 +4,7 @@
 
 .PHONY: audit
 
-audit: audit_grammars audit_authors audit_spelling audit_schemas
+audit: audit_grammars audit_authors audit_spelling audit_schemas audit_property_definitions
 	@echo "=============================================="
 	@echo "Audit of specification completed successfully."
 	@echo "=============================================="
@@ -35,3 +35,9 @@ audit_spelling:
 
 audit_schemas:
 	$(MAKE) validate_schemas
+
+
+.PHONY: audit_property_definitions
+
+audit_property_definitions:
+	tests/scripts/check_property_definitions.sh
