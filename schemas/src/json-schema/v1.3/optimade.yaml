@@ -14,6 +14,12 @@ definitions:
       - type: "object"
         properties:
           type:
+            const: "calculations"
+          attributes:
+            $ref: "#endpoints/entrytypes/calculations"
+      - type: "object"
+        properties:
+          type:
             const: "files"
           attributes:
             $ref: "#endpoints/entrytypes/files"
@@ -23,5 +29,11 @@ definitions:
             const: "references"
           attributes:
             $ref: "#endpoints/entrytypes/references"
+      - type: "object"
+        properties:
+          type:
+            const: "trajectories"
+          attributes:
+            $ref: "#endpoints/entrytypes/trajectories"
 endpoints:
   $$inherit: "/v1.3/standards/optimade"
