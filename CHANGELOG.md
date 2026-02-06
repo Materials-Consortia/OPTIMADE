@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.3.0-rc.1 (November 2025)
+## v1.3.0 (December 2025)
 
 This release extends the OPTIMADE specification with new entry types and properties with an emphasis on applying the partial data protocol from v1.2 to the new trajectories endpoint, for which each resource is likely to be too large to be served in a single response.
 
