@@ -3142,7 +3142,8 @@ Defines a required level of support in formulating queries on this field.
 The string MUST be one of the following:</p>
 <ul class="simple">
 <li><p><span class="val docutils literal">all mandatory</span>: the defined property MUST be queryable using the OPTIMADE filter language with support for all mandatory filter features.</p></li>
-<li><p><span class="val docutils literal">equality only</span>: the defined property MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.</p></li>
+<li><p><span class="val docutils literal">equality only</span>: the defined property MUST be queryable using the OPTIMADE filter language equality, inequality, <span class="val docutils literal">IS KNOWN</span> and <span class="val docutils literal">IS UNKNOWN</span> operators.
+Other filter language features do not need to be available.</p></li>
 <li><p><span class="val docutils literal">partial</span>: the defined property MUST be queryable with support for a subset of the filter language operators as specified by the field <span class="field docutils literal"><span class="pre">query-support-operators</span></span>.</p></li>
 <li><p><span class="val docutils literal">none</span>: the defined property does not need to be queryable with any features of the filter language.</p></li>
 </ul>
@@ -5797,7 +5798,7 @@ Where appropriate, a provider prefix can be chosen to represent the tool used to
 </section>
 </main>
 <footer>
-<p>Generated on: 2026-07-01.
+<p>Generated on: 2026-07-03.
 </p>
 </footer>
 </body>
