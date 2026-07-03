@@ -1474,39 +1474,39 @@ Example:
        // ...
      }
 
-The following additional provisions apply to the eight provenance relationship keys :field:`inputs`, :field:`input_for`, :field:`creates`, :field:`created_by`, :field:`returns`, :field:`returned_by`, :field:`source_of`, and :field:`derived_from` (see section `Relationships Used by Multiple Entry Types`_ for their definitions).
+The following additional provisions apply to the eight provenance relationship keys :field:`has_input`, :field:`is_input`, :field:`has_artifact`, :field:`is_artifact`, :field:`has_output`, :field:`is_output`, :field:`has_product`, and :field:`is_product` (see section `Relationships Used by Multiple Entry Types`_ for their definitions).
 
 **Reserved names.**
 The following names are RESERVED; an API implementation MUST NOT define an entry type with any of them:
-the eight relationship keys :field:`inputs`, :field:`input_for`, :field:`creates`, :field:`created_by`, :field:`returns`, :field:`returned_by`, :field:`source_of`, :field:`derived_from`;
-the four relation-object types :val:`input_relationships`, :val:`create_relationships`, :val:`return_relationships`, :val:`derived_relationships` (see section `Provenance Relation Objects`_);
+the eight relationship keys :field:`has_input`, :field:`is_input`, :field:`has_artifact`, :field:`is_artifact`, :field:`has_output`, :field:`is_output`, :field:`has_product`, :field:`is_product`;
+the four relation-object types :val:`input_relationships`, :val:`artifact_relationships`, :val:`output_relationships`, :val:`product_relationships` (see section `Provenance Relation Objects`_);
 and the relationship key :field:`target` (see section `Provenance Relation Objects`_), used on relation objects.
 
 **Exemption from the grouping rule.**
 Where present, relationship objects under the eight provenance keys are exempt from the grouping-by-entry-type rule above: the key need not equal the entry type name of any of their members.
-The members of these relationship objects are provenance relation objects (see section `Provenance Relation Objects`_) addressed by a semantic, direction-bearing key (e.g., :field:`created_by` vs. :field:`creates`) rather than by target entry type.
+The members of these relationship objects are provenance relation objects (see section `Provenance Relation Objects`_) addressed by a semantic, direction-bearing key (e.g., :field:`is_artifact` vs. :field:`has_artifact`) rather than by target entry type.
 
 **Category constraints** (see section `Entry Type Categories`_):
 
-- :field:`inputs`, :field:`creates`, and :field:`returns` may be defined only on an ``execution`` entry; every referenced target MUST be a ``data`` entry.
-- :field:`input_for`, :field:`created_by`, and :field:`returned_by` may be defined only on a ``data`` entry; every referenced target MUST be an ``execution`` entry.
-- :field:`source_of` and :field:`derived_from` may be defined only on a ``data`` entry; every referenced target MUST be a ``data`` entry.
+- :field:`has_input`, :field:`has_artifact`, and :field:`has_output` may be defined only on an ``execution`` entry; every referenced target MUST be a ``data`` entry.
+- :field:`is_input`, :field:`is_artifact`, and :field:`is_output` may be defined only on a ``data`` entry; every referenced target MUST be an ``execution`` entry.
+- :field:`has_product` and :field:`is_product` may be defined only on a ``data`` entry; every referenced target MUST be a ``data`` entry.
 - No ``metadata`` entry may define, or be the target of, any of the eight provenance relationships.
 
 **Cardinality.**
-:field:`created_by` is to-one: at most one creating execution (see section `created\_by`_).
-:field:`inputs`, :field:`input_for`, :field:`creates`, :field:`returns`, :field:`returned_by`, :field:`source_of`, and :field:`derived_from` are unbounded to-many relationships.
+:field:`is_artifact` is to-one: at most one creating execution (see section `is_artifact`_).
+:field:`has_input`, :field:`is_input`, :field:`has_artifact`, :field:`has_output`, :field:`is_output`, :field:`has_product`, and :field:`is_product` are unbounded to-many relationships.
 
 **Graph structure.**
 The provenance graph has ``data`` and ``execution`` entries as its nodes and the provenance relation objects as its directed edges, each edge being directed from the entry declaring the outgoing relationship key to the entry named by the edge's :field:`target`.
 Every edge has one of the four types defined in section `Provenance Relation Objects`_.
 For a given ordered pair of nodes (a first and a second node), there MUST NOT be two edges of the same type both directed from the first to the second node.
-Note, however, that a single ``execution`` and a single ``data`` entry MAY be connected by both a :val:`create_relationships` edge and a :val:`return_relationships` edge (see section `Provenance Relation Objects`_): these are edges of different types, so this is allowed, and is in fact a common situation.
+Note, however, that a single ``execution`` and a single ``data`` entry MAY be connected by both a :val:`artifact_relationships` edge and a :val:`output_relationships` edge (see section `Provenance Relation Objects`_): these are edges of different types, so this is allowed, and is in fact a common situation.
 
 **Acyclicity.**
-The acyclic part of the provenance graph is defined solely by the :field:`inputs` and :field:`creates` edges (equivalently, their reverse keys :field:`input_for` and :field:`created_by`), followed in the direction of data flow: from an input ``data`` entry to the ``execution`` that consumes it, and from that ``execution`` to the ``data`` entries it creates (i.e., ``data`` → ``execution`` → created ``data``).
+The acyclic part of the provenance graph is defined solely by the :field:`has_input` and :field:`has_artifact` edges (equivalently, their reverse keys :field:`is_input` and :field:`is_artifact`), followed in the direction of data flow: from an input ``data`` entry to the ``execution`` that consumes it, and from that ``execution`` to the ``data`` entries it creates (i.e., ``data`` → ``execution`` → created ``data``).
 Followed in this direction, this subgraph SHOULD be acyclic: a server SHOULD NOT introduce a cycle, i.e., no entry should be, directly or transitively, an input to its own production.
-The :field:`returns`/:field:`returned_by` and :field:`source_of`/:field:`derived_from` edges are deliberately excluded from this constraint (in particular, a run commonly returns a ``data`` entry created further upstream, and curation shortcuts may connect entries in either direction).
+The :field:`has_output`/:field:`is_output` and :field:`has_product`/:field:`is_product` edges are deliberately excluded from this constraint (in particular, a run commonly returns a ``data`` entry created further upstream, and curation shortcuts may connect entries in either direction).
 Because acyclicity cannot be systematically verified, and is only RECOMMENDED on the server side, clients MUST NOT assume acyclicity and MUST guard against infinite loops when traversing (e.g., by tracking visited nodes), to remain robust against a buggy or malicious server.
 
 Provenance Relation Objects
@@ -1516,9 +1516,9 @@ The eight provenance relationships do not link directly to the far-end entry.
 Instead, each resolves to one or more **relation objects**: small resource objects that represent the edge itself.
 A relation object carries:
 
-- a :field:`type`, one of :val:`input_relationships`, :val:`create_relationships`, :val:`return_relationships`, :val:`derived_relationships` — the kind of edge (the direction is given by which relationship key was used to reach it, e.g., :field:`creates` vs. :field:`created_by` both yield :val:`create_relationships` objects);
+- a :field:`type`, one of :val:`input_relationships`, :val:`artifact_relationships`, :val:`output_relationships`, :val:`product_relationships` — the kind of edge (the direction is given by which relationship key was used to reach it, e.g., :field:`has_artifact` vs. :field:`is_artifact` both yield :val:`artifact_relationships` objects);
 - an :field:`id`, server-assigned and opaque, unique among relation objects of that type;
-- :field:`attributes`, including the edge's :field:`label` and, for :val:`derived_relationships`, an optional :field:`workflow_declaration_uri` (see section `derived\_from`_);
+- :field:`attributes`, including the edge's :field:`label` and, for :val:`product_relationships`, an optional :field:`workflow_declaration_uri` (see section `is_product`_);
 - a to-one :field:`relationships.target` (RESERVED key, see section `Entry Listing JSON Response Schema`_) pointing to the entry at the far end of the edge.
 
 There are four edge kinds, each viewable from two directions:
@@ -1530,27 +1530,27 @@ There are four edge kinds, each viewable from two directions:
      - Outgoing relationship key
      - Incoming relationship key
    * - :val:`input_relationships`
-     - :field:`inputs` (on execution → data)
-     - :field:`input_for` (on data → execution)
-   * - :val:`create_relationships`
-     - :field:`creates` (on execution → data)
-     - :field:`created_by` (on data → execution)
-   * - :val:`return_relationships`
-     - :field:`returns` (on execution → data)
-     - :field:`returned_by` (on data → execution)
-   * - :val:`derived_relationships`
-     - :field:`source_of` (on data → data)
-     - :field:`derived_from` (on data → data)
+     - :field:`has_input` (on execution → data)
+     - :field:`is_input` (on data → execution)
+   * - :val:`artifact_relationships`
+     - :field:`has_artifact` (on execution → data)
+     - :field:`is_artifact` (on data → execution)
+   * - :val:`output_relationships`
+     - :field:`has_output` (on execution → data)
+     - :field:`is_output` (on data → execution)
+   * - :val:`product_relationships`
+     - :field:`has_product` (on data → data)
+     - :field:`is_product` (on data → data)
 
-The :val:`create_relationships` and :val:`return_relationships` edges both connect an ``execution`` to a ``data`` entry, but they carry different meaning (see sections `creates`_ and `returns`_):
-a :val:`create_relationships` edge records how a ``data`` entry came into existence (which ``execution`` created it), while a :val:`return_relationships` edge records the logic of the execution (which ``data`` entries the execution returned, even if they were actually created by another execution it called).
-A single ``execution`` MAY have both a :val:`create_relationships` and a :val:`return_relationships` edge to the same ``data`` entry.
+The :val:`artifact_relationships` and :val:`output_relationships` edges both connect an ``execution`` to a ``data`` entry, but they carry different meaning (see sections `has_artifact`_ and `has_output`_):
+a :val:`artifact_relationships` edge records how a ``data`` entry came into existence (which ``execution`` created it), while a :val:`output_relationships` edge records the logic of the execution (which ``data`` entries the execution returned, even if they were actually created by another execution it called).
+A single ``execution`` MAY have both a :val:`artifact_relationships` and a :val:`output_relationships` edge to the same ``data`` entry.
 
-Fetching :query-url:`.../runs/wf-8821/creates` returns :val:`create_relationships` objects whose :field:`target` is a data entry; fetching :query-url:`.../structures/mp-149-relaxed/created_by` returns the (single) :val:`create_relationships` object for the same edge, whose :field:`target` is the run.
+Fetching :query-url:`.../runs/wf-8821/has_artifact` returns :val:`artifact_relationships` objects whose :field:`target` is a data entry; fetching :query-url:`.../structures/mp-149-relaxed/is_artifact` returns the (single) :val:`artifact_relationships` object for the same edge, whose :field:`target` is the run.
 The :field:`label` attribute is identical whichever direction the edge is fetched from.
 
 Carrying :field:`label` and :field:`workflow_declaration_uri` as real attributes of the relation objects (rather than in a resource identifier's :field:`meta`) means they are ordinary OPTIMADE properties: documentable in :endpoint:`/info`, and filterable with the standard filter language.
-For example, :filter:`filter=label="relaxed_structure"` is a normal filter over the :field:`label` property of the returned :val:`create_relationships` objects.
+For example, :filter:`filter=label="relaxed_structure"` is a normal filter over the :field:`label` property of the returned :val:`artifact_relationships` objects.
 
 The four relation types are **embedded-only**: they appear only inside the provenance :field:`related`/:field:`self` endpoints of a parent entry.
 They MUST NOT be listed in :field:`available_endpoints`, have no top-level entry-listing endpoint, and are not independently queryable outside the scope of a parent entry.
@@ -1563,22 +1563,22 @@ The :field:`label` attribute of relation objects has the following specification
 - **Requirements/Conventions**:
 
   - **Support**: REQUIRED on every relation object, MUST NOT be :val:`null`.
-  - The :field:`label` MUST be unique among the following edges outgoing from a given entry: :field:`inputs`, :field:`creates`, :field:`returns`, :field:`source_of` (and
-    :field:`created_by`, which is anyway a to-one relationship). Instead, it needs not to be unique among the following edges: :field:`input_for`, :field:`returned_by`, :field:`derived_from`.
+  - The :field:`label` MUST be unique among the following edges outgoing from a given entry: :field:`has_input`, :field:`has_artifact`, :field:`has_output`, :field:`has_product` (and
+    :field:`is_artifact`, which is anyway a to-one relationship). Instead, it needs not to be unique among the following edges: :field:`is_input`, :field:`is_output`, :field:`is_product`.
 
 **Fetching, pagination, filtering, and including the target.**
-The following apply to the :field:`related` (and, where provided, :field:`self`) links of :field:`inputs`, :field:`input_for`, :field:`creates`, :field:`returns`, :field:`returned_by`, :field:`source_of`, and :field:`derived_from`.
-(:field:`created_by` is to-one; see section `created\_by`_.)
+The following apply to the :field:`related` (and, where provided, :field:`self`) links of :field:`has_input`, :field:`is_input`, :field:`has_artifact`, :field:`has_output`, :field:`is_output`, :field:`has_product`, and :field:`is_product`.
+(:field:`is_artifact` is to-one; see section `is_artifact`_.)
 
 - A server MUST support fetching via the relationship's :field:`links.related`, paginated with the standard parameters of section `Entry Listing URL Query Parameters`_ (:query-param:`page_limit` plus one of :query-param:`page_offset`/:query-param:`page_cursor`/:query-param:`page_number`/:query-param:`page_above`/:query-param:`page_below`), exactly as an Entry Listing Endpoint.
 - The response follows the JSON Response Schema of section `Entry Listing JSON Response Schema`_, with :field:`data` a list of relation objects. :field:`meta.more_data_available` is REQUIRED; :field:`meta.data_returned` SHOULD be included; :field:`meta.data_available` MAY be included and MAY be omitted where an exact count would be expensive.
-- Since :field:`label` (and :field:`workflow_declaration_uri` on :val:`derived_relationships`) are real attributes of the relation objects, they support ordinary OPTIMADE filter expressions.
+- Since :field:`label` (and :field:`workflow_declaration_uri` on :val:`product_relationships`) are real attributes of the relation objects, they support ordinary OPTIMADE filter expressions.
 - Specifying :query-string:`include=target` adds the far-end entries to the top-level :field:`included` array, so a client receives edges and their targets in a single request.
 - These endpoints are scoped to a single parent entry and MUST NOT be listed in :field:`available_endpoints`.
 - The :field:`self` link MAY additionally be supported, returning linkage only (resource identifier objects for the relation objects) under the same pagination rules.
 
     **Implementation note**: :field:`included` is not paginated by JSON:API.
-    Requesting :query-string:`include=creates` on a run with a large :field:`meta.data_available` yields a correspondingly large, unpaginated :field:`included` array.
+    Requesting :query-string:`include=has_artifact` on a run with a large :field:`meta.data_available` yields a correspondingly large, unpaginated :field:`included` array.
     For large runs, clients SHOULD page the :field:`related` link instead.
 
 Single Entry Endpoints
@@ -3304,7 +3304,7 @@ Every entry type — standard or custom — is classified into exactly one of th
 
 Provenance participation is category-gated (see section `Relationships Used by Multiple Entry Types`_):
 
-- Only ``data`` and ``execution`` entries participate in the eight provenance relationships :field:`inputs`, :field:`input_for`, :field:`creates`, :field:`created_by`, :field:`returns`, :field:`returned_by`, :field:`source_of`, and :field:`derived_from`.
+- Only ``data`` and ``execution`` entries participate in the eight provenance relationships :field:`has_input`, :field:`is_input`, :field:`has_artifact`, :field:`is_artifact`, :field:`has_output`, :field:`is_output`, :field:`has_product`, and :field:`is_product`.
 - ``metadata`` entries participate in none of the eight provenance relationships — neither as the defining entry nor as a target.
   A :entry:`metadata` entry such as a :entry:`references` entry can still be linked in the ordinary way through a type-keyed relationship (e.g., the existing :field:`references` relationship on a structure); it simply cannot appear under any of the eight provenance keys.
 
@@ -3315,7 +3315,7 @@ For the entry types standardized in this specification, the category is fixed re
 The category of an entry type is declared through the :field:`x-optimade-category` key of the entry type's Property Definition (see the `definition of the x-optimade-category field`_), whose value is exposed in Entry Listing Info Endpoint responses (see section `Entry Listing Info Endpoints`_).
 This mechanism exists primarily so that provider-specific ``execution``-like entry types can declare :val:`"execution"` in their own :endpoint:`/info/<entry_type>` endpoint and thereby participate in the provenance relationships without requiring further changes to this specification.
 
-    **Validator note**: because :field:`x-optimade-category` gates provenance participation, a custom execution-like entry type that omits the field silently defaults to ``data``, and its intended placement under a run's :field:`inputs`, :field:`creates`, or :field:`returns` becomes non-conformant — with no error, because the default is silent.
+    **Validator note**: because :field:`x-optimade-category` gates provenance participation, a custom execution-like entry type that omits the field silently defaults to ``data``, and its intended placement under a run's :field:`has_input`, :field:`has_artifact`, or :field:`has_output` becomes non-conformant — with no error, because the default is silent.
     Validators SHOULD warn when a custom entry type participates in provenance relationships in a way that contradicts its (possibly defaulted) category.
 
 Properties Used by Multiple Entry Types
@@ -4587,7 +4587,7 @@ It is distinct from a *workflow* (the reusable definition of what can be run), w
 
 :entry:`runs` entries have the properties described in section `Properties Used by Multiple Entry Types`_, as well as the following property and relationships:
 
-Where a :entry:`runs` entry is not available or appropriate for a given derivation, :field:`source_of`/:field:`derived_from` (see section `source\_of`_) offer a lighter, direct data-to-data alternative.
+For curation — designating a provider's recommended derived result — and for lightweight derivations where a full :entry:`runs` entry is not available or appropriate, :field:`has_product`/:field:`is_product` (see section `has_product`_) offer a direct data-to-data alternative.
 
 workflow\_declaration\_uri
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -4602,7 +4602,7 @@ workflow\_declaration\_uri
   - No particular URI scheme, resolvability, or formalism is mandated.
   - If a provider wants two :entry:`runs` entries to be recognized as executions of the same workflow declaration, it MUST use an identical :field:`workflow_declaration_uri` for both.
   - :val:`null` is expected for ad-hoc scripts, interactive notebook executions, and legacy data with no formal workflow identifier.
-    Such executions remain fully representable as :entry:`runs` entries, retaining their execution-level metadata and :field:`inputs`/:field:`creates`/:field:`returns` topology.
+    Such executions remain fully representable as :entry:`runs` entries, retaining their execution-level metadata and :field:`has_input`/:field:`has_artifact`/:field:`has_output` topology.
 
 - **Examples**:
 
@@ -4628,8 +4628,8 @@ Example property definition (for use in :endpoint:`/info/runs`):
       "x-optimade-requirements": { "support": "must", "sortable": false, "query-support": "partial" }
     }
 
-inputs
-~~~~~~
+has_input
+~~~~~~~~~
 
 - **Requirements/Conventions**:
 
@@ -4638,51 +4638,51 @@ inputs
 A reserved relationship key (see section `Entry Listing JSON Response Schema`_) representing the :entry:`data` entries consumed by this run.
 It resolves to :val:`input_relationships` relation objects (see section `Provenance Relation Objects`_); the referenced targets MUST be :entry:`data` entries.
 
-Within a single run, the :field:`label` of the :val:`input_relationships` objects under :field:`inputs` MUST be unique (they name the run's input slots, e.g., :val:`"initial_structure"`, :val:`"input_parameters"`).
+Within a single run, the :field:`label` of the :val:`input_relationships` objects under :field:`has_input` MUST be unique (they name the run's input slots, e.g., :val:`"initial_structure"`, :val:`"input_parameters"`).
 
-This relationship is not included by default (the default :query-param:`include` value remains :query-val:`references`); a client requests it explicitly via :query-string:`include=inputs` or :query-string:`include=inputs.target`.
+This relationship is not included by default (the default :query-param:`include` value remains :query-val:`references`); a client requests it explicitly via :query-string:`include=has_input` or :query-string:`include=has_input.target`.
 
-creates
-~~~~~~~
+has_artifact
+~~~~~~~~~~~~
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL.
 
 A reserved relationship key (see section `Entry Listing JSON Response Schema`_) representing the :entry:`data` entries created by this run, i.e., the entries that came into existence as a result of this execution.
-It resolves to :val:`create_relationships` relation objects (see section `Provenance Relation Objects`_); the referenced targets MUST be :entry:`data` entries.
-A :field:`creates` edge records *how a data entry came into existence* — from which run a data entry was created.
-Its reverse key :field:`created_by` is to-one and exclusive (see section `created\_by`_): a given :entry:`data` entry is created by at most one run, so a :field:`creates` edge asserts sole authorship of the target entry.
+It resolves to :val:`artifact_relationships` relation objects (see section `Provenance Relation Objects`_); the referenced targets MUST be :entry:`data` entries.
+A :field:`has_artifact` edge records *how a data entry came into existence* — from which run a data entry was created.
+Its reverse key :field:`is_artifact` is to-one and exclusive (see section `is_artifact`_): a given :entry:`data` entry is created by at most one run, so a :field:`has_artifact` edge asserts sole authorship of the target entry.
 
-Within a single run, the :field:`label` of the :val:`create_relationships` objects under :field:`creates` MUST be unique (they name the run's output slots, e.g., :val:`"relaxed_structure"`, :val:`"stdout_log"`).
+Within a single run, the :field:`label` of the :val:`artifact_relationships` objects under :field:`has_artifact` MUST be unique (they name the run's output slots, e.g., :val:`"relaxed_structure"`, :val:`"stdout_log"`).
 
-    **Note**: :field:`creates` edges are not mandatory; only providers that care about representing or communicating the provenance of data creation will use them.
+    **Note**: :field:`has_artifact` edges are not mandatory; only providers that care about representing or communicating the provenance of data creation will use them.
     The level of granularity of the provenance represented in OPTIMADE is up to the provider: it does not have to match the provider's internal provenance granularity, but should be limited to what the provider considers relevant for the user.
     For example, a provider MAY expose a single run as the creator of a data entry to represent what was internally a very complex workflow.
 
-This relationship is not included by default; a client requests it explicitly via :query-string:`include=creates` or :query-string:`include=creates.target`.
+This relationship is not included by default; a client requests it explicitly via :query-string:`include=has_artifact` or :query-string:`include=has_artifact.target`.
 
-returns
-~~~~~~~
+has_output
+~~~~~~~~~~
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL.
 
 A reserved relationship key (see section `Entry Listing JSON Response Schema`_) representing the :entry:`data` entries returned by this run.
-It resolves to :val:`return_relationships` relation objects (see section `Provenance Relation Objects`_); the referenced targets MUST be :entry:`data` entries.
+It resolves to :val:`output_relationships` relation objects (see section `Provenance Relation Objects`_); the referenced targets MUST be :entry:`data` entries.
 
-Whereas :field:`creates` records how a :entry:`data` entry came into existence, :field:`returns` records the *logic of the run*: which :entry:`data` entries the run returned as its results.
+Whereas :field:`has_artifact` records how a :entry:`data` entry came into existence, :field:`has_output` records the *logic of the run*: which :entry:`data` entries the run returned as its results.
 The two are distinct because a run need not create the data it returns: for example, a workflow may call a subworkflow that creates the output data and then return that same piece of data.
-Unlike :field:`creates`/:field:`created_by`, the :field:`returns`/:field:`returned_by` relationship enforces no exclusivity — the same :entry:`data` entry MAY be returned by multiple runs (see section `returned\_by`_).
+Unlike :field:`has_artifact`/:field:`is_artifact`, the :field:`has_output`/:field:`is_output` relationship enforces no exclusivity — the same :entry:`data` entry MAY be returned by multiple runs (see section `is_output`_).
 
-Within a single run, the :field:`label` of the :val:`return_relationships` objects under :field:`returns` MUST be unique (in the same way as :field:`creates` labels).
-From the point of view of the returned :entry:`data` entry, however, the labels of the incoming :field:`returned_by` edges need not be unique.
+Within a single run, the :field:`label` of the :val:`output_relationships` objects under :field:`has_output` MUST be unique (in the same way as :field:`has_artifact` labels).
+From the point of view of the returned :entry:`data` entry, however, the labels of the incoming :field:`is_output` edges need not be unique.
 
-A run node MAY have both a :field:`creates` and a :field:`returns` edge to the same :entry:`data` entry.
-The most common case is a :field:`returns` edge alone; of the remaining two cases, a run having both a :field:`creates` and a :field:`returns` edge to the same entry is more common than a :field:`creates` edge alone, since a client interested in all runs that returned a given :entry:`data` entry would usually expect to also find its creator among them.
+A run node MAY have both a :field:`has_artifact` and a :field:`has_output` edge to the same :entry:`data` entry.
+The most common case is a :field:`has_output` edge alone; of the remaining two cases, a run having both a :field:`has_artifact` and a :field:`has_output` edge to the same entry is more common than a :field:`has_artifact` edge alone, since a client interested in all runs that returned a given :entry:`data` entry would usually expect to also find its creator among them.
 
-This relationship is not included by default; a client requests it explicitly via :query-string:`include=returns` or :query-string:`include=returns.target`.
+This relationship is not included by default; a client requests it explicitly via :query-string:`include=has_output` or :query-string:`include=has_output.target`.
 
 Example of a :entry:`runs` entry response (relationship stubs; edges fetched separately):
 
@@ -4697,24 +4697,24 @@ Example of a :entry:`runs` entry response (relationship stubs; edges fetched sep
           "last_modified": "2026-05-14T09:12:03Z"
         },
         "relationships": {
-          "inputs": {
+          "has_input": {
             "links": {
-              "self": "https://example.org/v1/runs/wf-8821/relationships/inputs",
-              "related": "https://example.org/v1/runs/wf-8821/inputs"
+              "self": "https://example.org/v1/runs/wf-8821/relationships/has_input",
+              "related": "https://example.org/v1/runs/wf-8821/has_input"
             },
             "meta": { "data_available": 2 }
           },
-          "creates": {
+          "has_artifact": {
             "links": {
-              "self": "https://example.org/v1/runs/wf-8821/relationships/creates",
-              "related": "https://example.org/v1/runs/wf-8821/creates"
+              "self": "https://example.org/v1/runs/wf-8821/relationships/has_artifact",
+              "related": "https://example.org/v1/runs/wf-8821/has_artifact"
             },
             "meta": { "data_available": 5 }
           },
-          "returns": {
+          "has_output": {
             "links": {
-              "self": "https://example.org/v1/runs/wf-8821/relationships/returns",
-              "related": "https://example.org/v1/runs/wf-8821/returns"
+              "self": "https://example.org/v1/runs/wf-8821/relationships/has_output",
+              "related": "https://example.org/v1/runs/wf-8821/has_output"
             },
             "meta": { "data_available": 3 }
           }
@@ -4809,7 +4809,7 @@ Calculations
 ~~~~~~~~~~~~
 
 Relationships with :entry:`calculations` entries MAY be used to indicate provenance where a structure is either an input to or an output of calculations.
-:entry:`calculations` is classified as an ``execution`` entry type (see section `Entry Type Categories`_), and may therefore participate in the provenance relationships :field:`inputs`, :field:`creates`, and :field:`returns` defined in this section and exposed by the :entry:`runs` entry type (see section `Runs Entries`_).
+:entry:`calculations` is classified as an ``execution`` entry type (see section `Entry Type Categories`_), and may therefore participate in the provenance relationships :field:`has_input`, :field:`has_artifact`, and :field:`has_output` defined in this section and exposed by the :entry:`runs` entry type (see section `Runs Entries`_).
 
     **Note**: The :entry:`calculations` entry type is DEPRECATED (see section `Calculations Entries`_); new implementations SHOULD use :entry:`runs` entries to express this provenance.
 
@@ -4847,80 +4847,95 @@ Relationships with files may be used to relate an entry with any number of :entr
       ]
     }
 
-created\_by
+is_artifact
 ~~~~~~~~~~~
 
-The :field:`created_by` relationship identifies the single execution that created a :entry:`data` entry (the inverse of :field:`creates`, see section `creates`_).
+The :field:`is_artifact` relationship identifies the single execution that created a :entry:`data` entry (the inverse of :field:`has_artifact`, see section `has_artifact`_).
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL; to-one.
-    If present, :field:`data` MUST be a single resource identifier object for the :val:`create_relationships` relation object, or :field-val:`null`.
+    If present, :field:`data` MUST be a single resource identifier object for the :val:`artifact_relationships` relation object, or :field-val:`null`.
     The relation object's :field:`target` MUST be an ``execution`` entry.
-  - A :entry:`data` entry MUST be the :field:`created_by` at most one execution (single-and-exclusive-creator rule): the execution identified via :field:`created_by` is the only execution permitted to list this entry under its :field:`creates`.
+  - A :entry:`data` entry MUST be the :field:`is_artifact` at most one execution (single-and-exclusive-creator rule): the execution identified via :field:`is_artifact` is the only execution permitted to list this entry under its :field:`has_artifact`.
     Two runs MUST NOT both claim the same entry as something they create.
-  - If no creating execution is known or applicable, the entry omits :field:`created_by` or sets :field:`data` to :field-val:`null`.
-  - The relation object's :field:`label` MUST equal the :field:`label` the same edge carries under the creating execution's :field:`creates`.
+  - If no creating execution is known or applicable, the entry omits :field:`is_artifact` or sets :field:`data` to :field-val:`null`.
+  - The relation object's :field:`label` MUST equal the :field:`label` the same edge carries under the creating execution's :field:`has_artifact`.
   - Because cardinality is ≤ 1, implementations SHOULD inline the relationship :field:`data` directly; the pagination affordances of section `Provenance Relation Objects`_ are unnecessary here.
-  - :field:`created_by` is not included by default; clients MUST request it explicitly via :query-string:`include=created_by` or :query-string:`include=created_by.target`.
+  - :field:`is_artifact` is not included by default; clients MUST request it explicitly via :query-string:`include=is_artifact` or :query-string:`include=is_artifact.target`.
 
-input\_for
-~~~~~~~~~~
+is_input
+~~~~~~~~
 
-The :field:`input_for` relationship identifies the executions that used a :entry:`data` entry as an input.
+The :field:`is_input` relationship identifies the executions that used a :entry:`data` entry as an input.
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL; unbounded to-many.
     Each relation object's :field:`target` MUST be an ``execution`` entry.
-  - A single data entry MAY be :field:`input_for` many runs; the set is potentially large.
-  - Each :val:`input_relationships` object's :field:`label` MUST equal the :field:`label` the same edge carries under the corresponding execution's :field:`inputs`, but is NOT required to be unique across the many incoming edges (many runs may independently label their edge :val:`"input_structure"`).
+  - A single data entry MAY be :field:`is_input` many runs; the set is potentially large.
+  - Each :val:`input_relationships` object's :field:`label` MUST equal the :field:`label` the same edge carries under the corresponding execution's :field:`has_input`, but is NOT required to be unique across the many incoming edges (many runs may independently label their edge :val:`"input_structure"`).
   - Follows the fetching, pagination, filtering, and include conventions of section `Provenance Relation Objects`_.
 
-returned\_by
-~~~~~~~~~~~~
+is_output
+~~~~~~~~~
 
-The :field:`returned_by` relationship identifies the executions that returned a :entry:`data` entry (the inverse of :field:`returns`, see section `returns`_).
+The :field:`is_output` relationship identifies the executions that returned a :entry:`data` entry (the inverse of :field:`has_output`, see section `has_output`_).
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL; unbounded to-many.
     Each relation object's :field:`target` MUST be an ``execution`` entry.
-  - Unlike :field:`created_by` (which is to-one and exclusive), a single :entry:`data` entry MAY be :field:`returned_by` many runs; no uniqueness or exclusivity is enforced on the incoming side.
+  - Unlike :field:`is_artifact` (which is to-one and exclusive), a single :entry:`data` entry MAY be :field:`is_output` many runs; no uniqueness or exclusivity is enforced on the incoming side.
     This is what allows the same :entry:`data` entry to be returned from multiple runs (e.g., a workflow and each of the subworkflows that pass the same result upwards).
-  - Each :val:`return_relationships` object's :field:`label` MUST equal the :field:`label` the same edge carries under the corresponding execution's :field:`returns`, but is NOT required to be unique across the many incoming edges.
+  - Each :val:`output_relationships` object's :field:`label` MUST equal the :field:`label` the same edge carries under the corresponding execution's :field:`has_output`, but is NOT required to be unique across the many incoming edges.
   - Follows the fetching, pagination, filtering, and include conventions of section `Provenance Relation Objects`_.
 
-source\_of
+has_product
+~~~~~~~~~~~
+
+The :field:`has_product` relationship designates the :entry:`data` entries that are *products* of this one.
+Its primary purpose is **data curation**: a provider uses it to flag "this is our recommended result derived from this entry", pointing at the preferred one among several computed variants.
+
+A product is best understood as a *derived property* of the source entry.
+An entry carries some quantities as attributes living inside the entry itself; a product is, by contrast, a derived quantity that lives in a *separate* :entry:`data` node and is attached to the source through a :field:`has_product` edge.
+The edge's :field:`label` is the product's name, playing the same role as a property/attribute name — for example, :val:`"_exmpl_band_structure"` for the provider's recommended band structure derived from a structure entry, or, when several derivations must be distinguished, :val:`"_exmpl_band_structure_pbe"` and :val:`"_exmpl_band_structure_r2scan"`.
+
+Because the :field:`label` names the product, it MUST be unique among a given entry's outgoing :field:`has_product` edges (see the requirements below), exactly as a property/attribute name is unique within a node.
+Product names and attribute names live in *separate namespaces*: each is unique on its own side, but the same name MAY appear both as an attribute of an entry and as the :field:`label` of one of its products.
+
+A product is *ideally* a derived quantity — the outcome of some process or workflow applied to the source.
+That derivation is what gives the link its meaning; where it is known, it SHOULD be recorded in the :field:`workflow_declaration_uri` attribute of the :val:`product_relationships` object (see :field:`is_product` below), which is precisely what makes the intended reading of these links explicit.
+In this respect :field:`has_product`/:field:`is_product` are a lighter, direct data-to-data alternative to modelling the derivation as a full :entry:`runs` entry with :field:`has_input`/:field:`has_artifact` edges, for cases where a full run is not available or not worth representing.
+Where a :field:`has_product` link is used, there SHOULD ideally also exist a fully-modelled provenance path through :entry:`runs` entries connecting the same two entries.
+
+Note that a :field:`has_product` edge is strictly one-to-one: it connects a single source :entry:`data` entry to a single product :entry:`data` entry.
+When a derived quantity depends on two or more source entries — for example, an activation energy computed by a NEB calculation from two structures — a direct data-to-data link cannot express it.
+A provider that needs to represent such a many-to-one derivation in a machine-queryable way MUST instead introduce a :entry:`runs` entry between the inputs and the output (placing the :field:`workflow_declaration_uri` on that :entry:`runs` entry).
+
+Contrast with :field:`is_artifact` (see above): :field:`is_artifact` is to-one and exclusive (exactly one run creates a given artifact), while :field:`is_product` is unbounded and represents an entry being derivable via potentially many independent paths.
+
+- **Requirements/Conventions**:
+
+  - **Support**: OPTIONAL; unbounded to-many.
+    The defining entry and every target MUST be ``data`` entries (see section `Entry Type Categories`_).
+    Resolves to :val:`product_relationships` objects.
+  - Each :val:`product_relationships` object's :field:`label` MUST be unique among this entry's own :field:`has_product` edges: a source MUST NOT have two :field:`has_product` edges with the same :field:`label`.
+    This mirrors the uniqueness of property/attribute names within an entry; product names and attribute names nonetheless live in separate namespaces (see above).
+  - Follows the fetching, pagination, filtering, and include conventions of section `Provenance Relation Objects`_.
+
+is_product
 ~~~~~~~~~~
 
-The :field:`source_of` relationship records the :entry:`data` entries derived directly from this one, without an intervening :entry:`runs` entry.
-Along with :field:`derived_from` (see below), it is a lighter alternative to the :field:`inputs`/:field:`creates` mechanism for cases where the process is not worth representing as a full :entry:`runs` entry.
-A primary use is data curation — designating a preferred result among several computed variants.
-Where a direct derivation link is used for curation, there SHOULD ideally also exist a fully-modelled provenance path through :entry:`runs` entries connecting the same two entries.
-
-Contrast with :field:`created_by` (see above): :field:`created_by` is to-one and exclusive (exactly one run creates a given artifact), while :field:`derived_from` is unbounded and represents an entry being derivable via potentially many independent paths.
+The :field:`is_product` relationship is the inverse of :field:`has_product`: the :entry:`data` entries that this entry was derived directly from.
 
 - **Requirements/Conventions**:
 
   - **Support**: OPTIONAL; unbounded to-many.
     The defining entry and every target MUST be ``data`` entries (see section `Entry Type Categories`_).
-    Resolves to :val:`derived_relationships` objects.
-  - Each :val:`derived_relationships` object's :field:`label` MUST be unique among this entry's own :field:`source_of` edges: a source MUST NOT have two :field:`source_of` edges with the same :field:`label`.
-  - Follows the fetching, pagination, filtering, and include conventions of section `Provenance Relation Objects`_.
-
-derived\_from
-~~~~~~~~~~~~~
-
-The :field:`derived_from` relationship is the inverse of :field:`source_of`: the :entry:`data` entries that this entry was derived directly from.
-
-- **Requirements/Conventions**:
-
-  - **Support**: OPTIONAL; unbounded to-many.
-    The defining entry and every target MUST be ``data`` entries (see section `Entry Type Categories`_).
-    Resolves to :val:`derived_relationships` objects.
-  - Each :val:`derived_relationships` object's :field:`label` equals the :field:`label` the same edge carries on the source's :field:`source_of` side, but unlike :field:`source_of`, is NOT required to be unique among this entry's :field:`derived_from` edges: several different sources MAY label their edge to this same derived entry identically.
-  - :val:`derived_relationships` objects MAY carry an optional :field:`workflow_declaration_uri` attribute, with the same meaning as :property:`workflow_declaration_uri` on :entry:`runs` entries (see section `Runs Entries`_): a URI identifying the workflow declaration or process behind this specific derivation.
+    Resolves to :val:`product_relationships` objects.
+  - Each :val:`product_relationships` object's :field:`label` equals the :field:`label` the same edge carries on the source's :field:`has_product` side, but unlike :field:`has_product`, is NOT required to be unique among this entry's :field:`is_product` edges: several different sources MAY label their edge to this same derived entry identically.
+  - :val:`product_relationships` objects MAY carry an optional :field:`workflow_declaration_uri` attribute, with the same meaning as :property:`workflow_declaration_uri` on :entry:`runs` entries (see section `Runs Entries`_): a URI identifying the workflow declaration or process behind this specific derivation.
     It is OPTIONAL and MAY be :val:`null`.
     The value is identical whichever direction the edge is fetched from.
   - Follows the fetching, pagination, filtering, and include conventions of section `Provenance Relation Objects`_, including filtering by :field:`label` and :field:`workflow_declaration_uri`.
@@ -4930,10 +4945,10 @@ Provenance Examples
 
 This section provides worked examples illustrating the provenance relationships defined above.
 
-Paginating the created data of a run — :query-url:`GET /v1/runs/wf-8821/creates?page_limit=2`
+Paginating the created data of a run — :query-url:`GET /v1/runs/wf-8821/has_artifact?page_limit=2`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Returns :val:`create_relationships` relation objects, each with a :field:`label` attribute and a :field:`target` pointing at the created entry.
+Returns :val:`artifact_relationships` relation objects, each with a :field:`label` attribute and a :field:`target` pointing at the created entry.
 Five created entries total; first two returned:
 
 .. code:: jsonc
@@ -4942,16 +4957,16 @@ Five created entries total; first two returned:
       "meta": { "data_returned": 2, "data_available": 5, "more_data_available": true },
       "data": [
         {
-          "type": "create_relationships",
-          "id": "wf-8821~creates~0",
+          "type": "artifact_relationships",
+          "id": "wf-8821~has_artifact~0",
           "attributes": { "label": "unrelaxed_structure" },
           "relationships": {
             "target": { "data": { "type": "structures", "id": "mp-149-input" } }
           }
         },
         {
-          "type": "create_relationships",
-          "id": "wf-8821~creates~1",
+          "type": "artifact_relationships",
+          "id": "wf-8821~has_artifact~1",
           "attributes": { "label": "relaxed_structure" },
           "relationships": {
             "target": { "data": { "type": "structures", "id": "mp-149-relaxed" } }
@@ -4959,17 +4974,17 @@ Five created entries total; first two returned:
         }
       ],
       "links": {
-        "self": "https://example.org/v1/runs/wf-8821/creates?page_limit=2&page_offset=0",
-        "next": "https://example.org/v1/runs/wf-8821/creates?page_limit=2&page_offset=2"
+        "self": "https://example.org/v1/runs/wf-8821/has_artifact?page_limit=2&page_offset=0",
+        "next": "https://example.org/v1/runs/wf-8821/has_artifact?page_limit=2&page_offset=2"
       }
     }
 
 A client loops over :field:`links.next` until it is absent.
 
-Fetching one created entry by label — :query-url:`GET /v1/runs/wf-8821/creates?filter=label="relaxed_structure"`
+Fetching one created entry by label — :query-url:`GET /v1/runs/wf-8821/has_artifact?filter=label="relaxed_structure"`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-An ordinary filter over the :field:`label` attribute of the :val:`create_relationships` objects:
+An ordinary filter over the :field:`label` attribute of the :val:`artifact_relationships` objects:
 
 .. code:: jsonc
 
@@ -4977,8 +4992,8 @@ An ordinary filter over the :field:`label` attribute of the :val:`create_relatio
       "meta": { "data_returned": 1, "data_available": 1, "more_data_available": false },
       "data": [
         {
-          "type": "create_relationships",
-          "id": "wf-8821~creates~1",
+          "type": "artifact_relationships",
+          "id": "wf-8821~has_artifact~1",
           "attributes": { "label": "relaxed_structure" },
           "relationships": {
             "target": { "data": { "type": "structures", "id": "mp-149-relaxed" } }
@@ -4987,7 +5002,7 @@ An ordinary filter over the :field:`label` attribute of the :val:`create_relatio
       ]
     }
 
-Including the target in one request — :query-url:`GET /v1/runs/wf-8821/creates?filter=label="relaxed_structure"&include=target`
+Including the target in one request — :query-url:`GET /v1/runs/wf-8821/has_artifact?filter=label="relaxed_structure"&include=target`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :query-string:`include=target` adds the far-end entry to :field:`included`, so the client receives the edge and the full target structure without a second request:
@@ -4998,8 +5013,8 @@ Including the target in one request — :query-url:`GET /v1/runs/wf-8821/creates
       "meta": { "data_returned": 1, "data_available": 1, "more_data_available": false },
       "data": [
         {
-          "type": "create_relationships",
-          "id": "wf-8821~creates~1",
+          "type": "artifact_relationships",
+          "id": "wf-8821~has_artifact~1",
           "attributes": { "label": "relaxed_structure" },
           "relationships": {
             "target": { "data": { "type": "structures", "id": "mp-149-relaxed" } }
@@ -5021,18 +5036,18 @@ Including the target in one request — :query-url:`GET /v1/runs/wf-8821/creates
 
 Without :query-string:`include=target`, the client would take the :field:`target.data.id` (:val:`"mp-149-relaxed"`) and issue a second request :query-url:`GET /v1/structures/mp-149-relaxed`.
 
-Traversing in reverse — :query-url:`GET /v1/structures/mp-149-relaxed/created_by`
+Traversing in reverse — :query-url:`GET /v1/structures/mp-149-relaxed/is_artifact`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:field:`created_by` is to-one, so :field:`data` is a single :val:`create_relationships` object (not an array), whose :field:`target` is the creating run:
+:field:`is_artifact` is to-one, so :field:`data` is a single :val:`artifact_relationships` object (not an array), whose :field:`target` is the creating run:
 
 .. code:: jsonc
 
     {
       "meta": { "more_data_available": false },
       "data": {
-        "type": "create_relationships",
-        "id": "wf-8821~creates~1",
+        "type": "artifact_relationships",
+        "id": "wf-8821~has_artifact~1",
         "attributes": { "label": "relaxed_structure" },
         "relationships": {
           "target": { "data": { "type": "runs", "id": "wf-8821" } }
@@ -5041,12 +5056,12 @@ Traversing in reverse — :query-url:`GET /v1/structures/mp-149-relaxed/created_
     }
 
 The same edge id and :field:`label` appear here as in the previous examples — one edge, fetched from the other end.
-Per the single-and-exclusive-creator rule, :val:`"wf-8821"` is the only run that lists :val:`"mp-149-relaxed"` under its :field:`creates`, so this reverse lookup is unambiguous.
+Per the single-and-exclusive-creator rule, :val:`"wf-8821"` is the only run that lists :val:`"mp-149-relaxed"` under its :field:`has_artifact`, so this reverse lookup is unambiguous.
 
-A structure returned by several runs — :query-url:`GET /v1/structures/mp-149-relaxed/returned_by`
+A structure returned by several runs — :query-url:`GET /v1/structures/mp-149-relaxed/is_output`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Whereas :field:`created_by` is to-one, :field:`returned_by` is unbounded: the same :entry:`data` entry may be returned by more than one run.
+Whereas :field:`is_artifact` is to-one, :field:`is_output` is unbounded: the same :entry:`data` entry may be returned by more than one run.
 Here :val:`"mp-149-relaxed"` was created by :val:`"wf-8821"` (which also returns it) and, in addition, returned unchanged by the parent workflow run :val:`"wf-8800"` that called :val:`"wf-8821"` as a subworkflow:
 
 .. code:: jsonc
@@ -5055,25 +5070,25 @@ Here :val:`"mp-149-relaxed"` was created by :val:`"wf-8821"` (which also returns
       "meta": { "data_returned": 2, "data_available": 2, "more_data_available": false },
       "data": [
         {
-          "type": "return_relationships",
-          "id": "wf-8821~returns~0",
+          "type": "output_relationships",
+          "id": "wf-8821~has_output~0",
           "attributes": { "label": "relaxed_structure" },
           "relationships": { "target": { "data": { "type": "runs", "id": "wf-8821" } } }
         },
         {
-          "type": "return_relationships",
-          "id": "wf-8800~returns~0",
+          "type": "output_relationships",
+          "id": "wf-8800~has_output~0",
           "attributes": { "label": "relaxed_structure" },
           "relationships": { "target": { "data": { "type": "runs", "id": "wf-8800" } } }
         }
       ]
     }
 
-Both edges carry the same :field:`label` while targeting different runs; this is allowed because :field:`returned_by` labels need not be unique across incoming edges.
-Run :val:`"wf-8800"` returns :val:`"mp-149-relaxed"` without creating it (it has no :field:`creates` edge to it): it merely relays the result created by its subworkflow run :val:`"wf-8821"`.
-Run :val:`"wf-8821"`, by contrast, has both a :field:`creates` and a :field:`returns` edge to :val:`"mp-149-relaxed"` — the common case where a run returns exactly what it created.
+Both edges carry the same :field:`label` while targeting different runs; this is allowed because :field:`is_output` labels need not be unique across incoming edges.
+Run :val:`"wf-8800"` returns :val:`"mp-149-relaxed"` without creating it (it has no :field:`has_artifact` edge to it): it merely relays the result created by its subworkflow run :val:`"wf-8821"`.
+Run :val:`"wf-8821"`, by contrast, has both a :field:`has_artifact` and a :field:`has_output` edge to :val:`"mp-149-relaxed"` — the common case where a run returns exactly what it created.
 
-A heavily-reused input — :query-url:`GET /v1/structures/mp-149-input/input_for?page_limit=2`
+A heavily-reused input — :query-url:`GET /v1/structures/mp-149-input/is_input?page_limit=2`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :val:`input_relationships` objects; labels are not required to be unique across the many runs:
@@ -5097,7 +5112,7 @@ A heavily-reused input — :query-url:`GET /v1/structures/mp-149-input/input_for
         }
       ],
       "links": {
-        "next": "https://example.org/v1/structures/mp-149-input/input_for?page_limit=2&page_offset=2"
+        "next": "https://example.org/v1/structures/mp-149-input/is_input?page_limit=2&page_offset=2"
       }
     }
 
@@ -5109,7 +5124,7 @@ Data-to-data curation — multiple relaxation steps converging on one final stru
 As an example, we consider a case where the geometry of a structure is relaxed
 in multiple steps, each producing a new structure entry.
 The provider curates the results by designating the very final relaxed structure
-as the preferred result. The provider therefore adds a :field:`source_of` edge from
+as the preferred result. The provider therefore adds a :field:`has_product` edge from
 each of the intermediate steps to the final structure, all with the same :field:`label`
 (e.g., :val:`"relaxed_structure"`), and optionally a :field:`workflow_declaration_uri` where known.
 In such a way, each intermediate, partially-relaxed structure designates the same final
@@ -5117,7 +5132,7 @@ structure as their :val:`"relaxed_structure"` result. (Note: all these edges are
 at the discretion of the provider and are not required: they are a way for the provider
 to facilitate data exploration for specific pairs of structures that are deemed relevant.)
 
-Fetching one source's outgoing edges, :query-url:`GET /v1/structures/step-1/source_of`:
+Fetching one source's outgoing edges, :query-url:`GET /v1/structures/step-1/has_product`:
 
 .. code:: jsonc
 
@@ -5125,7 +5140,7 @@ Fetching one source's outgoing edges, :query-url:`GET /v1/structures/step-1/sour
       "meta": { "data_returned": 1, "data_available": 1, "more_data_available": false },
       "data": [
         {
-          "type": "derived_relationships",
+          "type": "product_relationships",
           "id": "step-1~src~0",
           "attributes": {
             "label": "relaxed_structure",
@@ -5136,8 +5151,8 @@ Fetching one source's outgoing edges, :query-url:`GET /v1/structures/step-1/sour
       ]
     }
 
-Each of :val:`"step-1"`, :val:`"step-2"`, :val:`"step-3"` has exactly one :val:`"relaxed_structure"` edge under its own :field:`source_of` (per-source uniqueness, see section `source\_of`_).
-Fetching the final structure's incoming edges, :query-url:`GET /v1/structures/final-structure/derived_from`, all three appear with the same label; :field:`workflow_declaration_uri` is present only where known:
+Each of :val:`"step-1"`, :val:`"step-2"`, :val:`"step-3"` has exactly one :val:`"relaxed_structure"` edge under its own :field:`has_product` (per-source uniqueness, see section `has_product`_).
+Fetching the final structure's incoming edges, :query-url:`GET /v1/structures/final-structure/is_product`, all three appear with the same label; :field:`workflow_declaration_uri` is present only where known:
 
 .. code:: jsonc
 
@@ -5145,28 +5160,28 @@ Fetching the final structure's incoming edges, :query-url:`GET /v1/structures/fi
       "meta": { "data_returned": 3, "data_available": 3, "more_data_available": false },
       "data": [
         {
-          "type": "derived_relationships", "id": "step-1~src~0",
+          "type": "product_relationships", "id": "step-1~src~0",
           "attributes": { "label": "relaxed_structure",
                           "workflow_declaration_uri": "https://github.com/example-org/relax-workflow/tree/v3.2.0" },
           "relationships": { "target": { "data": { "type": "structures", "id": "step-1" } } }
         },
         {
-          "type": "derived_relationships", "id": "step-2~src~0",
+          "type": "product_relationships", "id": "step-2~src~0",
           "attributes": { "label": "relaxed_structure", "workflow_declaration_uri": null },
           "relationships": { "target": { "data": { "type": "structures", "id": "step-2" } } }
         },
         {
-          "type": "derived_relationships", "id": "step-3~src~0",
+          "type": "product_relationships", "id": "step-3~src~0",
           "attributes": { "label": "relaxed_structure" },
           "relationships": { "target": { "data": { "type": "structures", "id": "step-3" } } }
         }
       ]
     }
 
-Here, the three edges have identical labels, illustrating the non-uniqueness of :field:`derived_from`.
+Here, the three edges have identical labels, illustrating the non-uniqueness of :field:`is_product`.
 :val:`"step-2"` and :val:`"step-3"` show that an unknown :field:`workflow_declaration_uri` is valid: explicit :val:`null` and omission are both acceptable.
-The filter :filter:`filter=label="relaxed_structure"` on :query-url:`/v1/structures/step-2/source_of` returns exactly one match; the same filter on :query-url:`/v1/structures/final-structure/derived_from` returns all three.
-According to section `source\_of`_, a fully-modelled :entry:`runs`-based provenance path SHOULD also connect these structures, with the :val:`derived_relationships` edges serving as the curation shortcut.
+The filter :filter:`filter=label="relaxed_structure"` on :query-url:`/v1/structures/step-2/has_product` returns exactly one match; the same filter on :query-url:`/v1/structures/final-structure/is_product` returns all three.
+According to section `has_product`_, a fully-modelled :entry:`runs`-based provenance path SHOULD also connect these structures, with the :val:`product_relationships` edges serving as the curation shortcut.
 
 Appendices
 ==========
