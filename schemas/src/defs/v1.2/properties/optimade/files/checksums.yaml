@@ -39,6 +39,11 @@ properties:
     x-optimade-unit: "inapplicable"
     type:
       - "string"
+  sha256:
+    x-optimade-type: "string"
+    x-optimade-unit: "inapplicable"
+    type:
+      - "string"
   sha384:
     x-optimade-type: "string"
     x-optimade-unit: "inapplicable"
