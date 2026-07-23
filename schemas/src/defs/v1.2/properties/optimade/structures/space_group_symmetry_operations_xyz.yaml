@@ -5,9 +5,12 @@ x-optimade-type: "list"
 x-optimade-definition:
   label: "space_group_symmetry_operations_xyz_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "space_group_symmetry_operations_xyz"
+x-optimade-dimensions:
+  names: ["dim_symops"]
+  sizes: [null]
 type:
   - "array"
   - "null"
@@ -45,6 +48,6 @@ description: |-
 examples:
   - ["x,y,z", "-x,y,-z"]
   - ["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"]
-x-optimade-unit: "unapplicable"
+x-optimade-unit: "inapplicable"
 items:
   $$inherit: "/v1.2/properties/optimade/common/space_group_symmetry_operation_xyz"

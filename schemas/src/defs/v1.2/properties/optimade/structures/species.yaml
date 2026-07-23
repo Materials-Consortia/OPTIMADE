@@ -5,11 +5,12 @@ x-optimade-type: "list"
 x-optimade-definition:
   label: "species_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "species"
 x-optimade-dimensions:
   names: ["dim_species"]
+  sizes: [null]
 x-optimade-unit-definitions:
   - $$inherit: "/v1.2/units/si/general/atomicmassunit"
 type:
@@ -90,6 +91,7 @@ items:
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_chemical_symbols"]
+          sizes: [null]
       type:
         - "array"
       description: |-
@@ -116,6 +118,7 @@ items:
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_chemical_symbols"]
+          sizes: [null]
       type:
         - "array"
       description: |-
@@ -146,6 +149,7 @@ items:
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_attached"]
+          sizes: [null]
       type:
         - "array"
       description: |-
@@ -171,6 +175,7 @@ items:
       x-optimade-type: "list"
       x-optimade-dimensions:
           names: ["dim_species_attached"]
+          sizes: [null]
       type:
         - "array"
       description: |-
@@ -194,6 +199,7 @@ items:
       x-optimade-type: "list"
       x-optimade-dimensions:
         names: ["dim_species_chemical_symbols"]
+        sizes: [null]
       type:
         - "array"
       description: |-

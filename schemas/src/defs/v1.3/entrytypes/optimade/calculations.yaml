@@ -1,0 +1,44 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/entrytypes/optimade/calculations"
+title: "calculations"
+description: |-
+  The calculations entry type describes calculations. Related `files` entries specified as relationships list files used or produced by a calculation. They MAY be defined as either input or output files by the `role` field inside the `meta` dictionary of the JSON:API resource identifier object. The allowed values are `input` for input files and `output` for output files. If the `role` field is not provided or the value is set to `null`, a default role SHOULD NOT be assumed. It is RECOMMENDED to order the output files in the list of calculation's relationships in a way that prioritizes the files most likely to contain details which could be used to automatically analyze the performed calculation. Such an approach minimizes the number of calculation output files that need to be analyzed to possibly identify the code, type and parameters of the performed calculation.
+x-optimade-definition:
+  label: "calculations_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.3.0"
+  name: "calculations"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.2/properties/optimade/files/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.2/properties/optimade/files/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.2/properties/optimade/files/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.2/properties/optimade/files/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"

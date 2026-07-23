@@ -1,0 +1,43 @@
+$$schema: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
+$id: "https://schemas.optimade.org/defs/v1.2/entrytypes/optimade/calculations"
+title: "calculations"
+description: "The calculations entry type describes calculations."
+x-optimade-definition:
+  label: "calculations_entrytype_optimade"
+  kind: "entrytype"
+  format: "1.2"
+  version: "1.2.0"
+  name: "calculations"
+type: object
+properties:
+  id:
+    $$inherit: "/v1.2/properties/optimade/files/id"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  type:
+    $$inherit: "/v1.2/properties/optimade/files/type"
+    x-optimade-requirements:
+      support: "must"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "always"
+
+  immutable_id:
+    $$inherit: "/v1.2/properties/optimade/files/immutable_id"
+    x-optimade-requirements:
+      support: "may"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "may"
+
+  last_modified:
+    $$inherit: "/v1.2/properties/optimade/files/last_modified"
+    x-optimade-requirements:
+      support: "should"
+      sortable: false
+      query-support: "all mandatory"
+      response-level: "must"

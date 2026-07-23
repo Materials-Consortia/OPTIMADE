@@ -1,0 +1,33 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/space_group_it_number"
+title: "list of space group IT number"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "space_group_it_number_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "space_group_it_number"
+x-optimade-dimensions:
+  names: ["dim_frames"]
+  sizes: [null]
+  compactable: ["constant"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of space_group_it_number items.
+  A space_group_it_number item is a space group number for the structure assigned by the International Tables for Crystallography Vol. A.
+
+  For each space_group_it_number item the following applies:
+
+  **Requirements/Conventions**:
+
+  - The integer value MUST be between 1 and 230.
+  - MUST be `null` if `nperiodic_dimensions` is not equal to 3.
+examples:
+  - [42,55,16]
+  - [230]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/space_group_it_number"

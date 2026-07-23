@@ -1,0 +1,39 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/cartesian_site_positions"
+title: "list of Cartesian site positions"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "cartesian_site_positions_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "cartesian_site_positions"
+x-optimade-unit-definitions:
+  - $$inherit: "/v1.2/units/si/general/angstrom"
+x-optimade-dimensions:
+  names: ["dim_frames", "dim_sites", "dim_spatial"]
+  sizes: [null, null, 3]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of cartesian_site_positions items.
+  A cartesian_site_positions item is the cartesian positions of each site in the structure.
+
+  For each cartesian_site_positions item the following applies:
+
+  A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.
+
+  **Requirements/Conventions**:
+
+  - It MUST be a list of length equal to the number of sites in the structure, where every element is a list of the three Cartesian coordinates of a site expressed as float values in the unit angstrom (Å).
+  - An entry MAY have multiple sites at the same Cartesian position (for a relevant use of this, see e.g., the property `assemblies`).
+
+  **Explained examples**:
+
+  - `[[0,0,0],[0,0,2]]` indicates a structure with two sites, one sitting at the origin and one along the (positive) *z*-axis, 2 Å away from the origin.
+examples:
+  - [[[0,0,0],[0,0,2]],[[0,0,1.3],[0,0,2.1]]]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/cartesian_site_positions"

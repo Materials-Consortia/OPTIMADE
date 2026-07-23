@@ -1,0 +1,42 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/dimension_types"
+title: "list of dimension types"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "dimension_types_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "dimension_types"
+x-optimade-dimensions:
+  names: ["dim_frames", "dim_lattice"]
+  sizes: [null, 3]
+  compactable: ["constant","no"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of dimension_types items.
+  A dimension_type item is a list of three integers describing the periodicity of the boundaries of the unit cell.
+  For each direction indicated by the three lattice_vectors, this list indicates if the direction is periodic (value 1) or non-periodic (value 0).
+  Note: the elements in this list each refer to the direction of the corresponding entry in lattice_vectors and not the Cartesian x, y, z directions.
+
+  For each dimension_types item the following applies:
+
+  **Requirements/Conventions**:
+
+  - MUST be a list of length 3.
+  - Each integer element MUST assume only the value 0 or 1.
+
+  **Explained examples**:
+
+  - A nonperiodic structure, for example, for a single molecule : `[0, 0, 0]`
+  - A unit cell that is periodic in the direction of the third lattice vector, for example for a carbon nanotube: `[0, 0, 1]`
+  - For a 2D surface/slab, with a unit cell that is periodic in the direction of the first and third lattice vectors: `[1, 0, 1]`
+  - For a bulk 3D system with a unit cell that is periodic in all directions: `[1, 1, 1]`
+examples:
+  - [[0, 0, 0],[0, 0, 1]]
+  - [[1, 0, 1]]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/dimension_types"

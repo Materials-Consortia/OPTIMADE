@@ -5,7 +5,7 @@ x-optimade-type: "dictionary"
 x-optimade-definition:
   label: "assemblies_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "assemblies"
 type:
@@ -117,6 +117,7 @@ properties:
     x-optimade-type: "list"
     x-optimade-dimensions:
       names: ["dim_assembly_groups", "dim_assembly_groups_sites"]
+      sizes: [null, null]
     type:
       - "array"
     description: |-
@@ -135,6 +136,7 @@ properties:
       x-optimade-type: "list"
       x-optimade-dimensions:
         names: ["dim_assembly_groups_sites"]
+        sizes: [null]
       type:
         - "array"
       description: |-
@@ -158,6 +160,7 @@ properties:
     x-optimade-type: "list"
     x-optimade-dimensions:
         names: ["dim_assembly_groups"]
+        sizes: [null]
     type:
       - "array"
     description: |-

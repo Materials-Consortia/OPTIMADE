@@ -1,5 +1,5 @@
 =========================================
-OPTIMADE API specification v1.3.0~develop
+OPTIMADE API specification v1.4.0~develop
 =========================================
 
 .. comment
@@ -1435,8 +1435,13 @@ OPTIONALLY it can also contain the following fields:
   See `JSON Response Schema: Common Fields`_ for more information about this field.
 
 - **relationships**: a dictionary containing references to other entries according to the description in section `Relationships`_ encoded as `JSON:API Relationships <https://jsonapi.org/format/1.1/#document-resource-object-relationships>`__.
-  The OPTIONAL human-readable description of the relationship MAY be provided in the :field:`description` field inside the :field:`meta` dictionary of the JSON:API resource identifier object.
   All relationships to entries of the same entry type MUST be grouped into the same JSON:API relationship object and placed in the relationships dictionary with the entry type name as key (e.g., :entry:`structures`).
+  Every JSON:API resource identifier object MAY contain the following OPTIONAL keys inside its :field:`meta` dictionary:
+
+  - :field:`description`: a human-readable description of the relationship
+
+  - :field:`role`: a string defining the kind of relationship between the related entries.
+    Possible roles between each pair of entry types are defined under `Entry List`_.
 
 Example:
 
@@ -2319,23 +2324,44 @@ Filtering on relationships
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As described in the section `Relationships`_, it is possible for the API implementation to describe relationships between entries of the same, or different, entry types.
-The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>` by using special nested property names:
+The API implementation MAY support queries on relationships with an entry type :filter-fragment:`<entry type>`:
 
 - :filter-fragment:`<entry type>.id` references a list of IDs of relationships with entries of the type :filter-fragment:`<entry type>`.
 - :filter-fragment:`<entry type>.description` references a correlated list of the human-readable descriptions of these relationships.
+- :filter-fragment:`<entry type>.role` references a correlated list of roles between entries in relationships.
+- :filter-fragment:`<entry type>.target.<property>` references a list of property :property:`<property>` values for related entries (i.e., the :filter-fragment:`target` entry of the relationship) of type :filter-fragment:`<entry type>`.
 
-Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with two keys, :filter-fragment:`id` and :filter-fragment:`description`.
+Hence, the filter language acts as, for every entry type, there is a property with that name which contains a list of dictionaries with keys :property:`id`, :property:`description`, :property:`role` and :property:`target`.
 For example: a client queries the :endpoint:`structures` endpoint with a filter that references :filter-fragment:`calculations.id`.
 For a specific structures entry, the nested property behaves as the list :filter-fragment:`["calc-id-43", "calc-id-96"]` and would then, e.g., match the filter :filter:`calculations.id HAS "calc-id-96"`.
 This means that the structures entry has a relationship with the calculations entry of that ID.
 
-    **Note**: formulating queries on relationships with entries that have specific property values is a multi-step process.
+Support for queries on fields of arbitrary depth is OPTIONAL.
+
+    **Note**: without this support, formulating queries on relationships with entries that have specific property values is a multi-step process.
     For example, to find all structures with bibliographic references where one of the authors has the last name "Schmidt" is performed by the following two steps:
 
-    - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
-    - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+      - Query the :endpoint:`references` endpoint with a filter :filter:`authors.lastname HAS "Schmidt"` and store the :filter-fragment:`id` values of the returned entries.
 
-    (Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.)
+      - Query the :endpoint:`structures` endpoint with a filter :filter-fragment:`references.id HAS ANY <list-of-IDs>`, where :filter-fragment:`<list-of-IDs>` are the IDs retrieved from the first query separated by commas.
+
+For example, search for all structures related to a publication (described in a related references entry) having DOI 10.1234/1234 could be performed with the following query:
+
+    ``/structures?filter=references.target.doi="10.1234/1234"``
+
+Search for all literature references for structures with tantalum:
+
+    ``/references?filter=structures.target.elements HAS "Ta"``
+
+Search for all structures of anonymous formula A2B from year 2024:
+
+    ``/structures?filter=references.target.year=2024 AND chemical_formula_anonymous="A2B"``
+
+Note: the type of query discussed here corresponds to a "join"-type operation in a relational data model.
+
+Search for all structures with primary citation from year 2024:
+
+    ``/structures?filter=references.role:references.target.year HAS "_exmpl_primary":2024``
 
 Filtering on Properties with an unknown value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2575,7 +2601,8 @@ A Property Definition MUST be composed according to the combination of the requi
     The string MUST be one of the following:
 
     - :val:`all mandatory`: the defined property MUST be queryable using the OPTIMADE filter language with support for all mandatory filter features.
-    - :val:`equality only`: the defined property MUST be queryable using the OPTIMADE filter language equality and inequality operators. Other filter language features do not need to be available.
+    - :val:`equality only`: the defined property MUST be queryable using the OPTIMADE filter language equality, inequality, :val:`IS KNOWN` and :val:`IS UNKNOWN` operators.
+      Other filter language features do not need to be available.
     - :val:`partial`: the defined property MUST be queryable with support for a subset of the filter language operators as specified by the field :field:`query-support-operators`.
     - :val:`none`: the defined property does not need to be queryable with any features of the filter language.
 

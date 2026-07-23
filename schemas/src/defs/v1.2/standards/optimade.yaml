@@ -6,13 +6,17 @@ x-optimade-definition:
   label: "optimade_standard"
   kind: "standard"
   format: "1.2"
-  version: "1.2.0"
+  version: "1.2.1"
   name: "optimade"
 entrytypes:
   structures:
     $$inherit: "/v1.2/entrytypes/optimade/structures"
     x-optimade-requirements:
       support: "must"
+  calculations:
+    $$inherit: "/v1.2/entrytypes/optimade/calculations"
+    x-optimade-requirements:
+      support: "may"
   files:
     $$inherit: "/v1.2/entrytypes/optimade/files"
     x-optimade-requirements:

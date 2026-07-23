@@ -5,9 +5,12 @@ $$inherit: "/v1.2/properties/core/features"
 x-optimade-definition:
   label: "structure_features_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "structure_features"
+x-optimade-dimensions:
+  names: ["dim_structure_features"]
+  sizes: [null]
 description: |-
   A list of strings that flag which special features are used by the structure.
 

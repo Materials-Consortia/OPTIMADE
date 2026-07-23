@@ -5,7 +5,7 @@ x-optimade-type: "integer"
 x-optimade-definition:
   label: "space_group_it_number_optimade_structures"
   kind: "property"
-  version: "1.2.0"
+  version: "1.2.1"
   format: "1.2"
   name: "space_group_it_number"
 type:
@@ -20,4 +20,4 @@ description: |-
   - MUST be `null` if `nperiodic_dimensions` is not equal to 3.
 examples:
   - 42
-x-optimade-unit: "unapplicable"
+x-optimade-unit: "inapplicable"

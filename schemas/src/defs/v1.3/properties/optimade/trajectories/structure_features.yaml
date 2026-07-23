@@ -1,0 +1,43 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/structure_features"
+title: "list of structure features"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "structure_features_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "structure_features"
+x-optimade-dimensions:
+  names: ["dim_frames", "dim_features"]
+  sizes: [null, null]
+  compactable: ["constant", "no"]
+type:
+  - "array"
+description: |-
+  A list of structure_features items.
+  A structure_features item is a list of strings that flag which special features are used by the structure.
+
+  For each structure_features item the following applies:
+
+  **Requirements/Conventions:**
+
+  - MUST be an empty list if no special features are used.
+  - MUST be sorted alphabetically.
+  - If a special feature listed below is used, the list MUST contain the corresponding string.
+  - If a special feature listed below is not used, the list MUST NOT contain the corresponding string.
+  - **List of strings used to indicate special structure features:**
+
+      - `disorder`: this flag MUST be present if any one entry in the species list has a `chemical_symbols` list that is longer than 1 element.
+      - `implicit_atoms`: this flag MUST be present if the structure contains atoms that are not assigned to sites via the property `species_at_sites` (e.g., because their positions are unknown). When this flag is present, the properties related to the chemical formula will likely not match the type and count of atoms represented by the `species_at_sites`, `species`, and `assemblies` properties.
+      - `site_attachments`: this flag MUST be present if any one entry in the species list includes `attached` and `nattached`.
+      - `assemblies`: this flag MUST be present if the property assemblies is present.
+
+  **Explained examples**:
+
+  - A structure having implicit atoms and using assemblies: `["assemblies", "implicit_atoms"]`
+examples:
+  - [["assemblies", "implicit_atoms"], ["assemblies"]]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.2/properties/optimade/structures/structure_features"

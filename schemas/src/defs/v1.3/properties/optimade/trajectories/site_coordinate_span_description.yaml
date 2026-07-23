@@ -1,0 +1,25 @@
+$$schema: "https://schemas.optimade.org/meta/v1.3/optimade/property_definition"
+$id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/trajectories/site_coordinate_span_description"
+title: "list of site coordinate span description"
+x-optimade-type: "list"
+x-optimade-definition:
+  label: "site_coordinate_span_description_optimade_trajectories"
+  kind: "property"
+  version: "1.3.0"
+  format: "1.3"
+  name: "site_coordinate_span_description"
+x-optimade-dimensions:
+  names: ["dim_frames"]
+  sizes: [null]
+  compactable: ["constant"]
+type:
+  - "array"
+  - "null"
+description: |-
+  A list of site_coordinate_span_description items.
+  A site_coordinate_span_description item is a human-readable semi-formal characterization of the coordinate span when the `site_coordinate_span` property has value `other`.
+examples:
+  - ["Two fullerene molecules with a VdW contact.", "One fullerene molecule"]
+x-optimade-unit: "inapplicable"
+items:
+  $$inherit: "/v1.3/properties/optimade/structures/site_coordinate_span"

@@ -1,6 +1,6 @@
 $$schema: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 $id: "https://schemas.optimade.org/defs/v1.3/properties/optimade/structures/site_coordinate_span_description"
-title: "Site coordinate span description"
+title: "site coordinate span description"
 x-optimade-type: "string"
 x-optimade-definition:
   label: "site_coordinate_span_description_optimade_structures"
