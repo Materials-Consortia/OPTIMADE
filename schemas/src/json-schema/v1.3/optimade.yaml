@@ -1,0 +1,39 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$$inherit: "jsonapi.json"
+title: "OPTIMADE schema"
+description: "This is a schema for responses in the JSON output format from the OPTIMADE API. It is directly based on the schema for JSON:API."
+definitions:
+  resource:
+    oneOf:
+      - type: "object"
+        properties:
+          type:
+            const: "structures"
+          attributes:
+            $ref: "#endpoints/entrytypes/structures"
+      - type: "object"
+        properties:
+          type:
+            const: "calculations"
+          attributes:
+            $ref: "#endpoints/entrytypes/calculations"
+      - type: "object"
+        properties:
+          type:
+            const: "files"
+          attributes:
+            $ref: "#endpoints/entrytypes/files"
+      - type: "object"
+        properties:
+          type:
+            const: "references"
+          attributes:
+            $ref: "#endpoints/entrytypes/references"
+      - type: "object"
+        properties:
+          type:
+            const: "trajectories"
+          attributes:
+            $ref: "#endpoints/entrytypes/trajectories"
+endpoints:
+  $$inherit: "/v1.3/standards/optimade"
