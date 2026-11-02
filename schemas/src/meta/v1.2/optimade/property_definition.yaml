@@ -3,7 +3,7 @@ $id: "https://schemas.optimade.org/meta/v1.2/optimade/property_definition"
 title: "OPTIMADE property definition schema"
 x-optimade-definition:
   label: "property_definition_optimade_meta"
-  kind: "property"
+  kind: "meta"
   version: "1.2.2"
   format: "1.2"
   name: "property_definition"
