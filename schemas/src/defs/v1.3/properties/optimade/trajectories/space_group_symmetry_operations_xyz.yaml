@@ -5,7 +5,7 @@ x-optimade-type: "list"
 x-optimade-definition:
   label: "space_group_symmetry_operations_xyz_optimade_trajectories"
   kind: "property"
-  version: "1.3.0"
+  version: "1.3.1"
   format: "1.3"
   name: "space_group_symmetry_operations_xyz"
 x-optimade-dimensions:
@@ -52,6 +52,6 @@ description: |-
 examples:
   - [["x,y,z", "-x,y,-z", "x+1/2,y+1/2,z", "-x+1/2,y+1/2,-z"],["x,y,z", "-x,y,-z"]]
   - [["x,y,z", "-x,y,-z"]]
-x-optimade-unit: "unapplicable"
+x-optimade-unit: "inapplicable"
 items:
   $$inherit: "/v1.2/properties/optimade/structures/space_group_symmetry_operations_xyz"
