@@ -1,6 +1,12 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.2/optimade/entrytype_definition"
 title: "OPTIMADE entry type definition schema"
+x-optimade-definition:
+  label: "entrytype_definition_optimade_meta"
+  kind: "meta"
+  version: "1.2.2"
+  format: "1.2"
+  name: "entrytype_definition"
 required: ["$id", "$schema", "x-optimade-definition", "title", "type", "properties"]
 allOf:
   - $ref: "#/$defs/entrytype_definition_field"

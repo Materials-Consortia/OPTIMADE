@@ -1,6 +1,12 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://schemas.optimade.org/meta/v1.3/optimade/standard_definition"
 title: "OPTIMADE standard definition schema"
+x-optimade-definition:
+  label: "standard_definition_optimade_meta"
+  kind: "meta"
+  version: "1.3.1"
+  format: "1.3"
+  name: "standard_definition"
 type: object
 allOf:
   - $ref: "#/$defs/standard_definition_field"
